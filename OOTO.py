@@ -15,6 +15,7 @@ import os
 import numpy as np
 from collections import Counter
 
+import Tkinter as tk
 try:
     from Tkinter import *
 except ImportError:
@@ -28,7 +29,10 @@ except ImportError:
     py3 = 1
 
 import Mother_support
-
+import Color_support
+import Icon_support
+import PIL.Image
+import PIL.ImageTk
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
@@ -63,7 +67,7 @@ def readFeatures(filename, varMark):
     with open(filename) as f:
         reader = csv.reader(f)
         for row in reader:
-            if(row[0]==varMark):
+            if(row[0] == varMark):
                 new_feature = {'Description':row[2], 'Code':row[1], 'Responses':[]}
                 features.append(new_feature)
             else:
@@ -202,7 +206,7 @@ into a csv file
 '''
 def makeUpdatedVariables(features, fileName):
     with open(fileName, "wb") as csv_file:
-        writer = csv.writer(csv_file, delimiter=',')
+        writer = csv.writer(csv_file, delimiter = ',')
         for feature in features:
             featureRow = []
             featureRow.append('^')
@@ -286,8 +290,8 @@ def findFeature(entryFeat, listFeat, dataset, *args):
 
         #Getting the proportions and frequencies of each value (including invalid values) in the focus feature
         if hasFocusFeature == True:
-            arrTempItems=[]
-            dataset['ColumnData']=[]
+            arrTempItems = []
+            dataset['ColumnData'] = []
             for record in dataset['Data']:
                 dataset['ColumnData'].append(record[featCode])
             c = Counter(dataset['ColumnData']) #Counts the number of occurrences of each value of the focus feature
@@ -419,7 +423,7 @@ def selectDatasetValues(evt, dataset, populationDataset, labelFeatCount):
     global populationDir
     listbox = evt.widget
     selectedValues = [listbox.get(i) for i in listbox.curselection()]
-    dataset['Feature']['Selected Responses']=[]
+    dataset['Feature']['Selected Responses'] = []
 
     for sv in selectedValues:
         responseArr = sv.split(" - ")
@@ -432,9 +436,9 @@ def selectDatasetValues(evt, dataset, populationDataset, labelFeatCount):
     print str(len(dataset['Data']))
     for record in dataset['Data']:
         if any (response['Code'] == record[dataset['Feature']['Code']] for response in dataset['Feature']['Selected Responses']):
-            datasetCount +=1
+            datasetCount += 1
 
-    labelFeatCount.configure(text="n: " + str(datasetCount))
+    labelFeatCount.configure(text = "n: " + str(datasetCount))
 
 '''
 Saves the dataset as a .csv file
@@ -447,619 +451,296 @@ def saveDatasetFile(dataset):
 
 class OOTO_Miner:
 
-    def __init__(self, top=None):
+    def __init__(self, top = None):
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
-        _bgcolor = '#d9d9d9'  # X11 color: 'gray85'
-        _fgcolor = '#000000'  # X11 color: 'black'
+        _bgcolor = Color_support.WHITE #'#d9d9d9'  # X11 color: 'gray85'
+        _top_bgcolor = Color_support.TOP_BG_COLOR #'#d9d9d9'  # X11 color: 'gray85'
+        _tab_bgcolor = Color_support.WHITE
+        _vardesc_bgcolor = Color_support.WHITE
+        _label_bgcolor = Color_support.L_GRAY
+
+        _fgcolor = Color_support.D_BLUE # '#000000' # X11 color: 'black'
         _compcolor = '#d9d9d9' # X11 color: 'gray85'
         _ana1color = '#d9d9d9' # X11 color: 'gray85'
         _ana2color = '#d9d9d9' # X11 color: 'gray85'
+
+        # colors
+        _ana2color = '#d9d9d9' # X11 color: 'gray85'
+
         self.style = ttk.Style()
         if sys.platform == "win32":
             self.style.theme_use('winnative')
-        self.style.configure('.',background=_bgcolor)
-        self.style.configure('.',foreground=_fgcolor)
-        self.style.configure('.',font="TkDefaultFont")
-        self.style.map('.',background=
-            [('selected', _compcolor), ('active',_ana2color)])
+        else:
+            self.style.theme_use('clam')
+
+        self.style.configure('.', background = _bgcolor)
+        self.style.configure('.', foreground = _fgcolor)
+        self.style.configure('.', font = "TkDefaultFont")
+        
+        '''
+        self.style.configure('TNotebook',
+            background = _tab_bgcolor,
+            borderwidth = 0,
+            activefg = _tab_bgcolor,
+            inactivefg = _tab_bgcolor,
+            bd = 0)
+        '''
+
+        # self.style.map('.',background = 
+        #     [('selected', _compcolor), ('active',_ana2color)])
+
+        
 
         top.geometry("1000x700+522+139")
         top.title("OOTO Miner")
-        top.configure(background="#d9d9d9")
-        top.configure(highlightbackground="#d9d9d9")
-        top.configure(highlightcolor="black")
+        # top.configure(background = _top_bgcolor)
+        # top.configure(highlightbackground = _top_bgcolor) #"#d9d9d9"
+        # top.configure(highlightcolor = _top_bgcolor) # = "black")
 
-        self.Tabs = ttk.Notebook(top)
-        self.Tabs.place(relx=0.0, rely=0.0, relheight=1.0, relwidth=1.01)
-        self.Tabs.configure(width=604)
-        self.Tabs.configure(takefocus="")
+
+
+
+        # Removes the dashed line in tabs
+        self.style.layout("Tab",
+        [('Notebook.tab', {'sticky': 'nswe', 'children':
+            [('Notebook.padding', {'side': 'top', 'sticky': 'nswe', 'children':
+                #[('Notebook.focus', {'side': 'top', 'sticky': 'nswe', 'children':
+                    [('Notebook.label', {'side': 'top', 'sticky': ''})],
+                #})],
+            })],
+        })]
+        )
+
+        
+
+        self.Tabs = ttk.Notebook(root, style='Tab') # top)
+        # self.Tabs.pack(fill = tk.BOTH)
+
+        self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
+        # self.Tabs.configure(width = 604)
+        # self.Tabs.configure(takefocus = "")
+
+
+        _txtpadding = "           "
+        _lblpadding = 5
+
+        # > START TAB (0)
         self.Tabs_t2 = ttk.Frame(self.Tabs)
-        self.Tabs.add(self.Tabs_t2, padding=3)
-        self.Tabs.tab(0, text="Start", underline="-1", )
+        ''' Tab icon '''
+        im = PIL.Image.open(Icon_support.TAB_ICO_START).resize(Icon_support.TAB_ICO_SIZE)
+        tab_start_icon = PIL.ImageTk.PhotoImage(im)
+        self.Tabs_t2.image =  tab_start_icon # < ! > Required to make images appear
+        self.Tabs.add(self.Tabs_t2, text = "Data", image = tab_start_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
+        # self.Tabs.tab(0, text = _txtpadding+"Data"+_txtpadding, underline = "-1")
+
+
+
+        # > TEST TAB (1)
         self.Tabs_t3 = ttk.Frame(self.Tabs)
-        self.Tabs.add(self.Tabs_t3, padding=3)
-        self.Tabs.tab(1, text="Test", underline="-1", )
-        #self.Tabs_t1 = ttk.Frame(self.Tabs)
-        #self.Tabs.add(self.Tabs_t1, padding=3)
-        #self.Tabs.tab(2, text="Miner", underline="-1", )
+        ''' Tab icon '''
+        im = PIL.Image.open(Icon_support.TAB_ICO_TEST).resize(Icon_support.TAB_ICO_SIZE)
+        tab_test_icon = PIL.ImageTk.PhotoImage(im)
+        self.Tabs_t3.image =  tab_test_icon # < ! > Required to make images appear
+        self.Tabs.add(self.Tabs_t3, text = "Test", image = tab_test_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
+
+
+
+        # > ABOUT TAB (2)
+        self.Tabs_t4 = ttk.Frame(self.Tabs)
+        ''' Tab icon '''
+        im = PIL.Image.open(Icon_support.TAB_ICO_INFO).resize(Icon_support.TAB_ICO_SIZE)
+        tab_info_icon = PIL.ImageTk.PhotoImage(im)
+        self.Tabs_t4.image =  tab_info_icon # < ! > Required to make images appear
+        self.Tabs.add(self.Tabs_t4, text = "Info", image = tab_info_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
 
 
 
 
-        self.menubar = Menu(top,font="TkMenuFont",bg=_bgcolor,fg=_fgcolor)
-        top.configure(menu = self.menubar)
-        self.menubar.add_command(label="About", command=self.showAbout)
-        self.menubar.add_command(label="Help")
+        self.style.configure("Tab",
+            background = Color_support.TAB_BG_COLOR,
+            foreground = _fgcolor,
+            borderwidth = 0,
+            tabposition = 'wn',
 
-
-        '''
-        TAB 1 - TESTS
-        '''
-        '''
-        CHANGES HERE!
-        '''
-        '''
-        strarrTestType = ["Chi-test","Sample vs Sample","Sample vs Population"]
-        self.comboBoxTestType = ttk.Combobox(self.Tabs_t1)
-        self.comboBoxTestType.place(relx=0.01, rely=0.02, relheight=0.04
-                , relwidth=0.49)
-        self.comboBoxTestType.configure(exportselection="0")
-        #self.comboBoxTestType.configure(textvariable=Mother_support.combobox)
-        self.comboBoxTestType.configure(takefocus="")
-        self.comboBoxTestType.configure(values=strarrTestType)
-        self.comboBoxTestType.configure(state="readonly")
-        # self.adjustViews()
-        '''
-
-        ''' 
-        self.buttonTestType = Button(top)
-        self.buttonTestType.place(relx=0.01, rely=0.07, height=23, width=486)
-        self.buttonTestType.configure(activebackground="#d9d9d9")
-        self.buttonTestType.configure(activeforeground="#000000")
-        self.buttonTestType.configure(background="#d9d9d9")
-        self.buttonTestType.configure(disabledforeground="#a3a3a3")
-        self.buttonTestType.configure(foreground="#000000")
-        self.buttonTestType.configure(highlightbackground="#d9d9d9")
-        self.buttonTestType.configure(highlightcolor="black")
-        self.buttonTestType.configure(pady="0")
-        self.buttonTestType.configure(text=''Select Test'')
-        '''
-        '''
-        self.textTestType = Label(self.Tabs_t1)
-        self.textTestType.place(relx=0.01, rely=0.07, height=23, width=486)
-        self.textTestType.configure(activebackground="#d9d9d9")
-        self.textTestType.configure(activeforeground="#000000")
-        self.textTestType.configure(background="#d9d9d9")
-        self.textTestType.configure(disabledforeground="#a3a3a3")
-        self.textTestType.configure(foreground="#000000")
-        self.textTestType.configure(highlightbackground="#d9d9d9")
-        self.textTestType.configure(highlightcolor="black")
-        self.textTestType.configure(pady="0")
-        self.textTestType.configure(text="WARNING: No Selected Test")
-
-        self.entryPopulation = Entry(self.Tabs_t1)
-        self.entryPopulation.place(relx=0.01, rely=0.12, relheight=0.04
-                , relwidth=0.48)
-        self.entryPopulation.configure(background="white")
-        self.entryPopulation.configure(disabledforeground="#a3a3a3")
-        self.entryPopulation.configure(font="TkFixedFont")
-        self.entryPopulation.configure(foreground="#000000")
-        self.entryPopulation.configure(highlightbackground="#d9d9d9")
-        self.entryPopulation.configure(highlightcolor="black")
-        self.entryPopulation.configure(insertbackground="black")
-        self.entryPopulation.configure(selectbackground="#c4c4c4")
-        self.entryPopulation.configure(selectforeground="black")
-        self.entryPopulation.configure(state='normal')
-
-        self.buttonPopulation = Button(self.Tabs_t1)
-        self.buttonPopulation.place(relx=0.01, rely=0.17, height=23, width=486)
-        self.buttonPopulation.configure(activebackground="#d9d9d9")
-        self.buttonPopulation.configure(activeforeground="#000000")
-        self.buttonPopulation.configure(background="#d9d9d9")
-        self.buttonPopulation.configure(disabledforeground="#a3a3a3")
-        self.buttonPopulation.configure(foreground="#000000")
-        self.buttonPopulation.configure(highlightbackground="#d9d9d9")
-        self.buttonPopulation.configure(highlightcolor="black")
-        self.buttonPopulation.configure(pady="0")
-        self.buttonPopulation.configure(text="Upload")
-        '''
-        ''''
-        self.buttonPopulation.configure(state='normal')
-
-        self.labelFrameZTest = LabelFrame(self.Tabs_t1)
-        self.labelFrameZTest.place(relx=0.51, rely=0.0, relheight=0.85
-                , relwidth=0.48)
-        self.labelFrameZTest.configure(relief=GROOVE)
-        self.labelFrameZTest.configure(foreground="black")
-        self.labelFrameZTest.configure(text='Z -Test')
-        self.labelFrameZTest.configure(background="#d9d9d9")
-        self.labelFrameZTest.configure(highlightbackground="#d9d9d9")
-        self.labelFrameZTest.configure(highlightcolor="black")
-        self.labelFrameZTest.configure(width=480)
-
-        self.labelZCriticalValue = Label(self.labelFrameZTest)
-        self.labelZCriticalValue.place(relx=0.02, rely=0.06, height=26
-                , width=108)
-        self.labelZCriticalValue.configure(activebackground="#f9f9f9")
-        self.labelZCriticalValue.configure(activeforeground="black")
-        self.labelZCriticalValue.configure(background="#d9d9d9")
-        self.labelZCriticalValue.configure(disabledforeground="#a3a3a3")
-        self.labelZCriticalValue.configure(foreground="#000000")
-        self.labelZCriticalValue.configure(highlightbackground="#d9d9d9")
-        self.labelZCriticalValue.configure(highlightcolor="black")
-        self.labelZCriticalValue.configure(text=Confidence Interval)
-        '''
-        '''
-        self.labelFeature = Label(self.labelFrameZTest)
-        self.labelFeature.place(relx=0.02, rely=0.17, height=26, width=55)
-        self.labelFeature.configure(activebackground="#f9f9f9")
-        self.labelFeature.configure(activeforeground="black")
-        self.labelFeature.configure(background="#d9d9d9")
-        self.labelFeature.configure(disabledforeground="#a3a3a3")
-        self.labelFeature.configure(foreground="#000000")
-        self.labelFeature.configure(highlightbackground="#d9d9d9")
-        self.labelFeature.configure(highlightcolor="black")
-        self.labelFeature.configure(text='Feature')
-
-        self.textFeature = Label(self.labelFrameZTest)
-        self.textFeature.place(relx=0.17, rely=0.17, relheight=0.1, relwidth=0.8)
-        self.textFeature.configure(activebackground="#d9d9d9")
-        self.textFeature.configure(activeforeground="#000000")
-        self.textFeature.configure(background="#d9d9d9")
-        self.textFeature.configure(disabledforeground="#a3a3a3")
-        self.textFeature.configure(foreground="#000000")
-        self.textFeature.configure(highlightbackground="#d9d9d9")
-        self.textFeature.configure(highlightcolor="black")
-        self.textFeature.configure(pady="0")
-
-        self.listAttributes = Listbox(self.labelFrameZTest)
-        self.listAttributes.place(relx=0.02, rely=0.27, relheight=0.68
-                , relwidth=0.95)
-        self.listAttributes.configure(background="white")
-        self.listAttributes.configure(disabledforeground="#a3a3a3")
-        self.listAttributes.configure(exportselection="0")
-        self.listAttributes.configure(font="TkFixedFont")
-        self.listAttributes.configure(foreground="#000000")
-        self.listAttributes.configure(highlightbackground="#d9d9d9")
-        self.listAttributes.configure(highlightcolor="black")
-        self.listAttributes.configure(selectbackground="#c4c4c4")
-        self.listAttributes.configure(selectforeground="black")
-        self.listAttributes.configure(width=454)
-        self.listAttributes.configure(selectmode=MULTIPLE)
-        self.listAttributes.configure(state='disabled')
-
-        '''
-        '''
-        
-        self.entryCriticalValue = Entry(self.labelFrameZTest)
-        self.entryCriticalValue.place(relx=0.25, rely=0.05, relheight=0.04
-                , relwidth=0.72)
-        self.entryCriticalValue.configure(background="white")
-        self.entryCriticalValue.configure(disabledforeground="#a3a3a3")
-        self.entryCriticalValue.configure(font="TkFixedFont")
-        self.entryCriticalValue.configure(foreground="#000000")
-        self.entryCriticalValue.configure(highlightbackground="#d9d9d9")
-        self.entryCriticalValue.configure(highlightcolor="black")
-        self.entryCriticalValue.configure(insertbackground="black")
-        self.entryCriticalValue.configure(selectbackground="#c4c4c4")
-        self.entryCriticalValue.configure(selectforeground="black")
-        '''
-        
-
-        '''
-        CHANGES HERE!
-        '''
-
-        '''
-        strarrCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
-        self.comboCriticalValue = ttk.Combobox(self.labelFrameZTest)
-        self.comboCriticalValue.place(relx=0.25, rely=0.05, relheight=0.04, relwidth=0.72)
-        self.comboCriticalValue.configure(exportselection="0")
-        self.comboCriticalValue.configure(takefocus="")
-        self.comboCriticalValue.configure(values=strarrCriticalValue)
-        self.comboCriticalValue.configure(state="disabled")
-        self.comboCriticalValue.current(0)
-        global criticalValue
-        criticalValue = self.comboCriticalValue.get()
-
-        self.buttonGetFeat = Button(self.labelFrameZTest)
-        self.buttonGetFeat.place(relx=0.65, rely=0.11, height=23, width=156)
-        self.buttonGetFeat.configure(activebackground="#d9d9d9")
-        self.buttonGetFeat.configure(activeforeground="#000000")
-        self.buttonGetFeat.configure(background="#d9d9d9")
-        self.buttonGetFeat.configure(disabledforeground="#a3a3a3")
-        self.buttonGetFeat.configure(foreground="#000000")
-        self.buttonGetFeat.configure(highlightbackground="#d9d9d9")
-        self.buttonGetFeat.configure(highlightcolor="black")
-        self.buttonGetFeat.configure(pady="0")
-        self.buttonGetFeat.configure(text='Enter Feature Code')
-        self.buttonGetFeat.configure(width=156)
-        self.buttonGetFeat.configure(state='disabled')
-
-        '''
-        '''
-        self.Entry1 = Entry(self.labelFrameZTest)
-        self.Entry1.place(relx=0.25, rely=0.11, relheight=0.04, relwidth=0.38)
-        self.Entry1.configure(background="white")
-        self.Entry1.configure(disabledforeground="#a3a3a3")
-        self.Entry1.configure(font="TkFixedFont")
-        self.Entry1.configure(foreground="#000000")
-        self.Entry1.configure(insertbackground="black")
-        self.Entry1.configure(width=184)
-        '''
-        '''
-        self.labelFrameGenerateSamples = LabelFrame(self.Tabs_t1)
-        self.labelFrameGenerateSamples.place(relx=0.01, rely=0.22, relheight=0.78, relwidth=0.49)
-        self.labelFrameGenerateSamples.configure(relief=GROOVE)
-        self.labelFrameGenerateSamples.configure(foreground="black")
-        self.labelFrameGenerateSamples.configure(text='Generate Samples')
-        self.labelFrameGenerateSamples.configure(background="#d9d9d9")
-        self.labelFrameGenerateSamples.configure(highlightbackground="#d9d9d9")
-        self.labelFrameGenerateSamples.configure(highlightcolor="black")
-        self.labelFrameGenerateSamples.configure(width=490)
-
-        self.entrySample = Entry(self.labelFrameGenerateSamples)
-        self.entrySample.place(relx=0.02, rely=0.05, relheight=0.05
-                , relwidth=0.46)
-        self.entrySample.configure(background="white")
-        self.entrySample.configure(disabledforeground="#a3a3a3")
-        self.entrySample.configure(font="TkFixedFont")
-        self.entrySample.configure(foreground="#000000")
-        self.entrySample.configure(highlightbackground="#d9d9d9")
-        self.entrySample.configure(highlightcolor="black")
-        self.entrySample.configure(insertbackground="black")
-        self.entrySample.configure(selectbackground="#c4c4c4")
-        self.entrySample.configure(selectforeground="black")
-        self.entrySample.configure(state='disabled')
-
-        self.labelSample = Label(self.labelFrameGenerateSamples)
-        self.labelSample.place(relx=0.02, rely=0.11, relheight=0.05, relwidth=0.95)
-        # self.labelSample.configure(text='Sample Feature: None )
-        self.labelSample.configure(justify=LEFT)
-
-        self.entryFocus = Entry(self.labelFrameZTest)
-        self.entryFocus.place(relx=0.43, rely=0.11, relheight=0.04, relwidth=0.2)
-        self.entryFocus.configure(background="white")
-        self.entryFocus.configure(disabledforeground="#a3a3a3")
-        self.entryFocus.configure(font="TkFixedFont")
-        self.entryFocus.configure(foreground="#000000")
-        self.entryFocus.configure(insertbackground="black")
-        self.entryFocus.configure(width=184)
-        self.entryFocus.configure(state='disabled')
-
-        self.buttonSample = Button(self.labelFrameGenerateSamples)
-        self.buttonSample.place(relx=0.51, rely=0.05, height=23, width=226)
-        self.buttonSample.configure(activebackground="#d9d9d9")
-        self.buttonSample.configure(activeforeground="#000000")
-        self.buttonSample.configure(background="#d9d9d9")
-        self.buttonSample.configure(disabledforeground="#a3a3a3")
-        self.buttonSample.configure(foreground="#000000")
-        self.buttonSample.configure(highlightbackground="#d9d9d9")
-        self.buttonSample.configure(highlightcolor="black")
-        self.buttonSample.configure(pady="0")
-        # self.buttonSample.configure(text='Enter Sample Feature')
-        '''
-        # self.buttonSample.configure(state='disabled')
-        '''        
-        self.buttonFocus = Button(self.labelFrameGenerateSamples)
-        self.buttonFocus.place(relx=0.51, rely=0.11, height=23, width=226)
-        self.buttonFocus.configure(activebackground="#d9d9d9")
-        self.buttonFocus.configure(activeforeground="#000000")
-        self.buttonFocus.configure(background="#d9d9d9")
-        self.buttonFocus.configure(disabledforeground="#a3a3a3")
-        self.buttonFocus.configure(foreground="#000000")
-        self.buttonFocus.configure(highlightbackground="#d9d9d9")
-        self.buttonFocus.configure(highlightcolor="black")
-        self.buttonFocus.configure(pady="0")
-        self.buttonFocus.configure(text='Enter Focus Feature')
-        
-
-        self.buttonShowA = Button(self.labelFrameGenerateSamples)
-        self.buttonShowA.place(relx=0.02, rely=0.24, height=23, width=226)
-        self.buttonShowA.configure(activebackground="#d9d9d9")
-        self.buttonShowA.configure(activeforeground="#000000")
-        self.buttonShowA.configure(background="#d9d9d9")
-        self.buttonShowA.configure(disabledforeground="#a3a3a3")
-        self.buttonShowA.configure(foreground="#000000")
-        self.buttonShowA.configure(highlightbackground="#d9d9d9")
-        self.buttonShowA.configure(highlightcolor="black")
-        self.buttonShowA.configure(pady="0")
-        self.buttonShowA.configure(text='Show Features A')
-        self.buttonShowA.configure(state='disabled')
-
-        self.buttonShowB = Button(self.labelFrameGenerateSamples)
-        self.buttonShowB.place(relx=0.51, rely=0.24, height=23, width=226)
-        self.buttonShowB.configure(activebackground="#d9d9d9")
-        self.buttonShowB.configure(activeforeground="#000000")
-        self.buttonShowB.configure(background="#d9d9d9")
-        self.buttonShowB.configure(disabledforeground="#a3a3a3")
-        self.buttonShowB.configure(foreground="#000000")
-        self.buttonShowB.configure(highlightbackground="#d9d9d9")
-        self.buttonShowB.configure(highlightcolor="black")
-        self.buttonShowB.configure(pady="0")
-        # self.buttonShowB.configure(text='Show Features B)
-        '''
-        # self.buttonShowB.configure(state='disabled')
-        '''
-        self.listFeatA = Listbox(self.labelFrameGenerateSamples)
-        self.listFeatA.place(relx=0.02, rely=0.41, relheight=0.48, relwidth=0.46)
-        self.listFeatA.configure(background="white")
-        self.listFeatA.configure(disabledforeground="#a3a3a3")
-        self.listFeatA.configure(exportselection="0")
-        self.listFeatA.configure(font="TkFixedFont")
-        self.listFeatA.configure(foreground="#000000")
-        self.listFeatA.configure(highlightbackground="#d9d9d9")
-        self.listFeatA.configure(highlightcolor="black")
-        self.listFeatA.configure(selectbackground="#c4c4c4")
-        self.listFeatA.configure(selectforeground="black")
-        self.listFeatA.configure(width=224)
-        self.listFeatA.configure(selectmode=MULTIPLE)
-        self.listFeatA.configure(state='disabled')
-
-        #COUNT LABEL FOR DATASET A
-        self.labelFeatACount = Label(self.labelFrameGenerateSamples)
-        self.labelFeatACount.place(relx=0.02, rely=0.31, height=26, width=172)
-        self.labelFeatACount.configure(background="#d9d9d9")
-        self.labelFeatACount.configure(disabledforeground="#a3a3a3")
-        self.labelFeatACount.configure(foreground="#000000")
-
-
-
-        self.listFeatB = Listbox(self.labelFrameGenerateSamples)
-        self.listFeatB.place(relx=0.51, rely=0.41, relheight=0.48, relwidth=0.46)
-        self.listFeatB.configure(background="white")
-        self.listFeatB.configure(disabledforeground="#a3a3a3")
-        self.listFeatB.configure(exportselection="0")
-        self.listFeatB.configure(font="TkFixedFont")
-        self.listFeatB.configure(foreground="#000000")
-        self.listFeatB.configure(highlightbackground="#d9d9d9")
-        self.listFeatB.configure(highlightcolor="black")
-        self.listFeatB.configure(selectbackground="#c4c4c4")
-        self.listFeatB.configure(selectforeground="black")
-        self.listFeatB.configure(width=224)
-        self.listFeatB.configure(selectmode=MULTIPLE)
-        self.listFeatB.configure(state='disabled')
-
-        # COUNT LABEL FOR DATASET B
-        self.labelFeatBCount = Label(self.labelFrameGenerateSamples)
-        self.labelFeatBCount.place(relx=0.51, rely=0.31, height=26, width=172)
-        self.labelFeatBCount.configure(background="#d9d9d9")
-        self.labelFeatBCount.configure(disabledforeground="#a3a3a3")
-        self.labelFeatBCount.configure(foreground="#000000")
+            width = Icon_support.TAB_ICO_SIZE,
+            height = Icon_support.TAB_ICO_SIZE)
 
         
-        self.buttonSaveDatasets = Button(self.labelFrameGenerateSamples)
-        self.buttonSaveDatasets.place(relx=0.02, rely=0.91, height=33, width=466)
+        self.style.map("Tab",
+            background=[('selected', Color_support.LIME), ('active', Color_support.CYAN)])
 
-        self.buttonSaveDatasets.configure(activebackground="#d9d9d9")
-        self.buttonSaveDatasets.configure(activeforeground="#000000")
-        self.buttonSaveDatasets.configure(background="#d9d9d9")
-        self.buttonSaveDatasets.configure(disabledforeground="#a3a3a3")
-        self.buttonSaveDatasets.configure(foreground="#000000")
-        self.buttonSaveDatasets.configure(highlightbackground="#d9d9d9")
-        self.buttonSaveDatasets.configure(highlightcolor="black")
-        self.buttonSaveDatasets.configure(pady="0")
-        self.buttonSaveDatasets.configure(text='Save Datasets')
-        self.buttonSaveDatasets.configure(state='disabled')
-        
-
-        self.entryFeatA = Entry(self.labelFrameGenerateSamples)
-        self.entryFeatA.place(relx=0.02, rely=0.17, relheight=0.05
-                , relwidth=0.46)
-        self.entryFeatA.configure(background="white")
-        self.entryFeatA.configure(disabledforeground="#a3a3a3")
-        self.entryFeatA.configure(font="TkFixedFont")
-        self.entryFeatA.configure(foreground="#000000")
-        self.entryFeatA.configure(highlightbackground="#d9d9d9")
-        self.entryFeatA.configure(highlightcolor="black")
-        self.entryFeatA.configure(insertbackground="black")
-        self.entryFeatA.configure(selectbackground="#c4c4c4")
-        self.entryFeatA.configure(selectforeground="black")
-        self.entryFeatA.configure(state='disabled')
-
-        self.entryFeatB = Entry(self.labelFrameGenerateSamples)
-        self.entryFeatB.place(relx=0.51, rely=0.17, relheight=0.05
-                , relwidth=0.46)
-        self.entryFeatB.configure(background="white")
-        self.entryFeatB.configure(disabledforeground="#a3a3a3")
-        self.entryFeatB.configure(font="TkFixedFont")
-        self.entryFeatB.configure(foreground="#000000")
-        self.entryFeatB.configure(highlightbackground="#d9d9d9")
-        self.entryFeatB.configure(highlightcolor="black")
-        self.entryFeatB.configure(insertbackground="black")
-        self.entryFeatB.configure(selectbackground="#c4c4c4")
-        self.entryFeatB.configure(selectforeground="black")
-        self.entryFeatB.configure(state='disabled')
-        
-        
-        '''
-        '''
-        
-        BINDING ELEMENTS FOR TAB 1
-        notes: bind the functions as objects ( ie. setPopulation not setPopulation() )
-        <Button-1> On left click
-        <<ComboboxSelected>> On select in ComboBox
-        CHANGES HERE!
-        '''
-
-        '''
-        self.buttonPopulation.bind('<Button-1>', self.setPopulation)
-        self.buttonSample.bind('<Button-1>', self.setSample)
-        self.buttonShowA.bind('<Button-1>', self.setFeatA)
-        self.buttonShowB.bind('<Button-1>', self.setFeatB)
-        self.buttonSaveDatasets.bind('<Button-1>', self.saveDataset)
-        self.buttonGetFeat.bind('<Button-1>', self.getFeat)
-
-        
-
-        self.comboBoxTestType.bind('<<ComboboxSelected>>', self.setTest)
-
-        self.listFeatA.bind('<<ListboxSelect>>', self.selectValuesDatasetA)
-        self.listFeatB.bind('<<ListboxSelect>>', self.selectValuesDatasetB)
-        #self.listAttributes.bind('<<ListboxSelect>>', self.selectFocusFeatureValues)
-        '''
-
+        # > MENU BAR
+        # self.menubar = Menu(top,font = "TkMenuFont",background = _bgcolor,fg = _fgcolor)
+        # top.configure(menu = self.menubar)
+        # self.menubar.add_command(label = "About", command = self.showAbout)
+        # self.menubar.add_command(label = "Help")
 
 
         '''
-        TAB 2 - PREPROCESSOR
+        TAB 1 - DATA (Tabs_t2)
         '''
+        self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
+        self.dataTabParentFrame.place(relx = 0, rely = 0, relheight = 1, relwidth = 1)
+        self.dataTabLeftSeparator = ttk.Separator(self.dataTabParentFrame, orient=VERTICAL)
+        self.dataTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
-        self.labelFrameVariableDescriptor = LabelFrame(self.Tabs_t2)
-        self.labelFrameVariableDescriptor.place(relx=0.01, rely=0.0
-                                                , relheight=0.19, relwidth=0.98)
-        self.labelFrameVariableDescriptor.configure(relief=GROOVE)
-        self.labelFrameVariableDescriptor.configure(foreground="black")
-        self.labelFrameVariableDescriptor.configure(text='''Variable Description Generator (Not yet functional)''')
-        self.labelFrameVariableDescriptor.configure(background="#d9d9d9")
-        self.labelFrameVariableDescriptor.configure(width=980)
+        self.labelFrameVariableDescriptor = LabelFrame(self.dataTabParentFrame)
+        self.labelFrameVariableDescriptor.place(relx = 0.01, rely = 0.01, relheight = 0.19, relwidth = 0.98)
+
+        # self.labelFrameVariableDescriptor.configure(highlightbackground = Color_support.D_BLUE)
+        # self.labelFrameVariableDescriptor.configure(highlightcolor = Color_support.LIME)
+        self.labelFrameVariableDescriptor.configure(bd = 0)
+        self.labelFrameVariableDescriptor.configure(foreground = _fgcolor)
+        self.labelFrameVariableDescriptor.configure(text = '''Variable Description Generator (Not yet functional)''')
+        self.labelFrameVariableDescriptor.configure(background = _vardesc_bgcolor)
+        # self.labelFrameVariableDescriptor.configure(width = 740) # 980
 
         self.labelVariableFile = Label(self.labelFrameVariableDescriptor)
-        self.labelVariableFile.place(relx=0.01, rely=0.17, height=26, width=172)
-        self.labelVariableFile.configure(background="#d9d9d9")
-        self.labelVariableFile.configure(disabledforeground="#a3a3a3")
-        self.labelVariableFile.configure(foreground="#000000")
-        self.labelVariableFile.configure(text='''Variable File:''')
-        self.labelVariableFile.configure(width=172)
+        self.labelVariableFile.place(relx = 0.01, rely = 0.17, height = 26, width = 172)
+        self.labelVariableFile.configure(background = _label_bgcolor)
+        self.labelVariableFile.configure(disabledforeground = "#a3a3a3")
+        self.labelVariableFile.configure(foreground = "#000000")
+        self.labelVariableFile.configure(text = '''Variable File:''')
+        self.labelVariableFile.configure(width = 172)
 
         self.entryVariableFile = Entry(self.labelFrameVariableDescriptor)
-        self.entryVariableFile.place(relx=0.19, rely=0.17, relheight=0.21
-                                     , relwidth=0.64)
-        self.entryVariableFile.configure(background="white")
-        self.entryVariableFile.configure(disabledforeground="#a3a3a3")
-        self.entryVariableFile.configure(font="TkFixedFont")
-        self.entryVariableFile.configure(foreground="#000000")
-        self.entryVariableFile.configure(insertbackground="black")
-        self.entryVariableFile.configure(width=624)
+        self.entryVariableFile.place(relx = 0.19, rely = 0.17, relheight = 0.21
+                                     , relwidth = 0.64)
+        self.entryVariableFile.configure(background = "white")
+        self.entryVariableFile.configure(disabledforeground = "#a3a3a3")
+        self.entryVariableFile.configure(font = "TkFixedFont")
+        self.entryVariableFile.configure(foreground = "#000000")
+        self.entryVariableFile.configure(insertbackground = "black")
+        self.entryVariableFile.configure(width = 624)
 
         self.buttonVariableFile = Button(self.labelFrameVariableDescriptor)
-        self.buttonVariableFile.place(relx=0.84, rely=0.17, height=23, width=146)
+        self.buttonVariableFile.place(relx = 0.84, rely = 0.17, height = 23, width = 146)
 
-        self.buttonVariableFile.configure(activebackground="#d9d9d9")
-        self.buttonVariableFile.configure(activeforeground="#000000")
-        self.buttonVariableFile.configure(background="#d9d9d9")
-        self.buttonVariableFile.configure(disabledforeground="#a3a3a3")
-        self.buttonVariableFile.configure(foreground="#000000")
-        self.buttonVariableFile.configure(highlightbackground="#d9d9d9")
-        self.buttonVariableFile.configure(highlightcolor="black")
-        self.buttonVariableFile.configure(pady="0")
-        self.buttonVariableFile.configure(text='''Choose File...''')
-        self.buttonVariableFile.configure(width=146)
+        self.buttonVariableFile.configure(activebackground = "#d9d9d9")
+        self.buttonVariableFile.configure(activeforeground = "#000000")
+        self.buttonVariableFile.configure(background = "#d9d9d9")
+        self.buttonVariableFile.configure(disabledforeground = "#a3a3a3")
+        self.buttonVariableFile.configure(foreground = "#000000")
+        self.buttonVariableFile.configure(highlightbackground = "#d9d9d9")
+        self.buttonVariableFile.configure(highlightcolor = "black")
+        self.buttonVariableFile.configure(pady = "0")
+        self.buttonVariableFile.configure(text = '''Choose File...''')
+        self.buttonVariableFile.configure(width = 146)
 
         self.labelValuesFile = Label(self.labelFrameVariableDescriptor)
-        self.labelValuesFile.place(relx=0.01, rely=0.43, height=26, width=172)
-        self.labelValuesFile.configure(background="#d9d9d9")
-        self.labelValuesFile.configure(disabledforeground="#a3a3a3")
-        self.labelValuesFile.configure(foreground="#000000")
-        self.labelValuesFile.configure(text='''Values File:''')
-        self.labelValuesFile.configure(width=172)
+        self.labelValuesFile.place(relx = 0.01, rely = 0.43, height = 26, width = 172)
+        self.labelValuesFile.configure(background = "#d9d9d9")
+        self.labelValuesFile.configure(disabledforeground = "#a3a3a3")
+        self.labelValuesFile.configure(foreground = "#000000")
+        self.labelValuesFile.configure(text = '''Values File:''')
+        self.labelValuesFile.configure(width = 172)
 
         self.entryValuesFile = Entry(self.labelFrameVariableDescriptor)
-        self.entryValuesFile.place(relx=0.19, rely=0.43, relheight=0.21
-                                   , relwidth=0.64)
-        self.entryValuesFile.configure(background="white")
-        self.entryValuesFile.configure(disabledforeground="#a3a3a3")
-        self.entryValuesFile.configure(font="TkFixedFont")
-        self.entryValuesFile.configure(foreground="#000000")
-        self.entryValuesFile.configure(insertbackground="black")
-        self.entryValuesFile.configure(width=624)
+        self.entryValuesFile.place(relx = 0.19, rely = 0.43, relheight = 0.21
+                                   , relwidth = 0.64)
+        self.entryValuesFile.configure(background = "white")
+        self.entryValuesFile.configure(disabledforeground = "#a3a3a3")
+        self.entryValuesFile.configure(font = "TkFixedFont")
+        self.entryValuesFile.configure(foreground = "#000000")
+        self.entryValuesFile.configure(insertbackground = "black")
+        self.entryValuesFile.configure(width = 624)
 
         self.buttonValuesFile = Button(self.labelFrameVariableDescriptor)
-        self.buttonValuesFile.place(relx=0.84, rely=0.43, height=23, width=146)
-        self.buttonValuesFile.configure(activebackground="#d9d9d9")
-        self.buttonValuesFile.configure(activeforeground="#000000")
-        self.buttonValuesFile.configure(background="#d9d9d9")
-        self.buttonValuesFile.configure(disabledforeground="#a3a3a3")
-        self.buttonValuesFile.configure(foreground="#000000")
-        self.buttonValuesFile.configure(highlightbackground="#d9d9d9")
-        self.buttonValuesFile.configure(highlightcolor="black")
-        self.buttonValuesFile.configure(pady="0")
-        self.buttonValuesFile.configure(text='''Choose File...''')
-        self.buttonValuesFile.configure(width=146)
+        self.buttonValuesFile.place(relx = 0.84, rely = 0.43, height = 23, width = 146)
+        self.buttonValuesFile.configure(activebackground = "#d9d9d9")
+        self.buttonValuesFile.configure(activeforeground = "#000000")
+        self.buttonValuesFile.configure(background = "#d9d9d9")
+        self.buttonValuesFile.configure(disabledforeground = "#a3a3a3")
+        self.buttonValuesFile.configure(foreground = "#000000")
+        self.buttonValuesFile.configure(highlightbackground = "#d9d9d9")
+        self.buttonValuesFile.configure(highlightcolor = "black")
+        self.buttonValuesFile.configure(pady = "0")
+        self.buttonValuesFile.configure(text = '''Choose File...''')
+        self.buttonValuesFile.configure(width = 146)
 
         self.buttonStartVariableDescriptor = Button(self.labelFrameVariableDescriptor)
-        self.buttonStartVariableDescriptor.place(relx=0.84, rely=0.7, height=23
-                                                 , width=146)
-        self.buttonStartVariableDescriptor.configure(activebackground="#d9d9d9")
-        self.buttonStartVariableDescriptor.configure(activeforeground="#000000")
-        self.buttonStartVariableDescriptor.configure(background="#d9d9d9")
-        self.buttonStartVariableDescriptor.configure(disabledforeground="#a3a3a3")
-        self.buttonStartVariableDescriptor.configure(foreground="#000000")
-        self.buttonStartVariableDescriptor.configure(highlightbackground="#d9d9d9")
-        self.buttonStartVariableDescriptor.configure(highlightcolor="black")
-        self.buttonStartVariableDescriptor.configure(pady="0")
-        self.buttonStartVariableDescriptor.configure(text='''Start''')
-        self.buttonStartVariableDescriptor.configure(width=146)
+        self.buttonStartVariableDescriptor.place(relx = 0.84, rely = 0.7, height = 23
+                                                 , width = 146)
+        self.buttonStartVariableDescriptor.configure(activebackground = "#d9d9d9")
+        self.buttonStartVariableDescriptor.configure(activeforeground = "#000000")
+        self.buttonStartVariableDescriptor.configure(background = "#d9d9d9")
+        self.buttonStartVariableDescriptor.configure(disabledforeground = "#a3a3a3")
+        self.buttonStartVariableDescriptor.configure(foreground = "#000000")
+        self.buttonStartVariableDescriptor.configure(highlightbackground = "#d9d9d9")
+        self.buttonStartVariableDescriptor.configure(highlightcolor = "black")
+        self.buttonStartVariableDescriptor.configure(pady = "0")
+        self.buttonStartVariableDescriptor.configure(text = '''Start''')
+        self.buttonStartVariableDescriptor.configure(width = 146)
 
         self.entryInitialVarDesc = Entry(self.Tabs_t2)
-        self.entryInitialVarDesc.place(relx=0.19, rely=0.25, relheight=0.04
-                                   , relwidth=0.64)
-        self.entryInitialVarDesc.configure(background="white")
-        self.entryInitialVarDesc.configure(disabledforeground="#a3a3a3")
-        self.entryInitialVarDesc.configure(font="TkFixedFont")
-        self.entryInitialVarDesc.configure(foreground="#000000")
-        self.entryInitialVarDesc.configure(insertbackground="black")
-        self.entryInitialVarDesc.configure(width=624)
+        self.entryInitialVarDesc.place(relx = 0.19, rely = 0.25, relheight = 0.04
+                                   , relwidth = 0.64)
+        self.entryInitialVarDesc.configure(background = "white")
+        self.entryInitialVarDesc.configure(disabledforeground = "#a3a3a3")
+        self.entryInitialVarDesc.configure(font = "TkFixedFont")
+        self.entryInitialVarDesc.configure(foreground = "#000000")
+        self.entryInitialVarDesc.configure(insertbackground = "black")
+        self.entryInitialVarDesc.configure(width = 624)
 
         self.buttonInitialVarDesc = Button(self.Tabs_t2)
-        self.buttonInitialVarDesc.place(relx=0.84, rely=0.25, height=23
-                                                 , width=146)
-        self.buttonInitialVarDesc.configure(activebackground="#d9d9d9")
-        self.buttonInitialVarDesc.configure(activeforeground="#000000")
-        self.buttonInitialVarDesc.configure(background="#d9d9d9")
-        self.buttonInitialVarDesc.configure(disabledforeground="#a3a3a3")
-        self.buttonInitialVarDesc.configure(foreground="#000000")
-        self.buttonInitialVarDesc.configure(highlightbackground="#d9d9d9")
-        self.buttonInitialVarDesc.configure(highlightcolor="black")
-        self.buttonInitialVarDesc.configure(pady="0")
-        self.buttonInitialVarDesc.configure(text='''Upload''')
-        self.buttonInitialVarDesc.configure(width=146)
+        self.buttonInitialVarDesc.place(relx = 0.84, rely = 0.25, height = 23
+                                                 , width = 146)
+        self.buttonInitialVarDesc.configure(activebackground = "#d9d9d9")
+        self.buttonInitialVarDesc.configure(activeforeground = "#000000")
+        self.buttonInitialVarDesc.configure(background = "#d9d9d9")
+        self.buttonInitialVarDesc.configure(disabledforeground = "#a3a3a3")
+        self.buttonInitialVarDesc.configure(foreground = "#000000")
+        self.buttonInitialVarDesc.configure(highlightbackground = "#d9d9d9")
+        self.buttonInitialVarDesc.configure(highlightcolor = "black")
+        self.buttonInitialVarDesc.configure(pady = "0")
+        self.buttonInitialVarDesc.configure(text = '''Upload''')
+        self.buttonInitialVarDesc.configure(width = 146)
 
         self.labelInitialVarDesc = Label(self.Tabs_t2)
-        self.labelInitialVarDesc.place(relx=0.01, rely=0.2, height=26, width=250)
-        self.labelInitialVarDesc.configure(background="#d9d9d9")
-        self.labelInitialVarDesc.configure(disabledforeground="#a3a3a3")
-        self.labelInitialVarDesc.configure(foreground="#000000")
-        self.labelInitialVarDesc.configure(text='''Variable Description:''')
-        self.labelInitialVarDesc.configure(width=172)
+        self.labelInitialVarDesc.place(relx = 0.01, rely = 0.2, height = 26, width = 250)
+        self.labelInitialVarDesc.configure(background = "#d9d9d9")
+        self.labelInitialVarDesc.configure(disabledforeground = "#a3a3a3")
+        self.labelInitialVarDesc.configure(foreground = "#000000")
+        self.labelInitialVarDesc.configure(text = '''Variable Description:''')
+        self.labelInitialVarDesc.configure(width = 172)
 
         self.entryQueryPopulation = Entry(self.Tabs_t2)
-        self.entryQueryPopulation.place(relx=0.19, rely=0.35, relheight=0.04
-                                   , relwidth=0.64)
-        self.entryQueryPopulation.configure(background="white")
-        self.entryQueryPopulation.configure(disabledforeground="#a3a3a3")
-        self.entryQueryPopulation.configure(font="TkFixedFont")
-        self.entryQueryPopulation.configure(foreground="#000000")
-        self.entryQueryPopulation.configure(insertbackground="black")
-        self.entryQueryPopulation.configure(width=654)
+        self.entryQueryPopulation.place(relx = 0.19, rely = 0.35, relheight = 0.04
+                                   , relwidth = 0.64)
+        self.entryQueryPopulation.configure(background = "white")
+        self.entryQueryPopulation.configure(disabledforeground = "#a3a3a3")
+        self.entryQueryPopulation.configure(font = "TkFixedFont")
+        self.entryQueryPopulation.configure(foreground = "#000000")
+        self.entryQueryPopulation.configure(insertbackground = "black")
+        self.entryQueryPopulation.configure(width = 654)
 
         self.buttonQueryPopulation = Button(self.Tabs_t2)
-        self.buttonQueryPopulation.place(relx=0.84, rely=0.35, height=23
-                                                 , width=146)
-        self.buttonQueryPopulation.configure(activebackground="#d9d9d9")
-        self.buttonQueryPopulation.configure(activeforeground="#000000")
-        self.buttonQueryPopulation.configure(background="#d9d9d9")
-        self.buttonQueryPopulation.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryPopulation.configure(foreground="#000000")
-        self.buttonQueryPopulation.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryPopulation.configure(highlightcolor="black")
-        self.buttonQueryPopulation.configure(pady="0")
-        self.buttonQueryPopulation.configure(text='''Upload''')
-        self.buttonQueryPopulation.configure(width=316)
+        self.buttonQueryPopulation.place(relx = 0.84, rely = 0.35, height = 23
+                                                 , width = 146)
+        self.buttonQueryPopulation.configure(activebackground = "#d9d9d9")
+        self.buttonQueryPopulation.configure(activeforeground = "#000000")
+        self.buttonQueryPopulation.configure(background = "#d9d9d9")
+        self.buttonQueryPopulation.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryPopulation.configure(foreground = "#000000")
+        self.buttonQueryPopulation.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryPopulation.configure(highlightcolor = "black")
+        self.buttonQueryPopulation.configure(pady = "0")
+        self.buttonQueryPopulation.configure(text = '''Upload''')
+        self.buttonQueryPopulation.configure(width = 316)
 
         self.labelInitialVarDesc = Label(self.Tabs_t2)
-        self.labelInitialVarDesc.place(relx=0.01, rely=0.3, height=26, width=250)
-        self.labelInitialVarDesc.configure(background="#d9d9d9")
-        self.labelInitialVarDesc.configure(disabledforeground="#a3a3a3")
-        self.labelInitialVarDesc.configure(foreground="#000000")
-        self.labelInitialVarDesc.configure(text='''Population Dataset:''')
-        self.labelInitialVarDesc.configure(width=172)
+        self.labelInitialVarDesc.place(relx = 0.01, rely = 0.3, height = 26, width = 250)
+        self.labelInitialVarDesc.configure(background = "#d9d9d9")
+        self.labelInitialVarDesc.configure(disabledforeground = "#a3a3a3")
+        self.labelInitialVarDesc.configure(foreground = "#000000")
+        self.labelInitialVarDesc.configure(text = '''Population Dataset:''')
+        self.labelInitialVarDesc.configure(width = 172)
 
 
 
         '''
-        BINDING PREPROCESSOR ELEMENTS
+        BINDING DATA ELEMENTS
         '''
         self.buttonStartVariableDescriptor.bind('<Button-1>', self.makeInitialVarDesc)
         self.buttonVariableFile.bind('<Button-1>', self.getVariableFile)
@@ -1070,318 +751,323 @@ class OOTO_Miner:
 
 
         '''
-        TAB 3 - QUERY
+        TAB 2 - TEST (Tabs_t3)
         '''
-        self.labelFrameQueryDataA = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryDataA.place(relx=0.01, rely=0.07, relheight=0.7
-                                        , relwidth=0.48)
-        self.labelFrameQueryDataA.configure(relief=GROOVE)
-        self.labelFrameQueryDataA.configure(foreground="black")
-        self.labelFrameQueryDataA.configure(text='''Dataset A''')
-        self.labelFrameQueryDataA.configure(background="#d9d9d9")
-        self.labelFrameQueryDataA.configure(width=480)
+        self.testTabParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
+        self.testTabParentFrame.place(relx = 0, rely = 0, relheight = 1, relwidth = 1)
+        self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient=VERTICAL)
+        self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+
+        self.labelFrameQueryDataA = LabelFrame(self.testTabParentFrame)
+        self.labelFrameQueryDataA.place(relx = 0.01, rely = 0.07, relheight = 0.7
+                                        , relwidth = 0.48)
+        self.labelFrameQueryDataA.configure(relief = GROOVE)
+        self.labelFrameQueryDataA.configure(foreground = "black")
+        self.labelFrameQueryDataA.configure(text = '''Dataset A''')
+        self.labelFrameQueryDataA.configure(background = "#d9d9d9")
+        self.labelFrameQueryDataA.configure(width = 480)
         global queryStrFilterB
 
         self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
-        self.entryQuerySetDataA.place(relx=0.02, rely=0.04, relheight=0.05
-                                       , relwidth=0.2)
-        self.entryQuerySetDataA.configure(background="white")
-        self.entryQuerySetDataA.configure(disabledforeground="#a3a3a3")
-        self.entryQuerySetDataA.configure(font="TkFixedFont")
-        self.entryQuerySetDataA.configure(foreground="#000000")
-        self.entryQuerySetDataA.configure(insertbackground="black")
-        self.entryQuerySetDataA.configure(width=94)
+        self.entryQuerySetDataA.place(relx = 0.02, rely = 0.04, relheight = 0.05
+                                       , relwidth = 0.2)
+        self.entryQuerySetDataA.configure(background = "white")
+        self.entryQuerySetDataA.configure(disabledforeground = "#a3a3a3")
+        self.entryQuerySetDataA.configure(font = "TkFixedFont")
+        self.entryQuerySetDataA.configure(foreground = "#000000")
+        self.entryQuerySetDataA.configure(insertbackground = "black")
+        self.entryQuerySetDataA.configure(width = 94)
 
         self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
-        self.buttonQuerySetDataA.place(relx=0.02, rely=0.1, height=23, width=96)
-        self.buttonQuerySetDataA.configure(activebackground="#d9d9d9")
-        self.buttonQuerySetDataA.configure(activeforeground="#000000")
-        self.buttonQuerySetDataA.configure(background="#d9d9d9")
-        self.buttonQuerySetDataA.configure(disabledforeground="#a3a3a3")
-        self.buttonQuerySetDataA.configure(foreground="#000000")
-        self.buttonQuerySetDataA.configure(highlightbackground="#d9d9d9")
-        self.buttonQuerySetDataA.configure(highlightcolor="black")
-        self.buttonQuerySetDataA.configure(pady="0")
-        self.buttonQuerySetDataA.configure(text='''Find Feature''')
-        self.buttonQuerySetDataA.configure(width=96)
+        self.buttonQuerySetDataA.place(relx = 0.02, rely = 0.1, height = 23, width = 96)
+        self.buttonQuerySetDataA.configure(activebackground = "#d9d9d9")
+        self.buttonQuerySetDataA.configure(activeforeground = "#000000")
+        self.buttonQuerySetDataA.configure(background = "#d9d9d9")
+        self.buttonQuerySetDataA.configure(disabledforeground = "#a3a3a3")
+        self.buttonQuerySetDataA.configure(foreground = "#000000")
+        self.buttonQuerySetDataA.configure(highlightbackground = "#d9d9d9")
+        self.buttonQuerySetDataA.configure(highlightcolor = "black")
+        self.buttonQuerySetDataA.configure(pady = "0")
+        self.buttonQuerySetDataA.configure(text = '''Find Feature''')
+        self.buttonQuerySetDataA.configure(width = 96)
 
         self.listQuerySetDataA = Listbox(self.labelFrameQueryDataA)
-        self.listQuerySetDataA.place(relx=0.23, rely=0.04, relheight=0.26
-                                     , relwidth=0.76)
-        self.listQuerySetDataA.configure(background="white")
-        self.listQuerySetDataA.configure(disabledforeground="#a3a3a3")
-        self.listQuerySetDataA.configure(font="TkFixedFont")
-        self.listQuerySetDataA.configure(foreground="#000000")
-        self.listQuerySetDataA.configure(width=364)
-        self.listQuerySetDataA.configure(selectmode=MULTIPLE)
-        self.listQuerySetDataA.configure(exportselection="0")
-        self.listQuerySetDataA.configure(highlightbackground="#d9d9d9")
-        self.listQuerySetDataA.configure(highlightcolor="black")
-        self.listQuerySetDataA.configure(selectbackground="#c4c4c4")
-        self.listQuerySetDataA.configure(selectforeground="black")
+        self.listQuerySetDataA.place(relx = 0.23, rely = 0.04, relheight = 0.26
+                                     , relwidth = 0.76)
+        self.listQuerySetDataA.configure(background = "white")
+        self.listQuerySetDataA.configure(disabledforeground = "#a3a3a3")
+        self.listQuerySetDataA.configure(font = "TkFixedFont")
+        self.listQuerySetDataA.configure(foreground = "#000000")
+        self.listQuerySetDataA.configure(width = 364)
+        self.listQuerySetDataA.configure(selectmode = MULTIPLE)
+        self.listQuerySetDataA.configure(exportselection = "0")
+        self.listQuerySetDataA.configure(highlightbackground = "#d9d9d9")
+        self.listQuerySetDataA.configure(highlightcolor = "black")
+        self.listQuerySetDataA.configure(selectbackground = "#c4c4c4")
+        self.listQuerySetDataA.configure(selectforeground = "black")
 
         self.buttonQueryAddFilterA = Button(self.labelFrameQueryDataA)
-        self.buttonQueryAddFilterA.place(relx=0.02, rely=0.15, height=23, width=96)
-        self.buttonQueryAddFilterA.configure(activebackground="#d9d9d9")
-        self.buttonQueryAddFilterA.configure(activeforeground="#000000")
-        self.buttonQueryAddFilterA.configure(background="#d9d9d9")
-        self.buttonQueryAddFilterA.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryAddFilterA.configure(foreground="#000000")
-        self.buttonQueryAddFilterA.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryAddFilterA.configure(highlightcolor="black")
-        self.buttonQueryAddFilterA.configure(pady="0")
-        self.buttonQueryAddFilterA.configure(text='''Filter''')
-        self.buttonQueryAddFilterA.configure(width=96)
+        self.buttonQueryAddFilterA.place(relx = 0.02, rely = 0.15, height = 23, width = 96)
+        self.buttonQueryAddFilterA.configure(activebackground = "#d9d9d9")
+        self.buttonQueryAddFilterA.configure(activeforeground = "#000000")
+        self.buttonQueryAddFilterA.configure(background = "#d9d9d9")
+        self.buttonQueryAddFilterA.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryAddFilterA.configure(foreground = "#000000")
+        self.buttonQueryAddFilterA.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryAddFilterA.configure(highlightcolor = "black")
+        self.buttonQueryAddFilterA.configure(pady = "0")
+        self.buttonQueryAddFilterA.configure(text = '''Filter''')
+        self.buttonQueryAddFilterA.configure(width = 96)
 
         self.buttonQueryResetFilterA = Button(self.labelFrameQueryDataA)
-        self.buttonQueryResetFilterA.place(relx=0.02, rely=0.20, height=23, width=96)
-        self.buttonQueryResetFilterA.configure(activebackground="#d9d9d9")
-        self.buttonQueryResetFilterA.configure(activeforeground="#000000")
-        self.buttonQueryResetFilterA.configure(background="#d9d9d9")
-        self.buttonQueryResetFilterA.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryResetFilterA.configure(foreground="#000000")
-        self.buttonQueryResetFilterA.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryResetFilterA.configure(highlightcolor="black")
-        self.buttonQueryResetFilterA.configure(pady="0")
-        self.buttonQueryResetFilterA.configure(text='''Reset Dataset''')
-        self.buttonQueryResetFilterA.configure(width=96)
+        self.buttonQueryResetFilterA.place(relx = 0.02, rely = 0.20, height = 23, width = 96)
+        self.buttonQueryResetFilterA.configure(activebackground = "#d9d9d9")
+        self.buttonQueryResetFilterA.configure(activeforeground = "#000000")
+        self.buttonQueryResetFilterA.configure(background = "#d9d9d9")
+        self.buttonQueryResetFilterA.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryResetFilterA.configure(foreground = "#000000")
+        self.buttonQueryResetFilterA.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryResetFilterA.configure(highlightcolor = "black")
+        self.buttonQueryResetFilterA.configure(pady = "0")
+        self.buttonQueryResetFilterA.configure(text = '''Reset Dataset''')
+        self.buttonQueryResetFilterA.configure(width = 96)
 
         self.labelQueryDataACount = Label(self.labelFrameQueryDataA)
-        self.labelQueryDataACount.place(relx=0.02, rely=0.25, height=23, width=96)
-        self.labelQueryDataACount.configure(text='Count: ')
+        self.labelQueryDataACount.place(relx = 0.02, rely = 0.25, height = 23, width = 96)
+        self.labelQueryDataACount.configure(text = 'Count: ')
 
         self.entryQueryFeatureA = Entry(self.labelFrameQueryDataA)
-        self.entryQueryFeatureA.place(relx=0.23, rely=0.32, relheight=0.05
-                                      , relwidth=0.76)
-        self.entryQueryFeatureA.configure(background="white")
-        self.entryQueryFeatureA.configure(disabledforeground="#a3a3a3")
-        self.entryQueryFeatureA.configure(font="TkFixedFont")
-        self.entryQueryFeatureA.configure(foreground="#000000")
-        self.entryQueryFeatureA.configure(insertbackground="black")
-        self.entryQueryFeatureA.configure(width=364)
+        self.entryQueryFeatureA.place(relx = 0.23, rely = 0.32, relheight = 0.05
+                                      , relwidth = 0.76)
+        self.entryQueryFeatureA.configure(background = "white")
+        self.entryQueryFeatureA.configure(disabledforeground = "#a3a3a3")
+        self.entryQueryFeatureA.configure(font = "TkFixedFont")
+        self.entryQueryFeatureA.configure(foreground = "#000000")
+        self.entryQueryFeatureA.configure(insertbackground = "black")
+        self.entryQueryFeatureA.configure(width = 364)
 
         self.buttonQueryFeatureA = Button(self.labelFrameQueryDataA)
-        self.buttonQueryFeatureA.place(relx=0.02, rely=0.32, height=23, width=96)
+        self.buttonQueryFeatureA.place(relx = 0.02, rely = 0.32, height = 23, width = 96)
 
-        self.buttonQueryFeatureA.configure(activebackground="#d9d9d9")
-        self.buttonQueryFeatureA.configure(activeforeground="#000000")
-        self.buttonQueryFeatureA.configure(background="#d9d9d9")
-        self.buttonQueryFeatureA.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryFeatureA.configure(foreground="#000000")
-        self.buttonQueryFeatureA.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryFeatureA.configure(highlightcolor="black")
-        self.buttonQueryFeatureA.configure(pady="0")
-        self.buttonQueryFeatureA.configure(text='''Enter Code''')
-        self.buttonQueryFeatureA.configure(width=96)
+        self.buttonQueryFeatureA.configure(activebackground = "#d9d9d9")
+        self.buttonQueryFeatureA.configure(activeforeground = "#000000")
+        self.buttonQueryFeatureA.configure(background = "#d9d9d9")
+        self.buttonQueryFeatureA.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryFeatureA.configure(foreground = "#000000")
+        self.buttonQueryFeatureA.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryFeatureA.configure(highlightcolor = "black")
+        self.buttonQueryFeatureA.configure(pady = "0")
+        self.buttonQueryFeatureA.configure(text = '''Enter Code''')
+        self.buttonQueryFeatureA.configure(width = 96)
 
 
 
         self.listQueryDataA = Listbox(self.labelFrameQueryDataA)
-        self.listQueryDataA.place(relx=0.02, rely=0.43, relheight=0.48
-                                       , relwidth=0.97)
-        self.listQueryDataA.configure(background="white")
-        self.listQueryDataA.configure(disabledforeground="#a3a3a3")
-        self.listQueryDataA.configure(font="TkFixedFont")
-        self.listQueryDataA.configure(foreground="#000000")
-        self.listQueryDataA.configure(width=364)
-        self.listQueryDataA.configure(selectmode=MULTIPLE)
-        self.listQueryDataA.configure(exportselection="0")
-        self.listQueryDataA.configure(highlightbackground="#d9d9d9")
-        self.listQueryDataA.configure(highlightcolor="black")
-        self.listQueryDataA.configure(selectbackground="#c4c4c4")
-        self.listQueryDataA.configure(selectforeground="black")
+        self.listQueryDataA.place(relx = 0.02, rely = 0.43, relheight = 0.48
+                                       , relwidth = 0.97)
+        self.listQueryDataA.configure(background = "white")
+        self.listQueryDataA.configure(disabledforeground = "#a3a3a3")
+        self.listQueryDataA.configure(font = "TkFixedFont")
+        self.listQueryDataA.configure(foreground = "#000000")
+        self.listQueryDataA.configure(width = 364)
+        self.listQueryDataA.configure(selectmode = MULTIPLE)
+        self.listQueryDataA.configure(exportselection = "0")
+        self.listQueryDataA.configure(highlightbackground = "#d9d9d9")
+        self.listQueryDataA.configure(highlightcolor = "black")
+        self.listQueryDataA.configure(selectbackground = "#c4c4c4")
+        self.listQueryDataA.configure(selectforeground = "black")
 
         self.labelQueryDataAFeature = Label(self.labelFrameQueryDataA)
-        self.labelQueryDataAFeature.place(relx=0.02, rely=0.38, relheight=0.05, relwidth=0.97)
-        self.labelQueryDataAFeature.configure(text='''''')
+        self.labelQueryDataAFeature.place(relx = 0.02, rely = 0.38, relheight = 0.05, relwidth = 0.97)
+        self.labelQueryDataAFeature.configure(text = '''''')
 
         self.labelQueryDataA = Label(self.labelFrameQueryDataA)
-        self.labelQueryDataA.place(relx=0.02, rely=0.91, height=26, width=462)
-        self.labelQueryDataA.configure(background="#d9d9d9")
-        self.labelQueryDataA.configure(disabledforeground="#a3a3a3")
-        self.labelQueryDataA.configure(foreground="#000000")
-        self.labelQueryDataA.configure(text='''NO DATA SELECTED''')
-        self.labelQueryDataA.configure(width=462)
+        self.labelQueryDataA.place(relx = 0.02, rely = 0.91, height = 26, width = 462)
+        self.labelQueryDataA.configure(background = "#d9d9d9")
+        self.labelQueryDataA.configure(disabledforeground = "#a3a3a3")
+        self.labelQueryDataA.configure(foreground = "#000000")
+        self.labelQueryDataA.configure(text = '''NO DATA SELECTED''')
+        self.labelQueryDataA.configure(width = 462)
 
         self.labelFrameQueryDataB = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryDataB.place(relx=0.5, rely=0.07, relheight=0.7
-                                        , relwidth=0.48)
-        self.labelFrameQueryDataB.configure(relief=GROOVE)
-        self.labelFrameQueryDataB.configure(foreground="black")
-        self.labelFrameQueryDataB.configure(text='''Dataset B''')
-        self.labelFrameQueryDataB.configure(background="#d9d9d9")
-        self.labelFrameQueryDataB.configure(width=480)
+        self.labelFrameQueryDataB.place(relx = 0.5, rely = 0.07, relheight = 0.7
+                                        , relwidth = 0.48)
+        self.labelFrameQueryDataB.configure(relief = GROOVE)
+        self.labelFrameQueryDataB.configure(foreground = "black")
+        self.labelFrameQueryDataB.configure(text = '''Dataset B''')
+        self.labelFrameQueryDataB.configure(background = "#d9d9d9")
+        self.labelFrameQueryDataB.configure(width = 480)
         global queryStrFilterA
 
         self.entryQuerySetDataB = Entry(self.labelFrameQueryDataB)
-        self.entryQuerySetDataB.place(relx=0.02, rely=0.04, relheight=0.05
-                                      , relwidth=0.2)
-        self.entryQuerySetDataB.configure(background="white")
-        self.entryQuerySetDataB.configure(disabledforeground="#a3a3a3")
-        self.entryQuerySetDataB.configure(font="TkFixedFont")
-        self.entryQuerySetDataB.configure(foreground="#000000")
-        self.entryQuerySetDataB.configure(insertbackground="black")
-        self.entryQuerySetDataB.configure(width=94)
+        self.entryQuerySetDataB.place(relx = 0.02, rely = 0.04, relheight = 0.05
+                                      , relwidth = 0.2)
+        self.entryQuerySetDataB.configure(background = "white")
+        self.entryQuerySetDataB.configure(disabledforeground = "#a3a3a3")
+        self.entryQuerySetDataB.configure(font = "TkFixedFont")
+        self.entryQuerySetDataB.configure(foreground = "#000000")
+        self.entryQuerySetDataB.configure(insertbackground = "black")
+        self.entryQuerySetDataB.configure(width = 94)
 
         self.buttonQuerySetDataB = Button(self.labelFrameQueryDataB)
-        self.buttonQuerySetDataB.place(relx=0.02, rely=0.1, height=23, width=96)
-        self.buttonQuerySetDataB.configure(activebackground="#d9d9d9")
-        self.buttonQuerySetDataB.configure(activeforeground="#000000")
-        self.buttonQuerySetDataB.configure(background="#d9d9d9")
-        self.buttonQuerySetDataB.configure(disabledforeground="#a3a3a3")
-        self.buttonQuerySetDataB.configure(foreground="#000000")
-        self.buttonQuerySetDataB.configure(highlightbackground="#d9d9d9")
-        self.buttonQuerySetDataB.configure(highlightcolor="black")
-        self.buttonQuerySetDataB.configure(pady="0")
-        self.buttonQuerySetDataB.configure(text='''Find Feature''')
-        self.buttonQuerySetDataB.configure(width=96)
+        self.buttonQuerySetDataB.place(relx = 0.02, rely = 0.1, height = 23, width = 96)
+        self.buttonQuerySetDataB.configure(activebackground = "#d9d9d9")
+        self.buttonQuerySetDataB.configure(activeforeground = "#000000")
+        self.buttonQuerySetDataB.configure(background = "#d9d9d9")
+        self.buttonQuerySetDataB.configure(disabledforeground = "#a3a3a3")
+        self.buttonQuerySetDataB.configure(foreground = "#000000")
+        self.buttonQuerySetDataB.configure(highlightbackground = "#d9d9d9")
+        self.buttonQuerySetDataB.configure(highlightcolor = "black")
+        self.buttonQuerySetDataB.configure(pady = "0")
+        self.buttonQuerySetDataB.configure(text = '''Find Feature''')
+        self.buttonQuerySetDataB.configure(width = 96)
 
         self.listQuerySetDataB = Listbox(self.labelFrameQueryDataB)
-        self.listQuerySetDataB.place(relx=0.23, rely=0.04, relheight=0.26
-                                     , relwidth=0.76)
-        self.listQuerySetDataB.configure(background="white")
-        self.listQuerySetDataB.configure(disabledforeground="#a3a3a3")
-        self.listQuerySetDataB.configure(font="TkFixedFont")
-        self.listQuerySetDataB.configure(foreground="#000000")
-        self.listQuerySetDataB.configure(width=364)
-        self.listQuerySetDataB.configure(selectmode=MULTIPLE)
-        self.listQuerySetDataB.configure(exportselection="0")
-        self.listQuerySetDataB.configure(highlightbackground="#d9d9d9")
-        self.listQuerySetDataB.configure(highlightcolor="black")
-        self.listQuerySetDataB.configure(selectbackground="#c4c4c4")
-        self.listQuerySetDataB.configure(selectforeground="black")
+        self.listQuerySetDataB.place(relx = 0.23, rely = 0.04, relheight = 0.26
+                                     , relwidth = 0.76)
+        self.listQuerySetDataB.configure(background = "white")
+        self.listQuerySetDataB.configure(disabledforeground = "#a3a3a3")
+        self.listQuerySetDataB.configure(font = "TkFixedFont")
+        self.listQuerySetDataB.configure(foreground = "#000000")
+        self.listQuerySetDataB.configure(width = 364)
+        self.listQuerySetDataB.configure(selectmode = MULTIPLE)
+        self.listQuerySetDataB.configure(exportselection = "0")
+        self.listQuerySetDataB.configure(highlightbackground = "#d9d9d9")
+        self.listQuerySetDataB.configure(highlightcolor = "black")
+        self.listQuerySetDataB.configure(selectbackground = "#c4c4c4")
+        self.listQuerySetDataB.configure(selectforeground = "black")
 
         self.buttonQueryAddFilterB = Button(self.labelFrameQueryDataB)
-        self.buttonQueryAddFilterB.place(relx=0.02, rely=0.15, height=23, width=96)
-        self.buttonQueryAddFilterB.configure(activebackground="#d9d9d9")
-        self.buttonQueryAddFilterB.configure(activeforeground="#000000")
-        self.buttonQueryAddFilterB.configure(background="#d9d9d9")
-        self.buttonQueryAddFilterB.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryAddFilterB.configure(foreground="#000000")
-        self.buttonQueryAddFilterB.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryAddFilterB.configure(highlightcolor="black")
-        self.buttonQueryAddFilterB.configure(pady="0")
-        self.buttonQueryAddFilterB.configure(text='''Filter''')
-        self.buttonQueryAddFilterB.configure(width=96)
+        self.buttonQueryAddFilterB.place(relx = 0.02, rely = 0.15, height = 23, width = 96)
+        self.buttonQueryAddFilterB.configure(activebackground = "#d9d9d9")
+        self.buttonQueryAddFilterB.configure(activeforeground = "#000000")
+        self.buttonQueryAddFilterB.configure(background = "#d9d9d9")
+        self.buttonQueryAddFilterB.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryAddFilterB.configure(foreground = "#000000")
+        self.buttonQueryAddFilterB.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryAddFilterB.configure(highlightcolor = "black")
+        self.buttonQueryAddFilterB.configure(pady = "0")
+        self.buttonQueryAddFilterB.configure(text = '''Filter''')
+        self.buttonQueryAddFilterB.configure(width = 96)
 
         self.buttonQueryResetFilterB = Button(self.labelFrameQueryDataB)
-        self.buttonQueryResetFilterB.place(relx=0.02, rely=0.20, height=23, width=96)
-        self.buttonQueryResetFilterB.configure(activebackground="#d9d9d9")
-        self.buttonQueryResetFilterB.configure(activeforeground="#000000")
-        self.buttonQueryResetFilterB.configure(background="#d9d9d9")
-        self.buttonQueryResetFilterB.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryResetFilterB.configure(foreground="#000000")
-        self.buttonQueryResetFilterB.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryResetFilterB.configure(highlightcolor="black")
-        self.buttonQueryResetFilterB.configure(pady="0")
-        self.buttonQueryResetFilterB.configure(text='''Reset Dataset''')
+        self.buttonQueryResetFilterB.place(relx = 0.02, rely = 0.20, height = 23, width = 96)
+        self.buttonQueryResetFilterB.configure(activebackground = "#d9d9d9")
+        self.buttonQueryResetFilterB.configure(activeforeground = "#000000")
+        self.buttonQueryResetFilterB.configure(background = "#d9d9d9")
+        self.buttonQueryResetFilterB.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryResetFilterB.configure(foreground = "#000000")
+        self.buttonQueryResetFilterB.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryResetFilterB.configure(highlightcolor = "black")
+        self.buttonQueryResetFilterB.configure(pady = "0")
+        self.buttonQueryResetFilterB.configure(text = '''Reset Dataset''')
 
         self.labelQueryDataBCount = Label(self.labelFrameQueryDataB)
-        self.labelQueryDataBCount.place(relx=0.02, rely=0.25, height=23, width=96)
-        self.labelQueryDataBCount.configure(text='Count: ')
+        self.labelQueryDataBCount.place(relx = 0.02, rely = 0.25, height = 23, width = 96)
+        self.labelQueryDataBCount.configure(text = 'Count: ')
 
         self.entryQueryFeatureB = Entry(self.labelFrameQueryDataB)
-        self.entryQueryFeatureB.place(relx=0.23, rely=0.32, relheight=0.05
-                                      , relwidth=0.76)
-        self.entryQueryFeatureB.configure(background="white")
-        self.entryQueryFeatureB.configure(disabledforeground="#a3a3a3")
-        self.entryQueryFeatureB.configure(font="TkFixedFont")
-        self.entryQueryFeatureB.configure(foreground="#000000")
-        self.entryQueryFeatureB.configure(insertbackground="black")
-        self.entryQueryFeatureB.configure(width=364)
+        self.entryQueryFeatureB.place(relx = 0.23, rely = 0.32, relheight = 0.05
+                                      , relwidth = 0.76)
+        self.entryQueryFeatureB.configure(background = "white")
+        self.entryQueryFeatureB.configure(disabledforeground = "#a3a3a3")
+        self.entryQueryFeatureB.configure(font = "TkFixedFont")
+        self.entryQueryFeatureB.configure(foreground = "#000000")
+        self.entryQueryFeatureB.configure(insertbackground = "black")
+        self.entryQueryFeatureB.configure(width = 364)
 
         self.buttonQueryFeatureB = Button(self.labelFrameQueryDataB)
-        self.buttonQueryFeatureB.place(relx=0.02, rely=0.32, height=23, width=96)
+        self.buttonQueryFeatureB.place(relx = 0.02, rely = 0.32, height = 23, width = 96)
 
-        self.buttonQueryFeatureB.configure(activebackground="#d9d9d9")
-        self.buttonQueryFeatureB.configure(activeforeground="#000000")
-        self.buttonQueryFeatureB.configure(background="#d9d9d9")
-        self.buttonQueryFeatureB.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryFeatureB.configure(foreground="#000000")
-        self.buttonQueryFeatureB.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryFeatureB.configure(highlightcolor="black")
-        self.buttonQueryFeatureB.configure(pady="0")
-        self.buttonQueryFeatureB.configure(text='''Enter Code''')
-        self.buttonQueryFeatureB.configure(width=96)
+        self.buttonQueryFeatureB.configure(activebackground = "#d9d9d9")
+        self.buttonQueryFeatureB.configure(activeforeground = "#000000")
+        self.buttonQueryFeatureB.configure(background = "#d9d9d9")
+        self.buttonQueryFeatureB.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryFeatureB.configure(foreground = "#000000")
+        self.buttonQueryFeatureB.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryFeatureB.configure(highlightcolor = "black")
+        self.buttonQueryFeatureB.configure(pady = "0")
+        self.buttonQueryFeatureB.configure(text = '''Enter Code''')
+        self.buttonQueryFeatureB.configure(width = 96)
 
         self.listQueryDataB = Listbox(self.labelFrameQueryDataB)
-        self.listQueryDataB.place(relx=0.02, rely=0.43, relheight=0.48
-                                       , relwidth=0.97)
-        self.listQueryDataB.configure(background="white")
-        self.listQueryDataB.configure(disabledforeground="#a3a3a3")
-        self.listQueryDataB.configure(font="TkFixedFont")
-        self.listQueryDataB.configure(foreground="#000000")
-        self.listQueryDataB.configure(width=364)
-        self.listQueryDataB.configure(selectmode=MULTIPLE)
-        self.listQueryDataB.configure(exportselection="0")
-        self.listQueryDataB.configure(highlightbackground="#d9d9d9")
-        self.listQueryDataB.configure(highlightcolor="black")
-        self.listQueryDataB.configure(selectbackground="#c4c4c4")
-        self.listQueryDataB.configure(selectforeground="black")
+        self.listQueryDataB.place(relx = 0.02, rely = 0.43, relheight = 0.48
+                                       , relwidth = 0.97)
+        self.listQueryDataB.configure(background = "white")
+        self.listQueryDataB.configure(disabledforeground = "#a3a3a3")
+        self.listQueryDataB.configure(font = "TkFixedFont")
+        self.listQueryDataB.configure(foreground = "#000000")
+        self.listQueryDataB.configure(width = 364)
+        self.listQueryDataB.configure(selectmode = MULTIPLE)
+        self.listQueryDataB.configure(exportselection = "0")
+        self.listQueryDataB.configure(highlightbackground = "#d9d9d9")
+        self.listQueryDataB.configure(highlightcolor = "black")
+        self.listQueryDataB.configure(selectbackground = "#c4c4c4")
+        self.listQueryDataB.configure(selectforeground = "black")
 
         self.labelQueryDataBFeature = Label(self.labelFrameQueryDataB)
-        self.labelQueryDataBFeature.place(relx=0.02, rely=0.38, relheight=0.05, relwidth=0.97)
-        self.labelQueryDataBFeature.configure(text='''''')
+        self.labelQueryDataBFeature.place(relx = 0.02, rely = 0.38, relheight = 0.05, relwidth = 0.97)
+        self.labelQueryDataBFeature.configure(text = '''''')
 
         self.labelQueryDataB = Label(self.labelFrameQueryDataB)
-        self.labelQueryDataB.place(relx=0.02, rely=0.91, height=26, width=462)
-        self.labelQueryDataB.configure(background="#d9d9d9")
-        self.labelQueryDataB.configure(disabledforeground="#a3a3a3")
-        self.labelQueryDataB.configure(foreground="#000000")
-        self.labelQueryDataB.configure(text='''NO DATA SELECTED''')
-        self.labelQueryDataB.configure(width=462)
+        self.labelQueryDataB.place(relx = 0.02, rely = 0.91, height = 26, width = 462)
+        self.labelQueryDataB.configure(background = "#d9d9d9")
+        self.labelQueryDataB.configure(disabledforeground = "#a3a3a3")
+        self.labelQueryDataB.configure(foreground = "#000000")
+        self.labelQueryDataB.configure(text = '''NO DATA SELECTED''')
+        self.labelQueryDataB.configure(width = 462)
 
         global testTypes
         testTypes = ["Sample vs Sample","Sample vs Population"]
         self.comboQueryTest = ttk.Combobox(self.Tabs_t3)
-        self.comboQueryTest.place(relx=0.01, rely=0.02, height=23, width=316)
-        self.comboQueryTest.configure(exportselection="0")
-        self.comboQueryTest.configure(takefocus="")
-        self.comboQueryTest.configure(values=testTypes)
+        self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 23, width = 316)
+        self.comboQueryTest.configure(exportselection = "0")
+        self.comboQueryTest.configure(takefocus = "")
+        self.comboQueryTest.configure(values = testTypes)
         self.comboQueryTest.current(0)
-        self.comboQueryTest.configure(state="readonly")
+        self.comboQueryTest.configure(state = "readonly")
 
         self.labelFrameQueryZ = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryZ.place(relx=0.01, rely=0.78, relheight=0.1, relwidth=0.48)
-        self.labelFrameQueryZ.configure(relief=GROOVE)
-        self.labelFrameQueryZ.configure(foreground="black")
-        self.labelFrameQueryZ.configure(text='''Z-Test''')
-        self.labelFrameQueryZ.configure(background="#d9d9d9")
-        self.labelFrameQueryZ.configure(width=480)
+        self.labelFrameQueryZ.place(relx = 0.01, rely = 0.78, relheight = 0.1, relwidth = 0.48)
+        self.labelFrameQueryZ.configure(relief = GROOVE)
+        self.labelFrameQueryZ.configure(foreground = "black")
+        self.labelFrameQueryZ.configure(text = '''Z-Test''')
+        self.labelFrameQueryZ.configure(background = "#d9d9d9")
+        self.labelFrameQueryZ.configure(width = 480)
 
 
         self.labelQueryZTest = Label(self.labelFrameQueryZ)
-        self.labelQueryZTest.place(relx=0.47, rely=0.01, height=26, width=240)
-        # self.labelQueryZTest.configure(background="#d9d9d9")
-        self.labelQueryZTest.configure(disabledforeground="#a3a3a3")
-        self.labelQueryZTest.configure(foreground="#000000")
-        self.labelQueryZTest.configure(text='''NO DATA''')
-        self.labelQueryZTest.configure(width=862)
+        self.labelQueryZTest.place(relx = 0.47, rely = 0.01, height = 26, width = 240)
+        # self.labelQueryZTest.configure(background = "#d9d9d9")
+        self.labelQueryZTest.configure(disabledforeground = "#a3a3a3")
+        self.labelQueryZTest.configure(foreground = "#000000")
+        self.labelQueryZTest.configure(text = '''NO DATA''')
+        self.labelQueryZTest.configure(width = 862)
 
         
         self.buttonQueryZTest = Button(self.labelFrameQueryZ)
-        self.buttonQueryZTest.place(relx=0.01, rely=0.01, height=23, width=106)
-        self.buttonQueryZTest.configure(activebackground="#d9d9d9")
-        self.buttonQueryZTest.configure(activeforeground="#000000")
-        self.buttonQueryZTest.configure(background="#d9d9d9")
-        self.buttonQueryZTest.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryZTest.configure(foreground="#000000")
-        self.buttonQueryZTest.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryZTest.configure(highlightcolor="black")
-        self.buttonQueryZTest.configure(pady="0")
-        self.buttonQueryZTest.configure(text='''Test''')
-        self.buttonQueryZTest.configure(width=106)
+        self.buttonQueryZTest.place(relx = 0.01, rely = 0.01, height = 23, width = 106)
+        self.buttonQueryZTest.configure(activebackground = "#d9d9d9")
+        self.buttonQueryZTest.configure(activeforeground = "#000000")
+        self.buttonQueryZTest.configure(background = "#d9d9d9")
+        self.buttonQueryZTest.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryZTest.configure(foreground = "#000000")
+        self.buttonQueryZTest.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryZTest.configure(highlightcolor = "black")
+        self.buttonQueryZTest.configure(pady = "0")
+        self.buttonQueryZTest.configure(text = '''Test''')
+        self.buttonQueryZTest.configure(width = 106)
         
 
 
         self.labelFrameQueryChi = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryChi.place(relx=0.5, rely=0.78, relheight=0.1
-                                    , relwidth=0.48)
-        self.labelFrameQueryChi.configure(relief=GROOVE)
-        self.labelFrameQueryChi.configure(foreground="black")
-        self.labelFrameQueryChi.configure(text='''Chi Test''')
-        self.labelFrameQueryChi.configure(background="#d9d9d9")
-        self.labelFrameQueryChi.configure(width=480)
+        self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0.1
+                                    , relwidth = 0.48)
+        self.labelFrameQueryChi.configure(relief = GROOVE)
+        self.labelFrameQueryChi.configure(foreground = "black")
+        self.labelFrameQueryChi.configure(text = '''Chi Test''')
+        self.labelFrameQueryChi.configure(background = "#d9d9d9")
+        self.labelFrameQueryChi.configure(width = 480)
 
         global arrQueryCriticalValue
         arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
@@ -1390,111 +1076,111 @@ class OOTO_Miner:
         arrQueryCriticalValueMapping = {"0.80":1.28, "0.90":1.645, "0.95":1.96, "0.98":2.33, "0.99":2.58}
   
         self.comboQueryCriticalValue = ttk.Combobox(self.labelFrameQueryZ)
-        self.comboQueryCriticalValue.place(relx=0.24, rely=0.01, height=23, width=106)
-        self.comboQueryCriticalValue.configure(exportselection="0")
-        self.comboQueryCriticalValue.configure(takefocus="")
-        self.comboQueryCriticalValue.configure(values=arrQueryCriticalValue)
+        self.comboQueryCriticalValue.place(relx = 0.24, rely = 0.01, height = 23, width = 106)
+        self.comboQueryCriticalValue.configure(exportselection = "0")
+        self.comboQueryCriticalValue.configure(takefocus = "")
+        self.comboQueryCriticalValue.configure(values = arrQueryCriticalValue)
         self.comboQueryCriticalValue.set(arrQueryCriticalValue[0])
 
         self.labelQueueCount = Label(self.Tabs_t3)
-        self.labelQueueCount.place(relx=0.87, rely=0.01, height=23, width=106)
-        self.labelQueueCount.configure(text='''Queue Count: 0''')
+        self.labelQueueCount.place(relx = 0.87, rely = 0.01, height = 23, width = 106)
+        self.labelQueueCount.configure(text = '''Queue Count: 0''')
         '''
         self.buttonTest = Button(self.labelFrameQueryChi)
-        self.buttonTest.place(relx=0.01, rely=0.01, height=23, width=106)
-        self.buttonTest.configure(activebackground="#d9d9d9")
-        self.buttonTest.configure(activeforeground="#000000")
-        self.buttonTest.configure(background="#d9d9d9")
-        self.buttonTest.configure(disabledforeground="#a3a3a3")
-        self.buttonTest.configure(foreground="#000000")
-        self.buttonTest.configure(highlightbackground="#d9d9d9")
-        self.buttonTest.configure(highlightcolor="black")
-        self.buttonTest.configure(pady="0")
-        self.buttonTest.configure(text=''''Test'''')
+        self.buttonTest.place(relx = 0.01, rely = 0.01, height = 23, width = 106)
+        self.buttonTest.configure(activebackground = "#d9d9d9")
+        self.buttonTest.configure(activeforeground = "#000000")
+        self.buttonTest.configure(background = "#d9d9d9")
+        self.buttonTest.configure(disabledforeground = "#a3a3a3")
+        self.buttonTest.configure(foreground = "#000000")
+        self.buttonTest.configure(highlightbackground = "#d9d9d9")
+        self.buttonTest.configure(highlightcolor = "black")
+        self.buttonTest.configure(pady = "0")
+        self.buttonTest.configure(text = ''''Test'''')
         '''
-        # self.buttonTest.configure(state='disabled')
+        # self.buttonTest.configure(state = 'disabled')
 
         self.buttonTestQueue = Button(self.labelFrameQueryChi)
-        self.buttonTestQueue.place(relx=0.7, rely=0.01, height=23, width=106)
-        self.buttonTestQueue.configure(activebackground="#d9d9d9")
-        self.buttonTestQueue.configure(activeforeground="#000000")
-        self.buttonTestQueue.configure(background="#d9d9d9")
-        self.buttonTestQueue.configure(disabledforeground="#a3a3a3")
-        self.buttonTestQueue.configure(foreground="#000000")
-        self.buttonTestQueue.configure(highlightbackground="#d9d9d9")
-        self.buttonTestQueue.configure(highlightcolor="black")
-        self.buttonTestQueue.configure(pady="0")
-        self.buttonTestQueue.configure(text='''Run Miner''')
-        # self.buttonTestQueue.configure(state='disabled')
+        self.buttonTestQueue.place(relx = 0.7, rely = 0.01, height = 23, width = 106)
+        self.buttonTestQueue.configure(activebackground = "#d9d9d9")
+        self.buttonTestQueue.configure(activeforeground = "#000000")
+        self.buttonTestQueue.configure(background = "#d9d9d9")
+        self.buttonTestQueue.configure(disabledforeground = "#a3a3a3")
+        self.buttonTestQueue.configure(foreground = "#000000")
+        self.buttonTestQueue.configure(highlightbackground = "#d9d9d9")
+        self.buttonTestQueue.configure(highlightcolor = "black")
+        self.buttonTestQueue.configure(pady = "0")
+        self.buttonTestQueue.configure(text = '''Run Miner''')
+        # self.buttonTestQueue.configure(state = 'disabled')
 
         self.buttonClearQueue = Button(self.labelFrameQueryChi)
-        self.buttonClearQueue.place(relx=0.47, rely=0.01, height=23, width=106)
-        self.buttonClearQueue.configure(activebackground="#d9d9d9")
-        self.buttonClearQueue.configure(activeforeground="#000000")
-        self.buttonClearQueue.configure(background="#d9d9d9")
-        self.buttonClearQueue.configure(disabledforeground="#a3a3a3")
-        self.buttonClearQueue.configure(foreground="#000000")
-        self.buttonClearQueue.configure(highlightbackground="#d9d9d9")
-        self.buttonClearQueue.configure(highlightcolor="black")
-        self.buttonClearQueue.configure(pady="0")
-        self.buttonClearQueue.configure(text='''Clear All''')
-        # self.buttonClearQueue.configure(state='disabled')
+        self.buttonClearQueue.place(relx = 0.47, rely = 0.01, height = 23, width = 106)
+        self.buttonClearQueue.configure(activebackground = "#d9d9d9")
+        self.buttonClearQueue.configure(activeforeground = "#000000")
+        self.buttonClearQueue.configure(background = "#d9d9d9")
+        self.buttonClearQueue.configure(disabledforeground = "#a3a3a3")
+        self.buttonClearQueue.configure(foreground = "#000000")
+        self.buttonClearQueue.configure(highlightbackground = "#d9d9d9")
+        self.buttonClearQueue.configure(highlightcolor = "black")
+        self.buttonClearQueue.configure(pady = "0")
+        self.buttonClearQueue.configure(text = '''Clear All''')
+        # self.buttonClearQueue.configure(state = 'disabled')
 
         self.buttonQueue = Button(self.labelFrameQueryChi)
-        self.buttonQueue.place(relx=0.01, rely=0.01, height=23, width=106)
-        self.buttonQueue.configure(activebackground="#d9d9d9")
-        self.buttonQueue.configure(activeforeground="#000000")
-        self.buttonQueue.configure(background="#d9d9d9")
-        self.buttonQueue.configure(disabledforeground="#a3a3a3")
-        self.buttonQueue.configure(foreground="#000000")
-        self.buttonQueue.configure(highlightbackground="#d9d9d9")
-        self.buttonQueue.configure(highlightcolor="black")
-        self.buttonQueue.configure(pady="0")
-        self.buttonQueue.configure(text='''Enqueue''')
-        # self.buttonQueue.configure(state='disabled')
+        self.buttonQueue.place(relx = 0.01, rely = 0.01, height = 23, width = 106)
+        self.buttonQueue.configure(activebackground = "#d9d9d9")
+        self.buttonQueue.configure(activeforeground = "#000000")
+        self.buttonQueue.configure(background = "#d9d9d9")
+        self.buttonQueue.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueue.configure(foreground = "#000000")
+        self.buttonQueue.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueue.configure(highlightcolor = "black")
+        self.buttonQueue.configure(pady = "0")
+        self.buttonQueue.configure(text = '''Enqueue''')
+        # self.buttonQueue.configure(state = 'disabled')
 
         self.labelFrameQuerySvP = LabelFrame(self.Tabs_t3)
-        self.labelFrameQuerySvP.place(relx=0.01, rely=0.88, relheight=0.1
-                                    , relwidth=0.48)
-        self.labelFrameQuerySvP.configure(relief=GROOVE)
-        self.labelFrameQuerySvP.configure(foreground="black")
-        self.labelFrameQuerySvP.configure(text='''Z-Test Sample Vs Population''')
-        self.labelFrameQuerySvP.configure(background="#d9d9d9")
-        self.labelFrameQuerySvP.configure(width=480)
+        self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0.1
+                                    , relwidth = 0.48)
+        self.labelFrameQuerySvP.configure(relief = GROOVE)
+        self.labelFrameQuerySvP.configure(foreground = "black")
+        self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
+        self.labelFrameQuerySvP.configure(background = "#d9d9d9")
+        self.labelFrameQuerySvP.configure(width = 480)
 
         self.comboQueryCriticalValueSvP = ttk.Combobox(self.labelFrameQuerySvP)
-        self.comboQueryCriticalValueSvP.place(relx=0.24, rely=0.01, height=23, width=106)
-        self.comboQueryCriticalValueSvP.configure(exportselection="0")
-        self.comboQueryCriticalValueSvP.configure(takefocus="")
-        self.comboQueryCriticalValueSvP.configure(values=arrQueryCriticalValue)
+        self.comboQueryCriticalValueSvP.place(relx = 0.24, rely = 0.01, height = 23, width = 106)
+        self.comboQueryCriticalValueSvP.configure(exportselection = "0")
+        self.comboQueryCriticalValueSvP.configure(takefocus = "")
+        self.comboQueryCriticalValueSvP.configure(values = arrQueryCriticalValue)
         self.comboQueryCriticalValueSvP.set(arrQueryCriticalValue[0])
-        self.comboQueryCriticalValueSvP.configure(state="disabled")
+        self.comboQueryCriticalValueSvP.configure(state = "disabled")
 
         self.labelQueryZTestSvP = Label(self.labelFrameQuerySvP)
-        self.labelQueryZTestSvP.place(relx=0.47, rely=0.01, height=26, width=240)
-        # self.labelQueryZTest.configure(background="#d9d9d9")
-        self.labelQueryZTestSvP.configure(disabledforeground="#a3a3a3")
-        self.labelQueryZTestSvP.configure(foreground="#000000")
-        self.labelQueryZTestSvP.configure(text='''NO DATA''')
-        self.labelQueryZTestSvP.configure(width=862)
-        self.labelQueryZTestSvP.configure(state="disabled")
+        self.labelQueryZTestSvP.place(relx = 0.47, rely = 0.01, height = 26, width = 240)
+        # self.labelQueryZTest.configure(background = "#d9d9d9")
+        self.labelQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
+        self.labelQueryZTestSvP.configure(foreground = "#000000")
+        self.labelQueryZTestSvP.configure(text = '''NO DATA''')
+        self.labelQueryZTestSvP.configure(width = 862)
+        self.labelQueryZTestSvP.configure(state = "disabled")
 
         self.buttonQueryZTestSvP = Button(self.labelFrameQuerySvP)
-        self.buttonQueryZTestSvP.place(relx=0.01, rely=0.01, height=23, width=106)
-        self.buttonQueryZTestSvP.configure(activebackground="#d9d9d9")
-        self.buttonQueryZTestSvP.configure(activeforeground="#000000")
-        self.buttonQueryZTestSvP.configure(background="#d9d9d9")
-        self.buttonQueryZTestSvP.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryZTestSvP.configure(foreground="#000000")
-        self.buttonQueryZTestSvP.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryZTestSvP.configure(highlightcolor="black")
-        self.buttonQueryZTestSvP.configure(pady="0")
-        self.buttonQueryZTestSvP.configure(text='''Test''')
-        self.buttonQueryZTestSvP.configure(width=106)
-        self.buttonQueryZTestSvP.configure(state="disabled")
+        self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 23, width = 106)
+        self.buttonQueryZTestSvP.configure(activebackground = "#d9d9d9")
+        self.buttonQueryZTestSvP.configure(activeforeground = "#000000")
+        self.buttonQueryZTestSvP.configure(background = "#d9d9d9")
+        self.buttonQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryZTestSvP.configure(foreground = "#000000")
+        self.buttonQueryZTestSvP.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryZTestSvP.configure(highlightcolor = "black")
+        self.buttonQueryZTestSvP.configure(pady = "0")
+        self.buttonQueryZTestSvP.configure(text = '''Test''')
+        self.buttonQueryZTestSvP.configure(width = 106)
+        self.buttonQueryZTestSvP.configure(state = "disabled")
 
         '''
-        BINDING FOR QUERY TAB
+        BINDING FOR TEST TAB
         '''
 
         self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
@@ -1525,6 +1211,58 @@ class OOTO_Miner:
         self.listQueryDataB.bind('<<ListboxSelect>>', self.setFocusFeatureValuesB)
         self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
 
+
+
+        '''
+        TAB 3 - INFO (Tabs_t4)
+        '''
+        self.infoTabParentFrame = LabelFrame(self.Tabs_t4, bd = 0)
+        self.infoTabParentFrame.place(relx = 0, rely = 0, relheight = 1, relwidth = 1)
+        self.infoTabLeftSeparator = ttk.Separator(self.infoTabParentFrame, orient=VERTICAL)
+        self.infoTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+
+        self.labelFrameAbout = LabelFrame(self.infoTabParentFrame)
+        self.labelFrameAbout.place(relx = 0.01, rely = 0.01, relheight = 0.19, relwidth = 0.98)
+        # self.labelFrameVariableDescriptor.configure(bd = 0)
+
+        self.labelFrameAbout.configure(foreground = _fgcolor)
+        self.labelFrameAbout.configure(text = '''About''')
+        self.labelFrameAbout.configure(background = _vardesc_bgcolor)
+
+        '''
+        strAbout = "OTOO Miner v4.0\n" \
+                   "by TE3D House\n" \
+                   "De La Salle University - Laguna"
+        tkMessageBox.showinfo("About", strAbout)
+        '''
+        self.labelVersion = Label(self.labelFrameAbout)
+        self.labelVersion.place(relx = 0.01, rely = 0.17, height = 26, width = 172)
+        self.labelVersion.configure(background = _label_bgcolor)
+        self.labelVersion.configure(disabledforeground = "#a3a3a3")
+        self.labelVersion.configure(foreground = "#000000")
+        self.labelVersion.configure(text = '''Version:''')
+        self.labelVersion.configure(width = 172)
+
+        self.labelVersionText = Label(self.labelFrameAbout)
+        self.labelVersionText.place(relx = 0.19, rely = 0.17, relheight = 0.21
+                                     , relwidth = 0.64)
+        self.labelVersionText.configure(background = "white")
+        self.labelVersionText.configure(disabledforeground = "#a3a3a3")
+        self.labelVersionText.configure(foreground = "#000000")
+        self.labelVersionText.configure(text = '''2.0.0''')
+        self.labelVersionText.configure(width = 624)
+
+
+
+
+
+        '''
+        BINDING FOR INFO TAB
+        '''
+
+        # self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
+        # self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
+
         #######################################
 
         global queryType
@@ -1539,8 +1277,8 @@ class OOTO_Miner:
         global tests
         tests = []
 
-        self.labelQueryDataACount.configure(text="n: " + str(len(self.datasetA['Data'])))
-        self.labelQueryDataBCount.configure(text="n: " + str(len(self.datasetB['Data']))) 
+        self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
+        self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data']))) 
 
         
 
@@ -1568,7 +1306,7 @@ class OOTO_Miner:
             elif(key == 'zArg'):
                 test['Z Critical Value'] = copy.copy(params[key])
         tests.append(test)
-        self.labelQueueCount.configure(text='Queue Count: ' + str(len(tests)))
+        self.labelQueueCount.configure(text = 'Queue Count: ' + str(len(tests)))
         tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
 
 
@@ -1608,8 +1346,8 @@ class OOTO_Miner:
         self.entryQueryPopulation.insert(0,populationDir)
 
         self.populationDataset = readCSVDict(populationDir)
-        self.datasetA['Data']=[]
-        self.datasetB['Data']=[]
+        self.datasetA['Data'] = []
+        self.datasetB['Data'] = []
 
         if(len(list(self.populationDataset)) > 0):
             tkMessageBox.showinfo("Population set", "Population dataset uploaded")
@@ -1617,8 +1355,8 @@ class OOTO_Miner:
             for record in self.populationDataset:
                 self.datasetA['Data'].append(record)
                 self.datasetB['Data'].append(record)
-            self.labelQueryDataACount.configure(text="n: " + str(len(self.datasetA['Data'])) )
-            self.labelQueryDataBCount.configure(text="n: " + str(len(self.datasetB['Data'])) )
+            self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])) )
+            self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])) )
         else:
             tkMessageBox.showerror("Error: Upload error", "Error uploading population dataset. Please try again.")
     
@@ -1633,7 +1371,7 @@ class OOTO_Miner:
         datasets.append(self.datasetB)
         global queryType
         if(queryType == 'Sample vs Sample'):
-            self.addToQueue(queryType, datasetArgs=datasets)
+            self.addToQueue(queryType, datasetArgs = datasets)
         else:
             tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
     
@@ -1649,7 +1387,7 @@ class OOTO_Miner:
         for test in tests:
             fileNames = []
             if(test['Type'] == 'Sample vs Sample'):
-                i += 1
+                i +=  1
                 for dataset in test['Datasets']:
                     convertDatasetValuesToGroups(dataset, features)
                     fileName = makeFileName(dataset)
@@ -1668,7 +1406,7 @@ class OOTO_Miner:
     '''
     def clearQueue(self, evt):
         tests[:] = []
-        self.labelQueueCount.configure(text='Queue Count: ' + str(len(tests)))
+        self.labelQueueCount.configure(text = 'Queue Count: ' + str(len(tests)))
         tkMessageBox.showinfo("Reset", "Queue cleared.")
     '''
     def resetViews(self):
@@ -1676,13 +1414,13 @@ class OOTO_Miner:
         global selectedFocusFeature
         global allValues
         sampleFeature = ''
-        selectedFocusFeature=''
+        selectedFocusFeature = ''
         allValues = ''
         self.entryFeatA.delete(0,END)
         self.entryFeatB.delete(0,END)
         self.entryFocus.delete(0,END)
-        self.labelFeatACount.configure(text='Dataset Count: '+ str(0))
-        self.labelFeatBCount.configure(text='Dataset Count: '+ str(0))
+        self.labelFeatACount.configure(text = 'Dataset Count: '+ str(0))
+        self.labelFeatBCount.configure(text = 'Dataset Count: '+ str(0))
         self.listFeatA.delete(0, END)
         self.listFeatB.delete(0, END)
         self.listAttributes.delete(0,END)
@@ -1698,60 +1436,60 @@ class OOTO_Miner:
     # DISABLE BUTTONS/ENTRIES BASED ON TEST SELECTED
     def adjustViews(self):
         # ["Chi-test","Z-score statistics of pooled proportions","Standard Error of Population"]
-        self.buttonGetFeat.configure(state='normal')
-        self.labelZCriticalValue.configure(state='normal')
-        self.labelFeature.configure(state='normal')
-        self.buttonGetFeat.configure(state='normal')
-        self.buttonSample.configure(state='normal')
-        self.entrySample.configure(state='normal')
-        self.comboCriticalValue.configure(state='readonly')
-        self.entryFocus.configure(state='normal')
+        self.buttonGetFeat.configure(state = 'normal')
+        self.labelZCriticalValue.configure(state = 'normal')
+        self.labelFeature.configure(state = 'normal')
+        self.buttonGetFeat.configure(state = 'normal')
+        self.buttonSample.configure(state = 'normal')
+        self.entrySample.configure(state = 'normal')
+        self.comboCriticalValue.configure(state = 'readonly')
+        self.entryFocus.configure(state = 'normal')
         self.entryFocus.delete(0, END)
-        self.entryFeatA.configure(state='normal')
+        self.entryFeatA.configure(state = 'normal')
         self.entryFeatA.delete(0, END)
-        self.entryFeatB.configure(state='normal')
+        self.entryFeatB.configure(state = 'normal')
         self.entryFeatB.delete(0, END)
-        self.buttonShowA.configure(state='normal')
-        self.buttonShowB.configure(state='normal')
+        self.buttonShowA.configure(state = 'normal')
+        self.buttonShowB.configure(state = 'normal')
 
         # UNLOCK WHEN TEST SELECTED
-        self.entryVariableFile.configure(state='normal')
+        self.entryVariableFile.configure(state = 'normal')
         self.entryVariableFile.delete(0, END)
-        self.entryPopulation.configure(state='normal')
-        self.buttonPopulation.configure(state='normal')
-        #self.buttonTest.configure(state='normal')
-        self.buttonTestQueue.configure(state='normal')
-        self.buttonPopulation.configure(state='normal')
-        self.buttonClearQueue.configure(state='normal')
-        self.buttonQueue.configure(state='normal')
-        self.buttonSaveDatasets.configure(state='normal')
-        self.listAttributes.configure(state='normal')
+        self.entryPopulation.configure(state = 'normal')
+        self.buttonPopulation.configure(state = 'normal')
+        #self.buttonTest.configure(state = 'normal')
+        self.buttonTestQueue.configure(state = 'normal')
+        self.buttonPopulation.configure(state = 'normal')
+        self.buttonClearQueue.configure(state = 'normal')
+        self.buttonQueue.configure(state = 'normal')
+        self.buttonSaveDatasets.configure(state = 'normal')
+        self.listAttributes.configure(state = 'normal')
         self.listAttributes.delete(0, END)
-        self.listFeatA.configure(state='normal')
+        self.listFeatA.configure(state = 'normal')
         self.listFeatA.delete(0, END)
-        self.listFeatB.configure(state='normal')
+        self.listFeatB.configure(state = 'normal')
         self.listFeatA.delete(0, END)
-        self.comboCriticalValue.configure(state='readonly')
+        self.comboCriticalValue.configure(state = 'readonly')
         if testType == 'Chi-test':
-            self.buttonGetFeat.configure(state='disabled')
-            self.labelZCriticalValue.configure(state='disabled')
-            self.labelFeature.configure(state='disabled')
-            self.buttonGetFeat.configure(state='disabled')
-            self.buttonSample.configure(state='disabled')
-            self.comboCriticalValue.configure(state='disabled')
-            self.entryFocus.configure(state='disabled')
-            self.entrySample.configure(state='disabled')
-            self.entryFocus.configure(state='disabled')
+            self.buttonGetFeat.configure(state = 'disabled')
+            self.labelZCriticalValue.configure(state = 'disabled')
+            self.labelFeature.configure(state = 'disabled')
+            self.buttonGetFeat.configure(state = 'disabled')
+            self.buttonSample.configure(state = 'disabled')
+            self.comboCriticalValue.configure(state = 'disabled')
+            self.entryFocus.configure(state = 'disabled')
+            self.entrySample.configure(state = 'disabled')
+            self.entryFocus.configure(state = 'disabled')
         elif testType == 'Sample vs Sample':
-            self.buttonSample.configure(state='disabled')
-            self.entrySample.configure(state='disabled')
-            self.comboCriticalValue.configure(state='disabled')
+            self.buttonSample.configure(state = 'disabled')
+            self.entrySample.configure(state = 'disabled')
+            self.comboCriticalValue.configure(state = 'disabled')
         elif testType == 'Sample vs Population':
-            self.comboCriticalValue.configure(state='readonly')
-            self.entryFeatA.configure(state='disabled')
-            self.entryFeatB.configure(state='disabled')
-            self.buttonShowA.configure(state='disabled')
-            self.buttonShowB.configure(state='disabled')
+            self.comboCriticalValue.configure(state = 'readonly')
+            self.entryFeatA.configure(state = 'disabled')
+            self.entryFeatB.configure(state = 'disabled')
+            self.buttonShowA.configure(state = 'disabled')
+            self.buttonShowB.configure(state = 'disabled')
     '''
     '''
     QUERY FUNCTIONS
@@ -1780,22 +1518,22 @@ class OOTO_Miner:
 
     def queryResetDatasetA(self,evt):
         self.datasetA = resetDataset(self.datasetA)
-        self.entryQuerySetDataA.configure(text='')
-        self.entryQueryFeatureA.configure(text='')
-        self.labelFrameQueryDataA.configure(text="Dataset A")
-        self.labelQueryDataACount.configure(text="n: " + str(len(self.datasetA['Data'])))
-        self.labelQueryDataA.configure(text="")
+        self.entryQuerySetDataA.configure(text = '')
+        self.entryQueryFeatureA.configure(text = '')
+        self.labelFrameQueryDataA.configure(text = "Dataset A")
+        self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
+        self.labelQueryDataA.configure(text = "")
         self.listQueryDataA.delete(0,END)
         self.listQuerySetDataA.delete(0,END)
 
     
     def queryResetDatasetB(self,evt):
         self.datasetB = resetDataset(self.datasetB)
-        self.entryQuerySetDataB.configure(text='')
-        self.entryQueryFeatureB.configure(text='')
-        self.labelFrameQueryDataB.configure(text="Dataset B")
-        self.labelQueryDataBCount.configure(text="n: " + str(len(self.datasetB['Data'])))
-        self.labelQueryDataB.configure(text="")
+        self.entryQuerySetDataB.configure(text = '')
+        self.entryQueryFeatureB.configure(text = '')
+        self.labelFrameQueryDataB.configure(text = "Dataset B")
+        self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
+        self.labelQueryDataB.configure(text = "")
         self.listQueryDataB.delete(0,END)
         self.listQuerySetDataB.delete(0,END)
     
@@ -1840,7 +1578,7 @@ class OOTO_Miner:
                 if j == (len(self.datasetA['Filter Features'][i]['Selected Responses'])-1):
                     queryStrFilterA = queryStrFilterA + ")"
                     
-        self.labelFrameQueryDataA.configure(text=queryStrFilterA)
+        self.labelFrameQueryDataA.configure(text = queryStrFilterA)
 
     def queryAddFilterB(self, evt):
 
@@ -1878,7 +1616,7 @@ class OOTO_Miner:
                     queryStrFilterB = queryStrFilterB + ")"
 
         # Concat the Filter String Here
-        self.labelFrameQueryDataB.configure(text=queryStrFilterB)
+        self.labelFrameQueryDataB.configure(text = queryStrFilterB)
 
 
     def querySetFeatureA(self, evt):
@@ -1940,7 +1678,7 @@ class OOTO_Miner:
             #Get result if accept/reject compared to the zCritical value
             zResult = svs.compareZtoZCritical(zScore, zCritical)
             #Display Z score and whether accept/reject at inputted confidence interval
-            self.labelQueryZTest.configure(text='Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
+            self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
 
     #Conduct Z-Test between the population and all samples
     def querySVP(self,evt):
@@ -2006,65 +1744,65 @@ class OOTO_Miner:
     Disables/enables views (buttons, entry fields etc.) based on test type selected
     '''
     def adjustQueryViews(self):
-        self.buttonQueryFeatureA.configure(state="normal")
-        self.buttonQueryFeatureB.configure(state="normal")
-        self.entryQueryFeatureA.configure(state="normal")
-        self.entryQueryFeatureB.configure(state="normal")
-        self.buttonQueryZTest.configure(state="normal")
-        self.comboQueryCriticalValue.configure(state="normal")
-        self.buttonQueue.configure(state="normal")
-        self.buttonClearQueue.configure(state="normal")
-        self.buttonTestQueue.configure(state="normal")
-        #self.buttonTest.configure(state="normal")
-        self.labelQueryZTest.configure(state="normal")
-        self.labelQueryDataA.configure(state="normal")
-        self.labelQueryDataB.configure(state="normal")
-        self.buttonQueryZTestSvP.configure(state="normal")
-        self.comboQueryCriticalValueSvP.configure(state="normal")
-        self.labelQueryZTestSvP.configure(state="normal")
-        self.listQueryDataA.configure(state="normal")
-        self.listQueryDataB.configure(state="normal")
+        self.buttonQueryFeatureA.configure(state = "normal")
+        self.buttonQueryFeatureB.configure(state = "normal")
+        self.entryQueryFeatureA.configure(state = "normal")
+        self.entryQueryFeatureB.configure(state = "normal")
+        self.buttonQueryZTest.configure(state = "normal")
+        self.comboQueryCriticalValue.configure(state = "normal")
+        self.buttonQueue.configure(state = "normal")
+        self.buttonClearQueue.configure(state = "normal")
+        self.buttonTestQueue.configure(state = "normal")
+        #self.buttonTest.configure(state = "normal")
+        self.labelQueryZTest.configure(state = "normal")
+        self.labelQueryDataA.configure(state = "normal")
+        self.labelQueryDataB.configure(state = "normal")
+        self.buttonQueryZTestSvP.configure(state = "normal")
+        self.comboQueryCriticalValueSvP.configure(state = "normal")
+        self.labelQueryZTestSvP.configure(state = "normal")
+        self.listQueryDataA.configure(state = "normal")
+        self.listQueryDataB.configure(state = "normal")
 
         self.datasetA = resetDataset(self.datasetA)
-        self.entryQuerySetDataA.configure(text='')
-        self.entryQueryFeatureA.configure(text='')
-        self.labelQueryDataACount.configure(text="n: " + str(len(self.datasetA['Data'])))
-        self.labelQueryDataA.configure(text="")
+        self.entryQuerySetDataA.configure(text = '')
+        self.entryQueryFeatureA.configure(text = '')
+        self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
+        self.labelQueryDataA.configure(text = "")
         self.listQueryDataA.delete(0,END)
         self.listQuerySetDataA.delete(0,END)
 
         self.datasetB = resetDataset(self.datasetB)
-        self.entryQuerySetDataB.configure(text='')
-        self.entryQueryFeatureB.configure(text='')
-        self.labelQueryDataBCount.configure(text="n: " + str(len(self.datasetB['Data'])))
-        self.labelQueryDataB.configure(text="")
+        self.entryQuerySetDataB.configure(text = '')
+        self.entryQueryFeatureB.configure(text = '')
+        self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
+        self.labelQueryDataB.configure(text = "")
         self.listQueryDataB.delete(0,END)
         self.listQuerySetDataB.delete(0,END)
 
         if queryType == 'Sample vs Population':
-            self.buttonQueryFeatureA.configure(state="disabled")
-            self.buttonQueryFeatureB.configure(state="disabled")
-            self.entryQueryFeatureA.configure(state="disabled")
-            self.entryQueryFeatureB.configure(state="disabled")
-            self.buttonQueryZTest.configure(state="disabled")
-            self.comboQueryCriticalValue.configure(state="disabled")
-            self.buttonQueue.configure(state="disabled")
-            self.buttonClearQueue.configure(state="disabled")
-            self.buttonTestQueue.configure(state="disabled")
-            #self.buttonTest.configure(state="disabled")
-            self.labelQueryZTest.configure(state="disabled")
-            self.labelQueryDataA.configure(state="disabled")
-            self.labelQueryDataB.configure(state="disabled")
-            self.listQueryDataA.configure(state="disabled")
-            self.labelFrameQueryDataA.configure(text="Population")
-            self.labelFrameQueryDataB.configure(text="Samples")
-            self.labelQueryDataBCount.configure(text="")
+            self.buttonQueryFeatureA.configure(state = "disabled")
+            self.buttonQueryFeatureB.configure(state = "disabled")
+            self.entryQueryFeatureA.configure(state = "disabled")
+            self.entryQueryFeatureB.configure(state = "disabled")
+            self.buttonQueryZTest.configure(state = "disabled")
+            self.comboQueryCriticalValue.configure(state = "disabled")
+            self.buttonQueue.configure(state = "disabled")
+            self.buttonClearQueue.configure(state = "disabled")
+            self.buttonTestQueue.configure(state = "disabled")
+            #self.buttonTest.configure(state = "disabled")
+            self.labelQueryZTest.configure(state = "disabled")
+            self.labelQueryDataA.configure(state = "disabled")
+            self.labelQueryDataB.configure(state = "disabled")
+            self.listQueryDataA.configure(state = "disabled")
+            self.labelFrameQueryDataA.configure(text = "Population")
+            self.labelFrameQueryDataB.configure(text = "Samples")
+            self.labelQueryDataBCount.configure(text = "")
         else:
-            self.buttonQueryZTestSvP.configure(state="disabled")
-            self.comboQueryCriticalValueSvP.configure(state="disabled")
-            self.labelQueryZTestSvP.configure(state="disabled")
-            self.labelFrameQueryDataA.configure(text="Dataset A")
-            self.labelFrameQueryDataB.configure(text="Dataset B")
+            self.buttonQueryZTestSvP.configure(state = "disabled")
+            self.comboQueryCriticalValueSvP.configure(state = "disabled")
+            self.labelQueryZTestSvP.configure(state = "disabled")
+            self.labelFrameQueryDataA.configure(text = "Dataset A")
+            self.labelFrameQueryDataB.configure(text = "Dataset B")
 
     def querySetAllFeatures(self):
         #Test items
