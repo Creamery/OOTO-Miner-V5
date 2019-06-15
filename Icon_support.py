@@ -9,7 +9,7 @@ import PIL.ImageTk
 # Define values
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-TAB_ICO_SIZE = (50, 50)
+TAB_ICO_SIZE = (61, 60)
 
 
 

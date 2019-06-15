@@ -562,9 +562,7 @@ class OOTO_Miner:
             foreground = _fgcolor,
             borderwidth = 0,
             tabposition = 'wn',
-
-            width = Icon_support.TAB_ICO_SIZE,
-            height = Icon_support.TAB_ICO_SIZE)
+            height = 50)
 
         
         self.style.map("Tab",
