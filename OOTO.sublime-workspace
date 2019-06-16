@@ -1,1 +1,654 @@
-{}
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"highli",
+				"highlightcolor"
+			],
+			[
+				"rel",
+				"relx"
+			],
+			[
+				"disable",
+				"disabled"
+			],
+			[
+				"TAB",
+				"TAB_ICO_SIZE"
+			],
+			[
+				"Colors",
+				"Color_support"
+			],
+			[
+				"back",
+				"background"
+			],
+			[
+				"L",
+				"L_GRAY"
+			],
+			[
+				"select",
+				"selectbackground"
+			],
+			[
+				"color",
+				"Color_support"
+			],
+			[
+				"_bgc",
+				"_vardesc_bgcolor"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "OOTO.py",
+			"settings":
+			{
+				"buffer_size": 92015,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "UI_support.py",
+			"settings":
+			{
+				"buffer_size": 2359,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Color_support.py",
+			"settings":
+			{
+				"buffer_size": 1258,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Icon_support.py",
+			"settings":
+			{
+				"buffer_size": 379,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/Python/Python.sublime-build",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				"Syntax Check"
+			]
+		]
+	],
+	"build_varint": "Syntax Check",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Candy/Documents/GitHub/OOTO Miner Python v2"
+	],
+	"file_history":
+	[
+		"/D/Candy/Documents/GitHub/OOTO Miner Python v2/Mother_support.py",
+		"/D/Candy/Documents/GitHub/OOTO Miner Python v2/Color_support.py",
+		"/D/Candy/Documents/GitHub/OOTO Miner Python v2/Colors_support.py",
+		"/D/Candy/Documents/GitHub/OOTO Miner Python v2/OOTO.sublime-project",
+		"/C/Users/Candy/Downloads/citation-317722957.txt",
+		"/C/Users/Candy/Downloads/citation-323491932.txt",
+		"/C/Users/Candy/Downloads/citation-324622699.txt",
+		"/D/Candy/Documents/GitHub/OOTO-Miner-Python/README.md",
+		"/D/Candy/Documents/GitHub/OOTO-Miner-Python/Variable and Values Files/Values File UNICEF.txt",
+		"/D/Candy/Downloads/Review for Shared authority mode in Uncertain Situation.txt",
+		"/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/AFFECTV Notes.txt",
+		"/C/Users/Candy/.conda/environments.txt",
+		"/C/Users/Candy/Downloads/Disgust.xml",
+		"/C/Users/Candy/.RapidMiner/repositories/Local Repository/_processes/2.0 Processes/2.0 Model Building/3.0 PCA/1.0 kNN.properties",
+		"/C/HaxLogs.txt",
+		"/D/Candy/Downloads/Per Video Overview.txt",
+		"/D/Candy/Downloads/codesnippet.txt",
+		"/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/DSP Notes.txt",
+		"/C/Users/Candy/Documents/GitHub/PROGLAN_MP/PROGLAN_MP/_Test Watch.txt",
+		"/D/Wonderland/Wonderland Roulette.txt",
+		"/D/Candy/Documents/School/MSCS Term 2/Digital Signal Processing (DSP)/Octave/FinalProject/Scripts/App/FinalProject/for_testing/readme.txt",
+		"/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/DSP Bounds.txt",
+		"/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/P_20190329_201526_Info (Neil).txt",
+		"/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/P_20190401_222327_Info (Gab).txt",
+		"/C/Users/Candy/Documents/GitHub/PROGLAN_MP/PROGLAN_MP/testcases/[TestCase] Fibonacci.txt",
+		"/C/Users/Candy/Documents/GitHub/PROGLAN_MP/PROGLAN_MP/testcases/[TestCase] Count to Ten.txt",
+		"/D/Candy/Documents/School/MSCS Term 2/Digital Signal Processing (DSP)/Octave/FinalProject/Scripts/ImageTargetRecognizerTest.m",
+		"/C/Users/Candy/AppData/Local/Temp/Temp1_FinalProject.zip/matlab/document.xml",
+		"/C/Users/Candy/AppData/Local/Temp/Temp1_FinalProject_Copy.zip/metadata/appMetadata.xml",
+		"/C/Users/Candy/AppData/Local/Temp/Temp1_FinalProject_Copy.zip/matlab/document.xml",
+		"/D/Candy/Documents/School/MSCS Term 2/Digital Signal Processing (DSP)/Octave/FinalProject/Scripts/FinalProject.mlapp",
+		"/D/Users/Candy/Documents/SmartBody/data/_Project1/assets/scripts/configure.py",
+		"/D/Users/Candy/Documents/SmartBody/data/_Project1/scripts/createPawn.py",
+		"/D/Users/Candy/Documents/SmartBody/data/_Project1/assets/scripts/loadAssets.py",
+		"/C/Users/Candy/Documents/GitHub/PROGLAN_MP/PROGLAN_MP/testcases/TestCase1.txt",
+		"/C/Users/Candy/Documents/GitHub/PROGLAN_MP/PROGLAN_MP/testcases/[TestCase] Looping Scanner.txt",
+		"/D/Users/Candy/Documents/SmartBody/data/_Project1/scripts/configure.py",
+		"/D/Users/Candy/Documents/SmartBody/data/_Project1/configure.py",
+		"/D/Users/Candy/Documents/SmartBody/data/examples/AddCharacterDemo.py",
+		"/D/Users/Candy/Documents/SmartBody/data/_Project1/scripts/addCharacterDemo.py",
+		"/D/Users/Candy/Documents/SmartBody/data/trial/loadAsset.py",
+		"/D/Candy/Documents/School/MSCS Term 1/THESIS/Datasets/FINAL_TURK_RESULTS/README.txt",
+		"/D/Candy/Documents/School/MSCS Term 2/Digital Signal Processing (DSP)/Article Review/DSP Article Review Notes.txt",
+		"/D/Candy/Music/MIDI/Software/qsynth-0.5.4/qsynth-0.5.4/README",
+		"/D/Candy/Documents/Installers/Sony Vegas Pro 13.0 build 310 (64 bit) (patch KHG) [ChingLiu]/How To Open Nfo Files.txt",
+		"/D/Candy/Documents/Installers/Sony Vegas Pro 13.0 build 310 (64 bit) (patch KHG) [ChingLiu]/ChingLiu.Install.Notes.nfo",
+		"/D/Candy/Documents/Installers/Adobe After Effects CS6 11.0.0.378 LS7 Multilanguage [ChingLiu]/ChingLiu.Notes.nfo",
+		"/D/Candy/Documents/School/MSCS Term 1/METHODS/_Pictures and Figures/Set 2/Captions/shot_4_samples/shot_4-3_json.json",
+		"/D/Candy/Documents/School/MSCS Term 1/METHODS/_Pictures and Figures/Set 2/Captions/shot_4_samples/shot_4-1_json.json",
+		"/D/Candy/Downloads/train-images-idx3-ubyte/makeTrainDataForNeural2d.py",
+		"/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/RA.txt",
+		"/D/Candy/Downloads/Wonderland Write-up.txt",
+		"/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/RA 2.txt",
+		"/D/Candy/Downloads/citation-220355341.txt",
+		"/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/RA Password Encrypter.txt",
+		"/D/Candy/Documents/School/MSCS Term 2/Digital Signal Processing (DSP)/Research Paper/Articles/Definitions/Definition Notes.txt",
+		"/D/Candy/Documents/Installers/Adobe After Effects CS6 11.0.0.378 LS7 Multilanguage [ChingLiu]/How To Open Nfo Files.txt",
+		"/D/Candy/Documents/School/MSCS Term 2/Digital Signal Processing (DSP)/Octave/MP2/MATLAB/Crack/Readme.txt",
+		"/D/Candy/Documents/School/MSCS Term 2/Digital Signal Processing (DSP)/Octave/MP1/Current Scripts/Speech samples.txt",
+		"/C/Users/Candy/sample-data.txt",
+		"/D/Candy/Music/MIDI/Software/qsynth-0.5.4/qsynth-0.5.4/CMakeLists.txt",
+		"/D/Candy/Fonts/LICENSE.txt",
+		"/D/Candy/Documents/Android/GeeBeeView/GeeBeeView/app/build/outputs/apk/debug/output.json",
+		"/D/Candy/Documents/Android/GeeBeeView/GeeBeeView/app/src/main/res/layout/activity_view_patient.xml",
+		"/D/Candy/Documents/Android/GeeBeeView/GeeBeeView/app/src/main/res/layout/sidebar_patient.xml",
+		"/D/Candy/Documents/School/LHU/IMO Accredited Clinic Appointment.txt",
+		"/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/RA",
+		"/D/Candy/Downloads/train-images-idx3-ubyte/inputData-mnist.txt",
+		"/D/Candy/Documents/GitHub/DigitRecognizer/README.md",
+		"/D/Candy/Documents/GitHub/DigitRecognizer/pom.xml",
+		"/D/Candy/Documents/School/MSCS Term 1/AUTOMAT/README ME FIRST.TXT",
+		"/D/Candy/Documents/School/MSCS Term 1/AUTOMAT/ChangeLog.txt",
+		"/D/Python27/README.txt",
+		"/D/Python27/Lib/site-packages/README.txt",
+		"/D/Candy/Documents/School/RESUME/Additional Info (R.A.).txt",
+		"/D/Candy/Pictures/Icons/Black/IMPORTANT!!!! READ ME.txt",
+		"/D/Candy/Pictures/Cursors/ML Blau 3/_How to install.txt",
+		"/D/Candy/Documents/GitHub/DistributedSelectionSort/src/com/network/MainClient.java",
+		"/D/Candy/Downloads/citation-318739069.txt",
+		"/D/Candy/Downloads/citation-2904288.txt",
+		"/D/Candy/Downloads/citation-268689555.txt",
+		"/D/Candy/Downloads/citation-306146231.txt",
+		"/D/Candy/Documents/School/MSCS Term 1/METHODS/_Pictures and Figures/Disconnect/Set 2/Captions/shot_4/shot_4-1_json.json",
+		"/D/Candy/Downloads/Test.md",
+		"/C/Users/Candy/Documents/Installers/VMware Workstation 10/serials.txt",
+		"/D/Candy/Downloads/citation-305912913.txt",
+		"/D/Candy/Downloads/citation-266096735.txt",
+		"/D/Candy/Documents/School/MSCS Term 1/METHODS/_Python/Screenshot (177).json",
+		"/D/Candy/Documents/School/MSCS Term 1/METHODS/_Pictures and Figures/Disconnect/Captions/shot_1/shot_1_1_json.json",
+		"/D/Candy/Documents/School/MSCS Term 1/METHODS/Python/DenseCap_Trial.py",
+		"/C/Users/Candy/.idlerc/config-main.cfg",
+		"/D/Candy/Downloads/citation-305912913 (1).txt",
+		"/D/Candy/Downloads/_Costs.txt",
+		"/D/Candy/Documents/School/MSCS Term 1/OPERSYS/Parallel Selection Sort Time.txt",
+		"/D/Candy/Downloads/citation-322083844.txt",
+		"/D/Candy/Downloads/citation-288156361.txt",
+		"/D/Candy/Downloads/M-VAD-2015-05-06/M-VAD/srt_files/test_srt/test_srt/BIG_MOMMAS_LIKE_FATHER_LIKE_SON.srt",
+		"/D/Candy/Documents/School/MSCS Term 1/AUTOMAT/Deliverables (Testing Fundamentals)/Kara/AUTOMAT_MP2.world",
+		"/D/Candy/Documents/School/MSCS Term 1/AUTOMAT/Deliverables (Testing Fundamentals)/Kara/AUTOMAT_MP2_program_multiply_final.kara",
+		"/D/Candy/Downloads/citation-327549939.txt",
+		"/D/darknet/README.md",
+		"/C/Users/Candy/Documents/AUTOMAT_MP2_program.kara",
+		"/C/Users/Candy/Documents/AUTOMAT_MP2_program_multiply.kara",
+		"/C/Users/Candy/Documents/AUTOMAT_MP2.world",
+		"/C/Users/Candy/Documents/AUTOMAT_MP1_program.kara",
+		"/C/Users/Candy/Documents/AUTOMAT_MP1.world",
+		"/C/Users/Candy/Desktop/README.txt",
+		"/D/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/data/build_mscoco_data.py",
+		"/D/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/train.py",
+		"/D/venv/Lib/site-packages/tensorflow/models/research/im2txt/run_inference_custom.py",
+		"/D/Candy/Downloads/AUTOMAT Exercise Answers.txt",
+		"/D/Candy/Downloads/AUTOMAT Exercise.txt",
+		"/D/Candy/Downloads/citation-320575653.txt",
+		"/D/venv/Lib/site-packages/tensorflow/models/research/im2txt/train.py",
+		"/D/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/run_inference_custom.py",
+		"/D/venv/Lib/site-packages/tensorflow/python/util/compat.py",
+		"/D/Candy/Downloads/cloudy_vision-master/cloudy_vision-master/api_keys.json",
+		"/D/Candy/Downloads/cloudy_vision-master/cloudy_vision-master/readme.md",
+		"/D/Candy/Downloads/cloudy_vision-master/cloudy_vision-master/requirements.txt",
+		"/D/Candy/Downloads/models-master/models-master/research/im2txt/README.md",
+		"/D/venv/Lib/site-packages/tensorflow/models/research/im2txt/README.md",
+		"/D/venv/st.py",
+		"/D/venv/coco.bat",
+		"/D/tmp/word_counts.txt",
+		"/D/tmp/test-00000-of-00008",
+		"/D/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/data/download_and_preprocess_mscoco.sh",
+		"/D/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/data/mscoco/raw-data/download_and_preprocess_mscoco.sh",
+		"/D/venv/pip-selfcheck.json"
+	],
+	"find":
+	{
+		"height": 40.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"querypopulat",
+			"start",
+			"makeInitialVarDesc",
+			"VARDESC_BTN_BG",
+			"population data",
+			"population",
+			"# TODO",
+			"@ TODO",
+			"# TODO",
+			"VARDESC_BTN_BG_ACTIVE",
+			"# TODO",
+			"disabledbac",
+			"button",
+			"background",
+			"disabledba",
+			"# TODO",
+			"disable",
+			"getValuesFile",
+			"VARDESC",
+			"activeb",
+			"VARDESC_BTN_BG_ACTIVE",
+			"activeba",
+			"DATASET_BTN_BG",
+			"DATASET_BTN_BG_ACTIVE",
+			"buttonInitialVarDesc",
+			"DATASET_BTN_BG",
+			"LIME",
+			"_bgco",
+			"_fgcolor",
+			"style.conf",
+			"'.'",
+			"button",
+			"padd",
+			"top",
+			"height \"",
+			"print",
+			"place_inf",
+			"print_info",
+			"print",
+			"START",
+			"print",
+			"DATASET_BG",
+			"TAB_BG_COLOR",
+			"Tabs_t2",
+			"DATASET_BG",
+			"TAB_DATASET_REL_W",
+			"0.80",
+			"TAB_DATASET_REL_W",
+			"labelFrameDatasetElements",
+			"labelFrameVarDescElements",
+			"####",
+			"buttonVariableFile",
+			"labelFrameVarDescElements",
+			"label",
+			"VDATASET_BG",
+			"VARDESC",
+			"TAB_DATASET_REL_X",
+			"TITLE_VARDESC",
+			"DATASET_LBL_FG",
+			"VARDESC",
+			"TAB_3CHILD_LBL_REL_Y",
+			"\nTAB_3CHILD_LBL_REL_Y",
+			"\nTAB_3CHILD_LBL_REL_Y = 0.02",
+			"TAB_CHILD_LBL_REL_Y",
+			"TAB_3CHILD_LBL_REL_H",
+			"prevEntryRelY",
+			"BTN_V",
+			"TAB_VARDESC_REL_W",
+			"TAB_REL_W",
+			"TAB_CHILD_STR_REL_H",
+			"TAB_ABOUT_REL_H",
+			"ELEMENTS",
+			"TAB_ABOUT_REL_H",
+			"TAB_VARDESC_REL_H",
+			"TAB_REL_H",
+			"TAB_VARDESC_REL_H",
+			"TITLE_VARDESC",
+			"TAB_3CHILD_ENTRY_REL_X",
+			"STR",
+			"ELEMENTS",
+			"_fgco",
+			"ABOUT",
+			"? TAB 3",
+			"separato",
+			"separat",
+			"TAB 1 -",
+			"> ABOU",
+			"self.tabs",
+			"tabs",
+			"Lbl",
+			"CHILD",
+			"Author",
+			"Version",
+			"padding",
+			"self.tabs",
+			"TAB_ICO",
+			"\"Tab",
+			"tab",
+			"0.01",
+			"D_BL",
+			"canvas",
+			"root = ",
+			"init",
+			"inactiv",
+			"theme_u",
+			"style",
+			"alt",
+			"pack",
+			"select",
+			"\"Ta",
+			"Tabs_t2",
+			"vardesc_bg",
+			"_vardesc_bgcolor",
+			"black",
+			"pack",
+			"sticky",
+			"tabbut",
+			"rel",
+			"_bgcol",
+			"TNotebook",
+			")\n",
+			"')\n",
+			"Tnote",
+			"theme_",
+			"use",
+			"style",
+			"tab",
+			"left"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"START",
+			"DATASET",
+			"ENTRY",
+			"BTN",
+			"VARDESC",
+			"Str",
+			"ABOUT",
+			"Affiliation",
+			"Author",
+			"<= ",
+			"<=",
+			"+=",
+			"!= ",
+			"!=",
+			" == ",
+			"==",
+			" = ",
+			"=",
+			" = "
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "OOTO.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 92015,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								70723,
+								70723
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 18034.4,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "UI_support.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2359,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								440,
+								440
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 78.4,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Color_support.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1258,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								470,
+								484
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 274.4,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Icon_support.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 379,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								76,
+								76
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 22.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 96.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "OOTO.sublime-project",
+	"replace":
+	{
+		"height": 70.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 65.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
