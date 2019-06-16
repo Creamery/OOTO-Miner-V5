@@ -1248,11 +1248,20 @@ class OOTO_Miner:
             relx = UI_support.TAB_ABOUT_REL_X, rely = UI_support.TAB_ABOUT_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
             relwidth = UI_support.TAB_ABOUT_REL_W, relheight = UI_support.TAB_ABOUT_REL_H)
 
+        # Create the About element parent frame
+        self.labelFrameAboutElements = LabelFrame(self.labelFrameAbout, bd = 0)
+        self.labelFrameAboutElements.configure(
+            background = Color_support.ABOUT_BG, foreground = _fgcolor)
+        self.labelFrameAboutElements.place(
+            relx = 0, rely = 0.1,
+            relwidth = 1, relheight = 0.80)
+
+
         # > ABOUT ELEMENTS
         # Version label
-        self.labelVersion = Label(self.labelFrameAbout)
+        self.labelVersion = Label(self.labelFrameAboutElements)
         self.labelVersion.place(
-            relx = UI_support.TAB_CHILD_LBL_REL_X, rely = UI_support.TAB_CHILD_LBL_REL_Y + (4 * UI_support.TAB_CHILD_PADDING_TOP),
+            relx = UI_support.TAB_CHILD_LBL_REL_X, rely = UI_support.TAB_CHILD_LBL_REL_Y,
             relwidth = UI_support.TAB_CHILD_LBL_REL_W, relheight = UI_support.TAB_CHILD_LBL_REL_H)
         self.labelVersion.configure(
             background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG, text = UI_support.LBL_ABOUT_VER,
@@ -1260,7 +1269,7 @@ class OOTO_Miner:
             bd = 1)
 
         # Version text
-        self.labelVersionText = Label(self.labelFrameAbout)
+        self.labelVersionText = Label(self.labelFrameAboutElements)
         self.labelVersionText.place(
             relx = UI_support.TAB_CHILD_STR_REL_X, rely = float(self.labelVersion.place_info()['rely']),
             relwidth = UI_support.TAB_CHILD_STR_REL_W, relheight = UI_support.TAB_CHILD_STR_REL_H)
@@ -1283,8 +1292,9 @@ class OOTO_Miner:
         prevStrRelH = float(self.labelVersionText.place_info()['relheight'])
 
         newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
+
         # Author label
-        self.labelAuthor = Label(self.labelFrameAbout)
+        self.labelAuthor = Label(self.labelFrameAboutElements)
         self.labelAuthor.place(
             relx = prevLblRelX, rely = newRelY,
             relwidth = prevLblRelW, relheight = prevLblRelH)
@@ -1293,7 +1303,7 @@ class OOTO_Miner:
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
         # Author text
-        self.labelAuthorText = Label(self.labelFrameAbout)
+        self.labelAuthorText = Label(self.labelFrameAboutElements)
         self.labelAuthorText.place(
             relx = prevStrRelX, rely = newRelY,
             relwidth = prevStrRelW, relheight = prevStrRelH)
@@ -1309,7 +1319,7 @@ class OOTO_Miner:
         newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
 
         # Affiliation label
-        self.labelAffiliation = Label(self.labelFrameAbout)
+        self.labelAffiliation = Label(self.labelFrameAboutElements)
         self.labelAffiliation.place(
             relx = prevLblRelX, rely = newRelY,
             relwidth = prevLblRelW, relheight = prevLblRelH)
@@ -1318,7 +1328,7 @@ class OOTO_Miner:
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
         # Affiliation text
-        self.labelAffiliationText = Label(self.labelFrameAbout)
+        self.labelAffiliationText = Label(self.labelFrameAboutElements)
         self.labelAffiliationText.place(
             relx = prevStrRelX, rely = newRelY,
             relwidth = prevStrRelW, relheight = prevStrRelH)
