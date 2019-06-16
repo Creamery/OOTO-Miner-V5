@@ -592,33 +592,119 @@ class OOTO_Miner:
 
 
         '''
-        TAB 1 - DATA (Tabs_t2)
+        > TAB 1 - DATA (Tabs_t2)
         '''
+
+
+        # Create the parent frame
         self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
-        self.dataTabParentFrame.place(relx = 0, rely = 0, relheight = 1, relwidth = 1)
+        self.dataTabParentFrame.place(
+            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
+            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
+
+        # Create the left separator
         self.dataTabLeftSeparator = ttk.Separator(self.dataTabParentFrame, orient = VERTICAL)
         self.dataTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
-        self.labelFrameVariableDescriptor = LabelFrame(self.dataTabParentFrame)
-        self.labelFrameVariableDescriptor.place(relx = 0.01, rely = 0.01, relheight = 0.19, relwidth = 0.98)
 
-        # self.labelFrameVariableDescriptor.configure(highlightbackground = Color_support.D_BLUE)
-        # self.labelFrameVariableDescriptor.configure(highlightcolor = Color_support.LIME)
-        self.labelFrameVariableDescriptor.configure(bd = 0)
-        self.labelFrameVariableDescriptor.configure(foreground = _fgcolor)
-        self.labelFrameVariableDescriptor.configure(text = '''Variable Description Generator (Not yet functional)''')
-        self.labelFrameVariableDescriptor.configure(background = _vardesc_bgcolor)
-        # self.labelFrameVariableDescriptor.configure(width = 740) # 980
+        # > VAR DESC
 
-        self.labelVariableFile = Label(self.labelFrameVariableDescriptor)
+        # Create the Variable Description Generator parent frame
+        self.labelFrameVariableDescriptor = LabelFrame(self.dataTabParentFrame, bd = 0)
+        self.labelFrameVariableDescriptor.configure(
+            background = Color_support.VARDESC_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_VARDESC)
+        self.labelFrameVariableDescriptor.place(
+            relx = UI_support.TAB_VARDESC_REL_X, rely = UI_support.TAB_VARDESC_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
+            relwidth = UI_support.TAB_VARDESC_REL_W, relheight = UI_support.TAB_VARDESC_REL_H)
+
+
+
+        # Create the Variable Descriptor element parent frame
+        self.labelFrameVarDescElements = LabelFrame(self.labelFrameVariableDescriptor, bd = 0)
+        self.labelFrameVarDescElements.configure(
+            background = Color_support.VARDESC_BG, foreground = Color_support.FG_COLOR)
+        self.labelFrameVarDescElements.place(
+            relx = 0, rely = 0.1,
+            relwidth = 1, relheight = 0.80)
+
+
+
+        # > VARDESC ELEMENTS
+
+        # Variable File
+
+        # Variable File label
+        self.labelVariableFile = Label(self.labelFrameVarDescElements)
+        self.labelVariableFile.place(
+            relx = UI_support.TAB_3CHILD_LBL_REL_X, rely = UI_support.TAB_3CHILD_LBL_REL_Y,
+            relwidth = UI_support.TAB_3CHILD_LBL_REL_W, relheight = UI_support.TAB_3CHILD_LBL_REL_H)
+        self.labelVariableFile.configure(
+            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG, text = UI_support.LBL_VARDESC_VARFILE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR,
+            bd = 1)
+
+
+        # Previous values (1.1)
+        prevLblRelX = float(self.labelVariableFile.place_info()['relx'])
+        prevLblRelY = float(self.labelVariableFile.place_info()['rely'])
+        prevLblRelW = float(self.labelVariableFile.place_info()['relwidth'])
+        prevLblRelH = float(self.labelVariableFile.place_info()['relheight'])
+
+        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
+
+        # Variable File entry
+        self.entryVariableFile = Entry(self.labelFrameVarDescElements)
+        self.entryVariableFile.place(
+            relx = newRelX, rely = prevLblRelY,
+            relwidth = UI_support.TAB_3CHILD_ENTRY_REL_W, relheight = prevLblRelH)
+        self.entryVariableFile.configure(
+            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
+            bd = 1,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # Previous values (1.2)
+        prevEntryRelX = float(self.entryVariableFile.place_info()['relx'])
+        prevEntryRelW = float(self.entryVariableFile.place_info()['relwidth'])
+        prevEntryRelH = float(self.entryVariableFile.place_info()['relheight'])
+
+        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevEntryRelX + prevEntryRelW
+
+        # Variable File upload
+        self.buttonVariableFile = Button(self.labelFrameVarDescElements)
+        self.buttonVariableFile.place(
+            relx = newRelX, rely = prevLblRelY,
+            relwidth = UI_support.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
+        self.buttonVariableFile.configure(
+            background = Color_support.VARDESC_BTN_BG, foreground = Color_support.VARDESC_BTN_FG, text = UI_support.BTN_VARDESC_VARFILE,
+            bd = 1, relief = GROOVE,
+            activebackground = Color_support.VARDESC_BTN_BG_ACTIVE, activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # self.buttonVariableFile.configure(disabledforeground = "#a3a3a3")
+        # self.buttonVariableFile.configure(highlightbackground = "#d9d9d9")
+        # self.buttonVariableFile.configure(highlightcolor = "black")
+
+        # Previous values (1.3)
+        prevBtnRelX = float(self.buttonVariableFile.place_info()['relx'])
+        prevBtnRelY = float(self.buttonVariableFile.place_info()['rely'])
+        prevBtnRelW = float(self.buttonVariableFile.place_info()['relwidth'])
+        prevBtnRelH = float(self.buttonVariableFile.place_info()['relheight'])
+
+        newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevBtnRelY + prevBtnRelH
+
+
+
+        ################
+        '''
+
+        self.labelVariableFile = Label(self.labelFrameVarDescElements)
         self.labelVariableFile.place(relx = 0.01, rely = 0.17, height = 26, width = 172)
         self.labelVariableFile.configure(background = _label_bgcolor)
         self.labelVariableFile.configure(disabledforeground = "#a3a3a3")
         self.labelVariableFile.configure(foreground = "#000000")
-        self.labelVariableFile.configure(text = '''Variable File:''')
         self.labelVariableFile.configure(width = 172)
 
-        self.entryVariableFile = Entry(self.labelFrameVariableDescriptor)
+        self.entryVariableFile = Entry(self.labelFrameVarDescElements)
         self.entryVariableFile.place(relx = 0.19, rely = 0.17, relheight = 0.21
                                      , relwidth = 0.64)
         self.entryVariableFile.configure(background = "white")
@@ -627,22 +713,10 @@ class OOTO_Miner:
         self.entryVariableFile.configure(foreground = "#000000")
         self.entryVariableFile.configure(insertbackground = "black")
         self.entryVariableFile.configure(width = 624)
+        '''
+        
 
-        self.buttonVariableFile = Button(self.labelFrameVariableDescriptor)
-        self.buttonVariableFile.place(relx = 0.84, rely = 0.17, height = 23, width = 146)
-
-        self.buttonVariableFile.configure(activebackground = "#d9d9d9")
-        self.buttonVariableFile.configure(activeforeground = "#000000")
-        self.buttonVariableFile.configure(background = "#d9d9d9")
-        self.buttonVariableFile.configure(disabledforeground = "#a3a3a3")
-        self.buttonVariableFile.configure(foreground = "#000000")
-        self.buttonVariableFile.configure(highlightbackground = "#d9d9d9")
-        self.buttonVariableFile.configure(highlightcolor = "black")
-        self.buttonVariableFile.configure(pady = "0")
-        self.buttonVariableFile.configure(text = '''Choose File...''')
-        self.buttonVariableFile.configure(width = 146)
-
-        self.labelValuesFile = Label(self.labelFrameVariableDescriptor)
+        self.labelValuesFile = Label(self.labelFrameVarDescElements)
         self.labelValuesFile.place(relx = 0.01, rely = 0.43, height = 26, width = 172)
         self.labelValuesFile.configure(background = "#d9d9d9")
         self.labelValuesFile.configure(disabledforeground = "#a3a3a3")
@@ -650,7 +724,7 @@ class OOTO_Miner:
         self.labelValuesFile.configure(text = '''Values File:''')
         self.labelValuesFile.configure(width = 172)
 
-        self.entryValuesFile = Entry(self.labelFrameVariableDescriptor)
+        self.entryValuesFile = Entry(self.labelFrameVarDescElements)
         self.entryValuesFile.place(relx = 0.19, rely = 0.43, relheight = 0.21
                                    , relwidth = 0.64)
         self.entryValuesFile.configure(background = "white")
@@ -660,7 +734,7 @@ class OOTO_Miner:
         self.entryValuesFile.configure(insertbackground = "black")
         self.entryValuesFile.configure(width = 624)
 
-        self.buttonValuesFile = Button(self.labelFrameVariableDescriptor)
+        self.buttonValuesFile = Button(self.labelFrameVarDescElements)
         self.buttonValuesFile.place(relx = 0.84, rely = 0.43, height = 23, width = 146)
         self.buttonValuesFile.configure(activebackground = "#d9d9d9")
         self.buttonValuesFile.configure(activeforeground = "#000000")
@@ -673,7 +747,7 @@ class OOTO_Miner:
         self.buttonValuesFile.configure(text = '''Choose File...''')
         self.buttonValuesFile.configure(width = 146)
 
-        self.buttonStartVariableDescriptor = Button(self.labelFrameVariableDescriptor)
+        self.buttonStartVariableDescriptor = Button(self.labelFrameVarDescElements)
         self.buttonStartVariableDescriptor.place(relx = 0.84, rely = 0.7, height = 23
                                                  , width = 146)
         self.buttonStartVariableDescriptor.configure(activebackground = "#d9d9d9")
@@ -687,6 +761,10 @@ class OOTO_Miner:
         self.buttonStartVariableDescriptor.configure(text = '''Start''')
         self.buttonStartVariableDescriptor.configure(width = 146)
 
+
+
+
+        # Data
         self.entryInitialVarDesc = Entry(self.Tabs_t2)
         self.entryInitialVarDesc.place(relx = 0.19, rely = 0.25, relheight = 0.04
                                    , relwidth = 0.64)
@@ -765,7 +843,7 @@ class OOTO_Miner:
 
 
         '''
-        TAB 2 - TEST (Tabs_t3)
+        > TAB 2 - TEST (Tabs_t3)
         '''
         self.testTabParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
         self.testTabParentFrame.place(relx = 0, rely = 0, relheight = 1, relwidth = 1)
@@ -1228,7 +1306,7 @@ class OOTO_Miner:
 
 
         '''
-        TAB 3 - INFO (Tabs_t4)
+        > TAB 3 - INFO (Tabs_t4)
         '''
 
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)
@@ -1243,7 +1321,7 @@ class OOTO_Miner:
         # Create the About parent frame
         self.labelFrameAbout = LabelFrame(self.infoTabParentFrame, bd = 0)
         self.labelFrameAbout.configure(
-            background = Color_support.ABOUT_BG, foreground = _fgcolor, text = UI_support.TITLE_ABOUT)
+            background = Color_support.ABOUT_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_ABOUT)
         self.labelFrameAbout.place(
             relx = UI_support.TAB_ABOUT_REL_X, rely = UI_support.TAB_ABOUT_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
             relwidth = UI_support.TAB_ABOUT_REL_W, relheight = UI_support.TAB_ABOUT_REL_H)
@@ -1251,7 +1329,7 @@ class OOTO_Miner:
         # Create the About element parent frame
         self.labelFrameAboutElements = LabelFrame(self.labelFrameAbout, bd = 0)
         self.labelFrameAboutElements.configure(
-            background = Color_support.ABOUT_BG, foreground = _fgcolor)
+            background = Color_support.ABOUT_BG, foreground = Color_support.FG_COLOR)
         self.labelFrameAboutElements.place(
             relx = 0, rely = 0.1,
             relwidth = 1, relheight = 0.80)
