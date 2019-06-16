@@ -3,7 +3,6 @@
 
 
 
-
 # DATA tab entries
 
 
@@ -37,6 +36,11 @@ STR_ABOUT_AFFILIATION = '''De La Salle University - Laguna'''
 
 
 # Constant values
+
+# TAB Indices
+TAB_DATA_INDEX = 0
+TAB_TEST_INDEX = 1
+TAB_INFO_INDEX = 2
 
 # TABS Parent frame
 TAB_REL_X = 0

@@ -1521,7 +1521,19 @@ class OOTO_Miner:
     def makeInitialVarDesc(self, evt):
         varFileDir = self.entryVariableFile.get()
         valFileDir = self.entryValuesFile.get()
-        tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)')
+        # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
+        print self.entryQueryPopulation.get()[-4:]
+
+        if self.entryInitialVarDesc.get()[-4:] != ".csv": # TODO Properly check for valid files
+            tkMessageBox.showinfo("System Message", "Please enter a valid Variable Description CSV file") # TODO!!
+
+        elif self.entryQueryPopulation.get()[-4:] != ".csv":
+            tkMessageBox.showinfo("System Message", "Please enter a valid Population Dataset CSV file") # TODO!!
+
+        else:
+            tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!") # TODO!!
+            self.Tabs.select(UI_support.TAB_TEST_INDEX)
+
     
     def getVariableFile(self, evt):
         varFileDir = askopenfilename(title = "Select variable file",filetypes = (("txt files","*.txt"),("all files","*.*")))
