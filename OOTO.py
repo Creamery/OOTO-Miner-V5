@@ -32,6 +32,7 @@ except ImportError:
 import Mother_support
 import Color_support
 import Icon_support
+import UI_support
 import PIL.Image
 import PIL.ImageTk
 
@@ -528,11 +529,13 @@ class OOTO_Miner:
         
 
         self.Tabs = ttk.Notebook(root, style='Tab') # top)
-        # self.Tabs.pack(fill = tk.BOTH)
-
         self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
         # self.Tabs.configure(width = 604)
         # self.Tabs.configure(takefocus = "")
+
+        # Top horizontal separator
+        self.rootTopSeparator = ttk.Separator(root, orient = HORIZONTAL)
+        self.rootTopSeparator.place(relx = 0, rely = 0, relwidth = 1)
 
 
         # _txtpadding = "           "
@@ -593,7 +596,7 @@ class OOTO_Miner:
         '''
         self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
         self.dataTabParentFrame.place(relx = 0, rely = 0, relheight = 1, relwidth = 1)
-        self.dataTabLeftSeparator = ttk.Separator(self.dataTabParentFrame, orient=VERTICAL)
+        self.dataTabLeftSeparator = ttk.Separator(self.dataTabParentFrame, orient = VERTICAL)
         self.dataTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
         self.labelFrameVariableDescriptor = LabelFrame(self.dataTabParentFrame)
@@ -1227,45 +1230,101 @@ class OOTO_Miner:
         '''
         TAB 3 - INFO (Tabs_t4)
         '''
+
+        # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)
         self.infoTabParentFrame = LabelFrame(self.Tabs_t4, bd = 0)
-        self.infoTabParentFrame.place(relx = 0, rely = 0, relheight = 1, relwidth = 1)
+        self.infoTabParentFrame.place(relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y, relheight = UI_support.TAB_REL_H, relwidth = UI_support.TAB_REL_W)
+        self.infoTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
+        # Create the left separator
         self.infoTabLeftSeparator = ttk.Separator(self.infoTabParentFrame, orient=VERTICAL)
         self.infoTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
-        self.labelFrameAbout = LabelFrame(self.infoTabParentFrame)
-        self.labelFrameAbout.place(relx = 0.01, rely = 0.01, relheight = 0.19, relwidth = 0.98)
-        # self.labelFrameVariableDescriptor.configure(bd = 0)
 
-        self.labelFrameAbout.configure(foreground = _fgcolor)
-        self.labelFrameAbout.configure(text = '''About''')
-        self.labelFrameAbout.configure(background = _vardesc_bgcolor)
+        # Create the About parent frame
+        self.labelFrameAbout = LabelFrame(self.infoTabParentFrame, bd = 0)
+        self.labelFrameAbout.configure(
+            background = Color_support.ABOUT_BG, foreground = _fgcolor, text = UI_support.TITLE_ABOUT)
+        self.labelFrameAbout.place(
+            relx = UI_support.TAB_ABOUT_REL_X, rely = UI_support.TAB_ABOUT_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
+            relwidth = UI_support.TAB_ABOUT_REL_W, relheight = UI_support.TAB_ABOUT_REL_H)
 
-        '''
-        strAbout = "OTOO Miner v4.0\n" \
-                   "by TE3D House\n" \
-                   "De La Salle University - Laguna"
-        tkMessageBox.showinfo("About", strAbout)
-        '''
+        # > ABOUT ELEMENTS
+        # Version label
         self.labelVersion = Label(self.labelFrameAbout)
-        self.labelVersion.place(relx = 0.01, rely = 0.17, height = 26, width = 172)
-        self.labelVersion.configure(background = _label_bgcolor)
-        self.labelVersion.configure(disabledforeground = "#a3a3a3")
-        self.labelVersion.configure(foreground = "#000000")
-        self.labelVersion.configure(text = '''Version:''')
-        self.labelVersion.configure(width = 172)
+        self.labelVersion.place(
+            relx = UI_support.TAB_CHILD_LBL_REL_X, rely = UI_support.TAB_CHILD_LBL_REL_Y + (4 * UI_support.TAB_CHILD_PADDING_TOP),
+            relwidth = UI_support.TAB_CHILD_LBL_REL_W, relheight = UI_support.TAB_CHILD_LBL_REL_H)
+        self.labelVersion.configure(
+            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG, text = UI_support.LBL_ABOUT_VER,
+            disabledforeground = Color_support.FG_DISABLED_COLOR,
+            bd = 1)
 
+        # Version text
         self.labelVersionText = Label(self.labelFrameAbout)
-        self.labelVersionText.place(relx = 0.19, rely = 0.17, relheight = 0.21
-                                     , relwidth = 0.64)
-        self.labelVersionText.configure(background = "white")
-        self.labelVersionText.configure(disabledforeground = "#a3a3a3")
-        self.labelVersionText.configure(foreground = "#000000")
-        self.labelVersionText.configure(text = '''2.0.0''')
-        self.labelVersionText.configure(width = 624)
+        self.labelVersionText.place(
+            relx = UI_support.TAB_CHILD_STR_REL_X, rely = float(self.labelVersion.place_info()['rely']),
+            relwidth = UI_support.TAB_CHILD_STR_REL_W, relheight = UI_support.TAB_CHILD_STR_REL_H)
+        self.labelVersionText.configure(
+            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG, text = UI_support.STR_ABOUT_VER,
+            bd = 1,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
 
 
+        # Previous values
+        prevLblRelX = float(self.labelVersion.place_info()['relx'])
+        prevLblRelY = float(self.labelVersion.place_info()['rely'])
+        prevLblRelW = float(self.labelVersion.place_info()['relwidth'])
+        prevLblRelH = float(self.labelVersion.place_info()['relheight'])
 
 
+        prevStrRelX = float(self.labelVersionText.place_info()['relx'])
+        prevStrRelY = float(self.labelVersionText.place_info()['rely'])
+        prevStrRelW = float(self.labelVersionText.place_info()['relwidth'])
+        prevStrRelH = float(self.labelVersionText.place_info()['relheight'])
+
+        newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
+        # Author label
+        self.labelAuthor = Label(self.labelFrameAbout)
+        self.labelAuthor.place(
+            relx = prevLblRelX, rely = newRelY,
+            relwidth = prevLblRelW, relheight = prevLblRelH)
+        self.labelAuthor.configure(
+            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG, text = UI_support.LBL_ABOUT_AUTHOR,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # Author text
+        self.labelAuthorText = Label(self.labelFrameAbout)
+        self.labelAuthorText.place(
+            relx = prevStrRelX, rely = newRelY,
+            relwidth = prevStrRelW, relheight = prevStrRelH)
+        self.labelAuthorText.configure(
+            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG, text = UI_support.STR_ABOUT_AUTHOR,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+
+        # Previous Y values
+        prevLblRelY = float(self.labelAuthor.place_info()['rely'])
+        prevStrRelY = float(self.labelAuthorText.place_info()['rely'])
+
+        newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
+
+        # Affiliation label
+        self.labelAffiliation = Label(self.labelFrameAbout)
+        self.labelAffiliation.place(
+            relx = prevLblRelX, rely = newRelY,
+            relwidth = prevLblRelW, relheight = prevLblRelH)
+        self.labelAffiliation.configure(
+            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG, text = UI_support.LBL_ABOUT_AFFILIATION,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # Affiliation text
+        self.labelAffiliationText = Label(self.labelFrameAbout)
+        self.labelAffiliationText.place(
+            relx = prevStrRelX, rely = newRelY,
+            relwidth = prevStrRelW, relheight = prevStrRelH)
+        self.labelAffiliationText.configure(
+            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG, text = UI_support.STR_ABOUT_AFFILIATION,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
 
         '''
         BINDING FOR INFO TAB
