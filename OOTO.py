@@ -582,7 +582,7 @@ class OOTO_Miner:
 
         
         self.style.map("Tab",
-            background=[('selected', Color_support.LIME), ('active', Color_support.CYAN)])
+            background=[('selected', Color_support.LIME), ('active', Color_support.L_GRAY)])
 
         # > MENU BAR
         # self.menubar = Menu(top,font = "TkMenuFont",background = _bgcolor,fg = _fgcolor)

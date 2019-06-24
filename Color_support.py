@@ -6,8 +6,10 @@ BLACK = '#000000'
 L_GRAY = '#d9d9d9'
 D_GRAY = '#a3a3a3'
 
-LIME = '#06e537'
-CYAN = 'cyan'
+GREEN = '#06e537'
+FUSCHIA = '#E91E63'
+LIME = '#A0FF1B'
+CYAN = '#1DFFDD'
 D_BLUE = '#122a3d'
 
 
