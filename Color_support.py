@@ -12,6 +12,9 @@ LIME = '#A0FF1B'
 CYAN = '#1DFFDD'
 D_BLUE = '#122a3d'
 
+YES = '#7EFF2C'
+NO = '#E91E3A'
+
 ACTIVE_COLOR = CYAN # Change this to change all highlight colors
 
 

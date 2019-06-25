@@ -45,8 +45,10 @@ def vp_start_gui():
     root.resizable(0, 0)
     Mother_support.set_Tk_var()
     top = OOTO_Miner (root)
+    root.update()
     Mother_support.init(root, top)
     root.mainloop()
+
 
 
 
@@ -454,7 +456,7 @@ def selectDatasetValues(evt, dataset, populationDataset, labelFeatCount):
         if any (response['Code'] == record[dataset['Feature']['Code']] for response in dataset['Feature']['Selected Responses']):
             datasetCount += 1
 
-    labelFeatCount.configure(text = "n: " + str(datasetCount))
+    labelFeatCount.configure(text = "" + str(datasetCount))
 
 '''
 Saves the dataset as a .csv file
@@ -519,7 +521,7 @@ class OOTO_Miner:
         # > START TAB (0)
         self.Tabs_t2 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
-        im = PIL.Image.open(Icon_support.TAB_ICO_START).resize(Icon_support.TAB_ICO_SIZE)
+        im = PIL.Image.open(Icon_support.TAB_ICO_START).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_start_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t2.image =  tab_start_icon # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t2, text = "Data", image = tab_start_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
@@ -531,7 +533,7 @@ class OOTO_Miner:
 
         self.Tabs_t3 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
-        im = PIL.Image.open(Icon_support.TAB_ICO_TEST).resize(Icon_support.TAB_ICO_SIZE)
+        im = PIL.Image.open(Icon_support.TAB_ICO_TEST).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_test_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t3.image =  tab_test_icon # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t3, text = "Test", image = tab_test_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
@@ -540,7 +542,7 @@ class OOTO_Miner:
         # > ABOUT TAB (2)
         self.Tabs_t4 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
-        im = PIL.Image.open(Icon_support.TAB_ICO_INFO).resize(Icon_support.TAB_ICO_SIZE)
+        im = PIL.Image.open(Icon_support.TAB_ICO_INFO).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_info_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t4.image =  tab_info_icon # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t4, text = "Info", image = tab_info_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
@@ -836,6 +838,8 @@ class OOTO_Miner:
         print "height " + str(self.buttonValuesFile.winfo_height())
         print "width " + str(self.buttonValuesFile.winfo_width())
 
+
+
         buttonX = 0.5 # self.labelFrameVariableDescriptor.winfo_x()
 
 
@@ -849,7 +853,7 @@ class OOTO_Miner:
         self.buttonStartVariableDescriptor = Button(self.dataTabParentFrame)
         self.buttonStartVariableDescriptor.place(
             relx = buttonX, rely = buttonY,
-            width = buttonWidth, height = buttonHeight, anchor=CENTER)
+            width = buttonWidth, height = buttonHeight, anchor = CENTER)
         self.buttonStartVariableDescriptor.configure(
             background = Color_support.START_BTN_BG, foreground = Color_support.START_BTN_FG, text = UI_support.BTN_START,
             bd = 1, relief = FLAT, overrelief = GROOVE,
@@ -894,7 +898,7 @@ class OOTO_Miner:
         newRelY = prevFrameRelY + prevFrameRelH
 
         # SELECT Parent Frame (Datasets)
-        self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame)
+        self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameSelectElements.place(
             relx = UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
@@ -1305,8 +1309,6 @@ class OOTO_Miner:
         self.buttonQueryZTestSvP.configure(state = "disabled")
 
 
-
-
         '''
         BINDING FOR TEST TAB
         '''
@@ -1314,8 +1316,14 @@ class OOTO_Miner:
         self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
         self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
         self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
+
         self.buttonQueryAddFilterA.bind('<Button-1>', self.queryAddFilterA)
+        self.buttonQueryAddFilterA.bind("<Enter>", self.enterQueryAddFilterA)
+        self.buttonQueryAddFilterA.bind("<Leave>", self.leaveQueryAddFilterA)
+
+
         self.buttonQueryAddFilterB.bind('<Button-1>', self.queryAddFilterB)
+
         self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
         self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)
@@ -1327,6 +1335,8 @@ class OOTO_Miner:
 
         
         self.buttonQueryResetFilterA.bind('<Button-1>', self.queryResetDatasetA)
+        self.buttonQueryResetFilterA.bind("<Enter>", self.enterQueryResetFilterA)
+        self.buttonQueryResetFilterA.bind("<Leave>", self.leaveQueryResetFilterA)
         self.buttonQueryResetFilterB.bind('<Button-1>', self.queryResetDatasetB)
         
 
@@ -1474,11 +1484,39 @@ class OOTO_Miner:
 
         global tests
         tests = []
+        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
+        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
+        # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
+        # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
-        self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
-        self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data']))) 
+    # TODO Optimize (avoid resizing, keep a reference)
+    def enterQueryAddFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterA.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
 
+    def leaveQueryAddFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterA.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
 
+    def enterQueryResetFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterA.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+    def leaveQueryResetFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterA.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
     '''
     Functions to be called by the bound commands
     '''
@@ -1576,8 +1614,8 @@ class OOTO_Miner:
                 for record in self.populationDataset:
                     self.datasetA['Data'].append(record)
                     self.datasetB['Data'].append(record)
-                self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])) )
-                self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])) )
+                self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])) )
+                self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])) )
             else:
                 tkMessageBox.showerror("Error: Upload error", "Error uploading population dataset. Please select a valid file and try again.")
 
@@ -1661,8 +1699,8 @@ class OOTO_Miner:
         self.datasetA = resetDataset(self.datasetA)
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeatureA.configure(text = '')
-        self.labelFrameQueryDataA.configure(text = "Dataset A")
-        self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
+        # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
+        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
         self.labelQueryDataA.configure(text = "")
         self.listQueryDataA.delete(0,END)
         self.listQuerySetDataA.delete(0,END)
@@ -1673,7 +1711,7 @@ class OOTO_Miner:
         self.entryQuerySetDataB.configure(text = '')
         self.entryQueryFeatureB.configure(text = '')
         self.labelFrameQueryDataB.configure(text = "Dataset B")
-        self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
+        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
         self.labelQueryDataB.configure(text = "")
         self.listQueryDataB.delete(0,END)
         self.listQuerySetDataB.delete(0,END)
@@ -1685,18 +1723,20 @@ class OOTO_Miner:
         selectDatasetValues(evt, self.datasetB, self.populationDataset, self.labelQueryDataBCount)
 
     def queryAddFilterA(self, evt):
-
+        self.buttonQueryAddFilterA.configure(relief = FLAT)
         # If the dataset is empty, do not push through with filtering.
         if len(self.datasetA['Data']) <= 0:
             tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
-            return -1
+            # return -1
+            return "break"
 
         # Filter the data given the feature inputted and its values selected
         try:
             new_data = filterDataset(self.datasetA, self.datasetA['Feature'], self.datasetA['Feature']['Selected Responses'])
         except KeyError:
             tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
-            return -1
+            # return -1
+            return "break"
 
         # Add the feature to the dataset's filtered features
         self.datasetA['Filter Features'].append(self.datasetA['Feature'])
@@ -1719,8 +1759,8 @@ class OOTO_Miner:
                 if j == (len(self.datasetA['Filter Features'][i]['Selected Responses'])-1):
                     queryStrFilterA = queryStrFilterA + ")"
                     
-        self.labelFrameQueryDataA.configure(text = queryStrFilterA)
-
+        # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
+        return "break"
     def queryAddFilterB(self, evt):
 
         # If the dataset is empty, do not push through with filtering.
@@ -1907,7 +1947,7 @@ class OOTO_Miner:
         self.datasetA = resetDataset(self.datasetA)
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeatureA.configure(text = '')
-        self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
+        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
         self.labelQueryDataA.configure(text = "")
         self.listQueryDataA.delete(0,END)
         self.listQuerySetDataA.delete(0,END)
@@ -1915,7 +1955,7 @@ class OOTO_Miner:
         self.datasetB = resetDataset(self.datasetB)
         self.entryQuerySetDataB.configure(text = '')
         self.entryQueryFeatureB.configure(text = '')
-        self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
+        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
         self.labelQueryDataB.configure(text = "")
         self.listQueryDataB.delete(0,END)
         self.listQuerySetDataB.delete(0,END)
@@ -1935,14 +1975,14 @@ class OOTO_Miner:
             self.labelQueryDataA.configure(state = "disabled")
             self.labelQueryDataB.configure(state = "disabled")
             self.listQueryDataA.configure(state = "disabled")
-            self.labelFrameQueryDataA.configure(text = "Population")
+            # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
             self.labelFrameQueryDataB.configure(text = "Samples")
             self.labelQueryDataBCount.configure(text = "")
         else:
             self.buttonQueryZTestSvP.configure(state = "disabled")
             self.comboQueryCriticalValueSvP.configure(state = "disabled")
             self.labelQueryZTestSvP.configure(state = "disabled")
-            self.labelFrameQueryDataA.configure(text = "Dataset A")
+            # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
             self.labelFrameQueryDataB.configure(text = "Dataset B")
 
     def querySetAllFeatures(self):
@@ -1987,11 +2027,19 @@ class OOTO_Miner:
     def getRelH(self, element):
         return float(element.place_info()['relheight'])
 
+    def getW(self, element):
+        return element.winfo_width()
+    def getH(self, element):
+        return element.winfo_height()
+
     def configureSelectElements(self, parentFrame):
+
+        global queryStrFilterB
 
         self.labelFrameDatasetA = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetA.place(
-            relx = 0, rely = 0, relwidth = 0.5, relheight = 1
+            relx = 0.04, rely = 0,
+            relwidth = 0.44, relheight = 1
         )
         self.labelFrameDatasetA.configure(
             background = Color_support.SELECT_BG
@@ -1999,8 +2047,8 @@ class OOTO_Miner:
 
         self.labelFrameDatasetB = LabelFrame(parentFrame)
         self.labelFrameDatasetB.place(
-            relx = self.getRelX(self.labelFrameDatasetA) + self.getRelW(self.labelFrameDatasetA),
-            rely = 0, relwidth = 0.5, relheight = 1
+            relx = 0.5 + 0.04, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
+            rely = 0.0, relwidth = 0.44, relheight = 1
         )
         self.labelFrameDatasetB.configure(
             background = Color_support.L_GRAY
@@ -2016,8 +2064,6 @@ class OOTO_Miner:
             relief = GROOVE # , text = '''Dataset A'''
         )
 
-
-        global queryStrFilterB
 
         self.labelQuerySetDataA = Label(self.labelFrameQueryDataA)
         self.labelQuerySetDataA.place(
@@ -2054,7 +2100,6 @@ class OOTO_Miner:
             # text = '''Find Feature'''
         )
 
-
         newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + self.getRelY(self.labelFrameQueryDataA) + self.getRelH(self.labelFrameQueryDataA)
 
         # LISTBOX PARENT (DATASET A)
@@ -2084,34 +2129,100 @@ class OOTO_Miner:
         self.listQuerySetDataA.pack(side = LEFT, fill = BOTH, expand = 1)
         '''
 
-        self.buttonQueryAddFilterA = Button(self.labelFrameQueryDataA)
-        self.buttonQueryAddFilterA.place(relx=0.02, rely=0.15, height=23, width= 0) # 96)
-        self.buttonQueryAddFilterA.configure(activebackground="#d9d9d9")
-        self.buttonQueryAddFilterA.configure(activeforeground="#000000")
-        self.buttonQueryAddFilterA.configure(background="#d9d9d9")
-        self.buttonQueryAddFilterA.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryAddFilterA.configure(foreground="#000000")
-        self.buttonQueryAddFilterA.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryAddFilterA.configure(highlightcolor="black")
-        self.buttonQueryAddFilterA.configure(pady="0")
-        self.buttonQueryAddFilterA.configure(text='''Filter''')
+        newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBox) + self.getRelH(self.labelFrameListBox)
 
-        self.buttonQueryResetFilterA = Button(self.labelFrameQueryDataA)
-        self.buttonQueryResetFilterA.place(relx=0.02, rely=0.20, height=23, width= 0) # 96)
-        self.buttonQueryResetFilterA.configure(activebackground="#d9d9d9")
-        self.buttonQueryResetFilterA.configure(activeforeground="#000000")
-        self.buttonQueryResetFilterA.configure(background="#d9d9d9")
-        self.buttonQueryResetFilterA.configure(disabledforeground="#a3a3a3")
-        self.buttonQueryResetFilterA.configure(foreground="#000000")
-        self.buttonQueryResetFilterA.configure(highlightbackground="#d9d9d9")
-        self.buttonQueryResetFilterA.configure(highlightcolor="black")
-        self.buttonQueryResetFilterA.configure(pady="0")
-        self.buttonQueryResetFilterA.configure(text='''Reset Dataset''')
+        # COMMANDS PARENT (DATASET A)
 
-        self.labelQueryDataACount = Label(self.labelFrameQueryDataA)
-        self.labelQueryDataACount.place(relx=0.02, rely=0.25, height=23, width= 0) # 96)
-        self.labelQueryDataACount.configure(text='Count: ')
+        self.labelFrameCommands = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameCommands.place(
+            relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
 
+        self.labelFrameCommands.configure(
+            background = Color_support.WHITE
+        )
+
+
+
+
+
+        # RESET BUTTON (DATASET A)
+
+
+        self.buttonQueryResetFilterA = Button(self.labelFrameCommands)
+        self.buttonQueryResetFilterA.place(
+            relx = 0 , rely = 0,
+            relwidth = 0.25, relheight = 1)
+        self.buttonQueryResetFilterA.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+            # text = '''Reset''')
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterA.configure(image = btn_query_reset_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+
+
+        newRelX = self.getRelX(self.buttonQueryResetFilterA) + self.getRelW(self.buttonQueryResetFilterA)
+
+
+        # QUERY COUNT (DATASET A)
+        self.labelFrameQueryCount = LabelFrame(self.labelFrameCommands, bd = 0)
+        self.labelFrameQueryCount.place(
+            relx = newRelX + 0.005, rely = 0,
+            relwidth = 0.50 - 0.005, relheight = 1
+        )
+        self.labelFrameQueryCount.configure(
+            background = Color_support.SELECT_BG
+        )
+
+        self.labelQueryDataACount = Label(self.labelFrameQueryCount)
+        self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.65)
+        self.labelQueryDataACount.configure(
+            font = UI_support.FONT_LARGE_BOLD,
+            background = Color_support.SELECT_BG,
+        )
+        self.labelQueryDataACountText = Label(self.labelFrameQueryCount)
+        self.labelQueryDataACountText.place(
+            relx = 0.005, rely = self.getRelH(self.labelQueryDataACount),
+            relwidth = 0.98, relheight = 0.35)
+        self.labelQueryDataACountText.configure(
+            font = UI_support.FONT_DEFAULT_BOLD,
+            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            text = '''SAMPLES'''
+        )
+
+        # Create the left separator
+        self.labelFrameQueryCountLeftSeparator = ttk.Separator(self.labelFrameQueryCount, orient = VERTICAL)
+        self.labelFrameQueryCountLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+
+        self.labelFrameQueryCountRightSeparator = ttk.Separator(self.labelFrameQueryCount, orient = VERTICAL)
+        self.labelFrameQueryCountRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
+
+        # FILTER BUTTON (DATASET A)
+        newRelX = self.getRelX(self.labelFrameQueryCount) + self.getRelW(self.labelFrameQueryCount)
+
+        self.buttonQueryAddFilterA = Button(self.labelFrameCommands, compound = CENTER)
+        self.buttonQueryAddFilterA.place(
+            relx = newRelX + 0.005, rely = 0,
+            relwidth = 0.25 - 0.005, relheight = 1
+        )
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterA.configure(image = btn_query_filter_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+        self.buttonQueryAddFilterA.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+            # text = '''Filter''')
+        self.buttonQueryAddFilterA.pack(side = RIGHT)
+
+
+        self.buttonQueryResetFilterA.pack(side = LEFT)
 
 
 if __name__ == '__main__':
