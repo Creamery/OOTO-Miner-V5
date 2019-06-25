@@ -863,7 +863,7 @@ class OOTO_Miner:
             width = buttonWidth, height = buttonHeight, anchor=CENTER)
         self.buttonStartVariableDescriptor.configure(
             background = Color_support.START_BTN_BG, foreground = Color_support.START_BTN_FG, text = UI_support.BTN_START,
-            bd = 1, relief = GROOVE,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
             activebackground = Color_support.START_BTN_BG_ACTIVE, activeforeground = Color_support.START_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
@@ -1532,17 +1532,19 @@ class OOTO_Miner:
         else:
             tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!") # TODO!!
             self.Tabs.select(UI_support.TAB_TEST_INDEX)
-
+        return "break"
     
     def getVariableFile(self, evt):
         varFileDir = askopenfilename(title = "Select variable file",filetypes = (("txt files","*.txt"),("all files","*.*")))
         self.entryVariableFile.delete(0, END)
         self.entryVariableFile.insert(0, varFileDir)
+        return "break"
     
     def getValuesFile(self, evt):
         valFileDir = askopenfilename(title = "Select values file",filetypes = (("txt files","*.txt"),("all files","*.*")))
         self.entryValuesFile.delete(0,END)
         self.entryValuesFile.insert(0, valFileDir)
+        return "break"
 
     # ABOUT US
     def showAbout(self):
