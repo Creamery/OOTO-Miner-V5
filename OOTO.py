@@ -75,17 +75,19 @@ Reads features and their responses from the Variable Description file
 '''
 def readFeatures(filename, varMark):
     features = []
-    with open(filename) as f:
-        reader = csv.reader(f)
-        for row in reader:
-            if(row[0] == varMark):
-                new_feature = {'Description':row[2], 'Code':row[1], 'Responses':[]}
-                features.append(new_feature)
-            else:
-                new_response = {'Group':row[0], 'Code':row[1], 'Description':row[2]}
-                new_feature['Responses'].append(new_response)
-    return features
-
+    try:
+        with open(filename) as f:
+            reader = csv.reader(f)
+            for row in reader:
+                if(row[0] == varMark):
+                    new_feature = {'Description':row[2], 'Code':row[1], 'Responses':[]}
+                    features.append(new_feature)
+                else:
+                    new_response = {'Group':row[0], 'Code':row[1], 'Description':row[2]}
+                    new_feature['Responses'].append(new_response)
+        return features
+    except:
+        return []
 
 
 
@@ -480,27 +482,14 @@ class OOTO_Miner:
         # _ana2color = '#d9d9d9' # X11 color: 'gray85'
 
         # colors
-        _ana2color = '#d9d9d9' # X11 color: 'gray85'
+        # _ana2color = '#d9d9d9' # X11 color: 'gray85'
 
         self.style = ttk.Style()
         if sys.platform == "win32":
             self.style.theme_use('winnative')
-        # else:
-        #     self.style.theme_use('clam')
 
-        # self.style.configure('.', background = _bgcolor)
-        # self.style.configure('.', foreground = _fgcolor)
+
         self.style.configure('.', font = "TkDefaultFont")
-        
-        '''
-        self.style.configure('TNotebook',
-            background = _tab_bgcolor,
-            borderwidth = 0,
-            activefg = _tab_bgcolor,
-            inactivefg = _tab_bgcolor,
-            bd = 0)
-        '''
-
         # self.style.map('.',background = 
         #     [('selected', _compcolor), ('active',_ana2color)])
 
@@ -516,7 +505,7 @@ class OOTO_Miner:
 
 
         # Removes the dashed line in tabs
-        self.style.layout("Tab",
+        self.style.layout('Tab',
         [('Notebook.tab', {'sticky': 'nswe', 'children':
             [('Notebook.padding', {'side': 'top', 'sticky': 'nswe', 'children':
                 #[('Notebook.focus', {'side': 'top', 'sticky': 'nswe', 'children':
@@ -528,7 +517,7 @@ class OOTO_Miner:
 
         
 
-        self.Tabs = ttk.Notebook(root, style='Tab') # top)
+        self.Tabs = ttk.Notebook(root, style = 'Tab') # top)
         self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
         # self.Tabs.configure(width = 604)
         # self.Tabs.configure(takefocus = "")
@@ -537,9 +526,6 @@ class OOTO_Miner:
         self.rootTopSeparator = ttk.Separator(root, orient = HORIZONTAL)
         self.rootTopSeparator.place(relx = 0, rely = 0, relwidth = 1)
 
-
-        # _txtpadding = "           "
-        # _lblpadding = 5
 
         # > START TAB (0)
         self.Tabs_t2 = ttk.Frame(self.Tabs)
@@ -553,13 +539,13 @@ class OOTO_Miner:
 
 
         # > TEST TAB (1)
+
         self.Tabs_t3 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
         im = PIL.Image.open(Icon_support.TAB_ICO_TEST).resize(Icon_support.TAB_ICO_SIZE)
         tab_test_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t3.image =  tab_test_icon # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t3, text = "Test", image = tab_test_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
-
 
 
         # > ABOUT TAB (2)
@@ -582,7 +568,7 @@ class OOTO_Miner:
 
         
         self.style.map("Tab",
-            background=[('selected', Color_support.LIME), ('active', Color_support.L_GRAY)])
+            background = [('selected', Color_support.LIME), ('active', Color_support.L_GRAY)])
 
         # > MENU BAR
         # self.menubar = Menu(top,font = "TkMenuFont",background = _bgcolor,fg = _fgcolor)
@@ -675,13 +661,12 @@ class OOTO_Miner:
         self.buttonInitialVarDesc.place(
             relx = newRelX, rely = prevLblRelY,
             relwidth = UI_support.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
+
         self.buttonInitialVarDesc.configure(
             background = Color_support.DATASET_BTN_BG, foreground = Color_support.DATASET_BTN_FG, text = UI_support.BTN_DATASET_UPLOAD,
-            bd = 1, relief = GROOVE,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
             activebackground = Color_support.DATASET_BTN_BG_ACTIVE, activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-
         # Previous values (1.3)
         prevBtnRelX = float(self.buttonInitialVarDesc.place_info()['relx'])
         prevBtnRelY = float(self.buttonInitialVarDesc.place_info()['rely'])
@@ -764,8 +749,16 @@ class OOTO_Miner:
             background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG, text = UI_support.LBL_VARDESC_VARFILE,
             disabledforeground = Color_support.FG_DISABLED_COLOR,
             bd = 1)
-
-
+        '''
+        self.labelVariableFile.configure(
+            highlightcolor = Color_support.VARDESC_BTN_BG_ACTIVE,
+            highlightbackground = Color_support.FUSCHIA,
+            activebackground = Color_support.FUSCHIA,
+            highlightthickness = 10,
+            takefocus = True,
+            state = ACTIVE
+        )
+        '''
         # Previous values (1.1)
         prevLblRelX = float(self.labelVariableFile.place_info()['relx'])
         prevLblRelY = float(self.labelVariableFile.place_info()['rely'])
@@ -1484,12 +1477,10 @@ class OOTO_Miner:
         self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
         self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data']))) 
 
-        
 
     '''
     Functions to be called by the bound commands
     '''
-    
     #Adds test to the queue
     def addToQueue(self, testType, **params):
         global tests
@@ -1514,6 +1505,14 @@ class OOTO_Miner:
         tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
 
 
+        '''
+        self.buttonInitialVarDesc.configure(
+            background=Color_support.DATASET_BTN_BG, foreground=Color_support.DATASET_BTN_FG,
+            text=UI_support.BTN_DATASET_UPLOAD,
+            bd=1, relief=GROOVE,
+            activebackground=Color_support.DATASET_BTN_BG_ACTIVE, activeforeground=Color_support.DATASET_BTN_FG_ACTIVE,
+            disabledforeground=Color_support.FG_DISABLED_COLOR)
+        '''
     '''
     DEFINING BOUND COMMANDS
     '''
@@ -1948,17 +1947,27 @@ class OOTO_Miner:
     Upload the variable description
     '''
     def uploadInitVarDesc(self, evt):
+        self.buttonInitialVarDesc.configure(relief=FLAT)
         print "UPLOADED"
         initVarDisc = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
-        self.entryInitialVarDesc.delete(0, END)
-        self.entryInitialVarDesc.insert(0, initVarDisc)
-        global features
-        features = readFeatures(initVarDisc,"^")
-        if (len(features)) > 0:
-            tkMessageBox.showinfo("Variable description set","Variable description uploaded")
-            #getCommonGroups(features)
+
+        if len(initVarDisc) == 0:
+            tkMessageBox.showerror("Error: Upload Variable description",
+                                   "Please select a valid variable description file.")
         else:
-            tkMessageBox.showerror("Error: Upload Variable description", "Error uploading variable description. Please try again.")
+            self.entryInitialVarDesc.delete(0, END)
+            self.entryInitialVarDesc.insert(0, initVarDisc)
+            global features
+            features = readFeatures(initVarDisc,"^")
+            if (len(features)) > 0:
+                tkMessageBox.showinfo("Variable description set","Variable description uploaded")
+
+                #getCommonGroups(features)
+            else:
+                tkMessageBox.showerror("Error: Upload Variable description",
+                                       "Please select a valid variable description file.")
+
+        return "break" # this "unsinks" the button after opening the file explorer
 
             
 
