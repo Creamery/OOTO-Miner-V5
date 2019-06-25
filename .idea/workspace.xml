@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="984" column="63" selection-start-line="984" selection-start-column="43" selection-end-line="984" selection-end-column="63" />
+            <state relative-caret-position="427">
+              <caret line="1982" column="78" selection-start-line="1982" selection-start-column="78" selection-end-line="1982" selection-end-column="78" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#67657#69073#0" />
@@ -64,36 +59,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>separat</find>
-      <find>0.333</find>
-      <find>rese</find>
-      <find>im =</find>
-      <find>_check</find>
-      <find>resize</find>
-      <find>antiali</find>
-      <find>TAB_TEST_COMMANDS_QUERY_REL_W</find>
-      <find>buttonQueryAddFilterA.bin</find>
-      <find>queryAddFilterA</find>
-      <find>Samples</find>
-      <find>D_BLU</find>
-      <find>Sampl</find>
-      <find>sepa</find>
-      <find>commands</find>
-      <find>relief = FL</find>
-      <find>activeback</find>
-      <find>buttonqueryaddfilterA.bin</find>
       <find>def</find>
       <find>check</find>
       <find>enterQueryAddFilter</find>
       <find>&lt;lea</find>
       <find>btn_query_filter_icon</find>
-      <find>buttonQueryAddFilterB</find>
       <find>buttonQueryAddFilterB.bin</find>
       <find>leave&gt;</find>
       <find>n:</find>
       <find>select</find>
       <find>configurese</find>
       <find>labelFrameQueryDataA</find>
+      <find>configures</find>
+      <find>ENTER CO</find>
+      <find>labelFrameQueryDataB</find>
+      <find>buttonQueryAddFilterB</find>
+      <find>addfilter</find>
+      <find>configuresele</find>
+      <find>queryAddFilterB</find>
+      <find>buttonQueryAddFilterA</find>
+      <find>labelFrameCommands</find>
+      <find>ENTER CODE D</find>
+      <find>buttonQueryFeatureB</find>
+      <find>enter code</find>
+      <find>buttonQueryFeatureA</find>
+      <find>entryQueryFeatureB</find>
+      <find>entryQueryFeatureA</find>
+      <find>listQuerySetDataB</find>
+      <find>listQueryDataA</find>
+      <find>Feature B</find>
+      <find>L_GR</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -307,8 +302,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="984" column="63" selection-start-line="984" selection-start-column="43" selection-end-line="984" selection-end-column="63" />
+        <state relative-caret-position="427">
+          <caret line="1982" column="78" selection-start-line="1982" selection-start-column="78" selection-end-line="1982" selection-end-column="78" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#67657#69073#0" />

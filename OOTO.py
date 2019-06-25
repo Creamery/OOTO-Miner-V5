@@ -981,6 +981,21 @@ class OOTO_Miner:
         self.buttonQueryFeatureA.configure(text = '''Enter Code''')
         self.buttonQueryFeatureA.configure(width = 96)
 
+        # DB B
+        self.buttonQueryFeatureB = Button(self.labelFrameQueryDataB)
+        self.buttonQueryFeatureB.place(relx = 0.02, rely = 0.32, height = 23, width = 0 ) # 96)
+
+        self.buttonQueryFeatureB.configure(activebackground = "#d9d9d9")
+        self.buttonQueryFeatureB.configure(activeforeground = "#000000")
+        self.buttonQueryFeatureB.configure(background = "#d9d9d9")
+        self.buttonQueryFeatureB.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryFeatureB.configure(foreground = "#000000")
+        self.buttonQueryFeatureB.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryFeatureB.configure(highlightcolor = "black")
+        self.buttonQueryFeatureB.configure(pady = "0")
+        self.buttonQueryFeatureB.configure(text = '''Enter Code''')
+        self.buttonQueryFeatureB.configure(width = 96)
+
         # FEATURE LIST - DATASET A
         self.listQueryDataA = Listbox(self.labelFrameQueryDataA)
         self.listQueryDataA.place(relx = 0.02, rely = 0.43, relheight = 0.48
@@ -997,6 +1012,22 @@ class OOTO_Miner:
         self.listQueryDataA.configure(selectbackground = "#c4c4c4")
         self.listQueryDataA.configure(selectforeground = "black")
 
+        # FEATURE LIST - DATASET B
+        self.listQueryDataB = Listbox(self.labelFrameQueryDataB)
+        self.listQueryDataB.place(relx = 0.02, rely = 0.43, relheight = 0.48
+                                       , relwidth = 0 ) # 0.97) # TODO
+        self.listQueryDataB.configure(background = "white")
+        self.listQueryDataB.configure(disabledforeground = "#a3a3a3")
+        self.listQueryDataB.configure(font = "TkFixedFont")
+        self.listQueryDataB.configure(foreground = "#000000")
+        self.listQueryDataB.configure(width = 364)
+        self.listQueryDataB.configure(selectmode = MULTIPLE)
+        self.listQueryDataB.configure(exportselection = "0")
+        self.listQueryDataB.configure(highlightbackground = "#d9d9d9")
+        self.listQueryDataB.configure(highlightcolor = "black")
+        self.listQueryDataB.configure(selectbackground = "#c4c4c4")
+        self.listQueryDataB.configure(selectforeground = "black")
+
         # TOP LABEL FEATURE TITLE - DATASET A
         self.labelQueryDataAFeature = Label(self.labelFrameQueryDataA)
         self.labelQueryDataAFeature.place(relx = 0.02, rely = 0.38, relheight = 0.05, relwidth = 0 ) # 0.97)
@@ -1011,125 +1042,9 @@ class OOTO_Miner:
         self.labelQueryDataA.configure(text = '''NO DATA SELECTED''')
         self.labelQueryDataA.configure(width = 462)
 
-        # > TAB 2 DATASET B
-        self.labelFrameQueryDataB = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryDataB.place(relx = 0.5, rely = 0.07, relheight = 0.7,
-                                        width = 0, relwidth = 0) # 0.48)
-        self.labelFrameQueryDataB.configure(relief = GROOVE)
-        # self.labelFrameQueryDataB.configure(foreground = "black")
-        self.labelFrameQueryDataB.configure(text = '''Dataset B''')
-        # self.labelFrameQueryDataB.configure(background = "#d9d9d9")
-        # self.labelFrameQueryDataB.configure(width = 480)
+
         global queryStrFilterA
 
-        # ENTER CODE DATASET B
-
-        self.entryQuerySetDataB = Entry(self.labelFrameQueryDataB)
-        self.entryQuerySetDataB.place(relx = 0.02, rely = 0.04, relheight = 0.05
-                                      , relwidth = 0.2)
-        self.entryQuerySetDataB.configure(background = "white")
-        self.entryQuerySetDataB.configure(disabledforeground = "#a3a3a3")
-        self.entryQuerySetDataB.configure(font = "TkFixedFont")
-        self.entryQuerySetDataB.configure(foreground = "#000000")
-        self.entryQuerySetDataB.configure(insertbackground = "black")
-        self.entryQuerySetDataB.configure(width = 94)
-
-        self.buttonQuerySetDataB = Button(self.labelFrameQueryDataB)
-        self.buttonQuerySetDataB.place(relx = 0.02, rely = 0.1, height = 23, width = 96)
-        self.buttonQuerySetDataB.configure(activebackground = "#d9d9d9")
-        self.buttonQuerySetDataB.configure(activeforeground = "#000000")
-        self.buttonQuerySetDataB.configure(background = "#d9d9d9")
-        self.buttonQuerySetDataB.configure(disabledforeground = "#a3a3a3")
-        self.buttonQuerySetDataB.configure(foreground = "#000000")
-        self.buttonQuerySetDataB.configure(highlightbackground = "#d9d9d9")
-        self.buttonQuerySetDataB.configure(highlightcolor = "black")
-        self.buttonQuerySetDataB.configure(pady = "0")
-        self.buttonQuerySetDataB.configure(text = '''Find Feature''')
-        self.buttonQuerySetDataB.configure(width = 96)
-
-        # FEATURE LIST - DATASET B
-        self.listQuerySetDataB = Listbox(self.labelFrameQueryDataB)
-        self.listQuerySetDataB.place(relx = 0.23, rely = 0.04, relheight = 0.26
-                                     , relwidth = 0.76)
-        self.listQuerySetDataB.configure(background = "white")
-        self.listQuerySetDataB.configure(disabledforeground = "#a3a3a3")
-        self.listQuerySetDataB.configure(font = "TkFixedFont")
-        self.listQuerySetDataB.configure(foreground = "#000000")
-        self.listQuerySetDataB.configure(width = 364)
-        self.listQuerySetDataB.configure(selectmode = MULTIPLE)
-        self.listQuerySetDataB.configure(exportselection = "0")
-        self.listQuerySetDataB.configure(highlightbackground = "#d9d9d9")
-        self.listQuerySetDataB.configure(highlightcolor = "black")
-        self.listQuerySetDataB.configure(selectbackground = "#c4c4c4")
-        self.listQuerySetDataB.configure(selectforeground = "black")
-
-        self.buttonQueryAddFilterB = Button(self.labelFrameQueryDataB)
-        self.buttonQueryAddFilterB.place(relx = 0.02, rely = 0.15, height = 23, width = 96)
-        self.buttonQueryAddFilterB.configure(activebackground = "#d9d9d9")
-        self.buttonQueryAddFilterB.configure(activeforeground = "#000000")
-        self.buttonQueryAddFilterB.configure(background = "#d9d9d9")
-        self.buttonQueryAddFilterB.configure(disabledforeground = "#a3a3a3")
-        self.buttonQueryAddFilterB.configure(foreground = "#000000")
-        self.buttonQueryAddFilterB.configure(highlightbackground = "#d9d9d9")
-        self.buttonQueryAddFilterB.configure(highlightcolor = "black")
-        self.buttonQueryAddFilterB.configure(pady = "0")
-        self.buttonQueryAddFilterB.configure(text = '''Filter''')
-        self.buttonQueryAddFilterB.configure(width = 96)
-
-        self.buttonQueryResetFilterB = Button(self.labelFrameQueryDataB)
-        self.buttonQueryResetFilterB.place(relx = 0.02, rely = 0.20, height = 23, width = 96)
-        self.buttonQueryResetFilterB.configure(activebackground = "#d9d9d9")
-        self.buttonQueryResetFilterB.configure(activeforeground = "#000000")
-        self.buttonQueryResetFilterB.configure(background = "#d9d9d9")
-        self.buttonQueryResetFilterB.configure(disabledforeground = "#a3a3a3")
-        self.buttonQueryResetFilterB.configure(foreground = "#000000")
-        self.buttonQueryResetFilterB.configure(highlightbackground = "#d9d9d9")
-        self.buttonQueryResetFilterB.configure(highlightcolor = "black")
-        self.buttonQueryResetFilterB.configure(pady = "0")
-        self.buttonQueryResetFilterB.configure(text = '''Reset Dataset''')
-
-        self.labelQueryDataBCount = Label(self.labelFrameQueryDataB)
-        self.labelQueryDataBCount.place(relx = 0.02, rely = 0.25, height = 23, width = 96)
-        self.labelQueryDataBCount.configure(text = 'Count: ')
-
-        self.entryQueryFeatureB = Entry(self.labelFrameQueryDataB)
-        self.entryQueryFeatureB.place(relx = 0.23, rely = 0.32, relheight = 0.05
-                                      , relwidth = 0.76)
-        self.entryQueryFeatureB.configure(background = "white")
-        self.entryQueryFeatureB.configure(disabledforeground = "#a3a3a3")
-        self.entryQueryFeatureB.configure(font = "TkFixedFont")
-        self.entryQueryFeatureB.configure(foreground = "#000000")
-        self.entryQueryFeatureB.configure(insertbackground = "black")
-        self.entryQueryFeatureB.configure(width = 364)
-
-        self.buttonQueryFeatureB = Button(self.labelFrameQueryDataB)
-        self.buttonQueryFeatureB.place(relx = 0.02, rely = 0.32, height = 23, width = 96)
-
-        self.buttonQueryFeatureB.configure(activebackground = "#d9d9d9")
-        self.buttonQueryFeatureB.configure(activeforeground = "#000000")
-        self.buttonQueryFeatureB.configure(background = "#d9d9d9")
-        self.buttonQueryFeatureB.configure(disabledforeground = "#a3a3a3")
-        self.buttonQueryFeatureB.configure(foreground = "#000000")
-        self.buttonQueryFeatureB.configure(highlightbackground = "#d9d9d9")
-        self.buttonQueryFeatureB.configure(highlightcolor = "black")
-        self.buttonQueryFeatureB.configure(pady = "0")
-        self.buttonQueryFeatureB.configure(text = '''Enter Code''')
-        self.buttonQueryFeatureB.configure(width = 96)
-
-        self.listQueryDataB = Listbox(self.labelFrameQueryDataB)
-        self.listQueryDataB.place(relx = 0.02, rely = 0.43, relheight = 0.48
-                                       , relwidth = 0.97)
-        self.listQueryDataB.configure(background = "white")
-        self.listQueryDataB.configure(disabledforeground = "#a3a3a3")
-        self.listQueryDataB.configure(font = "TkFixedFont")
-        self.listQueryDataB.configure(foreground = "#000000")
-        self.listQueryDataB.configure(width = 364)
-        self.listQueryDataB.configure(selectmode = MULTIPLE)
-        self.listQueryDataB.configure(exportselection = "0")
-        self.listQueryDataB.configure(highlightbackground = "#d9d9d9")
-        self.listQueryDataB.configure(highlightcolor = "black")
-        self.listQueryDataB.configure(selectbackground = "#c4c4c4")
-        self.listQueryDataB.configure(selectforeground = "black")
 
         self.labelQueryDataBFeature = Label(self.labelFrameQueryDataB)
         self.labelQueryDataBFeature.place(relx = 0.02, rely = 0.38, relheight = 0.05, relwidth = 0.97)
@@ -2045,13 +1960,13 @@ class OOTO_Miner:
             background = Color_support.SELECT_BG
         )
 
-        self.labelFrameDatasetB = LabelFrame(parentFrame)
+        self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
             relx = 0.5 + 0.04, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
             rely = 0.0, relwidth = 0.44, relheight = 1
         )
         self.labelFrameDatasetB.configure(
-            background = Color_support.L_GRAY
+            background = Color_support.SELECT_BG
         )
 
         # QUERY PARENT (DATASET A)
@@ -2064,7 +1979,18 @@ class OOTO_Miner:
             relief = GROOVE # , text = '''Dataset A'''
         )
 
+        #  QUERY PARENT (DATASET B)
+        self.labelFrameQueryDataB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameQueryDataB.place(
+            relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
+            relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
+        self.labelFrameQueryDataB.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            relief = GROOVE  # , text = '''Dataset B'''
+        )
 
+
+        # DATASET A
         self.labelQuerySetDataA = Label(self.labelFrameQueryDataA)
         self.labelQuerySetDataA.place(
             relx = 0, rely = 0,
@@ -2074,8 +2000,20 @@ class OOTO_Miner:
             text = '''Feature A'''
         )
 
+        # DATASET B
+        self.labelQuerySetDataB = Label(self.labelFrameQueryDataB)
+        self.labelQuerySetDataB.place(
+            relx = 0, rely = 0,
+            relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1)
+        self.labelQuerySetDataB.configure(
+            background = Color_support.SELECT_LBL_BG, foreground = Color_support.SELECT_LBL_FG,
+            text = '''Feature B'''
+        )
+
+
         newRelX = UI_support.TAB_3CHILD_LBL_REL_X + self.getRelX(self.labelQuerySetDataA) + self.getRelW(self.labelQuerySetDataA)
 
+        # DATASET A
         self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
         self.entryQuerySetDataA.place(
             relx = newRelX, rely = 0,
@@ -2086,9 +2024,22 @@ class OOTO_Miner:
             bd = 1,
             font = "TkFixedFont") # TODO Constant font definiton
 
+        # ENTER CODE DATASET B
+
+        self.entryQuerySetDataB = Entry(self.labelFrameQueryDataB)
+        self.entryQuerySetDataB.place(
+            relx = newRelX, rely = 0,
+            relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
+        self.entryQuerySetDataB.configure(
+            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            insertbackground = Color_support.SELECT_ENTRY_BG_INS,
+            bd = 1,
+            font = "TkFixedFont") # TODO Constant font definiton
+
 
         newRelX = UI_support.TAB_3CHILD_LBL_REL_X + self.getRelX(self.entryQuerySetDataA) + self.getRelW(self.entryQuerySetDataA)
 
+        # DATASET A
         self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
         self.buttonQuerySetDataA.place(
             relx = newRelX, rely = 0,
@@ -2099,6 +2050,18 @@ class OOTO_Miner:
             bd = 1, relief = FLAT, overrelief = GROOVE
             # text = '''Find Feature'''
         )
+        # DATASET B
+        self.buttonQuerySetDataB = Button(self.labelFrameQueryDataB)
+        self.buttonQuerySetDataB.place(
+            relx = newRelX, rely = 0,
+            relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
+        self.buttonQuerySetDataB.configure(
+            background = Color_support.SELECT_BTN_BG, foreground = Color_support.SELECT_BTN_FG,
+            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+            bd = 1, relief = FLAT, overrelief = GROOVE
+            # text = '''Find Feature'''
+        )
+
 
         newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + self.getRelY(self.labelFrameQueryDataA) + self.getRelH(self.labelFrameQueryDataA)
 
@@ -2129,27 +2092,53 @@ class OOTO_Miner:
         self.listQuerySetDataA.pack(side = LEFT, fill = BOTH, expand = 1)
         '''
 
+        # LISTBOX PARENT (DATASET A)
+
+        self.labelFrameListBoxB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameListBoxB.place(
+            relx = UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = UI_support.TAB_TEST_LISTBOX_QUERY_REL_H)
+
+        # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
+        # self.listQuerySetDataB = Listbox(self.labelFrameListBox, yscrollcommand = self.scrollbarQuerySetDataA.set)
+
+        self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
+        self.listQuerySetDataA.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            selectmode = MULTIPLE, exportselection = "0",
+            selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
+            font = "TkFixedFont")
+        self.listQuerySetDataB.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
+
+
         newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBox) + self.getRelH(self.labelFrameListBox)
 
         # COMMANDS PARENT (DATASET A)
 
-        self.labelFrameCommands = LabelFrame(self.labelFrameDatasetA, bd = 0)
-        self.labelFrameCommands.place(
+        self.labelFrameCommandsA = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameCommandsA.place(
             relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
 
-        self.labelFrameCommands.configure(
+        self.labelFrameCommandsA.configure(
             background = Color_support.WHITE
         )
 
+        # COMMANDS PARENT (DATASET B)
 
+        self.labelFrameCommandsB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameCommandsB.place(
+            relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
 
-
+        self.labelFrameCommandsB.configure(
+            background = Color_support.WHITE
+        )
 
         # RESET BUTTON (DATASET A)
 
 
-        self.buttonQueryResetFilterA = Button(self.labelFrameCommands)
+        self.buttonQueryResetFilterA = Button(self.labelFrameCommandsA)
         self.buttonQueryResetFilterA.place(
             relx = 0 , rely = 0,
             relwidth = 0.25, relheight = 1)
@@ -2163,13 +2152,28 @@ class OOTO_Miner:
         self.buttonQueryResetFilterA.configure(image = btn_query_reset_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
 
+        # RESET BUTTON (DATASET B)
 
+        self.buttonQueryResetFilterB = Button(self.labelFrameCommandsB)
+        self.buttonQueryResetFilterB.place(
+            relx = 0, rely = 0,
+            relwidth = 0.25, relheight = 1)
+        self.buttonQueryResetFilterB.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+        # text = '''Reset''')
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterB.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
 
         newRelX = self.getRelX(self.buttonQueryResetFilterA) + self.getRelW(self.buttonQueryResetFilterA)
 
 
         # QUERY COUNT (DATASET A)
-        self.labelFrameQueryCount = LabelFrame(self.labelFrameCommands, bd = 0)
+        self.labelFrameQueryCount = LabelFrame(self.labelFrameCommandsA, bd = 0)
         self.labelFrameQueryCount.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.50 - 0.005, relheight = 1
@@ -2201,10 +2205,44 @@ class OOTO_Miner:
         self.labelFrameQueryCountRightSeparator = ttk.Separator(self.labelFrameQueryCount, orient = VERTICAL)
         self.labelFrameQueryCountRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
 
+
+        # QUERY COUNT (DATASET B)
+        self.labelFrameQueryCountB = LabelFrame(self.labelFrameCommandsB, bd = 0)
+        self.labelFrameQueryCountB.place(
+            relx = newRelX + 0.005, rely = 0,
+            relwidth = 0.50 - 0.005, relheight = 1
+        )
+        self.labelFrameQueryCountB.configure(
+            background = Color_support.SELECT_BG
+        )
+
+        self.labelQueryDataBCount = Label(self.labelFrameQueryCountB)
+        self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.65)
+        self.labelQueryDataBCount.configure(
+            font = UI_support.FONT_LARGE_BOLD,
+            background = Color_support.SELECT_BG,
+        )
+        self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
+        self.labelQueryDataBCountText.place(
+            relx = 0.005, rely = self.getRelH(self.labelQueryDataBCount),
+            relwidth = 0.98, relheight = 0.35)
+        self.labelQueryDataBCountText.configure(
+            font = UI_support.FONT_DEFAULT_BOLD,
+            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            text = '''SAMPLES'''
+        )
+
+        # Create the left separator
+        self.labelFrameQueryCountLeftSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
+        self.labelFrameQueryCountLeftSeparatorB.place(relx = 0, rely = 0, relheight = 1)
+
+        self.labelFrameQueryCountRightSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
+        self.labelFrameQueryCountRightSeparatorB.place(relx = 0.99, rely = 0, relheight = 1)
+
         # FILTER BUTTON (DATASET A)
         newRelX = self.getRelX(self.labelFrameQueryCount) + self.getRelW(self.labelFrameQueryCount)
 
-        self.buttonQueryAddFilterA = Button(self.labelFrameCommands, compound = CENTER)
+        self.buttonQueryAddFilterA = Button(self.labelFrameCommandsA, compound = CENTER)
         self.buttonQueryAddFilterA.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.25 - 0.005, relheight = 1
@@ -2224,6 +2262,29 @@ class OOTO_Miner:
 
         self.buttonQueryResetFilterA.pack(side = LEFT)
 
+
+        # FILTER BUTTON (DATASET B)
+        newRelX = self.getRelX(self.labelFrameQueryCountB) + self.getRelW(self.labelFrameQueryCountB)
+
+        self.buttonQueryAddFilterB = Button(self.labelFrameCommandsB, compound = CENTER)
+        self.buttonQueryAddFilterB.place(
+            relx = newRelX + 0.005, rely = 0,
+            relwidth = 0.25 - 0.005, relheight = 1
+        )
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterB.configure(image = btn_query_filter_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+        self.buttonQueryAddFilterB.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+            # text = '''Filter''')
+        self.buttonQueryAddFilterB.pack(side = RIGHT)
+
+
+        self.buttonQueryResetFilterB.pack(side = LEFT)
 
 if __name__ == '__main__':
     vp_start_gui()
