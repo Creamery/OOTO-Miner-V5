@@ -703,7 +703,7 @@ class OOTO_Miner:
             relwidth = prevBtnRelW, relheight = prevBtnRelH)
         self.buttonQueryPopulation.configure(
             background = Color_support.DATASET_BTN_BG, foreground = Color_support.DATASET_BTN_FG, text = UI_support.BTN_DATASET_UPLOAD,
-            bd = 1, relief = GROOVE,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
             activebackground = Color_support.DATASET_BTN_BG_ACTIVE, activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
@@ -791,7 +791,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
         self.buttonVariableFile.configure(
             background = Color_support.VARDESC_BTN_BG, foreground = Color_support.VARDESC_BTN_FG, text = UI_support.BTN_VARDESC_UPLOAD,
-            bd = 1, relief = GROOVE,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
             activebackground = Color_support.VARDESC_BTN_BG_ACTIVE, activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
@@ -832,7 +832,7 @@ class OOTO_Miner:
             relwidth = prevBtnRelW, relheight = prevBtnRelH)
         self.buttonValuesFile.configure(
             background = Color_support.VARDESC_BTN_BG, foreground = Color_support.VARDESC_BTN_FG, text = UI_support.BTN_VARDESC_UPLOAD,
-            bd = 1, relief = GROOVE,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
             activebackground = Color_support.VARDESC_BTN_BG_ACTIVE, activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
@@ -1557,24 +1557,27 @@ class OOTO_Miner:
         global populationDir
         populationDir = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
 
-        self.entryQueryPopulation.delete(0,END)
-        self.entryQueryPopulation.insert(0,populationDir)
-
-        self.populationDataset = readCSVDict(populationDir)
-        self.datasetA['Data'] = []
-        self.datasetB['Data'] = []
-
-        if(len(list(self.populationDataset)) > 0):
-            tkMessageBox.showinfo("Population set", "Population dataset uploaded")
-            self.populationDataset = readCSVDict(populationDir)
-            for record in self.populationDataset:
-                self.datasetA['Data'].append(record)
-                self.datasetB['Data'].append(record)
-            self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])) )
-            self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])) )
+        if len(populationDir) == 0:
+            tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
         else:
-            tkMessageBox.showerror("Error: Upload error", "Error uploading population dataset. Please try again.")
-    
+            self.entryQueryPopulation.delete(0,END)
+            self.entryQueryPopulation.insert(0,populationDir)
+
+            self.populationDataset = readCSVDict(populationDir)
+            self.datasetA['Data'] = []
+            self.datasetB['Data'] = []
+
+            if(len(list(self.populationDataset)) > 0):
+                tkMessageBox.showinfo("Population set", "Population dataset uploaded")
+                self.populationDataset = readCSVDict(populationDir)
+                for record in self.populationDataset:
+                    self.datasetA['Data'].append(record)
+                    self.datasetB['Data'].append(record)
+                self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])) )
+                self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])) )
+            else:
+                tkMessageBox.showerror("Error: Upload error", "Error uploading population dataset. Please select a valid file and try again.")
+
 
     '''
     Function that happens when the 'Enqueue' button is pressed.
@@ -1637,6 +1640,7 @@ class OOTO_Miner:
 
     def querySetPopulation(self, evt):
         self.setPopulation(evt)
+        return "break"
 
     def querySetDataA(self, evt):
         try:
@@ -1947,7 +1951,6 @@ class OOTO_Miner:
     Upload the variable description
     '''
     def uploadInitVarDesc(self, evt):
-        self.buttonInitialVarDesc.configure(relief=FLAT)
         print "UPLOADED"
         initVarDisc = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
 
