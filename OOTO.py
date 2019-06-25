@@ -882,13 +882,90 @@ class OOTO_Miner:
         > TAB 2 - TEST (Tabs_t3)
         '''
         self.testTabParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
-        self.testTabParentFrame.place(relx = 0, rely = 0, relheight = 1, relwidth = 1)
+        self.testTabParentFrame.place(
+            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
+            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
+        )
         self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient=VERTICAL)
         self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
+
+
+
+        # TYPE Parent Frame
+        self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame)
+        self.labelFrameTypeElements.place(
+            relx = UI_support.TAB_TEST_TYPE_REL_X, rely = UI_support.TAB_TEST_TYPE_REL_Y,
+            relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
+        )
+        self.labelFrameTypeElements.configure(
+            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = '''TYPE'''
+        )
+
+        prevFrameRelY = float(self.labelFrameTypeElements.place_info()['rely'])
+        prevFrameRelH = float(self.labelFrameTypeElements.place_info()['relheight'])
+        newRelY = prevFrameRelY + prevFrameRelH
+
+        # SELECT Parent Frame (Datasets)
+        self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame)
+        self.labelFrameSelectElements.place(
+            relx = UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
+        )
+        self.labelFrameSelectElements.configure(
+            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = '''SELECT'''
+        )
+
+        prevFrameRelY = float(self.labelFrameSelectElements.place_info()['rely'])
+        prevFrameRelH = float(self.labelFrameSelectElements.place_info()['relheight'])
+        newRelY = prevFrameRelY + prevFrameRelH
+
+        # FILTER Parent Frame
+        self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame)
+        self.labelFrameFilterElements.place(
+            relx = UI_support.TAB_TEST_FILTER_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
+        )
+        self.labelFrameFilterElements.configure(
+            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = '''FILTER'''
+        )
+
+
+        prevFrameRelY = float(self.labelFrameFilterElements.place_info()['rely'])
+        prevFrameRelH = float(self.labelFrameFilterElements.place_info()['relheight'])
+        newRelY = prevFrameRelY + prevFrameRelH
+
+        # PROCESS Parent Frame
+        self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame)
+        self.labelFrameProcessElements.place(
+            relx = UI_support.TAB_TEST_PROCESS_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_PROCESS_REL_W, relheight = UI_support.TAB_TEST_PROCESS_REL_H
+        )
+        self.labelFrameProcessElements.configure(
+            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = '''PROCESS'''
+        )
+
+        prevFrameRelX = float(self.labelFrameFilterElements.place_info()['relx'])
+        prevFrameRelW = float(self.labelFrameFilterElements.place_info()['relwidth'])
+        newRelX = prevFrameRelX + prevFrameRelW
+
+        # CONSOLE Parent Frame
+        self.labelFrameConsoleElements = LabelFrame(self.testTabParentFrame)
+        self.labelFrameConsoleElements.place(
+            relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
+        )
+        self.labelFrameConsoleElements.configure(
+            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR, text = '''CONSOLE'''
+        )
+
+
+
+
+        # > TAB 2 DATASET A
         self.labelFrameQueryDataA = LabelFrame(self.testTabParentFrame)
-        self.labelFrameQueryDataA.place(relx = 0.01, rely = 0.07, relheight = 0.7
-                                        , relwidth = 0.48)
+        self.labelFrameQueryDataA.place(relx = 0.01, rely = 0.07, relheight = 0.7,
+                                        relwidth = 0) # 0.48)
         self.labelFrameQueryDataA.configure(relief = GROOVE)
         self.labelFrameQueryDataA.configure(foreground = "black")
         self.labelFrameQueryDataA.configure(text = '''Dataset A''')
@@ -960,10 +1037,12 @@ class OOTO_Miner:
         self.buttonQueryResetFilterA.configure(text = '''Reset Dataset''')
         self.buttonQueryResetFilterA.configure(width = 96)
 
+
         self.labelQueryDataACount = Label(self.labelFrameQueryDataA)
         self.labelQueryDataACount.place(relx = 0.02, rely = 0.25, height = 23, width = 96)
         self.labelQueryDataACount.configure(text = 'Count: ')
 
+        # ENTER CODE DATASET A
         self.entryQueryFeatureA = Entry(self.labelFrameQueryDataA)
         self.entryQueryFeatureA.place(relx = 0.23, rely = 0.32, relheight = 0.05
                                       , relwidth = 0.76)
@@ -988,8 +1067,7 @@ class OOTO_Miner:
         self.buttonQueryFeatureA.configure(text = '''Enter Code''')
         self.buttonQueryFeatureA.configure(width = 96)
 
-
-
+        # FEATURE LIST - DATASET A
         self.listQueryDataA = Listbox(self.labelFrameQueryDataA)
         self.listQueryDataA.place(relx = 0.02, rely = 0.43, relheight = 0.48
                                        , relwidth = 0.97)
@@ -1005,10 +1083,12 @@ class OOTO_Miner:
         self.listQueryDataA.configure(selectbackground = "#c4c4c4")
         self.listQueryDataA.configure(selectforeground = "black")
 
+        # TOP LABEL FEATURE TITLE - DATASET A
         self.labelQueryDataAFeature = Label(self.labelFrameQueryDataA)
         self.labelQueryDataAFeature.place(relx = 0.02, rely = 0.38, relheight = 0.05, relwidth = 0.97)
         self.labelQueryDataAFeature.configure(text = '''''')
 
+        # BOTTOM LABEL - DATASET A
         self.labelQueryDataA = Label(self.labelFrameQueryDataA)
         self.labelQueryDataA.place(relx = 0.02, rely = 0.91, height = 26, width = 462)
         self.labelQueryDataA.configure(background = "#d9d9d9")
@@ -1017,15 +1097,18 @@ class OOTO_Miner:
         self.labelQueryDataA.configure(text = '''NO DATA SELECTED''')
         self.labelQueryDataA.configure(width = 462)
 
+        # > TAB 2 DATASET B
         self.labelFrameQueryDataB = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryDataB.place(relx = 0.5, rely = 0.07, relheight = 0.7
-                                        , relwidth = 0.48)
+        self.labelFrameQueryDataB.place(relx = 0.5, rely = 0.07, relheight = 0.7,
+                                        width = 0, relwidth = 0) # 0.48)
         self.labelFrameQueryDataB.configure(relief = GROOVE)
-        self.labelFrameQueryDataB.configure(foreground = "black")
+        # self.labelFrameQueryDataB.configure(foreground = "black")
         self.labelFrameQueryDataB.configure(text = '''Dataset B''')
-        self.labelFrameQueryDataB.configure(background = "#d9d9d9")
-        self.labelFrameQueryDataB.configure(width = 480)
+        # self.labelFrameQueryDataB.configure(background = "#d9d9d9")
+        # self.labelFrameQueryDataB.configure(width = 480)
         global queryStrFilterA
+
+        # ENTER CODE DATASET B
 
         self.entryQuerySetDataB = Entry(self.labelFrameQueryDataB)
         self.entryQuerySetDataB.place(relx = 0.02, rely = 0.04, relheight = 0.05
@@ -1050,6 +1133,7 @@ class OOTO_Miner:
         self.buttonQuerySetDataB.configure(text = '''Find Feature''')
         self.buttonQuerySetDataB.configure(width = 96)
 
+        # FEATURE LIST - DATASET B
         self.listQuerySetDataB = Listbox(self.labelFrameQueryDataB)
         self.listQuerySetDataB.place(relx = 0.23, rely = 0.04, relheight = 0.26
                                      , relwidth = 0.76)
@@ -1145,18 +1229,20 @@ class OOTO_Miner:
         self.labelQueryDataB.configure(text = '''NO DATA SELECTED''')
         self.labelQueryDataB.configure(width = 462)
 
+        # > COMBO BOX
         global testTypes
         testTypes = ["Sample vs Sample","Sample vs Population"]
         self.comboQueryTest = ttk.Combobox(self.Tabs_t3)
-        self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 23, width = 316)
+        self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 23, width = 0) # 316)
         self.comboQueryTest.configure(exportselection = "0")
         self.comboQueryTest.configure(takefocus = "")
         self.comboQueryTest.configure(values = testTypes)
         self.comboQueryTest.current(0)
         self.comboQueryTest.configure(state = "readonly")
 
+        # > Z-TEST FRAME SAMPLE
         self.labelFrameQueryZ = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryZ.place(relx = 0.01, rely = 0.78, relheight = 0.1, relwidth = 0.48)
+        self.labelFrameQueryZ.place(relx = 0.01, rely = 0.78, relheight = 0.1, relwidth = 0) # 0.48)
         self.labelFrameQueryZ.configure(relief = GROOVE)
         self.labelFrameQueryZ.configure(foreground = "black")
         self.labelFrameQueryZ.configure(text = '''Z-Test''')
@@ -1186,17 +1272,16 @@ class OOTO_Miner:
         self.buttonQueryZTest.configure(text = '''Test''')
         self.buttonQueryZTest.configure(width = 106)
         
-
+        # > CHI-TEST FRAME
 
         self.labelFrameQueryChi = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0.1
-                                    , relwidth = 0.48)
+        self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0.1,
+                                      relwidth = 0)# 0.48)
         self.labelFrameQueryChi.configure(relief = GROOVE)
         self.labelFrameQueryChi.configure(foreground = "black")
         self.labelFrameQueryChi.configure(text = '''Chi Test''')
         self.labelFrameQueryChi.configure(background = "#d9d9d9")
-        self.labelFrameQueryChi.configure(width = 480)
-
+        # self.labelFrameQueryChi.configure(width = 480)
         global arrQueryCriticalValue
         arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
 
@@ -1210,8 +1295,9 @@ class OOTO_Miner:
         self.comboQueryCriticalValue.configure(values = arrQueryCriticalValue)
         self.comboQueryCriticalValue.set(arrQueryCriticalValue[0])
 
+        # > QUEUE COUNT
         self.labelQueueCount = Label(self.Tabs_t3)
-        self.labelQueueCount.place(relx = 0.87, rely = 0.01, height = 23, width = 106)
+        self.labelQueueCount.place(relx = 0.87, rely = 0.01, height = 23, width = 0) # 106)
         self.labelQueueCount.configure(text = '''Queue Count: 0''')
         '''
         self.buttonTest = Button(self.labelFrameQueryChi)
@@ -1267,9 +1353,10 @@ class OOTO_Miner:
         self.buttonQueue.configure(text = '''Enqueue''')
         # self.buttonQueue.configure(state = 'disabled')
 
+        # > Z-TEST FRAME POPULATION
         self.labelFrameQuerySvP = LabelFrame(self.Tabs_t3)
-        self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0.1
-                                    , relwidth = 0.48)
+        self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0.1,
+                                      relwidth = 0) # 0.48)
         self.labelFrameQuerySvP.configure(relief = GROOVE)
         self.labelFrameQuerySvP.configure(foreground = "black")
         self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
@@ -1307,6 +1394,9 @@ class OOTO_Miner:
         self.buttonQueryZTestSvP.configure(width = 106)
         self.buttonQueryZTestSvP.configure(state = "disabled")
 
+
+
+
         '''
         BINDING FOR TEST TAB
         '''
@@ -1340,14 +1430,15 @@ class OOTO_Miner:
         self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
 
 
-
         '''
         > TAB 3 - INFO (Tabs_t4)
         '''
 
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)
         self.infoTabParentFrame = LabelFrame(self.Tabs_t4, bd = 0)
-        self.infoTabParentFrame.place(relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y, relheight = UI_support.TAB_REL_H, relwidth = UI_support.TAB_REL_W)
+        self.infoTabParentFrame.place(
+            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
+            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
         self.infoTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
         # Create the left separator
         self.infoTabLeftSeparator = ttk.Separator(self.infoTabParentFrame, orient=VERTICAL)

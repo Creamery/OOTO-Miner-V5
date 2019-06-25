@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +17,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="704" column="53" selection-start-line="704" selection-start-column="39" selection-end-line="704" selection-end-column="53" />
+            <state relative-caret-position="167">
+              <caret line="954" column="69" lean-forward="true" selection-start-line="954" selection-start-column="69" selection-end-line="954" selection-end-column="69" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -27,6 +27,15 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/UI_support.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="86" column="26" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="266">
@@ -39,37 +48,45 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>update(</find>
-      <find>refres</find>
-      <find>buttoninitial</find>
-      <find>.csv</find>
-      <find>-4</find>
-      <find>readFeatures</find>
-      <find>populationdata</find>
-      <find>variabledescr</find>
-      <find>buttonvaria</find>
-      <find>upload</find>
-      <find>select a va</find>
-      <find>update</find>
-      <find>== 0</find>
-      <find># TODO</find>
-      <find>return &quot;b</find>
-      <find>uploadInitVarDesc</find>
-      <find>button</find>
-      <find>populationdatas</find>
-      <find>setPopulation</find>
-      <find>buttonQueryPopulation</find>
-      <find>buttonvariable</find>
-      <find>buttonVariableFile</find>
-      <find>buttonValuesFile</find>
-      <find>start</find>
-      <find>buttonStartVariableDescriptor</find>
-      <find>buttonstart</find>
-      <find>FLAT</find>
-      <find>LIME</find>
-      <find>TAB_HL_COLOR</find>
-      <find>DATASET_BTN_BG</find>
+      <find>parentfra</find>
+      <find>.place</find>
+      <find>TAB_REL_X</find>
+      <find>relx =</find>
+      <find>&gt; TAB 3</find>
+      <find>elements</find>
+      <find>Dataset</find>
+      <find>TITLE_DATASET</find>
+      <find>TAB_DATASET_REL_X</find>
+      <find>TEST</find>
+      <find>enter code</find>
+      <find>FILTER</find>
+      <find>DATASET</find>
+      <find>&gt; Tab 1</find>
+      <find>SELECT</find>
+      <find>Tabs_t3</find>
+      <find>chi</find>
+      <find>chitest</find>
+      <find>test</find>
+      <find>vs pop</find>
+      <find>vs Pop</find>
+      <find>&gt; TAB 2 DATA</find>
+      <find>separator</find>
+      <find>separat</find>
+      <find>ttk.separator</find>
+      <find>TAB_REL_H</find>
+      <find>combobo</find>
+      <find>queue cou</find>
+      <find>&gt; TAB 2</find>
+      <find>PROCESS</find>
     </findStrings>
+    <replaceStrings>
+      <replace>TEST</replace>
+      <replace>TEST_DATASET</replace>
+      <replace>SELECT</replace>
+      <replace>TYPE</replace>
+      <replace>PROCESS</replace>
+      <replace>CONSOLE</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -77,15 +94,17 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/OOTO.py" />
         <option value="$PROJECT_DIR$/Color_support.py" />
+        <option value="$PROJECT_DIR$/OOTO.py" />
+        <option value="$PROJECT_DIR$/UI_support.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="76" />
+    <option name="x" value="140" />
+    <option name="y" value="67" />
     <option name="width" value="1728" />
-    <option name="height" value="1088" />
+    <option name="height" value="932" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -181,15 +200,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="61" y="0" width="1382" height="870" extended-state="0" />
+    <frame x="112" y="54" width="1382" height="745" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21676737" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20090635" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30559346" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27467105" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24659401" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -237,20 +256,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="704" column="53" selection-start-line="704" selection-start-column="39" selection-end-line="704" selection-end-column="53" />
+        <state relative-caret-position="167">
+          <caret line="954" column="69" lean-forward="true" selection-start-line="954" selection-start-column="69" selection-end-line="954" selection-end-column="69" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        <state relative-caret-position="76">
+          <caret line="86" column="26" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
         </state>
       </provider>
     </entry>
