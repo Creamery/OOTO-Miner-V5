@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
@@ -17,10 +17,37 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="954" column="69" lean-forward="true" selection-start-line="954" selection-start-column="69" selection-end-line="954" selection-end-column="69" />
+            <state relative-caret-position="60">
+              <caret line="2035" column="19" selection-start-line="2035" selection-start-column="19" selection-end-line="2035" selection-end-column="19" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
+                <element signature="e#71042#72458#0" />
+                <element signature="e#72594#73417#0" />
+                <element signature="e#73467#73705#0" />
+                <element signature="e#73753#73984#0" />
+                <element signature="e#74034#74207#0" />
+                <element signature="e#74272#75564#0" />
+                <element signature="e#75712#76064#0" />
+                <element signature="e#76173#77269#0" />
+                <element signature="e#77361#77512#0" />
+                <element signature="e#77603#77697#0" />
+                <element signature="e#77754#77848#0" />
+                <element signature="e#77897#77943#0" />
+                <element signature="e#77987#78254#0" />
+                <element signature="e#78302#78570#0" />
+                <element signature="e#78618#79060#0" />
+                <element signature="e#79113#79555#0" />
+                <element signature="e#79612#79702#0" />
+                <element signature="e#79759#79849#0" />
+                <element signature="e#79896#81736#0" />
+                <element signature="e#81783#83640#0" />
+                <element signature="e#83688#84753#0" />
+                <element signature="e#84800#85853#0" />
+                <element signature="e#85946#87081#0" />
+                <element signature="e#87179#90184#0" />
+                <element signature="e#90332#90426#0" />
+                <element signature="e#93935#94048#0" />
+                <element signature="e#91296#92279#0" />
               </folding>
             </state>
           </provider>
@@ -29,8 +56,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="86" column="26" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
+            <state relative-caret-position="201">
+              <caret line="104" column="34" selection-start-line="104" selection-start-column="34" selection-end-line="104" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -38,8 +65,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+            <state relative-caret-position="436">
+              <caret line="84" column="28" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -48,44 +75,45 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>parentfra</find>
-      <find>.place</find>
-      <find>TAB_REL_X</find>
-      <find>relx =</find>
-      <find>&gt; TAB 3</find>
-      <find>elements</find>
-      <find>Dataset</find>
-      <find>TITLE_DATASET</find>
-      <find>TAB_DATASET_REL_X</find>
-      <find>TEST</find>
-      <find>enter code</find>
-      <find>FILTER</find>
-      <find>DATASET</find>
-      <find>&gt; Tab 1</find>
-      <find>SELECT</find>
-      <find>Tabs_t3</find>
-      <find>chi</find>
-      <find>chitest</find>
-      <find>test</find>
-      <find>vs pop</find>
-      <find>vs Pop</find>
-      <find>&gt; TAB 2 DATA</find>
-      <find>separator</find>
-      <find>separat</find>
       <find>ttk.separator</find>
       <find>TAB_REL_H</find>
       <find>combobo</find>
       <find>queue cou</find>
       <find>&gt; TAB 2</find>
       <find>PROCESS</find>
+      <find>def</find>
+      <find>def</find>
+      <find>class</find>
+      <find>configureSelectElements</find>
+      <find>configure</find>
+      <find>configurese</find>
+      <find>relx'</find>
+      <find>labelQuerySetDataA</find>
+      <find>setFocusFeatureValues</find>
+      <find>enter co</find>
+      <find>find fea</find>
+      <find>Find Fea</find>
+      <find>3Child</find>
+      <find>find feat</find>
+      <find>LabelFrame</find>
+      <find>LabelFrame(</find>
+      <find>label</find>
+      <find>DATASET</find>
+      <find>QUER</find>
+      <find>QUery</find>
+      <find>QUERY</find>
+      <find>Find Feat</find>
+      <find>entry</find>
+      <find>&gt; TAB 1</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
       <replace>TEST_DATASET</replace>
-      <replace>SELECT</replace>
       <replace>TYPE</replace>
       <replace>PROCESS</replace>
+      <replace>SELECT</replace>
       <replace>CONSOLE</replace>
+      <replace>DATASET</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -208,7 +236,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.27467105" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.26973686" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24659401" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -258,25 +286,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        <state relative-caret-position="436">
+          <caret line="84" column="28" selection-start-line="84" selection-start-column="28" selection-end-line="84" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="954" column="69" lean-forward="true" selection-start-line="954" selection-start-column="69" selection-end-line="954" selection-end-column="69" />
+        <state relative-caret-position="60">
+          <caret line="2035" column="19" selection-start-line="2035" selection-start-column="19" selection-end-line="2035" selection-end-column="19" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
+            <element signature="e#71042#72458#0" />
+            <element signature="e#72594#73417#0" />
+            <element signature="e#73467#73705#0" />
+            <element signature="e#73753#73984#0" />
+            <element signature="e#74034#74207#0" />
+            <element signature="e#74272#75564#0" />
+            <element signature="e#75712#76064#0" />
+            <element signature="e#76173#77269#0" />
+            <element signature="e#77361#77512#0" />
+            <element signature="e#77603#77697#0" />
+            <element signature="e#77754#77848#0" />
+            <element signature="e#77897#77943#0" />
+            <element signature="e#77987#78254#0" />
+            <element signature="e#78302#78570#0" />
+            <element signature="e#78618#79060#0" />
+            <element signature="e#79113#79555#0" />
+            <element signature="e#79612#79702#0" />
+            <element signature="e#79759#79849#0" />
+            <element signature="e#79896#81736#0" />
+            <element signature="e#81783#83640#0" />
+            <element signature="e#83688#84753#0" />
+            <element signature="e#84800#85853#0" />
+            <element signature="e#85946#87081#0" />
+            <element signature="e#87179#90184#0" />
+            <element signature="e#90332#90426#0" />
+            <element signature="e#93935#94048#0" />
+            <element signature="e#91296#92279#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="86" column="26" selection-start-line="86" selection-start-column="26" selection-end-line="86" selection-end-column="26" />
+        <state relative-caret-position="201">
+          <caret line="104" column="34" selection-start-line="104" selection-start-column="34" selection-end-line="104" selection-end-column="34" />
         </state>
       </provider>
     </entry>
