@@ -475,7 +475,8 @@ class OOTO_Miner:
         self.style = ttk.Style()
         if sys.platform == "win32":
             self.style.theme_use('winnative')
-
+        # else:
+        #     self.style.theme_use('clam')
 
         self.style.configure('.', font = "TkDefaultFont")
         # self.style.map('.',background =
@@ -1979,9 +1980,12 @@ class OOTO_Miner:
     '''
     def getRelX(self, element):
         return float(element.place_info()['relx'])
-
+    def getRelY(self, element):
+        return float(element.place_info()['rely'])
     def getRelW(self, element):
         return float(element.place_info()['relwidth'])
+    def getRelH(self, element):
+        return float(element.place_info()['relheight'])
 
     def configureSelectElements(self, parentFrame):
 
@@ -2021,7 +2025,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1)
         self.labelQuerySetDataA.configure(
             background = Color_support.SELECT_LBL_BG, foreground = Color_support.SELECT_LBL_FG,
-            text = '''Feature'''
+            text = '''Feature A'''
         )
 
         newRelX = UI_support.TAB_3CHILD_LBL_REL_X + self.getRelX(self.labelQuerySetDataA) + self.getRelW(self.labelQuerySetDataA)
@@ -2051,19 +2055,34 @@ class OOTO_Miner:
         )
 
 
-        self.listQuerySetDataA = Listbox(self.labelFrameQueryDataA)
-        self.listQuerySetDataA.place(relx=0.23, rely=0.04, relheight=0.26
-                                     , relwidth= 0) #0.76)
-        self.listQuerySetDataA.configure(background="white")
-        self.listQuerySetDataA.configure(disabledforeground="#a3a3a3")
-        self.listQuerySetDataA.configure(font="TkFixedFont")
-        self.listQuerySetDataA.configure(foreground="#000000")#
-        self.listQuerySetDataA.configure(selectmode=MULTIPLE)
-        self.listQuerySetDataA.configure(exportselection="0")
-        self.listQuerySetDataA.configure(highlightbackground="#d9d9d9")
-        self.listQuerySetDataA.configure(highlightcolor="black")
-        self.listQuerySetDataA.configure(selectbackground="#c4c4c4")
-        self.listQuerySetDataA.configure(selectforeground="black")
+        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + self.getRelY(self.labelFrameQueryDataA) + self.getRelH(self.labelFrameQueryDataA)
+
+        # LISTBOX PARENT (DATASET A)
+
+        self.labelFrameListBox = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameListBox.place(
+            relx = UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = UI_support.TAB_TEST_LISTBOX_QUERY_REL_H)
+
+        # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
+        # self.listQuerySetDataA = Listbox(self.labelFrameListBox, yscrollcommand = self.scrollbarQuerySetDataA.set)
+
+        self.listQuerySetDataA = Listbox(self.labelFrameListBox)
+        self.listQuerySetDataA.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            selectmode = MULTIPLE, exportselection = "0",
+            selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
+            font = "TkFixedFont")
+        self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
+        # self.listQuerySetDataA.configure(highlightcolor="black")
+        '''
+        self.scrollbarQuerySetDataA.configure(
+            command = self.listQuerySetDataA.yview,
+            width = 8, relief = FLAT,
+            troughcolor = Color_support.ACTIVE_COLOR)
+        self.scrollbarQuerySetDataA.pack(side = RIGHT, fill = Y)
+        self.listQuerySetDataA.pack(side = LEFT, fill = BOTH, expand = 1)
+        '''
 
         self.buttonQueryAddFilterA = Button(self.labelFrameQueryDataA)
         self.buttonQueryAddFilterA.place(relx=0.02, rely=0.15, height=23, width= 0) # 96)
