@@ -884,13 +884,13 @@ class OOTO_Miner:
 
 
         # TYPE Parent Frame
-        self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame)
+        self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameTypeElements.place(
             relx = UI_support.TAB_TEST_TYPE_REL_X, rely = UI_support.TAB_TEST_TYPE_REL_Y,
             relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
         )
         self.labelFrameTypeElements.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = '''TYPE'''
+            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR # , text = '''TYPE'''
         )
 
         prevFrameRelY = float(self.labelFrameTypeElements.place_info()['rely'])
@@ -904,7 +904,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
         self.labelFrameSelectElements.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = '''SELECT'''
+            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR # , text = '''SELECT'''
         )
 
         self.configureSelectElements(self.labelFrameSelectElements) # Configures all sub elements under SELECT
@@ -914,14 +914,17 @@ class OOTO_Miner:
         newRelY = prevFrameRelY + prevFrameRelH
 
         # FILTER Parent Frame
-        self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame)
+        self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameFilterElements.place(
             relx = UI_support.TAB_TEST_FILTER_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
         )
         self.labelFrameFilterElements.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = '''FILTER'''
+            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR # , text = '''FILTER'''
         )
+        # Create the top separator
+        self.labelFrameQueryCountLeftSeparator = ttk.Separator(self.labelFrameFilterElements, orient = HORIZONTAL)
+        self.labelFrameQueryCountLeftSeparator.place(relx = 0.05, rely = 0, relwidth = 0.9)
 
 
         prevFrameRelY = float(self.labelFrameFilterElements.place_info()['rely'])
@@ -1962,7 +1965,7 @@ class OOTO_Miner:
 
         self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
-            relx = 0.5 + 0.04, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
+            relx = 0.48, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
             rely = 0.0, relwidth = 0.44, relheight = 1
         )
         self.labelFrameDatasetB.configure(
@@ -2067,22 +2070,35 @@ class OOTO_Miner:
 
         # LISTBOX PARENT (DATASET A)
 
-        self.labelFrameListBox = LabelFrame(self.labelFrameDatasetA, bd = 0)
-        self.labelFrameListBox.place(
+        self.labelFrameListBoxA = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameListBoxA.place(
             relx = UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = UI_support.TAB_TEST_LISTBOX_QUERY_REL_H)
 
         # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
-        # self.listQuerySetDataA = Listbox(self.labelFrameListBox, yscrollcommand = self.scrollbarQuerySetDataA.set)
+        # self.listQuerySetDataA = Listbox(self.labelFrameListBoxA, yscrollcommand = self.scrollbarQuerySetDataA.set)
 
-        self.listQuerySetDataA = Listbox(self.labelFrameListBox)
+        self.listQuerySetDataA = Listbox(self.labelFrameListBoxA)
         self.listQuerySetDataA.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             selectmode = MULTIPLE, exportselection = "0",
             selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
-            font = "TkFixedFont")
-        self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
+            font = "TkFixedFont",
+            bd = 1, relief = GROOVE,
+            highlightthickness = 0
+        )
+        self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.84)
         # self.listQuerySetDataA.configure(highlightcolor="black")
+
+        self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
+        self.labelQuerySetDataStatusA.place(relx = 0, rely = 0.84, relwidth = 1, relheight = 0.16)
+        self.labelQuerySetDataStatusA.configure(
+            background = Color_support.L_GRAY, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = GROOVE,
+            text = '''NO DATA''',
+            font = UI_support.FONT_DEFAULT_BOLD,
+        )
+
         '''
         self.scrollbarQuerySetDataA.configure(
             command = self.listQuerySetDataA.yview,
@@ -2092,7 +2108,7 @@ class OOTO_Miner:
         self.listQuerySetDataA.pack(side = LEFT, fill = BOTH, expand = 1)
         '''
 
-        # LISTBOX PARENT (DATASET A)
+        # LISTBOX PARENT (DATASET B)
 
         self.labelFrameListBoxB = LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameListBoxB.place(
@@ -2103,14 +2119,21 @@ class OOTO_Miner:
         # self.listQuerySetDataB = Listbox(self.labelFrameListBox, yscrollcommand = self.scrollbarQuerySetDataA.set)
 
         self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
-        self.listQuerySetDataA.configure(
+        self.listQuerySetDataB.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             selectmode = MULTIPLE, exportselection = "0",
             selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
             font = "TkFixedFont")
         self.listQuerySetDataB.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
 
-
+        self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
+        self.labelQuerySetDataStatusB.place(relx = 0, rely = 0.84, relwidth = 1, relheight = 0.16)
+        self.labelQuerySetDataStatusB.configure(
+            background = Color_support.L_GRAY, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = GROOVE,
+            text = '''NO DATA''',
+            font = UI_support.FONT_DEFAULT_BOLD,
+        )
         newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBox) + self.getRelH(self.labelFrameListBox)
 
         # COMMANDS PARENT (DATASET A)
@@ -2173,7 +2196,7 @@ class OOTO_Miner:
 
 
         # QUERY COUNT (DATASET A)
-        self.labelFrameQueryCount = LabelFrame(self.labelFrameCommandsA, bd = 0)
+        self.labelFrameQueryCount = LabelFrame(self.labelFrameCommandsA, bd = 1)
         self.labelFrameQueryCount.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.50 - 0.005, relheight = 1
@@ -2183,15 +2206,15 @@ class OOTO_Miner:
         )
 
         self.labelQueryDataACount = Label(self.labelFrameQueryCount)
-        self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.65)
+        self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.64)
         self.labelQueryDataACount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.SELECT_BG,
         )
         self.labelQueryDataACountText = Label(self.labelFrameQueryCount)
         self.labelQueryDataACountText.place(
-            relx = 0.005, rely = self.getRelH(self.labelQueryDataACount),
-            relwidth = 0.98, relheight = 0.35)
+            relx = 0, rely = self.getRelH(self.labelQueryDataACount),
+            relwidth = 1, relheight = 0.36)
         self.labelQueryDataACountText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
             background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
@@ -2199,15 +2222,15 @@ class OOTO_Miner:
         )
 
         # Create the left separator
-        self.labelFrameQueryCountLeftSeparator = ttk.Separator(self.labelFrameQueryCount, orient = VERTICAL)
-        self.labelFrameQueryCountLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+        # self.labelFrameQueryCountLeftSeparator = ttk.Separator(self.labelFrameQueryCount, orient = VERTICAL)
+        # self.labelFrameQueryCountLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
-        self.labelFrameQueryCountRightSeparator = ttk.Separator(self.labelFrameQueryCount, orient = VERTICAL)
-        self.labelFrameQueryCountRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
+        # self.labelFrameQueryCountRightSeparator = ttk.Separator(self.labelFrameQueryCount, orient = VERTICAL)
+        # self.labelFrameQueryCountRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
 
 
         # QUERY COUNT (DATASET B)
-        self.labelFrameQueryCountB = LabelFrame(self.labelFrameCommandsB, bd = 0)
+        self.labelFrameQueryCountB = LabelFrame(self.labelFrameCommandsB, bd = 1)
         self.labelFrameQueryCountB.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.50 - 0.005, relheight = 1
@@ -2217,15 +2240,15 @@ class OOTO_Miner:
         )
 
         self.labelQueryDataBCount = Label(self.labelFrameQueryCountB)
-        self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.65)
+        self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.64)
         self.labelQueryDataBCount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.SELECT_BG,
         )
         self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
         self.labelQueryDataBCountText.place(
-            relx = 0.005, rely = self.getRelH(self.labelQueryDataBCount),
-            relwidth = 0.98, relheight = 0.35)
+            relx = 0, rely = self.getRelH(self.labelQueryDataBCount),
+            relwidth = 1, relheight = 0.36)
         self.labelQueryDataBCountText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
             background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
@@ -2233,11 +2256,11 @@ class OOTO_Miner:
         )
 
         # Create the left separator
-        self.labelFrameQueryCountLeftSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
-        self.labelFrameQueryCountLeftSeparatorB.place(relx = 0, rely = 0, relheight = 1)
+        # self.labelFrameQueryCountLeftSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
+        # self.labelFrameQueryCountLeftSeparatorB.place(relx = 0, rely = 0, relheight = 1)
 
-        self.labelFrameQueryCountRightSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
-        self.labelFrameQueryCountRightSeparatorB.place(relx = 0.99, rely = 0, relheight = 1)
+        # self.labelFrameQueryCountRightSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
+        # self.labelFrameQueryCountRightSeparatorB.place(relx = 0.99, rely = 0, relheight = 1)
 
         # FILTER BUTTON (DATASET A)
         newRelX = self.getRelX(self.labelFrameQueryCount) + self.getRelW(self.labelFrameQueryCount)
