@@ -34,6 +34,11 @@ BTN_VARDESC_UPLOAD = '''Choose File...'''
 
 LBL_VARDESC_VALFILE = '''Values File:'''
 
+
+# TEST tab entries
+LBL_SELECT_NO_DATA = '''NO DATA'''
+LBL_SELECT_READY = '''READY'''
+
 # ABOUT tab entries
 TITLE_ABOUT = '''About'''
 

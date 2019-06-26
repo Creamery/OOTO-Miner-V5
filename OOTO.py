@@ -984,7 +984,17 @@ class OOTO_Miner:
         self.buttonQueryFeatureA.configure(text = '''Enter Code''')
         self.buttonQueryFeatureA.configure(width = 96)
 
-        # DB B
+        # ENTER CODE DATASET B
+        self.entryQueryFeatureB = Entry(self.labelFrameQueryDataB)
+        self.entryQueryFeatureB.place(relx = 0.23, rely = 0.32, relheight = 0.05
+                                      , relwidth = 0 ) # 0.76)
+        self.entryQueryFeatureB.configure(background = "white")
+        self.entryQueryFeatureB.configure(disabledforeground = "#a3a3a3")
+        self.entryQueryFeatureB.configure(font = "TkFixedFont")
+        self.entryQueryFeatureB.configure(foreground = "#000000")
+        self.entryQueryFeatureB.configure(insertbackground = "black")
+        self.entryQueryFeatureB.configure(width = 364)
+
         self.buttonQueryFeatureB = Button(self.labelFrameQueryDataB)
         self.buttonQueryFeatureB.place(relx = 0.02, rely = 0.32, height = 23, width = 0 ) # 96)
 
@@ -1241,6 +1251,8 @@ class OOTO_Miner:
 
 
         self.buttonQueryAddFilterB.bind('<Button-1>', self.queryAddFilterB)
+        self.buttonQueryAddFilterB.bind("<Enter>", self.enterQueryAddFilterB)
+        self.buttonQueryAddFilterB.bind("<Leave>", self.leaveQueryAddFilterB)
 
         self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
@@ -1256,6 +1268,8 @@ class OOTO_Miner:
         self.buttonQueryResetFilterA.bind("<Enter>", self.enterQueryResetFilterA)
         self.buttonQueryResetFilterA.bind("<Leave>", self.leaveQueryResetFilterA)
         self.buttonQueryResetFilterB.bind('<Button-1>', self.queryResetDatasetB)
+        self.buttonQueryResetFilterB.bind("<Enter>", self.enterQueryResetFilterB)
+        self.buttonQueryResetFilterB.bind("<Leave>", self.leaveQueryResetFilterB)
         
 
 
@@ -1422,6 +1436,21 @@ class OOTO_Miner:
             image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
 
+    def enterQueryAddFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterB.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+    def leaveQueryAddFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterB.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+
     def enterQueryResetFilterA(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
@@ -1435,6 +1464,21 @@ class OOTO_Miner:
         self.buttonQueryResetFilterA.configure(
             image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+    def enterQueryResetFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterB.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+    def leaveQueryResetFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterB.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
+
     '''
     Functions to be called by the bound commands
     '''
@@ -1614,25 +1658,34 @@ class OOTO_Miner:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
 
     def queryResetDatasetA(self,evt):
+        self.buttonQueryResetFilterA.configure(relief = FLAT)
         self.datasetA = resetDataset(self.datasetA)
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeatureA.configure(text = '')
+        self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
         # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
+        self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
+
         self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
         self.labelQueryDataA.configure(text = "")
         self.listQueryDataA.delete(0,END)
         self.listQuerySetDataA.delete(0,END)
+        return "break"
 
     
     def queryResetDatasetB(self,evt):
+        self.buttonQueryResetFilterA.configure(relief = FLAT)
         self.datasetB = resetDataset(self.datasetB)
         self.entryQuerySetDataB.configure(text = '')
         self.entryQueryFeatureB.configure(text = '')
-        self.labelFrameQueryDataB.configure(text = "Dataset B")
+        # self.labelFrameQueryDataB.configure(text = "Dataset B")
+        self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_NO_DATA)
+
         self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
         self.labelQueryDataB.configure(text = "")
         self.listQueryDataB.delete(0,END)
         self.listQuerySetDataB.delete(0,END)
+        return "break"
     
     def querySelectDataValuesA(self, evt):
         selectDatasetValues(evt, self.datasetA, self.populationDataset, self.labelQueryDataACount)
@@ -1663,35 +1716,42 @@ class OOTO_Miner:
         self.datasetA['Data'] = new_data
 
         if(queryType == 'Sample vs Sample'):
-            queryStrFilterA = 'Dataset A'
+            queryStrFilterA = ''
+            # queryStrFilterA = 'Dataset A'
         else:
-            queryStrFilterA = 'Population'
+            # queryStrFilterA = 'Population'
+            queryStrFilterA = ''
 
         #Write the breadcrumb trail of the features and values the dataset was filtered by
         for i in range(0, len(self.datasetA['Filter Features'])):
-            queryStrFilterA = queryStrFilterA + "->" + self.datasetA['Filter Features'][i]['Code']
+            # queryStrFilterA = queryStrFilterA + "->" + self.datasetA['Filter Features'][i]['Code']
+            queryStrFilterA = " [ " + self.datasetA['Filter Features'][i]['Code'] + " | "
             for j in range(0,len(self.datasetA['Filter Features'][i]['Selected Responses'])):
-                if j == 0:
-                    queryStrFilterA = queryStrFilterA + "("
+                # if j == 0:
+                #     queryStrFilterA = queryStrFilterA + " [ "
                 queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
-                if j == (len(self.datasetA['Filter Features'][i]['Selected Responses'])-1):
-                    queryStrFilterA = queryStrFilterA + ")"
+                if j == (len(self.datasetA['Filter Features'][i]['Selected Responses']) - 1):
+                    queryStrFilterA = queryStrFilterA + "]"
                     
         # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
+        self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA)
         return "break"
     def queryAddFilterB(self, evt):
 
+        self.buttonQueryAddFilterB.configure(relief = FLAT)
         # If the dataset is empty, do not push through with filtering.
         if len(self.datasetB['Data']) <= 0:
             tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
-            return -1
+            # return -1
+            return "break"
         
         # Filter the data given the feature inputted and its values selected
         try:
             new_data = filterDataset(self.datasetB, self.datasetB['Feature'], self.datasetB['Feature']['Selected Responses'])
         except KeyError:
             tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
-            return -1
+            # return -1
+            return "break"
 
         # Add the feature to the dataset's filtered features
         self.datasetB['Filter Features'].append(self.datasetB['Feature'])
@@ -1699,23 +1759,27 @@ class OOTO_Miner:
         # Assign the new set of filtered data
         self.datasetB['Data'] = new_data
 
-        if(queryType == 'Sample vs Sample'):
-            queryStrFilterB = 'Dataset B'
+        if(queryType == 'Sample vs Sample'): ### TODO
+            queryStrFilterB = ''
         else:
-            queryStrFilterB = 'Samples'
+            queryStrFilterB = ''
 
         #Write the breadcrumb trail of the features and values the dataset was filtered by
         for i in range(0, len(self.datasetB['Filter Features'])):
-            queryStrFilterB = queryStrFilterB + "->" + self.datasetB['Filter Features'][i]['Code']
+            # queryStrFilterB = queryStrFilterB + "->" + self.datasetB['Filter Features'][i]['Code']
+            queryStrFilterB = " [ " + self.datasetB['Filter Features'][i]['Code'] + " | "
             for j in range(0,len(self.datasetB['Filter Features'][i]['Selected Responses'])):
-                if j == 0:
-                    queryStrFilterB = queryStrFilterB + "("
+                # if j == 0:
+                #     queryStrFilterB = queryStrFilterB + "("
                 queryStrFilterB = queryStrFilterB + self.datasetB['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
                 if j == (len(self.datasetB['Filter Features'][i]['Selected Responses'])-1):
-                    queryStrFilterB = queryStrFilterB + ")"
+                    queryStrFilterB = queryStrFilterB + "]"
+
 
         # Concat the Filter String Here
-        self.labelFrameQueryDataB.configure(text = queryStrFilterB)
+        # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
+        self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB)
+        return "break"
 
 
     def querySetFeatureA(self, evt):
@@ -1894,14 +1958,18 @@ class OOTO_Miner:
             self.labelQueryDataB.configure(state = "disabled")
             self.listQueryDataA.configure(state = "disabled")
             # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
-            self.labelFrameQueryDataB.configure(text = "Samples")
+            # self.labelFrameQueryDataB.configure(text = "Samples")
+            self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
+            self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_NO_DATA)
             self.labelQueryDataBCount.configure(text = "")
         else:
             self.buttonQueryZTestSvP.configure(state = "disabled")
             self.comboQueryCriticalValueSvP.configure(state = "disabled")
             self.labelQueryZTestSvP.configure(state = "disabled")
             # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
-            self.labelFrameQueryDataB.configure(text = "Dataset B")
+            # self.labelFrameQueryDataB.configure(text = "Dataset B")
+            self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
+            self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_NO_DATA)
 
     def querySetAllFeatures(self):
         #Test items
@@ -2134,7 +2202,7 @@ class OOTO_Miner:
             text = '''NO DATA''',
             font = UI_support.FONT_DEFAULT_BOLD,
         )
-        newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBox) + self.getRelH(self.labelFrameListBox)
+        newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
 
         # COMMANDS PARENT (DATASET A)
 
