@@ -434,29 +434,36 @@ def isSameFocusFeat(dataset1, dataset2, selectedValD1, selectedValD2):
         return -1
 
 
+def checkKey(dict, key):
+    if key in dict.keys():
+        return True
+    else:
+        return False
 '''
 Set selected dataset values for that dataset. 
 '''
 def selectDatasetValues(evt, dataset, populationDataset, labelFeatCount):
     global populationDir
-    listbox = evt.widget
-    selectedValues = [listbox.get(i) for i in listbox.curselection()]
-    dataset['Feature']['Selected Responses'] = []
 
-    for sv in selectedValues:
-        responseArr = sv.split(" - ")
-        for response in dataset['Feature']['Responses']:
-            if response['Code'] == responseArr[0]:
-                selected_response = copy.deepcopy(response)
-                dataset['Feature']['Selected Responses'].append(selected_response)
-    
-    datasetCount = 0
-    print str(len(dataset['Data']))
-    for record in dataset['Data']:
-        if any (response['Code'] == record[dataset['Feature']['Code']] for response in dataset['Feature']['Selected Responses']):
-            datasetCount += 1
+    if checkKey(dataset, 'Feature'): #### TODO in DB B
+        listbox = evt.widget
+        selectedValues = [listbox.get(i) for i in listbox.curselection()]
+        dataset['Feature']['Selected Responses'] = []
 
-    labelFeatCount.configure(text = "" + str(datasetCount))
+        for sv in selectedValues:
+            responseArr = sv.split(" - ")
+            for response in dataset['Feature']['Responses']:
+                if response['Code'] == responseArr[0]:
+                    selected_response = copy.deepcopy(response)
+                    dataset['Feature']['Selected Responses'].append(selected_response)
+
+        datasetCount = 0
+        print str(len(dataset['Data']))
+        for record in dataset['Data']:
+            if any (response['Code'] == record[dataset['Feature']['Code']] for response in dataset['Feature']['Selected Responses']):
+                datasetCount += 1
+
+        labelFeatCount.configure(text = "" + str(datasetCount))
 
 '''
 Saves the dataset as a .csv file
@@ -1635,9 +1642,9 @@ class OOTO_Miner:
     QUERY FUNCTIONS
     '''
 
-    def setFocusFeatureValuesA(self, evt):
+    def setFocusFeatureValuesA(self, evt): ### TODO Add checker if listbox is not empty
         setFocusFeatureValues(evt, self.datasetA, self.entryQueryFeatureA.get(), self.labelQueryDataA)
-    
+
     def setFocusFeatureValuesB(self, evt):
         setFocusFeatureValues(evt, self.datasetB, self.entryQueryFeatureB.get(), self.labelQueryDataB)
 
@@ -1650,12 +1657,14 @@ class OOTO_Miner:
             findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA,self.datasetA,"Dataset_Feature")
         except NameError:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+        return "break"
     
     def querySetDataB(self, evt):
         try:
             findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB,"Dataset_Feature")
         except NameError:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+        return "break"
 
     def queryResetDatasetA(self,evt):
         self.buttonQueryResetFilterA.configure(relief = FLAT)
