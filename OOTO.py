@@ -2086,11 +2086,46 @@ class OOTO_Miner:
         self.labelFrameSelectTitle = LabelFrame(parentFrame, bd = 0)
         self.labelFrameSelectTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
         self.labelFrameSelectTitle.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
+
+        # SELECT DATASET A TITLE
+        self.labelFrameSelectDatasetTitleA = Label(self.labelFrameSelectTitle)
+        self.labelFrameSelectDatasetTitleA.place(
+            relx = 0, rely = 0,
+            relwidth = 0.5, relheight = 1)
+        self.labelFrameSelectDatasetTitleA.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            text = '''DATASET A''',
+            anchor = S
+        )
+
+        # Top horizontal separator # TODO
+        # self.SelectDatasetATitleSeparator = ttk.Separator(self.labelFrameSelectDatasetTitleA, orient = HORIZONTAL)
+        # self.SelectDatasetATitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
+
+
+        # SELECT DATASET B TITLE
+        self.labelFrameSelectDatasetTitleB = Label(self.labelFrameSelectTitle)
+        self.labelFrameSelectDatasetTitleB.place(
+            relx = 0.5, rely = 0,
+            relwidth = 0.5, relheight = 1)
+        self.labelFrameSelectDatasetTitleB.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            text = '''DATASET B''',
+            anchor = S
+        )
+
+        # Top horizontal separator # TODO
+        # self.SelectDatasetBTitleSeparator = ttk.Separator(self.labelFrameSelectDatasetTitleB, orient = HORIZONTAL)
+        # self.SelectDatasetBTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
+
+
         # Create the top separator
-        self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = HORIZONTAL)
-        self.labelFrameSelectHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
+        # self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = HORIZONTAL)
+        # self.labelFrameSelectHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
 
         newRelY = self.getRelY(self.labelFrameSelectTitle) + self.getRelH(self.labelFrameSelectTitle) # + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
         titleRelH = self.getRelH(self.labelFrameSelectTitle)
@@ -2285,8 +2320,10 @@ class OOTO_Miner:
         '''
         self.listQuerySetDataB.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
 
+        newRelY = self.getRelY(self.labelQuerySetDataStatusA)
+        newRelH = self.getRelH(self.labelQuerySetDataStatusA)
         self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
-        self.labelQuerySetDataStatusB.place(relx = 0, rely = 0.84, relwidth = 1, relheight = 0.16)
+        self.labelQuerySetDataStatusB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusB.configure(
             background = Color_support.L_GRAY, foreground = Color_support.FG_COLOR,
             bd = 1, relief = GROOVE,
@@ -2477,7 +2514,7 @@ class OOTO_Miner:
         self.labelFrameFilterTitle = LabelFrame(parentFrame, bd = 0)
         self.labelFrameFilterTitle.place(relx = 0, rely = 0.05, relwidth = 1, relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
         self.labelFrameFilterTitle.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+            background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
         # Create the top separator
         self.labelFrameFilterHorizontalSeparator = ttk.Separator(self.labelFrameFilterTitle, orient = HORIZONTAL)

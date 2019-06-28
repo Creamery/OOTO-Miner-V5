@@ -20,7 +20,7 @@
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="313">
-              <caret line="2241" column="95" selection-start-line="2241" selection-start-column="95" selection-end-line="2241" selection-end-column="95" />
+              <caret line="2323" column="29" selection-start-line="2323" selection-start-column="29" selection-end-line="2323" selection-end-column="29" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#57007#60821#1" />
@@ -32,8 +32,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Icon_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="161">
+              <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
               <folding>
                 <element signature="e#1#11#0" expanded="true" />
               </folding>
@@ -44,8 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="122" column="17" selection-start-line="122" selection-start-column="17" selection-end-line="122" selection-end-column="17" />
+            <state relative-caret-position="1407">
+              <caret line="184" column="41" selection-start-line="184" selection-start-column="39" selection-end-line="184" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -63,16 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>reset</find>
-      <find>queue cleared</find>
-      <find>Z - Te</find>
-      <find>chi -s</find>
-      <find>Z-TEST Ti</find>
-      <find>Chi-square</find>
-      <find>Z_TEST</find>
-      <find>width = 0)</find>
-      <find>relwidth = 0)</find>
-      <find>chi-square t</find>
       <find>0.33</find>
       <find>chi_squa</find>
       <find>z - te</find>
@@ -90,9 +80,19 @@
       <find>TAB_TEST_SELECT_REL_H</find>
       <find>labelFrameFilterTitle</find>
       <find>labelFrameSelectTitle</find>
-      <find>filter feat</find>
       <find>feature a'</find>
+      <find>D_BLU</find>
+      <find>fil</find>
+      <find>0.1</find>
       <find>(FILTER)</find>
+      <find>0.28 +</find>
+      <find>Filter</find>
+      <find>filter feat</find>
+      <find>NO DATA</find>
+      <find>TAB_TEST_FILTER_LISTBOX_LIST_REL_H</find>
+      <find>TAB_TEST_FILTER_LISTBOX_STATUS_REL_H</find>
+      <find>No DATA</find>
+      <find>STATUS</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -247,6 +247,17 @@
       <window_info anchor="right" id="R Packages" order="4" />
     </layout>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/UI_support.py</url>
+          <line>164</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://D:/Python27/Lib/lib-tk/ttk.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -294,8 +305,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="161">
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
           <folding>
             <element signature="e#1#11#0" expanded="true" />
           </folding>
@@ -304,15 +315,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="122" column="17" selection-start-line="122" selection-start-column="17" selection-end-line="122" selection-end-column="17" />
+        <state relative-caret-position="1407">
+          <caret line="184" column="41" selection-start-line="184" selection-start-column="39" selection-end-line="184" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
-          <caret line="2241" column="95" selection-start-line="2241" selection-start-column="95" selection-end-line="2241" selection-end-column="95" />
+          <caret line="2323" column="29" selection-start-line="2323" selection-start-column="29" selection-end-line="2323" selection-end-column="29" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#57007#60821#1" />
