@@ -1592,9 +1592,12 @@ class OOTO_Miner:
         self.datasetA = resetDataset(self.datasetA)
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeature.configure(text = '')
-        self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
+        self.labelQuerySetDataStatusA.configure(
+            text = UI_support.LBL_SELECT_NO_DATA,
+            background = Color_support.L_GRAY
+        )
         # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
-        self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
+        # self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
 
         if self.datasetA['Data'] is []:
             self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
@@ -1612,7 +1615,10 @@ class OOTO_Miner:
         self.entryQueryFeature.configure(text = '')
 
         # self.labelFrameQueryDataB.configure(text = "Dataset B")
-        self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_NO_DATA)
+        self.labelQuerySetDataStatusB.configure(
+            text = UI_support.LBL_SELECT_NO_DATA,
+            background = Color_support.L_GRAY
+        )
 
         if self.datasetB['Data'] is []:
             self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
@@ -1669,7 +1675,10 @@ class OOTO_Miner:
                     queryStrFilterA = queryStrFilterA + "]"
                     
         # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
-        self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA)
+        self.labelQuerySetDataStatusA.configure(
+            text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA,
+            background = Color_support.YES
+        )
         return "break"
     def queryAddFilterB(self, evt):
 
@@ -1713,7 +1722,10 @@ class OOTO_Miner:
 
         # Concat the Filter String Here
         # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
-        self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB)
+        self.labelQuerySetDataStatusB.configure(
+            text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
+            background = Color_support.YES
+        )
         return "break"
 
     def querySetFeature(self, evt):
@@ -1915,8 +1927,14 @@ class OOTO_Miner:
             self.listQueryDataA.configure(state = "disabled")
             # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
             # self.labelFrameQueryDataB.configure(text = "Samples")
-            self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
-            self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_NO_DATA)
+            self.labelQuerySetDataStatusA.configure(
+                text = UI_support.LBL_SELECT_NO_DATA,
+                background = Color_support.L_GRAY
+            )
+            self.labelQuerySetDataStatusB.configure(
+                text = UI_support.LBL_SELECT_NO_DATA,
+                background = Color_support.L_GRAY
+            )
             self.labelQueryDataBCount.configure(text = "")
         else:
             self.buttonQueryZTestSvP.configure(state = "disabled")
@@ -1926,8 +1944,14 @@ class OOTO_Miner:
             self.labelQueryZTestSvP.configure(state = "disabled")
             # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
             # self.labelFrameQueryDataB.configure(text = "Dataset B")
-            self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
-            self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_NO_DATA)
+            self.labelQuerySetDataStatusA.configure(
+                text = UI_support.LBL_SELECT_NO_DATA,
+                background = Color_support.L_GRAY
+            )
+            self.labelQuerySetDataStatusB.configure(
+                text = UI_support.LBL_SELECT_NO_DATA,
+                background = Color_support.L_GRAY
+            )
 
     def querySetAllFeatures(self):
         #Test items
@@ -2129,7 +2153,7 @@ class OOTO_Miner:
         self.labelQuerySetDataStatusA.configure(
             background = Color_support.L_GRAY, foreground = Color_support.FG_COLOR,
             bd = 1, relief = GROOVE,
-            text = '''NO DATA''',
+            text = UI_support.LBL_SELECT_NO_DATA,
             font = UI_support.FONT_DEFAULT_BOLD,
         )
 
@@ -2176,7 +2200,7 @@ class OOTO_Miner:
         self.labelQuerySetDataStatusB.configure(
             background = Color_support.L_GRAY, foreground = Color_support.FG_COLOR,
             bd = 1, relief = GROOVE,
-            text = '''NO DATA''',
+            text = UI_support.LBL_SELECT_NO_DATA,
             font = UI_support.FONT_DEFAULT_BOLD,
         )
         newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
