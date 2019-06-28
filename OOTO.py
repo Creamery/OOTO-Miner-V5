@@ -895,6 +895,9 @@ class OOTO_Miner:
             relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
             relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
         )
+        self.testTabParentFrame.configure(
+            background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
+        )
         self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient = VERTICAL)
         self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
@@ -1021,10 +1024,7 @@ class OOTO_Miner:
         self.comboQueryCriticalValue.configure(values = arrQueryCriticalValue)
         self.comboQueryCriticalValue.set(arrQueryCriticalValue[0])
         '''
-        # > QUEUE COUNT
-        self.labelQueueCount = Label(self.Tabs_t3)
-        self.labelQueueCount.place(relx = 0.87, rely = 0.01, height = 0, width = 0) # 106)
-        self.labelQueueCount.configure(text = '''Queue Count: 0''')
+
         '''
         self.buttonTest = Button(self.labelFrameQueryChi)
         self.buttonTest.place(relx = 0.01, rely = 0.01, height = 23, width = 106)
@@ -1413,7 +1413,7 @@ class OOTO_Miner:
             elif(key == 'zArg'):
                 test['Z Critical Value'] = copy.copy(params[key])
         tests.append(test)
-        self.labelQueueCount.configure(text = 'Queue Count: ' + str(len(tests)))
+        self.labelQueueCount.configure(text = str(len(tests)))
         tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
 
 
@@ -1538,7 +1538,7 @@ class OOTO_Miner:
     '''
     def clearQueue(self, evt):
         tests[:] = []
-        self.labelQueueCount.configure(text = 'Queue Count: ' + str(len(tests)))
+        self.labelQueueCount.configure(text = str(len(tests)))
         tkMessageBox.showinfo("Reset", "Queue cleared.")
 
 
@@ -2658,7 +2658,7 @@ class OOTO_Miner:
         self.labelFrameProcessZTest = LabelFrame(self.labelFrameProcessCommands, bd = 0)
         self.labelFrameProcessZTest.place(
             relx = 0, rely = 0,
-            relwidth = 0.3333, relheight = 1
+            relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
         )
         self.labelFrameProcessZTest.configure(
             background = Color_support.PROCESS_BG
@@ -2676,6 +2676,7 @@ class OOTO_Miner:
             text = '''Z - TEST''',
             anchor = S
         )
+
         # Top horizontal separator # TODO
         self.zTestTitleSeparator = ttk.Separator(self.labelFrameProcessZTestTitle, orient = HORIZONTAL)
         self.zTestTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
@@ -2751,11 +2752,9 @@ class OOTO_Miner:
         )
 
 
-        newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(self.labelFrameProcessZTestConfidence)
-
-        newRelY = self.getRelY(self.labelFrameProcessZTestConfidence)
-
-        newRelH = self.getRelH(self.labelFrameProcessZTestConfidence)
+        # newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(self.labelFrameProcessZTestConfidence)
+        # newRelY = self.getRelY(self.labelFrameProcessZTestConfidence)
+        # newRelH = self.getRelH(self.labelFrameProcessZTestConfidence)
 
         # Z-TEST BUTTON
         self.buttonQueryZTest = Button(self.labelFrameProcessZTestButtonElements, compound = CENTER)
@@ -2773,31 +2772,14 @@ class OOTO_Miner:
         self.buttonQueryZTest.pack(side = RIGHT)
         self.buttonQueryZTest.update()
 
-        # self.buttonQueryZTest.place(
-        #      rely = 0.5, anchor = CENTER
-        # )
-        # self.buttonQueryZTest.place(
-        #     relx = 0.5, rely = 0.5, anchor = CENTER
-        # )
-
-        # self.labelFrameProcessZTestElements.update()
-        # self.labelFrameProcessZTestButtonElements.pack(side = RIGHT)
-        # self.labelFrameProcessZTestElements.pack()
-        # self.labelFrameProcessZTestButtonElements.update()
-        # self.labelFrameProcessZTestButtonElements.place(
-        #     relx = 0.5, rely = 0.5, anchor = CENTER
-        # )
 
 
         # Z-TEST RESULTS
         self.labelQueryZTest = Label(self.labelFrameProcessZTest)  ## TODO functionality switch
         self.labelQueryZTest.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
-        # self.labelQueryZTest.configure(background = "#d9d9d9")
         self.labelQueryZTest.configure(disabledforeground = "#a3a3a3")
         self.labelQueryZTest.configure(foreground = "#000000")
         self.labelQueryZTest.configure(text = '''NO DATA''')
-
-
 
 
 
@@ -2808,23 +2790,100 @@ class OOTO_Miner:
         self.labelFrameProcessChiSquare = LabelFrame(self.labelFrameProcessCommands, bd = 0)
         self.labelFrameProcessChiSquare.place(
             relx = newRelX, rely = 0,
-            relwidth = 0.3333, relheight = 1
+            relwidth = UI_support.TEST_PROCESS_CHI_SQUARE_PARENT, relheight = 1
         )
         self.labelFrameProcessChiSquare.configure(
             background = Color_support.PROCESS_BG
         )
 
-        newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(self.labelFrameProcessChiSquare)
+        # newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(self.labelFrameProcessChiSquare)
 
-        # PROCESS RUN PARENT
-        self.labelFrameProcessRun = LabelFrame(self.labelFrameProcessCommands, bd = 1)
-        self.labelFrameProcessRun.place(
-            relx = newRelX, rely = 0,
-            relwidth = 0.3333, relheight = 1
+        # PROCESS Z-TEST TITLE
+        self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
+        self.labelFrameProcessChiSquareTitle.place(
+            relx = 0, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+        self.labelFrameProcessChiSquareTitle.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            text = '''CHI - SQUARE''',
+            anchor = S
         )
-        self.labelFrameProcessRun.configure(
+
+        # Top horizontal separator # TODO
+        self.chiSquareTitleSeparator = ttk.Separator(self.labelFrameProcessChiSquareTitle, orient = HORIZONTAL)
+        self.chiSquareTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
+
+        # self.chiSquareRightSeparator = ttk.Separator(self.labelFrameProcessChiSquare, orient = VERTICAL)
+        # self.chiSquareRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
+
+        newRelY = self.getRelY(self.labelFrameProcessZTestTitle) + self.getRelH(
+            self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
+
+
+        # BUTTON ELEMENTS
+        self.labelFrameProcessChiSquareElements = LabelFrame(self.labelFrameProcessChiSquare, bd = 0)
+        self.labelFrameProcessChiSquareElements.place(
+            relx = 0, rely = newRelY,
+            relwidth = 1, relheight = 0.35
+        )
+        self.labelFrameProcessChiSquareElements.configure(
+            background = Color_support.LIME
+        )
+
+        # QUEUE ELEMENTS
+        self.labelFrameProcessChiSquareQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 1)
+        self.labelFrameProcessChiSquareQueue.place(
+            relx =0.25, rely = 0,
+            relwidth = 0.5, relheight = 1
+        )
+        self.labelFrameProcessChiSquareQueue.configure(
             background = Color_support.PROCESS_BG
         )
+
+        newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(
+            self.labelFrameProcessChiSquare)
+
+
+        # > QUEUE COUNT
+        self.labelQueueText = Label(self.labelFrameProcessChiSquareQueue)
+        self.labelQueueText.place(
+            relx = 0, rely = 0,
+            relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_QUEUE_TEXT_REL_H
+        )
+        self.labelQueueText.configure(
+            font = UI_support.FONT_DEFAULT_BOLD,
+            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            text = '''QUEUE COUNT'''
+        )
+
+        newRelY = self.getRelY(self.labelQueueText) + self.getRelH(self.labelQueueText)
+        newRelH = 1 - self.getRelH(self.labelQueueText)
+
+        self.labelQueueCount = Label(self.labelFrameProcessChiSquareQueue)
+        self.labelQueueCount.place(
+            relx = 0, rely = newRelY,
+            relwidth = 1, relheight = newRelH)
+        self.labelQueueCount.configure(
+            font = UI_support.FONT_LARGE_BOLD,
+            background = Color_support.SELECT_BG,
+            text = '''0'''
+        )
+
+
+        # PROCESS RUN PARENT
+        self.labelFrameProcessRun = LabelFrame(self.labelFrameProcessCommands, bd = 0)
+        self.labelFrameProcessRun.place(
+            relx = newRelX, rely = 0,
+            relwidth = UI_support.TEST_PROCESS_RUN_PARENT, relheight = 1
+        )
+        self.labelFrameProcessRun.configure(
+            background = Color_support.D_BLUE
+        )
+
+        self.runLeftSeparator = ttk.Separator(self.labelFrameProcessRun, orient = VERTICAL)
+        self.runLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+
 
 if __name__ == '__main__':
     vp_start_gui()
