@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="936" column="48" selection-start-line="936" selection-start-column="48" selection-end-line="936" selection-end-column="48" />
+            <state relative-caret-position="64">
+              <caret line="2386" column="86" selection-start-line="2386" selection-start-column="86" selection-end-line="2386" selection-end-column="86" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -28,11 +26,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="118" lean-forward="true" selection-start-line="118" selection-end-line="118" />
+            <state relative-caret-position="83">
+              <caret line="113" column="21" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -52,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
+            <state relative-caret-position="292">
+              <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -62,25 +60,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>### TODO</find>
-      <find>filter</find>
-      <find>buttonQueryAddFilterB</find>
-      <find>entryQueryFeatureA</find>
-      <find>ENTER CODE DATASET B</find>
-      <find>entryQueryFeatureB</find>
-      <find>entryQueryFeatureA =</find>
-      <find>.bind('&lt;&lt;</find>
-      <find>enter&gt;</find>
-      <find>queryAddFilterA</find>
-      <find>leave</find>
-      <find>find</find>
-      <find>QUERY</find>
-      <find>ACTIVE_COLO</find>
-      <find>Feature</find>
-      <find>Feature A</find>
-      <find>listbox</find>
-      <find>selectDatasetValues</find>
-      <find>check</find>
       <find>No Data</find>
       <find>separat</find>
       <find>configuresele</find>
@@ -90,8 +69,27 @@
       <find>sele</find>
       <find>COMMANDS</find>
       <find>PROCESS</find>
-      <find>dataset_b</find>
       <find>filter_bg</find>
+      <find>CenterS</find>
+      <find>Feature B</find>
+      <find>B</find>
+      <find>(self.labelFrameDatasetB</find>
+      <find>configureFi</find>
+      <find>configureFIl</find>
+      <find>getH</find>
+      <find>dataset_b</find>
+      <find>FILTER</find>
+      <find>self.entryQueryFeature</find>
+      <find>'feature a</find>
+      <find>DATASET</find>
+      <find>entry</find>
+      <find>dataset ent</find>
+      <find>newRelX</find>
+      <find>Feature A</find>
+      <find>ENTRY</find>
+      <find>labelFrameDatasetB</find>
+      <find>labelFrameQueryDataB</find>
+      <find>labelFrameQueryDataA</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -112,8 +110,8 @@
       <list>
         <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/Color_support.py" />
-        <option value="$PROJECT_DIR$/OOTO.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
+        <option value="$PROJECT_DIR$/OOTO.py" />
       </list>
     </option>
   </component>
@@ -245,7 +243,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2063</line>
+          <line>1957</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -294,23 +292,6 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_default.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="39" column="19" selection-start-line="39" selection-start-column="19" selection-end-line="39" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OOTO.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="936" column="48" selection-start-line="936" selection-start-column="48" selection-end-line="936" selection-end-column="48" />
-          <folding>
-            <element signature="e#137#147#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -321,10 +302,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="118" lean-forward="true" selection-start-line="118" selection-end-line="118" />
+        <state relative-caret-position="83">
+          <caret line="113" column="21" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OOTO.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="64">
+          <caret line="2386" column="86" selection-start-line="2386" selection-start-column="86" selection-end-line="2386" selection-end-column="86" />
+          <folding>
+            <element signature="e#137#147#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
