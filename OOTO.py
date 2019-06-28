@@ -398,7 +398,7 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
 
     listBox.selection_clear(0, END) # Deselect all
     for i in selectedItems: # Select items specified in selectedItems
-        print ("i is " + str(i))
+        # print ("i is " + str(i))
         listBox.selection_set(i)
 
     tempAV = listBox.get(0, END)
@@ -413,17 +413,18 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
                 allValues.append(val)
                 break
     
-    print str(allValues)
+    # print str(allValues)
 
-    dataset['Focus Feature']['All Values'] = allValues
-    dataset['Focus Feature']['Selected Values'] = selectedValues
-    
-    datasets.append(dataset)
-    svs.getTotalsAndProportions(datasets,allValues, selectedValues)
-    label.configure(text = "Frequency: " + str(datasets[0]['Proportion']) + " , Proportion: " + str(round(datasets[0]['ProportionPercent']*100,2)) + "%" + ", Total: " + str(datasets[0]['Total']))
+    if allValues != []:
+        dataset['Focus Feature']['All Values'] = allValues
+        dataset['Focus Feature']['Selected Values'] = selectedValues
 
-    if(isWarn is True and set(allValues) == set(selectedValues)):
-        tkMessageBox.showwarning("Z-Test Warning", "WARNING: You selected all of the valid values of " + dataset['Focus Feature']['Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
+        datasets.append(dataset)
+        svs.getTotalsAndProportions(datasets,allValues, selectedValues)
+        label.configure(text = "Frequency: " + str(datasets[0]['Proportion']) + " , Proportion: " + str(round(datasets[0]['ProportionPercent']*100,2)) + "%" + ", Total: " + str(datasets[0]['Total']))
+
+        if(isWarn is True and set(allValues) == set(selectedValues)):
+            tkMessageBox.showwarning("Z-Test Warning", "WARNING: You selected all of the valid values of " + dataset['Focus Feature']['Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
 
 '''
 Verifies if the focus features and their selected values for datasets 1 and 2 are the same.
@@ -528,7 +529,7 @@ class OOTO_Miner:
         # self.Tabs.configure(width = 604)
         # self.Tabs.configure(takefocus = "")
 
-        # Top horizontal separator
+        # Top horizontal separator # TODO
         self.rootTopSeparator = ttk.Separator(root, orient = HORIZONTAL)
         self.rootTopSeparator.place(relx = 0, rely = 0, relwidth = 1)
 
@@ -955,15 +956,8 @@ class OOTO_Miner:
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR # , text = '''PROCESS'''
         )
 
-        # PROCESS TITLE
-        self.labelFrameProcessTitle = LabelFrame(self.labelFrameProcessElements, bd = 0)
-        self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
-        self.labelFrameProcessTitle.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
-        )
-        # Create the top separator
-        self.labelFrameProcessHorizontalSeparator = ttk.Separator(self.labelFrameProcessTitle, orient = HORIZONTAL)
-        self.labelFrameProcessHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
+        self.configureProcessElements(self.labelFrameProcessElements) # Configures all sub elements under FILTER
+
 
 
         prevFrameRelX = float(self.labelFrameFilterElements.place_info()['relx'])
@@ -1573,9 +1567,7 @@ class OOTO_Miner:
     def setFocusFeatureValues(self, evt): ### TODO Add checker if listbox is not empty
         listBox = evt.widget
         selectedItems = listBox.curselection()
-        print ("LIST A")
         setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
-        print ("LIST B")
         setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
 
 
@@ -2001,7 +1993,7 @@ class OOTO_Miner:
 
         # DATASET SEPARATOR
         self.labelFrameDatasetCenterSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
-        self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = 0.1, relheight = 0.8)
+        self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = 0, relheight = 1)
 
         # QUERY PARENT (DATASET A)
         self.labelFrameQueryDataA = LabelFrame(self.labelFrameDatasetA, bd = 0)
@@ -2427,7 +2419,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_W, relheight = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_H
         )
         self.labelFrameFilterListData.configure(
-            background = Color_support.LIME
+            background = Color_support.FILTER_BG
         )
 
 
@@ -2463,7 +2455,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_REL_W, relheight = UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
         )
         self.labelFrameFilterListDataA.configure(
-            background = Color_support.LIME
+            background = Color_support.FILTER_BG
         )
 
         # FILTER LIST BOX - DATASET A
@@ -2512,7 +2504,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_REL_W, relheight = UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
         )
         self.labelFrameFilterListDataB.configure(
-            background = Color_support.CYAN
+            background = Color_support.FILTER_BG
         )
 
         # FILTER LIST BOX - DATASET B
@@ -2601,6 +2593,34 @@ class OOTO_Miner:
         self.buttonQueryFeatureB.configure(highlightcolor = "black")
         self.buttonQueryFeatureB.configure(pady = "0")
         '''
+    def configureProcessElements(self, parentFrame):
+
+        # PROCESS TITLE
+        self.labelFrameProcessTitle = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
+        self.labelFrameProcessTitle.configure(
+            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
+        )
+        # Create the top separator
+        self.labelFrameProcessHorizontalSeparator = ttk.Separator(self.labelFrameProcessTitle, orient = HORIZONTAL)
+        self.labelFrameProcessHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
+
+
+        newRelY = self.getRelH(self.labelFrameProcessTitle) + UI_support.TAB_TEST_PROCESS_COMMANDS_REL_Y
+
+
+        # PROCESS COMMANDS PARENT
+        self.labelFrameProcessCommands = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameProcessCommands.place(
+            relx = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_W, relheight = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_H
+        )
+        self.labelFrameProcessCommands.configure(
+            background = Color_support.LIME
+        )
+
+
+
 
 if __name__ == '__main__':
     vp_start_gui()
