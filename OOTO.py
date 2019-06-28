@@ -316,13 +316,13 @@ def findFeature(entryFeat, listFeat, dataset, *args):
             dataset['ColumnData'] = []
             for record in dataset['Data']:
                 dataset['ColumnData'].append(record[featCode])
-            c = Counter(dataset['ColumnData']) #Counts the number of occurrences of each value of the focus feature
+            c = Counter(dataset['ColumnData']) # Counts the number of occurrences of each value of the focus feature
             
-            countN = len(dataset['ColumnData'])#N is the size of the dataset
-            countn = 0 #n is the total number of values where their group is not -1
+            countN = len(dataset['ColumnData'])# N is the size of the dataset
+            countn = 0 # n is the total number of values where their group is not -1
 
-            notInGroupNega1 = []#List that keeps track of the values whose group is not -1
-            presentInData = []#List of values that occurred at least once in the data
+            notInGroupNega1 = []# List that keeps track of the values whose group is not -1
+            presentInData = []# List of values that occurred at least once in the data
 
             for response in dataset['Focus Feature']['Responses']:
                 for val in c:
@@ -391,14 +391,18 @@ Selects the values of the focus feature
 and calculates the proportion of those values
 and the total
 '''
-def setFocusFeatureValues(evt, dataset, focusFeat, label):
+def setFocusFeatureValues(listBox, dataset, selectedItems, label):
     datasets = []
     allValues = []
-    selectedValues = []
 
-    listbox = evt.widget
-    tempAV = listbox.get(0,END)
-    tempSV = [listbox.get(i) for i in listbox.curselection()]
+
+    listBox.selection_clear(0, END) # Deselect all
+    for i in selectedItems: # Select items specified in selectedItems
+        print ("i " + str(i))
+        listBox.selection_set(i)
+
+    tempAV = listBox.get(0, END)
+    tempSV = [listBox.get(i) for i in listBox.curselection()]
     
     allValuesRaw = parseListBoxValues(tempAV, " | ", 4)
     selectedValues = parseListBoxValues(tempSV, " | ", 4)
@@ -1186,9 +1190,14 @@ class OOTO_Miner:
         self.listQuerySetDataA.bind('<<ListboxSelect>>', self.querySelectDataValuesA)
         self.listQuerySetDataB.bind('<<ListboxSelect>>', self.querySelectDataValuesB)
 
-        
-        self.listQueryDataA.bind('<<ListboxSelect>>', self.setFocusFeatureValuesA)
-        self.listQueryDataB.bind('<<ListboxSelect>>', self.setFocusFeatureValuesB)
+
+        # FILTER LIST BOX BINDINGS
+        self.listQueryDataA.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
+        self.listQueryDataB.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
+
+        self.listQueryDataA.bind("<MouseWheel>", self.scrollFilterListBox)
+        self.listQueryDataB.bind("<MouseWheel>", self.scrollFilterListBox)
+
         self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
 
 
@@ -1544,12 +1553,31 @@ class OOTO_Miner:
     '''
     QUERY FUNCTIONS
     '''
+    def scrollFilterListBox (self, evt): # To simultaneously scroll Filter listbox A and B
+        self.listQueryDataA.yview("scroll", evt.delta,"units")
+        self.listQueryDataB.yview("scroll",evt.delta,"units")
+        # this prevents default bindings from firing, which
+        # would end up scrolling the widget twice
+        return "break"
 
-    def setFocusFeatureValuesA(self, evt): ### TODO Add checker if listbox is not empty
-        setFocusFeatureValues(evt, self.datasetA, self.entryQueryFeature.get(), self.labelQueryDataA)
+    '''
+    def setFocusFeatureValuesA(self, evt):
+        selectedItems = self.listQueryDataA.curselection()
+        self.setFocusFeatureValues(selectedItems)
 
     def setFocusFeatureValuesB(self, evt):
-        setFocusFeatureValues(evt, self.datasetB, self.entryQueryFeature.get(), self.labelQueryDataB)
+        selectedItems = self.listQueryDataB.curselection()
+        self.setFocusFeatureValues(selectedItems)
+    '''
+
+    def setFocusFeatureValues(self, evt): ### TODO Add checker if listbox is not empty
+        listBox = evt.widget
+        selectedItems = listBox.curselection()
+        print ("A")
+        setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA)
+        print ("B")
+        setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB)
+
 
     def querySetPopulation(self, evt):
         self.setPopulation(evt)
@@ -1573,7 +1601,7 @@ class OOTO_Miner:
         self.buttonQueryResetFilterA.configure(relief = FLAT)
         self.datasetA = resetDataset(self.datasetA)
         self.entryQuerySetDataA.configure(text = '')
-        self.entryQueryFeatureA.configure(text = '')
+        self.entryQueryFeature.configure(text = '')
         self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
         # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
         self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
@@ -1591,7 +1619,8 @@ class OOTO_Miner:
         self.buttonQueryResetFilterB.configure(relief = FLAT)
         self.datasetB = resetDataset(self.datasetB)
         self.entryQuerySetDataB.configure(text = '')
-        self.entryQueryFeatureB.configure(text = '')
+        self.entryQueryFeature.configure(text = '')
+
         # self.labelFrameQueryDataB.configure(text = "Dataset B")
         self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_NO_DATA)
 
@@ -2084,6 +2113,7 @@ class OOTO_Miner:
         self.listQuerySetDataA.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             selectmode = MULTIPLE, exportselection = "0",
+            activestyle = "none",
             selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
             font = "TkFixedFont",
             bd = 1, relief = GROOVE,
@@ -2124,6 +2154,7 @@ class OOTO_Miner:
         self.listQuerySetDataB.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             selectmode = MULTIPLE, exportselection = "0",
+            activestyle = "none",
             selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
             font = "TkFixedFont",
             bd = 1, relief = GROOVE,
@@ -2445,6 +2476,7 @@ class OOTO_Miner:
         self.listQueryDataA.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             selectmode = MULTIPLE, exportselection = "0",
+            activestyle = "none",
             selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
             font = "TkFixedFont",
             bd = 1, relief = GROOVE,
@@ -2494,6 +2526,7 @@ class OOTO_Miner:
         self.listQueryDataB.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             selectmode = MULTIPLE, exportselection = "0",
+            activestyle = "none",
             selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
             font = "TkFixedFont",
             bd = 1, relief = GROOVE,

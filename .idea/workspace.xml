@@ -15,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="1720" column="16" selection-start-line="1720" selection-start-column="16" selection-end-line="1720" selection-end-column="16" />
+            <state relative-caret-position="66">
+              <caret line="2106" column="75" lean-forward="true" selection-start-line="2106" selection-start-column="75" selection-end-line="2106" selection-end-column="75" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -46,13 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>PROCESS'</find>
-      <find>list</find>
-      <find>listbo</find>
-      <find>listbox</find>
-      <find>'NO DATA'''</find>
-      <find>STATUS</find>
-      <find>'''NO</find>
       <find>TAB_TEST_FILTER_LIST_DATA_REL_H</find>
       <find>labelFrameFilterListDataA</find>
       <find>'''Filter Fea</find>
@@ -76,6 +69,13 @@
       <find>entryQueryFeatureA</find>
       <find>setFocusFeatureValuesA</find>
       <find>Name</find>
+      <find>scroll</find>
+      <find>listbox</find>
+      <find>Total</find>
+      <find>widget</find>
+      <find>entryQuerySetDataA</find>
+      <find>entryQuerySetDataA =</find>
+      <find>listbox(</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -224,7 +224,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>1977</line>
+          <line>2006</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
@@ -294,8 +294,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="1720" column="16" selection-start-line="1720" selection-start-column="16" selection-end-line="1720" selection-end-column="16" />
+        <state relative-caret-position="66">
+          <caret line="2106" column="75" lean-forward="true" selection-start-line="2106" selection-start-column="75" selection-end-line="2106" selection-end-column="75" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
