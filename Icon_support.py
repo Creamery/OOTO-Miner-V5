@@ -13,8 +13,8 @@ TAB_ICO_SIZE = (70 , 71) # +1 pixel in height for the bottom border in the icon
 
 SELECT_ICO_SIZE = (39, 39)
 
-RUN_ICO_SIZE = (95, 95)
-
+# RUN_ICO_SIZE = (95, 95)
+RUN_ICO_SIZE = (90, 90)
 
 
 

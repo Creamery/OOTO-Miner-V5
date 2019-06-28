@@ -1115,8 +1115,10 @@ class OOTO_Miner:
         self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)
 
         self.buttonQueue.bind('<Button-1>', self.queue)
-        self.buttonQueue.bind("<Enter>", self.enterDownArrowIcon)
-        self.buttonQueue.bind("<Leave>", self.leaveDownArrowIcon)
+        self.buttonQueue.bind("<Enter>", self.enterAddIcon)
+        self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
+        # self.buttonQueue.bind("<Enter>", self.enterDownArrowIcon)
+        # self.buttonQueue.bind("<Leave>", self.leaveDownArrowIcon)
 
         self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
         self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
@@ -2089,7 +2091,46 @@ class OOTO_Miner:
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
 
+        # Create the top separator
+        self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = HORIZONTAL)
+        self.labelFrameSelectHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
+
+
+        # SELECT NUMBER
+        self.labelFrameSelectTitleNumber = Label(self.labelFrameSelectTitle)
+        self.labelFrameSelectTitleNumber.place(
+            relx = 0.05, rely = 0.5,
+            relwidth = 0.04, relheight = 1, anchor = W)
+        self.labelFrameSelectTitleNumber.configure(
+            font = UI_support.FONT_MED_BOLD,
+            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            background = Color_support.FG_TITLE, foreground = Color_support.WHITE,
+            text = '''1''',
+            anchor = S
+        )
+        newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
+        # SELECT TITLE
+        self.labelFrameSelectTitleText = Label(self.labelFrameSelectTitle)
+        self.labelFrameSelectTitleText.place(
+            relx = newRelX, rely = 0.5,
+            relwidth = 0.14, relheight = 1, anchor = W)
+        self.labelFrameSelectTitleText.configure(
+            font = UI_support.FONT_MED_BOLD,
+            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            background = Color_support.ACTIVE_COLOR, foreground = Color_support.FG_TITLE,
+            text = '''GROUP''',
+            anchor = S
+        )
+
+
+        # Top horizontal separator # TODO
+        # self.SelectDatasetATitleSeparator = ttk.Separator(self.labelFrameSelectDatasetTitleA, orient = HORIZONTAL)
+        # self.SelectDatasetATitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
+
+
+
         # SELECT DATASET A TITLE
+        '''
         self.labelFrameSelectDatasetTitleA = Label(self.labelFrameSelectTitle)
         self.labelFrameSelectDatasetTitleA.place(
             relx = 0, rely = 0,
@@ -2097,7 +2138,7 @@ class OOTO_Miner:
         self.labelFrameSelectDatasetTitleA.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            text = '''DATASET A''',
+            text = ''''DATASET A'''',
             anchor = S
         )
 
@@ -2114,14 +2155,14 @@ class OOTO_Miner:
         self.labelFrameSelectDatasetTitleB.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            text = '''DATASET B''',
+            text = ''''DATASET B'''',
             anchor = S
         )
 
         # Top horizontal separator # TODO
         # self.SelectDatasetBTitleSeparator = ttk.Separator(self.labelFrameSelectDatasetTitleB, orient = HORIZONTAL)
         # self.SelectDatasetBTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
-
+        '''
 
         # Create the top separator
         # self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = HORIZONTAL)
@@ -2270,11 +2311,12 @@ class OOTO_Miner:
             bd = 1, relief = GROOVE,
             highlightthickness = 0
         )
-        self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.8)
+        self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78)
         # self.listQuerySetDataA.configure(highlightcolor="black")
-
+        newRelY = self.getRelY(self.listQuerySetDataA) + self.getRelH(self.listQuerySetDataA)
+        newRelH = 1 - self.getRelH(self.listQuerySetDataA)
         self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
-        self.labelQuerySetDataStatusA.place(relx = 0, rely = 0.8, relwidth = 1, relheight = 0.2)
+        self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusA.configure(
             background = Color_support.L_GRAY, foreground = Color_support.FG_COLOR,
             bd = 1, relief = GROOVE,
@@ -2292,11 +2334,12 @@ class OOTO_Miner:
         '''
 
         # LISTBOX PARENT (DATASET B)
-
+        newRelY = self.getRelY(self.labelFrameListBoxA)
+        newRelH  = self.getRelH(self.labelFrameListBoxA)
         self.labelFrameListBoxB = LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameListBoxB.place(
             relx = UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = UI_support.TAB_TEST_LISTBOX_QUERY_REL_H)
+            relwidth = UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = newRelH)
 
         # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
         # self.listQuerySetDataB = Listbox(self.labelFrameListBox, yscrollcommand = self.scrollbarQuerySetDataA.set)
@@ -2318,7 +2361,9 @@ class OOTO_Miner:
             selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
             font = "TkFixedFont")
         '''
-        self.listQuerySetDataB.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
+        newRelY = self.getRelY(self.listQuerySetDataA)
+        newRelH = self.getRelH(self.listQuerySetDataA)
+        self.listQuerySetDataB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
 
         newRelY = self.getRelY(self.labelQuerySetDataStatusA)
         newRelH = self.getRelH(self.labelQuerySetDataStatusA)
@@ -2512,13 +2557,51 @@ class OOTO_Miner:
 
         # FILTER TITLE
         self.labelFrameFilterTitle = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameFilterTitle.place(relx = 0, rely = 0.05, relwidth = 1, relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
+        self.labelFrameFilterTitle.place(relx = 0, rely = 0.08, relwidth = 1, relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
         self.labelFrameFilterTitle.configure(
             background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
+
+
         # Create the top separator
         self.labelFrameFilterHorizontalSeparator = ttk.Separator(self.labelFrameFilterTitle, orient = HORIZONTAL)
         self.labelFrameFilterHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
+
+        # FILTER NUMBER
+        self.labelFrameFilterTitleNumber = Label(self.labelFrameFilterTitle)
+        self.labelFrameFilterTitleNumber.place(
+            relx = 0.05, rely = 0.5,
+            relwidth = 0.04, relheight = 1, anchor = W)
+        self.labelFrameFilterTitleNumber.configure(
+            font = UI_support.FONT_MED_BOLD,
+            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            background = Color_support.FG_TITLE, foreground = Color_support.WHITE,
+            text = '''2''',
+            anchor = S
+        )
+        newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
+
+
+
+        # FILTER TITLE
+        self.labelFrameFilterTitleText = Label(self.labelFrameFilterTitle)
+        self.labelFrameFilterTitleText.place(
+            relx = newRelX, rely = 0.5,
+            relwidth = 0.15, relheight = 1, anchor = W)
+            # place(
+            # relx = 0.5, rely = 0.5,
+            # relwidth = 0.15, relheight = 1, anchor = CENTER)
+        self.labelFrameFilterTitleText.configure(
+            font = UI_support.FONT_MED_BOLD,
+            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            background = Color_support.ACTIVE_COLOR, foreground = Color_support.FG_TITLE,
+            text = '''FILTER''',
+            anchor = S
+        )
+
+        # Top horizontal separator # TODO
+        # self.SelectDatasetATitleSeparator = ttk.Separator(self.labelFrameSelectDatasetTitleA, orient = HORIZONTAL)
+        # self.SelectDatasetATitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
 
         newRelY = self.getRelY(self.labelFrameFilterTitle) + self.getRelH(self.labelFrameFilterTitle) + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
 
@@ -2543,6 +2626,7 @@ class OOTO_Miner:
             background = Color_support.SELECT_LBL_BG, foreground = Color_support.SELECT_LBL_FG,
             text = '''Filter Feature'''
         )
+
 
         newRelX = self.getRelX(self.labelQueryFeature) + self.getRelW(self.labelQueryFeature)
 
@@ -2765,6 +2849,43 @@ class OOTO_Miner:
         # Create the top separator
         self.labelFrameProcessHorizontalSeparator = ttk.Separator(self.labelFrameProcessTitle, orient = HORIZONTAL)
         self.labelFrameProcessHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
+
+
+        # FILTER NUMBER
+        self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
+        self.labelFrameProcessTitleNumber.place(
+            relx = 0.05, rely = 0.5,
+            relwidth = 0.04, relheight = 1, anchor = W)
+        self.labelFrameProcessTitleNumber.configure(
+            font = UI_support.FONT_MED_BOLD,
+            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            background = Color_support.FG_TITLE, foreground = Color_support.WHITE,
+            text = '''3''',
+            anchor = S
+        )
+        newRelX = self.getRelX(self.labelFrameProcessTitleNumber) + self.getRelW(self.labelFrameProcessTitleNumber)
+
+
+
+        # PROCESS TITLE
+        self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
+        self.labelFrameProcessTitleText.place(
+            relx = newRelX, rely = 0.5,
+            relwidth = 0.15, relheight = 1, anchor = W)
+            # place(
+            # relx = 0.5, rely = 0.5,
+            # relwidth = 0.15, relheight = 1, anchor = CENTER)
+        self.labelFrameProcessTitleText.configure(
+            font = UI_support.FONT_MED_BOLD,
+            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            background = Color_support.ACTIVE_COLOR, foreground = Color_support.FG_TITLE,
+            text = '''TEST''',
+            anchor = S
+        )
+
+        # Top horizontal separator # TODO
+        # self.SelectDatasetATitleSeparator = ttk.Separator(self.labelFrameSelectDatasetTitleA, orient = HORIZONTAL)
+        # self.SelectDatasetATitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
 
 
         newRelY = self.getRelH(self.labelFrameProcessTitle) + UI_support.TAB_TEST_PROCESS_COMMANDS_REL_Y
@@ -3015,7 +3136,7 @@ class OOTO_Miner:
         # Enqueue button
         self.buttonQueue = Button(self.labelFrameProcessQueue, compound = CENTER)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_queue_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQueue.configure(
             image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -3096,7 +3217,7 @@ class OOTO_Miner:
 
         self.buttonTestQueue.pack(side = RIGHT)
         self.buttonTestQueue.update()
-        self.labelFrameProcessRunMiner.pack(fill = BOTH, expand = True)
+        self.labelFrameProcessRunMiner.pack(fill = Y, expand = True)
 
 
 
