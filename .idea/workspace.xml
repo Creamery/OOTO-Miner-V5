@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
@@ -17,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="2386" column="86" selection-start-line="2386" selection-start-column="86" selection-end-line="2386" selection-end-column="86" />
+            <state relative-caret-position="102">
+              <caret line="1578" column="99" selection-start-line="1578" selection-start-column="99" selection-end-line="1578" selection-end-column="99" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -29,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
-              <caret line="113" column="21" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
+            <state relative-caret-position="159">
+              <caret line="117" column="34" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -60,13 +59,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>No Data</find>
-      <find>separat</find>
-      <find>configuresele</find>
-      <find>TYPE'</find>
-      <find>TYPE</find>
-      <find>TAB_TEST_FILTER_</find>
-      <find>sele</find>
       <find>COMMANDS</find>
       <find>PROCESS</find>
       <find>filter_bg</find>
@@ -86,10 +78,17 @@
       <find>dataset ent</find>
       <find>newRelX</find>
       <find>Feature A</find>
-      <find>ENTRY</find>
       <find>labelFrameDatasetB</find>
       <find>labelFrameQueryDataB</find>
       <find>labelFrameQueryDataA</find>
+      <find>ENTRY</find>
+      <find>reset</find>
+      <find>check</find>
+      <find>queryResetDatasetA</find>
+      <find>Reset</find>
+      <find>buttonQueryAddFilt</find>
+      <find>buttonQueryAddFilterA</find>
+      <find>try</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -243,7 +242,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>1957</line>
+          <line>1960</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -311,15 +310,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="113" column="21" selection-start-line="113" selection-start-column="21" selection-end-line="113" selection-end-column="21" />
+        <state relative-caret-position="159">
+          <caret line="117" column="34" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="2386" column="86" selection-start-line="2386" selection-start-column="86" selection-end-line="2386" selection-end-column="86" />
+        <state relative-caret-position="102">
+          <caret line="1578" column="99" selection-start-line="1578" selection-start-column="99" selection-end-line="1578" selection-end-column="99" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
