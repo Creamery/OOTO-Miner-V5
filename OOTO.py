@@ -1053,31 +1053,9 @@ class OOTO_Miner:
         self.buttonTestQueue.configure(text = '''Run Miner''')
         # self.buttonTestQueue.configure(state = 'disabled')
 
-        self.buttonClearQueue = Button(self.labelFrameQueryChi)
-        self.buttonClearQueue.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
-        self.buttonClearQueue.configure(activebackground = "#d9d9d9")
-        self.buttonClearQueue.configure(activeforeground = "#000000")
-        self.buttonClearQueue.configure(background = "#d9d9d9")
-        self.buttonClearQueue.configure(disabledforeground = "#a3a3a3")
-        self.buttonClearQueue.configure(foreground = "#000000")
-        self.buttonClearQueue.configure(highlightbackground = "#d9d9d9")
-        self.buttonClearQueue.configure(highlightcolor = "black")
-        self.buttonClearQueue.configure(pady = "0")
-        self.buttonClearQueue.configure(text = '''Clear All''')
-        # self.buttonClearQueue.configure(state = 'disabled')
 
-        self.buttonQueue = Button(self.labelFrameQueryChi)
-        self.buttonQueue.place(relx = 0.01, rely = 0.01, height = 0, width = 0)
-        self.buttonQueue.configure(activebackground = "#d9d9d9")
-        self.buttonQueue.configure(activeforeground = "#000000")
-        self.buttonQueue.configure(background = "#d9d9d9")
-        self.buttonQueue.configure(disabledforeground = "#a3a3a3")
-        self.buttonQueue.configure(foreground = "#000000")
-        self.buttonQueue.configure(highlightbackground = "#d9d9d9")
-        self.buttonQueue.configure(highlightcolor = "black")
-        self.buttonQueue.configure(pady = "0")
-        self.buttonQueue.configure(text = '''Enqueue''')
-        # self.buttonQueue.configure(state = 'disabled')
+
+
 
         # > Z-TEST FRAME POPULATION
         self.labelFrameQuerySvP = LabelFrame(self.Tabs_t3)
@@ -2870,6 +2848,67 @@ class OOTO_Miner:
             text = '''0'''
         )
 
+
+
+        newRelX = self.getRelX(self.labelFrameProcessChiSquareQueue) + self.getRelW(self.labelFrameProcessChiSquareQueue)
+
+        # ENQUEUE BUTTON
+        # Enqueue button parent (to handle centering after pack)
+        self.labelFrameProcessQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
+        self.labelFrameProcessQueue.place(
+            relx = newRelX + 0.005, rely = 0,
+            relwidth = 0.24, relheight = 1
+        )
+        self.labelFrameProcessQueue.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        # Enqueue button
+        self.buttonQueue = Button(self.labelFrameProcessQueue, compound = CENTER)
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_queue_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueue.configure(
+            image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueue.image = btn_queue_icon  # < ! > Required to make images appear
+
+        self.buttonQueue.configure(
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+
+        self.buttonQueue.pack(side = LEFT)
+        self.buttonQueue.update()
+
+
+        # CLEAR QUEUE BUTTON
+
+        # Clear queue button parent (to handle centering after pack)
+        self.labelFrameProcessClearQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
+        self.labelFrameProcessClearQueue.place(
+            relx = 0.005, rely = 0,
+            relwidth = 0.24, relheight = 1
+        )
+        self.labelFrameProcessClearQueue.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        self.buttonClearQueue = Button(self.labelFrameProcessClearQueue, compound = CENTER)
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_clear_queue_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonClearQueue.configure(
+            image = btn_clear_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonClearQueue.image = btn_clear_queue_icon  # < ! > Required to make images appear
+
+        self.buttonClearQueue.configure(
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+
+        self.buttonClearQueue.pack(side = RIGHT)
+        self.buttonClearQueue.update()
+
+
+        newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(self.labelFrameProcessChiSquare)
 
         # PROCESS RUN PARENT
         self.labelFrameProcessRun = LabelFrame(self.labelFrameProcessCommands, bd = 0)

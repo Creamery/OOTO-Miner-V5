@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
@@ -17,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="2834" column="104" selection-start-line="2834" selection-start-column="104" selection-end-line="2834" selection-end-column="104" />
+            <state relative-caret-position="218">
+              <caret line="2906" column="47" selection-start-line="2906" selection-start-column="47" selection-end-line="2906" selection-end-column="47" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -29,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="214" column="33" selection-start-line="214" selection-end-line="214" selection-end-column="33" />
+            <state relative-caret-position="161">
+              <caret line="211" column="31" selection-start-line="211" selection-start-column="31" selection-end-line="211" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -48,11 +47,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>bd = 1</find>
-      <find>Z - TE</find>
-      <find>buttonQueryZTest.bind</find>
-      <find>self.dataset</find>
-      <find>self.datasetA</find>
       <find>if self.data</find>
       <find>ACTIVE_C</find>
       <find>Ready</find>
@@ -76,8 +70,13 @@
       <find>Queue Cou</find>
       <find>'''SAM`</find>
       <find>CONFIDENCE'''</find>
-      <find>Z_TEST</find>
       <find>Samples'''</find>
+      <find>z-test</find>
+      <find>enqueue</find>
+      <find>clear all</find>
+      <find>clear queue</find>
+      <find>chi_square</find>
+      <find>Z_TEST</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -236,7 +235,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2032</line>
+          <line>2010</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
@@ -299,15 +298,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="214" column="33" selection-start-line="214" selection-end-line="214" selection-end-column="33" />
+        <state relative-caret-position="161">
+          <caret line="211" column="31" selection-start-line="211" selection-start-column="31" selection-end-line="211" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="2834" column="104" selection-start-line="2834" selection-start-column="104" selection-end-line="2834" selection-end-column="104" />
+        <state relative-caret-position="218">
+          <caret line="2906" column="47" selection-start-line="2906" selection-start-column="47" selection-end-line="2906" selection-end-column="47" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
