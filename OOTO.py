@@ -398,6 +398,7 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
 
     listBox.selection_clear(0, END) # Deselect all
     for i in selectedItems: # Select items specified in selectedItems
+        print ("i is " + str(i))
         listBox.selection_set(i)
 
     tempAV = listBox.get(0, END)
@@ -421,7 +422,7 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
     svs.getTotalsAndProportions(datasets,allValues, selectedValues)
     label.configure(text = "Frequency: " + str(datasets[0]['Proportion']) + " , Proportion: " + str(round(datasets[0]['ProportionPercent']*100,2)) + "%" + ", Total: " + str(datasets[0]['Total']))
 
-    if(isWarn and set(allValues) == set(selectedValues)):
+    if(isWarn is True and set(allValues) == set(selectedValues)):
         tkMessageBox.showwarning("Z-Test Warning", "WARNING: You selected all of the valid values of " + dataset['Focus Feature']['Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
 
 '''
@@ -1572,7 +1573,9 @@ class OOTO_Miner:
     def setFocusFeatureValues(self, evt): ### TODO Add checker if listbox is not empty
         listBox = evt.widget
         selectedItems = listBox.curselection()
+        print ("LIST A")
         setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
+        print ("LIST B")
         setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
 
 
