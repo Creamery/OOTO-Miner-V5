@@ -2447,7 +2447,7 @@ class OOTO_Miner:
         )
 
         self.labelQueryDataACount = Label(self.labelFrameQueryCount)
-        self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.64)
+        self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.labelQueryDataACount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.SELECT_BG,
@@ -2481,7 +2481,7 @@ class OOTO_Miner:
         )
 
         self.labelQueryDataBCount = Label(self.labelFrameQueryCountB)
-        self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.64)
+        self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.labelQueryDataBCount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.SELECT_BG,
@@ -2489,7 +2489,7 @@ class OOTO_Miner:
         self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
         self.labelQueryDataBCountText.place(
             relx = 0, rely = self.getRelH(self.labelQueryDataBCount),
-            relwidth = 1, relheight = 0.36)
+            relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
         self.labelQueryDataBCountText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
             background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
@@ -2954,11 +2954,14 @@ class OOTO_Miner:
 
         newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(self.labelFrameProcessZTestConfidence)
         newRelY = self.getRelY(self.labelFrameProcessZTestConfidence)
+
         # BUTTON ELEMENTS
         self.labelFrameProcessZTestButtonElements = LabelFrame(self.labelFrameProcessZTest, bd = 0)
         self.labelFrameProcessZTestButtonElements.place(
-            relx = newRelX + 0.01, rely = newRelY,
-            relwidth = 0.5 - 2 * self.getRelX(self.labelFrameProcessZTestConfidence), relheight = 0.35
+            relx = newRelX, rely = newRelY,
+            relwidth = 1 - (newRelX + self.getRelX(self.labelFrameProcessZTestConfidence)),
+            # relwidth = 0.5 - 2 * self.getRelX(self.labelFrameProcessZTestConfidence),
+            relheight = 0.35
         )
         self.labelFrameProcessZTestButtonElements.configure(
             background = Color_support.PROCESS_BG
@@ -3017,10 +3020,8 @@ class OOTO_Miner:
             bd = 1, relief = FLAT, overrelief = FLAT)
             # text = '''Test''')
 
-        self.buttonQueryZTest.pack(side = RIGHT)
+        self.buttonQueryZTest.pack(anchor = CENTER)
         self.buttonQueryZTest.update()
-
-
 
         # Z-TEST RESULTS
         self.labelQueryZTest = Label(self.labelFrameProcessZTest)  ## TODO functionality switch
