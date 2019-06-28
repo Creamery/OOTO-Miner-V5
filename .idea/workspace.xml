@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="1991" column="52" selection-start-line="1991" selection-start-column="52" selection-end-line="1991" selection-end-column="52" />
+            <state relative-caret-position="154">
+              <caret line="2398" column="47" selection-start-line="2398" selection-start-column="47" selection-end-line="2398" selection-end-column="47" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -28,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="149" column="34" lean-forward="true" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
+            <state relative-caret-position="199">
+              <caret line="159" column="19" lean-forward="true" selection-start-line="159" selection-start-column="19" selection-end-line="159" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -38,23 +38,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>FILTER</find>
-      <find>self.entryQueryFeature</find>
-      <find>'feature a</find>
-      <find>DATASET</find>
-      <find>entry</find>
-      <find>dataset ent</find>
-      <find>newRelX</find>
-      <find>Feature A</find>
-      <find>labelFrameDatasetB</find>
-      <find>labelFrameQueryDataB</find>
-      <find>labelFrameQueryDataA</find>
-      <find>ENTRY</find>
-      <find>check</find>
-      <find>queryResetDatasetA</find>
-      <find>Reset</find>
-      <find>buttonQueryAddFilt</find>
-      <find>buttonQueryAddFilterA</find>
       <find>try</find>
       <find>labelQueryDataBCount.config</find>
       <find>reset</find>
@@ -68,6 +51,23 @@
       <find>Filter Feature</find>
       <find>Filter Feature'</find>
       <find>0.44</find>
+      <find>configurefilter</find>
+      <find>ilter feature'</find>
+      <find>feature A'</find>
+      <find>filter fea</find>
+      <find>PROCESS'</find>
+      <find>D_BLUE</find>
+      <find>list</find>
+      <find>listbo</find>
+      <find>listbox</find>
+      <find>'NO DATA'''</find>
+      <find>STATUS</find>
+      <find>'''NO</find>
+      <find>TAB_TEST_FILTER_LIST_DATA_REL_H</find>
+      <find>labelFrameFilterListDataA</find>
+      <find>'''Filter Fea</find>
+      <find>'''NO FEA</find>
+      <find>LISTBOX</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -88,14 +88,14 @@
       <list>
         <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/Color_support.py" />
-        <option value="$PROJECT_DIR$/OOTO.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
+        <option value="$PROJECT_DIR$/OOTO.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-8" />
-    <option name="width" value="1688" />
+    <option name="width" value="938" />
     <option name="height" value="1088" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -187,15 +187,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="0" width="1350" height="870" extended-state="0" />
+    <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21517028" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1944056" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22373806" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22132254" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24561404" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -219,11 +219,6 @@
           <line>1967</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/UI_support.py</url>
-          <line>142</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -246,13 +241,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="419">
           <caret line="1811" column="39" lean-forward="true" selection-start-line="1811" selection-start-column="39" selection-end-line="1811" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="1132" column="8" selection-start-line="1132" selection-start-column="8" selection-end-line="1132" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -282,17 +270,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="1335" selection-start-line="1335" selection-end-line="1335" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="149" column="34" lean-forward="true" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
+        <state relative-caret-position="199">
+          <caret line="159" column="19" lean-forward="true" selection-start-line="159" selection-start-column="19" selection-end-line="159" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="1991" column="52" selection-start-line="1991" selection-start-column="52" selection-end-line="1991" selection-end-column="52" />
+        <state relative-caret-position="154">
+          <caret line="2398" column="47" selection-start-line="2398" selection-start-column="47" selection-end-line="2398" selection-end-column="47" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
