@@ -16,7 +16,7 @@ SALMON = '#FF8684'
 SALMON_LIGHT = '#FFAF8C'
 PALE_YELLOW = '#FFEDA9'
 
-YES = '#7EFF2C'
+YES = '#48FF23' #7EFF2C'
 NO = '#E91E3A'
 
 ACTIVE_COLOR = SALMON # Change this to change all highlight colors

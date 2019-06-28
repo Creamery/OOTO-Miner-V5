@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+            <state relative-caret-position="342">
+              <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -73,10 +72,10 @@
       <find>Ready</find>
       <find>labelQuerySetDataStatusA</find>
       <find>labelQuerySetDataStatusB</find>
-      <find>Z_TEST</find>
       <find>listbox(</find>
-      <find>ACTI</find>
       <find>SELECT_BG_HL</find>
+      <find>ACTI</find>
+      <find>Z_TEST</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -119,6 +118,11 @@
             <path>
               <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
               <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
+              <item name="_icons" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -197,14 +201,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1944056" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1944056" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22132254" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.22132254" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24561404" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -279,13 +282,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UI_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="203" selection-start-line="203" selection-end-line="203" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -296,10 +292,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="203" selection-start-line="203" selection-end-line="203" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="22" column="32" selection-start-line="22" selection-start-column="32" selection-end-line="22" selection-end-column="32" />
+        <state relative-caret-position="342">
+          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
         </state>
       </provider>
     </entry>
