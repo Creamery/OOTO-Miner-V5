@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="1139" column="61" selection-start-line="1139" selection-start-column="61" selection-end-line="1139" selection-end-column="61" />
+            <state relative-caret-position="285">
+              <caret line="1720" column="16" selection-start-line="1720" selection-start-column="16" selection-end-line="1720" selection-end-column="16" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -48,15 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>labelQueryDataACount.configure(</find>
-      <find>queryResetDatasetB</find>
-      <find>labelQueryDataBCount</find>
-      <find>len(self.datasetB['Data']</find>
-      <find>len(self.datasetA['Data']</find>
-      <find>configurefilter</find>
-      <find>ilter feature'</find>
-      <find>feature A'</find>
-      <find>filter fea</find>
       <find>PROCESS'</find>
       <find>list</find>
       <find>listbo</find>
@@ -78,6 +67,15 @@
       <find>0.44</find>
       <find>D_BLUE</find>
       <find>width = 0</find>
+      <find>Both</find>
+      <find>Filter Feat</find>
+      <find>buttonQueryFeature</find>
+      <find>return &quot;bre</find>
+      <find>querySetFeature</find>
+      <find>buttonQueryFeatureA</find>
+      <find>entryQueryFeatureA</find>
+      <find>setFocusFeatureValuesA</find>
+      <find>Name</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -226,7 +224,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>1962</line>
+          <line>1977</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
@@ -296,8 +294,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="1139" column="61" selection-start-line="1139" selection-start-column="61" selection-end-line="1139" selection-end-column="61" />
+        <state relative-caret-position="285">
+          <caret line="1720" column="16" selection-start-line="1720" selection-start-column="16" selection-end-line="1720" selection-end-column="16" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>

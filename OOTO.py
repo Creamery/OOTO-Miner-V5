@@ -1158,8 +1158,14 @@ class OOTO_Miner:
         self.buttonQueryAddFilterB.bind("<Enter>", self.enterQueryAddFilterB)
         self.buttonQueryAddFilterB.bind("<Leave>", self.leaveQueryAddFilterB)
 
-        self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
-        self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
+
+
+        self.buttonQueryFeature.bind('<Button-1>', self.querySetFeature)
+        # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
+        # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
+
+
+
         self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)
         self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)
 
@@ -1540,10 +1546,10 @@ class OOTO_Miner:
     '''
 
     def setFocusFeatureValuesA(self, evt): ### TODO Add checker if listbox is not empty
-        setFocusFeatureValues(evt, self.datasetA, self.entryQueryFeatureA.get(), self.labelQueryDataA)
+        setFocusFeatureValues(evt, self.datasetA, self.entryQueryFeature.get(), self.labelQueryDataA)
 
     def setFocusFeatureValuesB(self, evt):
-        setFocusFeatureValues(evt, self.datasetB, self.entryQueryFeatureB.get(), self.labelQueryDataB)
+        setFocusFeatureValues(evt, self.datasetB, self.entryQueryFeature.get(), self.labelQueryDataB)
 
     def querySetPopulation(self, evt):
         self.setPopulation(evt)
@@ -1691,48 +1697,55 @@ class OOTO_Miner:
         self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB)
         return "break"
 
+    def querySetFeature(self, evt):
+        entryQuery = self.entryQueryFeature.get()
 
-    def querySetFeatureA(self, evt):
-        try:
-            # If the dataset is empty, do not continue finding the feature
-            if(len(self.datasetA['Data']) <= 0):
-                tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
-                return -1
-            # Find the feature and display the dataset's frequencies and proportions for each of its values
-            findFeature(self.entryQueryFeatureA.get(), self.listQueryDataA,self.datasetA,"Focus_Feature")
-            
-            # Get the feature description
-            featureDesc = self.datasetA['Focus Feature']['Description']
-            
-            # If the description is too long
-            if len(featureDesc) > 70:
-                featureDesc = featureDesc[:71] + '...' #Shorten it
-            
-            # Display the description
-            self.labelQueryDataAFeature.config(text = featureDesc)
-        except NameError:
-            tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+        # If the dataset is empty, do not continue finding the feature
+        if(len(self.datasetA['Data']) <= 0 or len(self.datasetB['Data']) <= 0):
+            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
 
-    def querySetFeatureB(self, evt):
-        try:
-            # If the dataset is empty, do not continue finding the feature
-            if(len(self.datasetB['Data']) <= 0):
-                tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
-                return -1
-            # Find the feature and display the dataset's frequencies and proportions for each of its values
-            findFeature(self.entryQueryFeatureB.get(), self.listQueryDataB,self.datasetB,"Focus_Feature")
-            
-            # Get the feature description
-            featureDesc = self.datasetB['Focus Feature']['Description']
-            
-            # If the description is too long
-            if len(featureDesc) > 70:
-                featureDesc = featureDesc[:71] + '...' #Shorten it
+        else :
+            try:
+                self.querySetFeatureA(entryQuery)
+                self.querySetFeatureB(entryQuery)
 
-            # Display the description
-            self.labelQueryDataBFeature.config(text = featureDesc)
-        except NameError:
-            tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+                # Get the feature description
+                featureDesc = self.datasetA['Focus Feature']['Description'] # Doesn't matter if you use datasetA or datasetB
+
+                # If the description is too long
+                if len(featureDesc) > 70:
+                    featureDesc = featureDesc[:71] + '...'  # Shorten it
+
+                # Display the description
+                self.labelQueryDataFeatureName.config(text = featureDesc)
+
+            except NameError:
+                tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+
+        return "break"
+
+    def querySetFeatureA(self, entryQuery):
+
+        # Find the feature and display the dataset's frequencies and proportions for each of its values
+        findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
+
+        '''
+        # Get the feature description
+        featureDesc = self.datasetA['Focus Feature']['Description']
+
+        # If the description is too long
+        if len(featureDesc) > 70:
+            featureDesc = featureDesc[:71] + '...' #Shorten it
+
+        # Display the description
+        self.labelQueryDataFeatureName.config(text = featureDesc)
+        '''
+
+    def querySetFeatureB(self, entryQuery):
+
+        # Find the feature and display the dataset's frequencies and proportions for each of its values
+        findFeature(entryQuery, self.listQueryDataB, self.datasetB,"Focus_Feature")
+
 
     # Conduct the Z-Test between the two samples. 
     def queryZTest(self, evt):
@@ -1817,8 +1830,9 @@ class OOTO_Miner:
     Disables/enables views (buttons, entry fields etc.) based on test type selected
     '''
     def adjustQueryViews(self):
-        self.buttonQueryFeatureA.configure(state = "normal")
-        self.buttonQueryFeatureB.configure(state = "normal")
+        self.buttonQueryFeature.configure(state = "normal")
+        # self.buttonQueryFeatureA.configure(state = "normal")
+        # self.buttonQueryFeatureB.configure(state = "normal")
         self.entryQueryFeatureA.configure(state = "normal")
         self.entryQueryFeatureB.configure(state = "normal")
         self.buttonQueryZTest.configure(state = "normal")
@@ -1855,8 +1869,9 @@ class OOTO_Miner:
         self.listQuerySetDataB.delete(0,END)
 
         if queryType == 'Sample vs Population':
-            self.buttonQueryFeatureA.configure(state = "disabled")
-            self.buttonQueryFeatureB.configure(state = "disabled")
+            self.buttonQueryFeature.configure(state = "disabled")
+            # self.buttonQueryFeatureA.configure(state = "disabled")
+            # self.buttonQueryFeatureB.configure(state = "disabled")
             self.entryQueryFeatureA.configure(state = "disabled")
             self.entryQueryFeatureB.configure(state = "disabled")
             self.buttonQueryZTest.configure(state = "disabled")
@@ -2504,15 +2519,13 @@ class OOTO_Miner:
 
         #### TODO Move functionality to new query elements
 
-
+        '''
         # ENTER CODE DATASET A
         self.entryQueryFeatureA = Entry(self.labelFrameQueryDataA)
         self.entryQueryFeatureA.place(
             relx = 0.23, rely = 0.32,
             relwidth = 0, relheight = 0
         ) # 0.76)
-
-
 
 
         self.entryQueryFeatureA.configure(background = "white")
@@ -2532,7 +2545,6 @@ class OOTO_Miner:
         self.buttonQueryFeatureA.configure(highlightbackground = "#d9d9d9")
         self.buttonQueryFeatureA.configure(highlightcolor = "black")
         self.buttonQueryFeatureA.configure(pady = "0")
-        self.buttonQueryFeatureA.configure(text = '''Enter Code''')
 
         # ENTER CODE DATASET B
         self.entryQueryFeatureB = Entry(self.labelFrameQueryDataB)
@@ -2555,8 +2567,7 @@ class OOTO_Miner:
         self.buttonQueryFeatureB.configure(highlightbackground = "#d9d9d9")
         self.buttonQueryFeatureB.configure(highlightcolor = "black")
         self.buttonQueryFeatureB.configure(pady = "0")
-        self.buttonQueryFeatureB.configure(text = '''Enter Code''')
-
+        '''
 
 if __name__ == '__main__':
     vp_start_gui()
