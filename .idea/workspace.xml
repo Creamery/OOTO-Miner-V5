@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/OOTO.py" description="        # SELECT TITLE&#10;" line="2084" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/_icons/ico_add.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_icons/ico_add_on.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_icons/ico_down_arrow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_icons/ico_down_arrow_on.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_icons/ico_right_arrow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_icons/ico_right_arrow_on.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/_icons/ico_right_arrow_small.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
@@ -26,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="3041" column="89" lean-forward="true" selection-start-line="3041" selection-start-column="89" selection-end-line="3041" selection-end-column="89" />
+            <state relative-caret-position="313">
+              <caret line="2241" column="95" selection-start-line="2241" selection-start-column="95" selection-end-line="2241" selection-end-column="95" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#57007#60821#1" />
@@ -51,8 +44,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="217" column="39" selection-start-line="217" selection-start-column="39" selection-end-line="217" selection-end-column="39" />
+            <state relative-caret-position="190">
+              <caret line="122" column="17" selection-start-line="122" selection-start-column="17" selection-end-line="122" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -70,18 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>CONFIDENCE'''</find>
-      <find>Samples'''</find>
-      <find>z-test</find>
-      <find>enqueue</find>
-      <find>clear all</find>
-      <find>clear queue</find>
-      <find>chi_square</find>
-      <find>clear que</find>
-      <find>275</find>
-      <find>.27</find>
-      <find>buttonqueue</find>
-      <find>enter</find>
       <find>reset</find>
       <find>queue cleared</find>
       <find>Z - Te</find>
@@ -100,6 +81,18 @@
       <find>ACTI</find>
       <find>item.wii</find>
       <find>button(</find>
+      <find>SELECT_REL_</find>
+      <find>(SELECT)</find>
+      <find>f</find>
+      <find>filter feature'</find>
+      <find>configuresele</find>
+      <find>TYPE</find>
+      <find>TAB_TEST_SELECT_REL_H</find>
+      <find>labelFrameFilterTitle</find>
+      <find>labelFrameSelectTitle</find>
+      <find>filter feat</find>
+      <find>feature a'</find>
+      <find>(FILTER)</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -254,17 +247,6 @@
       <window_info anchor="right" id="R Packages" order="4" />
     </layout>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2107</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="editorHistoryManager">
     <entry file="file://D:/Python27/Lib/lib-tk/ttk.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -322,15 +304,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="217" column="39" selection-start-line="217" selection-start-column="39" selection-end-line="217" selection-end-column="39" />
+        <state relative-caret-position="190">
+          <caret line="122" column="17" selection-start-line="122" selection-start-column="17" selection-end-line="122" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="3041" column="89" lean-forward="true" selection-start-line="3041" selection-start-column="89" selection-end-line="3041" selection-end-column="89" />
+        <state relative-caret-position="313">
+          <caret line="2241" column="95" selection-start-line="2241" selection-start-column="95" selection-end-line="2241" selection-end-column="95" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#57007#60821#1" />

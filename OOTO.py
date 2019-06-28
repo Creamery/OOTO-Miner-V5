@@ -2082,19 +2082,34 @@ class OOTO_Miner:
 
         global queryStrFilterB
 
+        # SELECT TITLE
+        self.labelFrameSelectTitle = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameSelectTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
+        self.labelFrameSelectTitle.configure(
+            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+        )
+        # Create the top separator
+        self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = HORIZONTAL)
+        self.labelFrameSelectHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
+
+        newRelY = self.getRelY(self.labelFrameSelectTitle) + self.getRelH(self.labelFrameSelectTitle) # + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
+        titleRelH = self.getRelH(self.labelFrameSelectTitle)
+
+
+
         self.labelFrameDatasetA = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetA.place(
-            relx = 0.05, rely = 0,
-            relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1
+            relx = 0.05, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
         )
         self.labelFrameDatasetA.configure(
             background = Color_support.SELECT_BG
         )
-
+        newRelH = self.getRelH(self.labelFrameDatasetA)
         self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
             relx = UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
-            rely = 0.0, relwidth = 0.4, relheight = 1
+            rely = newRelY, relwidth = 0.4, relheight = newRelH
         )
         self.labelFrameDatasetB.configure(
             background = Color_support.SELECT_BG
@@ -2102,7 +2117,7 @@ class OOTO_Miner:
 
         # DATASET SEPARATOR
         self.labelFrameDatasetCenterSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
-        self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = 0, relheight = 1)
+        self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = newRelY + 0.05, relheight = 1 - titleRelH - 0.1)
 
         # QUERY PARENT (DATASET A)
         self.labelFrameQueryDataA = LabelFrame(self.labelFrameDatasetA, bd = 0)
@@ -2220,11 +2235,11 @@ class OOTO_Miner:
             bd = 1, relief = GROOVE,
             highlightthickness = 0
         )
-        self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.84)
+        self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.8)
         # self.listQuerySetDataA.configure(highlightcolor="black")
 
         self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
-        self.labelQuerySetDataStatusA.place(relx = 0, rely = 0.84, relwidth = 1, relheight = 0.16)
+        self.labelQuerySetDataStatusA.place(relx = 0, rely = 0.8, relwidth = 1, relheight = 0.2)
         self.labelQuerySetDataStatusA.configure(
             background = Color_support.L_GRAY, foreground = Color_support.FG_COLOR,
             bd = 1, relief = GROOVE,
@@ -2460,15 +2475,15 @@ class OOTO_Miner:
 
         # FILTER TITLE
         self.labelFrameFilterTitle = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameFilterTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
+        self.labelFrameFilterTitle.place(relx = 0, rely = 0.05, relwidth = 1, relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
         self.labelFrameFilterTitle.configure(
-            background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
         # Create the top separator
         self.labelFrameFilterHorizontalSeparator = ttk.Separator(self.labelFrameFilterTitle, orient = HORIZONTAL)
         self.labelFrameFilterHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
 
-        newRelY = self.getRelH(self.labelFrameFilterTitle) + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
+        newRelY = self.getRelY(self.labelFrameFilterTitle) + self.getRelH(self.labelFrameFilterTitle) + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
 
 
         # FILTER QUERY PARENT
