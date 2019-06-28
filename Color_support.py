@@ -22,6 +22,8 @@ NO = '#E91E3A'
 ACTIVE_COLOR = SALMON # Change this to change all highlight colors
 ACTIVE_COLOR_LIGHT = PALE_YELLOW # Change this to change all highlight colors
 
+BG_TITLE = WHITE # ACTIVE_COLOR
+FG_TITLE = D_BLUE
 
 TOP_BG_COLOR = D_BLUE
 FG_COLOR = D_BLUE

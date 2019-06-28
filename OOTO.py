@@ -1037,21 +1037,8 @@ class OOTO_Miner:
         self.buttonTest.configure(highlightcolor = "black")
         self.buttonTest.configure(pady = "0")
         self.buttonTest.configure(text = ''''Test'''')
-        '''
         # self.buttonTest.configure(state = 'disabled')
-
-        self.buttonTestQueue = Button(self.labelFrameQueryChi)
-        self.buttonTestQueue.place(relx = 0.7, rely = 0.01, height = 0, width = 0)
-        self.buttonTestQueue.configure(activebackground = "#d9d9d9")
-        self.buttonTestQueue.configure(activeforeground = "#000000")
-        self.buttonTestQueue.configure(background = "#d9d9d9")
-        self.buttonTestQueue.configure(disabledforeground = "#a3a3a3")
-        self.buttonTestQueue.configure(foreground = "#000000")
-        self.buttonTestQueue.configure(highlightbackground = "#d9d9d9")
-        self.buttonTestQueue.configure(highlightcolor = "black")
-        self.buttonTestQueue.configure(pady = "0")
-        self.buttonTestQueue.configure(text = '''Run Miner''')
-        # self.buttonTestQueue.configure(state = 'disabled')
+        '''
 
 
 
@@ -1065,7 +1052,6 @@ class OOTO_Miner:
         self.labelFrameQuerySvP.configure(foreground = "black")
         self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
         self.labelFrameQuerySvP.configure(background = "#d9d9d9")
-        self.labelFrameQuerySvP.configure(width = 480)
 
         self.comboQueryCriticalValueSvP = ttk.Combobox(self.labelFrameQuerySvP)
         self.comboQueryCriticalValueSvP.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
@@ -1106,13 +1092,13 @@ class OOTO_Miner:
         self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
 
         self.buttonQueryAddFilterA.bind('<Button-1>', self.queryAddFilterA)
-        self.buttonQueryAddFilterA.bind("<Enter>", self.enterQueryAddFilterA)
-        self.buttonQueryAddFilterA.bind("<Leave>", self.leaveQueryAddFilterA)
+        self.buttonQueryAddFilterA.bind("<Enter>", self.enterCheckIcon)
+        self.buttonQueryAddFilterA.bind("<Leave>", self.leaveCheckIcon)
 
 
         self.buttonQueryAddFilterB.bind('<Button-1>', self.queryAddFilterB)
-        self.buttonQueryAddFilterB.bind("<Enter>", self.enterQueryAddFilterB)
-        self.buttonQueryAddFilterB.bind("<Leave>", self.leaveQueryAddFilterB)
+        self.buttonQueryAddFilterB.bind("<Enter>", self.enterCheckIcon)
+        self.buttonQueryAddFilterB.bind("<Leave>", self.leaveCheckIcon)
 
 
 
@@ -1123,22 +1109,30 @@ class OOTO_Miner:
 
 
         self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)
-        self.buttonQueryZTest.bind("<Enter>", self.enterQueryZTest)
-        self.buttonQueryZTest.bind("<Leave>", self.leaveQueryZTest)
+        self.buttonQueryZTest.bind("<Enter>", self.enterCheckIcon)
+        self.buttonQueryZTest.bind("<Leave>", self.leaveCheckIcon)
 
         self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)
 
         self.buttonQueue.bind('<Button-1>', self.queue)
+        self.buttonQueue.bind("<Enter>", self.enterDownArrowIcon)
+        self.buttonQueue.bind("<Leave>", self.leaveDownArrowIcon)
+
         self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
+        self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
+        self.buttonClearQueue.bind("<Leave>", self.leaveCrossIcon)
+
         self.buttonTestQueue.bind('<Button-1>', self.testQueue)
+        self.buttonTestQueue.bind("<Enter>", self.enterRightArrowIcon)
+        self.buttonTestQueue.bind("<Leave>", self.leaveRightArrowIcon)
 
         
         self.buttonQueryResetFilterA.bind('<Button-1>', self.queryResetDatasetA)
-        self.buttonQueryResetFilterA.bind("<Enter>", self.enterQueryResetFilterA)
-        self.buttonQueryResetFilterA.bind("<Leave>", self.leaveQueryResetFilterA)
+        self.buttonQueryResetFilterA.bind("<Enter>", self.enterCrossIcon)
+        self.buttonQueryResetFilterA.bind("<Leave>", self.leaveCrossIcon)
         self.buttonQueryResetFilterB.bind('<Button-1>', self.queryResetDatasetB)
-        self.buttonQueryResetFilterB.bind("<Enter>", self.enterQueryResetFilterB)
-        self.buttonQueryResetFilterB.bind("<Leave>", self.leaveQueryResetFilterB)
+        self.buttonQueryResetFilterB.bind("<Enter>", self.enterCrossIcon)
+        self.buttonQueryResetFilterB.bind("<Leave>", self.leaveCrossIcon)
         
 
 
@@ -1296,6 +1290,96 @@ class OOTO_Miner:
         # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
     # TODO Optimize (avoid resizing, keep a reference)
+    def enterCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_check_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_check_icon)
+        item.image = btn_check_icon  # < ! > Required to make images appear
+
+    def leaveCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_check_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_check_icon)
+        item.image = btn_check_icon  # < ! > Required to make images appear
+
+
+    def enterCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_cross_icon)
+        item.image = btn_cross_icon  # < ! > Required to make images appear
+
+    def leaveCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_cross_icon)
+        item.image = btn_cross_icon  # < ! > Required to make images appear
+
+    def enterAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_ADD_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_add_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_add_icon)
+        item.image = btn_add_icon  # < ! > Required to make images appear
+
+    def leaveAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_add_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_add_icon)
+        item.image = btn_add_icon  # < ! > Required to make images appear
+
+    def enterDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        item = event.widget
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item.configure(
+            image = btn_down_arrow_icon)
+        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
+
+    def leaveDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_down_arrow_icon)
+        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
+
+    def enterRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
+        item = event.widget
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    def leaveRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+
+    '''
     def enterQueryAddFilterA(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
@@ -1313,31 +1397,39 @@ class OOTO_Miner:
     def enterQueryAddFilterB(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+
         self.buttonQueryAddFilterB.configure(
             image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+    
 
     def leaveQueryAddFilterB(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+
         self.buttonQueryAddFilterB.configure(
             image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
-
+   
 
     def enterQueryResetFilterA(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+
         btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+
         self.buttonQueryResetFilterA.configure(
             image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+    
 
     def leaveQueryResetFilterA(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+
         self.buttonQueryResetFilterA.configure(
             image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+
 
     def enterQueryResetFilterB(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -1352,7 +1444,7 @@ class OOTO_Miner:
         self.buttonQueryResetFilterB.configure(
             image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
-
+    '''
 
     def enterQueryZTest(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -1476,6 +1568,7 @@ class OOTO_Miner:
     Adds Chi-Test to the queue
     '''
     def queue(self, evt):
+        self.buttonQueue.configure(relief = FLAT)
         datasets = []
         datasets.append(self.datasetA)
         datasets.append(self.datasetB)
@@ -1484,6 +1577,7 @@ class OOTO_Miner:
             self.addToQueue(queryType, datasetArgs = datasets)
         else:
             tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
+        return "break"
     
     '''
     Conducts all of the chi-tests in the queue. 
@@ -1491,7 +1585,8 @@ class OOTO_Miner:
     def testQueue(self, evt):
         if len(tests) == 0:
             tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
-            return -1
+            return "break"
+            # return -1
         self.listQueryDataB.delete(0,END)
         i = 0
         for test in tests:
@@ -1510,6 +1605,7 @@ class OOTO_Miner:
                 self.listQueryDataB.insert(END, tempString)
                 removeFiles(fileNames)
         tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
+        return "break"
 
     '''
     Clears the tests in the queue.
@@ -1518,7 +1614,8 @@ class OOTO_Miner:
         tests[:] = []
         self.labelQueueCount.configure(text = str(len(tests)))
         tkMessageBox.showinfo("Reset", "Queue cleared.")
-
+        self.buttonQueue.configure(relief = FLAT)
+        return "break"
 
     '''
     QUERY FUNCTIONS
@@ -1580,7 +1677,7 @@ class OOTO_Miner:
         if self.datasetA['Data'] is []:
             self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
         # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
-        self.labelQueryDataA.configure(text = "")
+        self.labelQueryDataA.configure(text = UI_support.LBL_SELECT_NO_DATA)
         self.listQueryDataA.delete(0,END)
         self.listQuerySetDataA.delete(0,END)
         return "break"
@@ -1601,7 +1698,7 @@ class OOTO_Miner:
         if self.datasetB['Data'] is []:
             self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
         # self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data']))) ### TODO
-        self.labelQueryDataB.configure(text = "")
+        self.labelQueryDataB.configure(text = UI_support.LBL_SELECT_NO_DATA)
         self.listQueryDataB.delete(0,END)
         self.listQuerySetDataB.delete(0,END)
         return "break"
@@ -2646,11 +2743,11 @@ class OOTO_Miner:
         # PROCESS Z-TEST TITLE
         self.labelFrameProcessZTestTitle = Label(self.labelFrameProcessZTest)
         self.labelFrameProcessZTestTitle.place(
-            relx = 0, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
-            relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessZTestTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             text = '''Z - TEST''',
             anchor = S
         )
@@ -2776,14 +2873,14 @@ class OOTO_Miner:
 
         # newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(self.labelFrameProcessChiSquare)
 
-        # PROCESS Z-TEST TITLE
+        # PROCESS CHI-SQUARE TITLE
         self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
         self.labelFrameProcessChiSquareTitle.place(
-            relx = 0, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
-            relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessChiSquareTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             text = '''CHI - SQUARE''',
             anchor = S
         )
@@ -2866,7 +2963,7 @@ class OOTO_Miner:
         # Enqueue button
         self.buttonQueue = Button(self.labelFrameProcessQueue, compound = CENTER)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_queue_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQueue.configure(
             image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -2920,6 +3017,36 @@ class OOTO_Miner:
         self.labelFrameProcessRun.configure(
             background = Color_support.PROCESS_BG
         )
+
+        # RUN MINER BUTTON
+        # Run miner button parent (to handle centering after pack)
+        self.labelFrameProcessRunMiner = LabelFrame(self.labelFrameProcessRun, bd = 0)
+        self.labelFrameProcessRunMiner.place(
+            relx = newRelX + 0.025, rely = 0,
+            relwidth = 0.25, relheight = 1
+        )
+        self.labelFrameProcessRunMiner.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        # Enqueue button
+        self.buttonTestQueue = Button(self.labelFrameProcessRunMiner, compound = CENTER)
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.RUN_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_queue_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonTestQueue.configure(
+            image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonTestQueue.image = btn_queue_icon  # < ! > Required to make images appear
+
+        self.buttonTestQueue.configure(
+            background = Color_support.ACTIVE_COLOR, foreground = Color_support.FG_COLOR,
+            bd = 0, relief = FLAT, overrelief = FLAT)
+
+        self.buttonTestQueue.pack(side = RIGHT)
+        self.buttonTestQueue.update()
+        self.labelFrameProcessRunMiner.pack(fill = BOTH, expand = True)
+
+
 
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessRun, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0, rely = 0, relheight = 1)

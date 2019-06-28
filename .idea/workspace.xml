@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/_icons/ico_add.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_icons/ico_add_on.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_icons/ico_down_arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_icons/ico_down_arrow_on.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_icons/ico_right_arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_icons/ico_right_arrow_on.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_icons/ico_right_arrow_small.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,10 +26,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="2920" column="49" selection-start-line="2920" selection-start-column="49" selection-end-line="2920" selection-end-column="49" />
+            <state relative-caret-position="180">
+              <caret line="3041" column="89" lean-forward="true" selection-start-line="3041" selection-start-column="89" selection-end-line="3041" selection-end-column="89" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
+                <element signature="e#57007#60821#1" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Icon_support.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="307">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+              <folding>
+                <element signature="e#1#11#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -27,8 +51,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="211" column="31" selection-start-line="211" selection-start-column="31" selection-end-line="211" selection-end-column="31" />
+            <state relative-caret-position="382">
+              <caret line="217" column="39" selection-start-line="217" selection-start-column="39" selection-end-line="217" selection-end-column="39" />
             </state>
           </provider>
         </entry>
@@ -36,8 +60,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+            <state relative-caret-position="247">
+              <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -46,25 +70,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>labelQuerySetDataStatusA</find>
-      <find>labelQuerySetDataStatusB</find>
-      <find>listbox(</find>
-      <find>SELECT_BG_HL</find>
-      <find>ACTI</find>
-      <find>Tabs_t3</find>
-      <find>.conf</find>
-      <find>testTabParentFrame.conf</find>
-      <find>.3333</find>
-      <find>0.3333</find>
-      <find>Z - Te</find>
-      <find>pack</find>
-      <find>0.2,</find>
-      <find>0.333</find>
-      <find>querycoun</find>
-      <find>queuecoun</find>
-      <find>configureproce</find>
-      <find>Queue Cou</find>
-      <find>'''SAM`</find>
       <find>CONFIDENCE'''</find>
       <find>Samples'''</find>
       <find>z-test</find>
@@ -72,10 +77,29 @@
       <find>clear all</find>
       <find>clear queue</find>
       <find>chi_square</find>
-      <find>Z_TEST</find>
       <find>clear que</find>
       <find>275</find>
       <find>.27</find>
+      <find>buttonqueue</find>
+      <find>enter</find>
+      <find>reset</find>
+      <find>queue cleared</find>
+      <find>Z - Te</find>
+      <find>chi -s</find>
+      <find>Z-TEST Ti</find>
+      <find>Chi-square</find>
+      <find>Z_TEST</find>
+      <find>width = 0)</find>
+      <find>relwidth = 0)</find>
+      <find>chi-square t</find>
+      <find>0.33</find>
+      <find>chi_squa</find>
+      <find>z - te</find>
+      <find>run miner</find>
+      <find>run</find>
+      <find>ACTI</find>
+      <find>item.wii</find>
+      <find>button(</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -94,8 +118,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/Color_support.py" />
+        <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
       </list>
@@ -135,6 +159,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -234,7 +259,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2010</line>
+          <line>2107</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
@@ -271,16 +296,6 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_default.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Icon_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-          <folding>
-            <element signature="e#1#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
@@ -290,24 +305,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+        <state relative-caret-position="247">
+          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Icon_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="e#1#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="211" column="31" selection-start-line="211" selection-start-column="31" selection-end-line="211" selection-end-column="31" />
+        <state relative-caret-position="382">
+          <caret line="217" column="39" selection-start-line="217" selection-start-column="39" selection-end-line="217" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="2920" column="49" selection-start-line="2920" selection-start-column="49" selection-end-line="2920" selection-end-column="49" />
+        <state relative-caret-position="180">
+          <caret line="3041" column="89" lean-forward="true" selection-start-line="3041" selection-start-column="89" selection-end-line="3041" selection-end-column="89" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
+            <element signature="e#57007#60821#1" />
           </folding>
         </state>
       </provider>
