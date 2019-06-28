@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="2906" column="47" selection-start-line="2906" selection-start-column="47" selection-end-line="2906" selection-end-column="47" />
+            <state relative-caret-position="161">
+              <caret line="2920" column="49" selection-start-line="2920" selection-start-column="49" selection-end-line="2920" selection-end-column="49" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -47,9 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>if self.data</find>
-      <find>ACTIVE_C</find>
-      <find>Ready</find>
       <find>labelQuerySetDataStatusA</find>
       <find>labelQuerySetDataStatusB</find>
       <find>listbox(</find>
@@ -77,6 +73,9 @@
       <find>clear queue</find>
       <find>chi_square</find>
       <find>Z_TEST</find>
+      <find>clear que</find>
+      <find>275</find>
+      <find>.27</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -305,8 +304,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="2906" column="47" selection-start-line="2906" selection-start-column="47" selection-end-line="2906" selection-end-column="47" />
+        <state relative-caret-position="161">
+          <caret line="2920" column="49" selection-start-line="2920" selection-start-column="49" selection-end-line="2920" selection-end-column="49" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>

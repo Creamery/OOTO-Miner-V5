@@ -2806,14 +2806,14 @@ class OOTO_Miner:
             relwidth = 1, relheight = 0.35
         )
         self.labelFrameProcessChiSquareElements.configure(
-            background = Color_support.LIME
+            background = Color_support.PROCESS_BG
         )
 
         # QUEUE ELEMENTS
         self.labelFrameProcessChiSquareQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 1)
         self.labelFrameProcessChiSquareQueue.place(
-            relx =0.25, rely = 0,
-            relwidth = 0.5, relheight = 1
+            relx = 0.275, rely = 0,
+            relwidth = 0.45, relheight = 1
         )
         self.labelFrameProcessChiSquareQueue.configure(
             background = Color_support.PROCESS_BG
@@ -2832,7 +2832,7 @@ class OOTO_Miner:
         self.labelQueueText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
             background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
-            text = '''QUEUE COUNT'''
+            text = '''QUEUE SIZE'''
         )
 
         newRelY = self.getRelY(self.labelQueueText) + self.getRelH(self.labelQueueText)
@@ -2856,8 +2856,8 @@ class OOTO_Miner:
         # Enqueue button parent (to handle centering after pack)
         self.labelFrameProcessQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
         self.labelFrameProcessQueue.place(
-            relx = newRelX + 0.005, rely = 0,
-            relwidth = 0.24, relheight = 1
+            relx = newRelX + 0.025, rely = 0,
+            relwidth = 0.25, relheight = 1
         )
         self.labelFrameProcessQueue.configure(
             background = Color_support.PROCESS_BG
@@ -2885,8 +2885,8 @@ class OOTO_Miner:
         # Clear queue button parent (to handle centering after pack)
         self.labelFrameProcessClearQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
         self.labelFrameProcessClearQueue.place(
-            relx = 0.005, rely = 0,
-            relwidth = 0.24, relheight = 1
+            relx = 0, rely = 0,
+            relwidth = 0.25, relheight = 1
         )
         self.labelFrameProcessClearQueue.configure(
             background = Color_support.PROCESS_BG
@@ -2902,7 +2902,8 @@ class OOTO_Miner:
 
         self.buttonClearQueue.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
+            bd = 1, relief = FLAT, overrelief = FLAT
+        )
 
         self.buttonClearQueue.pack(side = RIGHT)
         self.buttonClearQueue.update()
@@ -2917,7 +2918,7 @@ class OOTO_Miner:
             relwidth = UI_support.TEST_PROCESS_RUN_PARENT, relheight = 1
         )
         self.labelFrameProcessRun.configure(
-            background = Color_support.D_BLUE
+            background = Color_support.PROCESS_BG
         )
 
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessRun, orient = VERTICAL)
