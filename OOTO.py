@@ -161,14 +161,15 @@ the uploaded population file.
 '''
 def resetDataset(dataset):
     global populationDir
+    new_dataset = {'Data':[], 'Filter Features':[]}
     try:
         populationDataset = readCSVDict(populationDir)
-        new_dataset = {'Data':[], 'Filter Features':[]}
         for record in populationDataset:
             new_dataset['Data'].append(record)
         return new_dataset
     except:
-        return "break"
+        new_dataset = {'Data': [], 'Filter Features': []}
+        return new_dataset
 
 
 '''
@@ -1576,6 +1577,8 @@ class OOTO_Miner:
         # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
         self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
 
+        if self.datasetA['Data'] is []:
+            self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
         # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
         self.labelQueryDataA.configure(text = "")
         self.listQueryDataA.delete(0,END)
@@ -1591,6 +1594,8 @@ class OOTO_Miner:
         # self.labelFrameQueryDataB.configure(text = "Dataset B")
         self.labelQuerySetDataStatusB.configure(text = UI_support.LBL_SELECT_NO_DATA)
 
+        if self.datasetB['Data'] is []:
+            self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
         # self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data']))) ### TODO
         self.labelQueryDataB.configure(text = "")
         self.listQueryDataB.delete(0,END)

@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,41 +15,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="1578" column="99" selection-start-line="1578" selection-start-column="99" selection-end-line="1578" selection-end-column="99" />
+            <state relative-caret-position="368">
+              <caret line="1596" column="39" selection-start-line="1596" selection-start-column="39" selection-end-line="1596" selection-end-column="39" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UI_support.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="117" column="34" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Icon_support.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-              <folding>
-                <element signature="e#1#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Color_support.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -59,12 +28,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>COMMANDS</find>
-      <find>PROCESS</find>
-      <find>filter_bg</find>
-      <find>CenterS</find>
-      <find>Feature B</find>
-      <find>B</find>
       <find>(self.labelFrameDatasetB</find>
       <find>configureFi</find>
       <find>configureFIl</find>
@@ -82,13 +45,19 @@
       <find>labelFrameQueryDataB</find>
       <find>labelFrameQueryDataA</find>
       <find>ENTRY</find>
-      <find>reset</find>
       <find>check</find>
       <find>queryResetDatasetA</find>
       <find>Reset</find>
       <find>buttonQueryAddFilt</find>
       <find>buttonQueryAddFilterA</find>
       <find>try</find>
+      <find>labelQueryDataBCount.config</find>
+      <find>reset</find>
+      <find>#### TODO</find>
+      <find>### TODO</find>
+      <find>labelQueryDataACount.configure(</find>
+      <find>queryResetDatasetB</find>
+      <find>labelQueryDataBCount</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -131,11 +100,6 @@
             <path>
               <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
               <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
-              <item name="_icons" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -242,7 +206,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>1960</line>
+          <line>1965</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -317,8 +281,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="1578" column="99" selection-start-line="1578" selection-start-column="99" selection-end-line="1578" selection-end-column="99" />
+        <state relative-caret-position="368">
+          <caret line="1596" column="39" selection-start-line="1596" selection-start-column="39" selection-end-line="1596" selection-end-column="39" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
