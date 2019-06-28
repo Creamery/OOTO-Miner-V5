@@ -1844,7 +1844,8 @@ class OOTO_Miner:
         self.datasetA = resetDataset(self.datasetA)
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeatureA.configure(text = '')
-        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
+        if self.datasetA is not []:
+            self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
         self.labelQueryDataA.configure(text = "")
         self.listQueryDataA.delete(0,END)
         self.listQuerySetDataA.delete(0,END)
@@ -1852,7 +1853,8 @@ class OOTO_Miner:
         self.datasetB = resetDataset(self.datasetB)
         self.entryQuerySetDataB.configure(text = '')
         self.entryQueryFeatureB.configure(text = '')
-        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
+        if self.datasetB is not []:
+            self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
         self.labelQueryDataB.configure(text = "")
         self.listQueryDataB.delete(0,END)
         self.listQuerySetDataB.delete(0,END)
@@ -1942,8 +1944,8 @@ class OOTO_Miner:
 
         self.labelFrameDatasetA = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetA.place(
-            relx = 0.04, rely = 0,
-            relwidth = 0.44, relheight = 1
+            relx = 0.05, rely = 0,
+            relwidth = 0.4, relheight = 1
         )
         self.labelFrameDatasetA.configure(
             background = Color_support.SELECT_BG
@@ -1951,8 +1953,8 @@ class OOTO_Miner:
 
         self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
-            relx = 0.48 + 0.04, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
-            rely = 0.0, relwidth = 0.44, relheight = 1
+            relx = 0.4 + 0.15, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
+            rely = 0.0, relwidth = 0.4, relheight = 1
         )
         self.labelFrameDatasetB.configure(
             background = Color_support.SELECT_BG
