@@ -990,33 +990,15 @@ class OOTO_Miner:
         self.comboQueryTest.configure(state = "readonly")
 
         # > Z-TEST FRAME SAMPLE
+        '''
         self.labelFrameQueryZ = LabelFrame(self.Tabs_t3)
         self.labelFrameQueryZ.place(relx = 0.01, rely = 0.78, relheight = 0, relwidth = 0) # 0.48)
         self.labelFrameQueryZ.configure(relief = GROOVE)
         self.labelFrameQueryZ.configure(foreground = "black")
-        self.labelFrameQueryZ.configure(text = '''Z-Test''')
         self.labelFrameQueryZ.configure(background = "#d9d9d9")
+        '''
+        # self.labelFrameQueryZ.configure(text = '''Z-Test''')
 
-
-        self.labelQueryZTest = Label(self.labelFrameQueryZ)
-        self.labelQueryZTest.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
-        # self.labelQueryZTest.configure(background = "#d9d9d9")
-        self.labelQueryZTest.configure(disabledforeground = "#a3a3a3")
-        self.labelQueryZTest.configure(foreground = "#000000")
-        self.labelQueryZTest.configure(text = '''NO DATA''')
-
-        
-        self.buttonQueryZTest = Button(self.labelFrameQueryZ)
-        self.buttonQueryZTest.place(relx = 0.01, rely = 0.01, height = 0, width = 0)
-        self.buttonQueryZTest.configure(activebackground = "#d9d9d9")
-        self.buttonQueryZTest.configure(activeforeground = "#000000")
-        self.buttonQueryZTest.configure(background = "#d9d9d9")
-        self.buttonQueryZTest.configure(disabledforeground = "#a3a3a3")
-        self.buttonQueryZTest.configure(foreground = "#000000")
-        self.buttonQueryZTest.configure(highlightbackground = "#d9d9d9")
-        self.buttonQueryZTest.configure(highlightcolor = "black")
-        self.buttonQueryZTest.configure(pady = "0")
-        self.buttonQueryZTest.configure(text = '''Test''')
         
         # > CHI-TEST FRAME
 
@@ -1028,19 +1010,17 @@ class OOTO_Miner:
         self.labelFrameQueryChi.configure(text = '''Chi Test''')
         self.labelFrameQueryChi.configure(background = "#d9d9d9")
         # self.labelFrameQueryChi.configure(width = 480)
-        global arrQueryCriticalValue
-        arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
 
-        global arrQueryCriticalValueMapping
-        arrQueryCriticalValueMapping = {"0.80":1.28, "0.90":1.645, "0.95":1.96, "0.98":2.33, "0.99":2.58}
-  
+
+        ## TODO Replace functionality with new one
+        '''
         self.comboQueryCriticalValue = ttk.Combobox(self.labelFrameQueryZ)
         self.comboQueryCriticalValue.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
         self.comboQueryCriticalValue.configure(exportselection = "0")
         self.comboQueryCriticalValue.configure(takefocus = "")
         self.comboQueryCriticalValue.configure(values = arrQueryCriticalValue)
         self.comboQueryCriticalValue.set(arrQueryCriticalValue[0])
-
+        '''
         # > QUEUE COUNT
         self.labelQueueCount = Label(self.Tabs_t3)
         self.labelQueueCount.place(relx = 0.87, rely = 0.01, height = 0, width = 0) # 106)
@@ -1165,6 +1145,9 @@ class OOTO_Miner:
 
 
         self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)
+        self.buttonQueryZTest.bind("<Enter>", self.enterQueryZTest)
+        self.buttonQueryZTest.bind("<Leave>", self.leaveQueryZTest)
+
         self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)
 
         self.buttonQueue.bind('<Button-1>', self.queue)
@@ -1391,6 +1374,21 @@ class OOTO_Miner:
         self.buttonQueryResetFilterB.configure(
             image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+
+    def enterQueryZTest(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryZTest.configure(
+            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+
+    def leaveQueryZTest(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryZTest.configure(
+            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
     '''
     Functions to be called by the bound commands
@@ -1770,23 +1768,26 @@ class OOTO_Miner:
 
     # Conduct the Z-Test between the two samples. 
     def queryZTest(self, evt):
-
+        self.buttonQueryZTest.configure(relief = FLAT)
         # Get selected confidence interval
-        confidenceInterval = self.comboQueryCriticalValue.get() 
+        # confidenceInterval = self.comboQueryCriticalValue.get()
+        confidenceInterval = self.spinBoxQueryZConfidence.get()
 
         # Get corresponding Z Critical Value of the confidence interval
         zCritical = arrQueryCriticalValueMapping[confidenceInterval] 
 
-        # Check if the selected focus feature and selected values of it are the same for both samples
-        isSame = isSameFocusFeat(self.datasetA, self.datasetB, self.datasetA['Focus Feature']['Selected Values'], self.datasetB['Focus Feature']['Selected Values'])
-        if(isSame == 1):
-            # Calculate Z score between the two samples
-            zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'], self.datasetB['Total'], self.datasetB['ProportionPercent'])
-            # Get result if accept/reject compared to the zCritical value
-            zResult = svs.compareZtoZCritical(zScore, zCritical)
-            # Display Z score and whether accept/reject at inputted confidence interval
-            self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
+        if 'Focus Feature' in self.datasetA:
+            # Check if the selected focus feature and selected values of it are the same for both samples
+            isSame = isSameFocusFeat(self.datasetA, self.datasetB, self.datasetA['Focus Feature']['Selected Values'], self.datasetB['Focus Feature']['Selected Values'])
+            if(isSame == 1):
+                # Calculate Z score between the two samples
+                zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'], self.datasetB['Total'], self.datasetB['ProportionPercent'])
+                # Get result if accept/reject compared to the zCritical value
+                zResult = svs.compareZtoZCritical(zScore, zCritical)
+                # Display Z score and whether accept/reject at inputted confidence interval
+                self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
 
+        return "break"
     # Conduct Z-Test between the population and all samples
     def querySVP(self,evt):
         confidenceInterval = self.comboQueryCriticalValueSvP.get() #Get selected confidence interval
@@ -1854,10 +1855,14 @@ class OOTO_Miner:
         self.buttonQueryFeature.configure(state = "normal")
         # self.buttonQueryFeatureA.configure(state = "normal")
         # self.buttonQueryFeatureB.configure(state = "normal")
+
         self.entryQueryFeatureA.configure(state = "normal")
         self.entryQueryFeatureB.configure(state = "normal")
         self.buttonQueryZTest.configure(state = "normal")
-        self.comboQueryCriticalValue.configure(state = "normal")
+
+        self.spinBoxQueryZConfidence.configure(state = "normal")
+        # self.comboQueryCriticalValue.configure(state = "normal")
+
         self.buttonQueue.configure(state = "normal")
         self.buttonClearQueue.configure(state = "normal")
         self.buttonTestQueue.configure(state = "normal")
@@ -1896,7 +1901,10 @@ class OOTO_Miner:
             self.entryQueryFeatureA.configure(state = "disabled")
             self.entryQueryFeatureB.configure(state = "disabled")
             self.buttonQueryZTest.configure(state = "disabled")
-            self.comboQueryCriticalValue.configure(state = "disabled")
+
+            self.spinBoxQueryZConfidence.configure(state = "disabled")
+            # self.comboQueryCriticalValue.configure(state = "disabled")
+
             self.buttonQueue.configure(state = "disabled")
             self.buttonClearQueue.configure(state = "disabled")
             self.buttonTestQueue.configure(state = "disabled")
@@ -1912,7 +1920,9 @@ class OOTO_Miner:
             self.labelQueryDataBCount.configure(text = "")
         else:
             self.buttonQueryZTestSvP.configure(state = "disabled")
+
             self.comboQueryCriticalValueSvP.configure(state = "disabled")
+
             self.labelQueryZTestSvP.configure(state = "disabled")
             # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
             # self.labelFrameQueryDataB.configure(text = "Dataset B")
@@ -2249,7 +2259,7 @@ class OOTO_Miner:
         self.labelQueryDataACountText = Label(self.labelFrameQueryCount)
         self.labelQueryDataACountText.place(
             relx = 0, rely = self.getRelH(self.labelQueryDataACount),
-            relwidth = 1, relheight = 0.36)
+            relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
         self.labelQueryDataACountText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
             background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
@@ -2599,7 +2609,7 @@ class OOTO_Miner:
         self.labelFrameProcessTitle = LabelFrame(parentFrame, bd = 0)
         self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
         self.labelFrameProcessTitle.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
         )
         # Create the top separator
         self.labelFrameProcessHorizontalSeparator = ttk.Separator(self.labelFrameProcessTitle, orient = HORIZONTAL)
@@ -2616,11 +2626,181 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_W, relheight = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_H
         )
         self.labelFrameProcessCommands.configure(
-            background = Color_support.LIME
+            background = Color_support.PROCESS_BG
+        )
+
+
+        # PROCESS Z-TEST PARENT
+        self.labelFrameProcessZTest = LabelFrame(self.labelFrameProcessCommands, bd = 0)
+        self.labelFrameProcessZTest.place(
+            relx = 0, rely = 0,
+            relwidth = 0.3333, relheight = 1
+        )
+        self.labelFrameProcessZTest.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+
+        # PROCESS Z-TEST TITLE
+        self.labelFrameProcessZTestTitle = Label(self.labelFrameProcessZTest)
+        self.labelFrameProcessZTestTitle.place(
+            relx = 0, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+        self.labelFrameProcessZTestTitle.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            text = '''Z - TEST''',
+            anchor = S
+        )
+        # Top horizontal separator # TODO
+        self.zTestTitleSeparator = ttk.Separator(self.labelFrameProcessZTestTitle, orient = HORIZONTAL)
+        self.zTestTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
+
+        self.zTestRightSeparator = ttk.Separator(self.labelFrameProcessZTest, orient = VERTICAL)
+        self.zTestRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
+
+
+        global arrQueryCriticalValue
+        arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
+
+        global arrQueryCriticalValueMapping
+        arrQueryCriticalValueMapping = {"0.80": 1.28, "0.90": 1.645, "0.95": 1.96, "0.98": 2.33, "0.99": 2.58}
+
+        newRelY = self.getRelY(self.labelFrameProcessZTestTitle) + self.getRelH(self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
+
+        # SPINBOX ELEMENTS
+        self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessZTest, bd = 0)
+        self.labelFrameProcessZTestConfidence.place(
+            relx = 0.11, rely = newRelY,
+            relwidth = 0.5, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_H
+        )
+        self.labelFrameProcessZTestConfidence.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+
+        newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(self.labelFrameProcessZTestConfidence)
+        newRelY = self.getRelY(self.labelFrameProcessZTestConfidence)
+        # BUTTON ELEMENTS
+        self.labelFrameProcessZTestButtonElements = LabelFrame(self.labelFrameProcessZTest, bd = 0)
+        self.labelFrameProcessZTestButtonElements.place(
+            relx = newRelX + 0.01, rely = newRelY,
+            relwidth = 0.5 - 2 * self.getRelX(self.labelFrameProcessZTestConfidence), relheight = 0.35
+        )
+        self.labelFrameProcessZTestButtonElements.configure(
+            background = Color_support.PROCESS_BG
         )
 
 
 
+
+
+        # CONFIDENCE SPINBOX LABEL
+        self.labelQueryZConfidenceText = Label(self.labelFrameProcessZTestConfidence)
+        self.labelQueryZConfidenceText.place(
+            relx = 0, rely = 0,
+            relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_CONFIDENCE_TEXT_REL_H)
+        self.labelQueryZConfidenceText.configure(
+            font = UI_support.FONT_DEFAULT_BOLD,
+            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            text = '''CONFIDENCE'''
+        )
+
+
+        newRelY = self.getRelY(self.labelQueryZConfidenceText) + self.getRelH(self.labelQueryZConfidenceText)
+        newRelH = 1 - self.getRelH(self.labelQueryZConfidenceText)
+
+        # CONFIDENCE SPINBOX
+        self.spinBoxQueryZConfidence = Spinbox(self.labelFrameProcessZTestConfidence, values = arrQueryCriticalValue)
+        self.spinBoxQueryZConfidence.place(
+            relx = 0, rely = newRelY,
+            relwidth = 1, relheight = newRelH
+        )
+        self.spinBoxQueryZConfidence.configure(
+            font = UI_support.FONT_LARGE_BOLD,
+            background = Color_support.WHITE, foreground = Color_support.FG_COLOR,
+            exportselection = 0,
+            buttonbackground = Color_support.WHITE,
+            buttonuprelief = FLAT, buttondownrelief = GROOVE,
+            justify = CENTER
+
+        )
+
+
+        newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(self.labelFrameProcessZTestConfidence)
+
+        newRelY = self.getRelY(self.labelFrameProcessZTestConfidence)
+
+        newRelH = self.getRelH(self.labelFrameProcessZTestConfidence)
+
+        # Z-TEST BUTTON
+        self.buttonQueryZTest = Button(self.labelFrameProcessZTestButtonElements, compound = CENTER)
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryZTest.configure(image = btn_query_z_test_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+
+        self.buttonQueryZTest.configure(
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+            # text = '''Test''')
+
+        self.buttonQueryZTest.pack(side = RIGHT)
+        self.buttonQueryZTest.update()
+
+        # self.buttonQueryZTest.place(
+        #      rely = 0.5, anchor = CENTER
+        # )
+        # self.buttonQueryZTest.place(
+        #     relx = 0.5, rely = 0.5, anchor = CENTER
+        # )
+
+        # self.labelFrameProcessZTestElements.update()
+        # self.labelFrameProcessZTestButtonElements.pack(side = RIGHT)
+        # self.labelFrameProcessZTestElements.pack()
+        # self.labelFrameProcessZTestButtonElements.update()
+        # self.labelFrameProcessZTestButtonElements.place(
+        #     relx = 0.5, rely = 0.5, anchor = CENTER
+        # )
+
+
+        # Z-TEST RESULTS
+        self.labelQueryZTest = Label(self.labelFrameProcessZTest)  ## TODO functionality switch
+        self.labelQueryZTest.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
+        # self.labelQueryZTest.configure(background = "#d9d9d9")
+        self.labelQueryZTest.configure(disabledforeground = "#a3a3a3")
+        self.labelQueryZTest.configure(foreground = "#000000")
+        self.labelQueryZTest.configure(text = '''NO DATA''')
+
+
+
+
+
+
+        newRelX = self.getRelX(self.labelFrameProcessZTest) + self.getRelW(self.labelFrameProcessZTest)
+
+        # PROCESS CHI-SQUARE PARENT
+        self.labelFrameProcessChiSquare = LabelFrame(self.labelFrameProcessCommands, bd = 0)
+        self.labelFrameProcessChiSquare.place(
+            relx = newRelX, rely = 0,
+            relwidth = 0.3333, relheight = 1
+        )
+        self.labelFrameProcessChiSquare.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(self.labelFrameProcessChiSquare)
+
+        # PROCESS RUN PARENT
+        self.labelFrameProcessRun = LabelFrame(self.labelFrameProcessCommands, bd = 1)
+        self.labelFrameProcessRun.place(
+            relx = newRelX, rely = 0,
+            relwidth = 0.3333, relheight = 1
+        )
+        self.labelFrameProcessRun.configure(
+            background = Color_support.PROCESS_BG
+        )
 
 if __name__ == '__main__':
     vp_start_gui()

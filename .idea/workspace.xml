@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="413" column="21" lean-forward="true" selection-start-line="413" selection-start-column="21" selection-end-line="413" selection-end-column="21" />
+            <state relative-caret-position="1">
+              <caret line="1769" column="30" lean-forward="true" selection-start-line="1769" selection-start-column="30" selection-end-line="1769" selection-end-column="30" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#107774#119121#0" />
@@ -27,19 +27,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Color_support.py">
+        <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
+            <state relative-caret-position="161">
+              <caret line="203" selection-start-line="203" selection-end-line="203" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UI_support.py">
+        <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="191" column="38" selection-start-line="191" selection-start-column="38" selection-end-line="191" selection-end-column="38" />
+            <state relative-caret-position="-194">
+              <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -48,36 +48,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+      <find>## TODO</find>
+      <find>comboQueryCriticalValue</find>
+      <find>'''TEST</find>
+      <find>configurePr</find>
+      <find>0.36</find>
+      <find>'''SAMPLES</find>
+      <find>'''CON</find>
       <find>D_BLUE</find>
-      <find>width = 0</find>
-      <find>Both</find>
-      <find>buttonQueryFeature</find>
-      <find>return &quot;bre</find>
-      <find>querySetFeature</find>
-      <find>buttonQueryFeatureA</find>
-      <find>entryQueryFeatureA</find>
-      <find>setFocusFeatureValuesA</find>
-      <find>Name</find>
-      <find>scroll</find>
-      <find>listbox</find>
-      <find>Total</find>
-      <find>widget</find>
-      <find>entryQuerySetDataA</find>
-      <find>entryQuerySetDataA =</find>
-      <find>listbox(</find>
-      <find>WARNING:</find>
-      <find>'''NO</find>
-      <find>0.44</find>
-      <find>Filter Feat</find>
-      <find>separator</find>
-      <find>PROCESS</find>
-      <find>Feature A</find>
-      <find>Feature A'</find>
-      <find>TAB_TEST_SELECT_REL_W</find>
-      <find>TAB_TEST_PROCESS_COMMANDS_REL_W</find>
-      <find>'''Filter Feat</find>
+      <find>button</find>
+      <find>Z-TEST BUT</find>
+      <find>CONFIDENCE</find>
       <find>LIME</find>
-      <find>curs</find>
+      <find>D_BL</find>
+      <find>PROCESS_</find>
+      <find>labelFrameProcessZTestButtonElements.</find>
+      <find>'''CONFIDENCE</find>
+      <find>'''c</find>
+      <find>TAB_TEST_PROCESS_</find>
+      <find>Z_TES</find>
+      <find>newrelY</find>
+      <find>'''CONFIDEN</find>
+      <find>Z_TEST</find>
+      <find>Z - T</find>
+      <find>HORIZON</find>
+      <find>bd = 1</find>
+      <find>Z - TE</find>
+      <find>buttonQueryZTest.bind</find>
+      <find>self.dataset</find>
+      <find>self.datasetA</find>
+      <find>if self.data</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -226,7 +226,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>1998</line>
+          <line>2008</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
@@ -282,22 +282,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
+        <state relative-caret-position="-194">
           <caret line="39" column="18" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="191" column="38" selection-start-line="191" selection-start-column="38" selection-end-line="191" selection-end-column="38" />
+        <state relative-caret-position="161">
+          <caret line="203" selection-start-line="203" selection-end-line="203" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="413" column="21" lean-forward="true" selection-start-line="413" selection-start-column="21" selection-end-line="413" selection-end-column="21" />
+        <state relative-caret-position="1">
+          <caret line="1769" column="30" lean-forward="true" selection-start-line="1769" selection-start-column="30" selection-end-line="1769" selection-end-column="30" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#107774#119121#0" />
