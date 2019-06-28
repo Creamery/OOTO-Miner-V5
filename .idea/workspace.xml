@@ -15,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="2106" column="75" lean-forward="true" selection-start-line="2106" selection-start-column="75" selection-end-line="2106" selection-end-column="75" />
+            <state relative-caret-position="229">
+              <caret line="399" column="69" selection-start-line="399" selection-start-column="69" selection-end-line="399" selection-end-column="69" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -46,7 +46,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>TAB_TEST_FILTER_LIST_DATA_REL_H</find>
       <find>labelFrameFilterListDataA</find>
       <find>'''Filter Fea</find>
       <find>'''NO FEA</find>
@@ -76,6 +75,7 @@
       <find>entryQuerySetDataA</find>
       <find>entryQuerySetDataA =</find>
       <find>listbox(</find>
+      <find>WARNING:</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -224,7 +224,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2006</line>
+          <line>2003</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
@@ -294,8 +294,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2106" column="75" lean-forward="true" selection-start-line="2106" selection-start-column="75" selection-end-line="2106" selection-end-column="75" />
+        <state relative-caret-position="229">
+          <caret line="399" column="69" selection-start-line="399" selection-start-column="69" selection-end-line="399" selection-end-column="69" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
