@@ -55,15 +55,14 @@
 			"settings":
 			{
 				"buffer_size": 15389,
-				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "Hi Sir Ed!\n\nWe think that teaching a session will be helpful for us.\nMay we know the possible dates of the hands-on sessions so we can fit it in our schedule and allot enough time to learn it beforehand?\n\nWe also think that writing a paper will be beneficial for us, however we are currently working with Doc Arnie in finalizing the thesis proposal. He would like us to properly polish it (together with the planned prototype) before we leave for LHU so we might not have time to properly work on another paper.\n\nWe are also available to meet after class, but only until 2:30 since we have to catch the Taft shuttle to attend to some thesis related stuff.\n\nRegards,\nCandy",
+			"contents": "        for i in range(0, len(self.datasetA['Filter Features'])):\n            # queryStrFilterA = queryStrFilterA + \"->\" + self.datasetA['Filter Features'][i]['Code']\n            queryStrFilterA = queryStrFilterA + \" [ \" + self.datasetA['Filter Features'][i]['Code'] + \" | \"\n            for j in range(0,len(self.datasetA['Filter Features'][i]['Selected Responses'])):\n                # if j == 0:\n                #     queryStrFilterA = queryStrFilterA + \" [ \"\n                queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j]['Code'] + \" \"\n                if j == (len(self.datasetA['Filter Features'][i]['Selected Responses']) - 1):\n                    queryStrFilterA = queryStrFilterA + \"]\"",
 			"settings":
 			{
-				"buffer_size": 671,
+				"buffer_size": 742,
 				"line_ending": "Windows",
 				"name": "Hi Sir Ed!"
 			}
@@ -72,7 +71,7 @@
 			"file": "UI_support.py",
 			"settings":
 			{
-				"buffer_size": 2359,
+				"buffer_size": 4455,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -81,7 +80,7 @@
 			"file": "Color_support.py",
 			"settings":
 			{
-				"buffer_size": 1299,
+				"buffer_size": 1766,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -90,7 +89,7 @@
 			"file": "Icon_support.py",
 			"settings":
 			{
-				"buffer_size": 379,
+				"buffer_size": 664,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -482,7 +481,7 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 39.2,
+						"translation.y": 39.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -493,15 +492,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 671,
+						"buffer_size": 742,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								671
+								174,
+								175
 							]
 						],
 						"settings":
@@ -522,15 +521,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2359,
+						"buffer_size": 4455,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								440,
-								440
+								0,
+								0
 							]
 						],
 						"settings":
@@ -550,7 +549,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1299,
+						"buffer_size": 1766,
 						"regions":
 						{
 						},
@@ -578,15 +577,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 379,
+						"buffer_size": 664,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								76,
-								76
+								0,
+								0
 							]
 						],
 						"settings":

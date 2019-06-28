@@ -897,7 +897,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
         )
         self.labelFrameTypeElements.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR # , text = '''TYPE'''
+            background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR # , text = '''TYPE'''
         )
 
         prevFrameRelY = float(self.labelFrameTypeElements.place_info()['rely'])
@@ -911,7 +911,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
         self.labelFrameSelectElements.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR # , text = '''SELECT'''
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR # , text = '''SELECT'''
         )
 
         self.configureSelectElements(self.labelFrameSelectElements) # Configures all sub elements under SELECT
@@ -927,11 +927,18 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
         )
         self.labelFrameFilterElements.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR # , text = '''FILTER'''
+            background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR # , text = '''FILTER'''
+        )
+
+        # FILTER TITLE
+        self.labelFrameFilterTitle = LabelFrame(self.labelFrameFilterElements, bd = 0)
+        self.labelFrameFilterTitle.place(relx = 0, rely = 0, relwidth = 1, height = UI_support.TAB_TEST_FILTER_TITLE_H)
+        self.labelFrameFilterTitle.configure(
+            background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR # , text = '''FILTER'''
         )
         # Create the top separator
-        self.labelFrameQueryCountLeftSeparator = ttk.Separator(self.labelFrameFilterElements, orient = HORIZONTAL)
-        self.labelFrameQueryCountLeftSeparator.place(relx = 0.05, rely = 0, relwidth = 0.9)
+        self.labelFrameQueryCountLeftSeparator = ttk.Separator(self.labelFrameFilterTitle, orient = HORIZONTAL)
+        self.labelFrameQueryCountLeftSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
 
 
         prevFrameRelY = float(self.labelFrameFilterElements.place_info()['rely'])
@@ -945,7 +952,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_PROCESS_REL_W, relheight = UI_support.TAB_TEST_PROCESS_REL_H
         )
         self.labelFrameProcessElements.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = '''PROCESS'''
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR, text = '''PROCESS'''
         )
 
         prevFrameRelX = float(self.labelFrameFilterElements.place_info()['relx'])
@@ -2042,12 +2049,16 @@ class OOTO_Miner:
 
         self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
-            relx = 0.48, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
+            relx = 0.48 + 0.04, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
             rely = 0.0, relwidth = 0.44, relheight = 1
         )
         self.labelFrameDatasetB.configure(
             background = Color_support.SELECT_BG
         )
+
+        # DATASET SEPARATOR
+        self.labelFrameDatasetCenterSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
+        self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = 0.1, relheight = 0.8)
 
         # QUERY PARENT (DATASET A)
         self.labelFrameQueryDataA = LabelFrame(self.labelFrameDatasetA, bd = 0)
@@ -2091,7 +2102,7 @@ class OOTO_Miner:
         )
 
 
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + self.getRelX(self.labelQuerySetDataA) + self.getRelW(self.labelQuerySetDataA)
+        newRelX = self.getRelX(self.labelQuerySetDataA) + self.getRelW(self.labelQuerySetDataA) # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # DATASET A
         self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
@@ -2117,7 +2128,7 @@ class OOTO_Miner:
             font = "TkFixedFont") # TODO Constant font definiton
 
 
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + self.getRelX(self.entryQuerySetDataA) + self.getRelW(self.entryQuerySetDataA)
+        newRelX = self.getRelX(self.entryQuerySetDataA) + self.getRelW(self.entryQuerySetDataA) # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # DATASET A
         self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
@@ -2200,7 +2211,17 @@ class OOTO_Miner:
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             selectmode = MULTIPLE, exportselection = "0",
             selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
+            font = "TkFixedFont",
+            bd = 1, relief = GROOVE,
+            highlightthickness = 0
+        )
+        '''
+            configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            selectmode = MULTIPLE, exportselection = "0",
+            selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
             font = "TkFixedFont")
+        '''
         self.listQuerySetDataB.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
 
         self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
