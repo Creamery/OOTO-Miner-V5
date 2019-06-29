@@ -1,6 +1,7 @@
 
 import sys
 import os
+
 import PIL.Image
 import PIL.ImageTk
 
@@ -40,6 +41,7 @@ TAB_ICO_RIGHT_ARROW_ON = PATH+'\\_icons\\ico_right_arrow_on.png'
 
 
 TAB_ICO_RIGHT_ARROW_SIDECURVE = PATH+'\\_icons\\ico_right_arrow_sidecurve.png'
+
 TAB_ICO_RIGHT_ARROW_PLAIN = PATH+'\\_icons\\ico_right_arrow_plain.png'
 TAB_ICO_RIGHT_ARROW_PLAIN_ON = PATH+'\\_icons\\ico_right_arrow_plain_on.png'
 

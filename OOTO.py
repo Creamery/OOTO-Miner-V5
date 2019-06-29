@@ -655,6 +655,7 @@ class OOTO_Miner:
         self.entryInitialVarDesc.configure(
             background = Color_support.DATASET_ENTRY_BG, foreground = Color_support.DATASET_ENTRY_FG,
             bd = 1,
+            font = UI_support.FONT_DEFAULT,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
         # Previous values (1.2)
@@ -2248,27 +2249,53 @@ class OOTO_Miner:
 
 
         # DATASET A
-        self.labelQuerySetDataA = Label(self.labelFrameQueryDataA)
-        self.labelQuerySetDataA.place(
+        self.labelFrameBorderQuerySetDataA = LabelFrame(self.labelFrameQueryDataA, bd = 0)
+        self.labelFrameBorderQuerySetDataA.place(
             relx = 0, rely = 0,
-            relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1)
+            relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
+        )
+        self.labelFrameBorderQuerySetDataA.configure(
+            background = Color_support.SELECT_BUTTONS_BG
+        )
+        self.labelQuerySetDataA = Label(self.labelFrameBorderQuerySetDataA)
+        # self.labelQuerySetDataA.place(
+        #     relx = 0, rely = 0,
+        #     relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1)
+
+        self.labelQuerySetDataA.place(
+            relx = 0.01, rely = 0.025,
+            relwidth = 0.98, relheight = 0.95)
         self.labelQuerySetDataA.configure(
-            background = Color_support.SELECT_LBL_BG, foreground = Color_support.SELECT_LBL_FG,
-            text = '''Feature A'''
+            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            text = UI_support.SELECT_LABEL_DATASETA_TEXT,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = 0, relief = FLAT,
         )
 
         # DATASET B
-        self.labelQuerySetDataB = Label(self.labelFrameQueryDataB)
-        self.labelQuerySetDataB.place(
+        self.labelFrameBorderQuerySetDataB = LabelFrame(self.labelFrameQueryDataB, bd = 0)
+        self.labelFrameBorderQuerySetDataB.place(
             relx = 0, rely = 0,
-            relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1)
+            relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
+        )
+        self.labelFrameBorderQuerySetDataB.configure(
+            background = Color_support.SELECT_BUTTONS_BG
+        )
+
+        self.labelQuerySetDataB = Label(self.labelFrameBorderQuerySetDataB)
+
+        self.labelQuerySetDataB.place(
+            relx = self.getRelX(self.labelQuerySetDataA), rely = self.getRelY(self.labelQuerySetDataA),
+            relwidth = self.getRelW(self.labelQuerySetDataA), relheight = self.getRelH(self.labelQuerySetDataA))
         self.labelQuerySetDataB.configure(
-            background = Color_support.SELECT_LBL_BG, foreground = Color_support.SELECT_LBL_FG,
-            text = '''Feature B'''
+            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            text = UI_support.SELECT_LABEL_DATASETB_TEXT,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = 0, relief = FLAT,
         )
 
 
-        newRelX = self.getRelX(self.labelQuerySetDataA) + self.getRelW(self.labelQuerySetDataA) # + UI_support.TAB_3CHILD_LBL_REL_X
+        newRelX = self.getRelX(self.labelFrameBorderQuerySetDataA) + self.getRelW(self.labelFrameBorderQuerySetDataA) # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # DATASET A
         self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
@@ -2277,9 +2304,12 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
         self.entryQuerySetDataA.configure(
             background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
-            insertbackground = Color_support.SELECT_ENTRY_BG_INS,
             bd = 1,
-            font = "TkFixedFont") # TODO Constant font definiton
+            font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
+            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
+        ) # TODO Constant font definiton
 
         # ENTER CODE DATASET B
 
@@ -2289,9 +2319,12 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
         self.entryQuerySetDataB.configure(
             background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
-            insertbackground = Color_support.SELECT_ENTRY_BG_INS,
             bd = 1,
-            font = "TkFixedFont") # TODO Constant font definiton
+            font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
+            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
+        ) # TODO Constant font definiton
 
 
         newRelX = self.getRelX(self.entryQuerySetDataA) + self.getRelW(self.entryQuerySetDataA) # + UI_support.TAB_3CHILD_LBL_REL_X
@@ -2351,26 +2384,32 @@ class OOTO_Miner:
 
         self.listQuerySetDataA = Listbox(self.labelFrameListBoxA)
         self.listQuerySetDataA.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
-            font = "TkFixedFont",
-            bd = 1, relief = GROOVE,
+            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG, selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
-        self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78)
-        # self.listQuerySetDataA.configure(highlightcolor="black")
+
+
+        self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78 - 0.03)
+        # self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78)
+
         newRelY = self.getRelY(self.listQuerySetDataA) + self.getRelH(self.listQuerySetDataA)
         newRelH = 1 - self.getRelH(self.listQuerySetDataA)
         self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
         self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusA.configure(
-            background = Color_support.L_GRAY, foreground = Color_support.FG_COLOR,
-            bd = 1, relief = GROOVE,
+            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = UI_support.LBL_SELECT_NO_DATA,
-            font = UI_support.FONT_DEFAULT_BOLD,
+            font = UI_support.SELECT_STATUS_LABEL_FONT,
         )
+        if UI_support.SELECT_STATUS_LABEL_TOP_SEPARATOR:
+            self.labelFrameNoDataAHorizontalSeparator = ttk.Separator(self.labelQuerySetDataStatusA, orient = HORIZONTAL)
+            self.labelFrameNoDataAHorizontalSeparator.place(relx = 0, rely = 0, relwidth = 1, anchor = NW)
 
         '''
         self.scrollbarQuerySetDataA.configure(
@@ -2394,12 +2433,13 @@ class OOTO_Miner:
 
         self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
         self.listQuerySetDataB.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.SELECT_BG_HL, selectforeground = Color_support.FG_COLOR,
-            font = "TkFixedFont",
-            bd = 1, relief = GROOVE,
+            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
         '''
@@ -2418,10 +2458,10 @@ class OOTO_Miner:
         self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
         self.labelQuerySetDataStatusB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusB.configure(
-            background = Color_support.L_GRAY, foreground = Color_support.FG_COLOR,
-            bd = 1, relief = GROOVE,
+            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = UI_support.LBL_SELECT_NO_DATA,
-            font = UI_support.FONT_DEFAULT_BOLD,
+            font = UI_support.SELECT_STATUS_LABEL_FONT,
         )
         newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
 
@@ -2985,18 +3025,15 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessZTestTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
             text = '''Z - TEST''',
-            anchor = S
+            anchor = CENTER,
+            bd = 1, relief = GROOVE
         )
 
         # Top horizontal separator # TODO
-        self.zTestTitleSeparator = ttk.Separator(self.labelFrameProcessZTestTitle, orient = HORIZONTAL)
-        self.zTestTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
-
-        self.zTestRightSeparator = ttk.Separator(self.labelFrameProcessZTest, orient = VERTICAL)
-        self.zTestRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
-
+        # self.zTestTitleSeparator = ttk.Separator(self.labelFrameProcessZTestTitle, orient = HORIZONTAL)
+        # self.zTestTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
 
         global arrQueryCriticalValue
         arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
@@ -3119,9 +3156,10 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessChiSquareTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG, foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
             text = '''CHI - SQUARE''',
-            anchor = S
+            anchor = CENTER,
+            bd = 1, relief = GROOVE
         )
 
         # Top horizontal separator # TODO
@@ -3264,9 +3302,10 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessRunMinerTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            background = Color_support.PROCESS_RUN_MINER_TITLE_BG, foreground = Color_support.PROCESS_RUN_MINER_TITLE_FG,
             text = '''RUN MINER''',
-            anchor = S
+            anchor = CENTER,
+            bd = 1, relief = GROOVE
         )
 
         # Top horizontal separator # TODO
@@ -3320,6 +3359,16 @@ class OOTO_Miner:
 
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessRun, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+
+
+        # SEPARATOR  ELEMENTS
+        newRelX = self.getRelX(self.labelFrameProcessChiSquare) # + self.getRelW(self.labelFrameProcessZTest)
+        self.zTestRightSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
+        self.zTestRightSeparator.place(relx = 0.335, rely = 0, relheight = 1, anchor = NE)
+
+        newRelX = self.getRelX(self.labelFrameProcessRun) # + self.getRelW(self.labelFrameProcessChiSquare)
+        self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
+        self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
 
 if __name__ == '__main__':
