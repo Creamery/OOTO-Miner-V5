@@ -2233,7 +2233,7 @@ class OOTO_Miner:
             relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
             relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
         self.labelFrameQueryDataA.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
             relief = GROOVE # , text = '''Dataset A'''
         )
 
@@ -2243,7 +2243,7 @@ class OOTO_Miner:
             relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
             relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
         self.labelFrameQueryDataB.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
             relief = GROOVE  # , text = '''Dataset B'''
         )
 
@@ -2711,17 +2711,33 @@ class OOTO_Miner:
         )
 
         # FILTER QUERY LABEL
-        self.labelQueryFeature = Label(self.labelFrameFilterQueryData)
-        self.labelQueryFeature.place(
+
+
+
+        self.labelFrameBorderQueryFeature = LabelFrame(self.labelFrameFilterQueryData, bd = 0)
+        self.labelFrameBorderQueryFeature.place(
             relx = 0, rely = 0,
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_LBL_REL_W, relheight = 1)
-        self.labelQueryFeature.configure(
-            background = Color_support.SELECT_LBL_BG, foreground = Color_support.SELECT_LBL_FG,
-            text = '''Filter Feature'''
+        self.labelFrameBorderQueryFeature.configure(
+            background = Color_support.FILTER_BUTTONS_BG
         )
 
 
-        newRelX = self.getRelX(self.labelQueryFeature) + self.getRelW(self.labelQueryFeature)
+        self.labelQueryFeature = Label(self.labelFrameBorderQueryFeature)
+        self.labelQueryFeature.place(
+            relx = 0.01, rely = 0.025,
+            relwidth = 0.98, relheight = 0.95)
+        self.labelQueryFeature.configure(
+            background = Color_support.FILTER_LABEL_BG, foreground = Color_support.FILTER_LABEL_FG,
+            text = UI_support.FILTER_LABEL_QUERY_FEATURE_TEXT,
+            font = UI_support.FILTER_LABEL_FONT,
+            bd = 0, relief = FLAT,
+        )
+
+
+
+
+        newRelX = self.getRelX(self.labelFrameBorderQueryFeature) + self.getRelW(self.labelFrameBorderQueryFeature)
 
         # FILTER QUERY ENTRY
         self.entryQueryFeature = Entry(self.labelFrameFilterQueryData)
@@ -2729,9 +2745,13 @@ class OOTO_Miner:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_ENTRY_REL_W - 0.001, relheight = 1)
         self.entryQueryFeature.configure(
-            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
+            background = Color_support.FILTER_ENTRY_BG, foreground = Color_support.FILTER_ENTRY_FG,
             bd = 1,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
+            font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
+            selectbackground = Color_support.FILTER_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = Color_support.FILTER_ENTRY_SELECT_INSERT_BG,
+            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.FILTER_ENTRY_JUSTIFY
+        )
 
         newRelX = self.getRelX(self.entryQueryFeature) + self.getRelW(self.entryQueryFeature)
 
