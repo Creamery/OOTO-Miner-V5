@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
@@ -20,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="59">
-              <caret line="2796" column="40" lean-forward="true" selection-start-line="2796" selection-start-column="40" selection-end-line="2796" selection-end-column="40" />
+            <state relative-caret-position="180">
+              <caret line="2130" column="46" selection-start-line="2130" selection-start-column="46" selection-end-line="2130" selection-end-column="46" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#94616#96076#1" />
@@ -42,8 +41,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="192" column="48" selection-start-line="192" selection-start-column="48" selection-end-line="192" selection-end-column="48" />
+            <state relative-caret-position="116">
+              <caret line="300" column="23" selection-start-line="300" selection-start-column="23" selection-end-line="300" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -64,10 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>NO_DA</find>
-      <find>SELECT_LBL_</find>
-      <find>pale_yell</find>
-      <find>'''Feature A</find>
       <find>PALE</find>
       <find>'''FILTER FE</find>
       <find>SELECT_LABEL_FG</find>
@@ -83,7 +78,6 @@
       <find>FITLER_</find>
       <find>FITLER_LISTBOX_BG</find>
       <find>'''NO_D</find>
-      <find>filter_listbox_b</find>
       <find>FILTER_LISTBOX_BORDER</find>
       <find>NO_DATA_</find>
       <find>SELECT_</find>
@@ -94,6 +88,11 @@
       <find>NO_DATA</find>
       <find>- 0.4</find>
       <find>0.333</find>
+      <find>'''GR</find>
+      <find>'''GROUp</find>
+      <find>TEXT</find>
+      <find>'''3</find>
+      <find>filter_listbox_b</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -104,8 +103,8 @@
       <replace>DATASET</replace>
       <replace>SELECT</replace>
       <replace>COMMANDS</replace>
-      <replace>FITLER_</replace>
       <replace>FILTER_</replace>
+      <replace>FITLER_</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -260,7 +259,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3075</line>
+          <line>3078</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -270,7 +269,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2388</line>
+          <line>2391</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
@@ -330,17 +329,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="87" column="16" selection-start-line="87" selection-end-line="87" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="59">
-          <caret line="2796" column="40" lean-forward="true" selection-start-line="2796" selection-start-column="40" selection-end-line="2796" selection-end-column="40" />
+        <state relative-caret-position="180">
+          <caret line="2130" column="46" selection-start-line="2130" selection-start-column="46" selection-end-line="2130" selection-end-column="46" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#94616#96076#1" />
@@ -348,10 +340,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="87" column="16" selection-start-line="87" selection-end-line="87" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="229">
-          <caret line="192" column="48" selection-start-line="192" selection-start-column="48" selection-end-line="192" selection-end-column="48" />
+        <state relative-caret-position="116">
+          <caret line="300" column="23" selection-start-line="300" selection-start-column="23" selection-end-line="300" selection-end-column="23" />
         </state>
       </provider>
     </entry>

@@ -2128,9 +2128,10 @@ class OOTO_Miner:
 
         # SELECT NUMBER
         self.labelFrameSelectTitleNumber = Label(self.labelFrameSelectTitle)
+        newRelY = UI_support.LABEL_TITLE_REL_Y
         self.labelFrameSelectTitleNumber.place(
-            relx = 0.05, rely = 0,
-            relwidth = 0.04, relheight = 1, anchor = NW)
+            relx = 0.05, rely = newRelY,
+            relwidth = 0.04, relheight = 1 - (newRelY * 2), anchor = NW)
         self.labelFrameSelectTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2142,9 +2143,11 @@ class OOTO_Miner:
         newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
         # SELECT TITLE
         self.labelFrameSelectTitleText = Label(self.labelFrameSelectTitle)
+        newRelY = self.getRelY(self.labelFrameSelectTitleNumber)
+        newRelH = self.getRelH(self.labelFrameSelectTitleNumber)
         self.labelFrameSelectTitleText.place(
-            relx = newRelX - 0.001, rely = 0,
-            relwidth = 0.14, relheight = 1, anchor = NW)
+            relx = newRelX - 0.001, rely = newRelY,
+            relwidth = 0.14, relheight = newRelH, anchor = NW)
         self.labelFrameSelectTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2657,9 +2660,11 @@ class OOTO_Miner:
 
         # FILTER NUMBER
         self.labelFrameFilterTitleNumber = Label(self.labelFrameFilterTitle)
+        newRelY = self.getRelY(self.labelFrameSelectTitleNumber)
+        newRelH = self.getRelH(self.labelFrameSelectTitleNumber)
         self.labelFrameFilterTitleNumber.place(
-            relx = 0.05, rely = 0,
-            relwidth = 0.04, relheight = 1, anchor = NW)
+            relx = 0.05, rely = newRelY,
+            relwidth = 0.04, relheight = newRelH, anchor = NW)
         self.labelFrameFilterTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2669,18 +2674,14 @@ class OOTO_Miner:
             anchor = S
         )
 
-
-
         # newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
         newRelX = self.getRelX(self.labelFrameSelectTitleText)
-
-
 
         # FILTER TITLE
         self.labelFrameFilterTitleText = Label(self.labelFrameFilterTitle)
         self.labelFrameFilterTitleText.place(
-            relx = newRelX, rely = 0,
-            relwidth = 0.15, relheight = 1, anchor = NW)
+            relx = newRelX, rely = newRelY,
+            relwidth = 0.15, relheight = newRelH, anchor = NW)
             # place(
             # relx = 0.5, rely = 0.5,
             # relwidth = 0.15, relheight = 1, anchor = CENTER)
@@ -2969,9 +2970,11 @@ class OOTO_Miner:
 
         # FILTER NUMBER
         self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
+        newRelY = self.getRelY(self.labelFrameSelectTitleNumber)
+        newRelH = self.getRelH(self.labelFrameSelectTitleNumber)
         self.labelFrameProcessTitleNumber.place(
-            relx = 0.05, rely = 0,
-            relwidth = 0.04, relheight = 1, anchor = NW)
+            relx = 0.05, rely = newRelY,
+            relwidth = 0.04, relheight = newRelH, anchor = NW)
         self.labelFrameProcessTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2988,8 +2991,8 @@ class OOTO_Miner:
         # PROCESS TITLE
         self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
         self.labelFrameProcessTitleText.place(
-            relx = newRelX, rely = 0,
-            relwidth = 0.15, relheight = 1, anchor = NW)
+            relx = newRelX, rely = newRelY,
+            relwidth = 0.15, relheight = newRelH, anchor = NW)
             # place(
             # relx = 0.5, rely = 0.5,
             # relwidth = 0.15, relheight = 1, anchor = CENTER)
