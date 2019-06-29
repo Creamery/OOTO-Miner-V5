@@ -1089,8 +1089,16 @@ class OOTO_Miner:
         '''
 
         self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
+
         self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
+        self.buttonQuerySetDataA.bind("<Enter>", self.enterRightArrowPlainIcon)
+        self.buttonQuerySetDataA.bind("<Leave>", self.leaveRightArrowPlainIcon)
+
         self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
+        self.buttonQuerySetDataB.bind("<Enter>", self.enterRightArrowPlainIcon)
+        self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowPlainIcon)
+        # self.buttonQuerySetDataB.bind("<Enter>", lambda event, iconSize =  Icon_support.SELECT_ICO_SIZE_BUTTONS: self.enterRightArrowIcon(event, Icon_support.SELECT_ICO_SIZE_BUTTONS))
+        # self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowIcon(Icon_support.SELECT_ICO_SIZE_BUTTONS))
 
         self.buttonQueryAddFilterA.bind('<Button-1>', self.queryAddFilterA)
         self.buttonQueryAddFilterA.bind("<Enter>", self.enterCheckIcon)
@@ -1104,6 +1112,8 @@ class OOTO_Miner:
 
 
         self.buttonQueryFeature.bind('<Button-1>', self.querySetFeature)
+        self.buttonQueryFeature.bind("<Enter>", self.enterRightArrowPlainIcon)
+        self.buttonQueryFeature.bind("<Leave>", self.leaveRightArrowPlainIcon)
         # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
 
@@ -1375,6 +1385,24 @@ class OOTO_Miner:
 
     def leaveRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    def enterRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        item = event.widget
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    def leaveRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
@@ -2273,21 +2301,38 @@ class OOTO_Miner:
         self.buttonQuerySetDataA.place(
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS, PIL.Image.ANTIALIAS)
+        btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQuerySetDataA.configure(image = btn_query_set_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQuerySetDataA.image = btn_query_set_icon  # < ! > Required to make images appear
+
         self.buttonQuerySetDataA.configure(
             background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
-            bd = 1, relief = FLAT, overrelief = GROOVE
+            activebackground = Color_support.SELECT_BG,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE,
             # text = '''Find Feature'''
         )
+
+
         # DATASET B
         self.buttonQuerySetDataB = Button(self.labelFrameQueryDataB)
         self.buttonQuerySetDataB.place(
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS, PIL.Image.ANTIALIAS)
+        btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQuerySetDataB.configure(image = btn_query_set_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQuerySetDataB.image = btn_query_set_icon  # < ! > Required to make images appear
+
+
         self.buttonQuerySetDataB.configure(
             background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
             activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
-            bd = 1, relief = FLAT, overrelief = GROOVE
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE,
             # text = '''Find Feature'''
         )
 
@@ -2642,7 +2687,7 @@ class OOTO_Miner:
         self.entryQueryFeature = Entry(self.labelFrameFilterQueryData)
         self.entryQueryFeature.place(
             relx = newRelX, rely = 0,
-            relwidth = UI_support.TAB_TEST_FILTER_QUERY_ENTRY_REL_W, relheight = 1)
+            relwidth = UI_support.TAB_TEST_FILTER_QUERY_ENTRY_REL_W - 0.001, relheight = 1)
         self.entryQueryFeature.configure(
             background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
             bd = 1,
@@ -2654,13 +2699,22 @@ class OOTO_Miner:
         self.buttonQueryFeature = Button(self.labelFrameFilterQueryData)
         self.buttonQueryFeature.place(
             relx = newRelX, rely = 0,
-            relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
+            relwidth = 0.041, relheight = 1)
+            # relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
+
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS, PIL.Image.ANTIALIAS)
+        btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryFeature.configure(image = btn_query_feature_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryFeature.image = btn_query_feature_icon  # < ! > Required to make images appear
+
+
         self.buttonQueryFeature.configure(
             background = Color_support.FILTER_BUTTONS_BG, foreground = Color_support.FILTER_BUTTONS_FG,
             activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
-            bd = 1, relief = FLAT, overrelief = GROOVE
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = FLAT
         )
-
 
         newRelY = self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)
 
