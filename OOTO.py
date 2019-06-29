@@ -508,7 +508,8 @@ class OOTO_Miner:
         # top.configure(highlightbackground = _top_bgcolor) #"#d9d9d9"
         # top.configure(highlightcolor = _top_bgcolor) # = "black")
 
-
+        # Transparency
+        # root.wm_attributes('-transparentcolor', root['bg'])
 
 
         # Removes the dashed line in tabs
@@ -2099,8 +2100,8 @@ class OOTO_Miner:
         # SELECT NUMBER
         self.labelFrameSelectTitleNumber = Label(self.labelFrameSelectTitle)
         self.labelFrameSelectTitleNumber.place(
-            relx = 0.05, rely = 0.5,
-            relwidth = 0.04, relheight = 1, anchor = W)
+            relx = 0.05, rely = 0,
+            relwidth = 0.04, relheight = 1, anchor = NW)
         self.labelFrameSelectTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2113,8 +2114,8 @@ class OOTO_Miner:
         # SELECT TITLE
         self.labelFrameSelectTitleText = Label(self.labelFrameSelectTitle)
         self.labelFrameSelectTitleText.place(
-            relx = newRelX - 0.001, rely = 0.5,
-            relwidth = 0.14, relheight = 1, anchor = W)
+            relx = newRelX - 0.001, rely = 0,
+            relwidth = 0.14, relheight = 1, anchor = NW)
         self.labelFrameSelectTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2572,8 +2573,8 @@ class OOTO_Miner:
         # FILTER NUMBER
         self.labelFrameFilterTitleNumber = Label(self.labelFrameFilterTitle)
         self.labelFrameFilterTitleNumber.place(
-            relx = 0.05, rely = 0.5,
-            relwidth = 0.04, relheight = 1, anchor = W)
+            relx = 0.05, rely = 0,
+            relwidth = 0.04, relheight = 1, anchor = NW)
         self.labelFrameFilterTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2593,8 +2594,8 @@ class OOTO_Miner:
         # FILTER TITLE
         self.labelFrameFilterTitleText = Label(self.labelFrameFilterTitle)
         self.labelFrameFilterTitleText.place(
-            relx = newRelX, rely = 0.5,
-            relwidth = 0.15, relheight = 1, anchor = W)
+            relx = newRelX, rely = 0,
+            relwidth = 0.15, relheight = 1, anchor = NW)
             # place(
             # relx = 0.5, rely = 0.5,
             # relwidth = 0.15, relheight = 1, anchor = CENTER)
@@ -2623,7 +2624,6 @@ class OOTO_Miner:
         self.labelFrameFilterQueryData.configure(
             background = Color_support.FILTER_BG
         )
-
 
         # FILTER QUERY LABEL
         self.labelQueryFeature = Label(self.labelFrameFilterQueryData)
@@ -2862,8 +2862,8 @@ class OOTO_Miner:
         # FILTER NUMBER
         self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
         self.labelFrameProcessTitleNumber.place(
-            relx = 0.05, rely = 0.5,
-            relwidth = 0.04, relheight = 1, anchor = W)
+            relx = 0.05, rely = 0,
+            relwidth = 0.04, relheight = 1, anchor = NW)
         self.labelFrameProcessTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2880,8 +2880,8 @@ class OOTO_Miner:
         # PROCESS TITLE
         self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
         self.labelFrameProcessTitleText.place(
-            relx = newRelX, rely = 0.5,
-            relwidth = 0.15, relheight = 1, anchor = W)
+            relx = newRelX, rely = 0,
+            relwidth = 0.15, relheight = 1, anchor = NW)
             # place(
             # relx = 0.5, rely = 0.5,
             # relwidth = 0.15, relheight = 1, anchor = CENTER)
