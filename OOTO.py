@@ -2105,7 +2105,7 @@ class OOTO_Miner:
         self.labelFrameSelectTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.BG_MAIN_NUMBER, foreground = Color_support.FG_MAIN_NUMBER,
+            background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
             text = '''1''',
             bd = 1, relief = GROOVE,
             anchor = S
@@ -2119,7 +2119,7 @@ class OOTO_Miner:
         self.labelFrameSelectTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.BG_MAIN_TITLE, foreground = Color_support.FG_MAIN_TITLE,
+            background = Color_support.SELECT_TITLE_BG, foreground = Color_support.SELECT_TITLE_FG,
             text = '''GROUP''',
             bd = 1, relief = GROOVE,
             anchor = S
@@ -2274,7 +2274,7 @@ class OOTO_Miner:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
         self.buttonQuerySetDataA.configure(
-            background = Color_support.SELECT_BTN_BG, foreground = Color_support.SELECT_BTN_FG,
+            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
             activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
             bd = 1, relief = FLAT, overrelief = GROOVE
             # text = '''Find Feature'''
@@ -2285,7 +2285,7 @@ class OOTO_Miner:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
         self.buttonQuerySetDataB.configure(
-            background = Color_support.SELECT_BTN_BG, foreground = Color_support.SELECT_BTN_FG,
+            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
             activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
             bd = 1, relief = FLAT, overrelief = GROOVE
             # text = '''Find Feature'''
@@ -2578,7 +2578,7 @@ class OOTO_Miner:
         self.labelFrameFilterTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.BG_MAIN_NUMBER, foreground = Color_support.FG_MAIN_NUMBER,
+            background = Color_support.FILTER_NUMBER_BG, foreground = Color_support.FILTER_NUMBER_FG,
             text = '''2''',
             bd = 1, relief = GROOVE,
             anchor = S
@@ -2602,7 +2602,7 @@ class OOTO_Miner:
         self.labelFrameFilterTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.BG_MAIN_TITLE, foreground = Color_support.FG_MAIN_TITLE,
+            background = Color_support.FILTER_TITLE_BG, foreground = Color_support.FILTER_TITLE_FG,
             text = '''FILTER''',
             bd = 1, relief = GROOVE,
             anchor = S
@@ -2656,7 +2656,7 @@ class OOTO_Miner:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
         self.buttonQueryFeature.configure(
-            background = Color_support.SELECT_BTN_BG, foreground = Color_support.SELECT_BTN_FG,
+            background = Color_support.FILTER_BUTTONS_BG, foreground = Color_support.FILTER_BUTTONS_FG,
             activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
             bd = 1, relief = FLAT, overrelief = GROOVE
         )
@@ -2867,7 +2867,7 @@ class OOTO_Miner:
         self.labelFrameProcessTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.BG_MAIN_NUMBER, foreground = Color_support.FG_MAIN_NUMBER,
+            background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
             text = '''3''',
             bd = 1, relief = GROOVE,
             anchor = S
@@ -2888,7 +2888,7 @@ class OOTO_Miner:
         self.labelFrameProcessTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.BG_MAIN_TITLE, foreground = Color_support.FG_MAIN_TITLE,
+            background = Color_support.PROCESS_TITLE_BG, foreground = Color_support.PROCESS_TITLE_FG,
             bd = 1, relief = GROOVE,
             text = '''TEST''',
             anchor = S
@@ -2956,7 +2956,7 @@ class OOTO_Miner:
         self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessZTest, bd = 0)
         self.labelFrameProcessZTestConfidence.place(
             relx = 0.11, rely = newRelY,
-            relwidth = 0.5, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_H
+            relwidth = 0.525, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_H
         )
         self.labelFrameProcessZTestConfidence.configure(
             background = Color_support.PROCESS_BG
@@ -2969,7 +2969,7 @@ class OOTO_Miner:
         # BUTTON ELEMENTS
         self.labelFrameProcessZTestButtonElements = LabelFrame(self.labelFrameProcessZTest, bd = 0)
         self.labelFrameProcessZTestButtonElements.place(
-            relx = newRelX, rely = newRelY,
+            relx = newRelX + 0.05, rely = newRelY,
             relwidth = 1 - (newRelX + self.getRelX(self.labelFrameProcessZTestConfidence)),
             # relwidth = 0.5 - 2 * self.getRelX(self.labelFrameProcessZTestConfidence),
             relheight = 0.35
@@ -3027,7 +3027,7 @@ class OOTO_Miner:
         self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
         self.buttonQueryZTest.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            background = Color_support.PROCESS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
             bd = 1, relief = FLAT, overrelief = FLAT)
             # text = '''Test''')
 
@@ -3211,7 +3211,7 @@ class OOTO_Miner:
         self.labelFrameProcessRunMinerTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            text = '''RUN''',
+            text = '''RUN MINER''',
             anchor = S
         )
 
@@ -3239,18 +3239,21 @@ class OOTO_Miner:
         )
 
         # RUN MINER BUTTON
-        # Enqueue button
         self.buttonTestQueue = Button(self.labelFrameRunMinerElements, compound = CENTER)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.RUN_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_queue_icon = PIL.ImageTk.PhotoImage(im)
+
         self.buttonTestQueue.configure(
             image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonTestQueue.image = btn_queue_icon  # < ! > Required to make images appear
 
+
         self.buttonTestQueue.configure(
-            background = Color_support.ACTIVE_COLOR, foreground = Color_support.FG_COLOR,
+            background = Color_support.PROCESS_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
+            highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = FLAT)
+
         self.buttonTestQueue.place(
             relx = 0, rely = 0,
             relwidth = 1, relheight = 1

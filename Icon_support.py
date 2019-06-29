@@ -14,9 +14,10 @@ TAB_ICO_SIZE = (70 , 71) # +1 pixel in height for the bottom border in the icon
 SELECT_ICO_SIZE = (39, 39)
 
 # RUN_ICO_SIZE = (95, 95)
-RUN_ICO_SIZE = (75, 75)
+RUN_ICO_SIZE = (70, 70)
 
-
+# multiplier = 8
+# RUN_ICO_SIZE_LONG = (int(16 * multiplier), int(5.09 * multiplier)) # 16 x 5.09
 
 # Initialize tab icons
 
@@ -30,8 +31,10 @@ TAB_ICO_CROSS_ON = PATH+'\\_icons\\ico_cross_on.png'
 TAB_ICO_CHECK = PATH+'\\_icons\\ico_check.png'
 TAB_ICO_CHECK_ON = PATH+'\\_icons\\ico_check_on.png'
 
+TAB_ICO_CHECK_LONG = PATH+'\\_icons\\ico_check_long.png'
 
-TAB_ICO_RIGHT_ARROW = PATH+'\\_icons\\ico_right_arrow_small.png'
+
+TAB_ICO_RIGHT_ARROW = PATH+'\\_icons\\ico_right_arrow.png'
 TAB_ICO_RIGHT_ARROW_ON = PATH+'\\_icons\\ico_right_arrow_on.png'
 
 TAB_ICO_ADD = PATH+'\\_icons\\ico_add.png'
