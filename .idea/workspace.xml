@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="2947" column="82" lean-forward="true" selection-start-line="2947" selection-start-column="82" selection-end-line="2947" selection-end-column="82" />
+            <state relative-caret-position="19">
+              <caret line="2580" column="23" selection-start-line="2580" selection-start-column="19" selection-end-line="2580" selection-end-column="23" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#57007#60821#1" />
@@ -41,7 +41,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="172">
@@ -53,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+            <state relative-caret-position="427">
+              <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -63,13 +63,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>No DATA</find>
-      <find>STATUS</find>
-      <find>Dataset A</find>
-      <find>Dataset A'</find>
-      <find>filter feat</find>
-      <find>'''Filter'''</find>
-      <find>SELECT TIT</find>
       <find>chi-squa</find>
       <find>run miner</find>
       <find>'no fea</find>
@@ -77,14 +70,12 @@
       <find>(FILTER)</find>
       <find>'SELECT'''</find>
       <find>Feature A</find>
-      <find>down_arr</find>
       <find>listQuerySetDataB =</find>
       <find>Feature A'</find>
       <find>Select title</find>
       <find>PROCESS T</find>
       <find>SELECT'''</find>
       <find>FILTER TITLE</find>
-      <find>GROUP'''</find>
       <find>'''FILTER</find>
       <find>PROCESS TITLE</find>
       <find>z - test</find>
@@ -93,6 +84,15 @@
       <find>SAMPLES'</find>
       <find>Confidence'</find>
       <find>confi</find>
+      <find>'GROUP'''</find>
+      <find>down_arr</find>
+      <find>'''T</find>
+      <find>ACTI</find>
+      <find>GROUP'''</find>
+      <find>'''FILTER'''</find>
+      <find>'''PROCE</find>
+      <find>'''2</find>
+      <find>chi-squ</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -111,10 +111,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Color_support.py" />
         <option value="$PROJECT_DIR$/Icon_support.py" />
-        <option value="$PROJECT_DIR$/OOTO.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
+        <option value="$PROJECT_DIR$/Color_support.py" />
+        <option value="$PROJECT_DIR$/OOTO.py" />
       </list>
     </option>
   </component>
@@ -296,10 +296,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="25" column="17" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+        <state relative-caret-position="172">
+          <caret line="205" column="54" selection-start-line="205" selection-start-column="54" selection-end-line="205" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -313,21 +313,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="2947" column="82" lean-forward="true" selection-start-line="2947" selection-start-column="82" selection-end-line="2947" selection-end-column="82" />
+        <state relative-caret-position="19">
+          <caret line="2580" column="23" selection-start-line="2580" selection-start-column="19" selection-end-line="2580" selection-end-column="23" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#57007#60821#1" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UI_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="205" column="54" selection-start-line="205" selection-start-column="54" selection-end-line="205" selection-end-column="54" />
         </state>
       </provider>
     </entry>

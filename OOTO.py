@@ -2104,21 +2104,23 @@ class OOTO_Miner:
         self.labelFrameSelectTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.FG_TITLE, foreground = Color_support.WHITE,
+            background = Color_support.BG_MAIN_NUMBER, foreground = Color_support.FG_MAIN_NUMBER,
             text = '''1''',
+            bd = 1, relief = GROOVE,
             anchor = S
         )
         newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
         # SELECT TITLE
         self.labelFrameSelectTitleText = Label(self.labelFrameSelectTitle)
         self.labelFrameSelectTitleText.place(
-            relx = newRelX, rely = 0.5,
+            relx = newRelX - 0.001, rely = 0.5,
             relwidth = 0.14, relheight = 1, anchor = W)
         self.labelFrameSelectTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.ACTIVE_COLOR, foreground = Color_support.FG_TITLE,
+            background = Color_support.BG_MAIN_TITLE, foreground = Color_support.FG_MAIN_TITLE,
             text = '''GROUP''',
+            bd = 1, relief = GROOVE,
             anchor = S
         )
 
@@ -2575,11 +2577,16 @@ class OOTO_Miner:
         self.labelFrameFilterTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.FG_TITLE, foreground = Color_support.WHITE,
+            background = Color_support.BG_MAIN_NUMBER, foreground = Color_support.FG_MAIN_NUMBER,
             text = '''2''',
+            bd = 1, relief = GROOVE,
             anchor = S
         )
-        newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
+
+
+
+        # newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
+        newRelX = self.getRelX(self.labelFrameSelectTitleText)
 
 
 
@@ -2594,8 +2601,9 @@ class OOTO_Miner:
         self.labelFrameFilterTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.ACTIVE_COLOR, foreground = Color_support.FG_TITLE,
+            background = Color_support.BG_MAIN_TITLE, foreground = Color_support.FG_MAIN_TITLE,
             text = '''FILTER''',
+            bd = 1, relief = GROOVE,
             anchor = S
         )
 
@@ -2859,12 +2867,14 @@ class OOTO_Miner:
         self.labelFrameProcessTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.FG_TITLE, foreground = Color_support.WHITE,
+            background = Color_support.BG_MAIN_NUMBER, foreground = Color_support.FG_MAIN_NUMBER,
             text = '''3''',
+            bd = 1, relief = GROOVE,
             anchor = S
         )
-        newRelX = self.getRelX(self.labelFrameProcessTitleNumber) + self.getRelW(self.labelFrameProcessTitleNumber)
 
+        # newRelX = self.getRelX(self.labelFrameProcessTitleNumber) + self.getRelW(self.labelFrameProcessTitleNumber)
+        newRelX = self.getRelX(self.labelFrameSelectTitleText)
 
 
         # PROCESS TITLE
@@ -2878,7 +2888,8 @@ class OOTO_Miner:
         self.labelFrameProcessTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.ACTIVE_COLOR, foreground = Color_support.FG_TITLE,
+            background = Color_support.BG_MAIN_TITLE, foreground = Color_support.FG_MAIN_TITLE,
+            bd = 1, relief = GROOVE,
             text = '''TEST''',
             anchor = S
         )

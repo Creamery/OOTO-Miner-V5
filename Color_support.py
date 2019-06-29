@@ -16,11 +16,21 @@ SALMON = '#FF8684'
 SALMON_LIGHT = '#FFAF8C'
 PALE_YELLOW = '#FFEDA9'
 
+D_GREEN = '#05CE00'
+
 YES = '#48FF23' #7EFF2C'
 NO = '#E91E3A'
 
-ACTIVE_COLOR = SALMON # Change this to change all highlight colors
+
+# GENERAL COLORS
+ACTIVE_COLOR = D_GREEN # Change this to change all highlight colors
 ACTIVE_COLOR_LIGHT = PALE_YELLOW # Change this to change all highlight colors
+
+BG_MAIN_NUMBER = D_BLUE
+FG_MAIN_NUMBER = WHITE
+
+BG_MAIN_TITLE = ACTIVE_COLOR
+FG_MAIN_TITLE = D_BLUE
 
 BG_TITLE = WHITE # ACTIVE_COLOR
 FG_TITLE = D_BLUE
