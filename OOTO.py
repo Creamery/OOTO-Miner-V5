@@ -979,6 +979,9 @@ class OOTO_Miner:
             background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR, text = '''CONSOLE'''
         )
 
+        self.configureConsoleElements(self.labelFrameConsoleElements) # Configures all sub elements under CONSOLE
+
+
 
 
 
@@ -987,7 +990,7 @@ class OOTO_Miner:
         global testTypes
         testTypes = ["Sample vs Sample","Sample vs Population"]
         self.comboQueryTest = ttk.Combobox(self.Tabs_t3)
-        self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 0, width = 0) # 316)
+        # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 0, width = 0) # 316)
         self.comboQueryTest.configure(exportselection = "0")
         self.comboQueryTest.configure(takefocus = "")
         self.comboQueryTest.configure(values = testTypes)
@@ -1008,13 +1011,12 @@ class OOTO_Miner:
         # > CHI-TEST FRAME
 
         self.labelFrameQueryChi = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0,
-                                      relwidth = 0)# 0.48)
+        # self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0,
+        #                               relwidth = 0)# 0.48)
         self.labelFrameQueryChi.configure(relief = GROOVE)
         self.labelFrameQueryChi.configure(foreground = "black")
         self.labelFrameQueryChi.configure(text = '''Chi Test''')
         self.labelFrameQueryChi.configure(background = "#d9d9d9")
-        # self.labelFrameQueryChi.configure(width = 480)
 
 
         ## TODO Replace functionality with new one
@@ -1046,17 +1048,17 @@ class OOTO_Miner:
 
 
 
-        # > Z-TEST FRAME POPULATION
+        # > Z-TEST FRAME POPULATION ##### TODO Add functionality
         self.labelFrameQuerySvP = LabelFrame(self.Tabs_t3)
-        self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0,
-                                      relwidth = 0) # 0.48)
+        # self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0,
+        #                               relwidth = 0) # 0.48)
         self.labelFrameQuerySvP.configure(relief = GROOVE)
         self.labelFrameQuerySvP.configure(foreground = "black")
         self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
         self.labelFrameQuerySvP.configure(background = "#d9d9d9")
 
         self.comboQueryCriticalValueSvP = ttk.Combobox(self.labelFrameQuerySvP)
-        self.comboQueryCriticalValueSvP.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
+        # self.comboQueryCriticalValueSvP.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
         self.comboQueryCriticalValueSvP.configure(exportselection = "0")
         self.comboQueryCriticalValueSvP.configure(takefocus = "")
         self.comboQueryCriticalValueSvP.configure(values = arrQueryCriticalValue)
@@ -1064,7 +1066,7 @@ class OOTO_Miner:
         self.comboQueryCriticalValueSvP.configure(state = "disabled")
 
         self.labelQueryZTestSvP = Label(self.labelFrameQuerySvP)
-        self.labelQueryZTestSvP.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
+        # self.labelQueryZTestSvP.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
         # self.labelQueryZTest.configure(background = "#d9d9d9")
         self.labelQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
         self.labelQueryZTestSvP.configure(foreground = "#000000")
@@ -1072,7 +1074,7 @@ class OOTO_Miner:
         self.labelQueryZTestSvP.configure(state = "disabled")
 
         self.buttonQueryZTestSvP = Button(self.labelFrameQuerySvP)
-        self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 0, width = 0)
+        # self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 0, width = 0)
         self.buttonQueryZTestSvP.configure(activebackground = "#d9d9d9")
         self.buttonQueryZTestSvP.configure(activeforeground = "#000000")
         self.buttonQueryZTestSvP.configure(background = "#d9d9d9")
@@ -1694,24 +1696,39 @@ class OOTO_Miner:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
         return "break"
 
+
     def queryResetDatasetA(self,evt):
         self.buttonQueryResetFilterA.configure(relief = FLAT)
+
         self.datasetA = resetDataset(self.datasetA)
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeature.configure(text = '')
         self.labelQuerySetDataStatusA.configure(
-            text = UI_support.LBL_SELECT_NO_DATA,
-            background = Color_support.L_GRAY
+            text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
+            background = Color_support.SELECT_LISTBOX_STATUS_BG,
+            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
         )
+
         # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
         # self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
 
-        if self.datasetA['Data'] is []:
-            self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
+        # if self.datasetA['Data'] is []:
+        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
         # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
-        self.labelQueryDataA.configure(text = UI_support.LBL_SELECT_NO_DATA)
-        self.listQueryDataA.delete(0,END)
-        self.listQuerySetDataA.delete(0,END)
+
+        # Empty FILTER details of BOTH A and B
+        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.listQueryDataA.delete(0, END)
+        self.listQuerySetDataA.delete(0, END)
+
+        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.listQueryDataB.delete(0, END)
+        # self.listQuerySetDataB.delete(0, END)
+
+        self.labelQueryDataFeatureName.configure(
+            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
+        )
+
         return "break"
 
     
@@ -1723,16 +1740,28 @@ class OOTO_Miner:
 
         # self.labelFrameQueryDataB.configure(text = "Dataset B")
         self.labelQuerySetDataStatusB.configure(
-            text = UI_support.LBL_SELECT_NO_DATA,
-            background = Color_support.L_GRAY
+            text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
+            background = Color_support.SELECT_LISTBOX_STATUS_BG,
+            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
         )
 
-        if self.datasetB['Data'] is []:
-            self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
+        # if self.datasetB['Data'] is []:
+        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
         # self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data']))) ### TODO
-        self.labelQueryDataB.configure(text = UI_support.LBL_SELECT_NO_DATA)
+
+        # Empty FILTER details of BOTH A and B
+        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.listQueryDataA.delete(0,END)
+        # self.listQuerySetDataA.delete(0,END)
+
+        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
         self.listQueryDataB.delete(0,END)
         self.listQuerySetDataB.delete(0,END)
+
+        self.labelQueryDataFeatureName.configure(
+            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
+        )
+
         return "break"
     
     def querySelectDataValuesA(self, evt):
@@ -1784,8 +1813,10 @@ class OOTO_Miner:
         # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
         self.labelQuerySetDataStatusA.configure(
             text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA,
-            background = Color_support.YES
+            background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
+            foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
         )
+
         return "break"
     def queryAddFilterB(self, evt):
 
@@ -1831,7 +1862,8 @@ class OOTO_Miner:
         # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
         self.labelQuerySetDataStatusB.configure(
             text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
-            background = Color_support.YES
+            background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
+            foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
         )
         return "break"
 
@@ -3387,6 +3419,9 @@ class OOTO_Miner:
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
+    def configureConsoleElements(self, parentFrame):
+        # TODO
+        print ("TODO")
 
 if __name__ == '__main__':
     vp_start_gui()
