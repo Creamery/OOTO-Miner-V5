@@ -3203,19 +3203,44 @@ class OOTO_Miner:
             background = Color_support.PROCESS_BG
         )
 
-        # RUN MINER BUTTON
-        # Run miner button parent (to handle centering after pack)
-        self.labelFrameProcessRunMiner = LabelFrame(self.labelFrameProcessRun, bd = 0)
-        self.labelFrameProcessRunMiner.place(
-            relx = newRelX + 0.025, rely = 0,
-            relwidth = 0.25, relheight = 1
+        # PROCESS RUN MINER TITLE
+        self.labelFrameProcessRunMinerTitle = Label(self.labelFrameProcessRun)
+        self.labelFrameProcessRunMinerTitle.place(
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+        self.labelFrameProcessRunMinerTitle.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+            text = '''RUN''',
+            anchor = S
         )
-        self.labelFrameProcessRunMiner.configure(
+
+        # Top horizontal separator # TODO
+        self.runMinerTitleSeparator = ttk.Separator(self.labelFrameProcessRunMinerTitle, orient = HORIZONTAL)
+        self.runMinerTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
+
+        newRelY = self.getRelH(self.labelFrameProcessRunMinerTitle) + self.getRelY(self.labelFrameProcessRunMinerTitle)
+        newRelH = 1 - (self.getRelH(self.labelFrameProcessRunMinerTitle) + self.getRelY(self.labelFrameProcessRunMinerTitle))
+        self.labelFrameRunMiner = LabelFrame(self.labelFrameProcessRun, bd = 0)
+        self.labelFrameRunMiner.place(
+            relx = 0, rely = newRelY,
+            relwidth = 1, relheight = newRelH
+        )
+        self.labelFrameRunMiner.configure(
+            background = Color_support.PROCESS_BG
+        )
+        self.labelFrameRunMinerElements = LabelFrame(self.labelFrameRunMiner, bd = 0)
+        self.labelFrameRunMinerElements.place(
+            relx = 0, rely = 0,
+            relwidth = 1, relheight = 1
+        )
+        self.labelFrameRunMinerElements.configure(
             background = Color_support.PROCESS_BG
         )
 
+        # RUN MINER BUTTON
         # Enqueue button
-        self.buttonTestQueue = Button(self.labelFrameProcessRunMiner, compound = CENTER)
+        self.buttonTestQueue = Button(self.labelFrameRunMinerElements, compound = CENTER)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.RUN_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_queue_icon = PIL.ImageTk.PhotoImage(im)
@@ -3226,10 +3251,13 @@ class OOTO_Miner:
         self.buttonTestQueue.configure(
             background = Color_support.ACTIVE_COLOR, foreground = Color_support.FG_COLOR,
             bd = 0, relief = FLAT, overrelief = FLAT)
-
+        self.buttonTestQueue.place(
+            relx = 0, rely = 0,
+            relwidth = 1, relheight = 1
+        )
         self.buttonTestQueue.pack(side = RIGHT)
-        self.buttonTestQueue.update()
-        self.labelFrameProcessRunMiner.pack(fill = Y, expand = True)
+        # self.buttonTestQueue.update()
+        self.labelFrameRunMinerElements.pack(fill = Y, expand = True)
 
 
 

@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="19">
-              <caret line="2580" column="23" selection-start-line="2580" selection-start-column="19" selection-end-line="2580" selection-end-column="23" />
+              <caret line="2591" selection-start-line="2591" selection-end-line="2608" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#57007#60821#1" />
@@ -32,8 +33,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Icon_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="39" column="49" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="49" />
+            <state relative-caret-position="161">
+              <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
               <folding>
                 <element signature="e#1#11#0" expanded="true" />
               </folding>
@@ -50,11 +51,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+            <state relative-caret-position="237">
+              <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -63,7 +64,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>chi-squa</find>
       <find>run miner</find>
       <find>'no fea</find>
       <find>filter feature'</find>
@@ -76,7 +76,6 @@
       <find>PROCESS T</find>
       <find>SELECT'''</find>
       <find>FILTER TITLE</find>
-      <find>'''FILTER</find>
       <find>PROCESS TITLE</find>
       <find>z - test</find>
       <find>(SELECT</find>
@@ -85,14 +84,16 @@
       <find>Confidence'</find>
       <find>confi</find>
       <find>'GROUP'''</find>
-      <find>down_arr</find>
       <find>'''T</find>
-      <find>ACTI</find>
       <find>GROUP'''</find>
       <find>'''FILTER'''</find>
       <find>'''PROCE</find>
       <find>'''2</find>
       <find>chi-squ</find>
+      <find>RUN MINER</find>
+      <find>down_arr</find>
+      <find>ACTI</find>
+      <find>'''FILTER</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -111,10 +112,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
-        <option value="$PROJECT_DIR$/Color_support.py" />
+        <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
+        <option value="$PROJECT_DIR$/Color_support.py" />
       </list>
     </option>
   </component>
@@ -305,29 +306,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="39" column="49" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="49" />
+        <state relative-caret-position="161">
+          <caret line="16" column="22" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
           <folding>
             <element signature="e#1#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="32" column="22" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
-          <caret line="2580" column="23" selection-start-line="2580" selection-start-column="19" selection-end-line="2580" selection-end-column="23" />
+          <caret line="2591" selection-start-line="2591" selection-end-line="2608" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#57007#60821#1" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="237">
+          <caret line="25" column="19" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
         </state>
       </provider>
     </entry>

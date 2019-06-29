@@ -23,7 +23,7 @@ NO = '#E91E3A'
 
 
 # GENERAL COLORS
-ACTIVE_COLOR = D_GREEN # Change this to change all highlight colors
+ACTIVE_COLOR = LIME # Change this to change all highlight colors
 ACTIVE_COLOR_LIGHT = PALE_YELLOW # Change this to change all highlight colors
 
 BG_MAIN_NUMBER = D_BLUE
