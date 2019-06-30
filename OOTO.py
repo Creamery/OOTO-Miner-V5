@@ -1430,8 +1430,15 @@ class OOTO_Miner:
 
         newRelY = self.getRelY(self.listQuerySetDataA) + self.getRelH(self.listQuerySetDataA)
         newRelH = 1 - self.getRelH(self.listQuerySetDataA)
-        self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
-        self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+
+        # QUERY STATUS - DATASET A
+        self.labelFrameQuerySetDataStatusA = LabelFrame(self.labelFrameListBoxA, bd = 0)
+        self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+
+        self.labelQuerySetDataStatusA = Label(self.labelFrameQuerySetDataStatusA)
+        # self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
+        self.labelQuerySetDataStatusA.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
+        # self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusA.configure(
             background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
@@ -1455,6 +1462,8 @@ class OOTO_Miner:
             self.labelFrameListBoxA)
 
         # COMMANDS PARENT (DATASET A)
+        # region
+
         # self.labelFrameBorderCommandsA = LabelFrame(self.labelFrameDatasetA, bd = 0)
         # self.labelFrameBorderCommandsA.place(
         #     relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
@@ -1524,6 +1533,7 @@ class OOTO_Miner:
             background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
             text = '''SAMPLES'''
         )
+        # endregion
 
         # Create the left separator
         # self.labelFrameQueryCountLeftSeparator = ttk.Separator(self.labelFrameQueryCount, orient = VERTICAL)
@@ -1571,8 +1581,24 @@ class OOTO_Miner:
 
         newRelY = self.getRelY(self.labelQuerySetDataStatusA)
         newRelH = self.getRelH(self.labelQuerySetDataStatusA)
-        self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
-        self.labelQuerySetDataStatusB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+
+        self.labelFrameQuerySetDataStatusB = LabelFrame(self.labelFrameListBoxB, bd = 0)
+        self.labelFrameQuerySetDataStatusB.place(
+            relx = self.getRelX(self.labelFrameQuerySetDataStatusA),
+            rely = self.getRelY(self.labelFrameQuerySetDataStatusA),
+            relwidth = self.getRelW(self.labelFrameQuerySetDataStatusA),
+            relheight = self.getRelH(self.labelFrameQuerySetDataStatusA)
+        )
+
+        self.labelQuerySetDataStatusB = Label(self.labelFrameQuerySetDataStatusB)
+        # self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
+        self.labelQuerySetDataStatusB.place(
+            relx = self.getRelX(self.labelQuerySetDataStatusA),
+            rely = self.getRelY(self.labelQuerySetDataStatusA),
+            relwidth = self.getRelW(self.labelQuerySetDataStatusA),
+            relheight = self.getRelH(self.labelQuerySetDataStatusA)
+        )
+        # self.labelQuerySetDataStatusB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusB.configure(
             background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
@@ -1584,8 +1610,14 @@ class OOTO_Miner:
 
         self.labelFrameCommandsB = LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameCommandsB.place(
-            relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
+            relx = self.getRelX(self.labelFrameCommandsA),
+            rely = self.getRelY(self.labelFrameCommandsA),
+            relwidth = self.getRelW(self.labelFrameCommandsA),
+            relheight = self.getRelH(self.labelFrameCommandsA)
+        )
+        # self.labelFrameCommandsB.place(
+        #     relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
+        #     relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
 
         self.labelFrameCommandsB.configure(
             background = Color_support.WHITE
