@@ -563,7 +563,6 @@ class OOTO_Miner:
            top is the toplevel containing window.'''
 
         self.style = ttk.Style()
-
         if sys.platform == "win32":
             self.style.theme_use('winnative')
         # else:
@@ -595,6 +594,7 @@ class OOTO_Miner:
                                                      })],
                                              })]
                           )
+
 
         self.Tabs = ttk.Notebook(root, style = 'Tab')  # top)
         self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
@@ -1872,11 +1872,11 @@ class OOTO_Miner:
         )
 
         # FILTER LIST BOX - DATASET A
-
+        newRelY = UI_support.FILTER_LABEL_STRIPES_REL_H + 0.03725 # TODO Make constant, + is the percent of stripes
         self.listQueryDataA = Listbox(self.labelFrameFilterListDataA, bd = 0)
         self.listQueryDataA.place(
-            relx = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = 0,
-            relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W, relheight = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_H)
+            relx = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W, relheight = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_H - newRelY)
 
         self.listQueryDataA.configure(
             background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
@@ -1927,9 +1927,9 @@ class OOTO_Miner:
 
         self.listQueryDataB = Listbox(self.labelFrameFilterListDataB, bd = 0)
         self.listQueryDataB.place(
-            relx = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = 0,
+            relx = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = self.getRelY(self.listQueryDataA),
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W,
-            relheight = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_H)
+            relheight = self.getRelH(self.listQueryDataA))
 
         self.listQueryDataB.configure(
             background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
@@ -1957,7 +1957,23 @@ class OOTO_Miner:
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
 
-
+        # QUERY BOTTOM STRIPES
+        self.labelFilterStripes = Label(self.labelFrameFilterListData, bd = 1, relief = GROOVE)
+        self.labelFilterStripes.place(
+            relx = self.getRelX(self.labelFrameFilterListDataA),
+            rely = self.getRelY(self.labelFrameFilterListDataA),
+            relwidth = 1,
+            relheight = UI_support.FILTER_LABEL_STRIPES_REL_H,
+            anchor = NW
+        )
+        im = PIL.Image.open(
+            Icon_support.TEXTURE_STRIPE_ORANGE)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
+        self.labelFilterStripes.configure(
+            image = texture_orange_stripes,
+            anchor = SW
+        )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.labelFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
 
         # FILTER LOCK OVERLAY
         # region
@@ -1965,15 +1981,18 @@ class OOTO_Miner:
         # FILTER LOCK QUERY ENTRY COVER
         # region
         # FILTER LOCK MOCK PARENT COVER
-        self.labelOverlayFilterListData = Label(parentFrame, bd = 0)
+        self.labelOverlayFilterListData = LabelFrame(parentFrame, bd = 0)
+
 
         self.labelOverlayFilterListData.place(
             relx = self.getRelX(self.labelFrameFilterListData), rely = self.getRelY(self.labelFrameFilterListData),
-            relwidth = 0, relheight = 0)
-            # relwidth = self.getRelW(self.labelFrameFilterListData), relheight = self.getRelH(self.labelFrameFilterListData))
+            # relwidth = 0, relheight = 0)
+            relwidth = self.getRelW(self.labelFrameFilterListData), relheight = self.getRelH(self.labelFrameFilterListData))
 
         self.labelOverlayFilterListData.configure(
-            background = self.labelFrameFilterListData['background']
+            background = self.labelFrameFilterListData['background'],
+            bd = self.labelFrameFilterListData['bd'],
+            relief = self.labelFrameFilterListData['relief']
         )
 
         # MOCK QUERY PARENT FRAME
@@ -1989,12 +2008,11 @@ class OOTO_Miner:
             foreground = Color_support.FILTER_LABEL_OVERLAY_BG,
             text = '''Please confirm the dataset groupings before filtering''',
             font = UI_support.FILTER_LABEL_FONT,
-            bd = 1, relief = RIDGE,
+            bd = 0, relief = GROOVE,
             # bd = self.labelFrameFilterQueryData['bd'], relief = self.labelFrameFilterQueryData['relief'],
         )
 
-
-
+        '''
         # MOCK LABEL BORDER
         self.labelOverlayBorderQueryFeature = Label(self.labelOverlayFilterQueryData)
         self.labelOverlayBorderQueryFeature.place(
@@ -2007,7 +2025,7 @@ class OOTO_Miner:
             background = Color_support.FILTER_LABEL_OVERLAY_BG,
             foreground = self.labelFrameBorderQueryFeature['foreground'],
             text = self.labelFrameBorderQueryFeature['text'],
-            # text = '''Please confirm the dataset groupings before filtering''',
+            # text = ''''Please confirm the dataset groupings before filtering''''',
             font = self.labelFrameBorderQueryFeature['font'],
             bd = self.labelFrameBorderQueryFeature['bd'], relief = self.labelFrameBorderQueryFeature['relief'],
         )
@@ -2024,7 +2042,7 @@ class OOTO_Miner:
             background = self.labelQueryFeature['background'],
             foreground = Color_support.FILTER_LABEL_OVERLAY_BG,
             text = self.labelQueryFeature['text'],
-            # text = '''Please confirm the dataset groupings before filtering''',
+            # text = ''''Please confirm the dataset groupings before filtering'''',
             font = self.labelQueryFeature['font'],
             bd = self.labelQueryFeature['bd'], relief = self.labelQueryFeature['relief'],
         )
@@ -2042,14 +2060,33 @@ class OOTO_Miner:
             background = Color_support.FILTER_LABEL_OVERLAY_BG,
             foreground = self.buttonQueryFeature['foreground'],
             text = self.buttonQueryFeature['text'],
-            # text = '''Please confirm the dataset groupings before filtering''',
+            # text = ''''Please confirm the dataset groupings before filtering'''',
             font = self.buttonQueryFeature['font'],
             bd = 1, relief = self.buttonQueryFeature['relief'],
             image = self.buttonQueryFeature['image']
         )
+        '''
+        # MOCK STRIPED COVER
+        self.labelOverlayFilterStripes = Label(self.labelOverlayFilterQueryData)
+        self.labelOverlayFilterStripes.place(
+            relx = 0,
+            rely = 0,
+            relwidth = 1,
+            relheight = 1,
+            anchor = NW
+        )
+        im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE) # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
+        self.labelOverlayFilterStripes.configure(
+            image = texture_orange_stripes,
+            anchor = SW,
+            bd = 0
+        )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.labelOverlayFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
 
-        self.separatorOverlayFilterQueryData = ttk.Separator(self.labelOverlayFilterQueryData, orient = VERTICAL)
-        self.separatorOverlayFilterQueryData.place(relx = 0, rely = 0, relheight = 1)
+
+        # self.separatorOverlayFilterQueryData = ttk.Separator(self.labelOverlayFilterQueryData, orient = VERTICAL)
+        # self.separatorOverlayFilterQueryData.place(relx = 0, rely = 0, relheight = 1)
         # endregion
 
 
@@ -2066,7 +2103,8 @@ class OOTO_Miner:
             background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
             foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
             font = UI_support.FILTER_LABEL_FONT,
-            bd = 1, relief = RIDGE,
+            # bd = 0, relief = RIDGE,
+            bd = self.labelFrameFilterListDataA['bd'], relief = self.labelFrameFilterListDataA['relief'],
             # bd = self.labelFrameFilterListDataA['bd'], relief = self.labelFrameFilterListDataA['relief'],
         )
         # FILTER LOCK BOTTOM MOCK NO DATA LABEL
@@ -2083,8 +2121,11 @@ class OOTO_Miner:
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
 
-        self.separatorOverlayFilterListDataA = ttk.Separator(self.labelOverlayFilterListDataA, orient = VERTICAL)
-        self.separatorOverlayFilterListDataA.place(relx = 0, rely = 0, relheight = 1)
+        self.separatorOverlayFilterListDataA = Label(self.labelOverlayFilterListDataA)
+        self.separatorOverlayFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
+        self.separatorOverlayFilterListDataA.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+
+
         # endregion
 
         # RIGHT COVER
@@ -2097,7 +2138,8 @@ class OOTO_Miner:
             background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
             foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
             font = UI_support.FILTER_LABEL_FONT,
-            bd = 1, relief = RIDGE,
+            bd = self.labelOverlayFilterListDataA['border'], relief = self.labelOverlayFilterListDataA['relief'],
+            # bd = 1, relief = RIDGE,
             # bd = self.labelFrameFilterListDataB['bd'], relief = self.labelFrameFilterListDataB['relief'],
         )
         # FILTER LOCK BOTTOM MOCK NO DATA LABEL
@@ -2113,6 +2155,15 @@ class OOTO_Miner:
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
+        # self.separatorOverlayFilterListDataB1 = ttk.Separator(self.labelOverlayFilterListDataB, orient = VERTICAL)
+        # self.separatorOverlayFilterListDataB1.place(relx = 0, rely = 0, relheight = 1)
+        self.separatorOverlayFilterListDataCenter = Label(self.labelOverlayFilterListDataB)
+        self.separatorOverlayFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
+        self.separatorOverlayFilterListDataCenter.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+
+        self.separatorOverlayFilterListDataB = Label(self.labelOverlayFilterListDataB)
+        self.separatorOverlayFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
+        self.separatorOverlayFilterListDataB.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
         # endregion
 
 
@@ -3825,6 +3876,12 @@ class OOTO_Miner:
             text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT
         )
 
+        # Show lock cover
+        self.labelOverlayFilterListData.place(
+            relx = self.getRelX(self.labelFrameFilterListData), rely = self.getRelY(self.labelFrameFilterListData),
+            relwidth = self.getRelW(self.labelFrameFilterListData), relheight = self.getRelH(self.labelFrameFilterListData))
+
+
     def enableFilter(self):
         # Enable entry
         self.entryQueryFeature.configure(
@@ -3839,6 +3896,12 @@ class OOTO_Miner:
             foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_ON_FG,
             text = UI_support.FILTER_STATUS_READY_TEXT
         )
+
+        # Hide lock cover
+        self.labelOverlayFilterListData.place(
+            relx = self.getRelX(self.labelFrameFilterListData), rely = self.getRelY(self.labelFrameFilterListData),
+            relwidth = 0, relheight = 0)
+
 
     def setDatasetStatusReady(self, isReady, statusWidget):
         if isReady:

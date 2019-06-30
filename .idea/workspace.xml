@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_a1(1 ).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_icons/ico_overlay_black_70.png" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="2059" column="16" selection-start-line="2059" selection-start-column="16" selection-end-line="2059" selection-end-column="16" />
+            <state relative-caret-position="390">
+              <caret line="3880" column="115" selection-start-line="3880" selection-start-column="115" selection-end-line="3880" selection-end-column="115" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#10634#10987#1" />
@@ -28,8 +33,9 @@
                 <element signature="e#81455#81488#0" />
                 <element signature="e#81592#81600#0" />
                 <element signature="e#82496#82504#0" />
-                <element signature="e#90270#90278#0" />
+                <element signature="e#92114#94890#1" />
                 <element signature="e#94836#94863#0" />
+                <element signature="e#94421#114161#0" />
                 <element signature="e#96787#96820#0" />
                 <element signature="e#98740#98773#0" />
                 <element signature="e#114283#114312#0" />
@@ -88,10 +94,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="1326" selection-start-line="1326" selection-end-line="1326" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="99" column="23" selection-start-line="99" selection-end-line="99" selection-end-column="23" />
+            <state relative-caret-position="351">
+              <caret line="113" column="69" lean-forward="true" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -99,8 +114,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="340" column="29" selection-start-line="340" selection-end-line="340" selection-end-column="29" />
+            <state relative-caret-position="276">
+              <caret line="340" column="42" lean-forward="true" selection-start-line="340" selection-start-column="42" selection-end-line="340" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -109,7 +124,7 @@
         <entry file="file://$PROJECT_DIR$/Icon_support.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="402">
-              <caret line="53" column="20" selection-start-line="53" selection-end-line="53" selection-end-column="20" />
+              <caret line="53" column="21" selection-start-line="53" selection-end-line="53" selection-end-column="21" />
               <folding>
                 <element signature="e#1#11#0" expanded="true" />
               </folding>
@@ -121,16 +136,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>buttonQueryFeature.bind</find>
-      <find>Ready</find>
-      <find>TRANS</find>
-      <find>TRANS_BLA</find>
-      <find>FILTER_LABEL_QUERY_FEATURE_TEXT</find>
-      <find>Style</find>
-      <find>Style(</find>
-      <find>trans_b</find>
-      <find>FILTER_LABEL_OVERLAY_BG</find>
-      <find>-transp</find>
       <find>active</find>
       <find>select</find>
       <find>enter&gt;</find>
@@ -143,14 +148,24 @@
       <find>queryreset</find>
       <find>NO_FEATU</find>
       <find>enableF</find>
-      <find>FILTE</find>
       <find>FILTER_STATUS_NO_FEATURE_TEXT</find>
       <find>FILTER_BUTTON</find>
       <find>Pale_Y</find>
       <find>PALER</find>
       <find>Overlay</find>
       <find>D_BLUE</find>
+      <find>FILTE</find>
+      <find>mock</find>
+      <find>stripe</find>
+      <find>list</find>
+      <find>Orange</find>
+      <find>Ready</find>
+      <find>stripes</find>
+      <find>labelFrameFilterQueryData</find>
+      <find>TBUTTON</find>
       <find>separator</find>
+      <find>MOCK</find>
+      <find>enableFilt</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -173,8 +188,8 @@
       <list>
         <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
-        <option value="$PROJECT_DIR$/Color_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
+        <option value="$PROJECT_DIR$/Color_support.py" />
       </list>
     </option>
   </component>
@@ -340,7 +355,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3342</line>
+          <line>3393</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
@@ -386,7 +401,7 @@
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="402">
-          <caret line="53" column="20" selection-start-line="53" selection-end-line="53" selection-end-column="20" />
+          <caret line="53" column="21" selection-start-line="53" selection-end-line="53" selection-end-column="21" />
           <folding>
             <element signature="e#1#11#0" expanded="true" />
           </folding>
@@ -395,29 +410,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="340" column="29" selection-start-line="340" selection-end-line="340" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="1326" selection-start-line="1326" selection-end-line="1326" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="99" column="23" selection-start-line="99" selection-end-line="99" selection-end-column="23" />
+        <state relative-caret-position="276">
+          <caret line="340" column="42" lean-forward="true" selection-start-line="340" selection-start-column="42" selection-end-line="340" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="2059" column="16" selection-start-line="2059" selection-start-column="16" selection-end-line="2059" selection-end-column="16" />
+        <state relative-caret-position="390">
+          <caret line="3880" column="115" selection-start-line="3880" selection-start-column="115" selection-end-line="3880" selection-end-column="115" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#10634#10987#1" />
@@ -429,8 +430,9 @@
             <element signature="e#81455#81488#0" />
             <element signature="e#81592#81600#0" />
             <element signature="e#82496#82504#0" />
-            <element signature="e#90270#90278#0" />
+            <element signature="e#92114#94890#1" />
             <element signature="e#94836#94863#0" />
+            <element signature="e#94421#114161#0" />
             <element signature="e#96787#96820#0" />
             <element signature="e#98740#98773#0" />
             <element signature="e#114283#114312#0" />
@@ -484,6 +486,20 @@
             <element signature="e#94216#94626#0" />
             <element signature="e#94674#95081#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="1326" selection-start-line="1326" selection-end-line="1326" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="113" column="69" lean-forward="true" selection-start-line="113" selection-start-column="69" selection-end-line="113" selection-end-column="69" />
         </state>
       </provider>
     </entry>
