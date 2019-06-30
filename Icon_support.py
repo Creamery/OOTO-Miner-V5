@@ -51,4 +51,4 @@ TAB_ICO_ADD_ON = PATH+'\\_icons\\ico_add_on.png'
 TAB_ICO_DOWN_ARROW = PATH+'\\_icons\\ico_down_arrow.png'
 TAB_ICO_DOWN_ARROW_ON = PATH+'\\_icons\\ico_down_arrow_on.png'
 
-OVERLAY_ICO_BLACK_70 = PATH+'\\_icons\\ico_overlay_black_70.png'
+TEXTURE_STRIPE_ORANGE = PATH+'\\_icons\\texture_stripe_orange.png'
