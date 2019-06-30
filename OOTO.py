@@ -3436,6 +3436,7 @@ class OOTO_Miner:
     def querySelectDataValuesA(self, evt):
         self.isReadyDatasetA = False # When a listbox element is de/selected, mark the dataset as not ready
         self.checkIfDatasetReady() # Update dataset status accordingly
+        self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
 
         # self.datasetCountA = selectDatasetValues(evt, self.datasetA, self.populationDataset)
 
@@ -3451,6 +3452,7 @@ class OOTO_Miner:
     def querySelectDataValuesB(self, evt):
         self.isReadyDatasetB = False # When a listbox element is de/selected, mark the dataset as not ready
         self.checkIfDatasetReady() # Update dataset status accordingly
+        self.setDatasetStripeReady(False, self.labelQuerySetDataStripesB)
 
         # self.datasetCountB = selectDatasetValues(evt, self.datasetB, self.populationDataset)
 
@@ -4109,6 +4111,8 @@ class OOTO_Miner:
             relx = self.getRelX(self.labelFrameFilterListData), rely = self.getRelY(self.labelFrameFilterListData),
             relwidth = self.getRelW(self.labelFrameFilterListData), relheight = self.getRelH(self.labelFrameFilterListData))
 
+        # Change stripe color
+        self.setFilterStripeReady(True, self.labelFilterStripes)
 
     def enableFilter(self):
         # Enable entry
@@ -4130,6 +4134,8 @@ class OOTO_Miner:
             relx = self.getRelX(self.labelFrameFilterListData), rely = self.getRelY(self.labelFrameFilterListData),
             relwidth = 0, relheight = 0)
 
+        # Change stripe color
+        self.setFilterStripeReady(True, self.labelFilterStripes)
 
     def setDatasetStatusReady(self, isReady, statusWidget, stripeWidget):
         if isReady:
@@ -4161,6 +4167,22 @@ class OOTO_Miner:
                 image = texture_pink_stripes
             )
             stripeWidget.image = texture_pink_stripes
+
+    def setFilterStripeReady(self, isReady, stripeWidget):
+        if isReady:
+            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
+            texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
+            stripeWidget.configure(
+                image = texture_lime_stripes
+            )
+            stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
+        else:
+            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE)
+            texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
+            stripeWidget.configure(
+                image = texture_orange_stripes
+            )
+            stripeWidget.image = texture_orange_stripes
     # endregion
 
 
