@@ -3317,6 +3317,7 @@ class OOTO_Miner:
     def queryResetDatasetA(self, evt):
         self.isReadyDatasetA = False # When a dataset is reset, it is not ready
         self.checkIfDatasetReady() # Update dataset status accordingly
+        self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
 
         self.buttonQueryResetFilterA.configure(relief = FLAT)
 
@@ -3348,6 +3349,7 @@ class OOTO_Miner:
     def queryResetDatasetB(self, evt):
         self.isReadyDatasetB = False # When a dataset is reset, it is not ready
         self.checkIfDatasetReady() # Update dataset status accordingly
+        self.setDatasetStripeReady(False, self.labelQuerySetDataStripesB)
 
         self.buttonQueryResetFilterB.configure(relief = FLAT)
         self.datasetB = resetDataset()
@@ -3487,7 +3489,7 @@ class OOTO_Miner:
                 background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
                 foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
             )
-
+            self.setDatasetStripeReady(True, self.labelQuerySetDataStripesA)
         print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
         print ("Dataset A COUNT IS " + str(self.datasetCountA))
         print ("")
@@ -3566,6 +3568,7 @@ class OOTO_Miner:
                 background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
                 foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
             )
+            self.setDatasetStripeReady(True, self.labelQuerySetDataStripesB)
 
         print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
         print ("Dataset B COUNT IS " + str(self.datasetCountB))
@@ -4089,12 +4092,6 @@ class OOTO_Miner:
                 foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG,
                 relief = GROOVE
             )
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
-            texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
-            stripeWidget.configure(
-                image = texture_lime_stripes
-            )
-            stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
             statusWidget.configure(
                 text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
@@ -4102,13 +4099,22 @@ class OOTO_Miner:
                 foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
                 relief = UI_support.SELECT_LISTBOX_RELIEF
             )
+
+    def setDatasetStripeReady(self, isReady, stripeWidget):
+        if isReady:
+            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
+            texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
+            stripeWidget.configure(
+                image = texture_lime_stripes
+            )
+            stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
+        else:
             im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PINK)
             texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_pink_stripes
             )
-            stripeWidget.image = texture_pink_stripes  # < ! > Required to make images appear
-
+            stripeWidget.image = texture_pink_stripes
     # endregion
 
 

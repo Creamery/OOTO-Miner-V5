@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="159">
-              <caret line="1312" column="76" selection-start-line="1312" selection-start-column="76" selection-end-line="1312" selection-end-column="76" />
+            <state relative-caret-position="236">
+              <caret line="3351" column="72" selection-start-line="3351" selection-start-column="72" selection-end-line="3351" selection-end-column="72" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#10634#10987#1" />
@@ -72,7 +71,6 @@
                 <element signature="e#72138#72344#0" />
                 <element signature="e#72391#72640#0" />
                 <element signature="e#72646#72962#1" />
-                <element signature="e#135717#136945#0" />
                 <element signature="e#83480#83841#1" />
                 <element signature="e#84168#85528#0" />
                 <element signature="e#85625#88630#0" />
@@ -113,7 +111,7 @@
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="349">
-              <caret line="106" column="24" lean-forward="true" selection-start-line="106" selection-start-column="24" selection-end-line="106" selection-end-column="24" />
+              <caret line="106" column="30" selection-start-line="106" selection-end-line="106" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -143,10 +141,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>FILTER_BUTTON</find>
-      <find>Pale_Y</find>
-      <find>PALER</find>
-      <find>Overlay</find>
       <find>D_BLUE</find>
       <find>FILTE</find>
       <find>mock</find>
@@ -171,8 +165,12 @@
       <find>separator =</find>
       <find>separator</find>
       <find>pink</find>
-      <find>READY</find>
       <find>labelQuerySetDataStripesA</find>
+      <find>lime</find>
+      <find>READY</find>
+      <find>SELECT_LISTBOX_STATUS_READY_BG</find>
+      <find>STATUS_NO_</find>
+      <find>SELECT_STATUS_NO_</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -362,8 +360,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3572</line>
+          <line>3575</line>
           <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OOTO.py</url>
+          <line>3316</line>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -412,20 +415,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="1326" selection-start-line="1326" selection-end-line="1326" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="106" column="24" lean-forward="true" selection-start-line="106" selection-start-column="24" selection-end-line="106" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14">
@@ -436,10 +425,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="1326" selection-start-line="1326" selection-end-line="1326" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="106" column="30" selection-start-line="106" selection-end-line="106" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="1312" column="76" selection-start-line="1312" selection-start-column="76" selection-end-line="1312" selection-end-column="76" />
+        <state relative-caret-position="236">
+          <caret line="3351" column="72" selection-start-line="3351" selection-start-column="72" selection-end-line="3351" selection-end-column="72" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#10634#10987#1" />
@@ -494,7 +497,6 @@
             <element signature="e#72138#72344#0" />
             <element signature="e#72391#72640#0" />
             <element signature="e#72646#72962#1" />
-            <element signature="e#135717#136945#0" />
             <element signature="e#83480#83841#1" />
             <element signature="e#84168#85528#0" />
             <element signature="e#85625#88630#0" />
