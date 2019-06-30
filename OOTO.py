@@ -486,9 +486,49 @@ def saveDatasetFile(dataset):
 class OOTO_Miner:
 
     def __init__(self, top = None):
+        # Configure style maps / themes
+        self.configureStyle(top)
+
+        # > MENU BAR
+        # self.menubar = Menu(top,font = "TkMenuFont",background = _bgcolor,fg = _fgcolor)
+        # top.configure(menu = self.menubar)
+        # self.menubar.add_command(label = "About", command = self.showAbout)
+        # self.menubar.add_command(label = "Help")
+
+
+        ''' TAB 1 - DATA (Tabs_t2) '''
+        self.configureDataTabElements()
+
+        ''' TAB 2 - TEST (Tabs_t3) '''
+        self.configureTestTabElements()
+
+        ''' TAB 3 - INFO (Tabs_t4) '''
+        self.configureInfoTabElements()
+
+        # Bind functionality to all UI elements
+        self.configureBindings()
+
+        global queryType
+        queryType = self.comboQueryTest.get()
+
+        global populationDir
+        populationDir = ""
+        self.populationDataset = []
+        self.datasetA = {'Data': [], 'Filter Features': []}
+        self.datasetB = {'Data': [], 'Filter Features': []}
+
+        global tests
+        tests = []
+        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
+        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
+        # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
+        # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
+
+    """ >>> CONFIGURE STYLE MAPS / THEMES <<< """
+    # region
+    def configureStyle(self, top):
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
-
 
         self.style = ttk.Style()
         if sys.platform == "win32":
@@ -500,8 +540,6 @@ class OOTO_Miner:
         # self.style.map('.',background =
         #     [('selected', _compcolor), ('active',_ana2color)])
 
-
-
         top.geometry("1000x700+522+139")
         top.title("OOTO Miner")
         # top.configure(background = _top_bgcolor)
@@ -511,21 +549,18 @@ class OOTO_Miner:
         # Transparency
         # root.wm_attributes('-transparentcolor', root['bg'])
 
-
         # Removes the dashed line in tabs
         self.style.layout('Tab',
-        [('Notebook.tab', {'sticky': 'nswe', 'children':
-            [('Notebook.padding', {'side': 'top', 'sticky': 'nswe', 'children':
-                #[('Notebook.focus', {'side': 'top', 'sticky': 'nswe', 'children':
-                    [('Notebook.label', {'side': 'top', 'sticky': ''})],
-                #})],
-            })],
-        })]
-        )
+                          [('Notebook.tab', {'sticky': 'nswe', 'children':
+                              [('Notebook.padding', {'side': 'top', 'sticky': 'nswe', 'children':
+                              # [('Notebook.focus', {'side': 'top', 'sticky': 'nswe', 'children':
+                                  [('Notebook.label', {'side': 'top', 'sticky': ''})],
+                                                     # })],
+                                                     })],
+                                             })]
+                          )
 
-        
-
-        self.Tabs = ttk.Notebook(root, style = 'Tab') # top)
+        self.Tabs = ttk.Notebook(root, style = 'Tab')  # top)
         self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
         # self.Tabs.configure(width = 604)
         # self.Tabs.configure(takefocus = "")
@@ -534,17 +569,15 @@ class OOTO_Miner:
         self.rootTopSeparator = ttk.Separator(root, orient = HORIZONTAL)
         self.rootTopSeparator.place(relx = 0, rely = 0, relwidth = 1)
 
-
         # > START TAB (0)
         self.Tabs_t2 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
         im = PIL.Image.open(Icon_support.TAB_ICO_START).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_start_icon = PIL.ImageTk.PhotoImage(im)
-        self.Tabs_t2.image =  tab_start_icon # < ! > Required to make images appear
-        self.Tabs.add(self.Tabs_t2, text = "Data", image = tab_start_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
+        self.Tabs_t2.image = tab_start_icon  # < ! > Required to make images appear
+        self.Tabs.add(self.Tabs_t2, text = "Data", image = tab_start_icon,
+                      compound = CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
         # self.Tabs.tab(0, text = _txtpadding+"Data"+_txtpadding, underline = "-1")
-
-
 
         # > TEST TAB (1)
 
@@ -552,46 +585,53 @@ class OOTO_Miner:
         ''' Tab icon '''
         im = PIL.Image.open(Icon_support.TAB_ICO_TEST).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.Tabs_t3.image =  tab_test_icon # < ! > Required to make images appear
-        self.Tabs.add(self.Tabs_t3, text = "Test", image = tab_test_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
-
+        self.Tabs_t3.image = tab_test_icon  # < ! > Required to make images appear
+        self.Tabs.add(self.Tabs_t3, text = "Test", image = tab_test_icon,
+                      compound = CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
 
         # > ABOUT TAB (2)
         self.Tabs_t4 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
         im = PIL.Image.open(Icon_support.TAB_ICO_INFO).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_info_icon = PIL.ImageTk.PhotoImage(im)
-        self.Tabs_t4.image =  tab_info_icon # < ! > Required to make images appear
-        self.Tabs.add(self.Tabs_t4, text = "Info", image = tab_info_icon, compound = CENTER) # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
-
-
-
+        self.Tabs_t4.image = tab_info_icon  # < ! > Required to make images appear
+        self.Tabs.add(self.Tabs_t4, text = "Info", image = tab_info_icon,
+                      compound = CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
 
         self.style.configure("Tab",
-            background = Color_support.TAB_BG_COLOR,
-            foreground = Color_support.FG_COLOR,
-            borderwidth = 0,
-            tabposition = 'wn',
-            height = 50)
+                             background = Color_support.TAB_BG_COLOR,
+                             foreground = Color_support.FG_COLOR,
+                             borderwidth = 0,
+                             tabposition = 'wn',
+                             height = 50)
 
-        
         self.style.map("Tab",
-            background = [('selected', Color_support.ACTIVE_COLOR), ('active', Color_support.L_GRAY)])
+                       background = [('selected', Color_support.ACTIVE_COLOR), ('active', Color_support.L_GRAY)])
+    # endregion
 
-        # > MENU BAR
-        # self.menubar = Menu(top,font = "TkMenuFont",background = _bgcolor,fg = _fgcolor)
-        # top.configure(menu = self.menubar)
-        # self.menubar.add_command(label = "About", command = self.showAbout)
-        # self.menubar.add_command(label = "Help")
+    """ >>> CONFIGURE MAIN TABS <<< """
+    # region
 
+    ''' --> Configure DATA ("DATA") TAB (1) <-- '''
+    def configureDataTabElements(self):
 
-        '''
-        > TAB 1 - DATA (Tabs_t2)
-        '''
-        self.configureDataTabElements()
-        '''
-        > TAB 2 - TEST (Tabs_t3)
-        '''
+        # Create the parent frame
+        self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
+        self.dataTabParentFrame.place(
+            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
+            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
+        self.dataTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
+
+        # Create the left separator
+        self.dataTabLeftSeparator = ttk.Separator(self.dataTabParentFrame, orient = VERTICAL)
+        self.dataTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+
+        self.configureDatasetElements()
+        self.configureVariableDescriptionElements()
+        self.configureStartElements()
+
+    ''' --> Configure TEST ("TEST") TAB (2) <-- '''
+    def configureTestTabElements(self):
         self.testTabParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
         self.testTabParentFrame.place(
             relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
@@ -603,7 +643,6 @@ class OOTO_Miner:
         self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient = VERTICAL)
         self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
-
         # TYPE Parent Frame
         self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameTypeElements.place(
@@ -611,7 +650,7 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
         )
         self.labelFrameTypeElements.configure(
-            background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR # , text = '''TYPE'''
+            background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR  # , text = '''TYPE'''
         )
 
         prevFrameRelY = float(self.labelFrameTypeElements.place_info()['rely'])
@@ -625,10 +664,10 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
         self.labelFrameSelectElements.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR # , text = '''SELECT'''
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
         )
 
-        self.configureSelectElements(self.labelFrameSelectElements) # Configures all sub elements under SELECT
+        self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
 
         prevFrameRelY = float(self.labelFrameSelectElements.place_info()['rely'])
         prevFrameRelH = float(self.labelFrameSelectElements.place_info()['relheight'])
@@ -641,11 +680,10 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
         )
         self.labelFrameFilterElements.configure(
-            background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR # , text = '''FILTER'''
+            background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
 
-        self.configureFilterElements(self.labelFrameFilterElements) # Configures all sub elements under FILTER
-
+        self.configureFilterElements(self.labelFrameFilterElements)  # Configures all sub elements under FILTER
 
         prevFrameRelY = float(self.labelFrameFilterElements.place_info()['rely'])
         prevFrameRelH = float(self.labelFrameFilterElements.place_info()['relheight'])
@@ -658,12 +696,10 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_PROCESS_REL_W, relheight = UI_support.TAB_TEST_PROCESS_REL_H
         )
         self.labelFrameProcessElements.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR # , text = '''PROCESS'''
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
         )
 
-        self.configureProcessElements(self.labelFrameProcessElements) # Configures all sub elements under FILTER
-
-
+        self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
 
         prevFrameRelX = float(self.labelFrameFilterElements.place_info()['relx'])
         prevFrameRelW = float(self.labelFrameFilterElements.place_info()['relwidth'])
@@ -679,16 +715,11 @@ class OOTO_Miner:
             background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR, text = '''CONSOLE'''
         )
 
-        self.configureConsoleElements(self.labelFrameConsoleElements) # Configures all sub elements under CONSOLE
-
-
-
-
-
+        self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
 
         # > COMBO BOX
         global testTypes
-        testTypes = ["Sample vs Sample","Sample vs Population"]
+        testTypes = ["Sample vs Sample", "Sample vs Population"]
         self.comboQueryTest = ttk.Combobox(self.Tabs_t3)
         # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 0, width = 0) # 316)
         self.comboQueryTest.configure(exportselection = "0")
@@ -697,17 +728,6 @@ class OOTO_Miner:
         self.comboQueryTest.current(0)
         self.comboQueryTest.configure(state = "readonly")
 
-        # > Z-TEST FRAME SAMPLE
-        '''
-        self.labelFrameQueryZ = LabelFrame(self.Tabs_t3)
-        self.labelFrameQueryZ.place(relx = 0.01, rely = 0.78, relheight = 0, relwidth = 0) # 0.48)
-        self.labelFrameQueryZ.configure(relief = GROOVE)
-        self.labelFrameQueryZ.configure(foreground = "black")
-        self.labelFrameQueryZ.configure(background = "#d9d9d9")
-        '''
-        # self.labelFrameQueryZ.configure(text = '''Z-Test''')
-
-        
         # > CHI-TEST FRAME
 
         self.labelFrameQueryChi = LabelFrame(self.Tabs_t3)
@@ -717,33 +737,6 @@ class OOTO_Miner:
         self.labelFrameQueryChi.configure(foreground = "black")
         self.labelFrameQueryChi.configure(text = '''Chi Test''')
         self.labelFrameQueryChi.configure(background = "#d9d9d9")
-
-
-        ## TODO Replace functionality with new one
-        '''
-        self.comboQueryCriticalValue = ttk.Combobox(self.labelFrameQueryZ)
-        self.comboQueryCriticalValue.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
-        self.comboQueryCriticalValue.configure(exportselection = "0")
-        self.comboQueryCriticalValue.configure(takefocus = "")
-        self.comboQueryCriticalValue.configure(values = arrQueryCriticalValue)
-        self.comboQueryCriticalValue.set(arrQueryCriticalValue[0])
-        '''
-
-        '''
-        self.buttonTest = Button(self.labelFrameQueryChi)
-        self.buttonTest.place(relx = 0.01, rely = 0.01, height = 23, width = 106)
-        self.buttonTest.configure(activebackground = "#d9d9d9")
-        self.buttonTest.configure(activeforeground = "#000000")
-        self.buttonTest.configure(background = "#d9d9d9")
-        self.buttonTest.configure(disabledforeground = "#a3a3a3")
-        self.buttonTest.configure(foreground = "#000000")
-        self.buttonTest.configure(highlightbackground = "#d9d9d9")
-        self.buttonTest.configure(highlightcolor = "black")
-        self.buttonTest.configure(pady = "0")
-        self.buttonTest.configure(text = ''''Test'''')
-        # self.buttonTest.configure(state = 'disabled')
-        '''
-
 
         # > Z-TEST FRAME POPULATION ##### TODO Add functionality
         # region
@@ -786,13 +779,8 @@ class OOTO_Miner:
 
         # endregion
 
-        # Bind functionality to all UI elements
-        self.configureBindings()
-
-        '''
-        > TAB 3 - INFO (Tabs_t4)
-        '''
-        # region
+    ''' --> Configure INFO ("INFO") TAB (3) <-- '''
+    def configureInfoTabElements(self):
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)
         self.infoTabParentFrame = LabelFrame(self.Tabs_t4, bd = 0)
         self.infoTabParentFrame.place(
@@ -800,110 +788,11 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
         self.infoTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
         # Create the left separator
-        self.infoTabLeftSeparator = ttk.Separator(self.infoTabParentFrame, orient=VERTICAL)
+        self.infoTabLeftSeparator = ttk.Separator(self.infoTabParentFrame, orient = VERTICAL)
         self.infoTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
 
-        # Create the About parent frame
-        self.labelFrameAbout = LabelFrame(self.infoTabParentFrame, bd = 0)
-        self.labelFrameAbout.configure(
-            background = Color_support.ABOUT_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_ABOUT)
-        self.labelFrameAbout.place(
-            relx = UI_support.TAB_ABOUT_REL_X, rely = UI_support.TAB_ABOUT_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
-            relwidth = UI_support.TAB_ABOUT_REL_W, relheight = UI_support.TAB_ABOUT_REL_H)
-
-        # Create the About element parent frame
-        self.labelFrameAboutElements = LabelFrame(self.labelFrameAbout, bd = 0)
-        self.labelFrameAboutElements.configure(
-            background = Color_support.ABOUT_BG, foreground = Color_support.FG_COLOR)
-        self.labelFrameAboutElements.place(
-            relx = UI_support.TAB_ELEMENT_REL_X, rely = 0.1,
-            relwidth = UI_support.TAB_ELEMENT_REL_W, relheight = 0.80)
-
-
-        # > ABOUT ELEMENTS
-        # Version label
-        self.labelVersion = Label(self.labelFrameAboutElements)
-        self.labelVersion.place(
-            relx = UI_support.TAB_CHILD_LBL_REL_X, rely = UI_support.TAB_CHILD_LBL_REL_Y,
-            relwidth = UI_support.TAB_CHILD_LBL_REL_W, relheight = UI_support.TAB_CHILD_LBL_REL_H)
-        self.labelVersion.configure(
-            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG, text = UI_support.LBL_ABOUT_VER,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
-            bd = 1)
-
-        # Previous values (1.1)
-        prevLblRelX = float(self.labelVersion.place_info()['relx'])
-        prevLblRelY = float(self.labelVersion.place_info()['rely'])
-        prevLblRelW = float(self.labelVersion.place_info()['relwidth'])
-        prevLblRelH = float(self.labelVersion.place_info()['relheight'])
-
-        newRelX = UI_support.TAB_CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
-
-        # Version text
-        self.labelVersionText = Label(self.labelFrameAboutElements)
-        self.labelVersionText.place(
-            relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_CHILD_STR_REL_W, relheight = prevLblRelH)
-        self.labelVersionText.configure(
-            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG, text = UI_support.STR_ABOUT_VER,
-            bd = 1,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-
-
-        # Previous values (1.2)
-        prevStrRelX = float(self.labelVersionText.place_info()['relx'])
-        prevStrRelY = float(self.labelVersionText.place_info()['rely'])
-        prevStrRelW = float(self.labelVersionText.place_info()['relwidth'])
-        prevStrRelH = float(self.labelVersionText.place_info()['relheight'])
-
-        newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
-
-        # Author label
-        self.labelAuthor = Label(self.labelFrameAboutElements)
-        self.labelAuthor.place(
-            relx = prevLblRelX, rely = newRelY,
-            relwidth = prevLblRelW, relheight = prevLblRelH)
-        self.labelAuthor.configure(
-            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG, text = UI_support.LBL_ABOUT_AUTHOR,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Author text
-        self.labelAuthorText = Label(self.labelFrameAboutElements)
-        self.labelAuthorText.place(
-            relx = prevStrRelX, rely = newRelY,
-            relwidth = prevStrRelW, relheight = prevStrRelH)
-        self.labelAuthorText.configure(
-            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG, text = UI_support.STR_ABOUT_AUTHOR,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-
-        # Previous Y values
-        prevLblRelY = float(self.labelAuthor.place_info()['rely'])
-        prevStrRelY = float(self.labelAuthorText.place_info()['rely'])
-
-        newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
-
-        # Affiliation label
-        self.labelAffiliation = Label(self.labelFrameAboutElements)
-        self.labelAffiliation.place(
-            relx = prevLblRelX, rely = newRelY,
-            relwidth = prevLblRelW, relheight = prevLblRelH)
-        self.labelAffiliation.configure(
-            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG, text = UI_support.LBL_ABOUT_AFFILIATION,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Affiliation text
-        self.labelAffiliationText = Label(self.labelFrameAboutElements)
-        self.labelAffiliationText.place(
-            relx = prevStrRelX, rely = newRelY,
-            relwidth = prevStrRelW, relheight = prevStrRelH)
-        self.labelAffiliationText.configure(
-            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG, text = UI_support.STR_ABOUT_AFFILIATION,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-        # endregion
-
+        self.configureAboutElements()
 
         '''
         BINDING FOR INFO TAB
@@ -911,43 +800,19 @@ class OOTO_Miner:
         # self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
         # self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
 
-        #######################################
 
-        global queryType
-        queryType = self.comboQueryTest.get()
-
-        global populationDir
-        populationDir = ""
-        self.populationDataset = []
-        self.datasetA = {'Data':[], 'Filter Features':[]}
-        self.datasetB = {'Data':[], 'Filter Features':[]}
-
-        global tests
-        tests = []
-        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
-        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
-        # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
-        # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
+    # endregion
 
 
-    """ >>> CONFIGURE MAIN TABS <<< """
+
+    """ >>> FUNCTIONS FOR THE CONFIGURATION OF UI ELEMENTS <<< """
     # region
 
-    ''' --> Configure DATA ("DATA") TAB (1) <-- '''
-    def configureDataTabElements(self):
+    ''' --> Elements under DATA ("DATA") TAB (1) <-- '''
+    # region
 
-        # Create the parent frame
-        self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
-        self.dataTabParentFrame.place(
-            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
-        self.dataTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
-
-        # Create the left separator
-        self.dataTabLeftSeparator = ttk.Separator(self.dataTabParentFrame, orient = VERTICAL)
-        self.dataTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
-
-        # > DATASET
+    ''' -> Elements under the DATASET ("Dataset") HEADER <- '''
+    def configureDatasetElements(self):
 
         # Create the Dataset parent frame
         self.labelFrameDataset = LabelFrame(self.dataTabParentFrame, bd = 0)
@@ -1059,7 +924,8 @@ class OOTO_Miner:
             activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
-        # > VARDESC
+    ''' -> Elements under the VARIABLE DESCRIPTION ("Variable Description Generator") HEADER <- '''
+    def configureVariableDescriptionElements(self):
         prevFrameRelY = float(self.labelFrameDataset.place_info()['rely'])
         prevFrameRelH = float(self.labelFrameDataset.place_info()['relheight'])
         newFrameRelY = UI_support.TAB_VARDESC_REL_Y + prevFrameRelY + prevFrameRelH
@@ -1184,6 +1050,8 @@ class OOTO_Miner:
             activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
+    ''' -> Elements under the START (" ") HEADER <- '''
+    def configureStartElements(self):
         # START
         # Always update to reflect height and width values in winfo when using relheight/relwidth
         self.buttonValuesFile.update()
@@ -1213,14 +1081,11 @@ class OOTO_Miner:
             activebackground = Color_support.START_BTN_BG_ACTIVE, activeforeground = Color_support.START_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
-    ''' --> Configure TEST ("TEST") TAB (2) <-- '''
     # endregion
 
-
-
-    """ >>> FUNCTIONS FOR THE CONFIGURATION OF UI ELEMENTS <<< """
+    ''' --> Elements under TEST ("TEST") TAB (2) <-- '''
     # region
-    ''' --> Elements under the SELECT ("GROUP") HEADER <-- '''
+    ''' -> Elements under the SELECT ("GROUP") HEADER <- '''
     def configureSelectElements(self, parentFrame):
 
         global queryStrFilterB
@@ -1752,7 +1617,7 @@ class OOTO_Miner:
 
         self.buttonQueryResetFilterB.pack(side = LEFT)
 
-    ''' --> Elements under the FILTER ("FILTER") HEADER <-- '''
+    ''' -> Elements under the FILTER ("FILTER") HEADER <- '''
     def configureFilterElements(self, parentFrame):
         global queryStrFilterA
 
@@ -2066,7 +1931,7 @@ class OOTO_Miner:
         self.buttonQueryFeatureB.configure(pady = "0")
         '''
 
-    ''' --> Elements under the PROCESS ("TEST") HEADER <-- '''
+    ''' -> Elements under the PROCESS ("TEST") HEADER <- '''
     def configureProcessElements(self, parentFrame):
 
         # PROCESS TITLE
@@ -2499,11 +2364,141 @@ class OOTO_Miner:
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
-    ''' --> Elements under the CONSOLE ("") HEADER <-- '''
+    ''' -> Elements under the CONSOLE ("") HEADER <- '''
     def configureConsoleElements(self, parentFrame):
         # TODO
         print ("TODO")
     # endregion
+
+    ''' --> Elements under INFO ("INFO") TAB (2) <-- '''
+    # region
+    def configureAboutElements(self):
+        # Create the About parent frame
+        self.labelFrameAbout = LabelFrame(self.infoTabParentFrame, bd = 0)
+        self.labelFrameAbout.configure(
+            background = Color_support.ABOUT_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_ABOUT)
+        self.labelFrameAbout.place(
+            relx = UI_support.TAB_ABOUT_REL_X, rely = UI_support.TAB_ABOUT_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
+            relwidth = UI_support.TAB_ABOUT_REL_W, relheight = UI_support.TAB_ABOUT_REL_H)
+
+        # Create the About element parent frame
+        self.labelFrameAboutElements = LabelFrame(self.labelFrameAbout, bd = 0)
+        self.labelFrameAboutElements.configure(
+            background = Color_support.ABOUT_BG, foreground = Color_support.FG_COLOR)
+        self.labelFrameAboutElements.place(
+            relx = UI_support.TAB_ELEMENT_REL_X, rely = 0.1,
+            relwidth = UI_support.TAB_ELEMENT_REL_W, relheight = 0.80)
+
+        # > ABOUT ELEMENTS
+        # Version label
+        self.labelVersion = Label(self.labelFrameAboutElements)
+        self.labelVersion.place(
+            relx = UI_support.TAB_CHILD_LBL_REL_X, rely = UI_support.TAB_CHILD_LBL_REL_Y,
+            relwidth = UI_support.TAB_CHILD_LBL_REL_W, relheight = UI_support.TAB_CHILD_LBL_REL_H)
+        self.labelVersion.configure(
+            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG,
+            text = UI_support.LBL_ABOUT_VER,
+            disabledforeground = Color_support.FG_DISABLED_COLOR,
+            bd = 1)
+
+        # Previous values (1.1)
+        prevLblRelX = float(self.labelVersion.place_info()['relx'])
+        prevLblRelY = float(self.labelVersion.place_info()['rely'])
+        prevLblRelW = float(self.labelVersion.place_info()['relwidth'])
+        prevLblRelH = float(self.labelVersion.place_info()['relheight'])
+
+        newRelX = UI_support.TAB_CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
+
+        # Version text
+        self.labelVersionText = Label(self.labelFrameAboutElements)
+        self.labelVersionText.place(
+            relx = newRelX, rely = prevLblRelY,
+            relwidth = UI_support.TAB_CHILD_STR_REL_W, relheight = prevLblRelH)
+        self.labelVersionText.configure(
+            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG,
+            text = UI_support.STR_ABOUT_VER,
+            bd = 1,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # Previous values (1.2)
+        prevStrRelX = float(self.labelVersionText.place_info()['relx'])
+        prevStrRelY = float(self.labelVersionText.place_info()['rely'])
+        prevStrRelW = float(self.labelVersionText.place_info()['relwidth'])
+        prevStrRelH = float(self.labelVersionText.place_info()['relheight'])
+
+        newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
+
+        # Author label
+        self.labelAuthor = Label(self.labelFrameAboutElements)
+        self.labelAuthor.place(
+            relx = prevLblRelX, rely = newRelY,
+            relwidth = prevLblRelW, relheight = prevLblRelH)
+        self.labelAuthor.configure(
+            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG,
+            text = UI_support.LBL_ABOUT_AUTHOR,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # Author text
+        self.labelAuthorText = Label(self.labelFrameAboutElements)
+        self.labelAuthorText.place(
+            relx = prevStrRelX, rely = newRelY,
+            relwidth = prevStrRelW, relheight = prevStrRelH)
+        self.labelAuthorText.configure(
+            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG,
+            text = UI_support.STR_ABOUT_AUTHOR,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # Previous Y values
+        prevLblRelY = float(self.labelAuthor.place_info()['rely'])
+        prevStrRelY = float(self.labelAuthorText.place_info()['rely'])
+
+        newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
+
+        # Affiliation label
+        self.labelAffiliation = Label(self.labelFrameAboutElements)
+        self.labelAffiliation.place(
+            relx = prevLblRelX, rely = newRelY,
+            relwidth = prevLblRelW, relheight = prevLblRelH)
+        self.labelAffiliation.configure(
+            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG,
+            text = UI_support.LBL_ABOUT_AFFILIATION,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # Affiliation text
+        self.labelAffiliationText = Label(self.labelFrameAboutElements)
+        self.labelAffiliationText.place(
+            relx = prevStrRelX, rely = newRelY,
+            relwidth = prevStrRelW, relheight = prevStrRelH)
+        self.labelAffiliationText.configure(
+            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG,
+            text = UI_support.STR_ABOUT_AFFILIATION,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+    # endregion
+
+    # endregion
+
+
+
+    """ >>> HELPER FUNCTIONS UI ELEMENTS <<< """
+    # region
+    def getRelX(self, element):
+        return float(element.place_info()['relx'])
+    def getRelY(self, element):
+        return float(element.place_info()['rely'])
+    def getRelW(self, element):
+        return float(element.place_info()['relwidth'])
+    def getRelH(self, element):
+        return float(element.place_info()['relheight'])
+    def getW(self, element):
+        return float(element.place_info()['width'])
+    def getH(self, element):
+        return float(element.place_info()['height'])
+    def getInfoH(self, element):
+        return element.winfo_height()
+    def getInfoW(self, element):
+        return element.winfo_width()
+    # endregion
+
 
 
     """ >>> FUNCTIONS CALLED FOR BINDING ELEMENTS <<< """
@@ -3418,28 +3413,6 @@ class OOTO_Miner:
         self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
     # endregion
 
-
-
-
-    """ >>> HELPER FUNCTIONS UI ELEMENTS <<< """
-    # region
-    def getRelX(self, element):
-        return float(element.place_info()['relx'])
-    def getRelY(self, element):
-        return float(element.place_info()['rely'])
-    def getRelW(self, element):
-        return float(element.place_info()['relwidth'])
-    def getRelH(self, element):
-        return float(element.place_info()['relheight'])
-    def getW(self, element):
-        return float(element.place_info()['width'])
-    def getH(self, element):
-        return float(element.place_info()['height'])
-    def getInfoH(self, element):
-        return element.winfo_height()
-    def getInfoW(self, element):
-        return element.winfo_width()
-    # endregion
 
 
 
