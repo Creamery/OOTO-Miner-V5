@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/OOTO.py" description="        # SELECT TITLE&#10;" line="2157" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,26 +15,41 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="1309" lean-forward="true" selection-start-line="1309" selection-end-line="1309" />
+            <state relative-caret-position="124">
+              <caret line="790" lean-forward="true" selection-start-line="790" selection-end-line="790" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
-                <element signature="e#29341#29679#1" />
-                <element signature="e#40699#41053#1" />
                 <element signature="e#41670#42131#1" />
                 <element signature="e#42141#42890#1" />
+                <element signature="e#42603#42611#0" />
+                <element signature="e#43028#43100#0" />
                 <element signature="e#49171#49179#0" />
                 <element signature="e#54934#55006#0" />
                 <element signature="e#55638#55723#0" />
+                <element signature="e#37516#37524#0" />
+                <element signature="e#37563#51874#0" />
+                <element signature="e#45992#46330#1" />
+                <element signature="e#52255#52263#0" />
+                <element signature="e#52388#78951#0" />
+                <element signature="e#79077#94294#0" />
+                <element signature="e#81455#81488#0" />
+                <element signature="e#91687#94294#1" />
+                <element signature="e#94421#114161#0" />
+                <element signature="e#96787#96820#0" />
+                <element signature="e#98740#98773#0" />
+                <element signature="e#114283#114312#0" />
+                <element signature="e#52148#52156#0" />
+                <element signature="e#56104#56112#0" />
+                <element signature="e#52452#52460#0" />
+                <element signature="e#53112#53289#0" />
+                <element signature="e#54707#54766#0" />
                 <element signature="e#56012#56020#0" />
                 <element signature="e#67116#67124#0" />
-                <element signature="e#67162#67985#0" />
                 <element signature="e#68035#68273#0" />
                 <element signature="e#68321#68552#0" />
                 <element signature="e#68861#69844#0" />
                 <element signature="e#68840#70126#0" />
                 <element signature="e#71300#71473#0" />
-                <element signature="e#60453#60461#0" />
                 <element signature="e#60544#61942#0" />
                 <element signature="e#61523#61942#1" />
                 <element signature="e#70361#70786#0" />
@@ -94,15 +105,6 @@
                 <element signature="e#95140#95184#0" />
                 <element signature="e#95227#95256#0" />
                 <element signature="e#95317#95346#0" />
-                <element signature="e#95476#95484#0" />
-                <element signature="e#95319#121882#0" />
-                <element signature="e#121946#137163#0" />
-                <element signature="e#124324#124357#0" />
-                <element signature="e#134556#137163#1" />
-                <element signature="e#137226#156966#0" />
-                <element signature="e#139592#139625#0" />
-                <element signature="e#141545#141578#0" />
-                <element signature="e#157049#157078#0" />
               </folding>
             </state>
           </provider>
@@ -142,8 +144,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>'''NO DA</find>
-      <find>listquery</find>
       <find>FITLER_</find>
       <find>FITLER_LISTBOX_BG</find>
       <find>'''NO_D</find>
@@ -172,6 +172,8 @@
       <find>labelQueryDataACountText.confi</find>
       <find>labelQueryDataBCount</find>
       <find>reset</find>
+      <find>.bind</find>
+      <find>Chi-test complete</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -337,24 +339,24 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3120</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Icon_support.py</url>
           <line>14</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2432</line>
-          <option name="timeStamp" value="10" />
+          <line>2616</line>
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2999</line>
-          <option name="timeStamp" value="11" />
+          <line>796</line>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OOTO.py</url>
+          <line>749</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -405,26 +407,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="1309" lean-forward="true" selection-start-line="1309" selection-end-line="1309" />
+        <state relative-caret-position="124">
+          <caret line="790" lean-forward="true" selection-start-line="790" selection-end-line="790" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
-            <element signature="e#29341#29679#1" />
-            <element signature="e#40699#41053#1" />
             <element signature="e#41670#42131#1" />
             <element signature="e#42141#42890#1" />
+            <element signature="e#42603#42611#0" />
+            <element signature="e#43028#43100#0" />
             <element signature="e#49171#49179#0" />
             <element signature="e#54934#55006#0" />
             <element signature="e#55638#55723#0" />
+            <element signature="e#37516#37524#0" />
+            <element signature="e#37563#51874#0" />
+            <element signature="e#45992#46330#1" />
+            <element signature="e#52255#52263#0" />
+            <element signature="e#52388#78951#0" />
+            <element signature="e#79077#94294#0" />
+            <element signature="e#81455#81488#0" />
+            <element signature="e#91687#94294#1" />
+            <element signature="e#94421#114161#0" />
+            <element signature="e#96787#96820#0" />
+            <element signature="e#98740#98773#0" />
+            <element signature="e#114283#114312#0" />
+            <element signature="e#52148#52156#0" />
+            <element signature="e#56104#56112#0" />
+            <element signature="e#52452#52460#0" />
+            <element signature="e#53112#53289#0" />
+            <element signature="e#54707#54766#0" />
             <element signature="e#56012#56020#0" />
             <element signature="e#67116#67124#0" />
-            <element signature="e#67162#67985#0" />
             <element signature="e#68035#68273#0" />
             <element signature="e#68321#68552#0" />
             <element signature="e#68861#69844#0" />
             <element signature="e#68840#70126#0" />
             <element signature="e#71300#71473#0" />
-            <element signature="e#60453#60461#0" />
             <element signature="e#60544#61942#0" />
             <element signature="e#61523#61942#1" />
             <element signature="e#70361#70786#0" />
@@ -480,15 +497,6 @@
             <element signature="e#95140#95184#0" />
             <element signature="e#95227#95256#0" />
             <element signature="e#95317#95346#0" />
-            <element signature="e#95476#95484#0" />
-            <element signature="e#95319#121882#0" />
-            <element signature="e#121946#137163#0" />
-            <element signature="e#124324#124357#0" />
-            <element signature="e#134556#137163#1" />
-            <element signature="e#137226#156966#0" />
-            <element signature="e#139592#139625#0" />
-            <element signature="e#141545#141578#0" />
-            <element signature="e#157049#157078#0" />
           </folding>
         </state>
       </provider>

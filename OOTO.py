@@ -588,307 +588,7 @@ class OOTO_Miner:
         '''
         > TAB 1 - DATA (Tabs_t2)
         '''
-
-
-        # Create the parent frame
-        self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
-        self.dataTabParentFrame.place(
-            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
-        self.dataTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
-
-        # Create the left separator
-        self.dataTabLeftSeparator = ttk.Separator(self.dataTabParentFrame, orient = VERTICAL)
-        self.dataTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
-
-
-
-        # > DATASET
-
-        # Create the Dataset parent frame
-        self.labelFrameDataset = LabelFrame(self.dataTabParentFrame, bd = 0)
-        self.labelFrameDataset.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_DATASET)
-        self.labelFrameDataset.place(
-            relx = UI_support.TAB_DATASET_REL_X, rely = UI_support.TAB_DATASET_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
-            relwidth = UI_support.TAB_DATASET_REL_W, relheight = UI_support.TAB_DATASET_REL_H)
-
-
-
-        # Create the Dataset element parent frame
-        self.labelFrameDatasetElements = LabelFrame(self.labelFrameDataset, bd = 0)
-        self.labelFrameDatasetElements.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR)
-        self.labelFrameDatasetElements.place(
-            relx = UI_support.TAB_ELEMENT_REL_X, rely = 0.1,
-            relwidth = UI_support.TAB_ELEMENT_REL_W, relheight = 0.80)
-
-
-        # DATASET ELEMENTS
-
-
-        # Variable Description label
-        self.labelInitialVarDesc = Label(self.labelFrameDatasetElements)
-        self.labelInitialVarDesc.place(
-            relx = UI_support.TAB_3CHILD_LBL_REL_X, rely = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL,
-            relwidth = UI_support.TAB_3CHILD_LBL_REL_W, relheight = UI_support.TAB_3CHILD_LBL_REL_H_SMALL)
-        self.labelInitialVarDesc.configure(
-            background = Color_support.DATASET_LBL_BG, foreground = Color_support.DATASET_LBL_FG, text = UI_support.LBL_DATASET_VARDESC,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
-            bd = 1)
-
-
-        # Previous values (1.1)
-        prevLblRelX = float(self.labelInitialVarDesc.place_info()['relx'])
-        prevLblRelY = float(self.labelInitialVarDesc.place_info()['rely'])
-        prevLblRelW = float(self.labelInitialVarDesc.place_info()['relwidth'])
-        prevLblRelH = float(self.labelInitialVarDesc.place_info()['relheight'])
-
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
-
-
-        # Variable Description entry
-        self.entryInitialVarDesc = Entry(self.labelFrameDatasetElements)
-        self.entryInitialVarDesc.place(
-            relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_3CHILD_ENTRY_REL_W, relheight = prevLblRelH)
-        self.entryInitialVarDesc.configure(
-            background = Color_support.DATASET_ENTRY_BG, foreground = Color_support.DATASET_ENTRY_FG,
-            bd = 1,
-            font = UI_support.FONT_DEFAULT,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Previous values (1.2)
-        prevEntryRelX = float(self.entryInitialVarDesc.place_info()['relx'])
-        prevEntryRelW = float(self.entryInitialVarDesc.place_info()['relwidth'])
-        prevEntryRelH = float(self.entryInitialVarDesc.place_info()['relheight'])
-
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevEntryRelX + prevEntryRelW
-
-        # Variable Description upload
-        self.buttonInitialVarDesc = Button(self.labelFrameDatasetElements)
-        self.buttonInitialVarDesc.place(
-            relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
-
-        self.buttonInitialVarDesc.configure(
-            background = Color_support.DATASET_BTN_BG, foreground = Color_support.DATASET_BTN_FG, text = UI_support.BTN_DATASET_UPLOAD,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.DATASET_BTN_BG_ACTIVE, activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-        # Previous values (1.3)
-        prevBtnRelX = float(self.buttonInitialVarDesc.place_info()['relx'])
-        prevBtnRelY = float(self.buttonInitialVarDesc.place_info()['rely'])
-        prevBtnRelW = float(self.buttonInitialVarDesc.place_info()['relwidth'])
-        prevBtnRelH = float(self.buttonInitialVarDesc.place_info()['relheight'])
-
-        newRelY = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL + prevBtnRelY + prevBtnRelH
-
-
-        # Population Dataset label
-        self.labelInitialVarDesc = Label(self.labelFrameDatasetElements)
-        self.labelInitialVarDesc.place(
-            relx = prevLblRelX, rely = newRelY,
-            relwidth = prevLblRelW, relheight = prevLblRelH)
-        self.labelInitialVarDesc.configure(
-            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG, text = UI_support.LBL_DATASET_POPULATION,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
-            bd = 1)
-
-        # Population Dataset entry
-        self.entryQueryPopulation = Entry(self.labelFrameDatasetElements)
-        self.entryQueryPopulation.place(
-            relx = prevEntryRelX, rely = newRelY,
-            relwidth = prevEntryRelW, relheight = prevEntryRelH)
-        self.entryQueryPopulation.configure(
-            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
-            bd = 1,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Population Dataset upload
-        self.buttonQueryPopulation = Button(self.labelFrameDatasetElements)
-        self.buttonQueryPopulation.place(
-            relx = prevBtnRelX, rely = newRelY,
-            relwidth = prevBtnRelW, relheight = prevBtnRelH)
-        self.buttonQueryPopulation.configure(
-            background = Color_support.DATASET_BTN_BG, foreground = Color_support.DATASET_BTN_FG, text = UI_support.BTN_DATASET_UPLOAD,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.DATASET_BTN_BG_ACTIVE, activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-
-
-
-
-        # > VARDESC
-        prevFrameRelY = float(self.labelFrameDataset.place_info()['rely'])
-        prevFrameRelH = float(self.labelFrameDataset.place_info()['relheight'])
-        newFrameRelY = UI_support.TAB_VARDESC_REL_Y + prevFrameRelY + prevFrameRelH
-
-        # Create the Variable Description Generator parent frame
-        self.labelFrameVariableDescriptor = LabelFrame(self.dataTabParentFrame, bd = 0)
-        self.labelFrameVariableDescriptor.configure(
-            background = Color_support.VARDESC_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_VARDESC)
-        self.labelFrameVariableDescriptor.place(
-            relx = UI_support.TAB_VARDESC_REL_X, rely = newFrameRelY,
-            relwidth = UI_support.TAB_VARDESC_REL_W, relheight = UI_support.TAB_VARDESC_REL_H)
-
-
-
-        # Create the Variable Descriptor element parent frame
-        self.labelFrameVarDescElements = LabelFrame(self.labelFrameVariableDescriptor, bd = 0)
-        self.labelFrameVarDescElements.configure(
-            background = Color_support.VARDESC_BG, foreground = Color_support.FG_COLOR)
-        self.labelFrameVarDescElements.place(
-            relx = UI_support.TAB_ELEMENT_REL_X, rely = 0.1,
-            relwidth = UI_support.TAB_ELEMENT_REL_W, relheight = 0.80)
-
-
-
-        # > VARDESC ELEMENTS
-
-        # Variable File
-
-        # Variable File label
-        self.labelVariableFile = Label(self.labelFrameVarDescElements)
-        self.labelVariableFile.place(
-            relx = UI_support.TAB_3CHILD_LBL_REL_X, rely = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL,
-            relwidth = UI_support.TAB_3CHILD_LBL_REL_W, relheight = UI_support.TAB_3CHILD_LBL_REL_H_SMALL)
-        self.labelVariableFile.configure(
-            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG, text = UI_support.LBL_VARDESC_VARFILE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
-            bd = 1)
-        '''
-        self.labelVariableFile.configure(
-            highlightcolor = Color_support.VARDESC_BTN_BG_ACTIVE,
-            highlightbackground = Color_support.FUSCHIA,
-            activebackground = Color_support.FUSCHIA,
-            highlightthickness = 10,
-            takefocus = True,
-            state = ACTIVE
-        )
-        '''
-        # Previous values (1.1)
-        prevLblRelX = float(self.labelVariableFile.place_info()['relx'])
-        prevLblRelY = float(self.labelVariableFile.place_info()['rely'])
-        prevLblRelW = float(self.labelVariableFile.place_info()['relwidth'])
-        prevLblRelH = float(self.labelVariableFile.place_info()['relheight'])
-
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
-
-        # Variable File entry
-        self.entryVariableFile = Entry(self.labelFrameVarDescElements)
-        self.entryVariableFile.place(
-            relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_3CHILD_ENTRY_REL_W, relheight = prevLblRelH)
-        self.entryVariableFile.configure(
-            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
-            bd = 1,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Previous values (1.2)
-        prevEntryRelX = float(self.entryVariableFile.place_info()['relx'])
-        prevEntryRelW = float(self.entryVariableFile.place_info()['relwidth'])
-        prevEntryRelH = float(self.entryVariableFile.place_info()['relheight'])
-
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevEntryRelX + prevEntryRelW
-
-        # Variable File upload
-        self.buttonVariableFile = Button(self.labelFrameVarDescElements)
-        self.buttonVariableFile.place(
-            relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
-        self.buttonVariableFile.configure(
-            background = Color_support.VARDESC_BTN_BG, foreground = Color_support.VARDESC_BTN_FG, text = UI_support.BTN_VARDESC_UPLOAD,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.VARDESC_BTN_BG_ACTIVE, activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Previous values (1.3)
-        prevBtnRelX = float(self.buttonVariableFile.place_info()['relx'])
-        prevBtnRelY = float(self.buttonVariableFile.place_info()['rely'])
-        prevBtnRelW = float(self.buttonVariableFile.place_info()['relwidth'])
-        prevBtnRelH = float(self.buttonVariableFile.place_info()['relheight'])
-
-        newRelY = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL + prevBtnRelY + prevBtnRelH
-
-
-        
-        # Values File label
-        self.labelValuesFile = Label(self.labelFrameVarDescElements)
-        self.labelValuesFile.place(
-            relx = prevLblRelX, rely = newRelY,
-            relwidth = prevLblRelW, relheight = prevLblRelH)
-        self.labelValuesFile.configure(
-            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG, text = UI_support.LBL_VARDESC_VALFILE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
-            bd = 1)
-
-        # Values File entry
-        self.entryValuesFile = Entry(self.labelFrameVarDescElements)
-        self.entryValuesFile.place(
-            relx = prevEntryRelX, rely = newRelY,
-            relwidth = prevEntryRelW, relheight = prevEntryRelH)
-        self.entryValuesFile.configure(
-            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
-            bd = 1,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Values File upload
-        self.buttonValuesFile = Button(self.labelFrameVarDescElements)
-        self.buttonValuesFile.place(
-            relx = prevBtnRelX, rely = newRelY,
-            relwidth = prevBtnRelW, relheight = prevBtnRelH)
-        self.buttonValuesFile.configure(
-            background = Color_support.VARDESC_BTN_BG, foreground = Color_support.VARDESC_BTN_FG, text = UI_support.BTN_VARDESC_UPLOAD,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.VARDESC_BTN_BG_ACTIVE, activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-
-
-        # START
-        # Always update to reflect height and width values in winfo when using relheight/relwidth
-        self.buttonValuesFile.update()
-        self.labelFrameVariableDescriptor.update()
-
-        # print self.buttonValuesFile.place_info()
-        print "height " + str(self.buttonValuesFile.winfo_height())
-        print "width " + str(self.buttonValuesFile.winfo_width())
-
-
-
-        buttonX = 0.5 # self.labelFrameVariableDescriptor.winfo_x()
-
-
-        prevFrameRelY = float(self.labelFrameVariableDescriptor.place_info()['rely'])
-        prevFrameRelH = float(self.labelFrameVariableDescriptor.place_info()['relheight'])
-        buttonY = UI_support.TAB_VARDESC_REL_Y + prevFrameRelY + prevFrameRelH
-
-        buttonHeight = self.buttonValuesFile.winfo_height()
-        buttonWidth = self.buttonValuesFile.winfo_width()
-
-        self.buttonStartVariableDescriptor = Button(self.dataTabParentFrame)
-        self.buttonStartVariableDescriptor.place(
-            relx = buttonX, rely = buttonY,
-            width = buttonWidth, height = buttonHeight, anchor = CENTER)
-        self.buttonStartVariableDescriptor.configure(
-            background = Color_support.START_BTN_BG, foreground = Color_support.START_BTN_FG, text = UI_support.BTN_START,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.START_BTN_BG_ACTIVE, activeforeground = Color_support.START_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        '''
-        BINDING DATA ELEMENTS
-        '''
-        self.buttonStartVariableDescriptor.bind('<Button-1>', self.makeInitialVarDesc)
-        self.buttonVariableFile.bind('<Button-1>', self.getVariableFile)
-        self.buttonValuesFile.bind('<Button-1>', self.getValuesFile)
-
-        self.buttonInitialVarDesc.bind('<Button-1>', self.uploadInitVarDesc)
-
-
-
+        self.configureDataTabElements()
         '''
         > TAB 2 - TEST (Tabs_t3)
         '''
@@ -1045,10 +745,8 @@ class OOTO_Miner:
         '''
 
 
-
-
-
         # > Z-TEST FRAME POPULATION ##### TODO Add functionality
+        # region
         self.labelFrameQuerySvP = LabelFrame(self.Tabs_t3)
         # self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0,
         #                               relwidth = 0) # 0.48)
@@ -1086,85 +784,10 @@ class OOTO_Miner:
         self.buttonQueryZTestSvP.configure(text = '''Test''')
         self.buttonQueryZTestSvP.configure(state = "disabled")
 
+        # endregion
 
-        '''
-        BINDING FOR TEST TAB
-        '''
-
-        self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
-
-        self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
-        self.buttonQuerySetDataA.bind("<Enter>", self.enterRightArrowPlainIcon)
-        self.buttonQuerySetDataA.bind("<Leave>", self.leaveRightArrowPlainIcon)
-
-        self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
-        self.buttonQuerySetDataB.bind("<Enter>", self.enterRightArrowPlainIcon)
-        self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowPlainIcon)
-        # self.buttonQuerySetDataB.bind("<Enter>", lambda event, iconSize =  Icon_support.SELECT_ICO_SIZE_BUTTONS: self.enterRightArrowIcon(event, Icon_support.SELECT_ICO_SIZE_BUTTONS))
-        # self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowIcon(Icon_support.SELECT_ICO_SIZE_BUTTONS))
-
-        self.buttonQueryAddFilterA.bind('<Button-1>', self.queryAddFilterA)
-        self.buttonQueryAddFilterA.bind("<Enter>", self.enterCheckIcon)
-        self.buttonQueryAddFilterA.bind("<Leave>", self.leaveCheckIcon)
-
-
-        self.buttonQueryAddFilterB.bind('<Button-1>', self.queryAddFilterB)
-        self.buttonQueryAddFilterB.bind("<Enter>", self.enterCheckIcon)
-        self.buttonQueryAddFilterB.bind("<Leave>", self.leaveCheckIcon)
-
-
-
-        self.buttonQueryFeature.bind('<Button-1>', self.querySetFeature)
-        self.buttonQueryFeature.bind("<Enter>", self.enterRightArrowPlainIcon)
-        self.buttonQueryFeature.bind("<Leave>", self.leaveRightArrowPlainIcon)
-        # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
-        # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
-
-
-
-        self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)
-        self.buttonQueryZTest.bind("<Enter>", self.enterCheckIcon)
-        self.buttonQueryZTest.bind("<Leave>", self.leaveCheckIcon)
-
-        self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)
-
-        self.buttonQueue.bind('<Button-1>', self.queue)
-        self.buttonQueue.bind("<Enter>", self.enterAddIcon)
-        self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
-        # self.buttonQueue.bind("<Enter>", self.enterDownArrowIcon)
-        # self.buttonQueue.bind("<Leave>", self.leaveDownArrowIcon)
-
-        self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
-        self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
-        self.buttonClearQueue.bind("<Leave>", self.leaveCrossIcon)
-
-        self.buttonTestQueue.bind('<Button-1>', self.testQueue)
-        self.buttonTestQueue.bind("<Enter>", self.enterRightArrowIcon)
-        self.buttonTestQueue.bind("<Leave>", self.leaveRightArrowIcon)
-
-        
-        self.buttonQueryResetFilterA.bind('<Button-1>', self.queryResetDatasetA)
-        self.buttonQueryResetFilterA.bind("<Enter>", self.enterCrossIcon)
-        self.buttonQueryResetFilterA.bind("<Leave>", self.leaveCrossIcon)
-        self.buttonQueryResetFilterB.bind('<Button-1>', self.queryResetDatasetB)
-        self.buttonQueryResetFilterB.bind("<Enter>", self.enterCrossIcon)
-        self.buttonQueryResetFilterB.bind("<Leave>", self.leaveCrossIcon)
-        
-
-
-        self.listQuerySetDataA.bind('<<ListboxSelect>>', self.querySelectDataValuesA)
-        self.listQuerySetDataB.bind('<<ListboxSelect>>', self.querySelectDataValuesB)
-
-
-        # FILTER LIST BOX BINDINGS
-        self.listQueryDataA.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
-        self.listQueryDataB.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
-
-        self.listQueryDataA.bind("<MouseWheel>", self.scrollFilterListBox)
-        self.listQueryDataB.bind("<MouseWheel>", self.scrollFilterListBox)
-
-        self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
-
+        # Bind functionality to all UI elements
+        self.configureBindings()
 
         '''
         > TAB 3 - INFO (Tabs_t4)
@@ -1285,7 +908,6 @@ class OOTO_Miner:
         '''
         BINDING FOR INFO TAB
         '''
-
         # self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
         # self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
 
@@ -1308,843 +930,291 @@ class OOTO_Miner:
         # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
 
-
-
-
-    """ >>> FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. buttons, listboxes) <<< """
+    """ >>> CONFIGURE MAIN TABS <<< """
     # region
 
-    ''' --> Elements under the DATA ("DATA") TAB (1) <-- '''
-    # region
-    ''' (?) Generates the initial variable description '''
-    def makeInitialVarDesc(self, evt):
-        varFileDir = self.entryVariableFile.get()
-        valFileDir = self.entryValuesFile.get()
-        # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
-        print self.entryQueryPopulation.get()[-4:]
+    ''' --> Configure DATA ("DATA") TAB (1) <-- '''
+    def configureDataTabElements(self):
 
-        if self.entryInitialVarDesc.get()[-4:] != ".csv": # TODO Properly check for valid files
-            tkMessageBox.showinfo("System Message", "Please enter a valid Variable Description CSV file") # TODO!!
+        # Create the parent frame
+        self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
+        self.dataTabParentFrame.place(
+            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
+            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
+        self.dataTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
 
-        elif self.entryQueryPopulation.get()[-4:] != ".csv":
-            tkMessageBox.showinfo("System Message", "Please enter a valid Population Dataset CSV file") # TODO!!
+        # Create the left separator
+        self.dataTabLeftSeparator = ttk.Separator(self.dataTabParentFrame, orient = VERTICAL)
+        self.dataTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
-        else:
-            tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!") # TODO!!
-            self.Tabs.select(UI_support.TAB_TEST_INDEX)
-        return "break"
+        # > DATASET
 
-    ''' (?) Uploads the variable file '''
-    def getVariableFile(self, evt):
-        varFileDir = askopenfilename(title = "Select variable file",filetypes = (("txt files","*.txt"),("all files","*.*")))
-        self.entryVariableFile.delete(0, END)
-        self.entryVariableFile.insert(0, varFileDir)
-        return "break"
+        # Create the Dataset parent frame
+        self.labelFrameDataset = LabelFrame(self.dataTabParentFrame, bd = 0)
+        self.labelFrameDataset.configure(
+            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_DATASET)
+        self.labelFrameDataset.place(
+            relx = UI_support.TAB_DATASET_REL_X, rely = UI_support.TAB_DATASET_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
+            relwidth = UI_support.TAB_DATASET_REL_W, relheight = UI_support.TAB_DATASET_REL_H)
 
-    ''' (?) Uploads the values file '''
-    def getValuesFile(self, evt):
-        valFileDir = askopenfilename(title = "Select values file",filetypes = (("txt files","*.txt"),("all files","*.*")))
-        self.entryValuesFile.delete(0,END)
-        self.entryValuesFile.insert(0, valFileDir)
-        return "break"
+        # Create the Dataset element parent frame
+        self.labelFrameDatasetElements = LabelFrame(self.labelFrameDataset, bd = 0)
+        self.labelFrameDatasetElements.configure(
+            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR)
+        self.labelFrameDatasetElements.place(
+            relx = UI_support.TAB_ELEMENT_REL_X, rely = 0.1,
+            relwidth = UI_support.TAB_ELEMENT_REL_W, relheight = 0.80)
 
-    ''' Uploads the variable description '''
-    def uploadInitVarDesc(self, evt):
-        print "UPLOADED"
-        initVarDisc = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
+        # DATASET ELEMENTS
 
-        if len(initVarDisc) == 0:
-            tkMessageBox.showerror("Error: Upload Variable description",
-                                   "Please select a valid variable description file.")
-        else:
-            self.entryInitialVarDesc.delete(0, END)
-            self.entryInitialVarDesc.insert(0, initVarDisc)
-            global features
-            features = readFeatures(initVarDisc,"^")
-            if (len(features)) > 0:
-                tkMessageBox.showinfo("Variable description set","Variable description uploaded")
+        # Variable Description label
+        self.labelInitialVarDesc = Label(self.labelFrameDatasetElements)
+        self.labelInitialVarDesc.place(
+            relx = UI_support.TAB_3CHILD_LBL_REL_X, rely = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL,
+            relwidth = UI_support.TAB_3CHILD_LBL_REL_W, relheight = UI_support.TAB_3CHILD_LBL_REL_H_SMALL)
+        self.labelInitialVarDesc.configure(
+            background = Color_support.DATASET_LBL_BG, foreground = Color_support.DATASET_LBL_FG,
+            text = UI_support.LBL_DATASET_VARDESC,
+            disabledforeground = Color_support.FG_DISABLED_COLOR,
+            bd = 1)
 
-                #getCommonGroups(features)
-            else:
-                tkMessageBox.showerror("Error: Upload Variable description",
-                                       "Please select a valid variable description file.")
+        # Previous values (1.1)
+        prevLblRelX = float(self.labelInitialVarDesc.place_info()['relx'])
+        prevLblRelY = float(self.labelInitialVarDesc.place_info()['rely'])
+        prevLblRelW = float(self.labelInitialVarDesc.place_info()['relwidth'])
+        prevLblRelH = float(self.labelInitialVarDesc.place_info()['relheight'])
 
-        return "break" # this "unsinks" the button after opening the file explorer
+        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
 
-    ''' Uploads the population module '''
-    def setPopulation(self, evt):
-        global populationDir
-        populationDir = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
+        # Variable Description entry
+        self.entryInitialVarDesc = Entry(self.labelFrameDatasetElements)
+        self.entryInitialVarDesc.place(
+            relx = newRelX, rely = prevLblRelY,
+            relwidth = UI_support.TAB_3CHILD_ENTRY_REL_W, relheight = prevLblRelH)
+        self.entryInitialVarDesc.configure(
+            background = Color_support.DATASET_ENTRY_BG, foreground = Color_support.DATASET_ENTRY_FG,
+            bd = 1,
+            font = UI_support.FONT_DEFAULT,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
 
-        if len(populationDir) == 0:
-            tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
-        else:
-            self.entryQueryPopulation.delete(0,END)
-            self.entryQueryPopulation.insert(0,populationDir)
+        # Previous values (1.2)
+        prevEntryRelX = float(self.entryInitialVarDesc.place_info()['relx'])
+        prevEntryRelW = float(self.entryInitialVarDesc.place_info()['relwidth'])
+        prevEntryRelH = float(self.entryInitialVarDesc.place_info()['relheight'])
 
-            self.populationDataset = readCSVDict(populationDir)
-            self.datasetA['Data'] = []
-            self.datasetB['Data'] = []
+        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevEntryRelX + prevEntryRelW
 
-            if(len(list(self.populationDataset)) > 0):
-                tkMessageBox.showinfo("Population set", "Population dataset uploaded")
-                self.populationDataset = readCSVDict(populationDir)
-                for record in self.populationDataset:
-                    self.datasetA['Data'].append(record)
-                    self.datasetB['Data'].append(record)
-                self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])) )
-                self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])) )
-            else:
-                tkMessageBox.showerror("Error: Upload error", "Error uploading population dataset. Please select a valid file and try again.")
+        # Variable Description upload
+        self.buttonInitialVarDesc = Button(self.labelFrameDatasetElements)
+        self.buttonInitialVarDesc.place(
+            relx = newRelX, rely = prevLblRelY,
+            relwidth = UI_support.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
 
-    ''' (REMOVE) Shows the project details '''
-    def showAbout(self):
-        strAbout = "OTOO Miner v4.0\n" \
-                   "by TE3D House\n" \
-                   "De La Salle University - Laguna"
-        tkMessageBox.showinfo("About", strAbout)
-
-    # endregion
-
-    ''' --> Elements under the TEST ("TEST") TAB (2) <-- '''
-    # region
-
-    ''' Adds test to the queue '''
-    def addToQueue(self, testType, **params):
-        global tests
-        test = {'Type':testType}
-        for key in params:
-            if(key == 'popDirArg'):
-                test['Population Path'] = copy.copy(params[key])
-            elif(key == 'sampleFeatArg'):
-                test['Sample Feature'] = copy.copy(params[key])
-            elif(key == 'selectedFeatArg'):
-                test['Selected Feature'] = copy.copy(params[key])
-            elif(key == 'allValArg'):
-                test['SF All Values'] = copy.copy(params[key])
-            elif(key == 'selValArg'):
-                test['SF Selected Values'] = copy.copy(params[key])
-            elif(key == 'datasetArgs'):
-                test['Datasets'] = copy.deepcopy(params[key])
-            elif(key == 'zArg'):
-                test['Z Critical Value'] = copy.copy(params[key])
-        tests.append(test)
-        self.labelQueueCount.configure(text = str(len(tests)))
-        tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
-
-
-        '''
         self.buttonInitialVarDesc.configure(
-            background=Color_support.DATASET_BTN_BG, foreground=Color_support.DATASET_BTN_FG,
-            text=UI_support.BTN_DATASET_UPLOAD,
-            bd=1, relief=GROOVE,
-            activebackground=Color_support.DATASET_BTN_BG_ACTIVE, activeforeground=Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground=Color_support.FG_DISABLED_COLOR)
+            background = Color_support.DATASET_BTN_BG, foreground = Color_support.DATASET_BTN_FG,
+            text = UI_support.BTN_DATASET_UPLOAD,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
+            activebackground = Color_support.DATASET_BTN_BG_ACTIVE,
+            activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+        # Previous values (1.3)
+        prevBtnRelX = float(self.buttonInitialVarDesc.place_info()['relx'])
+        prevBtnRelY = float(self.buttonInitialVarDesc.place_info()['rely'])
+        prevBtnRelW = float(self.buttonInitialVarDesc.place_info()['relwidth'])
+        prevBtnRelH = float(self.buttonInitialVarDesc.place_info()['relheight'])
+
+        newRelY = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL + prevBtnRelY + prevBtnRelH
+
+        # Population Dataset label
+        self.labelInitialVarDesc = Label(self.labelFrameDatasetElements)
+        self.labelInitialVarDesc.place(
+            relx = prevLblRelX, rely = newRelY,
+            relwidth = prevLblRelW, relheight = prevLblRelH)
+        self.labelInitialVarDesc.configure(
+            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG,
+            text = UI_support.LBL_DATASET_POPULATION,
+            disabledforeground = Color_support.FG_DISABLED_COLOR,
+            bd = 1)
+
+        # Population Dataset entry
+        self.entryQueryPopulation = Entry(self.labelFrameDatasetElements)
+        self.entryQueryPopulation.place(
+            relx = prevEntryRelX, rely = newRelY,
+            relwidth = prevEntryRelW, relheight = prevEntryRelH)
+        self.entryQueryPopulation.configure(
+            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
+            bd = 1,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # Population Dataset upload
+        self.buttonQueryPopulation = Button(self.labelFrameDatasetElements)
+        self.buttonQueryPopulation.place(
+            relx = prevBtnRelX, rely = newRelY,
+            relwidth = prevBtnRelW, relheight = prevBtnRelH)
+        self.buttonQueryPopulation.configure(
+            background = Color_support.DATASET_BTN_BG, foreground = Color_support.DATASET_BTN_FG,
+            text = UI_support.BTN_DATASET_UPLOAD,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
+            activebackground = Color_support.DATASET_BTN_BG_ACTIVE,
+            activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+
+        # > VARDESC
+        prevFrameRelY = float(self.labelFrameDataset.place_info()['rely'])
+        prevFrameRelH = float(self.labelFrameDataset.place_info()['relheight'])
+        newFrameRelY = UI_support.TAB_VARDESC_REL_Y + prevFrameRelY + prevFrameRelH
+
+        # Create the Variable Description Generator parent frame
+        self.labelFrameVariableDescriptor = LabelFrame(self.dataTabParentFrame, bd = 0)
+        self.labelFrameVariableDescriptor.configure(
+            background = Color_support.VARDESC_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_VARDESC)
+        self.labelFrameVariableDescriptor.place(
+            relx = UI_support.TAB_VARDESC_REL_X, rely = newFrameRelY,
+            relwidth = UI_support.TAB_VARDESC_REL_W, relheight = UI_support.TAB_VARDESC_REL_H)
+
+        # Create the Variable Descriptor element parent frame
+        self.labelFrameVarDescElements = LabelFrame(self.labelFrameVariableDescriptor, bd = 0)
+        self.labelFrameVarDescElements.configure(
+            background = Color_support.VARDESC_BG, foreground = Color_support.FG_COLOR)
+        self.labelFrameVarDescElements.place(
+            relx = UI_support.TAB_ELEMENT_REL_X, rely = 0.1,
+            relwidth = UI_support.TAB_ELEMENT_REL_W, relheight = 0.80)
+
+        # > VARDESC ELEMENTS
+
+        # Variable File
+
+        # Variable File label
+        self.labelVariableFile = Label(self.labelFrameVarDescElements)
+        self.labelVariableFile.place(
+            relx = UI_support.TAB_3CHILD_LBL_REL_X, rely = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL,
+            relwidth = UI_support.TAB_3CHILD_LBL_REL_W, relheight = UI_support.TAB_3CHILD_LBL_REL_H_SMALL)
+        self.labelVariableFile.configure(
+            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG,
+            text = UI_support.LBL_VARDESC_VARFILE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR,
+            bd = 1)
         '''
-
-    ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
-    def queue(self, evt):
-        self.buttonQueue.configure(relief = FLAT)
-        datasets = []
-        datasets.append(self.datasetA)
-        datasets.append(self.datasetB)
-        global queryType
-        if (queryType == 'Sample vs Sample'):
-            self.addToQueue(queryType, datasetArgs = datasets)
-        else:
-            tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
-        return "break"
-
-    ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
-    def testQueue(self, evt):
-        if len(tests) == 0:
-            tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
-            return "break"
-            # return -1
-        self.listQueryDataB.delete(0,END)
-        i = 0
-        for test in tests:
-            fileNames = []
-            if(test['Type'] == 'Sample vs Sample'):
-                i +=  1
-                for dataset in test['Datasets']:
-                    convertDatasetValuesToGroups(dataset, features)
-                    fileName = makeFileName(dataset)
-                    writeCSVDict(fileName, dataset['Data'])
-                    fileNames.append(fileName)
-                if not (os.path.isfile("Updated-Variables.csv")):
-                    makeUpdatedVariables(features, "Updated-Variables.csv")
-                saveFile = ct.chiTest(fileNames)
-                tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
-                self.listQueryDataB.insert(END, tempString)
-                removeFiles(fileNames)
-        tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
-        return "break"
-
-    ''' Clears the tests in the queue. '''
-    def clearQueue(self, evt):
-        tests[:] = []
-        self.labelQueueCount.configure(text = str(len(tests)))
-        tkMessageBox.showinfo("Reset", "Queue cleared.")
-        self.buttonQueue.configure(relief = FLAT)
-        return "break"
-
-    ''' Simultaneously scrolls the FILTER listbox A and B'''
-    def scrollFilterListBox (self, evt): # To simultaneously scroll Filter listbox A and B
-        self.listQueryDataA.yview("scroll", evt.delta,"units")
-        self.listQueryDataB.yview("scroll",evt.delta,"units")
-        # this prevents default bindings from firing, which
-        # would end up scrolling the widget twice
-        return "break"
-
-    '''
-    def setFocusFeatureValuesA(self, evt):
-        selectedItems = self.listQueryDataA.curselection()
-        self.setFocusFeatureValues(selectedItems)
-
-    def setFocusFeatureValuesB(self, evt):
-        selectedItems = self.listQueryDataB.curselection()
-        self.setFocusFeatureValues(selectedItems)
-    '''
-
-    def setFocusFeatureValues(self, evt): ### TODO Add checker if listbox is not empty
-        listBox = evt.widget
-        selectedItems = listBox.curselection()
-        setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
-        setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
-
-    def querySetPopulation(self, evt):
-        self.setPopulation(evt)
-        return "break"
-
-    def querySetDataA(self, evt):
-        try:
-            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA,self.datasetA,"Dataset_Feature")
-        except NameError:
-            tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
-        return "break"
-    
-    def querySetDataB(self, evt):
-        try:
-            findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB,"Dataset_Feature")
-        except NameError:
-            tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
-        return "break"
-
-    def queryResetDatasetA(self,evt):
-        self.buttonQueryResetFilterA.configure(relief = FLAT)
-
-        self.datasetA = resetDataset(self.datasetA)
-        self.entryQuerySetDataA.configure(text = '')
-        self.entryQueryFeature.configure(text = '')
-        self.labelQuerySetDataStatusA.configure(
-            text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-            background = Color_support.SELECT_LISTBOX_STATUS_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+        self.labelVariableFile.configure(
+            highlightcolor = Color_support.VARDESC_BTN_BG_ACTIVE,
+            highlightbackground = Color_support.FUSCHIA,
+            activebackground = Color_support.FUSCHIA,
+            highlightthickness = 10,
+            takefocus = True,
+            state = ACTIVE
         )
-
-        # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
-        # self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
-
-        # if self.datasetA['Data'] is []:
-        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
-        # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
-
-        # Empty FILTER details of BOTH A and B
-        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataA.delete(0, END)
-        self.listQuerySetDataA.delete(0, END)
-
-        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataB.delete(0, END)
-        # self.listQuerySetDataB.delete(0, END)
-
-        self.labelQueryDataFeatureName.configure(
-            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
-        )
-
-        return "break"
-
-    def queryResetDatasetB(self, evt):
-        self.buttonQueryResetFilterB.configure(relief = FLAT)
-        self.datasetB = resetDataset(self.datasetB)
-        self.entryQuerySetDataB.configure(text = '')
-        self.entryQueryFeature.configure(text = '')
-
-        # self.labelFrameQueryDataB.configure(text = "Dataset B")
-        self.labelQuerySetDataStatusB.configure(
-            text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-            background = Color_support.SELECT_LISTBOX_STATUS_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
-        )
-
-        # if self.datasetB['Data'] is []:
-        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
-        # self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data']))) ### TODO
-
-        # Empty FILTER details of BOTH A and B
-        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataA.delete(0,END)
-        # self.listQuerySetDataA.delete(0,END)
-
-        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataB.delete(0,END)
-        self.listQuerySetDataB.delete(0,END)
-
-        self.labelQueryDataFeatureName.configure(
-            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
-        )
-
-        return "break"
-    
-    def querySelectDataValuesA(self, evt):
-        selectDatasetValues(evt, self.datasetA, self.populationDataset, self.labelQueryDataACount)
-    
-    def querySelectDataValuesB(self, evt):
-        selectDatasetValues(evt, self.datasetB, self.populationDataset, self.labelQueryDataBCount)
-
-    def queryAddFilterA(self, evt):
-        self.buttonQueryAddFilterA.configure(relief = FLAT)
-        # If the dataset is empty, do not push through with filtering.
-        if len(self.datasetA['Data']) <= 0:
-            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
-            # return -1
-            return "break"
-
-        # Filter the data given the feature inputted and its values selected
-        try:
-            new_data = filterDataset(self.datasetA, self.datasetA['Feature'], self.datasetA['Feature']['Selected Responses'])
-        except KeyError:
-            tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
-            # return -1
-            return "break"
-
-        # Add the feature to the dataset's filtered features
-        self.datasetA['Filter Features'].append(self.datasetA['Feature'])
-        
-        # Assign the new set of filtered data
-        self.datasetA['Data'] = new_data
-
-        if(queryType == 'Sample vs Sample'):
-            queryStrFilterA = ''
-            # queryStrFilterA = 'Dataset A'
-        else:
-            # queryStrFilterA = 'Population'
-            queryStrFilterA = ''
-
-        #Write the breadcrumb trail of the features and values the dataset was filtered by
-        for i in range(0, len(self.datasetA['Filter Features'])):
-            # queryStrFilterA = queryStrFilterA + "->" + self.datasetA['Filter Features'][i]['Code']
-            queryStrFilterA = " [ " + self.datasetA['Filter Features'][i]['Code'] + " | "
-            for j in range(0,len(self.datasetA['Filter Features'][i]['Selected Responses'])):
-                # if j == 0:
-                #     queryStrFilterA = queryStrFilterA + " [ "
-                queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
-                if j == (len(self.datasetA['Filter Features'][i]['Selected Responses']) - 1):
-                    queryStrFilterA = queryStrFilterA + "]"
-                    
-        # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
-        self.labelQuerySetDataStatusA.configure(
-            text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA,
-            background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
-        )
-
-        return "break"
-
-    def queryAddFilterB(self, evt):
-
-        self.buttonQueryAddFilterB.configure(relief = FLAT)
-        # If the dataset is empty, do not push through with filtering.
-        if len(self.datasetB['Data']) <= 0:
-            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
-            # return -1
-            return "break"
-        
-        # Filter the data given the feature inputted and its values selected
-        try:
-            new_data = filterDataset(self.datasetB, self.datasetB['Feature'], self.datasetB['Feature']['Selected Responses'])
-        except KeyError:
-            tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
-            # return -1
-            return "break"
-
-        # Add the feature to the dataset's filtered features
-        self.datasetB['Filter Features'].append(self.datasetB['Feature'])
-
-        # Assign the new set of filtered data
-        self.datasetB['Data'] = new_data
-
-        if(queryType == 'Sample vs Sample'): ### TODO
-            queryStrFilterB = ''
-        else:
-            queryStrFilterB = ''
-
-        #Write the breadcrumb trail of the features and values the dataset was filtered by
-        for i in range(0, len(self.datasetB['Filter Features'])):
-            # queryStrFilterB = queryStrFilterB + "->" + self.datasetB['Filter Features'][i]['Code']
-            queryStrFilterB = " [ " + self.datasetB['Filter Features'][i]['Code'] + " | "
-            for j in range(0,len(self.datasetB['Filter Features'][i]['Selected Responses'])):
-                # if j == 0:
-                #     queryStrFilterB = queryStrFilterB + "("
-                queryStrFilterB = queryStrFilterB + self.datasetB['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
-                if j == (len(self.datasetB['Filter Features'][i]['Selected Responses'])-1):
-                    queryStrFilterB = queryStrFilterB + "]"
-
-
-        # Concat the Filter String Here
-        # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
-        self.labelQuerySetDataStatusB.configure(
-            text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
-            background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
-        )
-        return "break"
-
-    def querySetFeature(self, evt):
-        entryQuery = self.entryQueryFeature.get()
-
-        # If the dataset is empty, do not continue finding the feature
-        if(len(self.datasetA['Data']) <= 0 or len(self.datasetB['Data']) <= 0):
-            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
-
-        else :
-            try:
-                self.querySetFeatureA(entryQuery)
-                self.querySetFeatureB(entryQuery)
-
-                # Get the feature description
-                featureDesc = self.datasetA['Focus Feature']['Description'] # Doesn't matter if you use datasetA or datasetB
-
-                # If the description is too long
-                if len(featureDesc) > 70:
-                    featureDesc = featureDesc[:71] + '...'  # Shorten it
-
-                # Display the description
-                self.labelQueryDataFeatureName.config(text = featureDesc)
-
-            except NameError:
-                tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
-
-        return "break"
-
-    ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
-    def querySetFeatureA(self, entryQuery):
-        findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
         '''
-        # Get the feature description
-        featureDesc = self.datasetA['Focus Feature']['Description']
+        # Previous values (1.1)
+        prevLblRelX = float(self.labelVariableFile.place_info()['relx'])
+        prevLblRelY = float(self.labelVariableFile.place_info()['rely'])
+        prevLblRelW = float(self.labelVariableFile.place_info()['relwidth'])
+        prevLblRelH = float(self.labelVariableFile.place_info()['relheight'])
 
-        # If the description is too long
-        if len(featureDesc) > 70:
-            featureDesc = featureDesc[:71] + '...' #Shorten it
+        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
 
-        # Display the description
-        self.labelQueryDataFeatureName.config(text = featureDesc)
-        '''
+        # Variable File entry
+        self.entryVariableFile = Entry(self.labelFrameVarDescElements)
+        self.entryVariableFile.place(
+            relx = newRelX, rely = prevLblRelY,
+            relwidth = UI_support.TAB_3CHILD_ENTRY_REL_W, relheight = prevLblRelH)
+        self.entryVariableFile.configure(
+            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
+            bd = 1,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
 
-    ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
-    def querySetFeatureB(self, entryQuery):
-        findFeature(entryQuery, self.listQueryDataB, self.datasetB,"Focus_Feature")
+        # Previous values (1.2)
+        prevEntryRelX = float(self.entryVariableFile.place_info()['relx'])
+        prevEntryRelW = float(self.entryVariableFile.place_info()['relwidth'])
+        prevEntryRelH = float(self.entryVariableFile.place_info()['relheight'])
 
+        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevEntryRelX + prevEntryRelW
 
-    ''' Conduct the Z-Test between the two samples. '''
-    def queryZTest(self, evt):
-        self.buttonQueryZTest.configure(relief = FLAT)
-        # Get selected confidence interval
-        # confidenceInterval = self.comboQueryCriticalValue.get()
-        confidenceInterval = self.spinBoxQueryZConfidence.get()
+        # Variable File upload
+        self.buttonVariableFile = Button(self.labelFrameVarDescElements)
+        self.buttonVariableFile.place(
+            relx = newRelX, rely = prevLblRelY,
+            relwidth = UI_support.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
+        self.buttonVariableFile.configure(
+            background = Color_support.VARDESC_BTN_BG, foreground = Color_support.VARDESC_BTN_FG,
+            text = UI_support.BTN_VARDESC_UPLOAD,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
+            activebackground = Color_support.VARDESC_BTN_BG_ACTIVE,
+            activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
 
-        # Get corresponding Z Critical Value of the confidence interval
-        zCritical = arrQueryCriticalValueMapping[confidenceInterval] 
+        # Previous values (1.3)
+        prevBtnRelX = float(self.buttonVariableFile.place_info()['relx'])
+        prevBtnRelY = float(self.buttonVariableFile.place_info()['rely'])
+        prevBtnRelW = float(self.buttonVariableFile.place_info()['relwidth'])
+        prevBtnRelH = float(self.buttonVariableFile.place_info()['relheight'])
 
-        if 'Focus Feature' in self.datasetA:
-            # Check if the selected focus feature and selected values of it are the same for both samples
-            isSame = isSameFocusFeat(self.datasetA, self.datasetB, self.datasetA['Focus Feature']['Selected Values'], self.datasetB['Focus Feature']['Selected Values'])
-            if(isSame == 1):
-                # Calculate Z score between the two samples
-                zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'], self.datasetB['Total'], self.datasetB['ProportionPercent'])
-                # Get result if accept/reject compared to the zCritical value
-                zResult = svs.compareZtoZCritical(zScore, zCritical)
-                # Display Z score and whether accept/reject at inputted confidence interval
-                self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
+        newRelY = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL + prevBtnRelY + prevBtnRelH
 
-        return "break"
+        # Values File label
+        self.labelValuesFile = Label(self.labelFrameVarDescElements)
+        self.labelValuesFile.place(
+            relx = prevLblRelX, rely = newRelY,
+            relwidth = prevLblRelW, relheight = prevLblRelH)
+        self.labelValuesFile.configure(
+            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG,
+            text = UI_support.LBL_VARDESC_VALFILE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR,
+            bd = 1)
 
-    ''' Conduct Z-Test between the population and all samples '''
-    def querySVP(self,evt):
-        confidenceInterval = self.comboQueryCriticalValueSvP.get() #Get selected confidence interval
-        zCritical = arrQueryCriticalValueMapping[confidenceInterval] #Get corresponding Z Critical Value
-        sampleFeature = self.datasetB['Feature']['Code']
-        self.listQueryDataB.delete(0,END)
-        #Iterate through every sample 
-        for sampleResponse in self.datasetB['Feature']['Responses']:
-            resultsRows = []
+        # Values File entry
+        self.entryValuesFile = Entry(self.labelFrameVarDescElements)
+        self.entryValuesFile.place(
+            relx = prevEntryRelX, rely = newRelY,
+            relwidth = prevEntryRelW, relheight = prevEntryRelH)
+        self.entryValuesFile.configure(
+            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
+            bd = 1,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
 
-            sampleValue = sampleResponse['Code'] #Get sample code to get the samples by
-            
-            #Header of the results file
-            header = ['Feature Code','N','F','P','Sample','n','f','p','SE','Z Score','Z Critical Value','LB','UB','Accept/Reject']
-            resultsRows.append(header)
-            
-            #Iterate through every feature
-            for feature in features:
-                featureValues = [] #Values that are not in group -1. This will be all values of the feature.
-                selectedFeatureValues = []#Values within featureValues that are selected by the user. By default, it is just those with group 'b'
+        # Values File upload
+        self.buttonValuesFile = Button(self.labelFrameVarDescElements)
+        self.buttonValuesFile.place(
+            relx = prevBtnRelX, rely = newRelY,
+            relwidth = prevBtnRelW, relheight = prevBtnRelH)
+        self.buttonValuesFile.configure(
+            background = Color_support.VARDESC_BTN_BG, foreground = Color_support.VARDESC_BTN_FG,
+            text = UI_support.BTN_VARDESC_UPLOAD,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
+            activebackground = Color_support.VARDESC_BTN_BG_ACTIVE,
+            activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
 
-                #Iterate through the values of the feature
-                for response in feature['Responses']:
-                    #If the group of that value is not -1
-                    if response['Group'] != '-1': 
-                        featureValues.append(response['Code'])#Add to the allValues that will determine n
+        # START
+        # Always update to reflect height and width values in winfo when using relheight/relwidth
+        self.buttonValuesFile.update()
+        self.labelFrameVariableDescriptor.update()
 
-                        #If the group of the value is 'a'
-                        if(response['Group'] == 'a'): #MODIFY THIS SUCH THAT IT CAN BE SELECTED BY THE USER
-                            selectedFeatureValues.append(response['Code'])#Add to selectedValues that will determine p
-                
-                #Convert allValues to string separated by ':'
-                allValString = concatListToString(featureValues, ':')
+        # print self.buttonValuesFile.place_info()
+        print "height " + str(self.buttonValuesFile.winfo_height())
+        print "width " + str(self.buttonValuesFile.winfo_width())
 
-                #Convert selectedValues to string separated by ':'
-                selectedValString = concatListToString(selectedFeatureValues, ':')
+        buttonX = 0.5  # self.labelFrameVariableDescriptor.winfo_x()
 
-                #Get results of that sample vs population based on a feature given its values that determine
-                # n and values that determine p
-                resultRow = svp.sampleVsPopulationSpecific(self.datasetA['Data'],sampleFeature, sampleValue,feature['Code'], allValString, selectedValString,zCritical, ':')
-                
-                resultsRows.append(resultRow)
-            #Write all results of all Z-Tests on all features of that sample in to a .csv file
-            fileName = "SVP.csv"
-            try:
-                fileName = "Z-Test_Sample " +sampleFeature+"("+ sampleValue +")" + "_vs_Pop" + self.datasetA['Feature']['Code']+".csv"
-            except KeyError:
-                fileName = "Z-Test_Sample " +sampleFeature+"("+ sampleValue +")" + "_vs_Pop.csv"
-            writeOnCSV(resultsRows, fileName)
-            self.listQueryDataB.insert(END, "Z-Test complete. Saved as " + fileName)
-        tkMessageBox.showinfo(testType, testType + " completed.")
+        prevFrameRelY = float(self.labelFrameVariableDescriptor.place_info()['rely'])
+        prevFrameRelH = float(self.labelFrameVariableDescriptor.place_info()['relheight'])
+        buttonY = UI_support.TAB_VARDESC_REL_Y + prevFrameRelY + prevFrameRelH
 
-    ''' Sets test type: Sample vs Sample (Chi-Test, Z-Test) or Sample vs Population (Z-Test) '''
-    def querySetType(self, evt):
-        global queryType
-        queryType = self.comboQueryTest.get()
-        self.adjustQueryViews()
+        buttonHeight = self.buttonValuesFile.winfo_height()
+        buttonWidth = self.buttonValuesFile.winfo_width()
 
-    ''' Disables/enables views (buttons, entry fields etc.) based on test type selected '''
-    def adjustQueryViews(self):
-        self.buttonQueryFeature.configure(state = "normal")
-        # self.buttonQueryFeatureA.configure(state = "normal")
-        # self.buttonQueryFeatureB.configure(state = "normal")
+        self.buttonStartVariableDescriptor = Button(self.dataTabParentFrame)
+        self.buttonStartVariableDescriptor.place(
+            relx = buttonX, rely = buttonY,
+            width = buttonWidth, height = buttonHeight, anchor = CENTER)
+        self.buttonStartVariableDescriptor.configure(
+            background = Color_support.START_BTN_BG, foreground = Color_support.START_BTN_FG,
+            text = UI_support.BTN_START,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
+            activebackground = Color_support.START_BTN_BG_ACTIVE, activeforeground = Color_support.START_BTN_FG_ACTIVE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
 
-        self.entryQueryFeatureA.configure(state = "normal")
-        self.entryQueryFeatureB.configure(state = "normal")
-        self.buttonQueryZTest.configure(state = "normal")
-
-        self.spinBoxQueryZConfidence.configure(state = "normal")
-        # self.comboQueryCriticalValue.configure(state = "normal")
-
-        self.buttonQueue.configure(state = "normal")
-        self.buttonClearQueue.configure(state = "normal")
-        self.buttonTestQueue.configure(state = "normal")
-        #self.buttonTest.configure(state = "normal")
-        self.labelQueryZTest.configure(state = "normal")
-        self.labelQueryDataA.configure(state = "normal")
-        self.labelQueryDataB.configure(state = "normal")
-        self.buttonQueryZTestSvP.configure(state = "normal")
-        self.comboQueryCriticalValueSvP.configure(state = "normal")
-        self.labelQueryZTestSvP.configure(state = "normal")
-        self.listQueryDataA.configure(state = "normal")
-        self.listQueryDataB.configure(state = "normal")
-
-        self.datasetA = resetDataset(self.datasetA)
-        self.entryQuerySetDataA.configure(text = '')
-        self.entryQueryFeatureA.configure(text = '')
-        if self.datasetA is not []:
-            self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
-        self.labelQueryDataA.configure(text = "")
-        self.listQueryDataA.delete(0,END)
-        self.listQuerySetDataA.delete(0,END)
-
-        self.datasetB = resetDataset(self.datasetB)
-        self.entryQuerySetDataB.configure(text = '')
-        self.entryQueryFeatureB.configure(text = '')
-        if self.datasetB is not []:
-            self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
-        self.labelQueryDataB.configure(text = "")
-        self.listQueryDataB.delete(0,END)
-        self.listQuerySetDataB.delete(0,END)
-
-        if queryType == 'Sample vs Population':
-            self.buttonQueryFeature.configure(state = "disabled")
-            # self.buttonQueryFeatureA.configure(state = "disabled")
-            # self.buttonQueryFeatureB.configure(state = "disabled")
-            self.entryQueryFeatureA.configure(state = "disabled")
-            self.entryQueryFeatureB.configure(state = "disabled")
-            self.buttonQueryZTest.configure(state = "disabled")
-
-            self.spinBoxQueryZConfidence.configure(state = "disabled")
-            # self.comboQueryCriticalValue.configure(state = "disabled")
-
-            self.buttonQueue.configure(state = "disabled")
-            self.buttonClearQueue.configure(state = "disabled")
-            self.buttonTestQueue.configure(state = "disabled")
-            #self.buttonTest.configure(state = "disabled")
-            self.labelQueryZTest.configure(state = "disabled")
-            self.labelQueryDataA.configure(state = "disabled")
-            self.labelQueryDataB.configure(state = "disabled")
-            self.listQueryDataA.configure(state = "disabled")
-            # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
-            # self.labelFrameQueryDataB.configure(text = "Samples")
-            self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
-            )
-            self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
-            )
-            self.labelQueryDataBCount.configure(text = "")
-        else:
-            self.buttonQueryZTestSvP.configure(state = "disabled")
-
-            self.comboQueryCriticalValueSvP.configure(state = "disabled")
-
-            self.labelQueryZTestSvP.configure(state = "disabled")
-            # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
-            # self.labelFrameQueryDataB.configure(text = "Dataset B")
-            self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
-            )
-            self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
-            )
-
-    def querySetAllFeatures(self):
-        #Test items
-        global strarrAllFeatures
-        strarrAllFeatures = list(self.listQuerySetDataA.get(0, END))
+    ''' --> Configure TEST ("TEST") TAB (2) <-- '''
     # endregion
-
-    # endregion
-
-
-
-
-    """ >>> HELPER FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. enter, leave) <<< """
-    # TODO Optimize (avoid resizing, keep a reference)
-    # region
-    def enterCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_check_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_check_icon)
-        item.image = btn_check_icon  # < ! > Required to make images appear
-
-    def leaveCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_check_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_check_icon)
-        item.image = btn_check_icon  # < ! > Required to make images appear
-
-    def enterCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_cross_icon)
-        item.image = btn_cross_icon  # < ! > Required to make images appear
-
-    def leaveCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_cross_icon)
-        item.image = btn_cross_icon  # < ! > Required to make images appear
-
-    def enterAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_ADD_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_add_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_add_icon)
-        item.image = btn_add_icon  # < ! > Required to make images appear
-
-    def leaveAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_add_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_add_icon)
-        item.image = btn_add_icon  # < ! > Required to make images appear
-
-    def enterDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        item = event.widget
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item.configure(
-            image = btn_down_arrow_icon)
-        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
-
-    def leaveDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_down_arrow_icon)
-        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
-
-    def enterRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
-        item = event.widget
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
-
-    def leaveRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
-
-    def enterRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        item = event.widget
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
-
-    def leaveRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
-
-    '''
-    def enterQueryAddFilterA(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryAddFilterA.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
-
-    def leaveQueryAddFilterA(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryAddFilterA.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
-
-    def enterQueryAddFilterB(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-
-        self.buttonQueryAddFilterB.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
-
-
-    def leaveQueryAddFilterB(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-
-        self.buttonQueryAddFilterB.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
-
-
-    def enterQueryResetFilterA(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-
-        self.buttonQueryResetFilterA.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
-
-
-    def leaveQueryResetFilterA(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-
-        self.buttonQueryResetFilterA.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
-
-
-    def enterQueryResetFilterB(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryResetFilterB.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
-
-    def leaveQueryResetFilterB(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryResetFilterB.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
-    '''
-
-    def enterQueryZTest(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(
-            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
-
-    def leaveQueryZTest(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(
-            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
-    # endregion
-
-
-
-
-    """ >>> HELPER FUNCTIONS UI ELEMENTS <<< """
-    # region
-    def getRelX(self, element):
-        return float(element.place_info()['relx'])
-    def getRelY(self, element):
-        return float(element.place_info()['rely'])
-    def getRelW(self, element):
-        return float(element.place_info()['relwidth'])
-    def getRelH(self, element):
-        return float(element.place_info()['relheight'])
-    def getW(self, element):
-        return float(element.place_info()['width'])
-    def getH(self, element):
-        return float(element.place_info()['height'])
-    def getInfoH(self, element):
-        return element.winfo_height()
-    def getInfoW(self, element):
-        return element.winfo_width()
-    # endregion
-
-
 
 
 
@@ -3434,6 +2504,945 @@ class OOTO_Miner:
         # TODO
         print ("TODO")
     # endregion
+
+
+    """ >>> FUNCTIONS CALLED FOR BINDING ELEMENTS <<< """
+    # region
+    ''' --> General call to all binding sub-functions <-- '''
+    def configureBindings(self):
+        print ("TODO")
+        self.configureDataTabBindings()
+        self.configureTestTabBindings()
+
+    ''' --> Binding elements under the DATA ("DATA") TAB (1) <-- '''
+    # region
+    def configureDataTabBindings(self):
+        self.buttonStartVariableDescriptor.bind('<Button-1>', self.makeInitialVarDesc)
+        self.buttonVariableFile.bind('<Button-1>', self.getVariableFile)
+        self.buttonValuesFile.bind('<Button-1>', self.getValuesFile)
+        self.buttonInitialVarDesc.bind('<Button-1>', self.uploadInitVarDesc)
+    # endregion
+
+    ''' --> Binding elements under the TEST ("TEST") TAB (2) <-- '''
+    # region
+    def configureTestTabBindings(self):
+        # BUTTONS
+        self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
+
+        self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
+        self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
+
+        self.buttonQueryAddFilterA.bind('<Button-1>', self.queryAddFilterA)
+        self.buttonQueryAddFilterB.bind('<Button-1>', self.queryAddFilterB)
+
+        self.buttonQueryFeature.bind('<Button-1>', self.querySetFeature)
+        # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
+        # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
+
+        self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)
+        self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)
+        self.buttonQueue.bind('<Button-1>', self.queue)
+
+        self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
+        self.buttonTestQueue.bind('<Button-1>', self.testQueue)
+
+        self.buttonQueryResetFilterA.bind('<Button-1>', self.queryResetDatasetA)
+        self.buttonQueryResetFilterB.bind('<Button-1>', self.queryResetDatasetB)
+
+
+
+        # ENTER / LEAVE
+        self.buttonQuerySetDataA.bind("<Enter>", self.enterRightArrowPlainIcon)
+        self.buttonQuerySetDataA.bind("<Leave>", self.leaveRightArrowPlainIcon)
+
+        self.buttonQuerySetDataB.bind("<Enter>", self.enterRightArrowPlainIcon)
+        self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowPlainIcon)
+        # self.buttonQuerySetDataB.bind("<Enter>", lambda event, iconSize =  Icon_support.SELECT_ICO_SIZE_BUTTONS: self.enterRightArrowIcon(event, Icon_support.SELECT_ICO_SIZE_BUTTONS))
+        # self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowIcon(Icon_support.SELECT_ICO_SIZE_BUTTONS))
+
+        self.buttonQueryAddFilterA.bind("<Enter>", self.enterCheckIcon)
+        self.buttonQueryAddFilterA.bind("<Leave>", self.leaveCheckIcon)
+
+        self.buttonQueryAddFilterB.bind("<Enter>", self.enterCheckIcon)
+        self.buttonQueryAddFilterB.bind("<Leave>", self.leaveCheckIcon)
+
+        self.buttonQueryFeature.bind("<Enter>", self.enterRightArrowPlainIcon)
+        self.buttonQueryFeature.bind("<Leave>", self.leaveRightArrowPlainIcon)
+
+        self.buttonQueryZTest.bind("<Enter>", self.enterCheckIcon)
+        self.buttonQueryZTest.bind("<Leave>", self.leaveCheckIcon)
+
+        self.buttonQueue.bind("<Enter>", self.enterAddIcon)
+        self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
+        # self.buttonQueue.bind("<Enter>", self.enterDownArrowIcon)
+        # self.buttonQueue.bind("<Leave>", self.leaveDownArrowIcon)
+
+        self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
+        self.buttonClearQueue.bind("<Leave>", self.leaveCrossIcon)
+
+        self.buttonTestQueue.bind("<Enter>", self.enterRightArrowIcon)
+        self.buttonTestQueue.bind("<Leave>", self.leaveRightArrowIcon)
+
+        self.buttonQueryResetFilterA.bind("<Enter>", self.enterCrossIcon)
+        self.buttonQueryResetFilterA.bind("<Leave>", self.leaveCrossIcon)
+
+        self.buttonQueryResetFilterB.bind("<Enter>", self.enterCrossIcon)
+        self.buttonQueryResetFilterB.bind("<Leave>", self.leaveCrossIcon)
+
+        # LISTBOX
+        self.listQuerySetDataA.bind('<<ListboxSelect>>', self.querySelectDataValuesA)
+        self.listQuerySetDataB.bind('<<ListboxSelect>>', self.querySelectDataValuesB)
+
+        self.listQueryDataA.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
+        self.listQueryDataB.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
+
+        # MOUSEWHEEL
+        self.listQueryDataA.bind("<MouseWheel>", self.scrollFilterListBox)
+        self.listQueryDataB.bind("<MouseWheel>", self.scrollFilterListBox)
+
+        # COMBOBOX
+        self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
+    # endregion
+
+    # endregion
+
+
+
+    """ >>> FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. buttons, listboxes) <<< """
+    # region
+
+    ''' --> Elements under the DATA ("DATA") TAB (1) <-- '''
+    # region
+    ''' (?) Generates the initial variable description '''
+    def makeInitialVarDesc(self, evt):
+        varFileDir = self.entryVariableFile.get()
+        valFileDir = self.entryValuesFile.get()
+        # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
+        print self.entryQueryPopulation.get()[-4:]
+
+        if self.entryInitialVarDesc.get()[-4:] != ".csv": # TODO Properly check for valid files
+            tkMessageBox.showinfo("System Message", "Please enter a valid Variable Description CSV file") # TODO!!
+
+        elif self.entryQueryPopulation.get()[-4:] != ".csv":
+            tkMessageBox.showinfo("System Message", "Please enter a valid Population Dataset CSV file") # TODO!!
+
+        else:
+            tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!") # TODO!!
+            self.Tabs.select(UI_support.TAB_TEST_INDEX)
+        return "break"
+
+    ''' (?) Uploads the variable file '''
+    def getVariableFile(self, evt):
+        varFileDir = askopenfilename(title = "Select variable file",filetypes = (("txt files","*.txt"),("all files","*.*")))
+        self.entryVariableFile.delete(0, END)
+        self.entryVariableFile.insert(0, varFileDir)
+        return "break"
+
+    ''' (?) Uploads the values file '''
+    def getValuesFile(self, evt):
+        valFileDir = askopenfilename(title = "Select values file",filetypes = (("txt files","*.txt"),("all files","*.*")))
+        self.entryValuesFile.delete(0,END)
+        self.entryValuesFile.insert(0, valFileDir)
+        return "break"
+
+    ''' Uploads the variable description '''
+    def uploadInitVarDesc(self, evt):
+        print "UPLOADED"
+        initVarDisc = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
+
+        if len(initVarDisc) == 0:
+            tkMessageBox.showerror("Error: Upload Variable description",
+                                   "Please select a valid variable description file.")
+        else:
+            self.entryInitialVarDesc.delete(0, END)
+            self.entryInitialVarDesc.insert(0, initVarDisc)
+            global features
+            features = readFeatures(initVarDisc,"^")
+            if (len(features)) > 0:
+                tkMessageBox.showinfo("Variable description set","Variable description uploaded")
+
+                #getCommonGroups(features)
+            else:
+                tkMessageBox.showerror("Error: Upload Variable description",
+                                       "Please select a valid variable description file.")
+
+        return "break" # this "unsinks" the button after opening the file explorer
+
+    ''' Uploads the population module '''
+    def setPopulation(self, evt):
+        global populationDir
+        populationDir = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
+
+        if len(populationDir) == 0:
+            tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
+        else:
+            self.entryQueryPopulation.delete(0,END)
+            self.entryQueryPopulation.insert(0,populationDir)
+
+            self.populationDataset = readCSVDict(populationDir)
+            self.datasetA['Data'] = []
+            self.datasetB['Data'] = []
+
+            if(len(list(self.populationDataset)) > 0):
+                tkMessageBox.showinfo("Population set", "Population dataset uploaded")
+                self.populationDataset = readCSVDict(populationDir)
+                for record in self.populationDataset:
+                    self.datasetA['Data'].append(record)
+                    self.datasetB['Data'].append(record)
+                self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])) )
+                self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])) )
+            else:
+                tkMessageBox.showerror("Error: Upload error", "Error uploading population dataset. Please select a valid file and try again.")
+
+    ''' (REMOVE) Shows the project details '''
+    def showAbout(self):
+        strAbout = "OTOO Miner v4.0\n" \
+                   "by TE3D House\n" \
+                   "De La Salle University - Laguna"
+        tkMessageBox.showinfo("About", strAbout)
+
+    # endregion
+
+    ''' --> Elements under the TEST ("TEST") TAB (2) <-- '''
+    # region
+
+    ''' Adds test to the queue '''
+    def addToQueue(self, testType, **params):
+        global tests
+        test = {'Type':testType}
+        for key in params:
+            if(key == 'popDirArg'):
+                test['Population Path'] = copy.copy(params[key])
+            elif(key == 'sampleFeatArg'):
+                test['Sample Feature'] = copy.copy(params[key])
+            elif(key == 'selectedFeatArg'):
+                test['Selected Feature'] = copy.copy(params[key])
+            elif(key == 'allValArg'):
+                test['SF All Values'] = copy.copy(params[key])
+            elif(key == 'selValArg'):
+                test['SF Selected Values'] = copy.copy(params[key])
+            elif(key == 'datasetArgs'):
+                test['Datasets'] = copy.deepcopy(params[key])
+            elif(key == 'zArg'):
+                test['Z Critical Value'] = copy.copy(params[key])
+        tests.append(test)
+        self.labelQueueCount.configure(text = str(len(tests)))
+        tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
+
+
+        '''
+        self.buttonInitialVarDesc.configure(
+            background=Color_support.DATASET_BTN_BG, foreground=Color_support.DATASET_BTN_FG,
+            text=UI_support.BTN_DATASET_UPLOAD,
+            bd=1, relief=GROOVE,
+            activebackground=Color_support.DATASET_BTN_BG_ACTIVE, activeforeground=Color_support.DATASET_BTN_FG_ACTIVE,
+            disabledforeground=Color_support.FG_DISABLED_COLOR)
+        '''
+
+    ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
+    def queue(self, evt):
+        self.buttonQueue.configure(relief = FLAT)
+        datasets = []
+        datasets.append(self.datasetA)
+        datasets.append(self.datasetB)
+        global queryType
+        if (queryType == 'Sample vs Sample'):
+            self.addToQueue(queryType, datasetArgs = datasets)
+        else:
+            tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
+        return "break"
+
+    ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
+    def testQueue(self, evt):
+        if len(tests) == 0:
+            tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
+            return "break"
+            # return -1
+        self.listQueryDataB.delete(0,END)
+        i = 0
+        for test in tests:
+            fileNames = []
+            if(test['Type'] == 'Sample vs Sample'):
+                i +=  1
+                for dataset in test['Datasets']:
+                    convertDatasetValuesToGroups(dataset, features)
+                    fileName = makeFileName(dataset)
+                    writeCSVDict(fileName, dataset['Data'])
+                    fileNames.append(fileName)
+                if not (os.path.isfile("Updated-Variables.csv")):
+                    makeUpdatedVariables(features, "Updated-Variables.csv")
+                saveFile = ct.chiTest(fileNames)
+                tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
+                # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else
+                removeFiles(fileNames)
+        tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
+        return "break"
+
+    ''' Clears the tests in the queue. '''
+    def clearQueue(self, evt):
+        tests[:] = []
+        self.labelQueueCount.configure(text = str(len(tests)))
+        tkMessageBox.showinfo("Reset", "Queue cleared.")
+        self.buttonQueue.configure(relief = FLAT)
+        return "break"
+
+    ''' Simultaneously scrolls the FILTER listbox A and B'''
+    def scrollFilterListBox (self, evt): # To simultaneously scroll Filter listbox A and B
+        self.listQueryDataA.yview("scroll", evt.delta,"units")
+        self.listQueryDataB.yview("scroll",evt.delta,"units")
+        # this prevents default bindings from firing, which
+        # would end up scrolling the widget twice
+        return "break"
+
+    '''
+    def setFocusFeatureValuesA(self, evt):
+        selectedItems = self.listQueryDataA.curselection()
+        self.setFocusFeatureValues(selectedItems)
+
+    def setFocusFeatureValuesB(self, evt):
+        selectedItems = self.listQueryDataB.curselection()
+        self.setFocusFeatureValues(selectedItems)
+    '''
+
+    def setFocusFeatureValues(self, evt): ### TODO Add checker if listbox is not empty
+        listBox = evt.widget
+        selectedItems = listBox.curselection()
+        setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
+        setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
+
+    def querySetPopulation(self, evt):
+        self.setPopulation(evt)
+        return "break"
+
+    def querySetDataA(self, evt):
+        try:
+            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA,self.datasetA,"Dataset_Feature")
+        except NameError:
+            tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+        return "break"
+    
+    def querySetDataB(self, evt):
+        try:
+            findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB,"Dataset_Feature")
+        except NameError:
+            tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+        return "break"
+
+    def queryResetDatasetA(self,evt):
+        self.buttonQueryResetFilterA.configure(relief = FLAT)
+
+        self.datasetA = resetDataset(self.datasetA)
+        self.entryQuerySetDataA.configure(text = '')
+        self.entryQueryFeature.configure(text = '')
+        self.labelQuerySetDataStatusA.configure(
+            text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
+            background = Color_support.SELECT_LISTBOX_STATUS_BG,
+            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+        )
+
+        # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
+        # self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
+
+        # if self.datasetA['Data'] is []:
+        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
+        # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
+
+        # Empty FILTER details of BOTH A and B
+        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.listQueryDataA.delete(0, END)
+        self.listQuerySetDataA.delete(0, END)
+
+        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.listQueryDataB.delete(0, END)
+        # self.listQuerySetDataB.delete(0, END)
+
+        self.labelQueryDataFeatureName.configure(
+            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
+        )
+
+        return "break"
+
+    def queryResetDatasetB(self, evt):
+        self.buttonQueryResetFilterB.configure(relief = FLAT)
+        self.datasetB = resetDataset(self.datasetB)
+        self.entryQuerySetDataB.configure(text = '')
+        self.entryQueryFeature.configure(text = '')
+
+        # self.labelFrameQueryDataB.configure(text = "Dataset B")
+        self.labelQuerySetDataStatusB.configure(
+            text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
+            background = Color_support.SELECT_LISTBOX_STATUS_BG,
+            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+        )
+
+        # if self.datasetB['Data'] is []:
+        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
+        # self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data']))) ### TODO
+
+        # Empty FILTER details of BOTH A and B
+        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.listQueryDataA.delete(0,END)
+        # self.listQuerySetDataA.delete(0,END)
+
+        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.listQueryDataB.delete(0,END)
+        self.listQuerySetDataB.delete(0,END)
+
+        self.labelQueryDataFeatureName.configure(
+            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
+        )
+
+        return "break"
+    
+    def querySelectDataValuesA(self, evt):
+        selectDatasetValues(evt, self.datasetA, self.populationDataset, self.labelQueryDataACount)
+    
+    def querySelectDataValuesB(self, evt):
+        selectDatasetValues(evt, self.datasetB, self.populationDataset, self.labelQueryDataBCount)
+
+    def queryAddFilterA(self, evt):
+        self.buttonQueryAddFilterA.configure(relief = FLAT)
+        # If the dataset is empty, do not push through with filtering.
+        if len(self.datasetA['Data']) <= 0:
+            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+            # return -1
+            return "break"
+
+        # Filter the data given the feature inputted and its values selected
+        try:
+            new_data = filterDataset(self.datasetA, self.datasetA['Feature'], self.datasetA['Feature']['Selected Responses'])
+        except KeyError:
+            tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
+            # return -1
+            return "break"
+
+        # Add the feature to the dataset's filtered features
+        self.datasetA['Filter Features'].append(self.datasetA['Feature'])
+        
+        # Assign the new set of filtered data
+        self.datasetA['Data'] = new_data
+
+        if(queryType == 'Sample vs Sample'):
+            queryStrFilterA = ''
+            # queryStrFilterA = 'Dataset A'
+        else:
+            # queryStrFilterA = 'Population'
+            queryStrFilterA = ''
+
+        #Write the breadcrumb trail of the features and values the dataset was filtered by
+        for i in range(0, len(self.datasetA['Filter Features'])):
+            # queryStrFilterA = queryStrFilterA + "->" + self.datasetA['Filter Features'][i]['Code']
+            queryStrFilterA = " [ " + self.datasetA['Filter Features'][i]['Code'] + " | "
+            for j in range(0,len(self.datasetA['Filter Features'][i]['Selected Responses'])):
+                # if j == 0:
+                #     queryStrFilterA = queryStrFilterA + " [ "
+                queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
+                if j == (len(self.datasetA['Filter Features'][i]['Selected Responses']) - 1):
+                    queryStrFilterA = queryStrFilterA + "]"
+                    
+        # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
+        self.labelQuerySetDataStatusA.configure(
+            text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA,
+            background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
+            foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
+        )
+
+        return "break"
+
+    def queryAddFilterB(self, evt):
+
+        self.buttonQueryAddFilterB.configure(relief = FLAT)
+        # If the dataset is empty, do not push through with filtering.
+        if len(self.datasetB['Data']) <= 0:
+            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+            # return -1
+            return "break"
+        
+        # Filter the data given the feature inputted and its values selected
+        try:
+            new_data = filterDataset(self.datasetB, self.datasetB['Feature'], self.datasetB['Feature']['Selected Responses'])
+        except KeyError:
+            tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
+            # return -1
+            return "break"
+
+        # Add the feature to the dataset's filtered features
+        self.datasetB['Filter Features'].append(self.datasetB['Feature'])
+
+        # Assign the new set of filtered data
+        self.datasetB['Data'] = new_data
+
+        if(queryType == 'Sample vs Sample'): ### TODO
+            queryStrFilterB = ''
+        else:
+            queryStrFilterB = ''
+
+        #Write the breadcrumb trail of the features and values the dataset was filtered by
+        for i in range(0, len(self.datasetB['Filter Features'])):
+            # queryStrFilterB = queryStrFilterB + "->" + self.datasetB['Filter Features'][i]['Code']
+            queryStrFilterB = " [ " + self.datasetB['Filter Features'][i]['Code'] + " | "
+            for j in range(0,len(self.datasetB['Filter Features'][i]['Selected Responses'])):
+                # if j == 0:
+                #     queryStrFilterB = queryStrFilterB + "("
+                queryStrFilterB = queryStrFilterB + self.datasetB['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
+                if j == (len(self.datasetB['Filter Features'][i]['Selected Responses'])-1):
+                    queryStrFilterB = queryStrFilterB + "]"
+
+
+        # Concat the Filter String Here
+        # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
+        self.labelQuerySetDataStatusB.configure(
+            text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
+            background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
+            foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
+        )
+        return "break"
+
+    def querySetFeature(self, evt):
+        entryQuery = self.entryQueryFeature.get()
+
+        # If the dataset is empty, do not continue finding the feature
+        if(len(self.datasetA['Data']) <= 0 or len(self.datasetB['Data']) <= 0):
+            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+
+        else :
+            try:
+                self.querySetFeatureA(entryQuery)
+                self.querySetFeatureB(entryQuery)
+
+                # Get the feature description
+                featureDesc = self.datasetA['Focus Feature']['Description'] # Doesn't matter if you use datasetA or datasetB
+
+                # If the description is too long
+                if len(featureDesc) > 70:
+                    featureDesc = featureDesc[:71] + '...'  # Shorten it
+
+                # Display the description
+                self.labelQueryDataFeatureName.config(text = featureDesc)
+
+            except NameError:
+                tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+
+        return "break"
+
+    ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
+    def querySetFeatureA(self, entryQuery):
+        findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
+        '''
+        # Get the feature description
+        featureDesc = self.datasetA['Focus Feature']['Description']
+
+        # If the description is too long
+        if len(featureDesc) > 70:
+            featureDesc = featureDesc[:71] + '...' #Shorten it
+
+        # Display the description
+        self.labelQueryDataFeatureName.config(text = featureDesc)
+        '''
+
+    ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
+    def querySetFeatureB(self, entryQuery):
+        findFeature(entryQuery, self.listQueryDataB, self.datasetB,"Focus_Feature")
+
+
+    ''' Conduct the Z-Test between the two samples. '''
+    def queryZTest(self, evt):
+        self.buttonQueryZTest.configure(relief = FLAT)
+        # Get selected confidence interval
+        # confidenceInterval = self.comboQueryCriticalValue.get()
+        confidenceInterval = self.spinBoxQueryZConfidence.get()
+
+        # Get corresponding Z Critical Value of the confidence interval
+        zCritical = arrQueryCriticalValueMapping[confidenceInterval] 
+
+        if 'Focus Feature' in self.datasetA:
+            # Check if the selected focus feature and selected values of it are the same for both samples
+            isSame = isSameFocusFeat(self.datasetA, self.datasetB, self.datasetA['Focus Feature']['Selected Values'], self.datasetB['Focus Feature']['Selected Values'])
+            if(isSame == 1):
+                # Calculate Z score between the two samples
+                zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'], self.datasetB['Total'], self.datasetB['ProportionPercent'])
+                # Get result if accept/reject compared to the zCritical value
+                zResult = svs.compareZtoZCritical(zScore, zCritical)
+                # Display Z score and whether accept/reject at inputted confidence interval
+                self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
+
+        return "break"
+
+    ''' Conduct Z-Test between the population and all samples '''
+    def querySVP(self,evt):
+        confidenceInterval = self.comboQueryCriticalValueSvP.get() #Get selected confidence interval
+        zCritical = arrQueryCriticalValueMapping[confidenceInterval] #Get corresponding Z Critical Value
+        sampleFeature = self.datasetB['Feature']['Code']
+        self.listQueryDataB.delete(0,END)
+        #Iterate through every sample 
+        for sampleResponse in self.datasetB['Feature']['Responses']:
+            resultsRows = []
+
+            sampleValue = sampleResponse['Code'] #Get sample code to get the samples by
+            
+            #Header of the results file
+            header = ['Feature Code','N','F','P','Sample','n','f','p','SE','Z Score','Z Critical Value','LB','UB','Accept/Reject']
+            resultsRows.append(header)
+            
+            #Iterate through every feature
+            for feature in features:
+                featureValues = [] #Values that are not in group -1. This will be all values of the feature.
+                selectedFeatureValues = []#Values within featureValues that are selected by the user. By default, it is just those with group 'b'
+
+                #Iterate through the values of the feature
+                for response in feature['Responses']:
+                    #If the group of that value is not -1
+                    if response['Group'] != '-1': 
+                        featureValues.append(response['Code'])#Add to the allValues that will determine n
+
+                        #If the group of the value is 'a'
+                        if(response['Group'] == 'a'): #MODIFY THIS SUCH THAT IT CAN BE SELECTED BY THE USER
+                            selectedFeatureValues.append(response['Code'])#Add to selectedValues that will determine p
+                
+                #Convert allValues to string separated by ':'
+                allValString = concatListToString(featureValues, ':')
+
+                #Convert selectedValues to string separated by ':'
+                selectedValString = concatListToString(selectedFeatureValues, ':')
+
+                #Get results of that sample vs population based on a feature given its values that determine
+                # n and values that determine p
+                resultRow = svp.sampleVsPopulationSpecific(self.datasetA['Data'],sampleFeature, sampleValue,feature['Code'], allValString, selectedValString,zCritical, ':')
+                
+                resultsRows.append(resultRow)
+            #Write all results of all Z-Tests on all features of that sample in to a .csv file
+            fileName = "SVP.csv"
+            try:
+                fileName = "Z-Test_Sample " +sampleFeature+"("+ sampleValue +")" + "_vs_Pop" + self.datasetA['Feature']['Code']+".csv"
+            except KeyError:
+                fileName = "Z-Test_Sample " +sampleFeature+"("+ sampleValue +")" + "_vs_Pop.csv"
+            writeOnCSV(resultsRows, fileName)
+            self.listQueryDataB.insert(END, "Z-Test complete. Saved as " + fileName)
+        tkMessageBox.showinfo(testType, testType + " completed.")
+
+    ''' Sets test type: Sample vs Sample (Chi-Test, Z-Test) or Sample vs Population (Z-Test) '''
+    def querySetType(self, evt):
+        global queryType
+        queryType = self.comboQueryTest.get()
+        self.adjustQueryViews()
+
+    ''' Disables/enables views (buttons, entry fields etc.) based on test type selected '''
+    def adjustQueryViews(self):
+        self.buttonQueryFeature.configure(state = "normal")
+        # self.buttonQueryFeatureA.configure(state = "normal")
+        # self.buttonQueryFeatureB.configure(state = "normal")
+
+        self.entryQueryFeatureA.configure(state = "normal")
+        self.entryQueryFeatureB.configure(state = "normal")
+        self.buttonQueryZTest.configure(state = "normal")
+
+        self.spinBoxQueryZConfidence.configure(state = "normal")
+        # self.comboQueryCriticalValue.configure(state = "normal")
+
+        self.buttonQueue.configure(state = "normal")
+        self.buttonClearQueue.configure(state = "normal")
+        self.buttonTestQueue.configure(state = "normal")
+        #self.buttonTest.configure(state = "normal")
+        self.labelQueryZTest.configure(state = "normal")
+        self.labelQueryDataA.configure(state = "normal")
+        self.labelQueryDataB.configure(state = "normal")
+        self.buttonQueryZTestSvP.configure(state = "normal")
+        self.comboQueryCriticalValueSvP.configure(state = "normal")
+        self.labelQueryZTestSvP.configure(state = "normal")
+        self.listQueryDataA.configure(state = "normal")
+        self.listQueryDataB.configure(state = "normal")
+
+        self.datasetA = resetDataset(self.datasetA)
+        self.entryQuerySetDataA.configure(text = '')
+        self.entryQueryFeatureA.configure(text = '')
+        if self.datasetA is not []:
+            self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
+        self.labelQueryDataA.configure(text = "")
+        self.listQueryDataA.delete(0,END)
+        self.listQuerySetDataA.delete(0,END)
+
+        self.datasetB = resetDataset(self.datasetB)
+        self.entryQuerySetDataB.configure(text = '')
+        self.entryQueryFeatureB.configure(text = '')
+        if self.datasetB is not []:
+            self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
+        self.labelQueryDataB.configure(text = "")
+        self.listQueryDataB.delete(0,END)
+        self.listQuerySetDataB.delete(0,END)
+
+        if queryType == 'Sample vs Population':
+            self.buttonQueryFeature.configure(state = "disabled")
+            # self.buttonQueryFeatureA.configure(state = "disabled")
+            # self.buttonQueryFeatureB.configure(state = "disabled")
+            self.entryQueryFeatureA.configure(state = "disabled")
+            self.entryQueryFeatureB.configure(state = "disabled")
+            self.buttonQueryZTest.configure(state = "disabled")
+
+            self.spinBoxQueryZConfidence.configure(state = "disabled")
+            # self.comboQueryCriticalValue.configure(state = "disabled")
+
+            self.buttonQueue.configure(state = "disabled")
+            self.buttonClearQueue.configure(state = "disabled")
+            self.buttonTestQueue.configure(state = "disabled")
+            #self.buttonTest.configure(state = "disabled")
+            self.labelQueryZTest.configure(state = "disabled")
+            self.labelQueryDataA.configure(state = "disabled")
+            self.labelQueryDataB.configure(state = "disabled")
+            self.listQueryDataA.configure(state = "disabled")
+            # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
+            # self.labelFrameQueryDataB.configure(text = "Samples")
+            self.labelQuerySetDataStatusA.configure(
+                text = UI_support.LBL_SELECT_NO_DATA,
+                background = Color_support.L_GRAY
+            )
+            self.labelQuerySetDataStatusB.configure(
+                text = UI_support.LBL_SELECT_NO_DATA,
+                background = Color_support.L_GRAY
+            )
+            self.labelQueryDataBCount.configure(text = "")
+        else:
+            self.buttonQueryZTestSvP.configure(state = "disabled")
+
+            self.comboQueryCriticalValueSvP.configure(state = "disabled")
+
+            self.labelQueryZTestSvP.configure(state = "disabled")
+            # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
+            # self.labelFrameQueryDataB.configure(text = "Dataset B")
+            self.labelQuerySetDataStatusA.configure(
+                text = UI_support.LBL_SELECT_NO_DATA,
+                background = Color_support.L_GRAY
+            )
+            self.labelQuerySetDataStatusB.configure(
+                text = UI_support.LBL_SELECT_NO_DATA,
+                background = Color_support.L_GRAY
+            )
+
+    def querySetAllFeatures(self):
+        #Test items
+        global strarrAllFeatures
+        strarrAllFeatures = list(self.listQuerySetDataA.get(0, END))
+    # endregion
+
+    # endregion
+
+
+
+
+    """ >>> HELPER FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. enter, leave) <<< """
+    # TODO Optimize (avoid resizing, keep a reference)
+    # region
+    def enterCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_check_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_check_icon)
+        item.image = btn_check_icon  # < ! > Required to make images appear
+
+    def leaveCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_check_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_check_icon)
+        item.image = btn_check_icon  # < ! > Required to make images appear
+
+    def enterCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_cross_icon)
+        item.image = btn_cross_icon  # < ! > Required to make images appear
+
+    def leaveCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_cross_icon)
+        item.image = btn_cross_icon  # < ! > Required to make images appear
+
+    def enterAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_ADD_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_add_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_add_icon)
+        item.image = btn_add_icon  # < ! > Required to make images appear
+
+    def leaveAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_add_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_add_icon)
+        item.image = btn_add_icon  # < ! > Required to make images appear
+
+    def enterDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        item = event.widget
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item.configure(
+            image = btn_down_arrow_icon)
+        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
+
+    def leaveDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_down_arrow_icon)
+        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
+
+    def enterRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
+        item = event.widget
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    def leaveRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    def enterRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        item = event.widget
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    def leaveRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    '''
+    def enterQueryAddFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterA.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+    def leaveQueryAddFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterA.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+    def enterQueryAddFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+
+        self.buttonQueryAddFilterB.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+
+    def leaveQueryAddFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+
+        self.buttonQueryAddFilterB.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+
+    def enterQueryResetFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+
+        self.buttonQueryResetFilterA.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+
+    def leaveQueryResetFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+
+        self.buttonQueryResetFilterA.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+
+    def enterQueryResetFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterB.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+    def leaveQueryResetFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterB.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
+    '''
+
+    def enterQueryZTest(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryZTest.configure(
+            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+
+    def leaveQueryZTest(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryZTest.configure(
+            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+    # endregion
+
+
+
+
+    """ >>> HELPER FUNCTIONS UI ELEMENTS <<< """
+    # region
+    def getRelX(self, element):
+        return float(element.place_info()['relx'])
+    def getRelY(self, element):
+        return float(element.place_info()['rely'])
+    def getRelW(self, element):
+        return float(element.place_info()['relwidth'])
+    def getRelH(self, element):
+        return float(element.place_info()['relheight'])
+    def getW(self, element):
+        return float(element.place_info()['width'])
+    def getH(self, element):
+        return float(element.place_info()['height'])
+    def getInfoH(self, element):
+        return element.winfo_height()
+    def getInfoW(self, element):
+        return element.winfo_width()
+    # endregion
+
+
+
 
 
 if __name__ == '__main__':
