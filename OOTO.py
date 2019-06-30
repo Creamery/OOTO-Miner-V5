@@ -1332,79 +1332,10 @@ class OOTO_Miner:
         # endregion
 
 
-        #  QUERY PARENT (DATASET B)
-        self.labelFrameQueryDataB = LabelFrame(self.labelFrameDatasetB, bd = 0)
-        self.labelFrameQueryDataB.place(
-            relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
-            relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
-        self.labelFrameQueryDataB.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
-            relief = GROOVE  # , text = '''Dataset B'''
-        )
-
-        # DATASET B
-        self.labelFrameBorderQuerySetDataB = LabelFrame(self.labelFrameQueryDataB, bd = 0)
-        self.labelFrameBorderQuerySetDataB.place(
-            relx = self.getRelX(self.labelFrameBorderQuerySetDataA), rely = self.getRelY(self.labelFrameBorderQuerySetDataA),
-            relwidth = self.getRelW(self.labelFrameBorderQuerySetDataA), relheight = self.getRelH(self.labelFrameBorderQuerySetDataA))
-        self.labelFrameBorderQuerySetDataB.configure(
-            background = Color_support.SELECT_BUTTONS_BG
-        )
-
-        self.labelQuerySetDataB = Label(self.labelFrameBorderQuerySetDataB)
-
-        self.labelQuerySetDataB.place(
-            relx = self.getRelX(self.labelQuerySetDataA), rely = self.getRelY(self.labelQuerySetDataA),
-            relwidth = self.getRelW(self.labelQuerySetDataA), relheight = self.getRelH(self.labelQuerySetDataA))
-        self.labelQuerySetDataB.configure(
-            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
-            text = UI_support.SELECT_LABEL_DATASETB_TEXT,
-            font = UI_support.SELECT_LABEL_FONT,
-            bd = 0, relief = FLAT,
-        )
-
-
-        # ENTER CODE DATASET B
-
-        self.entryQuerySetDataB = Entry(self.labelFrameQueryDataB)
-        self.entryQuerySetDataB.place(
-            relx = self.getRelX(self.entryQuerySetDataA), rely = self.getRelY(self.entryQuerySetDataA),
-            relwidth = self.getRelW(self.entryQuerySetDataA), relheight = self.getRelH(self.entryQuerySetDataA))
-        self.entryQuerySetDataB.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
-            bd = 1,
-            font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
-            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
-        ) # TODO Constant font definiton
-
-
-        # DATASET B
-        self.buttonQuerySetDataB = Button(self.labelFrameQueryDataB)
-        self.buttonQuerySetDataB.place(
-            relx = self.getRelX(self.buttonQuerySetDataA), rely = self.getRelY(self.buttonQuerySetDataA),
-            relwidth = self.getRelW(self.buttonQuerySetDataA), relheight = self.getRelH(self.buttonQuerySetDataA))
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS, PIL.Image.ANTIALIAS)
-        btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQuerySetDataB.configure(image = btn_query_set_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQuerySetDataB.image = btn_query_set_icon  # < ! > Required to make images appear
-
-
-        self.buttonQuerySetDataB.configure(
-            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
-            highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE,
-            # text = '''Find Feature'''
-        )
-
-
-        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + self.getRelY(self.labelFrameQueryDataA) + self.getRelH(self.labelFrameQueryDataA)
-
         # LISTBOX PARENT (DATASET A)
         # region
+        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + self.getRelY(self.labelFrameQueryDataA) + self.getRelH(self.labelFrameQueryDataA)
+
         self.labelFrameListBoxA = LabelFrame(self.labelFrameDatasetA, bd = 0)
         self.labelFrameListBoxA.place(
             relx = UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
@@ -1545,6 +1476,77 @@ class OOTO_Miner:
 
         # endregion
 
+        #  QUERY PARENT (DATASET B)
+        # region
+        self.labelFrameQueryDataB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameQueryDataB.place(
+            relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
+            relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
+        self.labelFrameQueryDataB.configure(
+            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            relief = GROOVE  # , text = '''Dataset B'''
+        )
+
+        # DATASET B
+        self.labelFrameBorderQuerySetDataB = LabelFrame(self.labelFrameQueryDataB, bd = 0)
+        self.labelFrameBorderQuerySetDataB.place(
+            relx = self.getRelX(self.labelFrameBorderQuerySetDataA), rely = self.getRelY(self.labelFrameBorderQuerySetDataA),
+            relwidth = self.getRelW(self.labelFrameBorderQuerySetDataA), relheight = self.getRelH(self.labelFrameBorderQuerySetDataA))
+        self.labelFrameBorderQuerySetDataB.configure(
+            background = Color_support.SELECT_BUTTONS_BG
+        )
+
+        self.labelQuerySetDataB = Label(self.labelFrameBorderQuerySetDataB)
+
+        self.labelQuerySetDataB.place(
+            relx = self.getRelX(self.labelQuerySetDataA), rely = self.getRelY(self.labelQuerySetDataA),
+            relwidth = self.getRelW(self.labelQuerySetDataA), relheight = self.getRelH(self.labelQuerySetDataA))
+        self.labelQuerySetDataB.configure(
+            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            text = UI_support.SELECT_LABEL_DATASETB_TEXT,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = 0, relief = FLAT,
+        )
+
+
+        # ENTER CODE DATASET B
+
+        self.entryQuerySetDataB = Entry(self.labelFrameQueryDataB)
+        self.entryQuerySetDataB.place(
+            relx = self.getRelX(self.entryQuerySetDataA), rely = self.getRelY(self.entryQuerySetDataA),
+            relwidth = self.getRelW(self.entryQuerySetDataA), relheight = self.getRelH(self.entryQuerySetDataA))
+        self.entryQuerySetDataB.configure(
+            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            bd = 1,
+            font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
+            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
+        ) # TODO Constant font definiton
+
+
+        # DATASET B
+        self.buttonQuerySetDataB = Button(self.labelFrameQueryDataB)
+        self.buttonQuerySetDataB.place(
+            relx = self.getRelX(self.buttonQuerySetDataA), rely = self.getRelY(self.buttonQuerySetDataA),
+            relwidth = self.getRelW(self.buttonQuerySetDataA), relheight = self.getRelH(self.buttonQuerySetDataA))
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS, PIL.Image.ANTIALIAS)
+        btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQuerySetDataB.configure(image = btn_query_set_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQuerySetDataB.image = btn_query_set_icon  # < ! > Required to make images appear
+
+
+        self.buttonQuerySetDataB.configure(
+            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
+            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE,
+            # text = '''Find Feature'''
+        )
+
+        # endregion
+
         # LISTBOX PARENT (DATASET B)
         # region
         newRelY = self.getRelY(self.labelFrameListBoxA)
@@ -1679,6 +1681,7 @@ class OOTO_Miner:
         # self.labelFrameQueryCountRightSeparatorB.place(relx = 0.99, rely = 0, relheight = 1)
         # endregion
         # FILTER BUTTON (DATASET A)
+        # region
         newRelX = self.getRelX(self.labelFrameQueryCount) + self.getRelW(self.labelFrameQueryCount)
         newRelX = self.getRelX(self.labelFrameQueryCount) + self.getRelW(self.labelFrameQueryCount)
 
@@ -1700,8 +1703,9 @@ class OOTO_Miner:
         self.buttonQueryAddFilterA.pack(side = RIGHT)
         self.buttonQueryResetFilterA.pack(side = LEFT)
 
-
+        # endregion
         # FILTER BUTTON (DATASET B)
+        # region
         newRelX = self.getRelX(self.labelFrameQueryCountB) + self.getRelW(self.labelFrameQueryCountB)
 
         self.buttonQueryAddFilterB = Button(self.labelFrameCommandsB, compound = CENTER)
@@ -1723,6 +1727,7 @@ class OOTO_Miner:
 
 
         self.buttonQueryResetFilterB.pack(side = LEFT)
+        # endregion
 
     ''' -> Elements under the FILTER ("FILTER") HEADER <- '''
     def configureFilterElements(self, parentFrame):
