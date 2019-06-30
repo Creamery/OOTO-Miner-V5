@@ -527,6 +527,15 @@ class OOTO_Miner:
         global populationDir
         populationDir = ""
 
+        self.initializeVariables()
+
+        # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
+        # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
+
+    def initializeVariables(self):
+        # Button state variables (This is used instead of directly disabling buttons to keep their appearance)
+        self.buttonQueryFeature_state = DISABLED
+
         self.hasUploadedVariableDescription = False
         self.hasUploadedPopulation = False
 
@@ -546,8 +555,6 @@ class OOTO_Miner:
         self.datasetCountB = len(self.datasetB['Data'])
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
-        # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
-        # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
     """ >>> CONFIGURE STYLE MAPS / THEMES <<< """
     # region
@@ -2606,8 +2613,8 @@ class OOTO_Miner:
         self.buttonQueryAddFilterA.bind('<Button-1>', self.queryAddFilterA)
         self.buttonQueryAddFilterB.bind('<Button-1>', self.queryAddFilterB)
 
-        # self.buttonQueryFeature.bind('<Button-1>', self.querySetFeature)
-        self.buttonQueryFeature.configure(command = self.querySetFeature)
+        self.buttonQueryFeature.bind('<Button-1>', self.querySetFeature)
+        # self.buttonQueryFeature.configure(command = self.querySetFeature)
         # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
 
@@ -2638,8 +2645,10 @@ class OOTO_Miner:
         self.buttonQueryAddFilterB.bind("<Enter>", self.enterCheckIcon)
         self.buttonQueryAddFilterB.bind("<Leave>", self.leaveCheckIcon)
 
-        self.buttonQueryFeature.bind("<Enter>", self.enterRightArrowPlainIcon)
+        # self.buttonQueryFeature.bind("<Enter>", self.enterRightArrowPlainIcon)
         self.buttonQueryFeature.bind("<Leave>", self.leaveRightArrowPlainIcon)
+        self.buttonQueryFeature.bind("<Enter>", lambda event: self.enterRightArrowPlainIcon(event, self.buttonQueryFeature_state))
+        self.buttonQueryFeature.bind("<Leave>", lambda event: self.leaveRightArrowPlainIcon(event, self.buttonQueryFeature_state))
 
         self.buttonQueryZTest.bind("<Enter>", self.enterCheckIcon)
         self.buttonQueryZTest.bind("<Leave>", self.leaveCheckIcon)
@@ -2958,6 +2967,9 @@ class OOTO_Miner:
         return "break"
 
     def queryResetDatasetA(self, evt):
+        self.isReadyDatasetA = False # When a dataset is reset, it is not ready
+        self.checkIfDatasetReady() # Update dataset status accordingly
+
         self.buttonQueryResetFilterA.configure(relief = FLAT)
 
         self.datasetA = resetDataset()
@@ -2986,6 +2998,9 @@ class OOTO_Miner:
         return "break"
 
     def queryResetDatasetB(self, evt):
+        self.isReadyDatasetB = False # When a dataset is reset, it is not ready
+        self.checkIfDatasetReady() # Update dataset status accordingly
+
         self.buttonQueryResetFilterB.configure(relief = FLAT)
         self.datasetB = resetDataset()
         self.entryQuerySetDataB.configure(text = '')
@@ -3009,6 +3024,7 @@ class OOTO_Miner:
         return "break"
 
     def queryResetFilterDetails(self, evt):
+
         # Empty FILTER details of BOTH A and B
         self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
         self.listQueryDataA.delete(0, END)
@@ -3208,47 +3224,48 @@ class OOTO_Miner:
         print ("")
         return "break"
 
-    def querySetFeature(self, evt = None):
-        entryQuery = self.entryQueryFeature.get()
+    def querySetFeature(self, evt):
+        if self.buttonQueryFeature_state is not DISABLED:
+            entryQuery = self.entryQueryFeature.get()
 
-        # If the dataset is empty, do not continue finding the feature
-        if(len(self.datasetA['Data']) <= 0 or len(self.datasetB['Data']) <= 0):
-            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
-            # CLEAR filter feature box
-            self.queryResetFilterDetails(evt)
+            # If the dataset is empty, do not continue finding the feature
+            if(len(self.datasetA['Data']) <= 0 or len(self.datasetB['Data']) <= 0):
+                tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+                # CLEAR filter feature box
+                self.queryResetFilterDetails(evt)
 
-        # If one of the sample groups is empty, do not continue finding the feature
-        elif self.datasetCountA <= 0:
-            tkMessageBox.showerror("Error: No samples selected for A",
-                                   "You must have at least 1 sample in your selection.")
-            # CLEAR filter feature box
-            self.queryResetFilterDetails(evt)
+            # If one of the sample groups is empty, do not continue finding the feature
+            elif self.datasetCountA <= 0:
+                tkMessageBox.showerror("Error: No samples selected for A",
+                                       "You must have at least 1 sample in your selection.")
+                # CLEAR filter feature box
+                self.queryResetFilterDetails(evt)
 
-        elif self.datasetCountB <= 0:
-            tkMessageBox.showerror("Error: No samples selected for B",
-                                   "You must have at least 1 sample in your selection.")
-            # CLEAR filter feature box
-            self.queryResetFilterDetails(evt)
+            elif self.datasetCountB <= 0:
+                tkMessageBox.showerror("Error: No samples selected for B",
+                                       "You must have at least 1 sample in your selection.")
+                # CLEAR filter feature box
+                self.queryResetFilterDetails(evt)
 
-        else :
-            try:
-                self.querySetFeatureA(entryQuery)
-                self.querySetFeatureB(entryQuery)
+            else :
+                try:
+                    self.querySetFeatureA(entryQuery)
+                    self.querySetFeatureB(entryQuery)
 
-                # Get the feature description
-                featureDesc = self.datasetA['Focus Feature']['Description'] # Doesn't matter if you use datasetA or datasetB
+                    # Get the feature description
+                    featureDesc = self.datasetA['Focus Feature']['Description'] # Doesn't matter if you use datasetA or datasetB
 
-                # If the description is too long
-                if len(featureDesc) > 70:
-                    featureDesc = featureDesc[:71] + '...'  # Shorten it
+                    # If the description is too long
+                    if len(featureDesc) > 70:
+                        featureDesc = featureDesc[:71] + '...'  # Shorten it
 
-                # Display the description
-                self.labelQueryDataFeatureName.config(text = featureDesc)
+                    # Display the description
+                    self.labelQueryDataFeatureName.config(text = featureDesc)
 
-            except NameError:
-                tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
-            except:
-                print ("Exception in " + "def querySetFeature(self, evt)")
+                except NameError:
+                    tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+                except:
+                    print ("Exception in " + "def querySetFeature(self, evt)")
         return "break"
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
@@ -3550,23 +3567,25 @@ class OOTO_Miner:
             image = btn_right_arrow_icon)
         item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
-    def enterRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        item = event.widget
+    def enterRightArrowPlainIcon(self, event, state = NORMAL, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        if state != DISABLED:
+            item = event.widget
+            im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+            item.configure(
+                image = btn_right_arrow_icon)
+            item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
-
-    def leaveRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+    def leaveRightArrowPlainIcon(self, event, state = NORMAL, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        if state != DISABLED:
+            item = event.widget
+            if item['state'] != DISABLED:
+                im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
+                btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+                item.configure(
+                    image = btn_right_arrow_icon)
+                item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
     '''
     def enterQueryAddFilterA(self, event):
@@ -3679,17 +3698,28 @@ class OOTO_Miner:
             state = DISABLED
         )
         # Disable button
-        self.buttonQueryFeature.configure(
-            state = DISABLED
+        self.buttonQueryFeature_state = DISABLED
+
+        # Disable feature name
+        self.labelQueryDataFeatureName.configure(
+            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG,
+            foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
+            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT
         )
+
     def enableFilter(self):
         # Enable entry
         self.entryQueryFeature.configure(
             state = NORMAL
         )
         # Enable button
-        self.buttonQueryFeature.configure(
-            state = NORMAL
+        self.buttonQueryFeature_state = NORMAL
+
+        # Enable feature name
+        self.labelQueryDataFeatureName.configure(
+            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_ON_BG,
+            foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_ON_FG,
+            text = UI_support.FILTER_STATUS_READY_TEXT
         )
 
     def setDatasetStatusReady(self, isReady, statusWidget):
