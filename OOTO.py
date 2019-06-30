@@ -159,7 +159,7 @@ def filterDataset(dataset, feature, responses):
 Clears all of the filters of the dataset and resets the data back to that of
 the uploaded population file. 
 '''
-def resetDataset(dataset):
+def resetDataset():
     global populationDir
     new_dataset = {'Data':[], 'Filter Features':[]}
     try:
@@ -286,7 +286,8 @@ If the feature being searched is the one that will be focused on for Z-Test betw
 two samples, it will also display all of the proportions, frequencies and total for each value of that 
 feature
 '''
-def findFeature(entryFeat, listFeat, dataset, *args):
+# def findFeature(entryFeat, listFeat, dataset, *args):
+def findFeature(entryFeat, listFeat, dataset, populationDatasetOriginal, *args):
         # Here is how to get the value from entryFeatA
         featCode = entryFeat
         print "Entered feature code: " + featCode
@@ -300,8 +301,11 @@ def findFeature(entryFeat, listFeat, dataset, *args):
                 for arg in args:
                     if arg == "Dataset_Feature":
                         dataset['Feature'] = copy.deepcopy(feature)
+                        populationDatasetOriginal['Feature'] = copy.deepcopy(feature)
+
                     if arg == "Focus_Feature":
                         dataset['Focus Feature'] = copy.deepcopy(feature)
+                        populationDatasetOriginal['Focus Feature'] = copy.deepcopy(feature)
                         hasFocusFeature = True
                 for response in feature['Responses']:
                     tempResp = response['Code'] + " - " + response['Description']
@@ -314,15 +318,17 @@ def findFeature(entryFeat, listFeat, dataset, *args):
         if hasFocusFeature == True:
             arrTempItems = []
             dataset['ColumnData'] = []
+            populationDatasetOriginal['ColumnData'] = []
             for record in dataset['Data']:
                 dataset['ColumnData'].append(record[featCode])
+                populationDatasetOriginal['ColumnData'].append(record[featCode])
             c = Counter(dataset['ColumnData']) # Counts the number of occurrences of each value of the focus feature
             
             countN = len(dataset['ColumnData'])# N is the size of the dataset
             countn = 0 # n is the total number of values where their group is not -1
 
-            notInGroupNega1 = []# List that keeps track of the values whose group is not -1
-            presentInData = []# List of values that occurred at least once in the data
+            notInGroupNega1 = [] # List that keeps track of the values whose group is not -1
+            presentInData = [] # List of values that occurred at least once in the data
 
             for response in dataset['Focus Feature']['Responses']:
                 for val in c:
@@ -451,7 +457,8 @@ def checkKey(dict, key):
 '''
 Set selected dataset values for that dataset. 
 '''
-def selectDatasetValues(evt, dataset, populationDataset):
+# def selectDatasetValues(evt, dataset, populationDataset):
+def selectDatasetValues(evt, dataset):
     global populationDir
 
 
@@ -519,7 +526,13 @@ class OOTO_Miner:
 
         global populationDir
         populationDir = ""
+
+        self.hasUploadedVariableDescription = False
+        self.hasUploadedPopulation = False
+
         self.populationDataset = []
+        self.populationDatasetOriginalA = {'Data': [], 'Filter Features': []}
+        self.populationDatasetOriginalB = {'Data': [], 'Filter Features': []}
         self.datasetA = {'Data': [], 'Filter Features': []}
         self.datasetB = {'Data': [], 'Filter Features': []}
 
@@ -2543,7 +2556,7 @@ class OOTO_Miner:
     ''' --> Binding elements under the DATA ("DATA") TAB (1) <-- '''
     # region
     def configureDataTabBindings(self):
-
+        # TODO Add integrity check - if ENTRY is edited, change the file input
         self.buttonInitialVarDesc.bind('<Button-1>', self.selectInitVarDesc)
         self.buttonQueryPopulation.bind('<Button-1>', self.selectSetPopulation)
 
@@ -2706,6 +2719,8 @@ class OOTO_Miner:
             global populationDir
 
             self.populationDataset = readCSVDict(populationDir)
+            self.populationDatasetOriginalA['Data'] = []
+            self.populationDatasetOriginalB['Data'] = []
             self.datasetA['Data'] = []
             self.datasetB['Data'] = []
 
@@ -2715,12 +2730,15 @@ class OOTO_Miner:
                 return "break"
 
             else:
-                tkMessageBox.showinfo("Population set", "Population dataset uploaded")
-                self.populationDataset = readCSVDict(populationDir)
+                # tkMessageBox.showinfo("Population set", "Population dataset uploaded")
+                self.populationDataset = readCSVDict(populationDir) # Must read this again here, or it won't register
                 for record in self.populationDataset:
                     self.datasetA['Data'].append(record)
                     self.datasetB['Data'].append(record)
+                    self.populationDatasetOriginalA['Data'].append(record) # This keeps a copy of the unaltered dataset
+                    self.populationDatasetOriginalB['Data'].append(record) # This keeps a copy of the unaltered dataset
 
+                # TODO Show the total samples of the unaltered dataset
                 self.datasetCountA = len(self.datasetA['Data'])
                 self.datasetCountB = len(self.datasetB['Data'])
 
@@ -2728,6 +2746,9 @@ class OOTO_Miner:
                 self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
                 print "UPLOADED"
+
+                tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!")
+                self.Tabs.select(UI_support.TAB_TEST_INDEX)
 
         return "break"
 
@@ -2827,7 +2848,7 @@ class OOTO_Miner:
             tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
             return "break"
             # return -1
-        self.listQueryDataB.delete(0,END)
+        # self.listQueryDataB.delete(0, END)
         i = 0
         for test in tests:
             fileNames = []
@@ -2842,7 +2863,7 @@ class OOTO_Miner:
                     makeUpdatedVariables(features, "Updated-Variables.csv")
                 saveFile = ct.chiTest(fileNames)
                 tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
-                # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else
+                # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
                 removeFiles(fileNames)
         tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
         return "break"
@@ -2887,7 +2908,8 @@ class OOTO_Miner:
         self.queryResetFilterDetails(evt)
 
         try:
-            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, "Dataset_Feature")
+            # findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, "Dataset_Feature")
+            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, self.populationDatasetOriginalA, "Dataset_Feature")
         except NameError:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
         return "break"
@@ -2897,15 +2919,17 @@ class OOTO_Miner:
         # CLEAR filter feature box first
         self.queryResetFilterDetails(evt)
         try:
-            findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB,"Dataset_Feature")
+            # findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, "Dataset_Feature")
+            findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, self.populationDatasetOriginalB, "Dataset_Feature")
+
         except NameError:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
         return "break"
 
-    def queryResetDatasetA(self,evt):
+    def queryResetDatasetA(self, evt):
         self.buttonQueryResetFilterA.configure(relief = FLAT)
 
-        self.datasetA = resetDataset(self.datasetA)
+        self.datasetA = resetDataset()
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeature.configure(text = '')
         self.labelQuerySetDataStatusA.configure(
@@ -2932,7 +2956,7 @@ class OOTO_Miner:
 
     def queryResetDatasetB(self, evt):
         self.buttonQueryResetFilterB.configure(relief = FLAT)
-        self.datasetB = resetDataset(self.datasetB)
+        self.datasetB = resetDataset()
         self.entryQuerySetDataB.configure(text = '')
         self.entryQueryFeature.configure(text = '')
 
@@ -2967,11 +2991,27 @@ class OOTO_Miner:
 
 
     def querySelectDataValuesA(self, evt):
-        self.datasetCountA = selectDatasetValues(evt, self.datasetA, self.populationDataset)
+        # self.datasetCountA = selectDatasetValues(evt, self.datasetA, self.populationDataset)
+
+        # Do search in populationDatasetOriginal, not filtered dataset A
+        # selectDatasetValues(evt, self.datasetA)
+        self.datasetCountA = selectDatasetValues(evt, self.populationDatasetOriginalA)
+
+        print ("Pop Dataset A" + str(len(self.populationDatasetOriginalA['Data'])))
+        print ("Dataset A" + str(len(self.datasetA['Data'])))
+
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
     
     def querySelectDataValuesB(self, evt):
-        self.datasetCountB = selectDatasetValues(evt, self.datasetB, self.populationDataset)
+        # self.datasetCountB = selectDatasetValues(evt, self.datasetB, self.populationDataset)
+
+        # Do search in populationDatasetOriginal, not filtered dataset B
+        # self.datasetCountB = selectDatasetValues(evt, self.datasetB)
+        self.datasetCountB = selectDatasetValues(evt, self.populationDatasetOriginalB)
+
+        print ("Pop Dataset B" + str(len(self.populationDatasetOriginalB['Data'])))
+        print ("Dataset B" + str(len(self.datasetB['Data'])))
+
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
     def queryAddFilterA(self, evt):
@@ -3002,9 +3042,12 @@ class OOTO_Miner:
             # CLEAR filter feature box first
             self.queryResetFilterDetails(evt)
 
+            self.datasetA = copy.deepcopy(self.populationDatasetOriginalA)
+
             # Filter the data given the feature inputted and its values selected
             try:
                 new_data = filterDataset(self.datasetA, self.datasetA['Feature'], self.datasetA['Feature']['Selected Responses'])
+                # new_data = filterDataset(self.populationDatasetOriginalA, self.populationDatasetOriginalA['Feature'], self.populationDatasetOriginalA['Feature']['Selected Responses'])
             except KeyError:
                 tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
                 # return -1
@@ -3012,9 +3055,11 @@ class OOTO_Miner:
 
             # Add the feature to the dataset's filtered features
             self.datasetA['Filter Features'].append(self.datasetA['Feature'])
+            # self.populationDatasetOriginalA['Filter Features'].append(self.datasetA['Feature'])
 
             # Assign the new set of filtered data
             self.datasetA['Data'] = new_data
+            # self.populationDatasetOriginalA['Data'] = new_data
 
             if(queryType == 'Sample vs Sample'):
                 queryStrFilterA = ''
@@ -3073,7 +3118,12 @@ class OOTO_Miner:
             # return -1
 
         else:
+            # CLEAR filter feature box first
+            self.queryResetFilterDetails(evt)
+            self.datasetB = copy.deepcopy(self.populationDatasetOriginalB)
+
             # Filter the data given the feature inputted and its values selected
+
             try:
                 new_data = filterDataset(self.datasetB, self.datasetB['Feature'], self.datasetB['Feature']['Selected Responses'])
             except KeyError:
@@ -3162,7 +3212,8 @@ class OOTO_Miner:
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
     def querySetFeatureA(self, entryQuery):
-        findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
+        # findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
+        findFeature(entryQuery, self.listQueryDataA, self.datasetA, self.populationDatasetOriginalA, "Focus_Feature")
         '''
         # Get the feature description
         featureDesc = self.datasetA['Focus Feature']['Description']
@@ -3177,7 +3228,8 @@ class OOTO_Miner:
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
     def querySetFeatureB(self, entryQuery):
-        findFeature(entryQuery, self.listQueryDataB, self.datasetB,"Focus_Feature")
+        # findFeature(entryQuery, self.listQueryDataB, self.datasetB, "Focus_Feature")
+        findFeature(entryQuery, self.listQueryDataB, self.datasetB, self.populationDatasetOriginalB, "Focus_Feature")
 
 
     ''' Conduct the Z-Test between the two samples. '''
@@ -3287,7 +3339,7 @@ class OOTO_Miner:
         self.listQueryDataA.configure(state = "normal")
         self.listQueryDataB.configure(state = "normal")
 
-        self.datasetA = resetDataset(self.datasetA)
+        self.datasetA = resetDataset()
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeatureA.configure(text = '')
         if self.datasetA is not []:
@@ -3297,7 +3349,7 @@ class OOTO_Miner:
         self.listQueryDataA.delete(0,END)
         self.listQuerySetDataA.delete(0,END)
 
-        self.datasetB = resetDataset(self.datasetB)
+        self.datasetB = resetDataset()
         self.entryQuerySetDataB.configure(text = '')
         self.entryQueryFeatureB.configure(text = '')
         if self.datasetB is not []:
