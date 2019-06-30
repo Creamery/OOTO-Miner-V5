@@ -1538,8 +1538,38 @@ class OOTO_Miner:
             background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
             relief = GROOVE  # , text = '''Dataset B'''
         )
+
+        # LISTBOX PARENT (DATASET B)
+        # region
+        self.labelFrameListBoxB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameListBoxB.place(
+            relx = self.getRelX(self.labelFrameListBoxA),
+            rely = self.getRelY(self.labelFrameListBoxA),
+            relwidth = self.getRelW(self.labelFrameListBoxA),
+            relheight = self.getRelH(self.labelFrameListBoxA)
+        )
+
         # STATUS CHILDREN - DATASET B
         # region
+
+        # QUERY TOP STRIPE PARENT - DATASET B
+        # region
+        self.labelQuerySetDataStripesB = Label(self.labelFrameListBoxB, bd = 1, relief = GROOVE)
+        self.labelQuerySetDataStripesB.place(
+            relx = self.getRelX(self.labelQuerySetDataStripesA),
+            rely = self.getRelY(self.labelQuerySetDataStripesA),
+            relwidth = self.getRelW(self.labelQuerySetDataStripesA),
+            relheight = self.getRelH(self.labelQuerySetDataStripesA)
+        )
+        im = PIL.Image.open(
+            Icon_support.TEXTURE_STRIPE_PINK)
+        texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+        self.labelQuerySetDataStripesB.configure(
+            image = texture_pink_stripes,
+            anchor = SW
+        )
+        self.labelQuerySetDataStripesB.image = texture_pink_stripes  # < ! > Required to make images appear
+        # endregion
 
         self.labelQuerySetDataStatusB = Label(self.labelFrameQueryDataB)
         # self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
@@ -1558,19 +1588,6 @@ class OOTO_Miner:
         )
         # endregion
         # endregion
-
-        # LISTBOX PARENT (DATASET B)
-        # region
-        self.labelFrameListBoxB = LabelFrame(self.labelFrameDatasetB, bd = 0)
-        self.labelFrameListBoxB.place(
-            relx = self.getRelX(self.labelFrameListBoxA),
-            rely = self.getRelY(self.labelFrameListBoxA),
-            relwidth = self.getRelW(self.labelFrameListBoxA),
-            relheight = self.getRelH(self.labelFrameListBoxA)
-        )
-
-        # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
-        # self.listQuerySetDataB = Listbox(self.labelFrameListBox, yscrollcommand = self.scrollbarQuerySetDataA.set)
 
         self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
         self.listQuerySetDataB.configure(
