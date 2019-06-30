@@ -4,7 +4,6 @@
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="3706" column="53" lean-forward="true" selection-start-line="3706" selection-start-column="53" selection-end-line="3706" selection-end-column="53" />
+            <state relative-caret-position="257">
+              <caret line="2033" column="44" selection-start-line="2033" selection-start-column="44" selection-end-line="2033" selection-end-column="44" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#10634#10987#1" />
@@ -28,8 +27,8 @@
                 <element signature="e#30271#36267#0" />
                 <element signature="e#46749#47431#1" />
                 <element signature="e#81455#81488#0" />
-                <element signature="e#91687#94294#1" />
-                <element signature="e#94421#114161#0" />
+                <element signature="e#81592#81600#0" />
+                <element signature="e#82496#82504#0" />
                 <element signature="e#96787#96820#0" />
                 <element signature="e#98740#98773#0" />
                 <element signature="e#114283#114312#0" />
@@ -91,16 +90,16 @@
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="161">
-              <caret line="95" selection-start-line="95" selection-end-line="95" />
+              <caret line="99" column="23" selection-start-line="99" selection-end-line="99" selection-end-column="23" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="295">
-              <caret line="340" column="35" lean-forward="true" selection-start-line="340" selection-start-column="35" selection-end-line="340" selection-end-column="35" />
+              <caret line="340" column="29" selection-start-line="340" selection-end-line="340" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -121,12 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>clear</find>
-      <find>Filter_feat</find>
-      <find>Filter Feat</find>
-      <find>.bind</find>
-      <find>enable</find>
-      <find>isReadyDatasetB = Tr</find>
       <find>buttonQueryFeature.bind</find>
       <find>Ready</find>
       <find>TRANS</find>
@@ -148,9 +141,15 @@
       <find>def reset</find>
       <find>queryreset</find>
       <find>NO_FEATU</find>
-      <find>FILTE</find>
-      <find>FILTER_BUTTON</find>
       <find>enableF</find>
+      <find>FILTE</find>
+      <find>FILTER_STATUS_NO_FEATURE_TEXT</find>
+      <find>FILTER_BUTTON</find>
+      <find>Pale_Y</find>
+      <find>PALER</find>
+      <find>Overlay</find>
+      <find>D_BLUE</find>
+      <find>separator</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -172,9 +171,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Icon_support.py" />
+        <option value="$PROJECT_DIR$/UI_support.py" />
         <option value="$PROJECT_DIR$/Color_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
-        <option value="$PROJECT_DIR$/UI_support.py" />
       </list>
     </option>
   </component>
@@ -213,7 +212,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -340,7 +339,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3224</line>
+          <line>3324</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
@@ -377,13 +376,6 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_default.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="1335" selection-start-line="1335" selection-end-line="1335" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_icons/ico_right_arrow.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -400,17 +392,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="340" column="29" selection-start-line="340" selection-end-line="340" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="1326" selection-start-line="1326" selection-end-line="1326" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
-          <caret line="95" selection-start-line="95" selection-end-line="95" />
+          <caret line="99" column="23" selection-start-line="99" selection-end-line="99" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="3706" column="53" lean-forward="true" selection-start-line="3706" selection-start-column="53" selection-end-line="3706" selection-end-column="53" />
+        <state relative-caret-position="257">
+          <caret line="2033" column="44" selection-start-line="2033" selection-start-column="44" selection-end-line="2033" selection-end-column="44" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#10634#10987#1" />
@@ -420,8 +426,8 @@
             <element signature="e#30271#36267#0" />
             <element signature="e#46749#47431#1" />
             <element signature="e#81455#81488#0" />
-            <element signature="e#91687#94294#1" />
-            <element signature="e#94421#114161#0" />
+            <element signature="e#81592#81600#0" />
+            <element signature="e#82496#82504#0" />
             <element signature="e#96787#96820#0" />
             <element signature="e#98740#98773#0" />
             <element signature="e#114283#114312#0" />
@@ -475,13 +481,6 @@
             <element signature="e#94216#94626#0" />
             <element signature="e#94674#95081#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UI_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="340" column="35" lean-forward="true" selection-start-line="340" selection-start-column="35" selection-end-line="340" selection-end-column="35" />
         </state>
       </provider>
     </entry>

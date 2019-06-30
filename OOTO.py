@@ -1730,20 +1730,60 @@ class OOTO_Miner:
         newRelY = self.getRelY(self.labelFrameFilterTitle) + self.getRelH(self.labelFrameFilterTitle) + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
 
 
-        # FILTER QUERY PARENT
-        self.labelFrameFilterQueryData = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameFilterQueryData.place(
+        # TOP LABEL FEATURE NAME
+        # self.labelQueryDataFeatureName = Label(self.labelFrameFilterListData)
+        self.labelQueryDataFeatureName = Label(parentFrame)
+        # self.labelQueryDataFeatureName.place(
+        #     relx = 0, rely = 0,
+        #     relheight = UI_support.TAB_TEST_FILTER_QUERY_FEATURE_NAME_REL_H, relwidth = 1)
+
+        self.labelQueryDataFeatureName.place(
+            # relx = UI_support.TAB_TEST_FILTER_QUERY_REL_X, rely = 0,
             relx = UI_support.TAB_TEST_FILTER_QUERY_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_REL_W, relheight = UI_support.TAB_TEST_FILTER_QUERY_REL_H
         )
+        self.labelQueryDataFeatureName.configure(
+            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG, foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
+            bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
+            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
+            font = UI_support.FILTER_STATUS_LABEL_FONT,
+        )
+
+
+        newRelY = self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)
+
+        # FILTER LIST PARENT
+        self.labelFrameFilterListData = LabelFrame(parentFrame, bd = 0)
+
+        self.labelFrameFilterListData.place(
+            relx = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_W, relheight = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_H
+        )
+        self.labelFrameFilterListData.configure(
+            background = Color_support.FILTER_BG
+        )
+
+
+
+
+        # FILTER QUERY PARENT
+        # self.labelFrameFilterQueryData = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameFilterQueryData = LabelFrame(self.labelFrameFilterListData, bd = 0)
+        self.labelFrameFilterQueryData.place(
+            relx = 0, rely = 0,
+            relheight = UI_support.TAB_TEST_FILTER_QUERY_FEATURE_NAME_REL_H, relwidth = 1
+        )
+        #     .place(
+        #     relx = UI_support.TAB_TEST_FILTER_QUERY_REL_X, rely = 0,
+        #     # relx = UI_support.TAB_TEST_FILTER_QUERY_REL_X, rely = newRelY,
+        #     relwidth = UI_support.TAB_TEST_FILTER_QUERY_REL_W, relheight = UI_support.TAB_TEST_FILTER_QUERY_REL_H
+        # )
         self.labelFrameFilterQueryData.configure(
             background = Color_support.FILTER_BG
         )
 
         # FILTER QUERY LABEL
-
-
-
+        # region
         self.labelFrameBorderQueryFeature = LabelFrame(self.labelFrameFilterQueryData, bd = 0)
         self.labelFrameBorderQueryFeature.place(
             relx = 0, rely = 0,
@@ -1751,7 +1791,6 @@ class OOTO_Miner:
         self.labelFrameBorderQueryFeature.configure(
             background = Color_support.FILTER_BUTTONS_BG
         )
-
 
         self.labelQueryFeature = Label(self.labelFrameBorderQueryFeature)
         self.labelQueryFeature.place(
@@ -1763,13 +1802,13 @@ class OOTO_Miner:
             font = UI_support.FILTER_LABEL_FONT,
             bd = 0, relief = FLAT,
         )
-
-
+        # endregion
 
 
         newRelX = self.getRelX(self.labelFrameBorderQueryFeature) + self.getRelW(self.labelFrameBorderQueryFeature)
 
         # FILTER QUERY ENTRY
+        # region
         self.entryQueryFeature = Entry(self.labelFrameFilterQueryData)
         self.entryQueryFeature.place(
             relx = newRelX, rely = 0,
@@ -1782,10 +1821,11 @@ class OOTO_Miner:
             insertbackground = Color_support.FILTER_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.FILTER_ENTRY_JUSTIFY
         )
-
+        # endregion
         newRelX = self.getRelX(self.entryQueryFeature) + self.getRelW(self.entryQueryFeature)
 
         # FILTER QUERY BUTTON
+        # region
         self.buttonQueryFeature = Button(self.labelFrameFilterQueryData)
         self.buttonQueryFeature.place(
             relx = newRelX, rely = 0,
@@ -1805,56 +1845,21 @@ class OOTO_Miner:
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = FLAT
         )
+        # endregion
 
+        # newRelY = self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)
+        ### INSERT CODE HERE
+
+
+
+        # newRelY = self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)
+        # newRelH = 1 - (self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)) - 0.2
         newRelY = self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)
-
-        # FILTER OVERLAY
-        '''
-        self.labelOverlayQueryFeature = Label(self.labelFrameFilterQueryData)
-        self.labelOverlayQueryFeature.place(
-            relx = 0, rely = 0,
-            relwidth = 1, relheight = 1)
-        self.labelOverlayQueryFeature.configure(
-            # background = Color_support.FILTER_LABEL_OVERLAY_BG,
-            foreground = Color_support.FILTER_LABEL_FG,
-            font = UI_support.FILTER_LABEL_FONT,
-            bd = 0, relief = FLAT,
-        )
-
-        im = PIL.Image.open(Icon_support.OVERLAY_ICO_BLACK_70).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS, PIL.Image.ANTIALIAS)
-        lbl_overlay_icon = PIL.ImageTk.PhotoImage(im)
-        self.labelOverlayQueryFeature.configure(image = lbl_overlay_icon)
-        self.labelOverlayQueryFeature.image = lbl_overlay_icon  # < ! > Required to make images appear
-        '''
+        newRelH = 1 - (self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)) - 0.2
 
 
-        # FILTER LIST PARENT
-        self.labelFrameFilterListData = LabelFrame(parentFrame, bd = 0)
-
-        self.labelFrameFilterListData.place(
-            relx = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_W, relheight = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_H
-        )
-        self.labelFrameFilterListData.configure(
-            background = Color_support.FILTER_BG
-        )
 
 
-        # TOP LABEL FEATURE NAME
-        self.labelQueryDataFeatureName = Label(self.labelFrameFilterListData)
-        self.labelQueryDataFeatureName.place(
-            relx = 0, rely = 0,
-            relheight = UI_support.TAB_TEST_FILTER_QUERY_FEATURE_NAME_REL_H, relwidth = 1)
-        self.labelQueryDataFeatureName.configure(
-            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG, foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
-            bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
-            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
-            font = UI_support.FILTER_STATUS_LABEL_FONT,
-        )
-
-
-        newRelY = self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)
-        newRelH = 1 - (self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)) - 0.2
 
         # FILTER LIST DATA A PARENT
         self.labelFrameFilterListDataA = LabelFrame(self.labelFrameFilterListData, bd = 0)
@@ -1953,57 +1958,152 @@ class OOTO_Miner:
         )
 
 
-        #### TODO Move functionality to new query elements
 
-        '''
-        # ENTER CODE DATASET A
-        self.entryQueryFeatureA = Entry(self.labelFrameQueryDataA)
-        self.entryQueryFeatureA.place(
-            relx = 0.23, rely = 0.32,
-            relwidth = 0, relheight = 0
-        ) # 0.76)
+        # FILTER LOCK OVERLAY
+        # region
+
+        # FILTER LOCK QUERY ENTRY COVER
+        # region
+        self.labelOverlayFilterQueryData = Label(self.labelFrameFilterQueryData)
+        self.labelOverlayFilterQueryData.place(
+            relx = 0, rely = 0,
+            relwidth = 1, relheight = 1)
+        self.labelOverlayFilterQueryData.configure(
+            background = Color_support.WHITE,
+            foreground = Color_support.FILTER_LABEL_OVERLAY_BG,
+            text = '''Please confirm the dataset groupings before filtering''',
+            font = UI_support.FILTER_LABEL_FONT,
+            bd = 1, relief = RIDGE,
+            # bd = self.labelFrameFilterQueryData['bd'], relief = self.labelFrameFilterQueryData['relief'],
+        )
+
+        # MOCK LABEL BORDER
+        self.labelOverlayBorderQueryFeature = Label(self.labelOverlayFilterQueryData)
+        self.labelOverlayBorderQueryFeature.place(
+            relx = self.getRelX(self.labelFrameBorderQueryFeature),
+            rely = self.getRelY(self.labelFrameBorderQueryFeature),
+            relwidth = self.getRelW(self.labelFrameBorderQueryFeature),
+            relheight = self.getRelH(self.labelFrameBorderQueryFeature)
+        )
+        self.labelOverlayBorderQueryFeature.configure(
+            background = Color_support.FILTER_LABEL_OVERLAY_BG,
+            foreground = self.labelFrameBorderQueryFeature['foreground'],
+            text = self.labelFrameBorderQueryFeature['text'],
+            # text = '''Please confirm the dataset groupings before filtering''',
+            font = self.labelFrameBorderQueryFeature['font'],
+            bd = self.labelFrameBorderQueryFeature['bd'], relief = self.labelFrameBorderQueryFeature['relief'],
+        )
+
+        # MOCK LABEL
+        self.labelOverlayLabelQueryFeature = Label(self.labelOverlayBorderQueryFeature)
+        self.labelOverlayLabelQueryFeature.place(
+            relx = self.getRelX(self.labelQueryFeature),
+            rely = self.getRelY(self.labelQueryFeature),
+            relwidth = self.getRelW(self.labelQueryFeature),
+            relheight = self.getRelH(self.labelQueryFeature)
+        )
+        self.labelOverlayLabelQueryFeature.configure(
+            background = self.labelQueryFeature['background'],
+            foreground = Color_support.FILTER_LABEL_OVERLAY_BG,
+            text = self.labelQueryFeature['text'],
+            # text = '''Please confirm the dataset groupings before filtering''',
+            font = self.labelQueryFeature['font'],
+            bd = self.labelQueryFeature['bd'], relief = self.labelQueryFeature['relief'],
+        )
 
 
-        self.entryQueryFeatureA.configure(background = "white")
-        self.entryQueryFeatureA.configure(disabledforeground = "#a3a3a3")
-        self.entryQueryFeatureA.configure(font = "TkFixedFont")
-        self.entryQueryFeatureA.configure(foreground = "#000000")
-        self.entryQueryFeatureA.configure(insertbackground = "black")
+        # MOCK BUTTON
+        self.labelOverlayButtonQueryFeature = Label(self.labelOverlayFilterQueryData)
+        self.labelOverlayButtonQueryFeature.place(
+            relx = self.getRelX(self.buttonQueryFeature),
+            rely = self.getRelY(self.buttonQueryFeature),
+            relwidth = self.getRelW(self.buttonQueryFeature),
+            relheight = self.getRelH(self.buttonQueryFeature)
+        )
+        self.labelOverlayButtonQueryFeature.configure(
+            background = Color_support.FILTER_LABEL_OVERLAY_BG,
+            foreground = self.buttonQueryFeature['foreground'],
+            text = self.buttonQueryFeature['text'],
+            # text = '''Please confirm the dataset groupings before filtering''',
+            font = self.buttonQueryFeature['font'],
+            bd = 1, relief = self.buttonQueryFeature['relief'],
+            image = self.buttonQueryFeature['image']
+        )
 
-        self.buttonQueryFeatureA = Button(self.labelFrameQueryDataA)
-        self.buttonQueryFeatureA.place(relx = 0.02, rely = 0.32, height = 0, width = 0 ) # 96)
+        self.separatorOverlayFilterQueryData = ttk.Separator(self.labelOverlayFilterQueryData, orient = VERTICAL)
+        self.separatorOverlayFilterQueryData.place(relx = 0, rely = 0, relheight = 1)
+        # endregion
 
-        self.buttonQueryFeatureA.configure(activebackground = "#d9d9d9")
-        self.buttonQueryFeatureA.configure(activeforeground = "#000000")
-        self.buttonQueryFeatureA.configure(background = "#d9d9d9")
-        self.buttonQueryFeatureA.configure(disabledforeground = "#a3a3a3")
-        self.buttonQueryFeatureA.configure(foreground = "#000000")
-        self.buttonQueryFeatureA.configure(highlightbackground = "#d9d9d9")
-        self.buttonQueryFeatureA.configure(highlightcolor = "black")
-        self.buttonQueryFeatureA.configure(pady = "0")
 
-        # ENTER CODE DATASET B
-        self.entryQueryFeatureB = Entry(self.labelFrameQueryDataB)
-        self.entryQueryFeatureB.place(relx = 0.23, rely = 0.32, relheight = 0
-                                      , relwidth = 0 ) # 0.76)
-        self.entryQueryFeatureB.configure(background = "white")
-        self.entryQueryFeatureB.configure(disabledforeground = "#a3a3a3")
-        self.entryQueryFeatureB.configure(font = "TkFixedFont")
-        self.entryQueryFeatureB.configure(foreground = "#000000")
-        self.entryQueryFeatureB.configure(insertbackground = "black")
+        # FILTER LOCK LISTBOX COVER
 
-        self.buttonQueryFeatureB = Button(self.labelFrameQueryDataB)
-        self.buttonQueryFeatureB.place(relx = 0.02, rely = 0.32, height = 0, width = 0) # 96)
+        # LEFT COVER
+        # region
+        # self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListDataA)
+        self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListData)
+        self.labelOverlayFilterListDataA.place(
+            relx = self.getRelX(self.labelFrameFilterListDataA), rely = self.getRelY(self.labelFrameFilterListDataA),
+            relwidth = self.getRelW(self.labelFrameFilterListDataA), relheight = self.getRelH(self.labelFrameFilterListDataA))
+        self.labelOverlayFilterListDataA.configure(
+            background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
+            foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
+            font = UI_support.FILTER_LABEL_FONT,
+            bd = 1, relief = RIDGE,
+            # bd = self.labelFrameFilterListDataA['bd'], relief = self.labelFrameFilterListDataA['relief'],
+        )
+        # FILTER LOCK BOTTOM MOCK NO DATA LABEL
+        self.labelOverlayQueryDataA = Label(self.labelOverlayFilterListDataA)
+        self.labelOverlayQueryDataA.place(
+            relx = self.getRelX(self.labelQueryDataA), rely = self.getRelY(self.labelQueryDataA),
+            relwidth = self.getRelW(self.labelQueryDataA), relheight = self.getRelH(self.labelQueryDataA))
 
-        self.buttonQueryFeatureB.configure(activebackground = "#d9d9d9")
-        self.buttonQueryFeatureB.configure(activeforeground = "#000000")
-        self.buttonQueryFeatureB.configure(background = "#d9d9d9")
-        self.buttonQueryFeatureB.configure(disabledforeground = "#a3a3a3")
-        self.buttonQueryFeatureB.configure(foreground = "#000000")
-        self.buttonQueryFeatureB.configure(highlightbackground = "#d9d9d9")
-        self.buttonQueryFeatureB.configure(highlightcolor = "black")
-        self.buttonQueryFeatureB.configure(pady = "0")
-        '''
+        self.labelOverlayQueryDataA.configure(
+            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
+            foreground = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
+            bd = self.labelQueryDataA['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
+            text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
+            font = UI_support.FILTER_STATUS_LABEL_FONT,
+        )
+
+        self.separatorOverlayFilterListDataA = ttk.Separator(self.labelOverlayFilterListDataA, orient = VERTICAL)
+        self.separatorOverlayFilterListDataA.place(relx = 0, rely = 0, relheight = 1)
+        # endregion
+
+        # RIGHT COVER
+        # region
+        self.labelOverlayFilterListDataB = Label(self.labelFrameFilterListData)
+        self.labelOverlayFilterListDataB.place(
+            relx = self.getRelX(self.labelFrameFilterListDataB), rely = self.getRelY(self.labelFrameFilterListDataB),
+            relwidth = self.getRelW(self.labelFrameFilterListDataB), relheight = self.getRelH(self.labelFrameFilterListDataB))
+        self.labelOverlayFilterListDataB.configure(
+            background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
+            foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
+            font = UI_support.FILTER_LABEL_FONT,
+            bd = 1, relief = RIDGE,
+            # bd = self.labelFrameFilterListDataB['bd'], relief = self.labelFrameFilterListDataB['relief'],
+        )
+        # FILTER LOCK BOTTOM MOCK NO DATA LABEL
+        self.labelOverlayQueryDataB = Label(self.labelOverlayFilterListDataB)
+        self.labelOverlayQueryDataB.place(
+            relx = self.getRelX(self.labelQueryDataB), rely = self.getRelY(self.labelQueryDataB),
+            relwidth = self.getRelW(self.labelQueryDataB), relheight = self.getRelH(self.labelQueryDataB))
+
+        self.labelOverlayQueryDataB.configure(
+            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
+            foreground = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
+            bd = self.labelQueryDataA['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
+            text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
+            font = UI_support.FILTER_STATUS_LABEL_FONT,
+        )
+        # endregion
+
+
+        # endregion
+
+
+
+
+
 
     ''' -> Elements under the PROCESS ("TEST") HEADER <- '''
     def configureProcessElements(self, parentFrame):
