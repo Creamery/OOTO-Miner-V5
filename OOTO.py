@@ -1964,18 +1964,36 @@ class OOTO_Miner:
 
         # FILTER LOCK QUERY ENTRY COVER
         # region
-        self.labelOverlayFilterQueryData = Label(self.labelFrameFilterQueryData)
+        # FILTER LOCK MOCK PARENT COVER
+        self.labelOverlayFilterListData = Label(parentFrame, bd = 0)
+
+        self.labelOverlayFilterListData.place(
+            relx = self.getRelX(self.labelFrameFilterListData), rely = self.getRelY(self.labelFrameFilterListData),
+            relwidth = 0, relheight = 0)
+            # relwidth = self.getRelW(self.labelFrameFilterListData), relheight = self.getRelH(self.labelFrameFilterListData))
+
+        self.labelOverlayFilterListData.configure(
+            background = self.labelFrameFilterListData['background']
+        )
+
+        # MOCK QUERY PARENT FRAME
+        self.labelOverlayFilterQueryData = Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterQueryData.place(
-            relx = 0, rely = 0,
-            relwidth = 1, relheight = 1)
+            relx = self.getRelX(self.labelFrameFilterQueryData),
+            rely = self.getRelY(self.labelFrameFilterQueryData),
+            relwidth = self.getRelW(self.labelFrameFilterQueryData),
+            relheight = self.getRelH(self.labelFrameFilterQueryData)
+        )
         self.labelOverlayFilterQueryData.configure(
-            background = Color_support.WHITE,
+            background = self.labelFrameFilterQueryData['background'],
             foreground = Color_support.FILTER_LABEL_OVERLAY_BG,
             text = '''Please confirm the dataset groupings before filtering''',
             font = UI_support.FILTER_LABEL_FONT,
             bd = 1, relief = RIDGE,
             # bd = self.labelFrameFilterQueryData['bd'], relief = self.labelFrameFilterQueryData['relief'],
         )
+
+
 
         # MOCK LABEL BORDER
         self.labelOverlayBorderQueryFeature = Label(self.labelOverlayFilterQueryData)
@@ -2040,7 +2058,7 @@ class OOTO_Miner:
         # LEFT COVER
         # region
         # self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListDataA)
-        self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListData)
+        self.labelOverlayFilterListDataA = Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterListDataA.place(
             relx = self.getRelX(self.labelFrameFilterListDataA), rely = self.getRelY(self.labelFrameFilterListDataA),
             relwidth = self.getRelW(self.labelFrameFilterListDataA), relheight = self.getRelH(self.labelFrameFilterListDataA))
@@ -2071,7 +2089,7 @@ class OOTO_Miner:
 
         # RIGHT COVER
         # region
-        self.labelOverlayFilterListDataB = Label(self.labelFrameFilterListData)
+        self.labelOverlayFilterListDataB = Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterListDataB.place(
             relx = self.getRelX(self.labelFrameFilterListDataB), rely = self.getRelY(self.labelFrameFilterListDataB),
             relwidth = self.getRelW(self.labelFrameFilterListDataB), relheight = self.getRelH(self.labelFrameFilterListDataB))

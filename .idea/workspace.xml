@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="2033" column="44" selection-start-line="2033" selection-start-column="44" selection-end-line="2033" selection-end-column="44" />
+            <state relative-caret-position="187">
+              <caret line="2059" column="16" selection-start-line="2059" selection-start-column="16" selection-end-line="2059" selection-end-column="16" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#10634#10987#1" />
@@ -29,6 +28,8 @@
                 <element signature="e#81455#81488#0" />
                 <element signature="e#81592#81600#0" />
                 <element signature="e#82496#82504#0" />
+                <element signature="e#90270#90278#0" />
+                <element signature="e#94836#94863#0" />
                 <element signature="e#96787#96820#0" />
                 <element signature="e#98740#98773#0" />
                 <element signature="e#114283#114312#0" />
@@ -339,7 +340,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3324</line>
+          <line>3342</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
@@ -415,8 +416,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="2033" column="44" selection-start-line="2033" selection-start-column="44" selection-end-line="2033" selection-end-column="44" />
+        <state relative-caret-position="187">
+          <caret line="2059" column="16" selection-start-line="2059" selection-start-column="16" selection-end-line="2059" selection-end-column="16" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#10634#10987#1" />
@@ -428,6 +429,8 @@
             <element signature="e#81455#81488#0" />
             <element signature="e#81592#81600#0" />
             <element signature="e#82496#82504#0" />
+            <element signature="e#90270#90278#0" />
+            <element signature="e#94836#94863#0" />
             <element signature="e#96787#96820#0" />
             <element signature="e#98740#98773#0" />
             <element signature="e#114283#114312#0" />
