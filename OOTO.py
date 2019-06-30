@@ -1513,7 +1513,7 @@ class OOTO_Miner:
         )
         # endregion
 
-        # COMMAND BORDERS
+        # COMMAND BORDERS - DATASET A
         # region
         newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
 
@@ -1523,7 +1523,7 @@ class OOTO_Miner:
             rely = newRelY,
             relheight = 1 - newRelY,
             width = 1)
-        self.separatorlabelFrameCommandsARight.configure(background = Color_support.SELECT_TITLE_BG)
+        self.separatorlabelFrameCommandsARight.configure(background = Color_support.DISABLED_D_BLUE)
 
         self.separatorlabelFrameCommandsALeft = Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsALeft.place(
@@ -1532,7 +1532,7 @@ class OOTO_Miner:
             relheight = self.getRelH(self.separatorlabelFrameCommandsARight),
             width = 1
         )
-        self.separatorlabelFrameCommandsALeft.configure(background = Color_support.SELECT_TITLE_BG)
+        self.separatorlabelFrameCommandsALeft.configure(background = Color_support.DISABLED_D_BLUE)
 
 
 
@@ -1542,7 +1542,7 @@ class OOTO_Miner:
             rely = 0.997,
             relwidth = self.getRelX(self.separatorlabelFrameCommandsALeft) - self.getRelX(self.separatorlabelFrameCommandsARight),
             height = 1)
-        self.separatorlabelFrameCommandsABottom.configure(background = Color_support.SELECT_TITLE_BG)
+        self.separatorlabelFrameCommandsABottom.configure(background = Color_support.DISABLED_D_BLUE)
 
 
         newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
@@ -1553,7 +1553,7 @@ class OOTO_Miner:
             rely = newRelY,
             relwidth = self.getRelW(self.separatorlabelFrameCommandsABottom),
             height = 1)
-        self.separatorlabelFrameCommandsATop.configure(background = Color_support.SELECT_TITLE_BG)
+        self.separatorlabelFrameCommandsATop.configure(background = Color_support.DISABLED_D_BLUE)
 
         # endregion
 
@@ -1761,6 +1761,52 @@ class OOTO_Miner:
         self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
 
         # endregion
+
+        # COMMAND BORDERS - DATASET B
+        # region
+        # newRelY = self.getRelY(self.labelFrameListBoxB) + self.getRelH(self.labelFrameListBoxB)
+
+        self.separatorlabelFrameCommandsBRight = Label(self.labelFrameDatasetB)
+        self.separatorlabelFrameCommandsBRight.place(
+            relx = self.getRelX(self.separatorlabelFrameCommandsARight),
+            rely = self.getRelY(self.separatorlabelFrameCommandsARight),
+            relheight = self.getRelH(self.separatorlabelFrameCommandsARight),
+            width = 1
+        )
+        self.separatorlabelFrameCommandsBRight.configure(background = Color_support.DISABLED_D_BLUE)
+
+        self.separatorlabelFrameCommandsBLeft = Label(self.labelFrameDatasetB)
+        self.separatorlabelFrameCommandsBLeft.place(
+            relx = self.getRelX(self.separatorlabelFrameCommandsALeft),
+            rely = self.getRelY(self.separatorlabelFrameCommandsALeft),
+            relheight = self.getRelH(self.separatorlabelFrameCommandsALeft),
+            width = 1
+        )
+        self.separatorlabelFrameCommandsBLeft.configure(background = Color_support.DISABLED_D_BLUE)
+
+
+
+        self.separatorlabelFrameCommandsBBottom = Label(self.labelFrameDatasetB)
+        self.separatorlabelFrameCommandsBBottom.place(
+            relx = self.getRelX(self.separatorlabelFrameCommandsABottom),
+            rely = self.getRelY(self.separatorlabelFrameCommandsABottom),
+            relwidth = self.getRelW(self.separatorlabelFrameCommandsABottom),
+            height = 1)
+        self.separatorlabelFrameCommandsBBottom.configure(background = Color_support.DISABLED_D_BLUE)
+
+
+        newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
+
+        self.separatorlabelFrameCommandsBTop = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsBTop.place(
+            relx = self.getRelX(self.separatorlabelFrameCommandsATop),
+            rely = self.getRelY(self.separatorlabelFrameCommandsATop),
+            relwidth = self.getRelW(self.separatorlabelFrameCommandsATop),
+            height = 1)
+        self.separatorlabelFrameCommandsATop.configure(background = Color_support.DISABLED_PALER_YELLOW)
+
+        # endregion
+
 
         # QUERY COUNT (DATASET B)
         # region
