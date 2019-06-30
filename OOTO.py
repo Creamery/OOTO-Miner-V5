@@ -742,13 +742,17 @@ class OOTO_Miner:
         newRelX = prevFrameRelX + prevFrameRelW
 
         # CONSOLE Parent Frame
-        self.labelFrameConsoleElements = LabelFrame(self.testTabParentFrame)
+        self.labelFrameConsoleElements = LabelFrame(self.testTabParentFrame, bd = 1, relief = GROOVE)
+        # self.labelFrameConsoleElements.place(
+        #     relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
+        #     relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
+        # )
         self.labelFrameConsoleElements.place(
-            relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
-            relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
+            relx = newRelX, rely = 0,
+            relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = 1
         )
         self.labelFrameConsoleElements.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR, text = '''CONSOLE'''
+            background = Color_support.WHITE, foreground = Color_support.FG_COLOR # , text = '''CONSOLE'''
         )
 
         self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
@@ -3630,6 +3634,7 @@ class OOTO_Miner:
             # If the dataset is empty, do not continue finding the feature
             if(len(self.datasetA['Data']) <= 0 or len(self.datasetB['Data']) <= 0):
                 tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+                self.setFilterStripeReady(False, self.labelFilterStripes)
                 # CLEAR filter feature box
                 self.queryResetFilterDetails(evt)
 
@@ -3637,12 +3642,14 @@ class OOTO_Miner:
             elif self.datasetCountA <= 0:
                 tkMessageBox.showerror("Error: No samples selected for A",
                                        "You must have at least 1 sample in your selection.")
+                self.setFilterStripeReady(False, self.labelFilterStripes)
                 # CLEAR filter feature box
                 self.queryResetFilterDetails(evt)
 
             elif self.datasetCountB <= 0:
                 tkMessageBox.showerror("Error: No samples selected for B",
                                        "You must have at least 1 sample in your selection.")
+                self.setFilterStripeReady(False, self.labelFilterStripes)
                 # CLEAR filter feature box
                 self.queryResetFilterDetails(evt)
 
@@ -3650,6 +3657,7 @@ class OOTO_Miner:
                 try:
                     self.querySetFeatureA(entryQuery)
                     self.querySetFeatureB(entryQuery)
+                    self.setFilterStripeReady(True, self.labelFilterStripes)
 
                     # Get the feature description
                     featureDesc = self.datasetA['Focus Feature']['Description'] # Doesn't matter if you use datasetA or datasetB
@@ -3659,10 +3667,11 @@ class OOTO_Miner:
                         featureDesc = featureDesc[:71] + '...'  # Shorten it
 
                     # Display the description
-                    self.labelQueryDataFeatureName.config(text = featureDesc)
+                    self.labelQueryDataFeatureName.config(text = UI_support.FILTER_STATUS_CONFIRMED_TEXT + featureDesc)
 
                 except NameError:
                     tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+                    self.setFilterStripeReady(False, self.labelFilterStripes)
                 except:
                     print ("Exception in " + "def querySetFeature(self, evt)")
         return "break"
@@ -4112,7 +4121,7 @@ class OOTO_Miner:
             relwidth = self.getRelW(self.labelFrameFilterListData), relheight = self.getRelH(self.labelFrameFilterListData))
 
         # Change stripe color
-        self.setFilterStripeReady(True, self.labelFilterStripes)
+        self.setFilterStripeReady(False, self.labelFilterStripes)
 
     def enableFilter(self):
         # Enable entry
@@ -4135,7 +4144,7 @@ class OOTO_Miner:
             relwidth = 0, relheight = 0)
 
         # Change stripe color
-        self.setFilterStripeReady(True, self.labelFilterStripes)
+        self.setFilterStripeReady(False, self.labelFilterStripes)
 
     def setDatasetStatusReady(self, isReady, statusWidget, stripeWidget):
         if isReady:

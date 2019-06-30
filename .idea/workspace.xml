@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="3463" column="61" lean-forward="true" selection-start-line="3463" selection-start-column="61" selection-end-line="3463" selection-end-column="61" />
+            <state relative-caret-position="286">
+              <caret line="750" column="26" selection-start-line="750" selection-start-column="19" selection-end-line="750" selection-end-column="26" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#10634#10987#1" />
@@ -30,7 +30,6 @@
                 <element signature="e#60214#60222#0" />
                 <element signature="e#64492#64500#0" />
                 <element signature="e#65393#65401#0" />
-                <element signature="e#66892#66900#0" />
                 <element signature="e#66916#66924#0" />
                 <element signature="e#68169#68177#0" />
                 <element signature="e#68592#68600#0" />
@@ -121,8 +120,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="152" column="12" lean-forward="true" selection-start-line="152" selection-start-column="12" selection-end-line="152" selection-end-column="12" />
+            <state relative-caret-position="3270">
+              <caret line="344" column="24" selection-start-line="344" selection-end-line="344" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -143,15 +142,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Ready</find>
-      <find>labelFrameFilterQueryData</find>
-      <find>TBUTTON</find>
-      <find>MOCK</find>
-      <find>enableFilt</find>
-      <find>stripe</find>
-      <find>ready</find>
-      <find>'''SAMPLES</find>
-      <find>border</find>
       <find>FIL</find>
       <find>filter fea</find>
       <find>stripes</find>
@@ -172,7 +162,16 @@
       <find>SELECT_ENT</find>
       <find>FILTER_ENTRY_FG</find>
       <find>enablefilt</find>
+      <find>.bind</find>
+      <find>stripe</find>
+      <find>setFilterStripeReady</find>
+      <find>labelQueryDataFeatureName.configure</find>
+      <find>labelQueryDataFeatureName</find>
+      <find>FILTER_STATUS_READY_TEXT</find>
+      <find>READ</find>
+      <find>'''READ</find>
       <find>PALE_YELL</find>
+      <find>READY_TEXT</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -193,9 +192,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/UI_support.py" />
         <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/Color_support.py" />
+        <option value="$PROJECT_DIR$/UI_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
       </list>
     </option>
@@ -314,20 +313,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="104" y="0" width="1376" height="870" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11760243" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22373806" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.24561404" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.22373806" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.24556616" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32928476" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32928476" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32928476" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.3287858" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.3287858" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3287858" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32928476" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -352,7 +350,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>850</line>
+          <line>854</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -362,12 +360,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3623</line>
+          <line>3627</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3362</line>
+          <line>3366</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
@@ -410,13 +408,6 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_right_arrow_small.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/UI_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="152" column="12" lean-forward="true" selection-start-line="152" selection-start-column="12" selection-end-line="152" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14">
@@ -434,6 +425,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3270">
+          <caret line="344" column="24" selection-start-line="344" selection-end-line="344" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -443,8 +441,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="3463" column="61" lean-forward="true" selection-start-line="3463" selection-start-column="61" selection-end-line="3463" selection-end-column="61" />
+        <state relative-caret-position="286">
+          <caret line="750" column="26" selection-start-line="750" selection-start-column="19" selection-end-line="750" selection-end-column="26" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#10634#10987#1" />
@@ -457,7 +455,6 @@
             <element signature="e#60214#60222#0" />
             <element signature="e#64492#64500#0" />
             <element signature="e#65393#65401#0" />
-            <element signature="e#66892#66900#0" />
             <element signature="e#66916#66924#0" />
             <element signature="e#68169#68177#0" />
             <element signature="e#68592#68600#0" />
