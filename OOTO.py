@@ -1169,7 +1169,7 @@ class OOTO_Miner:
         '''
         > TAB 3 - INFO (Tabs_t4)
         '''
-
+        # region
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)
         self.infoTabParentFrame = LabelFrame(self.Tabs_t4, bd = 0)
         self.infoTabParentFrame.place(
@@ -1279,6 +1279,8 @@ class OOTO_Miner:
         self.labelAffiliationText.configure(
             background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG, text = UI_support.STR_ABOUT_AFFILIATION,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
+        # endregion
+
 
         '''
         BINDING FOR INFO TAB
@@ -1305,199 +1307,109 @@ class OOTO_Miner:
         # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
         # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
-    # TODO Optimize (avoid resizing, keep a reference)
-    def enterCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_check_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_check_icon)
-        item.image = btn_check_icon  # < ! > Required to make images appear
-
-    def leaveCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_check_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_check_icon)
-        item.image = btn_check_icon  # < ! > Required to make images appear
 
 
-    def enterCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_cross_icon)
-        item.image = btn_cross_icon  # < ! > Required to make images appear
-
-    def leaveCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_cross_icon)
-        item.image = btn_cross_icon  # < ! > Required to make images appear
-
-    def enterAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_ADD_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_add_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_add_icon)
-        item.image = btn_add_icon  # < ! > Required to make images appear
-
-    def leaveAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_add_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_add_icon)
-        item.image = btn_add_icon  # < ! > Required to make images appear
-
-    def enterDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        item = event.widget
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item.configure(
-            image = btn_down_arrow_icon)
-        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
-
-    def leaveDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_down_arrow_icon)
-        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
-
-    def enterRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
-        item = event.widget
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
-
-    def leaveRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
-
-    def enterRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        item = event.widget
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
-
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
-
-    def leaveRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
-        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
-        item = event.widget
-        item.configure(
-            image = btn_right_arrow_icon)
-        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
 
-    '''
-    def enterQueryAddFilterA(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryAddFilterA.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
+    """ >>> FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. buttons, listboxes) <<< """
+    # region
 
-    def leaveQueryAddFilterA(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryAddFilterA.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
+    ''' --> Elements under the DATA ("DATA") TAB (1) <-- '''
+    # region
+    ''' (?) Generates the initial variable description '''
+    def makeInitialVarDesc(self, evt):
+        varFileDir = self.entryVariableFile.get()
+        valFileDir = self.entryValuesFile.get()
+        # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
+        print self.entryQueryPopulation.get()[-4:]
 
-    def enterQueryAddFilterB(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        if self.entryInitialVarDesc.get()[-4:] != ".csv": # TODO Properly check for valid files
+            tkMessageBox.showinfo("System Message", "Please enter a valid Variable Description CSV file") # TODO!!
 
-        self.buttonQueryAddFilterB.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
-    
+        elif self.entryQueryPopulation.get()[-4:] != ".csv":
+            tkMessageBox.showinfo("System Message", "Please enter a valid Population Dataset CSV file") # TODO!!
 
-    def leaveQueryAddFilterB(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        else:
+            tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!") # TODO!!
+            self.Tabs.select(UI_support.TAB_TEST_INDEX)
+        return "break"
 
-        self.buttonQueryAddFilterB.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
-   
+    ''' (?) Uploads the variable file '''
+    def getVariableFile(self, evt):
+        varFileDir = askopenfilename(title = "Select variable file",filetypes = (("txt files","*.txt"),("all files","*.*")))
+        self.entryVariableFile.delete(0, END)
+        self.entryVariableFile.insert(0, varFileDir)
+        return "break"
 
-    def enterQueryResetFilterA(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+    ''' (?) Uploads the values file '''
+    def getValuesFile(self, evt):
+        valFileDir = askopenfilename(title = "Select values file",filetypes = (("txt files","*.txt"),("all files","*.*")))
+        self.entryValuesFile.delete(0,END)
+        self.entryValuesFile.insert(0, valFileDir)
+        return "break"
 
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+    ''' Uploads the variable description '''
+    def uploadInitVarDesc(self, evt):
+        print "UPLOADED"
+        initVarDisc = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
 
-        self.buttonQueryResetFilterA.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
-    
+        if len(initVarDisc) == 0:
+            tkMessageBox.showerror("Error: Upload Variable description",
+                                   "Please select a valid variable description file.")
+        else:
+            self.entryInitialVarDesc.delete(0, END)
+            self.entryInitialVarDesc.insert(0, initVarDisc)
+            global features
+            features = readFeatures(initVarDisc,"^")
+            if (len(features)) > 0:
+                tkMessageBox.showinfo("Variable description set","Variable description uploaded")
 
-    def leaveQueryResetFilterA(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+                #getCommonGroups(features)
+            else:
+                tkMessageBox.showerror("Error: Upload Variable description",
+                                       "Please select a valid variable description file.")
 
-        self.buttonQueryResetFilterA.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+        return "break" # this "unsinks" the button after opening the file explorer
 
+    ''' Uploads the population module '''
+    def setPopulation(self, evt):
+        global populationDir
+        populationDir = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
 
-    def enterQueryResetFilterB(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryResetFilterB.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
+        if len(populationDir) == 0:
+            tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
+        else:
+            self.entryQueryPopulation.delete(0,END)
+            self.entryQueryPopulation.insert(0,populationDir)
 
-    def leaveQueryResetFilterB(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryResetFilterB.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
-    '''
+            self.populationDataset = readCSVDict(populationDir)
+            self.datasetA['Data'] = []
+            self.datasetB['Data'] = []
 
-    def enterQueryZTest(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(
-            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+            if(len(list(self.populationDataset)) > 0):
+                tkMessageBox.showinfo("Population set", "Population dataset uploaded")
+                self.populationDataset = readCSVDict(populationDir)
+                for record in self.populationDataset:
+                    self.datasetA['Data'].append(record)
+                    self.datasetB['Data'].append(record)
+                self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])) )
+                self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])) )
+            else:
+                tkMessageBox.showerror("Error: Upload error", "Error uploading population dataset. Please select a valid file and try again.")
 
-    def leaveQueryZTest(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(
-            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+    ''' (REMOVE) Shows the project details '''
+    def showAbout(self):
+        strAbout = "OTOO Miner v4.0\n" \
+                   "by TE3D House\n" \
+                   "De La Salle University - Laguna"
+        tkMessageBox.showinfo("About", strAbout)
 
-    '''
-    Functions to be called by the bound commands
-    '''
-    #Adds test to the queue
+    # endregion
+
+    ''' --> Elements under the TEST ("TEST") TAB (2) <-- '''
+    # region
+
+    ''' Adds test to the queue '''
     def addToQueue(self, testType, **params):
         global tests
         test = {'Type':testType}
@@ -1529,93 +1441,21 @@ class OOTO_Miner:
             activebackground=Color_support.DATASET_BTN_BG_ACTIVE, activeforeground=Color_support.DATASET_BTN_FG_ACTIVE,
             disabledforeground=Color_support.FG_DISABLED_COLOR)
         '''
-    '''
-    DEFINING BOUND COMMANDS
-    '''
-    # Create the Initial Variable Descriptor
-    def makeInitialVarDesc(self, evt):
-        varFileDir = self.entryVariableFile.get()
-        valFileDir = self.entryValuesFile.get()
-        # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
-        print self.entryQueryPopulation.get()[-4:]
 
-        if self.entryInitialVarDesc.get()[-4:] != ".csv": # TODO Properly check for valid files
-            tkMessageBox.showinfo("System Message", "Please enter a valid Variable Description CSV file") # TODO!!
-
-        elif self.entryQueryPopulation.get()[-4:] != ".csv":
-            tkMessageBox.showinfo("System Message", "Please enter a valid Population Dataset CSV file") # TODO!!
-
-        else:
-            tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!") # TODO!!
-            self.Tabs.select(UI_support.TAB_TEST_INDEX)
-        return "break"
-    
-    def getVariableFile(self, evt):
-        varFileDir = askopenfilename(title = "Select variable file",filetypes = (("txt files","*.txt"),("all files","*.*")))
-        self.entryVariableFile.delete(0, END)
-        self.entryVariableFile.insert(0, varFileDir)
-        return "break"
-    
-    def getValuesFile(self, evt):
-        valFileDir = askopenfilename(title = "Select values file",filetypes = (("txt files","*.txt"),("all files","*.*")))
-        self.entryValuesFile.delete(0,END)
-        self.entryValuesFile.insert(0, valFileDir)
-        return "break"
-
-    # ABOUT US
-    def showAbout(self):
-        strAbout = "OTOO Miner v4.0\n" \
-                   "by TE3D House\n" \
-                   "De La Salle University - Laguna"
-        tkMessageBox.showinfo("About", strAbout)
-
-
-    # UPLOAD MODULE
-    def setPopulation(self, evt):
-        global populationDir
-        populationDir = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
-
-        if len(populationDir) == 0:
-            tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
-        else:
-            self.entryQueryPopulation.delete(0,END)
-            self.entryQueryPopulation.insert(0,populationDir)
-
-            self.populationDataset = readCSVDict(populationDir)
-            self.datasetA['Data'] = []
-            self.datasetB['Data'] = []
-
-            if(len(list(self.populationDataset)) > 0):
-                tkMessageBox.showinfo("Population set", "Population dataset uploaded")
-                self.populationDataset = readCSVDict(populationDir)
-                for record in self.populationDataset:
-                    self.datasetA['Data'].append(record)
-                    self.datasetB['Data'].append(record)
-                self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])) )
-                self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])) )
-            else:
-                tkMessageBox.showerror("Error: Upload error", "Error uploading population dataset. Please select a valid file and try again.")
-
-
-    '''
-    Function that happens when the 'Enqueue' button is pressed.
-    Adds Chi-Test to the queue
-    '''
+    ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
     def queue(self, evt):
         self.buttonQueue.configure(relief = FLAT)
         datasets = []
         datasets.append(self.datasetA)
         datasets.append(self.datasetB)
         global queryType
-        if(queryType == 'Sample vs Sample'):
+        if (queryType == 'Sample vs Sample'):
             self.addToQueue(queryType, datasetArgs = datasets)
         else:
             tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
         return "break"
-    
-    '''
-    Conducts all of the chi-tests in the queue. 
-    '''
+
+    ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
     def testQueue(self, evt):
         if len(tests) == 0:
             tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
@@ -1641,9 +1481,7 @@ class OOTO_Miner:
         tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
         return "break"
 
-    '''
-    Clears the tests in the queue.
-    '''
+    ''' Clears the tests in the queue. '''
     def clearQueue(self, evt):
         tests[:] = []
         self.labelQueueCount.configure(text = str(len(tests)))
@@ -1651,9 +1489,7 @@ class OOTO_Miner:
         self.buttonQueue.configure(relief = FLAT)
         return "break"
 
-    '''
-    QUERY FUNCTIONS
-    '''
+    ''' Simultaneously scrolls the FILTER listbox A and B'''
     def scrollFilterListBox (self, evt): # To simultaneously scroll Filter listbox A and B
         self.listQueryDataA.yview("scroll", evt.delta,"units")
         self.listQueryDataB.yview("scroll",evt.delta,"units")
@@ -1677,7 +1513,6 @@ class OOTO_Miner:
         setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
         setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
 
-
     def querySetPopulation(self, evt):
         self.setPopulation(evt)
         return "break"
@@ -1695,7 +1530,6 @@ class OOTO_Miner:
         except NameError:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
         return "break"
-
 
     def queryResetDatasetA(self,evt):
         self.buttonQueryResetFilterA.configure(relief = FLAT)
@@ -1731,7 +1565,6 @@ class OOTO_Miner:
 
         return "break"
 
-    
     def queryResetDatasetB(self, evt):
         self.buttonQueryResetFilterB.configure(relief = FLAT)
         self.datasetB = resetDataset(self.datasetB)
@@ -1818,6 +1651,7 @@ class OOTO_Miner:
         )
 
         return "break"
+
     def queryAddFilterB(self, evt):
 
         self.buttonQueryAddFilterB.configure(relief = FLAT)
@@ -1894,11 +1728,9 @@ class OOTO_Miner:
 
         return "break"
 
+    ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
     def querySetFeatureA(self, entryQuery):
-
-        # Find the feature and display the dataset's frequencies and proportions for each of its values
         findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
-
         '''
         # Get the feature description
         featureDesc = self.datasetA['Focus Feature']['Description']
@@ -1911,13 +1743,12 @@ class OOTO_Miner:
         self.labelQueryDataFeatureName.config(text = featureDesc)
         '''
 
+    ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
     def querySetFeatureB(self, entryQuery):
-
-        # Find the feature and display the dataset's frequencies and proportions for each of its values
         findFeature(entryQuery, self.listQueryDataB, self.datasetB,"Focus_Feature")
 
 
-    # Conduct the Z-Test between the two samples. 
+    ''' Conduct the Z-Test between the two samples. '''
     def queryZTest(self, evt):
         self.buttonQueryZTest.configure(relief = FLAT)
         # Get selected confidence interval
@@ -1939,7 +1770,8 @@ class OOTO_Miner:
                 self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
 
         return "break"
-    # Conduct Z-Test between the population and all samples
+
+    ''' Conduct Z-Test between the population and all samples '''
     def querySVP(self,evt):
         confidenceInterval = self.comboQueryCriticalValueSvP.get() #Get selected confidence interval
         zCritical = arrQueryCriticalValueMapping[confidenceInterval] #Get corresponding Z Critical Value
@@ -1991,17 +1823,13 @@ class OOTO_Miner:
             self.listQueryDataB.insert(END, "Z-Test complete. Saved as " + fileName)
         tkMessageBox.showinfo(testType, testType + " completed.")
 
-    '''
-    Sets test type: Sample vs Sample (Chi-Test, Z-Test) or Sample vs Population (Z-Test)
-    '''
+    ''' Sets test type: Sample vs Sample (Chi-Test, Z-Test) or Sample vs Population (Z-Test) '''
     def querySetType(self, evt):
         global queryType
         queryType = self.comboQueryTest.get()
         self.adjustQueryViews()
 
-    '''
-    Disables/enables views (buttons, entry fields etc.) based on test type selected
-    '''
+    ''' Disables/enables views (buttons, entry fields etc.) based on test type selected '''
     def adjustQueryViews(self):
         self.buttonQueryFeature.configure(state = "normal")
         # self.buttonQueryFeatureA.configure(state = "normal")
@@ -2096,35 +1924,208 @@ class OOTO_Miner:
         #Test items
         global strarrAllFeatures
         strarrAllFeatures = list(self.listQuerySetDataA.get(0, END))
-        
-    '''
-    Upload the variable description
-    '''
-    def uploadInitVarDesc(self, evt):
-        print "UPLOADED"
-        initVarDisc = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
+    # endregion
 
-        if len(initVarDisc) == 0:
-            tkMessageBox.showerror("Error: Upload Variable description",
-                                   "Please select a valid variable description file.")
-        else:
-            self.entryInitialVarDesc.delete(0, END)
-            self.entryInitialVarDesc.insert(0, initVarDisc)
-            global features
-            features = readFeatures(initVarDisc,"^")
-            if (len(features)) > 0:
-                tkMessageBox.showinfo("Variable description set","Variable description uploaded")
+    # endregion
 
-                #getCommonGroups(features)
-            else:
-                tkMessageBox.showerror("Error: Upload Variable description",
-                                       "Please select a valid variable description file.")
 
-        return "break" # this "unsinks" the button after opening the file explorer
+
+
+    """ >>> HELPER FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. enter, leave) <<< """
+    # TODO Optimize (avoid resizing, keep a reference)
+    # region
+    def enterCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_check_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_check_icon)
+        item.image = btn_check_icon  # < ! > Required to make images appear
+
+    def leaveCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_check_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_check_icon)
+        item.image = btn_check_icon  # < ! > Required to make images appear
+
+    def enterCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_cross_icon)
+        item.image = btn_cross_icon  # < ! > Required to make images appear
+
+    def leaveCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_cross_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_cross_icon)
+        item.image = btn_cross_icon  # < ! > Required to make images appear
+
+    def enterAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_ADD_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_add_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_add_icon)
+        item.image = btn_add_icon  # < ! > Required to make images appear
+
+    def leaveAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_add_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_add_icon)
+        item.image = btn_add_icon  # < ! > Required to make images appear
+
+    def enterDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        item = event.widget
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item.configure(
+            image = btn_down_arrow_icon)
+        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
+
+    def leaveDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_down_arrow_icon)
+        item.image = btn_down_arrow_icon  # < ! > Required to make images appear
+
+    def enterRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
+        item = event.widget
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    def leaveRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    def enterRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        item = event.widget
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
+
+    def leaveRightArrowPlainIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
+        btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
+        item = event.widget
+        item.configure(
+            image = btn_right_arrow_icon)
+        item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
     '''
-    Functions for UI Setup
+    def enterQueryAddFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterA.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+    def leaveQueryAddFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterA.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+    def enterQueryAddFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+
+        self.buttonQueryAddFilterB.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+
+    def leaveQueryAddFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+
+        self.buttonQueryAddFilterB.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+
+    def enterQueryResetFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+
+        self.buttonQueryResetFilterA.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+
+    def leaveQueryResetFilterA(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+
+        self.buttonQueryResetFilterA.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+
+    def enterQueryResetFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterB.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+    def leaveQueryResetFilterB(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterB.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
     '''
+
+    def enterQueryZTest(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryZTest.configure(
+            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+
+    def leaveQueryZTest(self, event):
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryZTest.configure(
+            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+    # endregion
+
+
+
+
+    """ >>> HELPER FUNCTIONS UI ELEMENTS <<< """
+    # region
     def getRelX(self, element):
         return float(element.place_info()['relx'])
     def getRelY(self, element):
@@ -2133,15 +2134,23 @@ class OOTO_Miner:
         return float(element.place_info()['relwidth'])
     def getRelH(self, element):
         return float(element.place_info()['relheight'])
-
     def getW(self, element):
-        return element.winfo_width()
+        return float(element.place_info()['width'])
     def getH(self, element):
         return float(element.place_info()['height'])
-
     def getInfoH(self, element):
         return element.winfo_height()
+    def getInfoW(self, element):
+        return element.winfo_width()
+    # endregion
 
+
+
+
+
+    """ >>> FUNCTIONS FOR THE CONFIGURATION OF UI ELEMENTS <<< """
+    # region
+    ''' --> Elements under the SELECT ("GROUP") HEADER <-- '''
     def configureSelectElements(self, parentFrame):
 
         global queryStrFilterB
@@ -2673,8 +2682,7 @@ class OOTO_Miner:
 
         self.buttonQueryResetFilterB.pack(side = LEFT)
 
-
-
+    ''' --> Elements under the FILTER ("FILTER") HEADER <-- '''
     def configureFilterElements(self, parentFrame):
         global queryStrFilterA
 
@@ -2987,6 +2995,8 @@ class OOTO_Miner:
         self.buttonQueryFeatureB.configure(highlightcolor = "black")
         self.buttonQueryFeatureB.configure(pady = "0")
         '''
+
+    ''' --> Elements under the PROCESS ("TEST") HEADER <-- '''
     def configureProcessElements(self, parentFrame):
 
         # PROCESS TITLE
@@ -3419,9 +3429,12 @@ class OOTO_Miner:
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
+    ''' --> Elements under the CONSOLE ("") HEADER <-- '''
     def configureConsoleElements(self, parentFrame):
         # TODO
         print ("TODO")
+    # endregion
+
 
 if __name__ == '__main__':
     vp_start_gui()
