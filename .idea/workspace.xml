@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,26 +16,17 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="527" column="4" selection-start-line="527" selection-start-column="4" selection-end-line="527" selection-end-column="4" />
+            <state relative-caret-position="256">
+              <caret line="2749" lean-forward="true" selection-start-line="2749" selection-end-line="2749" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#20565#20577#0" />
                 <element signature="e#21731#21816#0" />
                 <element signature="e#18249#18257#0" />
-                <element signature="e#27924#27932#0" />
-                <element signature="e#37680#38417#0" />
                 <element signature="e#28874#39785#0" />
                 <element signature="e#37146#37154#0" />
                 <element signature="e#30271#36267#0" />
-                <element signature="e#32431#32439#0" />
-                <element signature="e#52356#52364#0" />
-                <element signature="e#38677#44574#0" />
-                <element signature="e#44759#51146#0" />
-                <element signature="e#51186#52689#0" />
-                <element signature="e#52307#52315#0" />
-                <element signature="e#52388#78951#0" />
-                <element signature="e#79077#94294#0" />
+                <element signature="e#46749#47431#1" />
                 <element signature="e#81455#81488#0" />
                 <element signature="e#91687#94294#1" />
                 <element signature="e#94421#114161#0" />
@@ -43,7 +35,6 @@
                 <element signature="e#114283#114312#0" />
                 <element signature="e#108870#108878#0" />
                 <element signature="e#108855#113929#0" />
-                <element signature="e#114384#114392#0" />
                 <element signature="e#114433#114475#0" />
                 <element signature="e#114516#114558#0" />
                 <element signature="e#114599#114645#0" />
@@ -52,17 +43,11 @@
                 <element signature="e#114852#114896#0" />
                 <element signature="e#114938#114967#0" />
                 <element signature="e#115009#115037#0" />
-                <element signature="e#52148#52156#0" />
-                <element signature="e#56104#56112#0" />
-                <element signature="e#52452#52460#0" />
+                <element signature="e#114945#114957#0" />
+                <element signature="e#115012#115042#0" />
                 <element signature="e#53112#53289#0" />
                 <element signature="e#54707#54766#0" />
-                <element signature="e#56012#56020#0" />
-                <element signature="e#67116#67124#0" />
-                <element signature="e#68035#68273#0" />
                 <element signature="e#68321#68552#0" />
-                <element signature="e#68861#69844#0" />
-                <element signature="e#68840#70126#0" />
                 <element signature="e#71300#71473#0" />
                 <element signature="e#60544#61942#0" />
                 <element signature="e#61523#61942#1" />
@@ -72,23 +57,18 @@
                 <element signature="e#72391#72640#0" />
                 <element signature="e#72646#72962#1" />
                 <element signature="e#73059#73345#0" />
-                <element signature="e#73395#73441#0" />
-                <element signature="e#73485#73775#0" />
-                <element signature="e#73823#74114#0" />
+                <element signature="e#128866#129242#0" />
+                <element signature="e#129525#129899#0" />
                 <element signature="e#74163#75561#0" />
                 <element signature="e#75615#76911#0" />
-                <element signature="e#76968#77058#0" />
-                <element signature="e#77115#77205#0" />
-                <element signature="e#77251#79685#0" />
-                <element signature="e#79731#82092#0" />
-                <element signature="e#82138#83236#0" />
+                <element signature="e#131944#132362#0" />
+                <element signature="e#136495#139762#0" />
                 <element signature="e#83291#83841#0" />
                 <element signature="e#83480#83841#1" />
                 <element signature="e#84001#84076#0" />
                 <element signature="e#84168#85528#0" />
                 <element signature="e#85625#88630#0" />
                 <element signature="e#88778#88872#0" />
-                <element signature="e#89014#93401#0" />
                 <element signature="e#89074#89128#0" />
                 <element signature="e#91175#91231#0" />
                 <element signature="e#92151#92218#0" />
@@ -118,8 +98,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1748">
-              <caret line="92" column="38" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
+            <state relative-caret-position="104">
+              <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
             </state>
           </provider>
         </entry>
@@ -127,8 +107,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5814">
-              <caret line="306" column="6" selection-start-line="306" selection-start-column="6" selection-end-line="306" selection-end-column="6" />
+            <state relative-caret-position="161">
+              <caret line="52" column="18" selection-start-line="52" selection-end-line="52" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -149,36 +129,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>FITLER_</find>
-      <find>FITLER_LISTBOX_BG</find>
-      <find>'''NO_D</find>
-      <find>FILTER_LISTBOX_BORDER</find>
-      <find>NO_DATA_</find>
-      <find>SELECT_</find>
-      <find>'''NO FEA</find>
-      <find>NO FEATURE'''</find>
-      <find>labelquerydatafeaturename</find>
-      <find>TAB_TEST_FILTER_LISTBOX_LIST_REL_H</find>
-      <find>NO_DATA</find>
-      <find>- 0.4</find>
-      <find>0.333</find>
-      <find>'''GR</find>
-      <find>'''GROUp</find>
-      <find>TEXT</find>
-      <find>'''3</find>
-      <find>z - test</find>
-      <find>READY</find>
-      <find>filter_listbox_b</find>
-      <find>filter</find>
-      <find>Ready</find>
-      <find>resetFilter</find>
-      <find>STATUS</find>
-      <find>SAMPLES'</find>
-      <find>labelQueryDataACountText.confi</find>
-      <find>labelQueryDataBCount</find>
-      <find>reset</find>
-      <find>.bind</find>
-      <find>Chi-test complete</find>
+      <find>labelQueryDataACount.configure</find>
+      <find>len(data</find>
+      <find>labelQueryDataACount.configure(</find>
+      <find>elf.datasetCountB =</find>
+      <find>labelQueryDataBCount.con</find>
+      <find>labelQueryDataACount.con</find>
+      <find>str(len(</find>
+      <find>str(len(self.</find>
+      <find>dataset['Data</find>
+      <find>except</find>
+      <find>buttonStartVariableDescriptor</find>
+      <find>buttonStartVariableDescriptor.bin</find>
+      <find>Start</find>
+      <find>start</find>
+      <find>buttonStartVariableDescriptor.bind</find>
+      <find>'''Upload</find>
+      <find>BTN_DATASET_UPLOAD</find>
+      <find>setpop</find>
+      <find>querysetpop</find>
+      <find>populationDir</find>
+      <find>asd</find>
+      <find>Upload</find>
+      <find>buttonVariableFile.bond</find>
+      <find>entry</find>
+      <find>entryInitialVarDesc</find>
+      <find>entryInitialVarDesc.config</find>
+      <find>entryInitialVarDesc.get(</find>
+      <find>buttonStartDatasetUpload.bind</find>
+      <find>'''Choose</find>
+      <find>Choose</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -350,18 +330,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2611</line>
+          <line>2646</line>
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>814</line>
+          <line>822</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>615</line>
+          <line>623</line>
           <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OOTO.py</url>
+          <line>2976</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OOTO.py</url>
+          <line>3117</line>
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -410,28 +400,43 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_right_arrow_small.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/Icon_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="760">
+          <caret line="44" column="65" selection-start-line="44" selection-start-column="65" selection-end-line="44" selection-end-column="65" />
+          <folding>
+            <element signature="e#1#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="52" column="18" selection-start-line="52" selection-end-line="52" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="527" column="4" selection-start-line="527" selection-start-column="4" selection-end-line="527" selection-end-column="4" />
+        <state relative-caret-position="256">
+          <caret line="2749" lean-forward="true" selection-start-line="2749" selection-end-line="2749" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#20565#20577#0" />
             <element signature="e#21731#21816#0" />
             <element signature="e#18249#18257#0" />
-            <element signature="e#27924#27932#0" />
-            <element signature="e#37680#38417#0" />
             <element signature="e#28874#39785#0" />
             <element signature="e#37146#37154#0" />
             <element signature="e#30271#36267#0" />
-            <element signature="e#32431#32439#0" />
-            <element signature="e#52356#52364#0" />
-            <element signature="e#38677#44574#0" />
-            <element signature="e#44759#51146#0" />
-            <element signature="e#51186#52689#0" />
-            <element signature="e#52307#52315#0" />
-            <element signature="e#52388#78951#0" />
-            <element signature="e#79077#94294#0" />
+            <element signature="e#46749#47431#1" />
             <element signature="e#81455#81488#0" />
             <element signature="e#91687#94294#1" />
             <element signature="e#94421#114161#0" />
@@ -440,7 +445,6 @@
             <element signature="e#114283#114312#0" />
             <element signature="e#108870#108878#0" />
             <element signature="e#108855#113929#0" />
-            <element signature="e#114384#114392#0" />
             <element signature="e#114433#114475#0" />
             <element signature="e#114516#114558#0" />
             <element signature="e#114599#114645#0" />
@@ -449,17 +453,11 @@
             <element signature="e#114852#114896#0" />
             <element signature="e#114938#114967#0" />
             <element signature="e#115009#115037#0" />
-            <element signature="e#52148#52156#0" />
-            <element signature="e#56104#56112#0" />
-            <element signature="e#52452#52460#0" />
+            <element signature="e#114945#114957#0" />
+            <element signature="e#115012#115042#0" />
             <element signature="e#53112#53289#0" />
             <element signature="e#54707#54766#0" />
-            <element signature="e#56012#56020#0" />
-            <element signature="e#67116#67124#0" />
-            <element signature="e#68035#68273#0" />
             <element signature="e#68321#68552#0" />
-            <element signature="e#68861#69844#0" />
-            <element signature="e#68840#70126#0" />
             <element signature="e#71300#71473#0" />
             <element signature="e#60544#61942#0" />
             <element signature="e#61523#61942#1" />
@@ -469,23 +467,18 @@
             <element signature="e#72391#72640#0" />
             <element signature="e#72646#72962#1" />
             <element signature="e#73059#73345#0" />
-            <element signature="e#73395#73441#0" />
-            <element signature="e#73485#73775#0" />
-            <element signature="e#73823#74114#0" />
+            <element signature="e#128866#129242#0" />
+            <element signature="e#129525#129899#0" />
             <element signature="e#74163#75561#0" />
             <element signature="e#75615#76911#0" />
-            <element signature="e#76968#77058#0" />
-            <element signature="e#77115#77205#0" />
-            <element signature="e#77251#79685#0" />
-            <element signature="e#79731#82092#0" />
-            <element signature="e#82138#83236#0" />
+            <element signature="e#131944#132362#0" />
+            <element signature="e#136495#139762#0" />
             <element signature="e#83291#83841#0" />
             <element signature="e#83480#83841#1" />
             <element signature="e#84001#84076#0" />
             <element signature="e#84168#85528#0" />
             <element signature="e#85625#88630#0" />
             <element signature="e#88778#88872#0" />
-            <element signature="e#89014#93401#0" />
             <element signature="e#89074#89128#0" />
             <element signature="e#91175#91231#0" />
             <element signature="e#92151#92218#0" />
@@ -507,30 +500,6 @@
             <element signature="e#90365#94168#1" />
             <element signature="e#94216#94626#0" />
             <element signature="e#94674#95081#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1748">
-          <caret line="92" column="38" selection-start-line="92" selection-start-column="38" selection-end-line="92" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UI_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5814">
-          <caret line="306" column="6" selection-start-line="306" selection-start-column="6" selection-end-line="306" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Icon_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
-          <caret line="44" column="65" selection-start-line="44" selection-start-column="65" selection-end-line="44" selection-end-column="65" />
-          <folding>
-            <element signature="e#1#11#0" expanded="true" />
           </folding>
         </state>
       </provider>

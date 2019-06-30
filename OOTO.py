@@ -451,12 +451,18 @@ def checkKey(dict, key):
 '''
 Set selected dataset values for that dataset. 
 '''
-def selectDatasetValues(evt, dataset, populationDataset, labelFeatCount):
+def selectDatasetValues(evt, dataset, populationDataset):
     global populationDir
 
-    if checkKey(dataset, 'Feature'): #### TODO in DB B
-        listbox = evt.widget
-        selectedValues = [listbox.get(i) for i in listbox.curselection()]
+
+    listbox = evt.widget
+    selectedValues = [listbox.get(i) for i in listbox.curselection()]
+    datasetCount = 0
+
+
+
+    if checkKey(dataset, 'Feature'):  #### TODO in DB B
+
         dataset['Feature']['Selected Responses'] = []
 
         for sv in selectedValues:
@@ -466,14 +472,13 @@ def selectDatasetValues(evt, dataset, populationDataset, labelFeatCount):
                     selected_response = copy.deepcopy(response)
                     dataset['Feature']['Selected Responses'].append(selected_response)
 
-        datasetCount = 0
         print str(len(dataset['Data']))
         for record in dataset['Data']:
             if any (response['Code'] == record[dataset['Feature']['Code']] for response in dataset['Feature']['Selected Responses']):
                 datasetCount += 1
 
-        labelFeatCount.configure(text = "" + str(datasetCount))
-
+    # labelFeatCount.configure(text = str(datasetCount))
+    return datasetCount
 '''
 Saves the dataset as a .csv file
 '''
@@ -508,6 +513,7 @@ class OOTO_Miner:
         # Bind functionality to all UI elements
         self.configureBindings()
 
+
         global queryType
         queryType = self.comboQueryTest.get()
 
@@ -519,8 +525,10 @@ class OOTO_Miner:
 
         global tests
         tests = []
-        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
-        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
+        self.datasetCountA = len(self.datasetA['Data'])
+        self.datasetCountB = len(self.datasetB['Data'])
+        self.labelQueryDataACount.configure(text = self.getDatasetCountA())
+        self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
         # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
         # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
@@ -860,7 +868,8 @@ class OOTO_Miner:
             background = Color_support.DATASET_ENTRY_BG, foreground = Color_support.DATASET_ENTRY_FG,
             bd = 1,
             font = UI_support.FONT_DEFAULT,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
+            disabledforeground = Color_support.FG_DISABLED_COLOR
+        )
 
         # Previous values (1.2)
         prevEntryRelX = float(self.entryInitialVarDesc.place_info()['relx'])
@@ -1070,6 +1079,17 @@ class OOTO_Miner:
         buttonHeight = self.buttonValuesFile.winfo_height()
         buttonWidth = self.buttonValuesFile.winfo_width()
 
+        self.buttonStartDatasetUpload = Button(self.dataTabParentFrame)
+        self.buttonStartDatasetUpload.place(
+            relx = buttonX, rely = buttonY,
+            width = buttonWidth, height = buttonHeight, anchor = CENTER)
+        self.buttonStartDatasetUpload.configure(
+            background = Color_support.START_BTN_BG, foreground = Color_support.START_BTN_FG,
+            text = UI_support.BTN_START,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
+            activebackground = Color_support.START_BTN_BG_ACTIVE, activeforeground = Color_support.START_BTN_FG_ACTIVE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR)
+        '''
         self.buttonStartVariableDescriptor = Button(self.dataTabParentFrame)
         self.buttonStartVariableDescriptor.place(
             relx = buttonX, rely = buttonY,
@@ -1080,7 +1100,7 @@ class OOTO_Miner:
             bd = 1, relief = FLAT, overrelief = GROOVE,
             activebackground = Color_support.START_BTN_BG_ACTIVE, activeforeground = Color_support.START_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
-
+        '''
     # endregion
 
     ''' --> Elements under TEST ("TEST") TAB (2) <-- '''
@@ -1513,11 +1533,16 @@ class OOTO_Miner:
             background = Color_support.SELECT_BG
         )
 
+        # Define count variables
+        self.datasetCountA = 0
+        self.datasetCountB = 0
+
         self.labelQueryDataACount = Label(self.labelFrameQueryCount)
         self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.labelQueryDataACount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.SELECT_BG,
+            text = self.getDatasetCountA()
         )
         self.labelQueryDataACountText = Label(self.labelFrameQueryCount)
         self.labelQueryDataACountText.place(
@@ -1552,6 +1577,7 @@ class OOTO_Miner:
         self.labelQueryDataBCount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.SELECT_BG,
+            text = self.getDatasetCountB()
         )
         self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
         self.labelQueryDataBCountText.place(
@@ -1772,7 +1798,7 @@ class OOTO_Miner:
             relx = 0, rely = 0,
             relheight = UI_support.TAB_TEST_FILTER_QUERY_FEATURE_NAME_REL_H, relwidth = 1)
         self.labelQueryDataFeatureName.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_BG, foreground = Color_support.FILTER_LISTBOX_STATUS_FG,
+            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG, foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
             bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -2497,6 +2523,11 @@ class OOTO_Miner:
         return element.winfo_height()
     def getInfoW(self, element):
         return element.winfo_width()
+
+    def getDatasetCountA(self):
+        return str(self.datasetCountA)
+    def getDatasetCountB(self):
+        return str(self.datasetCountB)
     # endregion
 
 
@@ -2512,18 +2543,22 @@ class OOTO_Miner:
     ''' --> Binding elements under the DATA ("DATA") TAB (1) <-- '''
     # region
     def configureDataTabBindings(self):
-        self.buttonStartVariableDescriptor.bind('<Button-1>', self.makeInitialVarDesc)
+
+        self.buttonInitialVarDesc.bind('<Button-1>', self.selectInitVarDesc)
+        self.buttonQueryPopulation.bind('<Button-1>', self.selectSetPopulation)
+
         self.buttonVariableFile.bind('<Button-1>', self.getVariableFile)
         self.buttonValuesFile.bind('<Button-1>', self.getValuesFile)
-        self.buttonInitialVarDesc.bind('<Button-1>', self.uploadInitVarDesc)
+
+        # self.buttonStartVariableDescriptor.bind('<Button-1>', self.makeInitialVarDesc) ### TODO
+        self.buttonStartDatasetUpload.bind('<Button-1>', self.uploadDataset)
+
     # endregion
 
     ''' --> Binding elements under the TEST ("TEST") TAB (2) <-- '''
     # region
     def configureTestTabBindings(self):
         # BUTTONS
-        self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
-
         self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
         self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
 
@@ -2612,6 +2647,7 @@ class OOTO_Miner:
     def makeInitialVarDesc(self, evt):
         varFileDir = self.entryVariableFile.get()
         valFileDir = self.entryValuesFile.get()
+
         # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
         print self.entryQueryPopulation.get()[-4:]
 
@@ -2639,55 +2675,93 @@ class OOTO_Miner:
         self.entryValuesFile.delete(0,END)
         self.entryValuesFile.insert(0, valFileDir)
         return "break"
+    ''' Start dataset upload '''
 
-    ''' Uploads the variable description '''
-    def uploadInitVarDesc(self, evt):
-        print "UPLOADED"
-        initVarDisc = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
+    def uploadDataset(self, evt):
+        # Upload initVarDesc (Variable Description)
 
-        if len(initVarDisc) == 0:
+        if not self.hasUploadedVariableDescription: # Check if variable description was uploaded
             tkMessageBox.showerror("Error: Upload Variable description",
                                    "Please select a valid variable description file.")
+            return "break"
         else:
-            self.entryInitialVarDesc.delete(0, END)
-            self.entryInitialVarDesc.insert(0, initVarDisc)
             global features
-            features = readFeatures(initVarDisc,"^")
-            if (len(features)) > 0:
-                tkMessageBox.showinfo("Variable description set","Variable description uploaded")
-
-                #getCommonGroups(features)
-            else:
+            features = readFeatures(self.initVarDisc,"^")
+            if (len(features)) <= 0:
                 tkMessageBox.showerror("Error: Upload Variable description",
                                        "Please select a valid variable description file.")
+                return "break"
+            # else:
+                # tkMessageBox.showinfo("Variable description set", "Variable description uploaded")
+                # # getCommonGroups(features)
 
-        return "break" # this "unsinks" the button after opening the file explorer
 
-    ''' Uploads the population module '''
-    def setPopulation(self, evt):
-        global populationDir
-        populationDir = askopenfilename(title = "Select file",filetypes = (("csv files","*.csv"),("all files","*.*")))
 
-        if len(populationDir) == 0:
-            tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
+        # Upload populationDir (Population Dataset)
+        if not self.hasUploadedPopulation: # Check if population dataset was uploaded
+            tkMessageBox.showerror("Error: Upload Population Dataset",
+                                   "Please select a population dataset file.")
+            return "break"
         else:
-            self.entryQueryPopulation.delete(0,END)
-            self.entryQueryPopulation.insert(0,populationDir)
+            global populationDir
 
             self.populationDataset = readCSVDict(populationDir)
             self.datasetA['Data'] = []
             self.datasetB['Data'] = []
 
-            if(len(list(self.populationDataset)) > 0):
+            if (len(list(self.populationDataset)) <= 0):
+                tkMessageBox.showerror("Error: Upload error",
+                                       "Error uploading population dataset. Please select a valid file and try again.")
+                return "break"
+
+            else:
                 tkMessageBox.showinfo("Population set", "Population dataset uploaded")
                 self.populationDataset = readCSVDict(populationDir)
                 for record in self.populationDataset:
                     self.datasetA['Data'].append(record)
                     self.datasetB['Data'].append(record)
-                self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])) )
-                self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])) )
-            else:
-                tkMessageBox.showerror("Error: Upload error", "Error uploading population dataset. Please select a valid file and try again.")
+
+                self.datasetCountA = len(self.datasetA['Data'])
+                self.datasetCountB = len(self.datasetB['Data'])
+
+                self.labelQueryDataACount.configure(text = self.getDatasetCountA())
+                self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
+
+                print "UPLOADED"
+
+        return "break"
+
+
+    ''' Selects the variable description file '''
+    def selectInitVarDesc(self, evt):
+        self.hasUploadedVariableDescription = False
+
+        self.initVarDisc = askopenfilename(title = "Select file", filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
+
+        if len(self.initVarDisc) == 0:
+            tkMessageBox.showerror("Error: Upload Variable description",
+                                   "Please select a valid variable description file.")
+        else:
+            self.hasUploadedVariableDescription = True
+            self.entryInitialVarDesc.delete(0, END)
+            self.entryInitialVarDesc.insert(0, self.initVarDisc)
+
+        return "break" # this "unsinks" the button after opening the file explorer
+
+    ''' Selects the population module file '''
+    def selectSetPopulation(self, evt):
+        self.hasUploadedPopulation = False
+
+        global populationDir
+        populationDir = askopenfilename(title = "Select file", filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
+
+        if len(populationDir) == 0:
+            tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
+        else:
+            self.hasUploadedPopulation = True
+            self.entryQueryPopulation.delete(0, END)
+            self.entryQueryPopulation.insert(0, populationDir)
+        return "break"
 
     ''' (REMOVE) Shows the project details '''
     def showAbout(self):
@@ -2805,18 +2879,23 @@ class OOTO_Miner:
         setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
         setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
 
-    def querySetPopulation(self, evt):
-        self.setPopulation(evt)
-        return "break"
 
+
+    ''' Initial (SELECT) query for DATA A '''
     def querySetDataA(self, evt):
+        # CLEAR filter feature box first
+        self.queryResetFilterDetails(evt)
+
         try:
-            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA,self.datasetA,"Dataset_Feature")
+            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, "Dataset_Feature")
         except NameError:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
         return "break"
-    
+
+    ''' Initial (SELECT) query for DATA B '''
     def querySetDataB(self, evt):
+        # CLEAR filter feature box first
+        self.queryResetFilterDetails(evt)
         try:
             findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB,"Dataset_Feature")
         except NameError:
@@ -2839,21 +2918,15 @@ class OOTO_Miner:
         # self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
 
         # if self.datasetA['Data'] is []:
-        self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
+
+        self.datasetCountA = len(self.datasetA['Data'])
+        self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
 
         # Empty FILTER details of BOTH A and B
-        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataA.delete(0, END)
+        self.queryResetFilterDetails(evt)
         self.listQuerySetDataA.delete(0, END)
 
-        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataB.delete(0, END)
-        # self.listQuerySetDataB.delete(0, END)
-
-        self.labelQueryDataFeatureName.configure(
-            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
-        )
 
         return "break"
 
@@ -2871,126 +2944,177 @@ class OOTO_Miner:
         )
 
         # if self.datasetB['Data'] is []:
-        self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
-        # self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data']))) ### TODO
+        self.datasetCountB = len(self.datasetB['Data'])
+        self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
         # Empty FILTER details of BOTH A and B
+        self.queryResetFilterDetails(evt)
+        self.listQuerySetDataB.delete(0,END)
+
+        return "break"
+
+    def queryResetFilterDetails(self, evt):
+        # Empty FILTER details of BOTH A and B
         self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataA.delete(0,END)
-        # self.listQuerySetDataA.delete(0,END)
+        self.listQueryDataA.delete(0, END)
 
         self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataB.delete(0,END)
-        self.listQuerySetDataB.delete(0,END)
+        self.listQueryDataB.delete(0, END)
 
         self.labelQueryDataFeatureName.configure(
             text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
         )
 
-        return "break"
-    
+
     def querySelectDataValuesA(self, evt):
-        selectDatasetValues(evt, self.datasetA, self.populationDataset, self.labelQueryDataACount)
+        self.datasetCountA = selectDatasetValues(evt, self.datasetA, self.populationDataset)
+        self.labelQueryDataACount.configure(text = self.getDatasetCountA())
     
     def querySelectDataValuesB(self, evt):
-        selectDatasetValues(evt, self.datasetB, self.populationDataset, self.labelQueryDataBCount)
+        self.datasetCountB = selectDatasetValues(evt, self.datasetB, self.populationDataset)
+        self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
     def queryAddFilterA(self, evt):
+
         self.buttonQueryAddFilterA.configure(relief = FLAT)
+        print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
+        print ("Dataset A COUNT IS " + str(self.datasetCountA))
+
         # If the dataset is empty, do not push through with filtering.
         if len(self.datasetA['Data']) <= 0:
             tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+            # CLEAR filter feature box
+            self.queryResetFilterDetails(evt)
+
+        # If there are 0 samples in the selection, do not push through with filtering
+        elif self.datasetCountA <= 0:
+            tkMessageBox.showerror("Error: No samples selected for A", "You must have at least 1 sample in your selection.")
+            # CLEAR filter feature box
+            self.queryResetFilterDetails(evt)
+            self.labelQuerySetDataStatusA.configure(
+                text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
+                background = Color_support.SELECT_LISTBOX_STATUS_BG,
+                foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+            )
             # return -1
-            return "break"
 
-        # Filter the data given the feature inputted and its values selected
-        try:
-            new_data = filterDataset(self.datasetA, self.datasetA['Feature'], self.datasetA['Feature']['Selected Responses'])
-        except KeyError:
-            tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
-            # return -1
-            return "break"
-
-        # Add the feature to the dataset's filtered features
-        self.datasetA['Filter Features'].append(self.datasetA['Feature'])
-        
-        # Assign the new set of filtered data
-        self.datasetA['Data'] = new_data
-
-        if(queryType == 'Sample vs Sample'):
-            queryStrFilterA = ''
-            # queryStrFilterA = 'Dataset A'
         else:
-            # queryStrFilterA = 'Population'
-            queryStrFilterA = ''
+            # CLEAR filter feature box first
+            self.queryResetFilterDetails(evt)
 
-        #Write the breadcrumb trail of the features and values the dataset was filtered by
-        for i in range(0, len(self.datasetA['Filter Features'])):
-            # queryStrFilterA = queryStrFilterA + "->" + self.datasetA['Filter Features'][i]['Code']
-            queryStrFilterA = " [ " + self.datasetA['Filter Features'][i]['Code'] + " | "
-            for j in range(0,len(self.datasetA['Filter Features'][i]['Selected Responses'])):
-                # if j == 0:
-                #     queryStrFilterA = queryStrFilterA + " [ "
-                queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
-                if j == (len(self.datasetA['Filter Features'][i]['Selected Responses']) - 1):
-                    queryStrFilterA = queryStrFilterA + "]"
-                    
-        # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
-        self.labelQuerySetDataStatusA.configure(
-            text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA,
-            background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
-        )
+            # Filter the data given the feature inputted and its values selected
+            try:
+                new_data = filterDataset(self.datasetA, self.datasetA['Feature'], self.datasetA['Feature']['Selected Responses'])
+            except KeyError:
+                tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
+                # return -1
+                return "break"
 
+            # Add the feature to the dataset's filtered features
+            self.datasetA['Filter Features'].append(self.datasetA['Feature'])
+
+            # Assign the new set of filtered data
+            self.datasetA['Data'] = new_data
+
+            if(queryType == 'Sample vs Sample'):
+                queryStrFilterA = ''
+                # queryStrFilterA = 'Dataset A'
+            else:
+                # queryStrFilterA = 'Population'
+                queryStrFilterA = ''
+
+            # Write the breadcrumb trail of the features and values the dataset was filtered by
+            for i in range(0, len(self.datasetA['Filter Features'])):
+                # queryStrFilterA = queryStrFilterA + "->" + self.datasetA['Filter Features'][i]['Code']
+                queryStrFilterA = " [ " + self.datasetA['Filter Features'][i]['Code'] + " | "
+                for j in range(0,len(self.datasetA['Filter Features'][i]['Selected Responses'])):
+                    # if j == 0:
+                    #     queryStrFilterA = queryStrFilterA + " [ "
+                    queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
+                    if j == (len(self.datasetA['Filter Features'][i]['Selected Responses']) - 1):
+                        queryStrFilterA = queryStrFilterA + "]"
+
+            # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
+            self.labelQuerySetDataStatusA.configure(
+                text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA,
+                background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
+                foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
+            )
+
+        print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
+        print ("Dataset A COUNT IS " + str(self.datasetCountA))
+        print ("")
         return "break"
 
     def queryAddFilterB(self, evt):
 
         self.buttonQueryAddFilterB.configure(relief = FLAT)
+        print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
+        print ("Dataset B COUNT IS " + str(self.datasetCountB))
+
         # If the dataset is empty, do not push through with filtering.
         if len(self.datasetB['Data']) <= 0:
             tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+            # CLEAR filter feature box
+            self.queryResetFilterDetails(evt)
+
+
+        # If there are 0 samples in the selection, do not push through with filtering
+        elif self.datasetCountB <= 0:
+            tkMessageBox.showerror("Error: No samples selected for B", "You must have at least 1 sample in your selection.")
+            # CLEAR filter feature box
+            self.queryResetFilterDetails(evt)
+
+            self.labelQuerySetDataStatusB.configure(
+                text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
+                background = Color_support.SELECT_LISTBOX_STATUS_BG,
+                foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+            )
             # return -1
-            return "break"
-        
-        # Filter the data given the feature inputted and its values selected
-        try:
-            new_data = filterDataset(self.datasetB, self.datasetB['Feature'], self.datasetB['Feature']['Selected Responses'])
-        except KeyError:
-            tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
-            # return -1
-            return "break"
 
-        # Add the feature to the dataset's filtered features
-        self.datasetB['Filter Features'].append(self.datasetB['Feature'])
-
-        # Assign the new set of filtered data
-        self.datasetB['Data'] = new_data
-
-        if(queryType == 'Sample vs Sample'): ### TODO
-            queryStrFilterB = ''
         else:
-            queryStrFilterB = ''
+            # Filter the data given the feature inputted and its values selected
+            try:
+                new_data = filterDataset(self.datasetB, self.datasetB['Feature'], self.datasetB['Feature']['Selected Responses'])
+            except KeyError:
+                tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
+                # return -1
+                return "break"
 
-        #Write the breadcrumb trail of the features and values the dataset was filtered by
-        for i in range(0, len(self.datasetB['Filter Features'])):
-            # queryStrFilterB = queryStrFilterB + "->" + self.datasetB['Filter Features'][i]['Code']
-            queryStrFilterB = " [ " + self.datasetB['Filter Features'][i]['Code'] + " | "
-            for j in range(0,len(self.datasetB['Filter Features'][i]['Selected Responses'])):
-                # if j == 0:
-                #     queryStrFilterB = queryStrFilterB + "("
-                queryStrFilterB = queryStrFilterB + self.datasetB['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
-                if j == (len(self.datasetB['Filter Features'][i]['Selected Responses'])-1):
-                    queryStrFilterB = queryStrFilterB + "]"
+            # Add the feature to the dataset's filtered features
+            self.datasetB['Filter Features'].append(self.datasetB['Feature'])
+
+            # Assign the new set of filtered data
+            self.datasetB['Data'] = new_data
+
+            if(queryType == 'Sample vs Sample'): ### TODO
+                queryStrFilterB = ''
+            else:
+                queryStrFilterB = ''
+
+            # Write the breadcrumb trail of the features and values the dataset was filtered by
+            for i in range(0, len(self.datasetB['Filter Features'])):
+                # queryStrFilterB = queryStrFilterB + "->" + self.datasetB['Filter Features'][i]['Code']
+                queryStrFilterB = " [ " + self.datasetB['Filter Features'][i]['Code'] + " | "
+                for j in range(0,len(self.datasetB['Filter Features'][i]['Selected Responses'])):
+                    # if j == 0:
+                    #     queryStrFilterB = queryStrFilterB + "("
+                    queryStrFilterB = queryStrFilterB + self.datasetB['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
+                    if j == (len(self.datasetB['Filter Features'][i]['Selected Responses'])-1):
+                        queryStrFilterB = queryStrFilterB + "]"
 
 
-        # Concat the Filter String Here
-        # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
-        self.labelQuerySetDataStatusB.configure(
-            text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
-            background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
-        )
+            # Concat the Filter String Here
+            # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
+            self.labelQuerySetDataStatusB.configure(
+                text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
+                background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
+                foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
+            )
+
+        print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
+        print ("Dataset B COUNT IS " + str(self.datasetCountB))
+        print ("")
         return "break"
 
     def querySetFeature(self, evt):
@@ -2999,6 +3123,21 @@ class OOTO_Miner:
         # If the dataset is empty, do not continue finding the feature
         if(len(self.datasetA['Data']) <= 0 or len(self.datasetB['Data']) <= 0):
             tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+            # CLEAR filter feature box
+            self.queryResetFilterDetails(evt)
+
+        # If one of the sample groups is empty, do not continue finding the feature
+        elif self.datasetCountA <= 0:
+            tkMessageBox.showerror("Error: No samples selected for A",
+                                   "You must have at least 1 sample in your selection.")
+            # CLEAR filter feature box
+            self.queryResetFilterDetails(evt)
+
+        elif self.datasetCountB <= 0:
+            tkMessageBox.showerror("Error: No samples selected for B",
+                                   "You must have at least 1 sample in your selection.")
+            # CLEAR filter feature box
+            self.queryResetFilterDetails(evt)
 
         else :
             try:
@@ -3017,7 +3156,8 @@ class OOTO_Miner:
 
             except NameError:
                 tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
-
+            except:
+                print ("Exception in " + "def querySetFeature(self, evt)")
         return "break"
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
@@ -3151,7 +3291,8 @@ class OOTO_Miner:
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeatureA.configure(text = '')
         if self.datasetA is not []:
-            self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data'])))
+            self.datasetCountA = len(self.datasetA['Data'])
+            self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataA.configure(text = "")
         self.listQueryDataA.delete(0,END)
         self.listQuerySetDataA.delete(0,END)
@@ -3160,7 +3301,8 @@ class OOTO_Miner:
         self.entryQuerySetDataB.configure(text = '')
         self.entryQueryFeatureB.configure(text = '')
         if self.datasetB is not []:
-            self.labelQueryDataBCount.configure(text = "" + str(len(self.datasetB['Data'])))
+            self.datasetCountB = len(self.datasetB['Data'])
+            self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
         self.labelQueryDataB.configure(text = "")
         self.listQueryDataB.delete(0,END)
         self.listQuerySetDataB.delete(0,END)
@@ -3194,7 +3336,9 @@ class OOTO_Miner:
                 text = UI_support.LBL_SELECT_NO_DATA,
                 background = Color_support.L_GRAY
             )
-            self.labelQueryDataBCount.configure(text = "")
+
+            # self.labelQueryDataBCount.configure(text = "")
+
         else:
             self.buttonQueryZTestSvP.configure(state = "disabled")
 
