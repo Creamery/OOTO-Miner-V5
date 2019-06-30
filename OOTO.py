@@ -2001,7 +2001,7 @@ class OOTO_Miner:
             relx = self.getRelX(self.labelFrameFilterQueryData),
             rely = self.getRelY(self.labelFrameFilterQueryData),
             relwidth = self.getRelW(self.labelFrameFilterQueryData),
-            relheight = self.getRelH(self.labelFrameFilterQueryData)
+            relheight = self.getRelH(self.labelFrameFilterQueryData) - UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION
         )
         self.labelOverlayFilterQueryData.configure(
             background = self.labelFrameFilterQueryData['background'],
@@ -2097,8 +2097,10 @@ class OOTO_Miner:
         # self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListDataA)
         self.labelOverlayFilterListDataA = Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterListDataA.place(
-            relx = self.getRelX(self.labelFrameFilterListDataA), rely = self.getRelY(self.labelFrameFilterListDataA),
-            relwidth = self.getRelW(self.labelFrameFilterListDataA), relheight = self.getRelH(self.labelFrameFilterListDataA))
+            relx = self.getRelX(self.labelFrameFilterListDataA),
+            rely = self.getRelY(self.labelFrameFilterListDataA) - UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION,
+            relwidth = self.getRelW(self.labelFrameFilterListDataA),
+            relheight = self.getRelH(self.labelFrameFilterListDataA) + UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION)
         self.labelOverlayFilterListDataA.configure(
             background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
             foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
@@ -2110,8 +2112,10 @@ class OOTO_Miner:
         # FILTER LOCK BOTTOM MOCK NO DATA LABEL
         self.labelOverlayQueryDataA = Label(self.labelOverlayFilterListDataA)
         self.labelOverlayQueryDataA.place(
-            relx = self.getRelX(self.labelQueryDataA), rely = self.getRelY(self.labelQueryDataA),
-            relwidth = self.getRelW(self.labelQueryDataA), relheight = self.getRelH(self.labelQueryDataA))
+            relx = self.getRelX(self.labelQueryDataA),
+            rely = self.getRelY(self.labelQueryDataA) + (UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2) - 0.01, # TODO Make constant
+            relwidth = self.getRelW(self.labelQueryDataA),
+            relheight = self.getRelH(self.labelQueryDataA))
 
         self.labelOverlayQueryDataA.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
@@ -2132,8 +2136,8 @@ class OOTO_Miner:
         # region
         self.labelOverlayFilterListDataB = Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterListDataB.place(
-            relx = self.getRelX(self.labelFrameFilterListDataB), rely = self.getRelY(self.labelFrameFilterListDataB),
-            relwidth = self.getRelW(self.labelFrameFilterListDataB), relheight = self.getRelH(self.labelFrameFilterListDataB))
+            relx = self.getRelX(self.labelFrameFilterListDataB), rely = self.getRelY(self.labelOverlayFilterListDataA),
+            relwidth = self.getRelW(self.labelFrameFilterListDataB), relheight = self.getRelH(self.labelOverlayFilterListDataA))
         self.labelOverlayFilterListDataB.configure(
             background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
             foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
@@ -2145,8 +2149,8 @@ class OOTO_Miner:
         # FILTER LOCK BOTTOM MOCK NO DATA LABEL
         self.labelOverlayQueryDataB = Label(self.labelOverlayFilterListDataB)
         self.labelOverlayQueryDataB.place(
-            relx = self.getRelX(self.labelQueryDataB), rely = self.getRelY(self.labelQueryDataB),
-            relwidth = self.getRelW(self.labelQueryDataB), relheight = self.getRelH(self.labelQueryDataB))
+            relx = self.getRelX(self.labelQueryDataB), rely = self.getRelY(self.labelOverlayQueryDataA),
+            relwidth = self.getRelW(self.labelQueryDataB), relheight = self.getRelH(self.labelOverlayQueryDataA))
 
         self.labelOverlayQueryDataB.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
