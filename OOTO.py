@@ -1293,7 +1293,6 @@ class OOTO_Miner:
             relx = UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = UI_support.TAB_TEST_LISTBOX_QUERY_REL_H)
 
-
         # QUERY STATUS PARENT - DATASET A
         # region
         # newRelY = self.getRelY(self.listQuerySetDataA) + self.getRelH(self.listQuerySetDataA)
@@ -1301,8 +1300,45 @@ class OOTO_Miner:
 
         self.labelFrameQuerySetDataStatusA = LabelFrame(self.labelFrameListBoxA, bd = 0)
         # self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
-        newRelH = 1 - (0.78 - 0.03) # TODO Make constant (0.78 - 0.03) is the listbox's supposed height
+        specifiedListBoxHeight = (0.78 - 0.03)
+        newRelH = 1 - specifiedListBoxHeight # TODO Make constant (0.78 - 0.03) is the listbox's supposed height
         self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = 0, relwidth = 1, relheight = newRelH)
+
+
+
+
+        # QUERY TOP STRIPE PARENT - DATASET A
+        # region
+        # newRelY = self.getRelY(self.labelFrameQuerySetDataStatusA) + self.getRelH(self.labelFrameQuerySetDataStatusA)
+        newRelH = self.getRelH(self.labelFrameQuerySetDataStatusA) * 2 / 3 # TODO Make constant reference
+        # newRelH = 1 - (self.getRelH(self.labelFrameQuerySetDataStatusA) + specifiedStripeHeight)
+        self.labelQuerySetDataStripesA = Label(self.labelFrameListBoxA, bd = 1, relief = GROOVE)
+        self.labelQuerySetDataStripesA.place(
+            relx = 0,
+            rely = 0,
+            # rely = newRelY,
+            relwidth = 1,
+            relheight = newRelH,
+            anchor = NW
+        )
+        newRelY = self.getRelY(self.labelQuerySetDataStripesA) + self.getRelH(self.labelQuerySetDataStripesA)
+        self.labelFrameQuerySetDataStatusA.place(
+            relx = self.getRelX(self.labelFrameQuerySetDataStatusA),
+            rely = newRelY,
+            relwidth = self.getRelW(self.labelFrameQuerySetDataStatusA),
+            relheight = self.getRelH(self.labelFrameQuerySetDataStatusA),
+        )
+        im = PIL.Image.open(
+            Icon_support.TEXTURE_STRIPE_PINK)
+        texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+        self.labelQuerySetDataStripesA.configure(
+            image = texture_pink_stripes,
+            anchor = SW
+        )
+        self.labelQuerySetDataStripesA.image = texture_pink_stripes  # < ! > Required to make images appear
+        # endregion
+
+
 
         # QUERY FRAME - DATASET A
         # region
@@ -1331,7 +1367,8 @@ class OOTO_Miner:
         newRelX = self.getRelX(self.labelFrameBorderQuerySetDataA) + self.getRelW(
             self.labelFrameBorderQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
-        # DATASET A
+        # ENTRY - DATASET A
+        # region
         # self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
         self.entryQuerySetDataA = Entry(self.labelFrameQuerySetDataStatusA)
         self.entryQuerySetDataA.place(
@@ -1345,11 +1382,12 @@ class OOTO_Miner:
             insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
         )  # TODO Constant font definiton
-
+        # endregion
+        # QUERY BUTTON - DATASET A
+        # region
         newRelX = self.getRelX(self.entryQuerySetDataA) + self.getRelW(
             self.entryQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
-        # DATASET A
         # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
         self.buttonQuerySetDataA = Button(self.labelFrameQuerySetDataStatusA)
         self.buttonQuerySetDataA.place(
@@ -1372,6 +1410,13 @@ class OOTO_Miner:
         )
         # endregion
 
+        # endregion
+
+
+
+        # endregion
+
+
 
         # LISTBOX - DATASET A
         # region
@@ -1389,7 +1434,7 @@ class OOTO_Miner:
             highlightthickness = 0
         )
         newRelY = self.getRelY(self.labelFrameQuerySetDataStatusA) + self.getRelH(self.labelFrameQuerySetDataStatusA)
-        newRelH = 1 - self.getRelH(self.labelFrameQuerySetDataStatusA)
+        newRelH = 1 - (self.getRelH(self.labelFrameQuerySetDataStatusA) + self.getRelH(self.labelQuerySetDataStripesA))
         self.listQuerySetDataA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
 
         # self.listQuerySetDataA.place(
@@ -1398,16 +1443,7 @@ class OOTO_Miner:
         # # self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78 - 0.03)
         # endregion
 
-        # endregion
 
-        '''
-        self.scrollbarQuerySetDataA.configure(
-            command = self.listQuerySetDataA.yview,
-            width = 8, relief = FLAT,
-            troughcolor = Color_support.ACTIVE_COLOR)
-        self.scrollbarQuerySetDataA.pack(side = RIGHT, fill = Y)
-        self.listQuerySetDataA.pack(side = LEFT, fill = BOTH, expand = 1)
-        '''
 
         newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBoxA) + self.getRelH(
             self.labelFrameListBoxA)
