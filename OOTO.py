@@ -287,7 +287,7 @@ two samples, it will also display all of the proportions, frequencies and total 
 feature
 '''
 # def findFeature(entryFeat, listFeat, dataset, *args):
-def findFeature(entryFeat, listFeat, dataset, populationDatasetOriginal, *args):
+def findFeature(entryFeat, listFeat, dataset, populationDatasetOriginal, isPrintingError = False, *args):
         # Here is how to get the value from entryFeatA
         featCode = entryFeat
         print "Entered feature code: " + featCode
@@ -311,7 +311,7 @@ def findFeature(entryFeat, listFeat, dataset, populationDatasetOriginal, *args):
                     tempResp = response['Code'] + " - " + response['Description']
                     arrTempItems.append(tempResp)
                 break
-        if not found:
+        if not found and isPrintingError:
             tkMessageBox.showerror("Error: Feature not found", "Feature not found in Variable Descriptor. Try again.")
 
         #Getting the proportions and frequencies of each value (including invalid values) in the focus feature
@@ -530,6 +530,10 @@ class OOTO_Miner:
         self.hasUploadedVariableDescription = False
         self.hasUploadedPopulation = False
 
+        self.isReadyDatasetA = False
+        self.isReadyDatasetB = False
+        self.checkIfDatasetReady()
+
         self.populationDataset = []
         self.populationDatasetOriginalA = {'Data': [], 'Filter Features': []}
         self.populationDatasetOriginalB = {'Data': [], 'Filter Features': []}
@@ -552,6 +556,7 @@ class OOTO_Miner:
            top is the toplevel containing window.'''
 
         self.style = ttk.Style()
+
         if sys.platform == "win32":
             self.style.theme_use('winnative')
         # else:
@@ -563,6 +568,9 @@ class OOTO_Miner:
 
         top.geometry("1000x700+522+139")
         top.title("OOTO Miner")
+        # root.wm_attributes('-transparentcolor', root['bg'])
+        # root.wm_attributes('-transparentcolor', 'black')
+
         # top.configure(background = _top_bgcolor)
         # top.configure(highlightbackground = _top_bgcolor) #"#d9d9d9"
         # top.configure(highlightcolor = _top_bgcolor) # = "black")
@@ -1793,6 +1801,26 @@ class OOTO_Miner:
 
         newRelY = self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)
 
+        # FILTER OVERLAY
+        '''
+        self.labelOverlayQueryFeature = Label(self.labelFrameFilterQueryData)
+        self.labelOverlayQueryFeature.place(
+            relx = 0, rely = 0,
+            relwidth = 1, relheight = 1)
+        self.labelOverlayQueryFeature.configure(
+            # background = Color_support.FILTER_LABEL_OVERLAY_BG,
+            foreground = Color_support.FILTER_LABEL_FG,
+            font = UI_support.FILTER_LABEL_FONT,
+            bd = 0, relief = FLAT,
+        )
+
+        im = PIL.Image.open(Icon_support.OVERLAY_ICO_BLACK_70).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS, PIL.Image.ANTIALIAS)
+        lbl_overlay_icon = PIL.ImageTk.PhotoImage(im)
+        self.labelOverlayQueryFeature.configure(image = lbl_overlay_icon)
+        self.labelOverlayQueryFeature.image = lbl_overlay_icon  # < ! > Required to make images appear
+        '''
+
+
         # FILTER LIST PARENT
         self.labelFrameFilterListData = LabelFrame(parentFrame, bd = 0)
 
@@ -2578,7 +2606,8 @@ class OOTO_Miner:
         self.buttonQueryAddFilterA.bind('<Button-1>', self.queryAddFilterA)
         self.buttonQueryAddFilterB.bind('<Button-1>', self.queryAddFilterB)
 
-        self.buttonQueryFeature.bind('<Button-1>', self.querySetFeature)
+        # self.buttonQueryFeature.bind('<Button-1>', self.querySetFeature)
+        self.buttonQueryFeature.configure(command = self.querySetFeature)
         # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
 
@@ -2699,7 +2728,7 @@ class OOTO_Miner:
             return "break"
         else:
             global features
-            features = readFeatures(self.initVarDisc,"^")
+            features = readFeatures(self.initVarDisc, "^")
             if (len(features)) <= 0:
                 tkMessageBox.showerror("Error: Upload Variable description",
                                        "Please select a valid variable description file.")
@@ -2739,8 +2768,10 @@ class OOTO_Miner:
                     self.populationDatasetOriginalB['Data'].append(record) # This keeps a copy of the unaltered dataset
 
                 # TODO Show the total samples of the unaltered dataset
-                self.datasetCountA = len(self.datasetA['Data'])
-                self.datasetCountB = len(self.datasetB['Data'])
+                # self.datasetCountA = len(self.datasetA['Data'])
+                # self.datasetCountB = len(self.datasetB['Data'])
+                self.datasetCountA = 0
+                self.datasetCountB = 0
 
                 self.labelQueryDataACount.configure(text = self.getDatasetCountA())
                 self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
@@ -2862,7 +2893,7 @@ class OOTO_Miner:
                 if not (os.path.isfile("Updated-Variables.csv")):
                     makeUpdatedVariables(features, "Updated-Variables.csv")
                 saveFile = ct.chiTest(fileNames)
-                tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
+                # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
                 # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
                 removeFiles(fileNames)
         tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
@@ -2909,7 +2940,7 @@ class OOTO_Miner:
 
         try:
             # findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, "Dataset_Feature")
-            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, self.populationDatasetOriginalA, "Dataset_Feature")
+            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, self.populationDatasetOriginalA, True, "Dataset_Feature")
         except NameError:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
         return "break"
@@ -2920,7 +2951,7 @@ class OOTO_Miner:
         self.queryResetFilterDetails(evt)
         try:
             # findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, "Dataset_Feature")
-            findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, self.populationDatasetOriginalB, "Dataset_Feature")
+            findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, self.populationDatasetOriginalB, True, "Dataset_Feature")
 
         except NameError:
             tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
@@ -2943,7 +2974,7 @@ class OOTO_Miner:
 
         # if self.datasetA['Data'] is []:
 
-        self.datasetCountA = len(self.datasetA['Data'])
+        self.datasetCountA = 0 # len(self.datasetA['Data'])
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
 
@@ -2968,7 +2999,7 @@ class OOTO_Miner:
         )
 
         # if self.datasetB['Data'] is []:
-        self.datasetCountB = len(self.datasetB['Data'])
+        self.datasetCountB = 0 # len(self.datasetB['Data'])
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
         # Empty FILTER details of BOTH A and B
@@ -2991,6 +3022,9 @@ class OOTO_Miner:
 
 
     def querySelectDataValuesA(self, evt):
+        self.isReadyDatasetA = False # When a listbox element is de/selected, mark the dataset as not ready
+        self.checkIfDatasetReady() # Update dataset status accordingly
+
         # self.datasetCountA = selectDatasetValues(evt, self.datasetA, self.populationDataset)
 
         # Do search in populationDatasetOriginal, not filtered dataset A
@@ -3003,6 +3037,9 @@ class OOTO_Miner:
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
     
     def querySelectDataValuesB(self, evt):
+        self.isReadyDatasetB = False # When a listbox element is de/selected, mark the dataset as not ready
+        self.checkIfDatasetReady() # Update dataset status accordingly
+
         # self.datasetCountB = selectDatasetValues(evt, self.datasetB, self.populationDataset)
 
         # Do search in populationDatasetOriginal, not filtered dataset B
@@ -3015,7 +3052,7 @@ class OOTO_Miner:
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
     def queryAddFilterA(self, evt):
-
+        self.isReadyDatasetA = False
         self.buttonQueryAddFilterA.configure(relief = FLAT)
         print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
         print ("Dataset A COUNT IS " + str(self.datasetCountA))
@@ -3041,7 +3078,8 @@ class OOTO_Miner:
         else:
             # CLEAR filter feature box first
             self.queryResetFilterDetails(evt)
-
+            self.isReadyDatasetA = True
+            self.checkIfDatasetReady()
             self.datasetA = copy.deepcopy(self.populationDatasetOriginalA)
 
             # Filter the data given the feature inputted and its values selected
@@ -3092,6 +3130,7 @@ class OOTO_Miner:
         return "break"
 
     def queryAddFilterB(self, evt):
+        self.isReadyDatasetB = False
 
         self.buttonQueryAddFilterB.configure(relief = FLAT)
         print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
@@ -3120,6 +3159,8 @@ class OOTO_Miner:
         else:
             # CLEAR filter feature box first
             self.queryResetFilterDetails(evt)
+            self.isReadyDatasetB = True
+            self.checkIfDatasetReady()
             self.datasetB = copy.deepcopy(self.populationDatasetOriginalB)
 
             # Filter the data given the feature inputted and its values selected
@@ -3167,7 +3208,7 @@ class OOTO_Miner:
         print ("")
         return "break"
 
-    def querySetFeature(self, evt):
+    def querySetFeature(self, evt = None):
         entryQuery = self.entryQueryFeature.get()
 
         # If the dataset is empty, do not continue finding the feature
@@ -3213,7 +3254,7 @@ class OOTO_Miner:
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
     def querySetFeatureA(self, entryQuery):
         # findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
-        findFeature(entryQuery, self.listQueryDataA, self.datasetA, self.populationDatasetOriginalA, "Focus_Feature")
+        findFeature(entryQuery, self.listQueryDataA, self.datasetA, self.populationDatasetOriginalA, False, "Focus_Feature")
         '''
         # Get the feature description
         featureDesc = self.datasetA['Focus Feature']['Description']
@@ -3229,7 +3270,7 @@ class OOTO_Miner:
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
     def querySetFeatureB(self, entryQuery):
         # findFeature(entryQuery, self.listQueryDataB, self.datasetB, "Focus_Feature")
-        findFeature(entryQuery, self.listQueryDataB, self.datasetB, self.populationDatasetOriginalB, "Focus_Feature")
+        findFeature(entryQuery, self.listQueryDataB, self.datasetB, self.populationDatasetOriginalB, True, "Focus_Feature")
 
 
     ''' Conduct the Z-Test between the two samples. '''
@@ -3610,8 +3651,63 @@ class OOTO_Miner:
     # endregion
 
 
+    """ >>> GENERAL HELPER FUNCTIONS <<< """
+    # region
+    def checkIfDatasetReady(self):
+        if not self.isReadyDatasetA: # If Dataset A is not ready
+            # Clear and disable filter features option
+            self.disableFilter()
+            self.setDatasetStatusReady(False, self.labelQuerySetDataStatusA)
+
+        if not self.isReadyDatasetB: # If Dataset B is not ready
+            # Clear and disable filter features option
+            self.disableFilter()
+            self.setDatasetStatusReady(False, self.labelQuerySetDataStatusB)
+
+        if self.isReadyDatasetA and self.isReadyDatasetB: # If both are ready
+            # Enable filter feature option
+            self.enableFilter()
 
 
+    def disableFilter(self):
+        # Clear filter results
+        event = None
+        self.queryResetFilterDetails(event)
+
+        # Disable entry
+        self.entryQueryFeature.configure(
+            state = DISABLED
+        )
+        # Disable button
+        self.buttonQueryFeature.configure(
+            state = DISABLED
+        )
+    def enableFilter(self):
+        # Enable entry
+        self.entryQueryFeature.configure(
+            state = NORMAL
+        )
+        # Enable button
+        self.buttonQueryFeature.configure(
+            state = NORMAL
+        )
+
+    def setDatasetStatusReady(self, isReady, statusWidget):
+        if isReady:
+            statusWidget.configure(
+                background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
+                foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG,
+                relief = GROOVE
+            )
+        else:
+            statusWidget.configure(
+                text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
+                background = Color_support.SELECT_LISTBOX_STATUS_BG,
+                foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+                relief = UI_support.SELECT_LISTBOX_RELIEF
+            )
+
+    # endregion
 
 
 if __name__ == '__main__':
