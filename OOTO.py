@@ -1310,9 +1310,9 @@ class OOTO_Miner:
         # QUERY TOP STRIPE PARENT - DATASET A
         # region
         # newRelY = self.getRelY(self.labelFrameQuerySetDataStatusA) + self.getRelH(self.labelFrameQuerySetDataStatusA)
-        newRelH = self.getRelH(self.labelFrameQuerySetDataStatusA) * 2 / 3 # TODO Make constant reference
+        newRelH = self.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
         # newRelH = 1 - (self.getRelH(self.labelFrameQuerySetDataStatusA) + specifiedStripeHeight)
-        self.labelQuerySetDataStripesA = Label(self.labelFrameListBoxA, bd = 1, relief = GROOVE)
+        self.labelQuerySetDataStripesA = Label(self.labelFrameListBoxA, bd = 0, relief = GROOVE)
         self.labelQuerySetDataStripesA.place(
             relx = 0,
             rely = 0,
@@ -1451,29 +1451,18 @@ class OOTO_Miner:
         # COMMANDS PARENT (DATASET A)
         # region
 
-        # self.labelFrameBorderCommandsA = LabelFrame(self.labelFrameDatasetA, bd = 0)
-        # self.labelFrameBorderCommandsA.place(
-        #     relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
-        #     relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
-        # self.labelFrameBorderCommandsA.configure(
-        #     background = Color_support.FUSCHIA
-        # )
         self.labelFrameCommandsA = LabelFrame(self.labelFrameDatasetA, bd = 0)
         self.labelFrameCommandsA.place(
             relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
-        # self.labelFrameCommandsA = LabelFrame(self.labelFrameBorderCommandsA, bd = 0)
-        # self.labelFrameCommandsA.place(
-        #     relx = 0.005, rely = 0.005,
-        #     relwidth = 0.99, relheight = 0.99)
+
 
         self.labelFrameCommandsA.configure(
             background = Color_support.WHITE
         )
 
-
         # RESET BUTTON (DATASET A)
-
+        # region
         self.buttonQueryResetFilterA = Button(self.labelFrameCommandsA)
         self.buttonQueryResetFilterA.place(
             relx = 0 , rely = 0,
@@ -1487,8 +1476,10 @@ class OOTO_Miner:
         btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQueryResetFilterA.configure(image = btn_query_reset_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+        # endregion
 
         # QUERY COUNT (DATASET A)
+        # region
         newRelX = self.getRelX(self.buttonQueryResetFilterA) + self.getRelW(self.buttonQueryResetFilterA)
 
         self.labelFrameQueryCount = LabelFrame(self.labelFrameCommandsA, bd = 1)
@@ -1522,6 +1513,49 @@ class OOTO_Miner:
         )
         # endregion
 
+        # COMMAND BORDERS
+        # region
+        newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
+
+        self.separatorlabelFrameCommandsARight = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsARight.place(
+            relx = self.getRelX(self.labelFrameQueryDataA),
+            rely = newRelY,
+            relheight = 1 - newRelY,
+            width = 1)
+        self.separatorlabelFrameCommandsARight.configure(background = Color_support.SELECT_TITLE_BG)
+
+        self.separatorlabelFrameCommandsALeft = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsALeft.place(
+            relx = 1 - self.getRelX(self.labelFrameQueryDataA),
+            rely = self.getRelY(self.separatorlabelFrameCommandsARight),
+            relheight = self.getRelH(self.separatorlabelFrameCommandsARight),
+            width = 1
+        )
+        self.separatorlabelFrameCommandsALeft.configure(background = Color_support.SELECT_TITLE_BG)
+
+
+
+        self.separatorlabelFrameCommandsABottom = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsABottom.place(
+            relx = self.getRelX(self.separatorlabelFrameCommandsARight),
+            rely = 0.997,
+            relwidth = self.getRelX(self.separatorlabelFrameCommandsALeft) - self.getRelX(self.separatorlabelFrameCommandsARight),
+            height = 1)
+        self.separatorlabelFrameCommandsABottom.configure(background = Color_support.SELECT_TITLE_BG)
+
+
+        newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
+
+        self.separatorlabelFrameCommandsATop = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsATop.place(
+            relx = self.getRelX(self.separatorlabelFrameCommandsARight),
+            rely = newRelY,
+            relwidth = self.getRelW(self.separatorlabelFrameCommandsABottom),
+            height = 1)
+        self.separatorlabelFrameCommandsATop.configure(background = Color_support.SELECT_TITLE_BG)
+
+        # endregion
 
 
         # endregion
@@ -1538,7 +1572,7 @@ class OOTO_Miner:
             background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
             relief = GROOVE  # , text = '''Dataset B'''
         )
-
+        # endregion
         # LISTBOX PARENT (DATASET B)
         # region
         self.labelFrameListBoxB = LabelFrame(self.labelFrameDatasetB, bd = 0)
@@ -1554,7 +1588,7 @@ class OOTO_Miner:
 
         # QUERY TOP STRIPE PARENT - DATASET B
         # region
-        self.labelQuerySetDataStripesB = Label(self.labelFrameListBoxB, bd = 1, relief = GROOVE)
+        self.labelQuerySetDataStripesB = Label(self.labelFrameListBoxB, bd = 0, relief = GROOVE)
         self.labelQuerySetDataStripesB.place(
             relx = self.getRelX(self.labelQuerySetDataStripesA),
             rely = self.getRelY(self.labelQuerySetDataStripesA),
@@ -1587,6 +1621,8 @@ class OOTO_Miner:
             font = UI_support.SELECT_STATUS_LABEL_FONT,
         )
         # endregion
+
+
         # endregion
 
         self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
@@ -1610,6 +1646,7 @@ class OOTO_Miner:
         )
 
         # STATUS - DATASET B
+        # region
         self.labelFrameQuerySetDataStatusB = LabelFrame(self.labelFrameListBoxB, bd = 0)
         self.labelFrameQuerySetDataStatusB.place(
             relx = self.getRelX(self.labelFrameQuerySetDataStatusA),
@@ -1617,7 +1654,7 @@ class OOTO_Miner:
             relwidth = self.getRelW(self.labelFrameQuerySetDataStatusA),
             relheight = self.getRelH(self.labelFrameQuerySetDataStatusA)
         )
-
+        # endregion
 
         # QUERY CHILDREN - DATASET B
         # region
@@ -1689,7 +1726,7 @@ class OOTO_Miner:
 
 
         # COMMANDS PARENT (DATASET B)
-
+        # region
         self.labelFrameCommandsB = LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameCommandsB.place(
             relx = self.getRelX(self.labelFrameCommandsA),
@@ -3987,12 +4024,12 @@ class OOTO_Miner:
         if not self.isReadyDatasetA: # If Dataset A is not ready
             # Clear and disable filter features option
             self.disableFilter()
-            self.setDatasetStatusReady(False, self.labelQuerySetDataStatusA)
+            self.setDatasetStatusReady(False, self.labelQuerySetDataStatusA, self.labelQuerySetDataStripesA)
 
         if not self.isReadyDatasetB: # If Dataset B is not ready
             # Clear and disable filter features option
             self.disableFilter()
-            self.setDatasetStatusReady(False, self.labelQuerySetDataStatusB)
+            self.setDatasetStatusReady(False, self.labelQuerySetDataStatusB, self.labelQuerySetDataStripesB)
 
         if self.isReadyDatasetA and self.isReadyDatasetB: # If both are ready
             # Enable filter feature option
@@ -4045,13 +4082,19 @@ class OOTO_Miner:
             relwidth = 0, relheight = 0)
 
 
-    def setDatasetStatusReady(self, isReady, statusWidget):
+    def setDatasetStatusReady(self, isReady, statusWidget, stripeWidget):
         if isReady:
             statusWidget.configure(
                 background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
                 foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG,
                 relief = GROOVE
             )
+            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
+            texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
+            stripeWidget.configure(
+                image = texture_lime_stripes
+            )
+            stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
             statusWidget.configure(
                 text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
@@ -4059,6 +4102,12 @@ class OOTO_Miner:
                 foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
                 relief = UI_support.SELECT_LISTBOX_RELIEF
             )
+            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PINK)
+            texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+            stripeWidget.configure(
+                image = texture_pink_stripes
+            )
+            stripeWidget.image = texture_pink_stripes  # < ! > Required to make images appear
 
     # endregion
 

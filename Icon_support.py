@@ -52,4 +52,5 @@ TAB_ICO_DOWN_ARROW = PATH+'\\_icons\\ico_down_arrow.png'
 TAB_ICO_DOWN_ARROW_ON = PATH+'\\_icons\\ico_down_arrow_on.png'
 
 TEXTURE_STRIPE_ORANGE = PATH+'\\_icons\\texture_stripe_orange.png'
-TEXTURE_STRIPE_PINK = PATH+'\\_icons\\texture_stripe_orange.png'
+TEXTURE_STRIPE_PINK = PATH+'\\_icons\\texture_stripe_pink.png'
+TEXTURE_STRIPE_LIME = PATH+'\\_icons\\texture_stripe_lime.png'
