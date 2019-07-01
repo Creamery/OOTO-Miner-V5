@@ -528,7 +528,7 @@ class OOTO_Miner:
         populationDir = ""
 
         self.initializeVariables()
-        self.enableFilter() # TODO REMOVE!
+        # self.enableFilter() # TODO REMOVE!
         # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
         # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
