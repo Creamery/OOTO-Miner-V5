@@ -656,7 +656,7 @@ class OOTO_Miner:
         self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
         self.dataTabParentFrame.place(
             relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
+            relwidth = UI_support.TAB_REL_W * 0.8, relheight = UI_support.TAB_REL_H)
         self.dataTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
 
         # Create the left separator

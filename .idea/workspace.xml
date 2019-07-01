@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="531" column="44" lean-forward="true" selection-start-line="531" selection-start-column="44" selection-end-line="531" selection-end-column="44" />
+            <state relative-caret-position="114">
+              <caret line="506" column="77" lean-forward="true" selection-start-line="506" selection-start-column="77" selection-end-line="506" selection-end-column="77" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -36,8 +37,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
-              <caret line="109" column="41" lean-forward="true" selection-start-line="109" selection-start-column="41" selection-end-line="109" selection-end-column="41" />
+            <state relative-caret-position="190">
+              <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -45,8 +46,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="128" column="43" selection-start-line="128" selection-start-column="43" selection-end-line="128" selection-end-column="43" />
+            <state relative-caret-position="440">
+              <caret line="168" column="24" selection-start-line="168" selection-start-column="24" selection-end-line="168" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -67,13 +68,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>'''READ</find>
-      <find>PALE_YELL</find>
-      <find>READY_TEXT</find>
-      <find>Tabs_t2</find>
-      <find>(selec</find>
-      <find>geomet</find>
-      <find>FILTER</find>
       <find>mock</find>
       <find>(FILT</find>
       <find>* 0.35</find>
@@ -83,7 +77,6 @@
       <find>MOCK</find>
       <find>stripe</find>
       <find>mock strip</find>
-      <find>(FILTER</find>
       <find>tabs_t3</find>
       <find>COMMANDS</find>
       <find>(SELE</find>
@@ -97,6 +90,14 @@
       <find>SALMON</find>
       <find>'''FILTER</find>
       <find>todo remo</find>
+      <find>Title</find>
+      <find>(self.Tabs_t2</find>
+      <find>chi - sq</find>
+      <find>(FIL</find>
+      <find>(FILTER</find>
+      <find>(PROCE</find>
+      <find>(TEST)</find>
+      <find>tabs_t2</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -118,9 +119,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Icon_support.py" />
-        <option value="$PROJECT_DIR$/UI_support.py" />
-        <option value="$PROJECT_DIR$/Color_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
+        <option value="$PROJECT_DIR$/Color_support.py" />
+        <option value="$PROJECT_DIR$/UI_support.py" />
       </list>
     </option>
   </component>
@@ -351,24 +352,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UI_support.py">
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="128" column="43" selection-start-line="128" selection-start-column="43" selection-end-line="128" selection-end-column="43" />
+        <state relative-caret-position="190">
+          <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="109" column="41" lean-forward="true" selection-start-line="109" selection-start-column="41" selection-end-line="109" selection-end-column="41" />
+        <state relative-caret-position="440">
+          <caret line="168" column="24" selection-start-line="168" selection-start-column="24" selection-end-line="168" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="531" column="44" lean-forward="true" selection-start-line="531" selection-start-column="44" selection-end-line="531" selection-end-column="44" />
+        <state relative-caret-position="114">
+          <caret line="506" column="77" lean-forward="true" selection-start-line="506" selection-start-column="77" selection-end-line="506" selection-end-column="77" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
