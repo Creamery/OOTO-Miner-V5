@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_a2(1 2 ).csv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,12 +17,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="511">
-              <caret line="713" column="13" selection-start-line="713" selection-start-column="13" selection-end-line="713" selection-end-column="13" />
+            <state relative-caret-position="134">
+              <caret line="2905" column="23" lean-forward="true" selection-start-line="2905" selection-start-column="23" selection-end-line="2905" selection-end-column="23" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
+                <element signature="e#33059#33991#0" />
                 <element signature="e#131849#131857#0" />
-                <element signature="e#137946#137954#0" />
                 <element signature="e#143151#143159#0" />
                 <element signature="e#181721#181729#0" />
                 <element signature="e#191590#191598#0" />
@@ -35,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
+            <state relative-caret-position="172">
+              <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -44,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="22" column="21" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+            <state relative-caret-position="161">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
         </entry>
@@ -66,12 +65,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SALMON</find>
-      <find>'''FILTER</find>
-      <find>todo remo</find>
-      <find>Title</find>
-      <find>(self.Tabs_t2</find>
-      <find>chi - sq</find>
       <find>(FIL</find>
       <find>(FILTER</find>
       <find>(PROCE</find>
@@ -85,17 +78,23 @@
       <find>separator</find>
       <find>number</find>
       <find>'</find>
-      <find>'''1</find>
       <find>asd</find>
       <find>'''2</find>
       <find>''1</find>
-      <find>'''3</find>
-      <find>(TEST)</find>
       <find>''2</find>
       <find>'3'</find>
       <find># title bo</find>
       <find>''3</find>
       <find>Title border</find>
+      <find>'''1</find>
+      <find>'''3</find>
+      <find>testtabconsoleele</find>
+      <find>console</find>
+      <find>consoleele</find>
+      <find>filtercomm</find>
+      <find>process_BG</find>
+      <find>createlabels</find>
+      <find>(TEST)</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -117,14 +116,15 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Icon_support.py" />
-        <option value="$PROJECT_DIR$/Color_support.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
+        <option value="$PROJECT_DIR$/Color_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="130" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="132" />
+    <option name="y" value="-28" />
     <option name="width" value="1720" />
     <option name="height" value="1089" />
   </component>
@@ -236,15 +236,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="104" y="0" width="1376" height="871" extended-state="0" />
+    <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20333838" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18741259" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22343324" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.22132254" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24523161" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -265,7 +265,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/UI_support.py</url>
-          <line>187</line>
+          <line>188</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -275,27 +275,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>859</line>
+          <line>876</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>653</line>
+          <line>656</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3698</line>
+          <line>3753</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3437</line>
+          <line>3492</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3000</line>
+          <line>3030</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
@@ -357,26 +357,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="52" column="10" selection-start-line="52" selection-start-column="10" selection-end-line="52" selection-end-column="10" />
+        <state relative-caret-position="172">
+          <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="22" column="21" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+        <state relative-caret-position="161">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="511">
-          <caret line="713" column="13" selection-start-line="713" selection-start-column="13" selection-end-line="713" selection-end-column="13" />
+        <state relative-caret-position="134">
+          <caret line="2905" column="23" lean-forward="true" selection-start-line="2905" selection-start-column="23" selection-end-line="2905" selection-end-column="23" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
+            <element signature="e#33059#33991#0" />
             <element signature="e#131849#131857#0" />
-            <element signature="e#137946#137954#0" />
             <element signature="e#143151#143159#0" />
             <element signature="e#181721#181729#0" />
             <element signature="e#191590#191598#0" />

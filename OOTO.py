@@ -511,8 +511,11 @@ class OOTO_Miner:
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.configureDataTabElements()
 
-        ''' TAB 2 - TEST (Tabs_t3) '''
+        ''' TAB 2.1 - TEST (Tabs_t3) '''
         self.configureTestTabElements()
+
+        ''' TAB 2.2 TEST CONSOLE - (Tabs_t3)'''
+        self.configureTestTabConsoleElements()
 
         ''' TAB 3 - INFO (Tabs_t4) '''
         self.configureInfoTabElements()
@@ -668,7 +671,7 @@ class OOTO_Miner:
         self.configureVariableDescriptionElements()
         self.configureStartElements()
 
-    ''' --> Configure TEST ("TEST") TAB (2) <-- '''
+    ''' --> Configure TEST ("TEST") TAB (2.1) <-- '''
     def configureTestTabElements(self):
         self.testTabParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
         self.testTabParentFrame.place(
@@ -823,6 +826,20 @@ class OOTO_Miner:
         self.buttonQueryZTestSvP.configure(state = "disabled")
 
         # endregion
+
+    ''' --> Configure TEST ("TEST") TAB (2.2) <-- '''
+    def configureTestTabConsoleElements(self):
+        self.testTabConsoleParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
+        newRelW = 0.2
+        # self.testTabConsoleParentFrame.place(
+        #     relx = 1 - newRelW,
+        #     rely = self.getRelY(self.testTabParentFrame),
+        #     relwidth = newRelW,
+        #     relheight = self.getRelH(self.testTabParentFrame)
+        # )
+        self.testTabConsoleParentFrame.configure(
+            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR
+        )
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
     def configureInfoTabElements(self):
@@ -1177,9 +1194,9 @@ class OOTO_Miner:
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
-            text = '''1''',
+            text = '''1  ''',
             bd = 1, relief = GROOVE,
-            anchor = S
+            anchor = SE
         )
         newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
 
@@ -1908,9 +1925,9 @@ class OOTO_Miner:
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             background = Color_support.FILTER_NUMBER_BG, foreground = Color_support.FILTER_NUMBER_FG,
-            text = '''2''',
+            text = '''2  ''',
             bd = 1, relief = GROOVE,
-            anchor = S
+            anchor = SE
         )
 
         # newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
@@ -2430,9 +2447,6 @@ class OOTO_Miner:
 
 
 
-
-
-
     ''' -> Elements under the PROCESS ("TEST") HEADER <- '''
     def configureProcessElements(self, parentFrame):
 
@@ -2442,8 +2456,6 @@ class OOTO_Miner:
         self.labelFrameProcessTitle.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
         )
-        # Create the top separator
-
 
         # PROCESS NUMBER
 
@@ -2473,9 +2485,9 @@ class OOTO_Miner:
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
-            text = '''3''',
+            text = '''3  ''',
             bd = 1, relief = GROOVE,
-            anchor = S
+            anchor = SE
         )
 
         # PROCESS TITLE
@@ -2883,10 +2895,28 @@ class OOTO_Miner:
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
+
     ''' -> Elements under the CONSOLE ("") HEADER <- '''
     def configureConsoleElements(self, parentFrame):
-        # TODO
-        print ("TODO")
+
+        # PROCESS COMMANDS PARENT
+        self.labelFrameConsoleScreen = LabelFrame(parentFrame, bd = 0)
+        newRelW = 0.7
+        newRelH = 0.6
+        newRelY = 0.092
+        self.labelFrameConsoleScreen.place(
+            relx = (1 - newRelW) / 2,
+            rely = newRelY,
+            relwidth = newRelW,
+            relheight = newRelH
+        )
+        self.labelFrameConsoleScreen.configure(
+            background = Color_support.CONSOLE_BG,
+            bd = 0, relief = GROOVE
+        )
+
+        self.createLabelBorders(self.labelFrameConsoleScreen)
+
     # endregion
 
     ''' --> Elements under INFO ("INFO") TAB (2) <-- '''
@@ -3044,6 +3074,31 @@ class OOTO_Miner:
             )
         separatorHolder.configure(background = color)
         return separatorHolder
+
+    def createLabelBorders(self, borderParent, color = Color_support.DISABLED_D_BLUE):
+
+        # COLORED SEPARATOR
+        topBorder = self.createLabelSeparator(
+            borderParent, 1,
+            False, color
+        )
+
+        bottomBorder = self.createLabelSeparator(
+            borderParent, 1,
+            False, color,
+            coordinate = 0.998
+        )
+
+        leftBorder = self.createLabelSeparator(
+            borderParent, 1,
+            True, color
+        )
+
+        rightBorder = self.createLabelSeparator(
+            borderParent, 1,
+            True, color,
+            coordinate = 0.99
+        )
 
     # endregion
 
