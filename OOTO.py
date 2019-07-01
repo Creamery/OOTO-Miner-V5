@@ -1177,7 +1177,7 @@ class OOTO_Miner:
         newRelH = self.getRelH(self.labelFrameSelectTitleNumber)
         self.labelFrameSelectTitleText.place(
             relx = newRelX - 0.001, rely = newRelY,
-            relwidth = 0.14, relheight = newRelH, anchor = NW)
+            relwidth = 0.15, relheight = newRelH, anchor = NW)
         self.labelFrameSelectTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2209,6 +2209,30 @@ class OOTO_Miner:
             anchor = SW
         )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.labelFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
+
+
+
+
+        # FILTER BORDERS
+        self.separatorFilterListDataA = Label(self.labelFrameFilterListDataA)
+        self.separatorFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
+        self.separatorFilterListDataA.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+
+
+        self.separatorFilterListDataCenter = Label(self.labelFrameFilterListDataB)
+        self.separatorFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
+        self.separatorFilterListDataCenter.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+
+        self.separatorFilterListDataB = Label(self.labelFrameFilterListDataB)
+        self.separatorFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
+        self.separatorFilterListDataB.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+
+
+
+
+
+
+
 
         # FILTER LOCK OVERLAY
         # region

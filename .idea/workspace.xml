@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="531" column="25" selection-start-line="531" selection-start-column="25" selection-end-line="531" selection-end-column="25" />
+            <state relative-caret-position="209">
+              <caret line="531" column="44" lean-forward="true" selection-start-line="531" selection-start-column="44" selection-end-line="531" selection-end-column="44" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -37,8 +36,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="98" column="40" lean-forward="true" selection-start-line="98" selection-start-column="40" selection-end-line="98" selection-end-column="40" />
+            <state relative-caret-position="83">
+              <caret line="109" column="41" lean-forward="true" selection-start-line="109" selection-start-column="41" selection-end-line="109" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -68,10 +67,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>labelQueryDataFeatureName.configure</find>
-      <find>labelQueryDataFeatureName</find>
-      <find>FILTER_STATUS_READY_TEXT</find>
-      <find>READ</find>
       <find>'''READ</find>
       <find>PALE_YELL</find>
       <find>READY_TEXT</find>
@@ -96,8 +91,12 @@
       <find>listbox</find>
       <find>console</find>
       <find>PALE_OR</find>
-      <find>SALMON</find>
       <find>REMOV</find>
+      <find>FilterListDataB</find>
+      <find>NO</find>
+      <find>SALMON</find>
+      <find>'''FILTER</find>
+      <find>todo remo</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -287,12 +286,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3650</line>
+          <line>3674</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3389</line>
+          <line>3413</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
@@ -361,15 +360,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="98" column="40" lean-forward="true" selection-start-line="98" selection-start-column="40" selection-end-line="98" selection-end-column="40" />
+        <state relative-caret-position="83">
+          <caret line="109" column="41" lean-forward="true" selection-start-line="109" selection-start-column="41" selection-end-line="109" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="531" column="25" selection-start-line="531" selection-start-column="25" selection-end-line="531" selection-end-column="25" />
+        <state relative-caret-position="209">
+          <caret line="531" column="44" lean-forward="true" selection-start-line="531" selection-start-column="44" selection-end-line="531" selection-end-column="44" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
