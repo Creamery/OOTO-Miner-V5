@@ -709,7 +709,7 @@ class OOTO_Miner:
         prevFrameRelY = float(self.labelFrameSelectElements.place_info()['rely'])
         prevFrameRelH = float(self.labelFrameSelectElements.place_info()['relheight'])
         # newRelY = prevFrameRelY + prevFrameRelH
-        newRelY = prevFrameRelY + prevFrameRelH + 0.05
+        newRelY = prevFrameRelY + prevFrameRelH # TODO Make constant (space in between
 
         # FILTER Parent Frame
         self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame, bd = 0)
@@ -1459,7 +1459,8 @@ class OOTO_Miner:
         self.labelFrameCommandsA = LabelFrame(self.labelFrameDatasetA, bd = 0)
         self.labelFrameCommandsA.place(
             relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
+            relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W,
+            relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H * 0.85) # TODO Reduced size
 
 
         self.labelFrameCommandsA.configure(
@@ -1526,7 +1527,7 @@ class OOTO_Miner:
         self.separatorlabelFrameCommandsARight.place(
             relx = self.getRelX(self.labelFrameQueryDataA),
             rely = newRelY,
-            relheight = 1 - newRelY,
+            relheight = 1 - newRelY - 0.025, # TODO To adjust border height, just adjust this
             width = 1)
         self.separatorlabelFrameCommandsARight.configure(background = Color_support.DISABLED_D_BLUE)
 
@@ -1544,7 +1545,9 @@ class OOTO_Miner:
         self.separatorlabelFrameCommandsABottom = Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsABottom.place(
             relx = self.getRelX(self.separatorlabelFrameCommandsARight),
-            rely = 0.997,
+            # rely = 0.997,
+            rely = self.getRelY(self.separatorlabelFrameCommandsALeft) +
+                   self.getRelH(self.separatorlabelFrameCommandsALeft) - 0.003,
             relwidth = self.getRelX(self.separatorlabelFrameCommandsALeft) - self.getRelX(self.separatorlabelFrameCommandsARight),
             height = 1)
         self.separatorlabelFrameCommandsABottom.configure(background = Color_support.DISABLED_D_BLUE)
