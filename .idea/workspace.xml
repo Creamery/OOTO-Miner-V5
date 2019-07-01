@@ -15,13 +15,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="3099" column="30" lean-forward="true" selection-start-line="3099" selection-start-column="30" selection-end-line="3099" selection-end-column="30" />
+            <state relative-caret-position="134">
+              <caret line="2964" column="21" selection-start-line="2964" selection-start-column="21" selection-end-line="2964" selection-end-column="21" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#33059#33991#0" />
                 <element signature="e#131849#131857#0" />
-                <element signature="e#143151#143159#0" />
                 <element signature="e#181721#181729#0" />
                 <element signature="e#191590#191598#0" />
               </folding>
@@ -63,9 +62,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>(FIL</find>
-      <find>(FILTER</find>
-      <find>(PROCE</find>
       <find>tabs_t2</find>
       <find>consoleelem</find>
       <find>geome</find>
@@ -93,6 +89,9 @@
       <find>process_BG</find>
       <find>createlabels</find>
       <find>(TEST)</find>
+      <find>listbox</find>
+      <find>NO_DATA</find>
+      <find>stripes</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -121,8 +120,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="132" />
-    <option name="y" value="-28" />
+    <option name="x" value="158" />
+    <option name="y" value="-19" />
     <option name="width" value="1720" />
     <option name="height" value="1089" />
   </component>
@@ -283,17 +282,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3753</line>
+          <line>3818</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3492</line>
+          <line>3557</line>
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3030</line>
+          <line>3095</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
       </breakpoints>
@@ -369,13 +368,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="3099" column="30" lean-forward="true" selection-start-line="3099" selection-start-column="30" selection-end-line="3099" selection-end-column="30" />
+        <state relative-caret-position="134">
+          <caret line="2964" column="21" selection-start-line="2964" selection-start-column="21" selection-end-line="2964" selection-end-column="21" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#33059#33991#0" />
             <element signature="e#131849#131857#0" />
-            <element signature="e#143151#143159#0" />
             <element signature="e#181721#181729#0" />
             <element signature="e#191590#191598#0" />
           </folding>

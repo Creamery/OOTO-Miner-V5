@@ -2901,20 +2901,85 @@ class OOTO_Miner:
 
         # PROCESS COMMANDS PARENT
         self.labelFrameConsoleScreen = LabelFrame(parentFrame, bd = 0)
-        newRelW = 0.7
-        newRelH = 0.6
+        newRelW = 0.72
+        newRelH = 0.8
         newRelY = 0.092
+
         self.labelFrameConsoleScreen.place(
             relx = (1 - newRelW) / 2,
             rely = newRelY,
             relwidth = newRelW,
             relheight = newRelH
         )
+
         self.labelFrameConsoleScreen.configure(
             background = Color_support.CONSOLE_BG,
             bd = 0, relief = GROOVE
         )
 
+        # TASKBAR
+
+        self.labelConsoleScreenTaskBar = Label(self.labelFrameConsoleScreen)
+        self.labelConsoleScreenTaskBar.place(
+            relx = 0,
+            rely = 0,
+            relwidth = 1,
+            relheight = 0.042
+        )
+
+        self.labelConsoleScreenTaskBar.configure(
+            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
+            text = UI_support.LBL_SELECT_NO_DATA,
+            font = UI_support.SELECT_STATUS_LABEL_FONT,
+        )
+
+
+
+        # STRIPES
+        self.labelConsoleStripes = Label(self.labelFrameConsoleScreen, bd = 0, relief = GROOVE)
+        newRelY = self.getRelY(self.labelConsoleScreenTaskBar) + self.getRelH(self.labelConsoleScreenTaskBar)
+        newRelH = 0.013 # 0.008
+        self.labelConsoleStripes.place(
+            relx = 0,
+            rely = newRelY,
+            relwidth = 1,
+            relheight = newRelH
+        )
+
+        im = PIL.Image.open(
+            Icon_support.TEXTURE_STRIPE_PINK)
+        texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+        self.labelConsoleStripes.configure(
+            image = texture_pink_stripes,
+            anchor = SW
+        )
+        self.labelConsoleStripes.image = texture_pink_stripes  # < ! > Required to make images appear
+
+
+
+
+
+        # CONSOLE SCREEN
+        self.listConsoleScreen = Listbox(self.labelFrameConsoleScreen)
+        newRelH = 0.8
+        newRelY = self.getRelY(self.labelConsoleStripes) + self.getRelH(self.labelConsoleStripes)
+        self.listConsoleScreen.place(
+            relx = 0,
+            rely = newRelY,
+            relwidth = 1,
+            relheight = newRelH
+        )
+
+        self.listConsoleScreen.configure(
+            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+            selectmode = SINGLE, exportselection = "0",
+            activestyle = "none",
+            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG, selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
+            highlightthickness = 0
+        )
         self.createLabelBorders(self.labelFrameConsoleScreen)
 
     # endregion
@@ -3097,7 +3162,7 @@ class OOTO_Miner:
         rightBorder = self.createLabelSeparator(
             borderParent, 1,
             True, color,
-            coordinate = 0.998
+            coordinate = 0.995
         )
 
     # endregion
