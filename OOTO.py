@@ -528,7 +528,7 @@ class OOTO_Miner:
         populationDir = ""
 
         self.initializeVariables()
-
+        self.enableFilter() # TODO REMOVE!
         # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
         # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
@@ -572,6 +572,7 @@ class OOTO_Miner:
         # self.style.map('.',background =
         #     [('selected', _compcolor), ('active',_ana2color)])
 
+        # op.geometry("1000x800+522+139")
         top.geometry("1000x700+522+139")
         top.title("OOTO Miner")
         # root.wm_attributes('-transparentcolor', root['bg'])
@@ -598,7 +599,7 @@ class OOTO_Miner:
 
         self.Tabs = ttk.Notebook(root, style = 'Tab')  # top)
         self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
-        # self.Tabs.configure(width = 604)
+        # self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
         # self.Tabs.configure(takefocus = "")
 
         # Top horizontal separator # TODO
@@ -707,7 +708,8 @@ class OOTO_Miner:
 
         prevFrameRelY = float(self.labelFrameSelectElements.place_info()['rely'])
         prevFrameRelH = float(self.labelFrameSelectElements.place_info()['relheight'])
-        newRelY = prevFrameRelY + prevFrameRelH
+        # newRelY = prevFrameRelY + prevFrameRelH
+        newRelY = prevFrameRelY + prevFrameRelH + 0.05
 
         # FILTER Parent Frame
         self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame, bd = 0)
@@ -1313,9 +1315,8 @@ class OOTO_Miner:
 
         # QUERY TOP STRIPE PARENT - DATASET A
         # region
-        # newRelY = self.getRelY(self.labelFrameQuerySetDataStatusA) + self.getRelH(self.labelFrameQuerySetDataStatusA)
-        newRelH = self.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
-        # newRelH = 1 - (self.getRelH(self.labelFrameQuerySetDataStatusA) + specifiedStripeHeight)
+        # newRelH = self.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
+        newRelH = self.getRelH(self.labelFrameQuerySetDataStatusA) * UI_support.SELECT_LABEL_STRIPES_REL_H_MULTIPLIER # 5 / 8 # TODO Make constant reference
         self.labelQuerySetDataStripesA = Label(self.labelFrameListBoxA, bd = 0, relief = GROOVE)
         self.labelQuerySetDataStripesA.place(
             relx = 0,
@@ -2097,11 +2098,15 @@ class OOTO_Miner:
         )
 
         # FILTER LIST BOX - DATASET A
-        newRelY = UI_support.FILTER_LABEL_STRIPES_REL_H + 0.03725 # TODO Make constant, + is the percent of stripes
+        # newRelY = UI_support.FILTER_LABEL_STRIPES_REL_H + 0.03725 # TODO Make constant, + is the percent of stripes
+        newRelY = UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER,
         self.listQueryDataA = Listbox(self.labelFrameFilterListDataA, bd = 0)
         self.listQueryDataA.place(
-            relx = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W, relheight = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_H - newRelY)
+            relx = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X,
+            rely = newRelY,
+            relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W,
+            relheight = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_H -
+                        (UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
 
         self.listQueryDataA.configure(
             background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
@@ -2188,7 +2193,9 @@ class OOTO_Miner:
             relx = self.getRelX(self.labelFrameFilterListDataA),
             rely = self.getRelY(self.labelFrameFilterListDataA),
             relwidth = 1,
-            relheight = UI_support.FILTER_LABEL_STRIPES_REL_H,
+            # relheight = UI_support.FILTER_LABEL_STRIPES_REL_H # * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER,
+            relheight = UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER,
+            # relheight = self.getRelH(self.labelFrameFilterQueryData) * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER,
             anchor = NW
         )
         im = PIL.Image.open(
@@ -2208,11 +2215,13 @@ class OOTO_Miner:
         # FILTER LOCK MOCK PARENT COVER
         self.labelOverlayFilterListData = LabelFrame(parentFrame, bd = 0)
 
-
+        #
         self.labelOverlayFilterListData.place(
-            relx = self.getRelX(self.labelFrameFilterListData), rely = self.getRelY(self.labelFrameFilterListData),
+            relx = self.getRelX(self.labelFrameFilterListData),
+            rely = self.getRelY(self.labelFrameFilterListData),
             # relwidth = 0, relheight = 0)
-            relwidth = self.getRelW(self.labelFrameFilterListData), relheight = self.getRelH(self.labelFrameFilterListData))
+            relwidth = self.getRelW(self.labelFrameFilterListData),
+            relheight = self.getRelH(self.labelFrameFilterListData))
 
         self.labelOverlayFilterListData.configure(
             background = self.labelFrameFilterListData['background'],
@@ -2226,7 +2235,7 @@ class OOTO_Miner:
             relx = self.getRelX(self.labelFrameFilterQueryData),
             rely = self.getRelY(self.labelFrameFilterQueryData),
             relwidth = self.getRelW(self.labelFrameFilterQueryData),
-            relheight = self.getRelH(self.labelFrameFilterQueryData) - UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION
+            relheight = self.getRelH(self.labelFrameFilterQueryData) * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER
         )
         self.labelOverlayFilterQueryData.configure(
             background = self.labelFrameFilterQueryData['background'],
@@ -2321,11 +2330,18 @@ class OOTO_Miner:
         # region
         # self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListDataA)
         self.labelOverlayFilterListDataA = Label(self.labelOverlayFilterListData)
+        newRelY = self.getRelY(self.labelOverlayFilterQueryData) + self.getRelH(self.labelOverlayFilterQueryData)
         self.labelOverlayFilterListDataA.place(
             relx = self.getRelX(self.labelFrameFilterListDataA),
-            rely = self.getRelY(self.labelFrameFilterListDataA) - UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION,
+            # rely = self.getRelY(self.labelFrameFilterListDataA) - UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION,
+            rely = newRelY,
             relwidth = self.getRelW(self.labelFrameFilterListDataA),
-            relheight = self.getRelH(self.labelFrameFilterListDataA) + UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION)
+            # relheight = self.getRelH(self.labelFrameFilterListDataA) + UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION)
+            # relheight = self.getRelH(self.labelFrameFilterListDataA) + self.getRelH(self.labelOverlayFilterQueryData))
+            relheight = self.getRelH(self.labelFrameFilterListDataA) +
+                        self.getRelH(self.labelOverlayFilterQueryData) +
+                        self.getRelH(self.labelFilterStripes) - 0.018)
+
         self.labelOverlayFilterListDataA.configure(
             background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
             foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
@@ -2336,11 +2352,12 @@ class OOTO_Miner:
         )
         # FILTER LOCK BOTTOM MOCK NO DATA LABEL
         self.labelOverlayQueryDataA = Label(self.labelOverlayFilterListDataA)
+        newRelYReduction = 0.01
         self.labelOverlayQueryDataA.place(
             relx = self.getRelX(self.labelQueryDataA),
-            rely = self.getRelY(self.labelQueryDataA) + (UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2) - 0.01, # TODO Make constant
+            rely = self.getRelY(self.labelQueryDataA) + (UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2), # TODO Make constant
             relwidth = self.getRelW(self.labelQueryDataA),
-            relheight = self.getRelH(self.labelQueryDataA))
+            relheight = self.getRelH(self.labelQueryDataA) - newRelYReduction)
 
         self.labelOverlayQueryDataA.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
@@ -2362,7 +2379,8 @@ class OOTO_Miner:
         self.labelOverlayFilterListDataB = Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterListDataB.place(
             relx = self.getRelX(self.labelFrameFilterListDataB), rely = self.getRelY(self.labelOverlayFilterListDataA),
-            relwidth = self.getRelW(self.labelFrameFilterListDataB), relheight = self.getRelH(self.labelOverlayFilterListDataA))
+            relwidth = self.getRelW(self.labelFrameFilterListDataB),
+            relheight = self.getRelH(self.labelOverlayFilterListDataA))
         self.labelOverlayFilterListDataB.configure(
             background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
             foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
@@ -2374,8 +2392,10 @@ class OOTO_Miner:
         # FILTER LOCK BOTTOM MOCK NO DATA LABEL
         self.labelOverlayQueryDataB = Label(self.labelOverlayFilterListDataB)
         self.labelOverlayQueryDataB.place(
-            relx = self.getRelX(self.labelQueryDataB), rely = self.getRelY(self.labelOverlayQueryDataA),
-            relwidth = self.getRelW(self.labelQueryDataB), relheight = self.getRelH(self.labelOverlayQueryDataA))
+            relx = self.getRelX(self.labelOverlayQueryDataA),
+            rely = self.getRelY(self.labelOverlayQueryDataA),
+            relwidth = self.getRelW(self.labelOverlayQueryDataA),
+            relheight = self.getRelH(self.labelOverlayQueryDataA))
 
         self.labelOverlayQueryDataB.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
