@@ -2903,7 +2903,7 @@ class OOTO_Miner:
         self.labelFrameConsoleScreen = LabelFrame(parentFrame, bd = 0)
         newRelW = 0.72
         newRelH = 0.8
-        newRelY = 0.092
+        newRelY = 0.09 # 0.092
 
         self.labelFrameConsoleScreen.place(
             relx = (1 - newRelW) / 2,
@@ -2924,7 +2924,7 @@ class OOTO_Miner:
             relx = 0,
             rely = 0,
             relwidth = 1,
-            relheight = 0.042
+            relheight = 0.0425 # 0.042
         )
 
         self.labelConsoleScreenTaskBar.configure(
@@ -2939,7 +2939,7 @@ class OOTO_Miner:
         # STRIPES
         self.labelConsoleStripes = Label(self.labelFrameConsoleScreen, bd = 0, relief = GROOVE)
         newRelY = self.getRelY(self.labelConsoleScreenTaskBar) + self.getRelH(self.labelConsoleScreenTaskBar)
-        newRelH = 0.013 # 0.008
+        newRelH = 0.014 # 0.008
         self.labelConsoleStripes.place(
             relx = 0,
             rely = newRelY,
