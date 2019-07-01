@@ -573,7 +573,8 @@ class OOTO_Miner:
         #     [('selected', _compcolor), ('active',_ana2color)])
 
         # op.geometry("1000x800+522+139")
-        top.geometry("1000x700+522+139")
+        # top.geometry("1000x700+522+139")
+        top.geometry("1000x700+222+39")
         top.title("OOTO Miner")
         # root.wm_attributes('-transparentcolor', root['bg'])
         # root.wm_attributes('-transparentcolor', 'black')
@@ -656,7 +657,7 @@ class OOTO_Miner:
         self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
         self.dataTabParentFrame.place(
             relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-            relwidth = UI_support.TAB_REL_W * 0.8, relheight = UI_support.TAB_REL_H)
+            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
         self.dataTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
 
         # Create the left separator
@@ -677,8 +678,6 @@ class OOTO_Miner:
         self.testTabParentFrame.configure(
             background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
         )
-        self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient = VERTICAL)
-        self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
         # TYPE Parent Frame
         self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame, bd = 0)
@@ -723,15 +722,16 @@ class OOTO_Miner:
 
         self.configureFilterElements(self.labelFrameFilterElements)  # Configures all sub elements under FILTER
 
-        prevFrameRelY = float(self.labelFrameFilterElements.place_info()['rely'])
-        prevFrameRelH = float(self.labelFrameFilterElements.place_info()['relheight'])
-        newRelY = prevFrameRelY + prevFrameRelH
+        newRelY = self.getRelY(self.labelFrameFilterElements) + self.getRelH(self.labelFrameFilterElements)
 
         # PROCESS Parent Frame
         self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameProcessElements.place(
-            relx = UI_support.TAB_TEST_PROCESS_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_PROCESS_REL_W, relheight = UI_support.TAB_TEST_PROCESS_REL_H
+            # relx = UI_support.TAB_TEST_PROCESS_REL_X,
+            relx = self.getRelX(self.labelFrameSelectElements),
+            rely = newRelY,
+            relwidth = UI_support.TAB_TEST_PROCESS_REL_W,
+            relheight = UI_support.TAB_TEST_PROCESS_REL_H
         )
         self.labelFrameProcessElements.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
@@ -758,6 +758,9 @@ class OOTO_Miner:
         )
 
         self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
+        self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient = VERTICAL)
+        self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+
 
         # > COMBO BOX
         global testTypes
