@@ -3086,7 +3086,7 @@ class OOTO_Miner:
         bottomBorder = self.createLabelSeparator(
             borderParent, 1,
             False, color,
-            coordinate = 0.998
+            coordinate = 0.9985
         )
 
         leftBorder = self.createLabelSeparator(
@@ -3097,7 +3097,7 @@ class OOTO_Miner:
         rightBorder = self.createLabelSeparator(
             borderParent, 1,
             True, color,
-            coordinate = 0.99
+            coordinate = 0.998
         )
 
     # endregion

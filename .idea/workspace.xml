@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="2905" column="23" lean-forward="true" selection-start-line="2905" selection-start-column="23" selection-end-line="2905" selection-end-column="23" />
+            <state relative-caret-position="362">
+              <caret line="3099" column="30" lean-forward="true" selection-start-line="3099" selection-start-column="30" selection-end-line="3099" selection-end-column="30" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#33059#33991#0" />
@@ -371,8 +369,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="2905" column="23" lean-forward="true" selection-start-line="2905" selection-start-column="23" selection-end-line="2905" selection-end-column="23" />
+        <state relative-caret-position="362">
+          <caret line="3099" column="30" lean-forward="true" selection-start-line="3099" selection-start-column="30" selection-end-line="3099" selection-end-column="30" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#33059#33991#0" />
