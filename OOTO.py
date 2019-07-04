@@ -508,6 +508,8 @@ class OOTO_Miner:
         # self.menubar.add_command(label = "Help")
 
 
+        self.placeDictionary = {}
+
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.configureDataTabElements()
 
@@ -558,6 +560,8 @@ class OOTO_Miner:
         self.datasetCountB = len(self.datasetB['Data'])
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
+
+
 
     """ >>> CONFIGURE STYLE MAPS / THEMES <<< """
     # region
@@ -686,15 +690,14 @@ class OOTO_Miner:
         self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameTypeElements.place(
             relx = UI_support.TAB_TEST_TYPE_REL_X, rely = UI_support.TAB_TEST_TYPE_REL_Y,
-            relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
+            relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H + 0.05
         )
         self.labelFrameTypeElements.configure(
             background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR  # , text = '''TYPE'''
         )
 
-        prevFrameRelY = float(self.labelFrameTypeElements.place_info()['rely'])
-        prevFrameRelH = float(self.labelFrameTypeElements.place_info()['relheight'])
-        newRelY = prevFrameRelY + prevFrameRelH
+
+        newRelY = self.getRelY(self.labelFrameTypeElements) + self.getRelH(self.labelFrameTypeElements)
 
         # SELECT Parent Frame (Datasets)
         self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame, bd = 0)
@@ -708,10 +711,8 @@ class OOTO_Miner:
 
         self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
 
-        prevFrameRelY = float(self.labelFrameSelectElements.place_info()['rely'])
-        prevFrameRelH = float(self.labelFrameSelectElements.place_info()['relheight'])
-        # newRelY = prevFrameRelY + prevFrameRelH
-        newRelY = prevFrameRelY + prevFrameRelH # TODO Make constant (space in between
+
+        newRelY = self.getRelY(self.labelFrameSelectElements) + self.getRelH(self.labelFrameSelectElements) # TODO Make constant (space in between)
 
         # FILTER Parent Frame
         self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame, bd = 0)
@@ -2532,18 +2533,146 @@ class OOTO_Miner:
         )
 
 
-        # PROCESS Z-TEST PARENT
-        self.labelFrameProcessZTest = LabelFrame(self.labelFrameProcessCommands, bd = 0)
-        self.labelFrameProcessZTest.place(
+        # PROCESS STATISTICAL TEST OPTIONS
+        # region
+        self.labelFrameProcessStatTests = Label(self.labelFrameProcessCommands)
+        self.labelFrameProcessStatTests.place(
             relx = 0, rely = 0,
             relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
+        )
+
+        self.labelFrameProcessStatTests.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        # TITLE
+        self.labelFrameProcessStatTestsTitle = Label(self.labelFrameProcessStatTests)
+        self.labelFrameProcessStatTestsTitle.place(
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+        self.labelFrameProcessStatTestsTitle.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            text = '''TYPE''',
+            anchor = CENTER,
+            bd = 0, relief = GROOVE
+        )
+
+
+        newRelY = self.getRelY(self.labelFrameProcessStatTestsTitle) + self.getRelH(self.labelFrameProcessStatTestsTitle)
+        self.labelFrameProcessStatTestsButtonElements = LabelFrame(self.labelFrameProcessStatTests, bd = 0)
+        self.labelFrameProcessStatTestsButtonElements.place(
+            relx = self.getRelX(self.labelFrameProcessStatTestsTitle),
+            rely = newRelY,
+            relwidth = self.getRelW(self.labelFrameProcessStatTestsTitle),
+            relheight = 1 - self.getRelH(self.labelFrameProcessStatTestsTitle) # 0.35
+        )
+        self.labelFrameProcessStatTestsButtonElements.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        # CHOOSE Z-TEST BUTTON
+        self.buttonChooseZTest = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
+
+        # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        # btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        # self.buttonChooseZTest.configure(
+        #     image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        # self.buttonChooseZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+        self.buttonChooseZTest.place(
+            relx = 0, rely = 0.1,
+            relwidth = 1, relheight = 0.28
+        )
+        self.buttonChooseZTest.configure(
+            background = Color_support.D_BLUE, foreground = Color_support.WHITE,
+            activebackground = Color_support.PROCESS_Z_TEST_TITLE_BG,
+            bd = 1, relief = GROOVE, overrelief = SUNKEN,
+            font = UI_support.FONT_DEFAULT_BOLD,
+            text = '''Z - TEST''')
+
+        # self.buttonChooseZTest.pack(fill = X, expand = True)
+        self.buttonChooseZTest.update()
+
+
+
+        # CHOOSE CHI-SQUARE BUTTON
+        self.buttonChooseChiSquare = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
+
+        # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        # btn_query_chi_square_icon = PIL.ImageTk.PhotoImage(im)
+        # self.buttonChooseChiSquare.configure(
+        #     image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        # self.buttonChooseChiSquare.image = btn_query_z_test_icon  # < ! > Required to make images appear
+
+        newRelY = 0.05 + self.getRelY(self.buttonChooseZTest) + self.getRelH(self.buttonChooseZTest)
+        self.buttonChooseChiSquare.place(
+            relx = 0, rely = newRelY,
+            relwidth = self.getRelW(self.buttonChooseZTest), relheight = self.getRelH(self.buttonChooseZTest)
+        )
+        self.buttonChooseChiSquare.configure(
+            background = Color_support.DISABLED_WHITE, foreground = Color_support.D_BLUE,
+            activebackground = Color_support.PROCESS_TITLE_BG,
+            highlightbackground = Color_support.PROCESS_TITLE_BG,
+            bd = 1, relief = GROOVE, overrelief = SUNKEN,
+            font = UI_support.FONT_DEFAULT_BOLD,
+            text = '''CHI - SQUARE''')
+
+        # self.buttonChooseChiSquare.pack(fill = X, expand = True)
+        # self.buttonChooseChiSquare.update()
+
+        # endregion
+
+
+        # TEST OPTIONS PARENT
+        # region
+        # PROCESS Z-TEST PARENT
+        newRelX = self.getRelX(self.labelFrameProcessStatTests) + self.getRelW(self.labelFrameProcessStatTests)
+        self.labelFrameProcessTestOptions = LabelFrame(self.labelFrameProcessCommands, bd = 0)
+        self.labelFrameProcessTestOptions.place(
+            relx = newRelX, rely = 0,
+            relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
+        )
+        self.labelFrameProcessTestOptions.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        self.labelFrameProcessTestOptionsTitle = Label(self.labelFrameProcessTestOptions)
+        self.labelFrameProcessTestOptionsTitle.place(
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
+            rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
+            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+        self.labelFrameProcessTestOptionsTitle.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            text = '''OPTIONS''',
+            anchor = CENTER,
+            bd = 1, relief = GROOVE
+        )
+
+
+
+
+        # endregion
+
+
+        # PROCESS Z-TEST OPTIONS
+        # region
+
+        # PROCESS Z-TEST PARENT
+        # newRelX = self.getRelX(self.labelFrameProcessStatTests) + self.getRelW(self.labelFrameProcessStatTests)
+        self.labelFrameProcessZTest = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
+                                                 name = 'labelFrameProcessZTest')
+        self.labelFrameProcessZTest.place(
+            # relx = newRelX, rely = 0,
+            relx = 0, rely = 0,
+            relwidth = 1, relheight = 1
+            # relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
         )
         self.labelFrameProcessZTest.configure(
             background = Color_support.PROCESS_BG
         )
 
-
-        # PROCESS Z-TEST TITLE
         self.labelFrameProcessZTestTitle = Label(self.labelFrameProcessZTest)
         self.labelFrameProcessZTestTitle.place(
             relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
@@ -2551,14 +2680,12 @@ class OOTO_Miner:
         self.labelFrameProcessZTestTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
-            text = '''Z - TEST''',
+            # text = '''Z - TEST''',
+            text = '''OPTIONS''',
             anchor = CENTER,
-            bd = 1, relief = GROOVE
+            bd = 0, relief = GROOVE
         )
 
-        # Top horizontal separator # TODO
-        # self.zTestTitleSeparator = ttk.Separator(self.labelFrameProcessZTestTitle, orient = HORIZONTAL)
-        # self.zTestTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
 
         global arrQueryCriticalValue
         arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
@@ -2568,8 +2695,11 @@ class OOTO_Miner:
 
         newRelY = self.getRelY(self.labelFrameProcessZTestTitle) + self.getRelH(self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
+
+
         # SPINBOX ELEMENTS
-        self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessZTest, bd = 0)
+        # self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessZTest, bd = 0)
+        self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessTestOptions, bd = 0)
         self.labelFrameProcessZTestConfidence.place(
             relx = 0.11, rely = newRelY,
             relwidth = 0.525, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_H
@@ -2593,10 +2723,6 @@ class OOTO_Miner:
         self.labelFrameProcessZTestButtonElements.configure(
             background = Color_support.PROCESS_BG
         )
-
-
-
-
 
         # CONFIDENCE SPINBOX LABEL
         self.labelQueryZConfidenceText = Label(self.labelFrameProcessZTestConfidence)
@@ -2644,6 +2770,8 @@ class OOTO_Miner:
 
         self.buttonQueryZTest.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
+            activebackground = Color_support.PROCESS_TITLE_BG,
+            highlightbackground = Color_support.PROCESS_TITLE_BG,
             bd = 1, relief = FLAT, overrelief = FLAT)
             # text = '''Test''')
 
@@ -2658,15 +2786,20 @@ class OOTO_Miner:
         self.labelQueryZTest.configure(text = '''NO DATA''')
 
 
+        # endregion
 
 
-        newRelX = self.getRelX(self.labelFrameProcessZTest) + self.getRelW(self.labelFrameProcessZTest)
+        # newRelX = self.getRelX(self.labelFrameProcessZTest) + self.getRelW(self.labelFrameProcessZTest)
 
-        # PROCESS CHI-SQUARE PARENT
-        self.labelFrameProcessChiSquare = LabelFrame(self.labelFrameProcessCommands, bd = 0)
+        # PROCESS CHI-SQUARE OPTIONS
+        # region
+        self.labelFrameProcessChiSquare = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
+                                                     name = "labelFrameProcessChiSquare")
         self.labelFrameProcessChiSquare.place(
-            relx = newRelX, rely = 0,
-            relwidth = UI_support.TEST_PROCESS_CHI_SQUARE_PARENT, relheight = 1
+            # relx = newRelX, rely = 0,
+            relx = 0, rely = 0,
+            # relwidth = UI_support.TEST_PROCESS_CHI_SQUARE_PARENT, relheight = 1
+            relwidth = 1, relheight = 1
         )
         self.labelFrameProcessChiSquare.configure(
             background = Color_support.PROCESS_BG
@@ -2676,6 +2809,7 @@ class OOTO_Miner:
 
         # PROCESS CHI-SQUARE TITLE
         self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
+        # self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
         self.labelFrameProcessChiSquareTitle.place(
             relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
@@ -2747,12 +2881,11 @@ class OOTO_Miner:
             text = '''0'''
         )
 
-
+        # ENQUEUE BUTTON
+        # Enqueue button parent (to handle centering after pack)
 
         newRelX = self.getRelX(self.labelFrameProcessChiSquareQueue) + self.getRelW(self.labelFrameProcessChiSquareQueue)
 
-        # ENQUEUE BUTTON
-        # Enqueue button parent (to handle centering after pack)
         self.labelFrameProcessQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
         self.labelFrameProcessQueue.place(
             relx = newRelX + 0.025, rely = 0,
@@ -2807,8 +2940,9 @@ class OOTO_Miner:
         self.buttonClearQueue.pack(side = RIGHT)
         self.buttonClearQueue.update()
 
+        # endregion
 
-        newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(self.labelFrameProcessChiSquare)
+        newRelX = self.getRelX(self.labelFrameProcessTestOptions) + self.getRelW(self.labelFrameProcessTestOptions)
 
         # PROCESS RUN PARENT
         self.labelFrameProcessRun = LabelFrame(self.labelFrameProcessCommands, bd = 0)
@@ -2827,7 +2961,8 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessRunMinerTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_RUN_MINER_TITLE_BG, foreground = Color_support.PROCESS_RUN_MINER_TITLE_FG,
+            background = Color_support.D_BLUE, foreground = Color_support.WHITE,
+            # background = Color_support.PROCESS_RUN_MINER_TITLE_BG, foreground = Color_support.PROCESS_RUN_MINER_TITLE_FG,
             text = '''RUN MINER''',
             anchor = CENTER,
             bd = 1, relief = GROOVE
@@ -2857,9 +2992,11 @@ class OOTO_Miner:
         )
 
         # RUN MINER BUTTON
+        # region
         self.buttonTestQueue = Button(self.labelFrameRunMinerElements, compound = CENTER)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.RUN_ICO_SIZE, PIL.Image.ANTIALIAS)
+        # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)/
         btn_queue_icon = PIL.ImageTk.PhotoImage(im)
 
         self.buttonTestQueue.configure(
@@ -2886,8 +3023,12 @@ class OOTO_Miner:
         self.runLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
 
+        # endregion
+
+
+
         # SEPARATOR  ELEMENTS
-        newRelX = self.getRelX(self.labelFrameProcessChiSquare) # + self.getRelW(self.labelFrameProcessZTest)
+        newRelX = self.getRelX(self.labelFrameProcessTestOptions) # + self.getRelW(self.labelFrameProcessZTest)
         self.zTestRightSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.zTestRightSeparator.place(relx = 0.335, rely = 0, relheight = 1, anchor = NE)
 
@@ -2895,6 +3036,37 @@ class OOTO_Miner:
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
+        self.hideWidget(self.labelFrameProcessChiSquare)
+
+    def hideWidget(self, widget):
+        # Store widget width and height
+        widgetName = self.getWidgetName(widget)
+        self.placeDictionary[widgetName + '_W'] = self.getRelW(widget)
+        self.placeDictionary[widgetName + '_H'] = self.getRelH(widget)
+
+        # Set widget width and height to 0
+        widget.place(relwidth = 0, relheight = 0)
+
+    def showWidget(self, widget):
+
+        # Retrieve widget width and height
+        widgetName = self.getWidgetName(widget)
+        widgetWidth = self.placeDictionary[widgetName + '_W']
+        widgetHeight = self.placeDictionary[widgetName + '_H']
+
+
+        # Set widget width and height
+        widget.place(relwidth = widgetWidth, relheight = widgetHeight)
+
+        # Remove keys from dictionary
+        self.placeDictionary.pop(widgetName + '_W', None)
+        self.placeDictionary.pop(widgetName + '_H', None)
+
+
+
+    def getWidgetName(self, widget):
+        print("widget name:", str(widget).split(".")[-1])
+        return str(widget).split(".")[-1]
 
     ''' -> Elements under the CONSOLE ("") HEADER <- '''
     def configureConsoleElements(self, parentFrame):
@@ -2934,7 +3106,7 @@ class OOTO_Miner:
             font = UI_support.SELECT_STATUS_LABEL_FONT,
         )
 
-
+        # self.createCornerImage(self.labelConsoleScreenTaskBar) # TODO Create borders
 
         # STRIPES
         self.labelConsoleStripes = Label(self.labelFrameConsoleScreen, bd = 0, relief = GROOVE)
@@ -2947,16 +3119,13 @@ class OOTO_Miner:
             relheight = newRelH
         )
 
-        im = PIL.Image.open(
-            Icon_support.TEXTURE_STRIPE_PINK)
+        im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PINK)
         texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelConsoleStripes.configure(
             image = texture_pink_stripes,
             anchor = SW
         )
         self.labelConsoleStripes.image = texture_pink_stripes  # < ! > Required to make images appear
-
-
 
 
 
@@ -3114,6 +3283,24 @@ class OOTO_Miner:
         return str(self.datasetCountA)
     def getDatasetCountB(self):
         return str(self.datasetCountB)
+
+    def createCornerImage(self, cornerParent):
+
+        labelNE = Label(cornerParent)
+        im = PIL.Image.open(Icon_support.CORNER_ROUND_NE) # .resize(Icon_support.CORNER_ICO_SIZE_SMALL, PIL.Image.ANTIALIAS)
+        corner_round_ne = PIL.ImageTk.PhotoImage(im)
+        labelNE.place(
+            relx = 0,
+            rely = 0,
+            relwidth = 1,
+            relheight = 1
+        )
+        labelNE.configure(
+            image = corner_round_ne)
+        labelNE.image = corner_round_ne  # < ! > Required to make images appear
+        labelNE.configure(background = Color_support.PALE_ORANGE) # cornerParent['background'])
+        labelNE.pack()
+        # labelNE.pack(side = RIGHT, fill = Y, expand = True, anchor = CENTER)
 
 
     def createLabelSeparator(self, separatorParent, span, isVertical, color, thickness = 1, coordinate = 0, specifiedAnchor = NW):
