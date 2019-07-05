@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CONSTANTS.py" beforeDir="false" afterPath="$PROJECT_DIR$/CONSTANTS.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-58">
-              <caret line="4529" column="54" selection-start-line="4529" selection-start-column="54" selection-end-line="4529" selection-end-column="54" />
+            <state relative-caret-position="283">
+              <caret line="3691" lean-forward="true" selection-start-line="3691" selection-end-line="3691" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#56109#56117#0" />
@@ -28,8 +26,6 @@
                 <element signature="e#83383#83391#0" />
                 <element signature="e#120226#120234#0" />
                 <element signature="e#127938#127946#0" />
-                <element signature="e#144643#144651#0" />
-                <element signature="e#145840#145848#0" />
                 <element signature="e#143278#143286#0" />
                 <element signature="e#156951#156959#0" />
                 <element signature="e#163115#163123#0" />
@@ -53,7 +49,7 @@
                 <element signature="e#185409#185615#0" />
                 <element signature="e#187275#190280#0" />
                 <element signature="e#190420#190514#0" />
-                <marker date="1562344980988" expanded="true" signature="117830:118156" ph="..." />
+                <marker date="1562351242468" expanded="true" signature="117842:118168" ph="..." />
               </folding>
             </state>
           </provider>
@@ -109,13 +105,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ztest</find>
-      <find>chisq</find>
-      <find>consolescreen</find>
-      <find>hidewid</find>
-      <find>widget name</find>
-      <find>configureConsoleScr</find>
-      <find>class</find>
       <find>CONSTANTS</find>
       <find>'''TEST'''</find>
       <find>0.80</find>
@@ -134,11 +123,18 @@
       <find>CHI</find>
       <find>text = 'Z</find>
       <find>all.bin</find>
-      <find>.bind</find>
       <find>(self.listConsoleScreen)</find>
       <find>'Z'</find>
       <find>D_GRAY</find>
       <find>showconsolesc</find>
+      <find>z - test</find>
+      <find>buttont</find>
+      <find>buttontest</find>
+      <find>labelQueryZTest</find>
+      <find>listConsoleScreen</find>
+      <find>addtoconso</find>
+      <find>.bind</find>
+      <find>math.</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -321,27 +317,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>878</line>
+          <line>879</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>661</line>
+          <line>662</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>4182</line>
+          <line>4210</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3513</line>
+          <line>3540</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2804</line>
+          <line>2805</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
@@ -424,8 +420,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-58">
-          <caret line="4529" column="54" selection-start-line="4529" selection-start-column="54" selection-end-line="4529" selection-end-column="54" />
+        <state relative-caret-position="283">
+          <caret line="3691" lean-forward="true" selection-start-line="3691" selection-end-line="3691" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#56109#56117#0" />
@@ -435,8 +431,6 @@
             <element signature="e#83383#83391#0" />
             <element signature="e#120226#120234#0" />
             <element signature="e#127938#127946#0" />
-            <element signature="e#144643#144651#0" />
-            <element signature="e#145840#145848#0" />
             <element signature="e#143278#143286#0" />
             <element signature="e#156951#156959#0" />
             <element signature="e#163115#163123#0" />
@@ -460,7 +454,7 @@
             <element signature="e#185409#185615#0" />
             <element signature="e#187275#190280#0" />
             <element signature="e#190420#190514#0" />
-            <marker date="1562344980988" expanded="true" signature="117830:118156" ph="..." />
+            <marker date="1562351242468" expanded="true" signature="117842:118168" ph="..." />
           </folding>
         </state>
       </provider>
