@@ -3355,6 +3355,15 @@ class OOTO_Miner:
             state = screenReference['state'],
             padx = screenReference['padx']
         )
+        screenWidget.tag_configure(const.CONSOLE.DEFAULT,
+                                   lmargin1 = 5,
+                                   lmargin2 = 5,
+                                   rmargin = 5,
+
+                                   spacing1 = 0,
+                                   spacing2 = 0,
+                                   spacing3 = 0,
+                                   justify = LEFT)
         # endregion
 
         # Z-TEST CONSOLE SCREEN listConsoleZTestScreen
@@ -3387,6 +3396,15 @@ class OOTO_Miner:
             state = screenReference['state'],
             padx = screenReference['padx']
         )
+        screenWidget.tag_configure(const.CONSOLE.DEFAULT,
+                                   lmargin1 = 5,
+                                   lmargin2 = 5,
+                                   rmargin = 5,
+
+                                   spacing1 = 0,
+                                   spacing2 = 0,
+                                   spacing3 = 0,
+                                   justify = LEFT)
         # endregion
 
         # CHI-SQUARE CONSOLE SCREEN listConsoleChiSquareScreen
@@ -3419,6 +3437,15 @@ class OOTO_Miner:
             state = screenReference['state'],
             padx = screenReference['padx']
         )
+        screenWidget.tag_configure(const.CONSOLE.DEFAULT,
+                                   lmargin1 = 5,
+                                   lmargin2 = 5,
+                                   rmargin = 5,
+
+                                   spacing1 = 0,
+                                   spacing2 = 0,
+                                   spacing3 = 0,
+                                   justify = LEFT)
         # endregion
 
 
@@ -4597,7 +4624,7 @@ class OOTO_Miner:
         targetScreen.configure(state = NORMAL)
 
         targetScreen.insert(END, consoleItem)
-        self.listConsoleScreen.tag_add(const.CONSOLE.DEFAULT, '1.0', END)
+        targetScreen.tag_add(const.CONSOLE.DEFAULT, '1.0', END)
 
         targetScreen.configure(state = DISABLED)
 

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CONSTANTS.py" beforeDir="false" afterPath="$PROJECT_DIR$/CONSTANTS.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="4412" column="71" selection-start-line="4412" selection-start-column="71" selection-end-line="4412" selection-end-column="71" />
+            <state relative-caret-position="265">
+              <caret line="4626" column="20" selection-start-line="4626" selection-start-column="20" selection-end-line="4626" selection-end-column="20" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#56109#56117#0" />
@@ -49,7 +48,7 @@
                 <element signature="e#185409#185615#0" />
                 <element signature="e#187275#190280#0" />
                 <element signature="e#190420#190514#0" />
-                <marker date="1562355581468" expanded="true" signature="117842:118168" ph="..." />
+                <marker date="1562356553670" expanded="true" signature="117842:118168" ph="..." />
               </folding>
             </state>
           </provider>
@@ -76,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="251" column="43" lean-forward="true" selection-start-line="251" selection-start-column="43" selection-end-line="251" selection-end-column="43" />
+            <state relative-caret-position="142">
+              <caret line="200" column="34" selection-start-line="200" selection-start-column="34" selection-end-line="200" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -105,8 +104,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>''All</find>
-      <find>CHI</find>
       <find>text = 'Z</find>
       <find>all.bin</find>
       <find>(self.listConsoleScreen)</find>
@@ -135,6 +132,8 @@
       <find>listconsolescreen =</find>
       <find>addtoconsol</find>
       <find>.defa</find>
+      <find>= listbox</find>
+      <find>.DEFAULT</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -157,9 +156,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Color_support.py" />
-        <option value="$PROJECT_DIR$/UI_support.py" />
         <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/CONSTANTS.py" />
+        <option value="$PROJECT_DIR$/UI_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
       </list>
     </option>
@@ -327,12 +326,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>4234</line>
+          <line>4261</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3561</line>
+          <line>3588</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -380,13 +379,6 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_right_arrow_small.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/UI_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="251" column="43" lean-forward="true" selection-start-line="251" selection-start-column="43" selection-end-line="251" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
@@ -418,10 +410,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="200" column="34" selection-start-line="200" selection-start-column="34" selection-end-line="200" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="4412" column="71" selection-start-line="4412" selection-start-column="71" selection-end-line="4412" selection-end-column="71" />
+        <state relative-caret-position="265">
+          <caret line="4626" column="20" selection-start-line="4626" selection-start-column="20" selection-end-line="4626" selection-end-column="20" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#56109#56117#0" />
@@ -453,7 +452,7 @@
             <element signature="e#185409#185615#0" />
             <element signature="e#187275#190280#0" />
             <element signature="e#190420#190514#0" />
-            <marker date="1562355581468" expanded="true" signature="117842:118168" ph="..." />
+            <marker date="1562356553670" expanded="true" signature="117842:118168" ph="..." />
           </folding>
         </state>
       </provider>
