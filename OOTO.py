@@ -2736,6 +2736,7 @@ class OOTO_Miner:
         newRelY = self.getRelY(self.labelQueryZConfidenceText) + self.getRelH(self.labelQueryZConfidenceText)
         newRelH = 1 - self.getRelH(self.labelQueryZConfidenceText)
 
+
         # CONFIDENCE SPINBOX
         self.spinBoxQueryZConfidence = Spinbox(self.labelFrameProcessZTestConfidence,
                                                values = arrQueryCriticalValue)
@@ -2744,7 +2745,19 @@ class OOTO_Miner:
             relx = 0, rely = newRelY,
             relwidth = 1, relheight = newRelH
         )
+
+
+
+        # Used to validate spinbox value
+        stringVar = StringVar()
+        stringVar.trace('w', lambda nm, idx, mode, var = stringVar: self.validateZConfidenceSpinbox(var, self.spinBoxQueryZConfidence))
+
+        # ent = Entry(root, textvariable = sv)
+
         self.spinBoxQueryZConfidence.configure(
+            textvariable = stringVar,
+            # validate = "key",
+            # validatecommand = vcmd,
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.WHITE, foreground = Color_support.FG_COLOR,
             exportselection = 0,
@@ -2753,7 +2766,7 @@ class OOTO_Miner:
             justify = CENTER
 
         )
-
+        self.refreshSpinBoxValue(self.spinBoxQueryZConfidence)
 
         # newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(self.labelFrameProcessZTestConfidence)
         # newRelY = self.getRelY(self.labelFrameProcessZTestConfidence)
@@ -3066,23 +3079,27 @@ class OOTO_Miner:
         # print("widget name:", str(widget).split(".")[-1])
         return str(widget).split(".")[-1]
 
-    # TODO VALIDATION
-    def validateZConfidenceSpinbox(self):
-        spinBox = self.spinBoxQueryZConfidence
 
-        global arrQueryCriticalValueMapping
+    """
+        Performs spinbox value validation
+    """
+    def validateZConfidenceSpinbox(self, spinBoxValue, spinBox):
+        global arrQueryCriticalValue, arrQueryCriticalValueMapping
 
-        spinBoxValue = spinBox.get()
-        validValues = spinBox['values']
+        newValue = spinBoxValue.get()
+        try:
+            floatValue = float(newValue)
+            if not arrQueryCriticalValueMapping[floatValue]: # If the new value is not defined in the value mapping, don't accept it
+                self.refreshSpinBoxValue(spinBox)
+        except:
+            self.refreshSpinBoxValue(spinBox)
 
-        print (validValues + " Spinbox " + str(spinBoxValue))
+        spinBox.update()
 
-        if str(spinBoxValue) in arrQueryCriticalValueMapping:
-            print ("IN")
-            return True
-        else:
-            spinBox['value'] = "0.99"
-            return False
+    """Reconfigures spinbox value by pressing the up then down buttons"""
+    def refreshSpinBoxValue(self, spinBox):
+        spinBox.invoke("buttonup")
+        spinBox.invoke("buttondown")
 
     ''' -> Elements under the CONSOLE ("") HEADER <- '''
     def configureConsoleElements(self, parentFrame):

@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CONSTANTS.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="3068" column="21" selection-start-line="3068" selection-start-column="21" selection-end-line="3068" selection-end-column="21" />
+            <state relative-caret-position="294">
+              <caret line="3095" lean-forward="true" selection-start-line="3095" selection-end-line="3095" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
                 <element signature="e#56109#56117#0" />
@@ -57,7 +53,7 @@
                 <element signature="e#185409#185615#0" />
                 <element signature="e#187275#190280#0" />
                 <element signature="e#190420#190514#0" />
-                <marker date="1562311600960" expanded="true" signature="117830:118156" ph="..." />
+                <marker date="1562339787549" expanded="true" signature="117830:118156" ph="..." />
               </folding>
             </state>
           </provider>
@@ -113,7 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>chi - sq</find>
       <find>TODO REMO</find>
       <find>z - test</find>
       <find>z - te</find>
@@ -143,6 +138,7 @@
       <find>arrquerycrit</find>
       <find>spinbox</find>
       <find>Validate</find>
+      <find>spinBoxQueryZConfidence</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -334,17 +330,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>4043</line>
+          <line>4060</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3386</line>
+          <line>3403</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2791</line>
+          <line>2804</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
@@ -427,8 +423,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="3068" column="21" selection-start-line="3068" selection-start-column="21" selection-end-line="3068" selection-end-column="21" />
+        <state relative-caret-position="294">
+          <caret line="3095" lean-forward="true" selection-start-line="3095" selection-end-line="3095" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
             <element signature="e#56109#56117#0" />
@@ -465,7 +461,7 @@
             <element signature="e#185409#185615#0" />
             <element signature="e#187275#190280#0" />
             <element signature="e#190420#190514#0" />
-            <marker date="1562311600960" expanded="true" signature="117830:118156" ph="..." />
+            <marker date="1562339787549" expanded="true" signature="117830:118156" ph="..." />
           </folding>
         </state>
       </provider>
