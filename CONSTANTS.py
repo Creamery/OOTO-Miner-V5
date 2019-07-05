@@ -5,4 +5,5 @@ class SCREENS:
     CHI_SQUARE = 4
 
 class CONSOLE:
+    DEFAULT = "CONSOLE " + "0"
     SELECT = "CONSOLE " + "1"

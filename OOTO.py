@@ -3291,7 +3291,7 @@ class OOTO_Miner:
         # BASIC CONSOLE SCREEN
         # self.listConsoleScreen = Listbox(self.scrollConsoleScreen, name = 'listConsoleScreen')
         self.listConsoleScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleScreen')
-        self.listConsoleScreen.insert(END, "A really \n long \n text \n to \n test \n this")
+        # self.listConsoleScreen.insert(END, "A really \n long \n text \n to \n test \n this")
         self.listConsoleScreen.place(
             relx = 0,
             # rely = 0,
@@ -3305,12 +3305,24 @@ class OOTO_Miner:
             yscrollcommand = self.scrollConsoleScreen.set,
             background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
             selectbackground = Color_support.SELECT_LISTBOX_BG, selectforeground = Color_support.SELECT_LISTBOX_FG,
-            font = UI_support.SELECT_LABEL_FONT,
+            font = UI_support.FONT_SMALL,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
 
             cursor = "arrow",
-            state = DISABLED
+            state = DISABLED,
+            padx = 0
         )
+
+        self.listConsoleScreen.tag_configure(const.CONSOLE.DEFAULT,
+                                             lmargin1 = 5,
+                                             lmargin2 = 5,
+                                             rmargin = 5,
+
+                                             spacing1 = 0,
+                                             spacing2 = 0,
+                                             spacing3 = 0,
+                                             justify = LEFT)
+
 
         # QUEUE SCREEN listConsoleQueueScreen
         # region
@@ -3340,7 +3352,8 @@ class OOTO_Miner:
             relief = screenReference['relief'],
 
             cursor = screenReference['cursor'],
-            state = screenReference['state']
+            state = screenReference['state'],
+            padx = screenReference['padx']
         )
         # endregion
 
@@ -3371,7 +3384,8 @@ class OOTO_Miner:
             relief = screenReference['relief'],
 
             cursor = screenReference['cursor'],
-            state = screenReference['state']
+            state = screenReference['state'],
+            padx = screenReference['padx']
         )
         # endregion
 
@@ -3402,7 +3416,8 @@ class OOTO_Miner:
             relief = screenReference['relief'],
 
             cursor = screenReference['cursor'],
-            state = screenReference['state']
+            state = screenReference['state'],
+            padx = screenReference['padx']
         )
         # endregion
 
@@ -4392,8 +4407,10 @@ class OOTO_Miner:
                 zResult = svs.compareZtoZCritical(zScore, zCritical)
                 # Display Z score and whether accept/reject at inputted confidence interval
                 # self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
-                consoleText = str('Z-Score: ' + str(round(zScore,2)) +  ', ' +
-                                  "\n" + str(float(confidenceInterval)) + ' confidence: '+ zResult)
+                consoleText = str('' + 'Z-Score:\t' + str(round(zScore,2)) +  ', ' +
+                                  str(float(confidenceInterval)) +
+                                  '\n'+
+                                  '' + 'Confidence:\t'+ zResult + '\n\n')
                 self.addToConsole(consoleText, self.listConsoleZTestScreen)
                 self.addToConsole(consoleText, self.listConsoleScreen)
 
@@ -4577,9 +4594,11 @@ class OOTO_Miner:
         else:
             targetScreen = self.listConsoleScreen
 
-
         targetScreen.configure(state = NORMAL)
+
         targetScreen.insert(END, consoleItem)
+        self.listConsoleScreen.tag_add(const.CONSOLE.DEFAULT, '1.0', END)
+
         targetScreen.configure(state = DISABLED)
 
 
