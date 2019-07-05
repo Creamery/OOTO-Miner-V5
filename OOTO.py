@@ -3052,28 +3052,34 @@ class OOTO_Miner:
     Always set the widget's 'name' first.
     """
     def hideWidget(self, widget):
-        # Store widget width and height
+        widget.update()
+
+        # Store widget width and height if it's not in the dictionary
         widgetName = self.getWidgetName(widget)
-        self.dictWidgetPlace[widgetName + '_W'] = self.getRelW(widget)
-        self.dictWidgetPlace[widgetName + '_H'] = self.getRelH(widget)
+        if not (widgetName + '_W' in self.dictWidgetPlace):
+            self.dictWidgetPlace[widgetName + '_W'] = self.getRelW(widget)
+            self.dictWidgetPlace[widgetName + '_H'] = self.getRelH(widget)
 
         # Set widget width and height to 0
         widget.place(relwidth = 0, relheight = 0)
 
     def showWidget(self, widget):
 
-        # Retrieve widget width and height
         widgetName = self.getWidgetName(widget)
-        widgetWidth = self.dictWidgetPlace[widgetName + '_W']
-        widgetHeight = self.dictWidgetPlace[widgetName + '_H']
 
+        # Retrieve widget width and height if it's in the dictionary
+        if (widgetName + '_W' in self.dictWidgetPlace):
+            widgetWidth = self.dictWidgetPlace[widgetName + '_W']
+            widgetHeight = self.dictWidgetPlace[widgetName + '_H']
 
-        # Set widget width and height
-        widget.place(relwidth = widgetWidth, relheight = widgetHeight)
+            # Set widget width and height
+            widget.place(relwidth = widgetWidth, relheight = widgetHeight)
 
-        # Remove keys from dictionary
-        self.dictWidgetPlace.pop(widgetName + '_W', None)
-        self.dictWidgetPlace.pop(widgetName + '_H', None)
+            # Remove keys from dictionary
+            self.dictWidgetPlace.pop(widgetName + '_W', None)
+            self.dictWidgetPlace.pop(widgetName + '_H', None)
+
+        widget.update()
 
     def getWidgetName(self, widget):
         # print("widget name:", str(widget).split(".")[-1])
@@ -3165,6 +3171,112 @@ class OOTO_Miner:
         # CONSOLE SCREEN
         self.configureConsoleScreenElements()
 
+        # CONSOLE CONTROLS
+
+        self.labelFrameConsoleControls = LabelFrame(self.labelFrameConsoleScreen)
+
+        sizeReference = self.labelConsoleScreenTaskBar
+        newRelY = self.getRelY(self.listConsoleScreen) + self.getRelH(self.listConsoleScreen)
+        self.labelFrameConsoleControls.place(
+            relx = self.getRelX(sizeReference) + 0.025,
+            rely = newRelY + 0.01,
+            relwidth = 0.95,
+            relheight = self.getRelH(sizeReference) * 2 * 2 / 3
+        )
+
+        self.labelFrameConsoleControls.configure(
+            background = Color_support.WHITE,
+            bd = 0, relief = GROOVE
+        )
+
+        # SHOW ALL CONSOLE
+        self.buttonConsoleAll = Button(self.labelFrameConsoleControls)
+        self.buttonConsoleAll.place(
+            relx = 0.008,
+            rely = 0.01,
+            relwidth = 0.24,
+            relheight = 0.98)
+
+        self.buttonConsoleAll.configure(
+            text = '''ALL''',
+            background = Color_support.WHITE,
+            foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = GROOVE,
+            activebackground = Color_support.L_GRAY,
+            activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
+            disabledforeground = Color_support.FG_DISABLED_COLOR
+        )
+
+        # SHOW Z-TEST CONSOLE
+        self.buttonConsoleZTest = Button(self.labelFrameConsoleControls)
+        buttonReference = self.buttonConsoleAll
+        newRelX = self.getRelX(buttonReference) + self.getRelW(buttonReference) + self.getRelX(self.buttonConsoleAll)
+
+        self.buttonConsoleZTest.place(
+            relx = newRelX,
+            rely = self.getRelY(buttonReference),
+            relwidth = self.getRelW(buttonReference),
+            relheight = self.getRelH(buttonReference)
+        )
+
+        self.buttonConsoleZTest.configure(
+            text = '''Z''',
+            background = buttonReference['background'],
+            foreground = buttonReference['foreground'],
+            bd = buttonReference['bd'], relief = buttonReference['relief'], overrelief = buttonReference['overrelief'],
+            activebackground = buttonReference['activebackground'],
+            activeforeground = buttonReference['activeforeground'],
+            disabledforeground = buttonReference['disabledforeground'],
+        )
+
+        # SHOW CHI-SQUARE CONSOLE
+        self.buttonConsoleChiSquare = Button(self.labelFrameConsoleControls)
+        buttonReference = self.buttonConsoleZTest
+        newRelX = self.getRelX(buttonReference) + self.getRelW(buttonReference) + self.getRelX(self.buttonConsoleAll)
+
+        self.buttonConsoleChiSquare.place(
+            relx = newRelX,
+            rely = self.getRelY(buttonReference),
+            relwidth = self.getRelW(buttonReference),
+            relheight = self.getRelH(buttonReference)
+        )
+
+        self.buttonConsoleChiSquare.configure(
+            text = '''CHI''',
+            background = buttonReference['background'],
+            foreground = buttonReference['foreground'],
+            bd = buttonReference['bd'], relief = buttonReference['relief'], overrelief = buttonReference['overrelief'],
+            activebackground = buttonReference['activebackground'],
+            activeforeground = buttonReference['activeforeground'],
+            disabledforeground = buttonReference['disabledforeground'],
+        )
+
+        # SHOW QUEUE CONSOLE
+        self.buttonConsoleQueue = Button(self.labelFrameConsoleControls)
+        buttonReference = self.buttonConsoleChiSquare
+        newRelX = self.getRelX(buttonReference) + self.getRelW(buttonReference) + self.getRelX(self.buttonConsoleAll)
+
+        self.buttonConsoleQueue.place(
+            relx = newRelX,
+            rely = self.getRelY(buttonReference),
+            relwidth = self.getRelW(buttonReference),
+            relheight = self.getRelH(buttonReference)
+        )
+
+        self.buttonConsoleQueue.configure(
+            text = '''Q''',
+            background = buttonReference['background'],
+            foreground = buttonReference['foreground'],
+            bd = buttonReference['bd'], relief = buttonReference['relief'], overrelief = buttonReference['overrelief'],
+            activebackground = buttonReference['activebackground'],
+            activeforeground = buttonReference['activeforeground'],
+            disabledforeground = buttonReference['disabledforeground'],
+        )
+
+
+        # Hide other screens except the 'All' console screen
+        self.showConsoleScreen(None, self.listConsoleScreen)
+        # Add console borders
         self.createLabelBorders(self.labelFrameConsoleScreen)
 
 
@@ -3204,6 +3316,7 @@ class OOTO_Miner:
         )
         screenWidget.configure(
             background = screenReference['background'],
+            # background = Color_support.D_GRAY,
             foreground = screenReference['foreground'],
 
             selectmode = screenReference['selectmode'],
@@ -3285,9 +3398,6 @@ class OOTO_Miner:
             self.listConsoleZTestScreen: const.SCREENS.Z_TEST,
             self.listConsoleChiSquareScreen: const.SCREENS.CHI_SQUARE,
         }
-
-        # Hide other screens
-        self.showConsoleScreen(self.listConsoleScreen)
 
 
     # endregion
@@ -3542,6 +3652,18 @@ class OOTO_Miner:
 
         self.buttonQueryResetFilterA.bind('<Button-1>', self.queryResetDatasetA)
         self.buttonQueryResetFilterB.bind('<Button-1>', self.queryResetDatasetB)
+
+
+        self.buttonConsoleAll.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleScreen))
+        self.buttonConsoleZTest.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleZTestScreen))
+        self.buttonConsoleChiSquare.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleChiSquareScreen))
+        self.buttonConsoleQueue.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleQueueScreen))
+        # self.buttonConsoleAll.bind('<Button-1>', self.showConsoleScreen(self.listConsoleScreen))
+        # self.buttonConsoleZTest.bind('<Button-1>', self.showConsoleScreen(self.listConsoleZTestScreen))
+        # self.buttonConsoleChiSquare.bind('<Button-1>', self.showConsoleScreen(self.listConsoleChiSquareScreen))
+        # self.buttonConsoleQueue.bind('<Button-1>', self.showConsoleScreen(self.listConsoleQueueScreen))
+
+
 
 
 
@@ -4405,25 +4527,62 @@ class OOTO_Miner:
         if consoleItem['name'] == self.listConsoleScreen['name']:
             self.listConsoleScreen.insert(END, consoleItem)
 
-    def showConsoleScreen(self, consoleScreen):
+    def showConsoleScreen(self, event, consoleScreen):
+
         # Hide all screens first
         self.hideWidget(self.listConsoleScreen)
         self.hideWidget(self.listConsoleQueueScreen)
         self.hideWidget(self.listConsoleZTestScreen)
         self.hideWidget(self.listConsoleChiSquareScreen)
 
+        # Reset relief
+        self.buttonConsoleAll['relief'] = FLAT
+        self.buttonConsoleZTest['relief'] = FLAT
+        self.buttonConsoleChiSquare['relief'] = FLAT
+        self.buttonConsoleQueue['relief'] = FLAT
+
+        # Reset background color
+        self.buttonConsoleAll['background'] = Color_support.WHITE
+        self.buttonConsoleZTest['background'] = Color_support.WHITE
+        self.buttonConsoleChiSquare['background'] = Color_support.WHITE
+        self.buttonConsoleQueue['background'] = Color_support.WHITE
+
+        # Reset foreground color
+        self.buttonConsoleAll['foreground'] = Color_support.FG_COLOR
+        self.buttonConsoleZTest['foreground'] = Color_support.FG_COLOR
+        self.buttonConsoleChiSquare['foreground'] = Color_support.FG_COLOR
+        self.buttonConsoleQueue['foreground'] = Color_support.FG_COLOR
 
         if self.dictConsoleScreens[consoleScreen] == const.SCREENS.QUEUE:
             self.showWidget(self.listConsoleQueueScreen)
+            self.labelConsoleScreenTaskBar['text'] = '''QUEUE'''
+            self.buttonConsoleQueue['background'] = Color_support.FUSCHIA
+            self.buttonConsoleQueue['foreground'] = Color_support.WHITE
+            self.buttonConsoleQueue['relief'] = GROOVE
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.Z_TEST:
             self.showWidget(self.listConsoleZTestScreen)
+            self.labelConsoleScreenTaskBar['text'] = '''Z-TEST'''
+            self.buttonConsoleZTest['background'] = Color_support.FUSCHIA
+            self.buttonConsoleZTest['foreground'] = Color_support.WHITE
+            self.buttonConsoleZTest['relief'] = GROOVE
+
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.CHI_SQUARE:
             self.showWidget(self.listConsoleChiSquareScreen)
+            self.labelConsoleScreenTaskBar['text'] = '''CHI-SQUARE'''
+            self.buttonConsoleChiSquare['background'] = Color_support.FUSCHIA
+            self.buttonConsoleChiSquare['foreground'] = Color_support.WHITE
+            self.buttonConsoleChiSquare['relief'] = GROOVE
+
 
         else:
             self.showWidget(self.listConsoleScreen)
+            self.labelConsoleScreenTaskBar['text'] = '''ALL'''
+            self.buttonConsoleAll['background'] = Color_support.FUSCHIA
+            self.buttonConsoleAll['foreground'] = Color_support.WHITE
+            self.buttonConsoleAll['relief'] = GROOVE
+
 
     # endregion
 
