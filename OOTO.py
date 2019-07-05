@@ -3291,6 +3291,7 @@ class OOTO_Miner:
         # BASIC CONSOLE SCREEN
         # self.listConsoleScreen = Listbox(self.scrollConsoleScreen, name = 'listConsoleScreen')
         self.listConsoleScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleScreen')
+        self.listConsoleScreen.insert(END, "A really \n long \n text \n to \n test \n this")
         self.listConsoleScreen.place(
             relx = 0,
             # rely = 0,
@@ -3303,14 +3304,13 @@ class OOTO_Miner:
         self.listConsoleScreen.configure(
             yscrollcommand = self.scrollConsoleScreen.set,
             background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
-            # selectmode = SINGLE, exportselection = "0",
-            # activestyle = "none",
-            # selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG, selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = Color_support.SELECT_LISTBOX_BG, selectforeground = Color_support.SELECT_LISTBOX_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
-            # highlightthickness = 0
+
+            cursor = "arrow",
+            state = DISABLED
         )
-        self.listConsoleScreen.insert(END, "A really \n long \n text \n to \n test \n this")
 
         # QUEUE SCREEN listConsoleQueueScreen
         # region
@@ -3332,13 +3332,15 @@ class OOTO_Miner:
             # selectmode = screenReference['selectmode'],
             # exportselection = screenReference['exportselection'],
             # activestyle = screenReference['activestyle'],
-            # selectbackground = screenReference['selectbackground'],
-            # selectforeground = screenReference['selectforeground'],
+            selectbackground = screenReference['selectbackground'],
+            selectforeground = screenReference['selectforeground'],
 
             font = screenReference['font'],
             bd = screenReference['bd'],
             relief = screenReference['relief'],
-            # highlightthickness = screenReference['highlightthickness'],
+
+            cursor = screenReference['cursor'],
+            state = screenReference['state']
         )
         # endregion
 
@@ -3361,13 +3363,15 @@ class OOTO_Miner:
             # selectmode = screenReference['selectmode'],
             # exportselection = screenReference['exportselection'],
             # activestyle = screenReference['activestyle'],
-            # selectbackground = screenReference['selectbackground'],
-            # selectforeground = screenReference['selectforeground'],
+            selectbackground = screenReference['selectbackground'],
+            selectforeground = screenReference['selectforeground'],
 
             font = screenReference['font'],
             bd = screenReference['bd'],
             relief = screenReference['relief'],
-            # highlightthickness = screenReference['highlightthickness'],
+
+            cursor = screenReference['cursor'],
+            state = screenReference['state']
         )
         # endregion
 
@@ -3390,13 +3394,15 @@ class OOTO_Miner:
             # selectmode = screenReference['selectmode'],
             # exportselection = screenReference['exportselection'],
             # activestyle = screenReference['activestyle'],
-            # selectbackground = screenReference['selectbackground'],
-            # selectforeground = screenReference['selectforeground'],
+            selectbackground = screenReference['selectbackground'],
+            selectforeground = screenReference['selectforeground'],
 
             font = screenReference['font'],
             bd = screenReference['bd'],
             relief = screenReference['relief'],
-            # highlightthickness = screenReference['highlightthickness'],
+
+            cursor = screenReference['cursor'],
+            state = screenReference['state']
         )
         # endregion
 
@@ -3693,6 +3699,9 @@ class OOTO_Miner:
         # FOCUS IN / OUT
 
         self.listConsoleScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event, self.listConsoleScreen))
+        self.listConsoleZTestScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event, self.listConsoleZTestScreen))
+        self.listConsoleChiSquareScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event, self.listConsoleChiSquareScreen))
+        self.listConsoleQueueScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event, self.listConsoleQueueScreen))
 
 
         # ENTER / LEAVE
@@ -4385,7 +4394,7 @@ class OOTO_Miner:
                 # self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
                 consoleText = str('Z-Score: ' + str(round(zScore,2)) +  ', ' +
                                   "\n" + str(float(confidenceInterval)) + ' confidence: '+ zResult)
-                # self.addToConsole(consoleText, self.listConsoleZTestScreen)
+                self.addToConsole(consoleText, self.listConsoleZTestScreen)
                 self.addToConsole(consoleText, self.listConsoleScreen)
 
         return "break"
@@ -4569,41 +4578,46 @@ class OOTO_Miner:
             targetScreen = self.listConsoleScreen
 
 
-
-        # text = Text(targetScreen, wrap = WORD)
-        # text.insert(END, consoleItem)
-        # text.pack()
-        # text.pack(expand = True, fill = X)
+        targetScreen.configure(state = NORMAL)
         targetScreen.insert(END, consoleItem)
+        targetScreen.configure(state = DISABLED)
 
 
 
     '''Select a single line in the console screen Text widget'''
     def selectConsoleEntry(self, event, consoleScreen):
-
+        # Enable console
         consoleScreen.configure(state = NORMAL)
 
-        consoleScreen.tag_delete("current_line")
-        consoleScreen.tag_raise("sel")
-        # consoleScreen.tag_configure("current_line", background = "#e9e9e9")
-        consoleScreen.tag_configure("current_line", background = Color_support.FUSCHIA)
+        # Clear previous highlights by deleting the old tag
+        consoleScreen.tag_delete(const.CONSOLE.SELECT)
+
+        # Reconfigure tag settings
+        consoleScreen.tag_configure(const.CONSOLE.SELECT,
+                                    background = Color_support.FUSCHIA,
+                                    foreground = Color_support.WHITE
+                                    )
+
+        # Get current insert index
         insertIndex = float(consoleScreen.index(tk.INSERT))
 
+        # Get the highlight index by taking the floor and ceiling of the insert index
         start = math.floor(insertIndex)
         indexStart = str(start)
         end = start + 1
         indexEnd = str(end)
-
-        print(str(insertIndex))
-        print("S " + str(indexStart))
-        print("E " + str(indexEnd))
-
-        consoleScreen.tag_add("current_line", indexStart, indexEnd)
-        # consoleScreen.tag_add("sel", 1, tk.INSERT)
-        # consoleScreen.tag_add("found", 1, END)
-        # self.highlightEntry(consoleScreen)
+        # print(str(insertIndex))
+        # print("S " + str(indexStart))
+        # print("E " + str(indexEnd))
+        # self.listConsoleScreen.tag_raise("sel")
+        # self.listConsoleScreen.tag_bind(CONSTANTS.CONSOLE.SELECT, show_hand_cursor)
 
 
+        if consoleScreen.get(indexStart, indexEnd).strip() != '':
+            # Highlight the range by specifying the tag
+            consoleScreen.tag_add(const.CONSOLE.SELECT, indexStart, indexEnd)
+
+        # Disable the entry to prevent editing
         consoleScreen.configure(state = DISABLED)
 
     def highlightEntry(self, consoleScreen):
