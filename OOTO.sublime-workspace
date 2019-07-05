@@ -59,19 +59,19 @@
 			}
 		},
 		{
-			"contents": "        for i in range(0, len(self.datasetA['Filter Features'])):\n            # queryStrFilterA = queryStrFilterA + \"->\" + self.datasetA['Filter Features'][i]['Code']\n            queryStrFilterA = queryStrFilterA + \" [ \" + self.datasetA['Filter Features'][i]['Code'] + \" | \"\n            for j in range(0,len(self.datasetA['Filter Features'][i]['Selected Responses'])):\n                # if j == 0:\n                #     queryStrFilterA = queryStrFilterA + \" [ \"\n                queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j]['Code'] + \" \"\n                if j == (len(self.datasetA['Filter Features'][i]['Selected Responses']) - 1):\n                    queryStrFilterA = queryStrFilterA + \"]\"",
+			"contents": "HBD Yurippe 8D\n\n\n\n\n\n\nBirthday art fer ye.\nIt's actually a semi-paint over of one of your old prof pics.\n\"Semi\" cause it was supposed to be an actual paint over (so that I could finish it faster xD)\nbuuut I wanted to have more colors so I kept adding stuff and it doesn't resemble the pic that\nmuch aside from the pose and telephone lol.\n\nHope you like it~ ",
 			"settings":
 			{
-				"buffer_size": 742,
+				"buffer_size": 356,
 				"line_ending": "Windows",
-				"name": "Hi Sir Ed!"
+				"name": "HBD Yurippe 8D"
 			}
 		},
 		{
 			"file": "UI_support.py",
 			"settings":
 			{
-				"buffer_size": 4455,
+				"buffer_size": 9853,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -80,7 +80,7 @@
 			"file": "Color_support.py",
 			"settings":
 			{
-				"buffer_size": 1766,
+				"buffer_size": 5040,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -89,7 +89,7 @@
 			"file": "Icon_support.py",
 			"settings":
 			{
-				"buffer_size": 664,
+				"buffer_size": 1893,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -472,8 +472,8 @@
 						"selection":
 						[
 							[
-								387,
-								387
+								114,
+								114
 							]
 						],
 						"settings":
@@ -492,20 +492,20 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 742,
+						"buffer_size": 356,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								174,
-								175
+								356,
+								356
 							]
 						],
 						"settings":
 						{
-							"auto_name": "Hi Sir Ed!",
+							"auto_name": "HBD Yurippe 8D",
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
@@ -521,7 +521,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4455,
+						"buffer_size": 9853,
 						"regions":
 						{
 						},
@@ -549,7 +549,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1766,
+						"buffer_size": 5040,
 						"regions":
 						{
 						},
@@ -577,7 +577,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 664,
+						"buffer_size": 1893,
 						"regions":
 						{
 						},

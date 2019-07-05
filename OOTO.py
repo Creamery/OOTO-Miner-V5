@@ -35,6 +35,7 @@ import Icon_support
 import UI_support
 import PIL.Image
 import PIL.ImageTk
+import CONSTANTS as const
 
 w = None
 
@@ -508,7 +509,7 @@ class OOTO_Miner:
         # self.menubar.add_command(label = "Help")
 
 
-        self.placeDictionary = {}
+        self.dictWidgetPlace = {}
 
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.configureDataTabElements()
@@ -1409,10 +1410,7 @@ class OOTO_Miner:
         # endregion
 
 
-
         # endregion
-
-
 
         # LISTBOX - DATASET A
         # region
@@ -1438,8 +1436,6 @@ class OOTO_Miner:
         #     relwidth = 0.98, relheight = 0.95)
         # # self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78 - 0.03)
         # endregion
-
-
 
         newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBoxA) + self.getRelH(
             self.labelFrameListBoxA)
@@ -1842,6 +1838,7 @@ class OOTO_Miner:
         # self.labelFrameQueryCountRightSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
         # self.labelFrameQueryCountRightSeparatorB.place(relx = 0.99, rely = 0, relheight = 1)
         # endregion
+
         # FILTER BUTTON (DATASET A)
         # region
         newRelX = self.getRelX(self.labelFrameQueryCount) + self.getRelW(self.labelFrameQueryCount)
@@ -2740,7 +2737,9 @@ class OOTO_Miner:
         newRelH = 1 - self.getRelH(self.labelQueryZConfidenceText)
 
         # CONFIDENCE SPINBOX
-        self.spinBoxQueryZConfidence = Spinbox(self.labelFrameProcessZTestConfidence, values = arrQueryCriticalValue)
+        self.spinBoxQueryZConfidence = Spinbox(self.labelFrameProcessZTestConfidence,
+                                               values = arrQueryCriticalValue)
+
         self.spinBoxQueryZConfidence.place(
             relx = 0, rely = newRelY,
             relwidth = 1, relheight = newRelH
@@ -2785,11 +2784,8 @@ class OOTO_Miner:
         self.labelQueryZTest.configure(foreground = "#000000")
         self.labelQueryZTest.configure(text = '''NO DATA''')
 
-
         # endregion
 
-
-        # newRelX = self.getRelX(self.labelFrameProcessZTest) + self.getRelW(self.labelFrameProcessZTest)
 
         # PROCESS CHI-SQUARE OPTIONS
         # region
@@ -3026,7 +3022,6 @@ class OOTO_Miner:
         # endregion
 
 
-
         # SEPARATOR  ELEMENTS
         newRelX = self.getRelX(self.labelFrameProcessTestOptions) # + self.getRelW(self.labelFrameProcessZTest)
         self.zTestRightSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
@@ -3038,11 +3033,16 @@ class OOTO_Miner:
 
         self.hideWidget(self.labelFrameProcessChiSquare)
 
+    """
+    Hides the widget by setting its relative width and height to 0.
+    Use showWidget() to make the widget re-appear.
+    Always set the widget's 'name' first.
+    """
     def hideWidget(self, widget):
         # Store widget width and height
         widgetName = self.getWidgetName(widget)
-        self.placeDictionary[widgetName + '_W'] = self.getRelW(widget)
-        self.placeDictionary[widgetName + '_H'] = self.getRelH(widget)
+        self.dictWidgetPlace[widgetName + '_W'] = self.getRelW(widget)
+        self.dictWidgetPlace[widgetName + '_H'] = self.getRelH(widget)
 
         # Set widget width and height to 0
         widget.place(relwidth = 0, relheight = 0)
@@ -3051,22 +3051,38 @@ class OOTO_Miner:
 
         # Retrieve widget width and height
         widgetName = self.getWidgetName(widget)
-        widgetWidth = self.placeDictionary[widgetName + '_W']
-        widgetHeight = self.placeDictionary[widgetName + '_H']
+        widgetWidth = self.dictWidgetPlace[widgetName + '_W']
+        widgetHeight = self.dictWidgetPlace[widgetName + '_H']
 
 
         # Set widget width and height
         widget.place(relwidth = widgetWidth, relheight = widgetHeight)
 
         # Remove keys from dictionary
-        self.placeDictionary.pop(widgetName + '_W', None)
-        self.placeDictionary.pop(widgetName + '_H', None)
-
-
+        self.dictWidgetPlace.pop(widgetName + '_W', None)
+        self.dictWidgetPlace.pop(widgetName + '_H', None)
 
     def getWidgetName(self, widget):
-        print("widget name:", str(widget).split(".")[-1])
+        # print("widget name:", str(widget).split(".")[-1])
         return str(widget).split(".")[-1]
+
+    # TODO VALIDATION
+    def validateZConfidenceSpinbox(self):
+        spinBox = self.spinBoxQueryZConfidence
+
+        global arrQueryCriticalValueMapping
+
+        spinBoxValue = spinBox.get()
+        validValues = spinBox['values']
+
+        print (validValues + " Spinbox " + str(spinBoxValue))
+
+        if str(spinBoxValue) in arrQueryCriticalValueMapping:
+            print ("IN")
+            return True
+        else:
+            spinBox['value'] = "0.99"
+            return False
 
     ''' -> Elements under the CONSOLE ("") HEADER <- '''
     def configureConsoleElements(self, parentFrame):
@@ -3130,7 +3146,15 @@ class OOTO_Miner:
 
 
         # CONSOLE SCREEN
-        self.listConsoleScreen = Listbox(self.labelFrameConsoleScreen)
+        self.configureConsoleScreenElements()
+
+        self.createLabelBorders(self.labelFrameConsoleScreen)
+
+
+    def configureConsoleScreenElements(self):
+
+        # BASIC CONSOLE SCREEN
+        self.listConsoleScreen = Listbox(self.labelFrameConsoleScreen, name = 'listConsoleScreen')
         newRelH = 0.8
         newRelY = self.getRelY(self.labelConsoleStripes) + self.getRelH(self.labelConsoleStripes)
         self.listConsoleScreen.place(
@@ -3139,7 +3163,6 @@ class OOTO_Miner:
             relwidth = 1,
             relheight = newRelH
         )
-
         self.listConsoleScreen.configure(
             background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
             selectmode = SINGLE, exportselection = "0",
@@ -3149,7 +3172,106 @@ class OOTO_Miner:
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
-        self.createLabelBorders(self.labelFrameConsoleScreen)
+
+        # QUEUE SCREEN listConsoleQueueScreen
+        # region
+        self.listConsoleQueueScreen = Listbox(self.labelFrameConsoleScreen, name = 'listConsoleQueueScreen')
+        screenWidget = self.listConsoleQueueScreen
+        screenReference = self.listConsoleScreen
+
+        screenWidget.place(
+            relx = self.getRelX(screenReference),
+            rely = self.getRelY(screenReference),
+            relwidth = self.getRelW(screenReference),
+            relheight = self.getRelH(screenReference)
+        )
+        screenWidget.configure(
+            background = screenReference['background'],
+            foreground = screenReference['foreground'],
+
+            selectmode = screenReference['selectmode'],
+            exportselection = screenReference['exportselection'],
+            activestyle = screenReference['activestyle'],
+            selectbackground = screenReference['selectbackground'],
+            selectforeground = screenReference['selectforeground'],
+
+            font = screenReference['font'],
+            bd = screenReference['bd'],
+            relief = screenReference['relief'],
+            highlightthickness = screenReference['highlightthickness'],
+        )
+        # endregion
+
+        # Z-TEST CONSOLE SCREEN listConsoleZTestScreen
+        # region
+        self.listConsoleZTestScreen = Listbox(self.labelFrameConsoleScreen, name = 'listConsoleZTestScreen')
+        screenWidget = self.listConsoleZTestScreen
+        screenReference = self.listConsoleScreen
+
+        screenWidget.place(
+            relx = self.getRelX(screenReference),
+            rely = self.getRelY(screenReference),
+            relwidth = self.getRelW(screenReference),
+            relheight = self.getRelH(screenReference)
+        )
+        screenWidget.configure(
+            background = screenReference['background'],
+            foreground = screenReference['foreground'],
+
+            selectmode = screenReference['selectmode'],
+            exportselection = screenReference['exportselection'],
+            activestyle = screenReference['activestyle'],
+            selectbackground = screenReference['selectbackground'],
+            selectforeground = screenReference['selectforeground'],
+
+            font = screenReference['font'],
+            bd = screenReference['bd'],
+            relief = screenReference['relief'],
+            highlightthickness = screenReference['highlightthickness'],
+        )
+        # endregion
+
+        # CHI-SQUARE CONSOLE SCREEN listConsoleChiSquareScreen
+        # region
+        self.listConsoleChiSquareScreen = Listbox(self.labelFrameConsoleScreen, name = 'listConsoleChiSquareScreen')
+        screenWidget = self.listConsoleChiSquareScreen
+        screenReference = self.listConsoleScreen
+
+        screenWidget.place(
+            relx = self.getRelX(screenReference),
+            rely = self.getRelY(screenReference),
+            relwidth = self.getRelW(screenReference),
+            relheight = self.getRelH(screenReference)
+        )
+        screenWidget.configure(
+            background = screenReference['background'],
+            foreground = screenReference['foreground'],
+
+            selectmode = screenReference['selectmode'],
+            exportselection = screenReference['exportselection'],
+            activestyle = screenReference['activestyle'],
+            selectbackground = screenReference['selectbackground'],
+            selectforeground = screenReference['selectforeground'],
+
+            font = screenReference['font'],
+            bd = screenReference['bd'],
+            relief = screenReference['relief'],
+            highlightthickness = screenReference['highlightthickness'],
+        )
+        # endregion
+
+
+        # Configure screen dictionary
+        self.dictConsoleScreens = {
+            self.listConsoleScreen: const.SCREENS.ALL,
+            self.listConsoleQueueScreen: const.SCREENS.QUEUE,
+            self.listConsoleZTestScreen: const.SCREENS.Z_TEST,
+            self.listConsoleChiSquareScreen: const.SCREENS.CHI_SQUARE,
+        }
+
+        # Hide other screens
+        self.showConsoleScreen(self.listConsoleScreen)
+
 
     # endregion
 
@@ -3600,106 +3722,13 @@ class OOTO_Miner:
             self.entryQueryPopulation.insert(0, populationDir)
         return "break"
 
-    ''' (REMOVE) Shows the project details '''
-    def showAbout(self):
-        strAbout = "OTOO Miner v4.0\n" \
-                   "by TE3D House\n" \
-                   "De La Salle University - Laguna"
-        tkMessageBox.showinfo("About", strAbout)
-
     # endregion
 
     ''' --> Elements under the TEST ("TEST") TAB (2) <-- '''
     # region
 
-    ''' Adds test to the queue '''
-    def addToQueue(self, testType, **params):
-        global tests
-        test = {'Type':testType}
-        for key in params:
-            if(key == 'popDirArg'):
-                test['Population Path'] = copy.copy(params[key])
-            elif(key == 'sampleFeatArg'):
-                test['Sample Feature'] = copy.copy(params[key])
-            elif(key == 'selectedFeatArg'):
-                test['Selected Feature'] = copy.copy(params[key])
-            elif(key == 'allValArg'):
-                test['SF All Values'] = copy.copy(params[key])
-            elif(key == 'selValArg'):
-                test['SF Selected Values'] = copy.copy(params[key])
-            elif(key == 'datasetArgs'):
-                test['Datasets'] = copy.deepcopy(params[key])
-            elif(key == 'zArg'):
-                test['Z Critical Value'] = copy.copy(params[key])
-        tests.append(test)
-        self.labelQueueCount.configure(text = str(len(tests)))
-        tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
-
-
-        '''
-        self.buttonInitialVarDesc.configure(
-            background=Color_support.DATASET_BTN_BG, foreground=Color_support.DATASET_BTN_FG,
-            text=UI_support.BTN_DATASET_UPLOAD,
-            bd=1, relief=GROOVE,
-            activebackground=Color_support.DATASET_BTN_BG_ACTIVE, activeforeground=Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground=Color_support.FG_DISABLED_COLOR)
-        '''
-
-    ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
-    def queue(self, evt):
-        self.buttonQueue.configure(relief = FLAT)
-        datasets = []
-        datasets.append(self.datasetA)
-        datasets.append(self.datasetB)
-        global queryType
-        if (queryType == 'Sample vs Sample'):
-            self.addToQueue(queryType, datasetArgs = datasets)
-        else:
-            tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
-        return "break"
-
-    ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
-    def testQueue(self, evt):
-        if len(tests) == 0:
-            tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
-            return "break"
-            # return -1
-        # self.listQueryDataB.delete(0, END)
-        i = 0
-        for test in tests:
-            fileNames = []
-            if(test['Type'] == 'Sample vs Sample'):
-                i +=  1
-                for dataset in test['Datasets']:
-                    convertDatasetValuesToGroups(dataset, features)
-                    fileName = makeFileName(dataset)
-                    writeCSVDict(fileName, dataset['Data'])
-                    fileNames.append(fileName)
-                if not (os.path.isfile("Updated-Variables.csv")):
-                    makeUpdatedVariables(features, "Updated-Variables.csv")
-                saveFile = ct.chiTest(fileNames)
-                # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
-                # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
-                removeFiles(fileNames)
-        tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
-        return "break"
-
-    ''' Clears the tests in the queue. '''
-    def clearQueue(self, evt):
-        tests[:] = []
-        self.labelQueueCount.configure(text = str(len(tests)))
-        tkMessageBox.showinfo("Reset", "Queue cleared.")
-        self.buttonQueue.configure(relief = FLAT)
-        return "break"
-
-    ''' Simultaneously scrolls the FILTER listbox A and B'''
-    def scrollFilterListBox (self, evt): # To simultaneously scroll Filter listbox A and B
-        self.listQueryDataA.yview("scroll", evt.delta,"units")
-        self.listQueryDataB.yview("scroll",evt.delta,"units")
-        # this prevents default bindings from firing, which
-        # would end up scrolling the widget twice
-        return "break"
-
+    '''SELECT HEADER'''
+    # region
     '''
     def setFocusFeatureValuesA(self, evt):
         selectedItems = self.listQueryDataA.curselection()
@@ -3715,8 +3744,6 @@ class OOTO_Miner:
         selectedItems = listBox.curselection()
         setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
         setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
-
-
 
     ''' Initial (SELECT) query for DATA A '''
     def querySetDataA(self, evt):
@@ -3801,20 +3828,6 @@ class OOTO_Miner:
 
         return "break"
 
-    def queryResetFilterDetails(self, evt):
-
-        # Empty FILTER details of BOTH A and B
-        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataA.delete(0, END)
-
-        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listQueryDataB.delete(0, END)
-
-        self.labelQueryDataFeatureName.configure(
-            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
-        )
-
-
     def querySelectDataValuesA(self, evt):
         self.isReadyDatasetA = False # When a listbox element is de/selected, mark the dataset as not ready
         self.checkIfDatasetReady() # Update dataset status accordingly
@@ -3846,6 +3859,31 @@ class OOTO_Miner:
         print ("Dataset B" + str(len(self.datasetB['Data'])))
 
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
+
+    def queryResetFilterDetails(self, evt):
+
+        # Empty FILTER details of BOTH A and B
+        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.listQueryDataA.delete(0, END)
+
+        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.listQueryDataB.delete(0, END)
+
+        self.labelQueryDataFeatureName.configure(
+            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
+        )
+    # endregion
+
+    '''FILTER HEADER'''
+    # region
+
+    ''' Simultaneously scrolls the FILTER listbox A and B'''
+    def scrollFilterListBox (self, evt): # To simultaneously scroll Filter listbox A and B
+        self.listQueryDataA.yview("scroll", evt.delta,"units")
+        self.listQueryDataB.yview("scroll",evt.delta,"units")
+        # this prevents default bindings from firing, which
+        # would end up scrolling the widget twice
+        return "break"
 
     def queryAddFilterA(self, evt):
         self.isReadyDatasetA = False
@@ -4074,7 +4112,89 @@ class OOTO_Miner:
     def querySetFeatureB(self, entryQuery):
         # findFeature(entryQuery, self.listQueryDataB, self.datasetB, "Focus_Feature")
         findFeature(entryQuery, self.listQueryDataB, self.datasetB, self.populationDatasetOriginalB, True, "Focus_Feature")
+    # endregion
 
+    '''TEST HEADER'''
+    # region
+    ''' Adds test to the queue '''
+    def addToQueue(self, testType, **params):
+        global tests
+        test = {'Type':testType}
+        for key in params:
+            if(key == 'popDirArg'):
+                test['Population Path'] = copy.copy(params[key])
+            elif(key == 'sampleFeatArg'):
+                test['Sample Feature'] = copy.copy(params[key])
+            elif(key == 'selectedFeatArg'):
+                test['Selected Feature'] = copy.copy(params[key])
+            elif(key == 'allValArg'):
+                test['SF All Values'] = copy.copy(params[key])
+            elif(key == 'selValArg'):
+                test['SF Selected Values'] = copy.copy(params[key])
+            elif(key == 'datasetArgs'):
+                test['Datasets'] = copy.deepcopy(params[key])
+            elif(key == 'zArg'):
+                test['Z Critical Value'] = copy.copy(params[key])
+        tests.append(test)
+        self.labelQueueCount.configure(text = str(len(tests)))
+        tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
+
+
+        '''
+        self.buttonInitialVarDesc.configure(
+            background=Color_support.DATASET_BTN_BG, foreground=Color_support.DATASET_BTN_FG,
+            text=UI_support.BTN_DATASET_UPLOAD,
+            bd=1, relief=GROOVE,
+            activebackground=Color_support.DATASET_BTN_BG_ACTIVE, activeforeground=Color_support.DATASET_BTN_FG_ACTIVE,
+            disabledforeground=Color_support.FG_DISABLED_COLOR)
+        '''
+
+    ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
+    def queue(self, evt):
+        self.buttonQueue.configure(relief = FLAT)
+        datasets = []
+        datasets.append(self.datasetA)
+        datasets.append(self.datasetB)
+        global queryType
+        if (queryType == 'Sample vs Sample'):
+            self.addToQueue(queryType, datasetArgs = datasets)
+        else:
+            tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
+        return "break"
+
+    ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
+    def testQueue(self, evt):
+        if len(tests) == 0:
+            tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
+            return "break"
+            # return -1
+        # self.listQueryDataB.delete(0, END)
+        i = 0
+        for test in tests:
+            fileNames = []
+            if(test['Type'] == 'Sample vs Sample'):
+                i +=  1
+                for dataset in test['Datasets']:
+                    convertDatasetValuesToGroups(dataset, features)
+                    fileName = makeFileName(dataset)
+                    writeCSVDict(fileName, dataset['Data'])
+                    fileNames.append(fileName)
+                if not (os.path.isfile("Updated-Variables.csv")):
+                    makeUpdatedVariables(features, "Updated-Variables.csv")
+                saveFile = ct.chiTest(fileNames)
+                # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
+                # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
+                removeFiles(fileNames)
+        tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
+        return "break"
+
+    ''' Clears the tests in the queue. '''
+    def clearQueue(self, evt):
+        tests[:] = []
+        self.labelQueueCount.configure(text = str(len(tests)))
+        tkMessageBox.showinfo("Reset", "Queue cleared.")
+        self.buttonQueue.configure(relief = FLAT)
+        return "break"
 
     ''' Conduct the Z-Test between the two samples. '''
     def queryZTest(self, evt):
@@ -4256,6 +4376,40 @@ class OOTO_Miner:
         #Test items
         global strarrAllFeatures
         strarrAllFeatures = list(self.listQuerySetDataA.get(0, END))
+    # endregion
+
+    '''CONSOLE HEADER'''
+    # region
+
+    def clearConsole(self):
+        self.listConsoleScreen.delete(0, END)
+
+    def addToConsole(self, consoleItem):
+        if consoleItem['name'] == self.listConsoleScreen['name']:
+            self.listConsoleScreen.insert(END, consoleItem)
+
+    def showConsoleScreen(self, consoleScreen):
+        # Hide all screens first
+        self.hideWidget(self.listConsoleScreen)
+        self.hideWidget(self.listConsoleQueueScreen)
+        self.hideWidget(self.listConsoleZTestScreen)
+        self.hideWidget(self.listConsoleChiSquareScreen)
+
+
+        if self.dictConsoleScreens[consoleScreen] == const.SCREENS.QUEUE:
+            self.showWidget(self.listConsoleQueueScreen)
+
+        elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.Z_TEST:
+            self.showWidget(self.listConsoleZTestScreen)
+
+        elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.CHI_SQUARE:
+            self.showWidget(self.listConsoleChiSquareScreen)
+
+        else:
+            self.showWidget(self.listConsoleScreen)
+
+    # endregion
+
     # endregion
 
     # endregion

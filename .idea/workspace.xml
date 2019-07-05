@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/CONSTANTS.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_icons/corner_curve_ne.png" beforeDir="false" afterPath="$PROJECT_DIR$/_icons/corner_curve_ne.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,13 +19,55 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="2984" column="83" lean-forward="true" selection-start-line="2984" selection-start-column="83" selection-end-line="2984" selection-end-column="83" />
+            <state relative-caret-position="142">
+              <caret line="3068" column="21" selection-start-line="3068" selection-start-column="21" selection-end-line="3068" selection-end-column="21" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
-                <element signature="e#115833#115841#0" />
-                <marker date="1562262769907" expanded="true" signature="117808:118134" ph="..." />
+                <element signature="e#56109#56117#0" />
+                <element signature="e#60340#60348#0" />
+                <element signature="e#61768#61776#0" />
+                <element signature="e#82125#82133#0" />
+                <element signature="e#83383#83391#0" />
+                <element signature="e#84623#112352#0" />
+                <element signature="e#120226#120234#0" />
+                <element signature="e#127938#127946#0" />
+                <element signature="e#143450#143458#0" />
+                <element signature="e#144643#144651#0" />
+                <element signature="e#145840#145848#0" />
+                <element signature="e#143278#143286#0" />
+                <element signature="e#156951#156959#0" />
+                <element signature="e#163115#163123#0" />
+                <element signature="e#167399#167715#1" />
+                <element signature="e#167812#168098#0" />
+                <element signature="e#168190#168720#0" />
+                <element signature="e#168810#169340#0" />
+                <element signature="e#169389#170664#0" />
+                <element signature="e#170713#171787#0" />
+                <element signature="e#172313#173088#0" />
+                <element signature="e#173145#173941#0" />
+                <element signature="e#169251#169668#0" />
+                <element signature="e#173717#173725#0" />
+                <element signature="e#173987#178190#0" />
+                <element signature="e#178236#182039#0" />
+                <element signature="e#182085#184619#0" />
+                <element signature="e#184779#185351#0" />
+                <element signature="e#182060#183458#0" />
+                <element signature="e#183593#184019#0" />
+                <element signature="e#184126#185325#0" />
+                <element signature="e#185409#185615#0" />
+                <element signature="e#187275#190280#0" />
+                <element signature="e#190420#190514#0" />
+                <marker date="1562311600960" expanded="true" signature="117830:118156" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CONSTANTS.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" column="18" lean-forward="true" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -32,7 +75,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
+            <state relative-caret-position="3078">
               <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
             </state>
           </provider>
@@ -42,7 +85,7 @@
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="172">
-              <caret line="126" selection-start-line="126" selection-end-line="126" />
+              <caret line="251" column="43" lean-forward="true" selection-start-line="251" selection-start-column="43" selection-end-line="251" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -50,8 +93,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Icon_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="123">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="589">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
               <folding>
                 <element signature="e#1#11#0" expanded="true" />
               </folding>
@@ -61,28 +104,15 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>createlabels</find>
-      <find>listbox</find>
-      <find>NO_DATA</find>
-      <find>stripes</find>
-      <find>.resize</find>
-      <find>(TEST)</find>
-      <find>.pack</find>
-      <find>List</find>
-      <find>SELECT</find>
-      <find>configureSele</find>
-      <find>'''GROUP</find>
-      <find>Chi-Squa</find>
-      <find>OOTO MIN</find>
-      <find>OOTO</find>
-      <find>hidewid</find>
-      <find>hidewI</find>
-      <find>chi - squar</find>
-      <find>chi - s</find>
-      <find>run miner</find>
-      <find>&lt;enter&gt;</find>
       <find>chi - sq</find>
       <find>TODO REMO</find>
       <find>z - test</find>
@@ -93,6 +123,26 @@
       <find>R</find>
       <find>buttonTestQueue.bind</find>
       <find>run Miner</find>
+      <find>listbox</find>
+      <find>listQueryDataA</find>
+      <find>labelQueryDataA</find>
+      <find>listqueryDataA.</find>
+      <find>arrTempItems</find>
+      <find>console</find>
+      <find>consolescreenele</find>
+      <find>ztest</find>
+      <find>chisq</find>
+      <find>consolescreen</find>
+      <find>hidewid</find>
+      <find>widget name</find>
+      <find>configureConsoleScr</find>
+      <find>class</find>
+      <find>CONSTANTS</find>
+      <find>'''TEST'''</find>
+      <find>0.80</find>
+      <find>arrquerycrit</find>
+      <find>spinbox</find>
+      <find>Validate</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -113,15 +163,16 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/UI_support.py" />
         <option value="$PROJECT_DIR$/Color_support.py" />
         <option value="$PROJECT_DIR$/Icon_support.py" />
+        <option value="$PROJECT_DIR$/CONSTANTS.py" />
+        <option value="$PROJECT_DIR$/UI_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="157" />
+    <option name="x" value="156" />
     <option name="y" value="-20" />
     <option name="width" value="1720" />
     <option name="height" value="1090" />
@@ -132,7 +183,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -149,6 +199,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -237,7 +288,7 @@
     <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19020979" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19300699" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -273,32 +324,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>877</line>
+          <line>878</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>660</line>
+          <line>661</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>4005</line>
+          <line>4043</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3744</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3264</line>
+          <line>3386</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2795</line>
+          <line>2791</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
@@ -341,10 +387,17 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_right_arrow_small.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3078">
+          <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+        <state relative-caret-position="589">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
           <folding>
             <element signature="e#1#11#0" expanded="true" />
           </folding>
@@ -358,28 +411,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
+    <entry file="file://$PROJECT_DIR$/CONSTANTS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
+        <state relative-caret-position="76">
+          <caret line="4" column="18" lean-forward="true" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="172">
-          <caret line="126" selection-start-line="126" selection-end-line="126" />
+          <caret line="251" column="43" lean-forward="true" selection-start-line="251" selection-start-column="43" selection-end-line="251" selection-end-column="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="2984" column="83" lean-forward="true" selection-start-line="2984" selection-start-column="83" selection-end-line="2984" selection-end-column="83" />
+        <state relative-caret-position="142">
+          <caret line="3068" column="21" selection-start-line="3068" selection-start-column="21" selection-end-line="3068" selection-end-column="21" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
-            <element signature="e#115833#115841#0" />
-            <marker date="1562262769907" expanded="true" signature="117808:118134" ph="..." />
+            <element signature="e#56109#56117#0" />
+            <element signature="e#60340#60348#0" />
+            <element signature="e#61768#61776#0" />
+            <element signature="e#82125#82133#0" />
+            <element signature="e#83383#83391#0" />
+            <element signature="e#84623#112352#0" />
+            <element signature="e#120226#120234#0" />
+            <element signature="e#127938#127946#0" />
+            <element signature="e#143450#143458#0" />
+            <element signature="e#144643#144651#0" />
+            <element signature="e#145840#145848#0" />
+            <element signature="e#143278#143286#0" />
+            <element signature="e#156951#156959#0" />
+            <element signature="e#163115#163123#0" />
+            <element signature="e#167399#167715#1" />
+            <element signature="e#167812#168098#0" />
+            <element signature="e#168190#168720#0" />
+            <element signature="e#168810#169340#0" />
+            <element signature="e#169389#170664#0" />
+            <element signature="e#170713#171787#0" />
+            <element signature="e#172313#173088#0" />
+            <element signature="e#173145#173941#0" />
+            <element signature="e#169251#169668#0" />
+            <element signature="e#173717#173725#0" />
+            <element signature="e#173987#178190#0" />
+            <element signature="e#178236#182039#0" />
+            <element signature="e#182085#184619#0" />
+            <element signature="e#184779#185351#0" />
+            <element signature="e#182060#183458#0" />
+            <element signature="e#183593#184019#0" />
+            <element signature="e#184126#185325#0" />
+            <element signature="e#185409#185615#0" />
+            <element signature="e#187275#190280#0" />
+            <element signature="e#190420#190514#0" />
+            <marker date="1562311600960" expanded="true" signature="117830:118156" ph="..." />
           </folding>
         </state>
       </provider>
