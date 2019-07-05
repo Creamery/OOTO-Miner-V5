@@ -12,12 +12,14 @@ import PIL.ImageTk
 PATH = os.path.dirname(os.path.abspath(__file__))
 TAB_ICO_SIZE = (70 , 71) # +1 pixel in height for the bottom border in the icon
 
-SELECT_ICO_SIZE = (39, 39)
+# SELECT_ICO_SIZE = (39, 39)
+SELECT_ICO_SIZE = (33, 33)
 SELECT_ICO_SIZE_BUTTONS = (22, 22)
 FILTER_ICO_SIZE_BUTTONS = SELECT_ICO_SIZE_BUTTONS
 
-# RUN_ICO_SIZE = (95, 95)
-RUN_ICO_SIZE = (70, 70)
+RUN_ICO_SIZE = (50, 50) # (70, 70)
+
+CORNER_ICO_SIZE_SMALL = (50, 50)
 
 # multiplier = 8
 # RUN_ICO_SIZE_LONG = (int(16 * multiplier), int(5.09 * multiplier)) # 16 x 5.09
@@ -54,3 +56,9 @@ TAB_ICO_DOWN_ARROW_ON = PATH+'\\_icons\\ico_down_arrow_on.png'
 TEXTURE_STRIPE_ORANGE = PATH+'\\_icons\\texture_stripe_orange.png'
 TEXTURE_STRIPE_PINK = PATH+'\\_icons\\texture_stripe_pink.png'
 TEXTURE_STRIPE_LIME = PATH+'\\_icons\\texture_stripe_lime.png'
+
+
+CORNER_ROUND_NE = PATH+'\\_icons\\corner_curve_ne.png'
+CORNER_ROUND_NW = PATH+'\\_icons\\corner_curve_nw.png'
+CORNER_ROUND_SE = PATH+'\\_icons\\corner_curve_se.png'
+CORNER_ROUND_SW = PATH+'\\_icons\\corner_curve_sw.png'

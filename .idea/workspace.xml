@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,94 +15,50 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="750" column="26" selection-start-line="750" selection-start-column="19" selection-end-line="750" selection-end-column="26" />
+            <state relative-caret-position="265">
+              <caret line="4626" column="20" selection-start-line="4626" selection-start-column="20" selection-end-line="4626" selection-end-column="20" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
-                <element signature="e#10634#10987#1" />
-                <element signature="e#20565#20577#0" />
-                <element signature="e#37146#37154#0" />
-                <element signature="e#30271#36267#0" />
-                <element signature="e#46749#47431#1" />
-                <element signature="e#58112#58120#0" />
-                <element signature="e#59306#59314#0" />
-                <element signature="e#60214#60222#0" />
-                <element signature="e#64492#64500#0" />
-                <element signature="e#65393#65401#0" />
-                <element signature="e#66916#66924#0" />
-                <element signature="e#68169#68177#0" />
-                <element signature="e#68592#68600#0" />
-                <element signature="e#68657#68665#0" />
-                <element signature="e#71446#71454#0" />
-                <element signature="e#68455#68463#0" />
-                <element signature="e#75307#75315#0" />
-                <element signature="e#70077#70085#0" />
-                <element signature="e#72880#72888#0" />
-                <element signature="e#76262#76270#0" />
-                <element signature="e#77520#77528#0" />
-                <element signature="e#81455#81488#0" />
-                <element signature="e#81592#81600#0" />
-                <element signature="e#82496#82504#0" />
-                <element signature="e#92114#94890#1" />
-                <element signature="e#94836#94863#0" />
-                <element signature="e#94421#114161#0" />
-                <element signature="e#96787#96820#0" />
-                <element signature="e#98740#98773#0" />
-                <element signature="e#114283#114312#0" />
-                <element signature="e#108870#108878#0" />
-                <element signature="e#108855#113929#0" />
-                <element signature="e#114771#114814#0" />
-                <element signature="e#114852#114896#0" />
-                <element signature="e#114938#114967#0" />
-                <element signature="e#115009#115037#0" />
-                <element signature="e#114945#114957#0" />
-                <element signature="e#115012#115042#0" />
-                <element signature="e#116214#116222#0" />
-                <element signature="e#116272#116730#0" />
-                <element signature="e#53112#53289#0" />
-                <element signature="e#54707#54766#0" />
-                <element signature="e#120901#121725#0" />
-                <element signature="e#68321#68552#0" />
-                <element signature="e#71300#71473#0" />
-                <element signature="e#60544#61942#0" />
-                <element signature="e#61523#61942#1" />
-                <element signature="e#70361#70786#0" />
-                <element signature="e#70898#72046#0" />
-                <element signature="e#72138#72344#0" />
-                <element signature="e#72391#72640#0" />
-                <element signature="e#72646#72962#1" />
-                <element signature="e#83480#83841#1" />
-                <element signature="e#84168#85528#0" />
-                <element signature="e#85625#88630#0" />
-                <element signature="e#88778#88872#0" />
-                <element signature="e#89074#89128#0" />
-                <element signature="e#91175#91231#0" />
-                <element signature="e#92151#92218#0" />
-                <element signature="e#92923#92989#0" />
-                <element signature="e#93446#93559#0" />
-                <element signature="e#85575#85880#0" />
-                <element signature="e#85968#86269#0" />
-                <element signature="e#86358#86663#0" />
-                <element signature="e#86751#87052#0" />
-                <element signature="e#87138#87435#0" />
-                <element signature="e#87521#87814#0" />
-                <element signature="e#87906#88232#0" />
-                <element signature="e#88324#88645#0" />
-                <element signature="e#88735#89065#0" />
-                <element signature="e#89155#89480#0" />
-                <element signature="e#90365#94168#1" />
-                <element signature="e#94216#94626#0" />
-                <element signature="e#94674#95081#0" />
+                <element signature="e#56109#56117#0" />
+                <element signature="e#60340#60348#0" />
+                <element signature="e#61768#61776#0" />
+                <element signature="e#82125#82133#0" />
+                <element signature="e#83383#83391#0" />
+                <element signature="e#120226#120234#0" />
+                <element signature="e#127938#127946#0" />
+                <element signature="e#143278#143286#0" />
+                <element signature="e#163115#163123#0" />
+                <element signature="e#167399#167715#1" />
+                <element signature="e#167812#168098#0" />
+                <element signature="e#168190#168720#0" />
+                <element signature="e#168810#169340#0" />
+                <element signature="e#169389#170664#0" />
+                <element signature="e#170713#171787#0" />
+                <element signature="e#172313#173088#0" />
+                <element signature="e#173145#173941#0" />
+                <element signature="e#169251#169668#0" />
+                <element signature="e#173717#173725#0" />
+                <element signature="e#173987#178190#0" />
+                <element signature="e#178236#182039#0" />
+                <element signature="e#182085#184619#0" />
+                <element signature="e#184779#185351#0" />
+                <element signature="e#182060#183458#0" />
+                <element signature="e#183593#184019#0" />
+                <element signature="e#184126#185325#0" />
+                <element signature="e#185409#185615#0" />
+                <element signature="e#187275#190280#0" />
+                <element signature="e#190420#190514#0" />
+                <marker date="1562356553670" expanded="true" signature="117842:118168" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+        <entry file="file://$PROJECT_DIR$/CONSTANTS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="1326" selection-start-line="1326" selection-end-line="1326" />
+            <state relative-caret-position="133">
+              <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -111,8 +66,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="104" column="46" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="46" />
+            <state relative-caret-position="172">
+              <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -120,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3270">
-              <caret line="344" column="24" selection-start-line="344" selection-end-line="344" selection-end-column="24" />
+            <state relative-caret-position="142">
+              <caret line="200" column="34" selection-start-line="200" selection-start-column="34" selection-end-line="200" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -129,8 +84,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Icon_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="14">
-              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="294">
+              <caret line="17" column="49" lean-forward="true" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
               <folding>
                 <element signature="e#1#11#0" expanded="true" />
               </folding>
@@ -140,38 +95,45 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>FIL</find>
-      <find>filter fea</find>
-      <find>stripes</find>
-      <find>status chil</find>
-      <find>specifiedListBoxHeight</find>
-      <find>_ON</find>
-      <find>PINK</find>
-      <find>separator =</find>
-      <find>separator</find>
-      <find>pink</find>
-      <find>labelQuerySetDataStripesA</find>
-      <find>lime</find>
-      <find>READY</find>
-      <find>SELECT_LISTBOX_STATUS_READY_BG</find>
-      <find>STATUS_NO_</find>
-      <find>SELECT_STATUS_NO_</find>
-      <find>commandsabottom</find>
-      <find>SELECT_ENT</find>
-      <find>FILTER_ENTRY_FG</find>
-      <find>enablefilt</find>
+      <find>text = 'Z</find>
+      <find>all.bin</find>
+      <find>(self.listConsoleScreen)</find>
+      <find>'Z'</find>
+      <find>D_GRAY</find>
+      <find>showconsolesc</find>
+      <find>z - test</find>
+      <find>buttont</find>
+      <find>buttontest</find>
+      <find>labelQueryZTest</find>
+      <find>listConsoleScreen</find>
       <find>.bind</find>
-      <find>stripe</find>
-      <find>setFilterStripeReady</find>
-      <find>labelQueryDataFeatureName.configure</find>
-      <find>labelQueryDataFeatureName</find>
-      <find>FILTER_STATUS_READY_TEXT</find>
-      <find>READ</find>
-      <find>'''READ</find>
-      <find>PALE_YELL</find>
-      <find>READY_TEXT</find>
+      <find>math.</find>
+      <find>.floor</find>
+      <find>CONSTANTS</find>
+      <find>select</find>
+      <find>showCon</find>
+      <find>= DISABLE</find>
+      <find>\n</find>
+      <find>addtoconso</find>
+      <find>confidence'</find>
+      <find>'confidence</find>
+      <find>listConsoleScreen.bind</find>
+      <find>addtocon</find>
+      <find>.default</find>
+      <find>listconsolescreen =</find>
+      <find>addtoconsol</find>
+      <find>.defa</find>
+      <find>= listbox</find>
+      <find>.DEFAULT</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -184,6 +146,7 @@
       <replace>COMMANDS</replace>
       <replace>FITLER_</replace>
       <replace>FILTER_</replace>
+      <replace>ChiSquare</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -192,17 +155,19 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/Color_support.py" />
+        <option value="$PROJECT_DIR$/Icon_support.py" />
+        <option value="$PROJECT_DIR$/CONSTANTS.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="130" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="156" />
+    <option name="y" value="-20" />
     <option name="width" value="1720" />
-    <option name="height" value="1088" />
+    <option name="height" value="1090" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -312,15 +277,16 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="104" y="0" width="1376" height="870" extended-state="0" />
+    <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11760243" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19300699" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.22373806" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.24556616" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34008098" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.24426451" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3287858" />
@@ -340,7 +306,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/UI_support.py</url>
-          <line>185</line>
+          <line>188</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -350,23 +316,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>854</line>
+          <line>879</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>651</line>
+          <line>662</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3627</line>
+          <line>4261</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>3366</line>
-          <option name="timeStamp" value="37" />
+          <line>3588</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OOTO.py</url>
+          <line>2805</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -410,115 +381,78 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="294">
+          <caret line="17" column="49" lean-forward="true" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
           <folding>
             <element signature="e#1#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
+        <state relative-caret-position="150">
           <caret line="1326" selection-start-line="1326" selection-end-line="1326" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CONSTANTS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3270">
-          <caret line="344" column="24" selection-start-line="344" selection-end-line="344" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="104" column="46" selection-start-line="104" selection-start-column="46" selection-end-line="104" selection-end-column="46" />
+        <state relative-caret-position="142">
+          <caret line="200" column="34" selection-start-line="200" selection-start-column="34" selection-end-line="200" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="750" column="26" selection-start-line="750" selection-start-column="19" selection-end-line="750" selection-end-column="26" />
+        <state relative-caret-position="265">
+          <caret line="4626" column="20" selection-start-line="4626" selection-start-column="20" selection-end-line="4626" selection-end-column="20" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
-            <element signature="e#10634#10987#1" />
-            <element signature="e#20565#20577#0" />
-            <element signature="e#37146#37154#0" />
-            <element signature="e#30271#36267#0" />
-            <element signature="e#46749#47431#1" />
-            <element signature="e#58112#58120#0" />
-            <element signature="e#59306#59314#0" />
-            <element signature="e#60214#60222#0" />
-            <element signature="e#64492#64500#0" />
-            <element signature="e#65393#65401#0" />
-            <element signature="e#66916#66924#0" />
-            <element signature="e#68169#68177#0" />
-            <element signature="e#68592#68600#0" />
-            <element signature="e#68657#68665#0" />
-            <element signature="e#71446#71454#0" />
-            <element signature="e#68455#68463#0" />
-            <element signature="e#75307#75315#0" />
-            <element signature="e#70077#70085#0" />
-            <element signature="e#72880#72888#0" />
-            <element signature="e#76262#76270#0" />
-            <element signature="e#77520#77528#0" />
-            <element signature="e#81455#81488#0" />
-            <element signature="e#81592#81600#0" />
-            <element signature="e#82496#82504#0" />
-            <element signature="e#92114#94890#1" />
-            <element signature="e#94836#94863#0" />
-            <element signature="e#94421#114161#0" />
-            <element signature="e#96787#96820#0" />
-            <element signature="e#98740#98773#0" />
-            <element signature="e#114283#114312#0" />
-            <element signature="e#108870#108878#0" />
-            <element signature="e#108855#113929#0" />
-            <element signature="e#114771#114814#0" />
-            <element signature="e#114852#114896#0" />
-            <element signature="e#114938#114967#0" />
-            <element signature="e#115009#115037#0" />
-            <element signature="e#114945#114957#0" />
-            <element signature="e#115012#115042#0" />
-            <element signature="e#116214#116222#0" />
-            <element signature="e#116272#116730#0" />
-            <element signature="e#53112#53289#0" />
-            <element signature="e#54707#54766#0" />
-            <element signature="e#120901#121725#0" />
-            <element signature="e#68321#68552#0" />
-            <element signature="e#71300#71473#0" />
-            <element signature="e#60544#61942#0" />
-            <element signature="e#61523#61942#1" />
-            <element signature="e#70361#70786#0" />
-            <element signature="e#70898#72046#0" />
-            <element signature="e#72138#72344#0" />
-            <element signature="e#72391#72640#0" />
-            <element signature="e#72646#72962#1" />
-            <element signature="e#83480#83841#1" />
-            <element signature="e#84168#85528#0" />
-            <element signature="e#85625#88630#0" />
-            <element signature="e#88778#88872#0" />
-            <element signature="e#89074#89128#0" />
-            <element signature="e#91175#91231#0" />
-            <element signature="e#92151#92218#0" />
-            <element signature="e#92923#92989#0" />
-            <element signature="e#93446#93559#0" />
-            <element signature="e#85575#85880#0" />
-            <element signature="e#85968#86269#0" />
-            <element signature="e#86358#86663#0" />
-            <element signature="e#86751#87052#0" />
-            <element signature="e#87138#87435#0" />
-            <element signature="e#87521#87814#0" />
-            <element signature="e#87906#88232#0" />
-            <element signature="e#88324#88645#0" />
-            <element signature="e#88735#89065#0" />
-            <element signature="e#89155#89480#0" />
-            <element signature="e#90365#94168#1" />
-            <element signature="e#94216#94626#0" />
-            <element signature="e#94674#95081#0" />
+            <element signature="e#56109#56117#0" />
+            <element signature="e#60340#60348#0" />
+            <element signature="e#61768#61776#0" />
+            <element signature="e#82125#82133#0" />
+            <element signature="e#83383#83391#0" />
+            <element signature="e#120226#120234#0" />
+            <element signature="e#127938#127946#0" />
+            <element signature="e#143278#143286#0" />
+            <element signature="e#163115#163123#0" />
+            <element signature="e#167399#167715#1" />
+            <element signature="e#167812#168098#0" />
+            <element signature="e#168190#168720#0" />
+            <element signature="e#168810#169340#0" />
+            <element signature="e#169389#170664#0" />
+            <element signature="e#170713#171787#0" />
+            <element signature="e#172313#173088#0" />
+            <element signature="e#173145#173941#0" />
+            <element signature="e#169251#169668#0" />
+            <element signature="e#173717#173725#0" />
+            <element signature="e#173987#178190#0" />
+            <element signature="e#178236#182039#0" />
+            <element signature="e#182085#184619#0" />
+            <element signature="e#184779#185351#0" />
+            <element signature="e#182060#183458#0" />
+            <element signature="e#183593#184019#0" />
+            <element signature="e#184126#185325#0" />
+            <element signature="e#185409#185615#0" />
+            <element signature="e#187275#190280#0" />
+            <element signature="e#190420#190514#0" />
+            <marker date="1562356553670" expanded="true" signature="117842:118168" ph="..." />
           </folding>
         </state>
       </provider>
