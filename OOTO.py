@@ -692,7 +692,7 @@ class OOTO_Miner:
         self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameTypeElements.place(
             relx = UI_support.TAB_TEST_TYPE_REL_X, rely = UI_support.TAB_TEST_TYPE_REL_Y,
-            relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H + 0.05
+            relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H # + 0.05 # TODO Type edit
         )
         self.labelFrameTypeElements.configure(
             background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR  # , text = '''TYPE'''
@@ -2608,9 +2608,8 @@ class OOTO_Miner:
             relwidth = self.getRelW(self.buttonChooseZTest), relheight = self.getRelH(self.buttonChooseZTest)
         )
         self.buttonChooseChiSquare.configure(
-            background = Color_support.DISABLED_WHITE, foreground = Color_support.D_BLUE,
-            activebackground = Color_support.PROCESS_TITLE_BG,
-            highlightbackground = Color_support.PROCESS_TITLE_BG,
+            background = Color_support.WHITE, foreground = Color_support.D_BLUE,
+            activebackground = Color_support.PROCESS_Z_TEST_TITLE_BG,
             bd = 1, relief = GROOVE, overrelief = SUNKEN,
             font = UI_support.FONT_DEFAULT_BOLD,
             text = '''CHI - SQUARE''')
@@ -2678,8 +2677,8 @@ class OOTO_Miner:
         self.labelFrameProcessZTestTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
-            # text = '''Z - TEST''',
-            text = '''OPTIONS''',
+            text = '''Z - TEST''',
+            # text = '''OPTIONS''',
             anchor = CENTER,
             bd = 0, relief = GROOVE
         )
@@ -2826,9 +2825,10 @@ class OOTO_Miner:
         self.labelFrameProcessChiSquareTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG, foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
+
             text = '''CHI - SQUARE''',
             anchor = CENTER,
-            bd = 1, relief = GROOVE
+            bd = 0, relief = GROOVE
         )
 
         # Top horizontal separator # TODO
@@ -3729,6 +3729,12 @@ class OOTO_Miner:
         self.buttonQueryResetFilterB.bind('<Button-1>', self.queryResetDatasetB)
 
 
+        # Test option buttons
+        self.buttonChooseChiSquare.bind('<Button-1>', self.selectOptionChiSquare)
+        self.buttonChooseZTest.bind('<Button-1>', self.selectOptionZTest)
+
+        # Console buttons
+
         self.buttonConsoleAll.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleScreen))
         self.buttonConsoleZTest.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleZTestScreen))
         self.buttonConsoleChiSquare.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleChiSquareScreen))
@@ -4334,6 +4340,45 @@ class OOTO_Miner:
 
     '''TEST HEADER'''
     # region
+
+
+    def selectOptionChiSquare(self, evt):
+
+        # Change button appearance to selected
+        self.buttonChooseChiSquare.configure(
+            background = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
+            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_BG
+        )
+
+        # Revert other buttons to deselected
+        self.buttonChooseZTest.configure(
+            background = Color_support.PROCESS_Z_TEST_TITLE_BG,
+            foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+        )
+
+        # Hide Z-Test options
+        self.hideWidget(self.labelFrameProcessZTest)
+        # Show Chi-square options
+        self.showWidget(self.labelFrameProcessChiSquare)
+
+    def selectOptionZTest(self, evt):
+        # Change button appearance to selected
+        self.buttonChooseZTest.configure(
+            background = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
+            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_BG
+        )
+        # Revert other buttons to deselected
+        self.buttonChooseChiSquare.configure(
+            background = Color_support.PROCESS_Z_TEST_TITLE_BG,
+            foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+        )
+
+        # Show Z-Test options
+        self.hideWidget(self.labelFrameProcessChiSquare)
+        # Hide Chi-square options
+        self.showWidget(self.labelFrameProcessZTest)
+
+
     ''' Adds test to the queue '''
     def addToQueue(self, testType, **params):
         global tests

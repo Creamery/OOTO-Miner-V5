@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,40 +17,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="4626" column="20" selection-start-line="4626" selection-start-column="20" selection-end-line="4626" selection-end-column="20" />
+            <state relative-caret-position="180">
+              <caret line="2607" column="84" selection-start-line="2607" selection-start-column="84" selection-end-line="2607" selection-end-column="84" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
-                <element signature="e#56109#56117#0" />
-                <element signature="e#60340#60348#0" />
-                <element signature="e#61768#61776#0" />
-                <element signature="e#82125#82133#0" />
-                <element signature="e#83383#83391#0" />
-                <element signature="e#120226#120234#0" />
-                <element signature="e#127938#127946#0" />
-                <element signature="e#143278#143286#0" />
-                <element signature="e#163115#163123#0" />
-                <element signature="e#167399#167715#1" />
-                <element signature="e#167812#168098#0" />
-                <element signature="e#168190#168720#0" />
-                <element signature="e#168810#169340#0" />
-                <element signature="e#169389#170664#0" />
-                <element signature="e#170713#171787#0" />
-                <element signature="e#172313#173088#0" />
-                <element signature="e#173145#173941#0" />
-                <element signature="e#169251#169668#0" />
-                <element signature="e#173717#173725#0" />
-                <element signature="e#173987#178190#0" />
-                <element signature="e#178236#182039#0" />
-                <element signature="e#182085#184619#0" />
-                <element signature="e#184779#185351#0" />
-                <element signature="e#182060#183458#0" />
-                <element signature="e#183593#184019#0" />
-                <element signature="e#184126#185325#0" />
-                <element signature="e#185409#185615#0" />
-                <element signature="e#187275#190280#0" />
-                <element signature="e#190420#190514#0" />
-                <marker date="1562356553670" expanded="true" signature="117842:118168" ph="..." />
+                <element signature="e#196588#197986#0" />
+                <element signature="e#198121#198547#0" />
+                <element signature="e#198654#199853#0" />
+                <element signature="e#199937#200143#0" />
+                <element signature="e#200240#202015#0" />
+                <element signature="e#202119#205124#0" />
+                <element signature="e#205492#209955#0" />
+                <element signature="e#210000#210113#0" />
+                <element signature="e#210160#210168#0" />
+                <element signature="e#210309#210976#0" />
+                <element signature="e#211109#212417#0" />
+                <element signature="e#212687#215325#0" />
+                <marker date="1562569603778" expanded="true" signature="117861:118187" ph="..." />
               </folding>
             </state>
           </provider>
@@ -57,8 +42,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CONSTANTS.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+            <state relative-caret-position="95">
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -66,7 +51,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
+            <state relative-caret-position="3078">
               <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
             </state>
           </provider>
@@ -75,8 +60,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="200" column="34" selection-start-line="200" selection-start-column="34" selection-end-line="200" selection-end-column="34" />
+            <state relative-caret-position="2394">
+              <caret line="126" column="26" selection-start-line="126" selection-start-column="26" selection-end-line="126" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -84,8 +69,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Icon_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="17" column="49" lean-forward="true" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
+            <state relative-caret-position="247">
+              <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
               <folding>
                 <element signature="e#1#11#0" expanded="true" />
               </folding>
@@ -104,22 +89,12 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>text = 'Z</find>
-      <find>all.bin</find>
-      <find>(self.listConsoleScreen)</find>
-      <find>'Z'</find>
-      <find>D_GRAY</find>
-      <find>showconsolesc</find>
-      <find>z - test</find>
-      <find>buttont</find>
       <find>buttontest</find>
       <find>labelQueryZTest</find>
       <find>listConsoleScreen</find>
-      <find>.bind</find>
       <find>math.</find>
       <find>.floor</find>
       <find>CONSTANTS</find>
-      <find>select</find>
       <find>showCon</find>
       <find>= DISABLE</find>
       <find>\n</find>
@@ -134,6 +109,16 @@
       <find>.defa</find>
       <find>= listbox</find>
       <find>.DEFAULT</find>
+      <find>addtoconsole</find>
+      <find>'''TYPE</find>
+      <find>(type</find>
+      <find>type</find>
+      <find>(select</find>
+      <find>select</find>
+      <find>.bind</find>
+      <find>selectOptionChiSquare</find>
+      <find>buttonChooseChiSquare.bind</find>
+      <find>evt.wid</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -164,7 +149,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="156" />
+    <option name="x" value="155" />
     <option name="y" value="-20" />
     <option name="width" value="1720" />
     <option name="height" value="1090" />
@@ -280,7 +265,7 @@
     <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19300699" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1958042" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -326,7 +311,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>4261</line>
+          <line>4267</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -336,8 +321,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2805</line>
+          <line>2804</line>
           <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OOTO.py</url>
+          <line>4549</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -379,23 +369,6 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_right_arrow_small.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Icon_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="17" column="49" lean-forward="true" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
-          <folding>
-            <element signature="e#1#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -403,56 +376,56 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/OOTO.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="2607" column="84" selection-start-line="2607" selection-start-column="84" selection-end-line="2607" selection-end-column="84" />
+          <folding>
+            <element signature="e#137#147#0" expanded="true" />
+            <element signature="e#196588#197986#0" />
+            <element signature="e#198121#198547#0" />
+            <element signature="e#198654#199853#0" />
+            <element signature="e#199937#200143#0" />
+            <element signature="e#200240#202015#0" />
+            <element signature="e#202119#205124#0" />
+            <element signature="e#205492#209955#0" />
+            <element signature="e#210000#210113#0" />
+            <element signature="e#210160#210168#0" />
+            <element signature="e#210309#210976#0" />
+            <element signature="e#211109#212417#0" />
+            <element signature="e#212687#215325#0" />
+            <marker date="1562569603778" expanded="true" signature="117861:118187" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CONSTANTS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        <state relative-caret-position="95">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3078">
+          <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="200" column="34" selection-start-line="200" selection-start-column="34" selection-end-line="200" selection-end-column="34" />
+        <state relative-caret-position="2394">
+          <caret line="126" column="26" selection-start-line="126" selection-start-column="26" selection-end-line="126" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OOTO.py">
+    <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="4626" column="20" selection-start-line="4626" selection-start-column="20" selection-end-line="4626" selection-end-column="20" />
+        <state relative-caret-position="247">
+          <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
           <folding>
-            <element signature="e#137#147#0" expanded="true" />
-            <element signature="e#56109#56117#0" />
-            <element signature="e#60340#60348#0" />
-            <element signature="e#61768#61776#0" />
-            <element signature="e#82125#82133#0" />
-            <element signature="e#83383#83391#0" />
-            <element signature="e#120226#120234#0" />
-            <element signature="e#127938#127946#0" />
-            <element signature="e#143278#143286#0" />
-            <element signature="e#163115#163123#0" />
-            <element signature="e#167399#167715#1" />
-            <element signature="e#167812#168098#0" />
-            <element signature="e#168190#168720#0" />
-            <element signature="e#168810#169340#0" />
-            <element signature="e#169389#170664#0" />
-            <element signature="e#170713#171787#0" />
-            <element signature="e#172313#173088#0" />
-            <element signature="e#173145#173941#0" />
-            <element signature="e#169251#169668#0" />
-            <element signature="e#173717#173725#0" />
-            <element signature="e#173987#178190#0" />
-            <element signature="e#178236#182039#0" />
-            <element signature="e#182085#184619#0" />
-            <element signature="e#184779#185351#0" />
-            <element signature="e#182060#183458#0" />
-            <element signature="e#183593#184019#0" />
-            <element signature="e#184126#185325#0" />
-            <element signature="e#185409#185615#0" />
-            <element signature="e#187275#190280#0" />
-            <element signature="e#190420#190514#0" />
-            <marker date="1562356553670" expanded="true" signature="117842:118168" ph="..." />
+            <element signature="e#1#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
