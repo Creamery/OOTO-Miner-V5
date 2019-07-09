@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
-    </list>
+    <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,33 +13,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="2607" column="84" selection-start-line="2607" selection-start-column="84" selection-end-line="2607" selection-end-column="84" />
+            <state relative-caret-position="373">
+              <caret line="5089" column="48" lean-forward="true" selection-start-line="5089" selection-start-column="48" selection-end-line="5089" selection-end-column="48" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
-                <element signature="e#196588#197986#0" />
-                <element signature="e#198121#198547#0" />
-                <element signature="e#198654#199853#0" />
-                <element signature="e#199937#200143#0" />
-                <element signature="e#200240#202015#0" />
-                <element signature="e#202119#205124#0" />
-                <element signature="e#205492#209955#0" />
-                <element signature="e#210000#210113#0" />
-                <element signature="e#210160#210168#0" />
-                <element signature="e#210309#210976#0" />
-                <element signature="e#211109#212417#0" />
-                <element signature="e#212687#215325#0" />
-                <marker date="1562569603778" expanded="true" signature="117861:118187" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CONSTANTS.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -51,8 +25,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3078">
-              <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
+            <state relative-caret-position="3002">
+              <caret line="158" selection-start-line="158" selection-end-line="158" />
             </state>
           </provider>
         </entry>
@@ -60,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2394">
-              <caret line="126" column="26" selection-start-line="126" selection-start-column="26" selection-end-line="126" selection-end-column="26" />
+            <state relative-caret-position="4978">
+              <caret line="262" column="26" selection-start-line="262" selection-start-column="26" selection-end-line="262" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -69,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Icon_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
+            <state relative-caret-position="304">
+              <caret line="20" selection-start-line="20" selection-end-line="20" />
               <folding>
                 <element signature="e#1#11#0" expanded="true" />
               </folding>
@@ -148,9 +122,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="155" />
-    <option name="y" value="-20" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-150" />
+    <option name="y" value="12" />
     <option name="width" value="1720" />
     <option name="height" value="1090" />
   </component>
@@ -160,6 +134,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -176,7 +151,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -262,15 +236,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
+    <frame x="-120" y="10" width="1376" height="872" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1958042" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.215478" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34008098" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33877552" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24426451" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -378,23 +352,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="2607" column="84" selection-start-line="2607" selection-start-column="84" selection-end-line="2607" selection-end-column="84" />
+        <state relative-caret-position="373">
+          <caret line="5089" column="48" lean-forward="true" selection-start-line="5089" selection-start-column="48" selection-end-line="5089" selection-end-column="48" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
-            <element signature="e#196588#197986#0" />
-            <element signature="e#198121#198547#0" />
-            <element signature="e#198654#199853#0" />
-            <element signature="e#199937#200143#0" />
-            <element signature="e#200240#202015#0" />
-            <element signature="e#202119#205124#0" />
-            <element signature="e#205492#209955#0" />
-            <element signature="e#210000#210113#0" />
-            <element signature="e#210160#210168#0" />
-            <element signature="e#210309#210976#0" />
-            <element signature="e#211109#212417#0" />
-            <element signature="e#212687#215325#0" />
-            <marker date="1562569603778" expanded="true" signature="117861:118187" ph="..." />
           </folding>
         </state>
       </provider>
@@ -408,22 +369,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3078">
-          <caret line="162" column="18" selection-start-line="162" selection-start-column="18" selection-end-line="162" selection-end-column="18" />
+        <state relative-caret-position="3002">
+          <caret line="158" selection-start-line="158" selection-end-line="158" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2394">
-          <caret line="126" column="26" selection-start-line="126" selection-start-column="26" selection-end-line="126" selection-end-column="26" />
+        <state relative-caret-position="4978">
+          <caret line="262" column="26" selection-start-line="262" selection-start-column="26" selection-end-line="262" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
+        <state relative-caret-position="304">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
           <folding>
             <element signature="e#1#11#0" expanded="true" />
           </folding>
