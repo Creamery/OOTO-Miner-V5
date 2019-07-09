@@ -1123,9 +1123,8 @@ class OOTO_Miner:
         self.buttonValuesFile.update()
         self.labelFrameVariableDescriptor.update()
 
-        # print self.buttonValuesFile.place_info()
-        print "height " + str(self.buttonValuesFile.winfo_height())
-        print "width " + str(self.buttonValuesFile.winfo_width())
+        # print "height " + str(self.buttonValuesFile.winfo_height())
+        # print "width " + str(self.buttonValuesFile.winfo_width())
 
         buttonX = 0.5  # self.labelFrameVariableDescriptor.winfo_x()
 
@@ -3684,7 +3683,6 @@ class OOTO_Miner:
     # region
     ''' --> General call to all binding sub-functions <-- '''
     def configureBindings(self):
-        print ("TODO")
         self.configureDataTabBindings()
         self.configureTestTabBindings()
 
