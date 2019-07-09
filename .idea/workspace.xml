@@ -15,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="5074" lean-forward="true" selection-start-line="5074" selection-end-line="5074" />
+            <state relative-caret-position="107">
+              <caret line="5075" column="8" selection-start-line="5075" selection-start-column="8" selection-end-line="5075" selection-end-column="8" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -125,8 +125,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="190" />
-    <option name="y" value="243" />
+    <option name="x" value="237" />
+    <option name="y" value="73" />
     <option name="width" value="1720" />
     <option name="height" value="810" />
   </component>
@@ -238,7 +238,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="182" width="1376" height="648" extended-state="1" />
+    <frame x="190" y="59" width="1376" height="648" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2185129" />
@@ -361,8 +361,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="5074" lean-forward="true" selection-start-line="5074" selection-end-line="5074" />
+        <state relative-caret-position="107">
+          <caret line="5075" column="8" selection-start-line="5075" selection-start-column="8" selection-end-line="5075" selection-end-column="8" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
