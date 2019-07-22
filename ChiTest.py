@@ -26,7 +26,7 @@ def writeonXLSX(rows, filename, header):
         cutoff_col = header.index("Cut-off")
         header_index = findHeader(rows, header)
         ws.write('A1','Probability(0.05/0.01/0.001)')
-        ws.write('B1',0.01)
+        ws.write('B1',0.01) ### TODO - Change significance
         for row in range(0,len(rows)):
                 for col in range(0,len(rows[row])):
                         #If the element is under the Is Significant column and is not the header
