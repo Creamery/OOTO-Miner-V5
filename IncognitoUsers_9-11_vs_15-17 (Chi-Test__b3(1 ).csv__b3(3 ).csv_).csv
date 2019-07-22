@@ -1,0 +1,61 @@
+﻿Probability(0.05/0.01/0.001),0.01,,,,,,,,,,,,,
+Dataset 1,Dataset 2,,,,,,,,,,,,,
+_b3(1 ).csv,_b3(3 ).csv,,,,,,,,,,,,,
+Feature,Question,Chi,Higher Or Lower,Degrees of Freedom,Cut-off,Is significant,N1,N2,P1(a),P1(b),P1(etc),P2(a),P2(b),P2(etc)
+A3,Are you able to use the Internet at school?,38.33574119,-,1,6.635,1,225,393,84.44%,15.56%,0.00%,60.56%,39.44%,0.00%
+D2,Do you use a mobile phone to access the Internet?,34.07255233,-,1,6.635,1,225,391,62.22%,37.78%,0.00%,37.85%,62.15%,0.00%
+S7,My teachers advise me on proper Internet use,32.05251004,-,1,6.635,1,222,361,59.46%,40.54%,0.00%,35.46%,64.54%,0.00%
+S8,"Among friends, we help each other on proper Internet use",31.19906695,-,1,6.635,1,221,392,55.20%,44.80%,0.00%,32.14%,67.86%,0.00%
+U4,"Compared to other children, my digital skills are good",26.79880056,-,1,6.635,1,226,394,6.64%,93.36%,0.00%,0.00%,100.00%,0.00%
+A4,Are you able to use the Internet at home?,18.34931285,-,1,6.635,1,224,394,55.36%,44.64%,0.00%,37.56%,62.44%,0.00%
+A8,"How often do you go online, compared to other children, ? ",14.75398438,-,1,6.635,1,200,366,18.00%,82.00%,0.00%,7.38%,92.62%,0.00%
+A5,Do you use the Internet at a friend's house?,14.38946759,-,1,6.635,1,226,394,80.97%,19.03%,0.00%,66.75%,33.25%,0.00%
+V1,I can be more myself online than in the real world,14.19486654,-,1,6.635,1,217,385,62.21%,37.79%,0.00%,46.23%,53.77%,0.00%
+P5,I am cautious in every new thing that I do,14.00731496,-,1,6.635,1,220,391,17.27%,82.73%,0.00%,7.42%,92.58%,0.00%
+U1,How many of the following online activities do you do every day?,12.71679171,-,1,6.635,1,226,394,24.78%,75.22%,0.00%,13.45%,86.55%,0.00%
+S4,My parents supervise my use of the Internet,10.74834872,+,1,6.635,1,222,389,9.46%,90.54%,0.00%,19.54%,80.46%,0.00%
+P6,Other children are treated better than me,10.40122598,-,1,6.635,1,221,382,44.80%,55.20%,0.00%,31.68%,68.32%,0.00%
+A2,Number of Internet Access Points,8.942319707,-,1,6.635,1,226,394,28.32%,71.68%,0.00%,18.02%,81.98%,0.00%
+P11,I engage in the following risky offline activities,8.912858206,-,1,6.635,1,226,394,80.97%,19.03%,0.00%,70.05%,29.95%,0.00%
+P3,I am often by myself in school,8.822365301,-,1,6.635,1,223,392,54.26%,45.74%,0.00%,41.84%,58.16%,0.00%
+D1,Number of Devices Used to Access the Internet,8.73869452,-,1,6.635,1,226,394,63.27%,36.73%,0.00%,51.02%,48.98%,0.00%
+A7,Do you use an Internet shop to use the Internet?,7.64664371,+,1,6.635,1,225,392,63.11%,36.89%,0.00%,73.72%,26.28%,0.00%
+B5,Urban-Rural setting of household,6.428455761,+,1,6.635,0,226,394,50.44%,49.56%,0.00%,60.91%,39.09%,0.00%
+P4,I feel I need to be always into something new,5.750752483,-,1,6.635,0,222,390,60.81%,39.19%,0.00%,50.77%,49.23%,0.00%
+A1,Can you access the internet any time you want to?,5.709560541,-,1,6.635,0,226,394,7.96%,92.04%,0.00%,3.55%,96.45%,0.00%
+P1,"In general, I usually do as I am told",5.521568627,-,1,6.635,0,224,392,12.50%,87.50%,0.00%,6.89%,93.11%,0.00%
+P12,I can handle negative situations in the real world,4.734535953,-,1,6.635,0,222,388,10.81%,89.19%,0.00%,5.93%,94.07%,0.00%
+B4,Socio-Economic Status,4.436110388,+,1,6.635,0,226,394,53.54%,46.46%,0.00%,62.18%,37.82%,0.00%
+D4,Do you use a laptop to access the Internet?,3.459981843,-,1,6.635,0,225,391,85.78%,14.22%,0.00%,79.80%,20.20%,0.00%
+V3,People are nicer to me in the online world,3.431705317,-,1,6.635,0,215,376,42.79%,57.21%,0.00%,35.11%,64.89%,0.00%
+D3,Do you use a desktop computer to access the Internet?,2.987033878,+,1,6.635,0,225,391,60.89%,39.11%,0.00%,67.77%,32.23%,0.00%
+S5,My parents use software and other technical restrictions on my Internet use,2.839716414,-,1,6.635,0,214,380,37.85%,62.15%,0.00%,31.05%,68.95%,0.00%
+Incognito,null,1.976881286,+,1,6.635,0,226,394,90.27%,9.73%,0.00%,93.40%,6.60%,0.00%
+P7,Children think that I am not intelligent enough,1.734631756,-,1,6.635,0,219,382,62.56%,37.44%,0.00%,57.07%,42.93%,0.00%
+R3,I do video calls with persons I only met on internet,1.710210345,+,1,6.635,0,223,391,91.03%,8.97%,0.00%,93.86%,6.14%,0.00%
+P2,"In school, my friends find me aggressive",1.395648224,+,1,6.635,0,223,390,77.58%,22.42%,0.00%,81.54%,18.46%,0.00%
+S3,I tell my parents about what troubles me on the Internet,0.777269395,-,1,6.635,0,220,387,55.91%,44.09%,0.00%,52.20%,47.80%,0.00%
+S2,I get adequate advise from my parents,0.702426564,-,1,6.635,0,224,392,50.45%,49.55%,0.00%,46.94%,53.06%,0.00%
+V2,I feel safer in the online world,0.621806009,-,1,6.635,0,216,369,56.48%,43.52%,0.00%,53.12%,46.88%,0.00%
+P9,I like dangerous and risky activities,0.524210036,-,1,6.635,0,220,384,84.09%,15.91%,0.00%,81.77%,18.23%,0.00%
+S1,I can count on my family for anything,0.487548454,-,1,6.635,0,222,384,3.60%,96.40%,0.00%,2.60%,97.40%,0.00%
+P8,Children call me ugly names,0.295980391,+,1,6.635,0,221,384,47.96%,52.04%,0.00%,50.26%,49.74%,0.00%
+A6,Do you use a public place to use the Internet?,0.290155495,+,1,6.635,0,225,392,64.44%,35.56%,0.00%,66.58%,33.42%,0.00%
+R2,I send personal personal information to new online friends,0.244882688,-,1,6.635,0,221,392,93.67%,6.33%,0.00%,92.60%,7.40%,0.00%
+R1,I actively look for new friends on the Internet,0.124543773,-,1,6.635,0,223,392,78.03%,21.97%,0.00%,76.79%,23.21%,0.00%
+D5,Do you use a smart tablet to access the Internet?,0.10319255,-,1,6.635,0,225,391,79.11%,20.89%,0.00%,78.01%,21.99%,0.00%
+R4,I engage in the following risky online activities,0.066366001,-,1,6.635,0,226,394,86.28%,13.72%,0.00%,85.53%,14.47%,0.00%
+S6,My parents are aware of my social media use,0.055601432,+,1,6.635,0,221,386,61.99%,38.01%,0.00%,62.95%,37.05%,0.00%
+B1,Gender,0.03682842,+,1,6.635,0,226,394,38.05%,61.95%,0.00%,38.83%,61.17%,0.00%
+P10,"I do exciting, fun activities, and I dont care of the danger",0.006740587,+,1,6.635,0,221,386,78.73%,21.27%,0.00%,79.02%,20.98%,0.00%
+B2,Age,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
+U2,How often do you use the Internet for school work?,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
+B3,Age Group,,,2,9.21,0,226,394,0.00%,0.00%,100.00%,0.00%,100.00%,0.00%
+N1,I received hurtful online messages,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
+U3,How often do you use the Internet for personal stuff?,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
+V4,I pretend to be someone else when I am online,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
+N2,Nasty messages about me were passed around online,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
+N3,I was threatened to be bullied on the Internet,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
+N4,I engage in excessive Internet use,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
+N5,I forget to eat while on the internet,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
+N6,My performance in school is affected too much Internet,,,1,6.635,0,0,0,nan%,nan%,nan%,nan%,nan%,nan%
