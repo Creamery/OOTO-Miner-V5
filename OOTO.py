@@ -4431,6 +4431,8 @@ class OOTO_Miner:
             # return -1
         # self.listQueryDataB.delete(0, END)
         i = 0
+
+        chiTest = ct.ChiTest()
         for test in tests:
             fileNames = []
             if(test['Type'] == 'Sample vs Sample'):
@@ -4442,7 +4444,8 @@ class OOTO_Miner:
                     fileNames.append(fileName)
                 if not (os.path.isfile("Updated-Variables.csv")):
                     makeUpdatedVariables(features, "Updated-Variables.csv")
-                saveFile = ct.chiTest(fileNames)
+                # saveFile = ct.chiTest(fileNames)
+                saveFile = chiTest.chiTest(fileNames)
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
                 # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
                 removeFiles(fileNames)
