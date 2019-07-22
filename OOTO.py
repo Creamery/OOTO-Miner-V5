@@ -184,7 +184,7 @@ its group is automatically assigned to -1.
 If a feature in the dataset does not exist in the variable description, assign that value to -1.
 '''
 def convertDatasetValuesToGroups(dataset, features):
-    #response['Code'] == record[self.datasetA['Feature']['Code']] for response in self.datasetA['Selected Responses']
+    # response['Code'] == record[self.datasetA['Feature']['Code']] for response in self.datasetA['Selected Responses']
     for record in dataset['Data']:
         for feature in features:
             converted = False
@@ -4432,23 +4432,26 @@ class OOTO_Miner:
         # self.listQueryDataB.delete(0, END)
         i = 0
 
-        chiTest = ct.ChiTest()
+        chiTest = ct.ChiTest() # Initialize singleton
         for test in tests:
             fileNames = []
             if(test['Type'] == 'Sample vs Sample'):
                 i +=  1
-                for dataset in test['Datasets']:
+                for dataset in test['Datasets']: # For each sample pairs in queue
                     convertDatasetValuesToGroups(dataset, features)
-                    fileName = makeFileName(dataset)
+                    fileName = makeFileName(dataset) # TODO
+                    # print ("GENERATED FILENAME: " + str(fileName))
                     writeCSVDict(fileName, dataset['Data'])
                     fileNames.append(fileName)
                 if not (os.path.isfile("Updated-Variables.csv")):
                     makeUpdatedVariables(features, "Updated-Variables.csv")
+
                 # saveFile = ct.chiTest(fileNames)
                 saveFile = chiTest.chiTest(fileNames)
+
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
                 # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
-                removeFiles(fileNames)
+                removeFiles(fileNames) # TODO This removes the intermediate tables
         tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
         return "break"
 
