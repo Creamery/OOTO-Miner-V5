@@ -25,11 +25,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ChiTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="381" column="22" selection-start-line="381" selection-start-column="22" selection-end-line="381" selection-end-column="22" />
+            <state relative-caret-position="102">
+              <caret line="401" column="6" selection-start-line="401" selection-start-column="6" selection-end-line="401" selection-end-column="6" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
+                <element signature="e#11332#11356#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/numeric.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="537" selection-start-line="537" selection-end-line="537" />
             </state>
           </provider>
         </entry>
@@ -75,9 +85,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>listConsoleScreen.bind</find>
-      <find>addtocon</find>
-      <find>.default</find>
       <find>listconsolescreen =</find>
       <find>addtoconsol</find>
       <find>.defa</find>
@@ -105,6 +112,9 @@
       <find>CLUST</find>
       <find>CLUSTER</find>
       <find>I kille</find>
+      <find>sp.</find>
+      <find>scipy</find>
+      <find>scip</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -167,7 +177,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../School/MSCS Term 3/INTRNLP/LingSpam" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="Errors" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -384,12 +394,20 @@
     <entry file="file://$PROJECT_DIR$/clean.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/numeric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="537" selection-start-line="537" selection-end-line="537" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ChiTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="381" column="22" selection-start-line="381" selection-start-column="22" selection-end-line="381" selection-end-column="22" />
+        <state relative-caret-position="102">
+          <caret line="401" column="6" selection-start-line="401" selection-start-column="6" selection-end-line="401" selection-end-column="6" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#11332#11356#0" />
           </folding>
         </state>
       </provider>

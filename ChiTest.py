@@ -1,6 +1,8 @@
 import csv
 import math
 import numpy as np
+from scipy.stats import chi2_contingency
+from scipy.stats import chi2
 import sys
 import string
 
@@ -387,77 +389,86 @@ def doFile(table, fileNum, results, converter, z, H):
 
     # results_temp.extend(proportions_list[:,1])
 
-    chiCritical = 0.0
 
     # Determine the chi critical value to compare chi score with
     # based on the degree of freedom
 
-    if degreeFreedom == 1:
-        chiCritical = '6.635'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 2:
-        chiCritical = '9.21'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 3:
-        chiCritical = '11.345'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 4:
-        chiCritical = '13.277'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 5:
-        chiCritical = '15.086'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 6:
-        chiCritical = '16.812'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 7:
-        chiCritical = '18.475'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 8:
-        chiCritical = '20.09'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 9:
-        chiCritical = '21.666'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 10:
-        chiCritical = '23.209'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 11:
-        chiCritical = '24.725'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 12:
-        chiCritical = '26.217'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 13:
-        chiCritical = '27.688'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 14:
-        chiCritical = '29.141'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 15:
-        chiCritical = '30.578'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 16:
-        chiCritical = '32'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 17:
-        chiCritical = '33.409'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 18:
-        chiCritical = '34.805'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 19:
-        chiCritical = '36.191'
-        results_temp.append(str(chiCritical))
-    elif degreeFreedom == 20:
-        chiCritical = '37.566'
-        results_temp.append(str(chiCritical))
+    # chiCritical = 0.0
+    # TODO Make these editable
+    significance = 0.01
+    prob = 1 - significance
+    # stat, p, dof, expected = chi2_contingency(table)
+    rawCritical = chi2.ppf(prob, degreeFreedom) # Compute critical value
+    # print ("scipy critical i: " + str(rawCritical))
+    chiCritical = round(rawCritical, 3) # Round critical value by 3 decimal places
+    results_temp.append(str(chiCritical))
 
-    else:
-        chiCritical = '100'
-        results_temp.append(str(chiCritical))
+    # if degreeFreedom == 1:
+    #     chiCritical = '6.635'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 2:
+    #     chiCritical = '9.21'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 3:
+    #     chiCritical = '11.345'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 4:
+    #     chiCritical = '13.277'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 5:
+    #     chiCritical = '15.086'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 6:
+    #     chiCritical = '16.812'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 7:
+    #     chiCritical = '18.475'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 8:
+    #     chiCritical = '20.09'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 9:
+    #     chiCritical = '21.666'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 10:
+    #     chiCritical = '23.209'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 11:
+    #     chiCritical = '24.725'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 12:
+    #     chiCritical = '26.217'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 13:
+    #     chiCritical = '27.688'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 14:
+    #     chiCritical = '29.141'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 15:
+    #     chiCritical = '30.578'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 16:
+    #     chiCritical = '32'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 17:
+    #     chiCritical = '33.409'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 18:
+    #     chiCritical = '34.805'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 19:
+    #     chiCritical = '36.191'
+    #     results_temp.append(str(chiCritical))
+    # elif degreeFreedom == 20:
+    #     chiCritical = '37.566'
+    #     results_temp.append(str(chiCritical))
+    # else:
+    #     chiCritical = '100'
+    #     results_temp.append(str(chiCritical))
 
     # Determine if the chi score is > than the chi critical value
+
     if (not (type(chistat) is str) and (float(chistat) > float(chiCritical))):  # If yes
         results_temp.append('1')  # Chi score is significant
     else:  # otherwise
