@@ -59,6 +59,8 @@ class ChiTest:
                 # If the element is under the Is Significant column and is not the header
                 if (col == sig_col and row != header_index):
                     ws.write_formula(row + 1, col, "IF(C:C>F:F,1,0)")
+
+                # Write the Cut-off
                 elif (col == cutoff_col and row != header_index):
                     # ws.write_formula(row + 1, col,
                     #                  # "=IF(B1=0.05,IF(E:E=1,3.84,IF(E:E=2,5.99,-1)),IF(B1=0.01,IF(E:E=1,6.635,IF(E:E=2,9.21,-1)),IF(B1=0.001,IF(E:E=1,10.8,IF(E:E=2,13.8,-1)),-1)))")
@@ -76,6 +78,7 @@ class ChiTest:
                 elif (isinstance(rows[row][col], list)):
                     # Write the first element of it
                     ws.write(row + 1, col, rows[row][col][0])
+
                 elif (isinstance(rows[row][col], basestring)):
                     string = str(rows[row][col])
                     '''
