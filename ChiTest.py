@@ -14,6 +14,13 @@ from clean import ColConverter
 class ChiTest:
     # Singleton
     __instance = None
+
+    # Properties
+    significance = 0
+    degreeFreedom = 0
+    # chiCritical = 0
+    # rawCritical = 0
+
     @staticmethod
     def getInstance():
         """ Static access method. """
@@ -28,8 +35,6 @@ class ChiTest:
         else:
             ChiTest.__instance = self
 
-    # Properties
-    significance = 0
 
     def writeOnCSV(self, rows, filename):
         with open(filename, 'wb') as f:
@@ -42,22 +47,31 @@ class ChiTest:
         wb.guess_types = True
         ws = wb.add_worksheet()
 
+        # TODO Header constants
         sig_col = header.index("Is significant")
         cutoff_col = header.index("Cut-off")
+        df_col = header.index("Degrees of Freedom")
         header_index = self.findHeader(rows, header)
-        ws.write('A1', 'Probability(0.05/0.01/0.001)')
-        ws.write('B1', 0.01)  ### TODO - Change significance
+        ws.write('A1', 'Probability(0.05/0.01/0.001)') # Change label to Significance, not Probability
+        ws.write('B1', self.significance)  ### TODO - Change significance
         for row in range(0, len(rows)):
             for col in range(0, len(rows[row])):
                 # If the element is under the Is Significant column and is not the header
                 if (col == sig_col and row != header_index):
                     ws.write_formula(row + 1, col, "IF(C:C>F:F,1,0)")
                 elif (col == cutoff_col and row != header_index):
-                    ws.write_formula(row + 1, col,
-                                     # "=IF(B1=0.05,IF(E:E=1,3.84,IF(E:E=2,5.99,-1)),IF(B1=0.01,IF(E:E=1,6.635,IF(E:E=2,9.21,-1)),IF(B1=0.001,IF(E:E=1,10.8,IF(E:E=2,13.8,-1)),-1)))")
-                                     "=IF(B1=0.05,IF(E:E=1,3.84,IF(E:E=2,5.99,-1)),"
-                                     "IF(B1=0.01,IF(E:E=1,6.635,IF(E:E=2,9.21,-1)),"
-                                     "IF(B1=0.001,IF(E:E=1,10.8,IF(E:E=2,13.8,-1)),-1)))")
+                    # ws.write_formula(row + 1, col,
+                    #                  # "=IF(B1=0.05,IF(E:E=1,3.84,IF(E:E=2,5.99,-1)),IF(B1=0.01,IF(E:E=1,6.635,IF(E:E=2,9.21,-1)),IF(B1=0.001,IF(E:E=1,10.8,IF(E:E=2,13.8,-1)),-1)))")
+                    #                  "=IF(B1=0.05,IF(E:E=1,3.84,IF(E:E=2,5.99,-1)),"
+                    #                  "IF(B1=0.01,IF(E:E=1,6.635,IF(E:E=2,9.21,-1)),"
+                    #                  "IF(B1=0.001,IF(E:E=1,10.8,IF(E:E=2,13.8,-1)),-1)))")
+
+                    degreeFreedom = rows[row][df_col]
+                    probability = 1 - self.significance
+                    rawCritical = chi2.ppf(probability, degreeFreedom)  # Compute critical value
+                    chiCritical = round(rawCritical, 3)  # Round critical value by 3 decimal places
+                    ws.write(row + 1, col, str(chiCritical))
+
                 # If the element is a list
                 elif (isinstance(rows[row][col], list)):
                     # Write the first element of it
@@ -401,13 +415,13 @@ class ChiTest:
         print colSum.size
         print totals.size
 
-        degreeFreedom = (colSum.size - 1) * (totals.size - 1)
+        self.degreeFreedom = (colSum.size - 1) * (totals.size - 1)
 
         totals_list = totals.tolist()  # populations for all groups
 
         thequestion = string.capwords(thequestion)
 
-        results_temp = [thequestion, H, chistat, higherOrLower, degreeFreedom];
+        results_temp = [thequestion, H, chistat, higherOrLower, self.degreeFreedom];
 
         # results_temp.extend(proportions_list[:,1])
 
@@ -417,10 +431,10 @@ class ChiTest:
 
         # chiCritical = 0.0
         # TODO Make these editable
-        self.significance = 0.01
-        prob = 1 - self.significance
+        self.significance = 0.01 ## TODO edit significance
+        probability = 1 - self.significance
         # stat, p, dof, expected = chi2_contingency(table)
-        rawCritical = chi2.ppf(prob, degreeFreedom) # Compute critical value
+        rawCritical = chi2.ppf(probability, self.degreeFreedom) # Compute critical value
         # print ("scipy critical i: " + str(rawCritical))
         chiCritical = round(rawCritical, 3) # Round critical value by 3 decimal places
         results_temp.append(str(chiCritical))
@@ -625,7 +639,7 @@ class ChiTest:
 
             # results_headers = ["Question","Feature","Chi","Higher Or Lower", "Degrees of Freedom"] #Results headers
             results_headers = ["Feature", "Question", "Chi", "Higher Or Lower", "Degrees of Freedom", "Cut-off",
-                               "Is significant"]  # Results headers
+                               "Is significant"]  # Results headers TODO Constant
             results_headers.extend(
                 population_and_proportionHeaders)  # Append the population and proportion headers for each cluster to results headers
             results.append(results_headers)  # Append these as header names to the results
