@@ -1,5 +1,12 @@
+"""
+{Description}
+Contains constant values for UI elements in OOTO.py
+"""
+__author__ = "Candy"
+__copyright__ = "Copyright 2019, TE3D House"
 
-import Tkinter as tk
+
+# import Tkinter as tk
 try:
     from Tkinter import *
 except ImportError:

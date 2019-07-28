@@ -10,6 +10,7 @@ import xlsxwriter
 
 from Table import Table
 from clean import ColConverter
+import Output_support as out
 
 class ChiTest:
     # Singleton
@@ -539,7 +540,7 @@ class ChiTest:
         vList = self.getVariableList('Updated-Variables.csv',
                                 '^')  # Get Variable Description # TODO This should always match the output in OOTO.py
         header = self.readHeader(datasetPaths[0])  # Read the header from one of the datasets which include the question codes
-
+        print("ex_header: " + str(header))
         results = []
         converter = ColConverter(header)
 
@@ -560,7 +561,8 @@ class ChiTest:
 
         # z = [6.64]
         z = [0.0]
-        zstr = ['1960']
+        # zstr = ['1960']
+
         for y in range(0, len(z)):
             results = []  # The resulting content that will be written in save.csv
             dataset_headers = []
@@ -586,9 +588,8 @@ class ChiTest:
                 population_and_proportionHeaders.append("P" + str(x + 1) + "(b)")
                 population_and_proportionHeaders.append("P" + str(x + 1) + "(etc)")
 
-            # results_headers = ["Question","Feature","Chi","Higher Or Lower", "Degrees of Freedom"] #Results headers
-            results_headers = ["Feature", "Question", "Chi", "Higher Or Lower", "Degrees of Freedom", "Cut-off",
-                               "Is significant"]  # Results headers TODO Constant
+            results_headers = out.ChiTest.getInstance().COLUMN_HEADERS  # Results headers TODO Constant
+
             results_headers.extend(
                 population_and_proportionHeaders)  # Append the population and proportion headers for each cluster to results headers
             results.append(results_headers)  # Append these as header names to the results
@@ -618,14 +619,37 @@ class ChiTest:
 
                 theTable.getPrintable(tableList)
 
-            # print results
+            # Print results
             fileName = 'Chi-Test_'  # Get filename of save file
             for name in dataset_names:
                 fileName = fileName + name + '_'
 
+            print("results contain: " + str(results))
+
+
+
+            # Sort results by Chi-value column
+            rowStart = results.index(results_headers) + 1
+            chiValueColumn = out.ChiTest.getInstance().getHeaderIndex(out.ChiTest.getInstance().HEADER_chiValue)
+
+            # Replace empty chi-value to 0 TODO : Optimize
+            print ("res 1 " + str(results[rowStart:]))
+            for i in results[rowStart:]:
+                if i[chiValueColumn] == '':
+                    i[chiValueColumn] = 0
+
+
+            sortColumn = chiValueColumn
+            results[rowStart:] = sorted(results[rowStart:], key = lambda temp: temp[sortColumn], reverse = True)
+            # results[rowStart:].sort(key = lambda temp: temp[sortColumn])
+
+            print("rowStart: " + str(rowStart))
+            print("sortColumn: " + str(sortColumn))
+            print("results now contain: " + str(results))
             self.writeonXLSX(results, fileName + '.xlsx', results_headers)
-            # print tableList
-            self.writeOnCSV(tableList, "Tables " + fileName + '.csv')
+
+            # Print interim chi-square tables
+            self.writeOnCSV(tableList, "Tables " + fileName + '.csv')  # TODO: Comment out
             return fileName
 
         # print "results"

@@ -1,23 +1,29 @@
+"""
+{Description}
+Contains constant values used by UI icons in OOTO.py
+"""
 
-import sys
+__author__ = "Candy"
+__copyright__ = "Copyright 2019, TE3D House"
+
+
+# import sys
+# import PIL.Image
+# import PIL.ImageTk
 import os
-
-import PIL.Image
-import PIL.ImageTk
-
 
 
 # Define values
 
 PATH = os.path.dirname(os.path.abspath(__file__))
-TAB_ICO_SIZE = (70 , 71) # +1 pixel in height for the bottom border in the icon
+TAB_ICO_SIZE = (70 , 71)  # +1 pixel in height for the bottom border in the icon
 
 # SELECT_ICO_SIZE = (39, 39)
 SELECT_ICO_SIZE = (33, 33)
 SELECT_ICO_SIZE_BUTTONS = (22, 22)
 FILTER_ICO_SIZE_BUTTONS = SELECT_ICO_SIZE_BUTTONS
 
-RUN_ICO_SIZE = (50, 50) # (70, 70)
+RUN_ICO_SIZE = (50, 50)  # (70, 70)
 
 CORNER_ICO_SIZE_SMALL = (50, 50)
 

@@ -2,7 +2,7 @@ import numpy as np
 
 class Table(object):
 
-	def __init__(self,groups,keys,head):
+	def __init__(self, groups, keys, head):
 		self.rows = []
 
 		header = [head]

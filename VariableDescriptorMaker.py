@@ -1,5 +1,7 @@
 
 def makeInitialVariableDescriptor(varFile, valFile):
+    print ("TODO")
   
 
-def readQuestions()
+def readQuestions():
+    print ("TODO")

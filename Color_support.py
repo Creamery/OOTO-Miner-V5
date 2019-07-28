@@ -1,4 +1,13 @@
-import sys
+"""
+{Description}
+Contains a reference to various constant color values
+used in the application.
+"""
+__author__ = "Candy"
+__copyright__ = "Copyright 2019, TE3D House"
+
+
+
 
 WHITE = '#FFFFFF'
 DISABLED_WHITE = '#fafaf7'
@@ -196,6 +205,7 @@ VARDESC_BTN_FG_ACTIVE = DATASET_BTN_FG_ACTIVE
 START_BTN_BG = DATASET_BTN_BG
 START_BTN_FG = DATASET_BTN_FG
 START_BTN_BG_ACTIVE = DATASET_BTN_BG_ACTIVE
+START_BTN_FG_ACTIVE = DATASET_BTN_FG_ACTIVE
 START_BTN_FG_ACTIVE = DATASET_BTN_FG_ACTIVE
 
 
