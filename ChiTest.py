@@ -292,8 +292,10 @@ class ChiTest:
         if (len(numpiRows[0]) > 2 and numpiRows[0][0] == 0):
             numpiRows = np.delete(numpiRows, 0, axis = 1)
 
+        print "numpiRows: " + str(numpiRows)
+
         totals = self.getSumRows(numpiRows)
-        # print "total: "+str(totals)
+        print "total: "+str(totals)
 
         proportions = self.getProportions(numpiRows, totals)
 
@@ -323,13 +325,13 @@ class ChiTest:
 
         expected = np.copy(numpiRows)
         grandTotal = np.sum(colSum)
+        print ("grandTotal: " + str(grandTotal))
 
         print "totals"
         # print totals
         lenrow = len(totals)
 
-        print "colsum"
-        # print colSum
+        print ("colsum: " + str(colSum))
         lencol = len(colSum)
 
         # print "expected"
@@ -340,21 +342,19 @@ class ChiTest:
                 # print colSum[y]
                 expected[i][y] = totals[i][0] * colSum[y] / grandTotal
 
-        print "Expected "
-        print expected
+        print "Expected " + str(expected)
+        # print expected
 
         # print "the data"
         # print numpiRows
 
-        chi = ((numpiRows - expected) * (numpiRows - expected)) / expected
+        chi = ((numpiRows - expected) * (numpiRows - expected)) / expected ## TODO Chi-square is performed here
         # print "Expected"
         # print expected
-        print "Observed "
-        print numpiRows
+        print "Observed " + str(numpiRows)
 
         shapeexpected = np.reshape(expected, (-1, 1))
-        print "Shape expected "
-        print shapeexpected
+        print "Shape expected " + str(shapeexpected)
 
         chistat = np.sum(chi)
 
@@ -428,7 +428,6 @@ class ChiTest:
 
         # results_temp.extend(proportions_list[:,1])
 
-
         # Determine the chi critical value to compare chi score with
         # based on the degree of freedom
 
@@ -437,73 +436,20 @@ class ChiTest:
         self.significance = 0.01 ## TODO edit significance
         probability = 1 - self.significance
         # stat, p, dof, expected = chi2_contingency(table)
-        rawCritical = chi2.ppf(probability, self.degreeFreedom) # Compute critical value
+        rawCritical = chi2.ppf(probability, self.degreeFreedom)  # Compute critical value
         # print ("scipy critical i: " + str(rawCritical))
-        chiCritical = round(rawCritical, 3) # Round critical value by 3 decimal places
+        chiCritical = round(rawCritical, 3)  # Round critical value by 3 decimal places
         results_temp.append(str(chiCritical))
 
+        # @ Candy : ___________________________________________________
+        # This is the original hard-coded implementation for reference.
+        # I already deleted the rest of the elif statements
+        # _____________________________________________________________
         # if degreeFreedom == 1:
         #     chiCritical = '6.635'
         #     results_temp.append(str(chiCritical))
         # elif degreeFreedom == 2:
         #     chiCritical = '9.21'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 3:
-        #     chiCritical = '11.345'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 4:
-        #     chiCritical = '13.277'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 5:
-        #     chiCritical = '15.086'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 6:
-        #     chiCritical = '16.812'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 7:
-        #     chiCritical = '18.475'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 8:
-        #     chiCritical = '20.09'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 9:
-        #     chiCritical = '21.666'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 10:
-        #     chiCritical = '23.209'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 11:
-        #     chiCritical = '24.725'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 12:
-        #     chiCritical = '26.217'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 13:
-        #     chiCritical = '27.688'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 14:
-        #     chiCritical = '29.141'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 15:
-        #     chiCritical = '30.578'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 16:
-        #     chiCritical = '32'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 17:
-        #     chiCritical = '33.409'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 18:
-        #     chiCritical = '34.805'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 19:
-        #     chiCritical = '36.191'
-        #     results_temp.append(str(chiCritical))
-        # elif degreeFreedom == 20:
-        #     chiCritical = '37.566'
-        #     results_temp.append(str(chiCritical))
-        # else:
-        #     chiCritical = '100'
         #     results_temp.append(str(chiCritical))
 
         # Determine if the chi score is > than the chi critical value

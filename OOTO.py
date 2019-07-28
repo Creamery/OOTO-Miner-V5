@@ -17,6 +17,7 @@ import numpy as np
 from collections import Counter
 
 import Tkinter as tk
+
 try:
     from Tkinter import *
 except ImportError:
@@ -24,9 +25,11 @@ except ImportError:
 
 try:
     import ttk
+
     py3 = 0
 except ImportError:
     import tkinter.ttk as ttk
+
     py3 = 1
 
 import math
@@ -40,30 +43,28 @@ import CONSTANTS as const
 
 w = None
 
+
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
     root = Tk()
     root.resizable(0, 0)
     Mother_support.set_Tk_var()
-    top = OOTO_Miner (root)
+    top = OOTO_Miner(root)
     root.update()
     Mother_support.init(root, top)
     root.mainloop()
-
-
 
 
 def create_OOTO_Miner(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
     rt = root
-    w = Toplevel (root)
+    w = Toplevel(root)
     Mother_support.set_Tk_var()
-    top = OOTO_Miner (w)
+    top = OOTO_Miner(w)
     Mother_support.init(w, top, *args, **kwargs)
     return (w, top)
-
 
 
 def destroy_OOTO_Miner():
@@ -72,32 +73,33 @@ def destroy_OOTO_Miner():
     w = None
 
 
-
-
 '''
 Reads features and their responses from the Variable Description file
 '''
+
+
 def readFeatures(filename, varMark):
     features = []
     try:
         with open(filename) as f:
             reader = csv.reader(f)
             for row in reader:
-                if(row[0] == varMark):
-                    new_feature = {'Description':row[2], 'Code':row[1], 'Responses':[]}
+                if (row[0] == varMark):
+                    new_feature = {'Description': row[2], 'Code': row[1], 'Responses': []}
                     features.append(new_feature)
                 else:
-                    new_response = {'Group':row[0], 'Code':row[1], 'Description':row[2]}
+                    new_response = {'Group': row[0], 'Code': row[1], 'Description': row[2]}
                     new_feature['Responses'].append(new_response)
         return features
     except:
         return []
 
 
-
 '''
 Returns all of the group codes that are present in all features.
 '''
+
+
 def getCommonGroups(features):
     groupCodes = []
     print str(groupCodes)
@@ -114,39 +116,49 @@ def getCommonGroups(features):
                         break
                 if isFound == False:
                     groupCodes.remove(g)
-    
+
     print str(groupCodes)
-                
 
 
 '''
 Reads a .csv file and returns a list of dictionaries where the header of the file 
 has all of the dictionary keys
 '''
+
+
 def readCSVDict(filename):
     rows = csv.DictReader(open(filename))
-    return rows   
+    return rows
+
 
 '''
 Writes a list of dictionaries into a .csv file
 '''
+
+
 def writeCSVDict(filename, dataset):
     with open(filename, 'wb') as f:
         w = csv.DictWriter(f, dataset[0].keys())
         w.writeheader()
         w.writerows(dataset)
 
+
 '''
 Writes a set of rows into a .csv file given the filename
 '''
+
+
 def writeOnCSV(rows, filename):
-	with open(filename, 'wb') as f:
-	    writer = csv.writer(f)
-	    writer.writerows(rows)
+    with open(filename, 'wb') as f:
+        writer = csv.writer(f)
+        writer.writerows(rows)
+
 
 '''
 Returns a new dataset by filtering from the old one based on a feature and its selected values
 '''
+
+
 def filterDataset(dataset, feature, responses):
     new_data = []
     for record in dataset['Data']:
@@ -154,16 +166,19 @@ def filterDataset(dataset, feature, responses):
             if record[feature['Code']] == response['Code']:
                 new_data.append(copy.deepcopy(record))
                 break
-    
+
     return new_data
+
 
 '''
 Clears all of the filters of the dataset and resets the data back to that of
 the uploaded population file. 
 '''
+
+
 def resetDataset():
     global populationDir
-    new_dataset = {'Data':[], 'Filter Features':[]}
+    new_dataset = {'Data': [], 'Filter Features': []}
     try:
         populationDataset = readCSVDict(populationDir)
         for record in populationDataset:
@@ -183,12 +198,14 @@ its group is automatically assigned to -1.
 
 If a feature in the dataset does not exist in the variable description, assign that value to -1.
 '''
+
+
 def convertDatasetValuesToGroups(dataset, features):
     # response['Code'] == record[self.datasetA['Feature']['Code']] for response in self.datasetA['Selected Responses']
     for record in dataset['Data']:
         for feature in features:
             converted = False
-            if feature['Code'] in record.keys(): #If the feature code exists in the record
+            if feature['Code'] in record.keys():  # If the feature code exists in the record
                 for response in feature['Responses']:
                     if record[feature['Code']] == response['Code']:
                         record[feature['Code']] = response['Group']
@@ -199,17 +216,23 @@ def convertDatasetValuesToGroups(dataset, features):
                 record[feature['Code']] = '-1.0'
     return dataset
 
+
 '''
 Remove the files given their filenames.
 '''
+
+
 def removeFiles(fileNames):
     for fileName in fileNames:
         os.remove(fileName)
+
 
 '''
 Returns filename of the dataset based on the features it was filtered by and selected values for 
 each feature
 '''
+
+
 def makeFileName(dataset):
     fileName = ''
     for filterFeature in dataset['Filter Features']:
@@ -219,15 +242,18 @@ def makeFileName(dataset):
             if i == 0:
                 fileName = fileName + "("
             fileName = fileName + filterFeature['Selected Responses'][i]['Code'] + " "
-            if i == (len(filterFeature['Selected Responses'])-1):
+            if i == (len(filterFeature['Selected Responses']) - 1):
                 fileName = fileName + ")"
     fileName = fileName + ".csv"
     return fileName
+
 
 '''
 Writes converted features (where the values are converted to their groups)
 into a csv file
 '''
+
+
 def makeUpdatedVariables(features, fileName):
     with open(fileName, "wb") as csv_file:
         writer = csv.writer(csv_file, delimiter = ',')
@@ -236,17 +262,18 @@ def makeUpdatedVariables(features, fileName):
             featureRow.append('^')
             featureRow.append(feature['Code'])
             featureRow.append(feature['Description'])
-            #Write that featureRow
+            # Write that featureRow
             writer.writerow(featureRow)
-            groups = [] 
-            for response in feature['Responses']: 
+            groups = []
+            for response in feature['Responses']:
                 responseRow = []
                 if response['Group'] not in groups:
                     groups.append(response['Group'])
                     responseRow.append(response['Group'])
                     responseRow.append('Group ' + response['Group'])
-                    #Write that responseRow
+                    # Write that responseRow
                     writer.writerow(responseRow)
+
 
 '''
 Concantenates values of a list into a string using a delimiter
@@ -255,19 +282,24 @@ if delimiter is ':'
 [1,2,3] -> '1:2:3'
 ['a',2,'x'] -> 'a:2:x'
 '''
+
+
 def concatListToString(lst, delimiter):
     listString = ""
     for i in range(0, len(lst)):
-        if(i == (len(lst)-1)):
+        if (i == (len(lst) - 1)):
             listString = listString + str(lst[i])
         else:
             listString = listString + str(lst[i]) + delimiter
-    
+
     return listString
+
 
 '''
 Concatenates all of the focus feature values together into a string
 '''
+
+
 def getFocusFeatureValues(selectedFocusFeature, selectedFocusFeatureValues):
     allValues = ""
     selectedValues = ""
@@ -280,7 +312,8 @@ def getFocusFeatureValues(selectedFocusFeature, selectedFocusFeatureValues):
     selectedValues = concatListToString(selectedFocusFeatureValues, ':')
 
     return allValues, selectedValues
-  
+
+
 '''
 Finds the feature and displays its responses.
 
@@ -288,59 +321,61 @@ If the feature being searched is the one that will be focused on for Z-Test betw
 two samples, it will also display all of the proportions, frequencies and total for each value of that 
 feature
 '''
+
+
 # def findFeature(entryFeat, listFeat, dataset, *args):
 def findFeature(entryFeat, listFeat, dataset, populationDatasetOriginal, isPrintingError = False, *args):
-        # Here is how to get the value from entryFeatA
-        featCode = entryFeat
-        print "Entered feature code: " + featCode
+    # Here is how to get the value from entryFeatA
+    featCode = entryFeat
+    print "Entered feature code: " + featCode
+    arrTempItems = []
+    found = False
+    hasFocusFeature = False
+    # Get proper list of features from initial variable description
+    for feature in features:
+        if feature['Code'] == featCode:
+            found = True
+            for arg in args:
+                if arg == "Dataset_Feature":
+                    dataset['Feature'] = copy.deepcopy(feature)
+                    populationDatasetOriginal['Feature'] = copy.deepcopy(feature)
+
+                if arg == "Focus_Feature":
+                    dataset['Focus Feature'] = copy.deepcopy(feature)
+                    populationDatasetOriginal['Focus Feature'] = copy.deepcopy(feature)
+                    hasFocusFeature = True
+            for response in feature['Responses']:
+                tempResp = response['Code'] + " - " + response['Description']
+                arrTempItems.append(tempResp)
+            break
+    if not found and isPrintingError:
+        tkMessageBox.showerror("Error: Feature not found", "Feature not found in Variable Descriptor. Try again.")
+
+    # Getting the proportions and frequencies of each value (including invalid values) in the focus feature
+    if hasFocusFeature == True:
         arrTempItems = []
-        found = False
-        hasFocusFeature = False
-        #Get proper list of features from initial variable description
-        for feature in features:
-            if feature['Code'] == featCode:
-                found = True
-                for arg in args:
-                    if arg == "Dataset_Feature":
-                        dataset['Feature'] = copy.deepcopy(feature)
-                        populationDatasetOriginal['Feature'] = copy.deepcopy(feature)
+        dataset['ColumnData'] = []
+        populationDatasetOriginal['ColumnData'] = []
+        for record in dataset['Data']:
+            dataset['ColumnData'].append(record[featCode])
+            populationDatasetOriginal['ColumnData'].append(record[featCode])
+        c = Counter(dataset['ColumnData'])  # Counts the number of occurrences of each value of the focus feature
 
-                    if arg == "Focus_Feature":
-                        dataset['Focus Feature'] = copy.deepcopy(feature)
-                        populationDatasetOriginal['Focus Feature'] = copy.deepcopy(feature)
-                        hasFocusFeature = True
-                for response in feature['Responses']:
-                    tempResp = response['Code'] + " - " + response['Description']
-                    arrTempItems.append(tempResp)
-                break
-        if not found and isPrintingError:
-            tkMessageBox.showerror("Error: Feature not found", "Feature not found in Variable Descriptor. Try again.")
+        countN = len(dataset['ColumnData'])  # N is the size of the dataset
+        countn = 0  # n is the total number of values where their group is not -1
 
-        #Getting the proportions and frequencies of each value (including invalid values) in the focus feature
-        if hasFocusFeature == True:
-            arrTempItems = []
-            dataset['ColumnData'] = []
-            populationDatasetOriginal['ColumnData'] = []
-            for record in dataset['Data']:
-                dataset['ColumnData'].append(record[featCode])
-                populationDatasetOriginal['ColumnData'].append(record[featCode])
-            c = Counter(dataset['ColumnData']) # Counts the number of occurrences of each value of the focus feature
-            
-            countN = len(dataset['ColumnData'])# N is the size of the dataset
-            countn = 0 # n is the total number of values where their group is not -1
+        notInGroupNega1 = []  # List that keeps track of the values whose group is not -1
+        presentInData = []  # List of values that occurred at least once in the data
 
-            notInGroupNega1 = [] # List that keeps track of the values whose group is not -1
-            presentInData = [] # List of values that occurred at least once in the data
-
-            for response in dataset['Focus Feature']['Responses']:
-                for val in c:
-                    if val == response['Code']:
-                        presentInData.append(val)
-                        if response['Group'] != '-1':
-                            notInGroupNega1.append(val)
-                            countn = countn + int(c[val])
-                        break
-            '''
+        for response in dataset['Focus Feature']['Responses']:
+            for val in c:
+                if val == response['Code']:
+                    presentInData.append(val)
+                    if response['Group'] != '-1':
+                        notInGroupNega1.append(val)
+                        countn = countn + int(c[val])
+                    break
+        '''
             reminderN = "N = Total no. of records"
             remindern = "n = Total no. of records where Group is not -1\n"
             header = "Freq | p/N | p/n | Group | Code | Description"
@@ -349,78 +384,84 @@ def findFeature(entryFeat, listFeat, dataset, populationDatasetOriginal, isPrint
             arrTempItems.append(remindern)
             arrTempItems.append(header)
             '''
-            for response in dataset['Focus Feature']['Responses']:
-                countP = 0
-                print 'Value: ' + response['Code']
-                print 'Frequency: ' + str(countP)
-                print 'n:' + str(countn)
-                print 'N:' + str(countN)
+        for response in dataset['Focus Feature']['Responses']:
+            countP = 0
+            print 'Value: ' + response['Code']
+            print 'Frequency: ' + str(countP)
+            print 'n:' + str(countn)
+            print 'N:' + str(countN)
 
-                if response['Code'] in presentInData: #If the value has occurred in the data
-                    countP = int(c[response['Code']])
-                
-                proportionOverN = round(countP/float(countN) * 100.0 ,2)
-                proportionOvern = round(countP/float(countn) * 100.0, 2)
+            if response['Code'] in presentInData:  # If the value has occurred in the data
+                countP = int(c[response['Code']])
 
-                if response['Code'] not in notInGroupNega1: #If the value is an invalid value or its group/class is -1
-                    proportionOvern = proportionOvern * 0
+            proportionOverN = round(countP / float(countN) * 100.0, 2)
+            proportionOvern = round(countP / float(countn) * 100.0, 2)
 
-                tempResp = str(format(countP, '04')) + " | " + str(format(proportionOverN, '05')) + "%(N) | " + str(format(proportionOvern, '05')) + "%(n) | "
-                isValidResponse = False
-                for val in c:
-                    if val == response['Code']:
-                        isValidResponse = True
-                        tempResp = tempResp + response['Group'] + " | " +  response['Code'] + " | " + response['Description']  
-                        break
-                if not isValidResponse:
-                    if response['Code'] not in presentInData:
-                        tempResp = tempResp + response['Group'] + " | " +  response['Code'] + " | " + response['Description']
-                    else:
-                        tempResp = tempResp +  "-1" + " | " + response['Code'] + " | " + "INVALID VALUE" 
-                arrTempItems.append(tempResp)
-                         
-        listFeat.delete(0, END)
-        for A in arrTempItems:
-            listFeat.insert(END, A)
-        
+            if response['Code'] not in notInGroupNega1:  # If the value is an invalid value or its group/class is -1
+                proportionOvern = proportionOvern * 0
+
+            tempResp = str(format(countP, '04')) + " | " + str(format(proportionOverN, '05')) + "%(N) | " + str(
+                format(proportionOvern, '05')) + "%(n) | "
+            isValidResponse = False
+            for val in c:
+                if val == response['Code']:
+                    isValidResponse = True
+                    tempResp = tempResp + response['Group'] + " | " + response['Code'] + " | " + response['Description']
+                    break
+            if not isValidResponse:
+                if response['Code'] not in presentInData:
+                    tempResp = tempResp + response['Group'] + " | " + response['Code'] + " | " + response['Description']
+                else:
+                    tempResp = tempResp + "-1" + " | " + response['Code'] + " | " + "INVALID VALUE"
+            arrTempItems.append(tempResp)
+
+    listFeat.delete(0, END)
+    for A in arrTempItems:
+        listFeat.insert(END, A)
+
+
 '''
 Splits an array retrieved from a listbox based on a delimiter, and appends to a new array
 which element of the split array given an index. The new array will be returned.
 '''
+
+
 def parseListBoxValues(raw_arr, delimiter, index):
     proc_arr = []
     for x in raw_arr:
         temp = x.split(delimiter)
-        proc_arr.append(temp[index])   
+        proc_arr.append(temp[index])
     return proc_arr
+
 
 '''
 Selects the values of the focus feature
 and calculates the proportion of those values
 and the total
 '''
+
+
 def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
     datasets = []
     allValues = []
 
-
-    listBox.selection_clear(0, END) # Deselect all
-    for i in selectedItems: # Select items specified in selectedItems
+    listBox.selection_clear(0, END)  # Deselect all
+    for i in selectedItems:  # Select items specified in selectedItems
         # print ("i is " + str(i))
         listBox.selection_set(i)
 
     tempAV = listBox.get(0, END)
     tempSV = [listBox.get(i) for i in listBox.curselection()]
-    
+
     allValuesRaw = parseListBoxValues(tempAV, " | ", 4)
     selectedValues = parseListBoxValues(tempSV, " | ", 4)
-    
+
     for val in allValuesRaw:
         for response in dataset['Focus Feature']['Responses']:
             if response['Code'] == val and response['Group'] != '-1':
                 allValues.append(val)
                 break
-    
+
     # print str(allValues)
 
     if allValues != []:
@@ -428,20 +469,26 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
         dataset['Focus Feature']['Selected Values'] = selectedValues
 
         datasets.append(dataset)
-        svs.getTotalsAndProportions(datasets,allValues, selectedValues)
-        label.configure(text = "Frequency: " + str(datasets[0]['Proportion']) + " , Proportion: " + str(round(datasets[0]['ProportionPercent']*100,2)) + "%" + ", Total: " + str(datasets[0]['Total']))
+        svs.getTotalsAndProportions(datasets, allValues, selectedValues)
+        label.configure(text = "Frequency: " + str(datasets[0]['Proportion']) + " , Proportion: " + str(
+            round(datasets[0]['ProportionPercent'] * 100, 2)) + "%" + ", Total: " + str(datasets[0]['Total']))
 
-        if(isWarn is True and set(allValues) == set(selectedValues)):
-            tkMessageBox.showwarning("Z-Test Warning", "WARNING: You selected all of the valid values of " + dataset['Focus Feature']['Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
+        if (isWarn is True and set(allValues) == set(selectedValues)):
+            tkMessageBox.showwarning("Z-Test Warning",
+                                     "WARNING: You selected all of the valid values of " + dataset['Focus Feature'][
+                                         'Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
+
 
 '''
 Verifies if the focus features and their selected values for datasets 1 and 2 are the same.
 '''
+
+
 def isSameFocusFeat(dataset1, dataset2, selectedValD1, selectedValD2):
     print selectedValD1
-    print selectedValD2 
-    if(dataset1['Focus Feature'] == dataset2['Focus Feature']):
-        if(np.array_equal(selectedValD1, selectedValD2)):
+    print selectedValD2
+    if (dataset1['Focus Feature'] == dataset2['Focus Feature']):
+        if (np.array_equal(selectedValD1, selectedValD2)):
             return 1
         else:
             tkMessageBox.showerror('Error: Unequal values', 'Selected values on both datasets are not equal.')
@@ -456,19 +503,20 @@ def checkKey(dict, key):
         return True
     else:
         return False
+
+
 '''
 Set selected dataset values for that dataset. 
 '''
+
+
 # def selectDatasetValues(evt, dataset, populationDataset):
 def selectDatasetValues(evt, dataset):
     global populationDir
 
-
     listbox = evt.widget
     selectedValues = [listbox.get(i) for i in listbox.curselection()]
     datasetCount = 0
-
-
 
     if checkKey(dataset, 'Feature'):  #### TODO in DB B
 
@@ -483,14 +531,19 @@ def selectDatasetValues(evt, dataset):
 
         print str(len(dataset['Data']))
         for record in dataset['Data']:
-            if any (response['Code'] == record[dataset['Feature']['Code']] for response in dataset['Feature']['Selected Responses']):
+            if any(response['Code'] == record[dataset['Feature']['Code']] for response in
+                   dataset['Feature']['Selected Responses']):
                 datasetCount += 1
 
     # labelFeatCount.configure(text = str(datasetCount))
     return datasetCount
+
+
 '''
 Saves the dataset as a .csv file
 '''
+
+
 def saveDatasetFile(dataset):
     fileName = makeFileName(dataset)
     writeCSVDict(fileName, dataset['Data'])
@@ -509,7 +562,6 @@ class OOTO_Miner:
         # self.menubar.add_command(label = "About", command = self.showAbout)
         # self.menubar.add_command(label = "Help")
 
-
         self.dictWidgetPlace = {}
 
         ''' TAB 1 - DATA (Tabs_t2) '''
@@ -526,7 +578,6 @@ class OOTO_Miner:
 
         # Bind functionality to all UI elements
         self.configureBindings()
-
 
         global queryType
         queryType = self.comboQueryTest.get()
@@ -563,9 +614,8 @@ class OOTO_Miner:
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
-
-
     """ >>> CONFIGURE STYLE MAPS / THEMES <<< """
+
     # region
     def configureStyle(self, top):
         '''This class configures and populates the toplevel window.
@@ -605,7 +655,6 @@ class OOTO_Miner:
                                                      })],
                                              })]
                           )
-
 
         self.Tabs = ttk.Notebook(root, style = 'Tab')  # top)
         self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
@@ -654,12 +703,14 @@ class OOTO_Miner:
 
         self.style.map("Tab",
                        background = [('selected', Color_support.ACTIVE_COLOR), ('active', Color_support.L_GRAY)])
+
     # endregion
 
     """ >>> CONFIGURE MAIN TABS <<< """
     # region
 
     ''' --> Configure DATA ("DATA") TAB (1) <-- '''
+
     def configureDataTabElements(self):
 
         # Create the parent frame
@@ -678,6 +729,7 @@ class OOTO_Miner:
         self.configureStartElements()
 
     ''' --> Configure TEST ("TEST") TAB (2.1) <-- '''
+
     def configureTestTabElements(self):
         self.testTabParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
         self.testTabParentFrame.place(
@@ -692,12 +744,12 @@ class OOTO_Miner:
         self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameTypeElements.place(
             relx = UI_support.TAB_TEST_TYPE_REL_X, rely = UI_support.TAB_TEST_TYPE_REL_Y,
-            relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H # + 0.05 # TODO Type edit
+            relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
+            # + 0.05 # TODO Type edit
         )
         self.labelFrameTypeElements.configure(
             background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR  # , text = '''TYPE'''
         )
-
 
         newRelY = self.getRelY(self.labelFrameTypeElements) + self.getRelH(self.labelFrameTypeElements)
 
@@ -713,8 +765,8 @@ class OOTO_Miner:
 
         self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
 
-
-        newRelY = self.getRelY(self.labelFrameSelectElements) + self.getRelH(self.labelFrameSelectElements) # TODO Make constant (space in between)
+        newRelY = self.getRelY(self.labelFrameSelectElements) + self.getRelH(
+            self.labelFrameSelectElements)  # TODO Make constant (space in between)
 
         # FILTER Parent Frame
         self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame, bd = 0)
@@ -760,13 +812,12 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = 1
         )
         self.labelFrameConsoleElements.configure(
-            background = Color_support.WHITE, foreground = Color_support.FG_COLOR # , text = '''CONSOLE'''
+            background = Color_support.WHITE, foreground = Color_support.FG_COLOR  # , text = '''CONSOLE'''
         )
 
         self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
         self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient = VERTICAL)
         self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
-
 
         # > COMBO BOX
         global testTypes
@@ -831,6 +882,7 @@ class OOTO_Miner:
         # endregion
 
     ''' --> Configure TEST ("TEST") TAB (2.2) <-- '''
+
     def configureTestTabConsoleElements(self):
         self.testTabConsoleParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
         newRelW = 0.2
@@ -845,6 +897,7 @@ class OOTO_Miner:
         )
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
+
     def configureInfoTabElements(self):
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)
         self.infoTabParentFrame = LabelFrame(self.Tabs_t4, bd = 0)
@@ -856,7 +909,6 @@ class OOTO_Miner:
         self.infoTabLeftSeparator = ttk.Separator(self.infoTabParentFrame, orient = VERTICAL)
         self.infoTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
-
         self.configureAboutElements()
 
         '''
@@ -865,10 +917,7 @@ class OOTO_Miner:
         # self.buttonQueryPopulation.bind('<Button-1>', self.querySetPopulation)
         # self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
 
-
     # endregion
-
-
 
     """ >>> FUNCTIONS FOR THE CONFIGURATION OF UI ELEMENTS <<< """
     # region
@@ -877,6 +926,7 @@ class OOTO_Miner:
     # region
 
     ''' -> Elements under the DATASET ("Dataset") HEADER <- '''
+
     def configureDatasetElements(self):
 
         # Create the Dataset parent frame
@@ -991,6 +1041,7 @@ class OOTO_Miner:
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
     ''' -> Elements under the VARIABLE DESCRIPTION ("Variable Description Generator") HEADER <- '''
+
     def configureVariableDescriptionElements(self):
         prevFrameRelY = float(self.labelFrameDataset.place_info()['rely'])
         prevFrameRelH = float(self.labelFrameDataset.place_info()['relheight'])
@@ -1117,6 +1168,7 @@ class OOTO_Miner:
             disabledforeground = Color_support.FG_DISABLED_COLOR)
 
     ''' -> Elements under the START (" ") HEADER <- '''
+
     def configureStartElements(self):
         # START
         # Always update to reflect height and width values in winfo when using relheight/relwidth
@@ -1157,11 +1209,13 @@ class OOTO_Miner:
             activebackground = Color_support.START_BTN_BG_ACTIVE, activeforeground = Color_support.START_BTN_FG_ACTIVE,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
         '''
+
     # endregion
 
     ''' --> Elements under TEST ("TEST") TAB (2) <-- '''
     # region
     ''' -> Elements under the SELECT ("GROUP") HEADER <- '''
+
     def configureSelectElements(self, parentFrame):
 
         global queryStrFilterB
@@ -1224,11 +1278,9 @@ class OOTO_Miner:
             coordinate = 0.99, specifiedAnchor = NW
         )
 
-
-        newRelY = self.getRelY(self.labelFrameSelectTitle) + self.getRelH(self.labelFrameSelectTitle) # + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
+        newRelY = self.getRelY(self.labelFrameSelectTitle) + self.getRelH(
+            self.labelFrameSelectTitle)  # + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
         titleRelH = self.getRelH(self.labelFrameSelectTitle)
-
-
 
         self.labelFrameDatasetA = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetA.place(
@@ -1241,7 +1293,8 @@ class OOTO_Miner:
         newRelH = self.getRelH(self.labelFrameDatasetA)
         self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
-            relx = UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15, # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
+            relx = UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15,
+            # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
             rely = newRelY, relwidth = 0.4, relheight = newRelH
         )
         self.labelFrameDatasetB.configure(
@@ -1252,7 +1305,6 @@ class OOTO_Miner:
         self.labelFrameDatasetCenterSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
         self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = newRelY + 0.05, relheight = 1 - titleRelH - 0.1)
 
-
         # QUERY PARENT (DATASET A)
         self.labelFrameQueryDataA = LabelFrame(self.labelFrameDatasetA, bd = 0)
         self.labelFrameQueryDataA.place(
@@ -1260,9 +1312,8 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
         self.labelFrameQueryDataA.configure(
             background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
-            relief = GROOVE # , text = '''Dataset A'''
+            relief = GROOVE  # , text = '''Dataset A'''
         )
-
 
         # QUERY STATUS CHILD - DATASET A
         # region
@@ -1278,13 +1329,15 @@ class OOTO_Miner:
             font = UI_support.SELECT_STATUS_LABEL_FONT,
         )
         if UI_support.SELECT_STATUS_LABEL_TOP_SEPARATOR:
-            self.labelFrameNoDataAHorizontalSeparator = ttk.Separator(self.labelQuerySetDataStatusA, orient = HORIZONTAL)
+            self.labelFrameNoDataAHorizontalSeparator = ttk.Separator(self.labelQuerySetDataStatusA,
+                                                                      orient = HORIZONTAL)
             self.labelFrameNoDataAHorizontalSeparator.place(relx = 0, rely = 0, relwidth = 1, anchor = NW)
         # endregion
 
         # LISTBOX PARENT (DATASET A)
         # region
-        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + self.getRelY(self.labelFrameQueryDataA) + self.getRelH(self.labelFrameQueryDataA)
+        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + self.getRelY(self.labelFrameQueryDataA) + self.getRelH(
+            self.labelFrameQueryDataA)
 
         self.labelFrameListBoxA = LabelFrame(self.labelFrameDatasetA, bd = 0)
         self.labelFrameListBoxA.place(
@@ -1299,16 +1352,14 @@ class OOTO_Miner:
         self.labelFrameQuerySetDataStatusA = LabelFrame(self.labelFrameListBoxA, bd = 0)
         # self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         specifiedListBoxHeight = (0.78 - 0.03)
-        newRelH = 1 - specifiedListBoxHeight # TODO Make constant (0.78 - 0.03) is the listbox's supposed height
+        newRelH = 1 - specifiedListBoxHeight  # TODO Make constant (0.78 - 0.03) is the listbox's supposed height
         self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = 0, relwidth = 1, relheight = newRelH)
-
-
-
 
         # QUERY TOP STRIPE PARENT - DATASET A
         # region
         # newRelH = self.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
-        newRelH = self.getRelH(self.labelFrameQuerySetDataStatusA) * UI_support.SELECT_LABEL_STRIPES_REL_H_MULTIPLIER # 5 / 8 # TODO Make constant reference
+        newRelH = self.getRelH(
+            self.labelFrameQuerySetDataStatusA) * UI_support.SELECT_LABEL_STRIPES_REL_H_MULTIPLIER  # 5 / 8 # TODO Make constant reference
         self.labelQuerySetDataStripesA = Label(self.labelFrameListBoxA, bd = 0, relief = GROOVE)
         self.labelQuerySetDataStripesA.place(
             relx = 0,
@@ -1334,8 +1385,6 @@ class OOTO_Miner:
         )
         self.labelQuerySetDataStripesA.image = texture_pink_stripes  # < ! > Required to make images appear
         # endregion
-
-
 
         # QUERY FRAME - DATASET A
         # region
@@ -1409,7 +1458,6 @@ class OOTO_Miner:
 
         # endregion
 
-
         # endregion
 
         # LISTBOX - DATASET A
@@ -1422,7 +1470,8 @@ class OOTO_Miner:
             background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG, selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -1447,8 +1496,7 @@ class OOTO_Miner:
         self.labelFrameCommandsA.place(
             relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W,
-            relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H * 0.85) # TODO Reduced size
-
+            relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H * 0.85)  # TODO Reduced size
 
         self.labelFrameCommandsA.configure(
             background = Color_support.WHITE
@@ -1458,16 +1506,17 @@ class OOTO_Miner:
         # region
         self.buttonQueryResetFilterA = Button(self.labelFrameCommandsA)
         self.buttonQueryResetFilterA.place(
-            relx = 0 , rely = 0,
+            relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
         self.buttonQueryResetFilterA.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
-            # text = '''Reset''')
+        # text = '''Reset''')
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryResetFilterA.configure(image = btn_query_reset_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterA.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
         # endregion
 
@@ -1489,7 +1538,8 @@ class OOTO_Miner:
         self.datasetCountB = 0
 
         self.labelQueryDataACount = Label(self.labelFrameQueryCount)
-        self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
+        self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1,
+                                        relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.labelQueryDataACount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.SELECT_BG,
@@ -1514,7 +1564,7 @@ class OOTO_Miner:
         self.separatorlabelFrameCommandsARight.place(
             relx = self.getRelX(self.labelFrameQueryDataA),
             rely = newRelY,
-            relheight = 1 - newRelY - 0.025, # TODO To adjust border height, just adjust this
+            relheight = 1 - newRelY - 0.025,  # TODO To adjust border height, just adjust this
             width = 1)
         self.separatorlabelFrameCommandsARight.configure(background = Color_support.DISABLED_D_BLUE)
 
@@ -1527,18 +1577,16 @@ class OOTO_Miner:
         )
         self.separatorlabelFrameCommandsALeft.configure(background = Color_support.DISABLED_D_BLUE)
 
-
-
         self.separatorlabelFrameCommandsABottom = Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsABottom.place(
             relx = self.getRelX(self.separatorlabelFrameCommandsARight),
             # rely = 0.997,
             rely = self.getRelY(self.separatorlabelFrameCommandsALeft) +
                    self.getRelH(self.separatorlabelFrameCommandsALeft) - 0.003,
-            relwidth = self.getRelX(self.separatorlabelFrameCommandsALeft) - self.getRelX(self.separatorlabelFrameCommandsARight),
+            relwidth = self.getRelX(self.separatorlabelFrameCommandsALeft) - self.getRelX(
+                self.separatorlabelFrameCommandsARight),
             height = 1)
         self.separatorlabelFrameCommandsABottom.configure(background = Color_support.DISABLED_D_BLUE)
-
 
         newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
 
@@ -1551,7 +1599,6 @@ class OOTO_Miner:
         self.separatorlabelFrameCommandsATop.configure(background = Color_support.DISABLED_D_BLUE)
 
         # endregion
-
 
         # endregion
 
@@ -1617,7 +1664,6 @@ class OOTO_Miner:
         )
         # endregion
 
-
         # endregion
 
         self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
@@ -1631,7 +1677,6 @@ class OOTO_Miner:
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
-
 
         self.listQuerySetDataB.place(
             relx = self.getRelX(self.listQuerySetDataA),
@@ -1677,7 +1722,6 @@ class OOTO_Miner:
             bd = 0, relief = FLAT,
         )
 
-
         # ENTER CODE DATASET B
 
         self.entryQuerySetDataB = Entry(self.labelFrameQuerySetDataStatusB)
@@ -1693,8 +1737,7 @@ class OOTO_Miner:
             selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
             insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
-        ) # TODO Constant font definiton
-
+        )  # TODO Constant font definiton
 
         # DATASET B
         self.buttonQuerySetDataB = Button(self.labelFrameQuerySetDataStatusB)
@@ -1704,11 +1747,12 @@ class OOTO_Miner:
             relwidth = self.getRelW(self.buttonQuerySetDataA),
             relheight = self.getRelH(self.buttonQuerySetDataA))
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
+                                                                     PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQuerySetDataB.configure(image = btn_query_set_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQuerySetDataB.configure(
+            image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQuerySetDataB.image = btn_query_set_icon  # < ! > Required to make images appear
-
 
         self.buttonQuerySetDataB.configure(
             background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
@@ -1718,7 +1762,6 @@ class OOTO_Miner:
             # text = '''Find Feature'''
         )
         # endregion
-
 
         # COMMANDS PARENT (DATASET B)
         # region
@@ -1779,8 +1822,6 @@ class OOTO_Miner:
         )
         self.separatorlabelFrameCommandsBLeft.configure(background = Color_support.DISABLED_D_BLUE)
 
-
-
         self.separatorlabelFrameCommandsBBottom = Label(self.labelFrameDatasetB)
         self.separatorlabelFrameCommandsBBottom.place(
             relx = self.getRelX(self.separatorlabelFrameCommandsABottom),
@@ -1788,7 +1829,6 @@ class OOTO_Miner:
             relwidth = self.getRelW(self.separatorlabelFrameCommandsABottom),
             height = 1)
         self.separatorlabelFrameCommandsBBottom.configure(background = Color_support.DISABLED_D_BLUE)
-
 
         newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
 
@@ -1802,7 +1842,6 @@ class OOTO_Miner:
 
         # endregion
 
-
         # QUERY COUNT (DATASET B)
         # region
         self.labelFrameQueryCountB = LabelFrame(self.labelFrameCommandsB, bd = 1)
@@ -1815,7 +1854,8 @@ class OOTO_Miner:
         )
 
         self.labelQueryDataBCount = Label(self.labelFrameQueryCountB)
-        self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
+        self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1,
+                                        relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.labelQueryDataBCount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.SELECT_BG,
@@ -1852,13 +1892,14 @@ class OOTO_Miner:
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryAddFilterA.configure(image = btn_query_filter_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterA.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
 
         self.buttonQueryAddFilterA.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
-            # text = '''Filter''')
+        # text = '''Filter''')
         self.buttonQueryAddFilterA.pack(side = RIGHT)
         self.buttonQueryResetFilterA.pack(side = LEFT)
 
@@ -1875,30 +1916,31 @@ class OOTO_Miner:
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryAddFilterB.configure(image = btn_query_filter_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterB.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
 
         self.buttonQueryAddFilterB.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
-            # text = '''Filter''')
+        # text = '''Filter''')
         self.buttonQueryAddFilterB.pack(side = RIGHT)
-
 
         self.buttonQueryResetFilterB.pack(side = LEFT)
         # endregion
 
     ''' -> Elements under the FILTER ("FILTER") HEADER <- '''
+
     def configureFilterElements(self, parentFrame):
         global queryStrFilterA
 
         # FILTER TITLE
         self.labelFrameFilterTitle = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameFilterTitle.place(relx = 0, rely = 0.08, relwidth = 1, relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
+        self.labelFrameFilterTitle.place(relx = 0, rely = 0.08, relwidth = 1,
+                                         relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
         self.labelFrameFilterTitle.configure(
             background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
-
 
         # COLORED SEPARATOR
         self.separatorlabelFrameFilterTitleNumber = self.createLabelSeparator(
@@ -1906,7 +1948,6 @@ class OOTO_Miner:
             False, Color_support.FILTER_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
             0.5, W
         )
-
 
         # FILTER NUMBER
         self.labelFrameFilterTitleNumber = Label(self.labelFrameFilterTitle)
@@ -1955,7 +1996,8 @@ class OOTO_Miner:
             coordinate = 0.99, specifiedAnchor = NW
         )
 
-        newRelY = self.getRelY(self.labelFrameFilterTitle) + self.getRelH(self.labelFrameFilterTitle) + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
+        newRelY = self.getRelY(self.labelFrameFilterTitle) + self.getRelH(
+            self.labelFrameFilterTitle) + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
 
         # TOP LABEL FEATURE NAME
         # self.labelQueryDataFeatureName = Label(self.labelFrameFilterListData)
@@ -1970,12 +2012,12 @@ class OOTO_Miner:
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_REL_W, relheight = UI_support.TAB_TEST_FILTER_QUERY_REL_H
         )
         self.labelQueryDataFeatureName.configure(
-            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG, foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
+            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG,
+            foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
             bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
-
 
         newRelY = self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)
 
@@ -1984,14 +2026,12 @@ class OOTO_Miner:
 
         self.labelFrameFilterListData.place(
             relx = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_W, relheight = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_H
+            relwidth = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_W,
+            relheight = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_H
         )
         self.labelFrameFilterListData.configure(
             background = Color_support.FILTER_BG
         )
-
-
-
 
         # FILTER QUERY PARENT
         # self.labelFrameFilterQueryData = LabelFrame(parentFrame, bd = 0)
@@ -2031,7 +2071,6 @@ class OOTO_Miner:
         )
         # endregion
 
-
         newRelX = self.getRelX(self.labelFrameBorderQueryFeature) + self.getRelW(self.labelFrameBorderQueryFeature)
 
         # FILTER QUERY ENTRY
@@ -2057,14 +2096,14 @@ class OOTO_Miner:
         self.buttonQueryFeature.place(
             relx = newRelX, rely = 0,
             relwidth = 0.041, relheight = 1)
-            # relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
+        # relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
+                                                                     PIL.Image.ANTIALIAS)
         btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryFeature.configure(image = btn_query_feature_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryFeature.configure(
+            image = btn_query_feature_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryFeature.image = btn_query_feature_icon  # < ! > Required to make images appear
-
 
         self.buttonQueryFeature.configure(
             background = Color_support.FILTER_BUTTONS_BG, foreground = Color_support.FILTER_BUTTONS_FG,
@@ -2077,22 +2116,18 @@ class OOTO_Miner:
         # newRelY = self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)
         ### INSERT CODE HERE
 
-
-
         # newRelY = self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)
         # newRelH = 1 - (self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)) - 0.2
         newRelY = self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)
-        newRelH = 1 - (self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)) - 0.2
-
-
-
-
+        newRelH = 1 - (
+                    self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)) - 0.2
 
         # FILTER LIST DATA A PARENT
         self.labelFrameFilterListDataA = LabelFrame(self.labelFrameFilterListData, bd = 0)
         self.labelFrameFilterListDataA.place(
             relx = UI_support.TAB_TEST_FILTER_LISTBOX_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_REL_W, relheight = newRelH # UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
+            relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_REL_W, relheight = newRelH
+            # UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
         )
         self.labelFrameFilterListDataA.configure(
             background = Color_support.FILTER_BG
@@ -2107,18 +2142,19 @@ class OOTO_Miner:
             rely = newRelY,
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W,
             relheight = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_H -
-                        (UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
+                        (
+                                    UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
 
         self.listQueryDataA.configure(
             background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG, selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.FILTER_LABEL_FONT,
             bd = UI_support.FILTER_LISTBOX_BORDER, relief = UI_support.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
         )
-
 
         newRelY = self.getRelY(self.listQueryDataA) + self.getRelH(self.listQueryDataA)
         newRelH = 1 - (self.getRelY(self.listQueryDataA) + self.getRelH(self.listQueryDataA))
@@ -2136,9 +2172,6 @@ class OOTO_Miner:
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
 
-
-
-
         newRelX = self.getRelX(self.labelFrameFilterListDataA) + self.getRelW(self.labelFrameFilterListDataA)
         newRelY = self.getRelY(self.labelFrameFilterListDataA)
         # FILTER LIST DATA B PARENT
@@ -2147,14 +2180,14 @@ class OOTO_Miner:
         newRelH = self.getRelH(self.labelFrameFilterListDataA)
         self.labelFrameFilterListDataB.place(
             relx = newRelX, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_REL_W, relheight = newRelH # UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
+            relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_REL_W, relheight = newRelH
+            # UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
         )
         self.labelFrameFilterListDataB.configure(
             background = Color_support.FILTER_BG
         )
 
         # FILTER LIST BOX - DATASET B
-
 
         self.listQueryDataB = Listbox(self.labelFrameFilterListDataB, bd = 0)
         self.listQueryDataB.place(
@@ -2166,7 +2199,8 @@ class OOTO_Miner:
             background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG, selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.FILTER_LABEL_FONT,
             bd = UI_support.FILTER_LISTBOX_BORDER, relief = UI_support.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -2208,14 +2242,10 @@ class OOTO_Miner:
         )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.labelFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
 
-
-
-
         # FILTER BORDERS
         self.separatorFilterListDataA = Label(self.labelFrameFilterListDataA)
         self.separatorFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
         self.separatorFilterListDataA.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
-
 
         self.separatorFilterListDataCenter = Label(self.labelFrameFilterListDataB)
         self.separatorFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
@@ -2224,13 +2254,6 @@ class OOTO_Miner:
         self.separatorFilterListDataB = Label(self.labelFrameFilterListDataB)
         self.separatorFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
         self.separatorFilterListDataB.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
-
-
-
-
-
-
-
 
         # FILTER LOCK OVERLAY
         # region
@@ -2334,7 +2357,8 @@ class OOTO_Miner:
             relheight = 1,
             anchor = NW
         )
-        im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE) # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(
+            Icon_support.TEXTURE_STRIPE_ORANGE)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelOverlayFilterStripes.configure(
             image = texture_orange_stripes,
@@ -2343,11 +2367,9 @@ class OOTO_Miner:
         )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.labelOverlayFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
 
-
         # self.separatorOverlayFilterQueryData = ttk.Separator(self.labelOverlayFilterQueryData, orient = VERTICAL)
         # self.separatorOverlayFilterQueryData.place(relx = 0, rely = 0, relheight = 1)
         # endregion
-
 
         # FILTER LOCK LISTBOX COVER
 
@@ -2380,7 +2402,8 @@ class OOTO_Miner:
         newRelYReduction = 0.01
         self.labelOverlayQueryDataA.place(
             relx = self.getRelX(self.labelQueryDataA),
-            rely = self.getRelY(self.labelQueryDataA) + (UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2), # TODO Make constant
+            rely = self.getRelY(self.labelQueryDataA) + (UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2),
+            # TODO Make constant
             relwidth = self.getRelW(self.labelQueryDataA),
             relheight = self.getRelH(self.labelQueryDataA) - newRelYReduction)
 
@@ -2394,8 +2417,8 @@ class OOTO_Miner:
 
         self.separatorOverlayFilterListDataA = Label(self.labelOverlayFilterListDataA)
         self.separatorOverlayFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
-        self.separatorOverlayFilterListDataA.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
-
+        self.separatorOverlayFilterListDataA.configure(
+            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         # endregion
 
@@ -2433,24 +2456,25 @@ class OOTO_Miner:
         # self.separatorOverlayFilterListDataB1.place(relx = 0, rely = 0, relheight = 1)
         self.separatorOverlayFilterListDataCenter = Label(self.labelOverlayFilterListDataB)
         self.separatorOverlayFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
-        self.separatorOverlayFilterListDataCenter.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+        self.separatorOverlayFilterListDataCenter.configure(
+            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         self.separatorOverlayFilterListDataB = Label(self.labelOverlayFilterListDataB)
         self.separatorOverlayFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
-        self.separatorOverlayFilterListDataB.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+        self.separatorOverlayFilterListDataB.configure(
+            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
         # endregion
 
-
         # endregion
-
-
 
     ''' -> Elements under the PROCESS ("TEST") HEADER <- '''
+
     def configureProcessElements(self, parentFrame):
 
         # PROCESS TITLE
         self.labelFrameProcessTitle = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
+        self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1,
+                                          relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
         self.labelFrameProcessTitle.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
         )
@@ -2464,12 +2488,9 @@ class OOTO_Miner:
             0.5, W
         )
 
-
-
         self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
         newRelY = self.getRelY(self.labelFrameSelectTitleNumber)
         newRelH = self.getRelH(self.labelFrameSelectTitleNumber)
-
 
         self.labelFrameProcessTitleNumber.place(
             relx = self.getRelX(self.labelFrameSelectTitleNumber),
@@ -2477,7 +2498,6 @@ class OOTO_Miner:
             relwidth = self.getRelW(self.labelFrameSelectTitleNumber),
             relheight = self.getRelH(self.labelFrameSelectTitleNumber),
             anchor = NW)
-
 
         self.labelFrameProcessTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
@@ -2497,7 +2517,6 @@ class OOTO_Miner:
             relheight = self.getRelH(self.labelFrameSelectTitleText),
             anchor = NW)
 
-
         self.labelFrameProcessTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
@@ -2514,25 +2533,22 @@ class OOTO_Miner:
             coordinate = 0.99, specifiedAnchor = NW
         )
 
-
-
         newRelY = self.getRelH(self.labelFrameProcessTitle) + UI_support.TAB_TEST_PROCESS_COMMANDS_REL_Y
-
 
         # PROCESS COMMANDS PARENT
         self.labelFrameProcessCommands = LabelFrame(parentFrame, bd = 0)
         self.labelFrameProcessCommands.place(
             relx = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_W, relheight = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_H
+            relwidth = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_W,
+            relheight = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_H
         )
         self.labelFrameProcessCommands.configure(
             background = Color_support.PROCESS_BG
         )
 
-
         # PROCESS STATISTICAL TEST OPTIONS
         # region
-        self.labelFrameProcessStatTests = Label(self.labelFrameProcessCommands)
+        self.labelFrameProcessStatTests = LabelFrame(self.labelFrameProcessCommands, bd = 0)
         self.labelFrameProcessStatTests.place(
             relx = 0, rely = 0,
             relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
@@ -2545,8 +2561,10 @@ class OOTO_Miner:
         # TITLE
         self.labelFrameProcessStatTestsTitle = Label(self.labelFrameProcessStatTests)
         self.labelFrameProcessStatTestsTitle.place(
-            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
-            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
+            rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
+            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessStatTestsTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
@@ -2555,14 +2573,14 @@ class OOTO_Miner:
             bd = 0, relief = GROOVE
         )
 
-
-        newRelY = self.getRelY(self.labelFrameProcessStatTestsTitle) + self.getRelH(self.labelFrameProcessStatTestsTitle)
+        newRelY = self.getRelY(self.labelFrameProcessStatTestsTitle) + self.getRelH(
+            self.labelFrameProcessStatTestsTitle)
         self.labelFrameProcessStatTestsButtonElements = LabelFrame(self.labelFrameProcessStatTests, bd = 0)
         self.labelFrameProcessStatTestsButtonElements.place(
             relx = self.getRelX(self.labelFrameProcessStatTestsTitle),
             rely = newRelY,
             relwidth = self.getRelW(self.labelFrameProcessStatTestsTitle),
-            relheight = 1 - self.getRelH(self.labelFrameProcessStatTestsTitle) # 0.35
+            relheight = 1 - self.getRelH(self.labelFrameProcessStatTestsTitle)  # 0.35
         )
         self.labelFrameProcessStatTestsButtonElements.configure(
             background = Color_support.PROCESS_BG
@@ -2590,8 +2608,6 @@ class OOTO_Miner:
         # self.buttonChooseZTest.pack(fill = X, expand = True)
         self.buttonChooseZTest.update()
 
-
-
         # CHOOSE CHI-SQUARE BUTTON
         self.buttonChooseChiSquare = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
 
@@ -2618,7 +2634,6 @@ class OOTO_Miner:
 
         # endregion
 
-
         # TEST OPTIONS PARENT
         # region
         # PROCESS Z-TEST PARENT
@@ -2641,16 +2656,12 @@ class OOTO_Miner:
         self.labelFrameProcessTestOptionsTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
-            text = '''OPTIONS''',
+            # text = '''OPTIONS''',
             anchor = CENTER,
             bd = 1, relief = GROOVE
         )
 
-
-
-
         # endregion
-
 
         # PROCESS Z-TEST OPTIONS
         # region
@@ -2671,8 +2682,10 @@ class OOTO_Miner:
 
         self.labelFrameProcessZTestTitle = Label(self.labelFrameProcessZTest)
         self.labelFrameProcessZTestTitle.place(
-            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
-            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
+            rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
+            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessZTestTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
@@ -2682,16 +2695,14 @@ class OOTO_Miner:
             bd = 0, relief = GROOVE
         )
 
-
         global arrQueryCriticalValue
         arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
 
         global arrQueryCriticalValueMapping
         arrQueryCriticalValueMapping = {"0.80": 1.28, "0.90": 1.645, "0.95": 1.96, "0.98": 2.33, "0.99": 2.58}
 
-        newRelY = self.getRelY(self.labelFrameProcessZTestTitle) + self.getRelH(self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
-
-
+        newRelY = self.getRelY(self.labelFrameProcessZTestTitle) + self.getRelH(
+            self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
         # SPINBOX ELEMENTS
         # self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessZTest, bd = 0)
@@ -2704,8 +2715,8 @@ class OOTO_Miner:
             background = Color_support.PROCESS_BG
         )
 
-
-        newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(self.labelFrameProcessZTestConfidence)
+        newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(
+            self.labelFrameProcessZTestConfidence)
         newRelY = self.getRelY(self.labelFrameProcessZTestConfidence)
 
         # BUTTON ELEMENTS
@@ -2731,10 +2742,8 @@ class OOTO_Miner:
             text = '''CONFIDENCE'''
         )
 
-
         newRelY = self.getRelY(self.labelQueryZConfidenceText) + self.getRelH(self.labelQueryZConfidenceText)
         newRelH = 1 - self.getRelH(self.labelQueryZConfidenceText)
-
 
         # CONFIDENCE SPINBOX
         self.spinBoxQueryZConfidence = Spinbox(self.labelFrameProcessZTestConfidence,
@@ -2745,11 +2754,10 @@ class OOTO_Miner:
             relwidth = 1, relheight = newRelH
         )
 
-
-
         # Used to validate spinbox value
         stringVar = StringVar()
-        stringVar.trace('w', lambda nm, idx, mode, var = stringVar: self.validateZConfidenceSpinbox(var, self.spinBoxQueryZConfidence))
+        stringVar.trace('w', lambda nm, idx, mode, var = stringVar: self.validateZConfidenceSpinbox(var,
+                                                                                                    self.spinBoxQueryZConfidence))
 
         # ent = Entry(root, textvariable = sv)
 
@@ -2776,7 +2784,8 @@ class OOTO_Miner:
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(image = btn_query_z_test_icon) # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryZTest.configure(
+            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
         self.buttonQueryZTest.configure(
@@ -2784,7 +2793,7 @@ class OOTO_Miner:
             activebackground = Color_support.PROCESS_TITLE_BG,
             highlightbackground = Color_support.PROCESS_TITLE_BG,
             bd = 1, relief = FLAT, overrelief = FLAT)
-            # text = '''Test''')
+        # text = '''Test''')
 
         self.buttonQueryZTest.pack(anchor = CENTER)
         self.buttonQueryZTest.update()
@@ -2797,7 +2806,6 @@ class OOTO_Miner:
         # self.labelQueryZTest.configure(text = '''NO DATA''')
 
         # endregion
-
 
         # PROCESS CHI-SQUARE OPTIONS
         # region
@@ -2819,11 +2827,14 @@ class OOTO_Miner:
         self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
         # self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
         self.labelFrameProcessChiSquareTitle.place(
-            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
-            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
+            rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
+            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessChiSquareTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG, foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
+            background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG,
+            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
 
             text = '''CHI - SQUARE''',
             anchor = CENTER,
@@ -2839,7 +2850,6 @@ class OOTO_Miner:
 
         newRelY = self.getRelY(self.labelFrameProcessZTestTitle) + self.getRelH(
             self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
-
 
         # BUTTON ELEMENTS
         self.labelFrameProcessChiSquareElements = LabelFrame(self.labelFrameProcessChiSquare, bd = 0)
@@ -2863,7 +2873,6 @@ class OOTO_Miner:
 
         newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(
             self.labelFrameProcessChiSquare)
-
 
         # > QUEUE COUNT
         self.labelQueueText = Label(self.labelFrameProcessChiSquareQueue)
@@ -2893,7 +2902,8 @@ class OOTO_Miner:
         # ENQUEUE BUTTON
         # Enqueue button parent (to handle centering after pack)
 
-        newRelX = self.getRelX(self.labelFrameProcessChiSquareQueue) + self.getRelW(self.labelFrameProcessChiSquareQueue)
+        newRelX = self.getRelX(self.labelFrameProcessChiSquareQueue) + self.getRelW(
+            self.labelFrameProcessChiSquareQueue)
 
         self.labelFrameProcessQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
         self.labelFrameProcessQueue.place(
@@ -2919,7 +2929,6 @@ class OOTO_Miner:
 
         self.buttonQueue.pack(side = LEFT)
         self.buttonQueue.update()
-
 
         # CLEAR QUEUE BUTTON
 
@@ -2966,8 +2975,10 @@ class OOTO_Miner:
         # PROCESS RUN MINER TITLE
         self.labelFrameProcessRunMinerTitle = Label(self.labelFrameProcessRun)
         self.labelFrameProcessRunMinerTitle.place(
-            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X, rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
-            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
+            rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
+            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessRunMinerTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.D_BLUE, foreground = Color_support.WHITE,
@@ -2982,7 +2993,8 @@ class OOTO_Miner:
         self.runMinerTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
 
         newRelY = self.getRelH(self.labelFrameProcessRunMinerTitle) + self.getRelY(self.labelFrameProcessRunMinerTitle)
-        newRelH = 1 - (self.getRelH(self.labelFrameProcessRunMinerTitle) + self.getRelY(self.labelFrameProcessRunMinerTitle))
+        newRelH = 1 - (self.getRelH(self.labelFrameProcessRunMinerTitle) + self.getRelY(
+            self.labelFrameProcessRunMinerTitle))
         self.labelFrameRunMiner = LabelFrame(self.labelFrameProcessRun, bd = 0)
         self.labelFrameRunMiner.place(
             relx = 0, rely = newRelY,
@@ -3012,7 +3024,6 @@ class OOTO_Miner:
             image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonTestQueue.image = btn_queue_icon  # < ! > Required to make images appear
 
-
         self.buttonTestQueue.configure(
             background = Color_support.PROCESS_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
             highlightthickness = 0, padx = 0, pady = 0,
@@ -3026,21 +3037,17 @@ class OOTO_Miner:
         # self.buttonTestQueue.update()
         self.labelFrameRunMinerElements.pack(fill = Y, expand = True)
 
-
-
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessRun, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
-
         # endregion
 
-
         # SEPARATOR  ELEMENTS
-        newRelX = self.getRelX(self.labelFrameProcessTestOptions) # + self.getRelW(self.labelFrameProcessZTest)
+        newRelX = self.getRelX(self.labelFrameProcessTestOptions)  # + self.getRelW(self.labelFrameProcessZTest)
         self.zTestRightSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.zTestRightSeparator.place(relx = 0.335, rely = 0, relheight = 1, anchor = NE)
 
-        newRelX = self.getRelX(self.labelFrameProcessRun) # + self.getRelW(self.labelFrameProcessChiSquare)
+        newRelX = self.getRelX(self.labelFrameProcessRun)  # + self.getRelW(self.labelFrameProcessChiSquare)
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
@@ -3051,6 +3058,7 @@ class OOTO_Miner:
     Use showWidget() to make the widget re-appear.
     Always set the widget's 'name' first.
     """
+
     def hideWidget(self, widget):
         widget.update()
 
@@ -3085,17 +3093,18 @@ class OOTO_Miner:
         # print("widget name:", str(widget).split(".")[-1])
         return str(widget).split(".")[-1]
 
-
     """
         Performs spinbox value validation
     """
+
     def validateZConfidenceSpinbox(self, spinBoxValue, spinBox):
         global arrQueryCriticalValue, arrQueryCriticalValueMapping
 
         newValue = spinBoxValue.get()
         try:
             floatValue = float(newValue)
-            if not arrQueryCriticalValueMapping[floatValue]: # If the new value is not defined in the value mapping, don't accept it
+            if not arrQueryCriticalValueMapping[
+                floatValue]:  # If the new value is not defined in the value mapping, don't accept it
                 self.refreshSpinBoxValue(spinBox)
         except:
             self.refreshSpinBoxValue(spinBox)
@@ -3103,18 +3112,20 @@ class OOTO_Miner:
         spinBox.update()
 
     """Reconfigures spinbox value by pressing the up then down buttons"""
+
     def refreshSpinBoxValue(self, spinBox):
         spinBox.invoke("buttonup")
         spinBox.invoke("buttondown")
 
     ''' -> Elements under the CONSOLE ("") HEADER <- '''
+
     def configureConsoleElements(self, parentFrame):
 
         # PROCESS COMMANDS PARENT
         self.labelFrameConsoleScreen = LabelFrame(parentFrame, bd = 0)
         newRelW = 0.72
         newRelH = 0.8
-        newRelY = 0.09 # 0.092
+        newRelY = 0.09  # 0.092
 
         self.labelFrameConsoleScreen.place(
             relx = (1 - newRelW) / 2,
@@ -3135,7 +3146,7 @@ class OOTO_Miner:
             relx = 0,
             rely = 0,
             relwidth = 1,
-            relheight = 0.0425 # 0.042
+            relheight = 0.0425  # 0.042
         )
 
         self.labelConsoleScreenTaskBar.configure(
@@ -3150,7 +3161,7 @@ class OOTO_Miner:
         # STRIPES
         self.labelConsoleStripes = Label(self.labelFrameConsoleScreen, bd = 0, relief = GROOVE)
         newRelY = self.getRelY(self.labelConsoleScreenTaskBar) + self.getRelH(self.labelConsoleScreenTaskBar)
-        newRelH = 0.014 # 0.008
+        newRelH = 0.014  # 0.008
         self.labelConsoleStripes.place(
             relx = 0,
             rely = newRelY,
@@ -3165,8 +3176,6 @@ class OOTO_Miner:
             anchor = SW
         )
         self.labelConsoleStripes.image = texture_pink_stripes  # < ! > Required to make images appear
-
-
 
         # CONSOLE SCREEN
         self.configureConsoleScreenElements()
@@ -3273,16 +3282,15 @@ class OOTO_Miner:
             disabledforeground = buttonReference['disabledforeground'],
         )
 
-
         # Hide other screens except the 'All' console screen
         self.showConsoleScreen(None, self.listConsoleScreen)
         # Add console borders
         self.createLabelBorders(self.labelFrameConsoleScreen)
 
-
     def configureConsoleScreenElements(self):
 
-        self.scrollConsoleScreen = Scrollbar(self.labelFrameConsoleScreen, orient = VERTICAL, name = 'scrollConsoleScreen')
+        self.scrollConsoleScreen = Scrollbar(self.labelFrameConsoleScreen, orient = VERTICAL,
+                                             name = 'scrollConsoleScreen')
 
         newRelH = 0.8
         newRelY = self.getRelY(self.labelConsoleStripes) + self.getRelH(self.labelConsoleStripes)
@@ -3321,7 +3329,6 @@ class OOTO_Miner:
                                              spacing2 = 0,
                                              spacing3 = 0,
                                              justify = LEFT)
-
 
         # QUEUE SCREEN listConsoleQueueScreen
         # region
@@ -3447,8 +3454,6 @@ class OOTO_Miner:
                                    justify = LEFT)
         # endregion
 
-
-
         self.scrollConsoleScreen.place(
             relx = 0,
             rely = 0,
@@ -3463,8 +3468,6 @@ class OOTO_Miner:
             bd = 0,
         )
 
-
-
         # Configure screen dictionary
         self.dictConsoleScreens = {
             self.listConsoleScreen: const.SCREENS.ALL,
@@ -3473,10 +3476,10 @@ class OOTO_Miner:
             self.listConsoleChiSquareScreen: const.SCREENS.CHI_SQUARE,
         }
 
-
     # endregion
 
     ''' --> Elements under INFO ("INFO") TAB (2) <-- '''
+
     # region
     def configureAboutElements(self):
         # Create the About parent frame
@@ -3579,38 +3582,47 @@ class OOTO_Miner:
             background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG,
             text = UI_support.STR_ABOUT_AFFILIATION,
             disabledforeground = Color_support.FG_DISABLED_COLOR)
+
     # endregion
 
-
-
     """ >>> HELPER FUNCTIONS UI ELEMENTS <<< """
+
     # region
     def getRelX(self, element):
         return float(element.place_info()['relx'])
+
     def getRelY(self, element):
         return float(element.place_info()['rely'])
+
     def getRelW(self, element):
         return float(element.place_info()['relwidth'])
+
     def getRelH(self, element):
         return float(element.place_info()['relheight'])
+
     def getW(self, element):
         return float(element.place_info()['width'])
+
     def getH(self, element):
         return float(element.place_info()['height'])
+
     def getInfoH(self, element):
         return element.winfo_height()
+
     def getInfoW(self, element):
         return element.winfo_width()
 
     def getDatasetCountA(self):
         return str(self.datasetCountA)
+
     def getDatasetCountB(self):
         return str(self.datasetCountB)
 
     def createCornerImage(self, cornerParent):
 
         labelNE = Label(cornerParent)
-        im = PIL.Image.open(Icon_support.CORNER_ROUND_NE) # .resize(Icon_support.CORNER_ICO_SIZE_SMALL, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(
+            Icon_support.CORNER_ROUND_NE)  # .resize(Icon_support.CORNER_ICO_SIZE_SMALL, PIL.Image.ANTIALIAS)
         corner_round_ne = PIL.ImageTk.PhotoImage(im)
         labelNE.place(
             relx = 0,
@@ -3621,12 +3633,12 @@ class OOTO_Miner:
         labelNE.configure(
             image = corner_round_ne)
         labelNE.image = corner_round_ne  # < ! > Required to make images appear
-        labelNE.configure(background = Color_support.PALE_ORANGE) # cornerParent['background'])
+        labelNE.configure(background = Color_support.PALE_ORANGE)  # cornerParent['background'])
         labelNE.pack()
         # labelNE.pack(side = RIGHT, fill = Y, expand = True, anchor = CENTER)
 
-
-    def createLabelSeparator(self, separatorParent, span, isVertical, color, thickness = 1, coordinate = 0, specifiedAnchor = NW):
+    def createLabelSeparator(self, separatorParent, span, isVertical, color, thickness = 1, coordinate = 0,
+                             specifiedAnchor = NW):
 
         separatorHolder = Label(separatorParent)
         if isVertical:
@@ -3677,16 +3689,16 @@ class OOTO_Miner:
 
     # endregion
 
-
-
     """ >>> FUNCTIONS CALLED FOR BINDING ELEMENTS <<< """
     # region
     ''' --> General call to all binding sub-functions <-- '''
+
     def configureBindings(self):
         self.configureDataTabBindings()
         self.configureTestTabBindings()
 
     ''' --> Binding elements under the DATA ("DATA") TAB (1) <-- '''
+
     # region
     def configureDataTabBindings(self):
         # TODO Add integrity check - if ENTRY is edited, change the file input
@@ -3702,6 +3714,7 @@ class OOTO_Miner:
     # endregion
 
     ''' --> Binding elements under the TEST ("TEST") TAB (2) <-- '''
+
     # region
     def configureTestTabBindings(self):
         # BUTTONS
@@ -3716,16 +3729,15 @@ class OOTO_Miner:
         # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
 
-        self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)
-        self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)
-        self.buttonQueue.bind('<Button-1>', self.queue)
+        self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)  # Run Z-test Sample vs Sample
+        self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)  # Run Z-test Sample vs Population
+        self.buttonQueue.bind('<Button-1>', self.queue)  # Enqueue Subset-pairs
 
         self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
-        self.buttonTestQueue.bind('<Button-1>', self.testQueue)
+        self.buttonTestQueue.bind('<Button-1>', self.testQueue)  # Run Miner Button
 
         self.buttonQueryResetFilterA.bind('<Button-1>', self.queryResetDatasetA)
         self.buttonQueryResetFilterB.bind('<Button-1>', self.queryResetDatasetB)
-
 
         # Test option buttons
         self.buttonChooseChiSquare.bind('<Button-1>', self.selectOptionChiSquare)
@@ -3734,9 +3746,12 @@ class OOTO_Miner:
         # Console buttons
 
         self.buttonConsoleAll.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleScreen))
-        self.buttonConsoleZTest.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleZTestScreen))
-        self.buttonConsoleChiSquare.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleChiSquareScreen))
-        self.buttonConsoleQueue.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleQueueScreen))
+        self.buttonConsoleZTest.bind("<Button-1>",
+                                     lambda event: self.showConsoleScreen(event, self.listConsoleZTestScreen))
+        self.buttonConsoleChiSquare.bind("<Button-1>",
+                                         lambda event: self.showConsoleScreen(event, self.listConsoleChiSquareScreen))
+        self.buttonConsoleQueue.bind("<Button-1>",
+                                     lambda event: self.showConsoleScreen(event, self.listConsoleQueueScreen))
         # self.buttonConsoleAll.bind('<Button-1>', self.showConsoleScreen(self.listConsoleScreen))
         # self.buttonConsoleZTest.bind('<Button-1>', self.showConsoleScreen(self.listConsoleZTestScreen))
         # self.buttonConsoleChiSquare.bind('<Button-1>', self.showConsoleScreen(self.listConsoleChiSquareScreen))
@@ -3744,11 +3759,14 @@ class OOTO_Miner:
 
         # FOCUS IN / OUT
 
-        self.listConsoleScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event, self.listConsoleScreen))
-        self.listConsoleZTestScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event, self.listConsoleZTestScreen))
-        self.listConsoleChiSquareScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event, self.listConsoleChiSquareScreen))
-        self.listConsoleQueueScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event, self.listConsoleQueueScreen))
-
+        self.listConsoleScreen.bind("<ButtonRelease>",
+                                    lambda event: self.selectConsoleEntry(event, self.listConsoleScreen))
+        self.listConsoleZTestScreen.bind("<ButtonRelease>",
+                                         lambda event: self.selectConsoleEntry(event, self.listConsoleZTestScreen))
+        self.listConsoleChiSquareScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event,
+                                                                                                      self.listConsoleChiSquareScreen))
+        self.listConsoleQueueScreen.bind("<ButtonRelease>",
+                                         lambda event: self.selectConsoleEntry(event, self.listConsoleQueueScreen))
 
         # ENTER / LEAVE
         self.buttonQuerySetDataA.bind("<Enter>", self.enterRightArrowPlainIcon)
@@ -3767,8 +3785,10 @@ class OOTO_Miner:
 
         # self.buttonQueryFeature.bind("<Enter>", self.enterRightArrowPlainIcon)
         self.buttonQueryFeature.bind("<Leave>", self.leaveRightArrowPlainIcon)
-        self.buttonQueryFeature.bind("<Enter>", lambda event: self.enterRightArrowPlainIcon(event, self.buttonQueryFeature_state))
-        self.buttonQueryFeature.bind("<Leave>", lambda event: self.leaveRightArrowPlainIcon(event, self.buttonQueryFeature_state))
+        self.buttonQueryFeature.bind("<Enter>",
+                                     lambda event: self.enterRightArrowPlainIcon(event, self.buttonQueryFeature_state))
+        self.buttonQueryFeature.bind("<Leave>",
+                                     lambda event: self.leaveRightArrowPlainIcon(event, self.buttonQueryFeature_state))
 
         self.buttonQueryZTest.bind("<Enter>", self.enterCheckIcon)
         self.buttonQueryZTest.bind("<Leave>", self.leaveCheckIcon)
@@ -3803,11 +3823,10 @@ class OOTO_Miner:
 
         # COMBOBOX
         self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
-    # endregion
 
     # endregion
 
-
+    # endregion
 
     """ >>> FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. buttons, listboxes) <<< """
     # region
@@ -3815,6 +3834,7 @@ class OOTO_Miner:
     ''' --> Elements under the DATA ("DATA") TAB (1) <-- '''
     # region
     ''' (?) Generates the initial variable description '''
+
     def makeInitialVarDesc(self, evt):
         varFileDir = self.entryVariableFile.get()
         valFileDir = self.entryValuesFile.get()
@@ -3822,36 +3842,41 @@ class OOTO_Miner:
         # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
         print self.entryQueryPopulation.get()[-4:]
 
-        if self.entryInitialVarDesc.get()[-4:] != ".csv": # TODO Properly check for valid files
-            tkMessageBox.showinfo("System Message", "Please enter a valid Variable Description CSV file") # TODO!!
+        if self.entryInitialVarDesc.get()[-4:] != ".csv":  # TODO Properly check for valid files
+            tkMessageBox.showinfo("System Message", "Please enter a valid Variable Description CSV file")  # TODO!!
 
         elif self.entryQueryPopulation.get()[-4:] != ".csv":
-            tkMessageBox.showinfo("System Message", "Please enter a valid Population Dataset CSV file") # TODO!!
+            tkMessageBox.showinfo("System Message", "Please enter a valid Population Dataset CSV file")  # TODO!!
 
         else:
-            tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!") # TODO!!
+            tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!")  # TODO!!
             self.Tabs.select(UI_support.TAB_TEST_INDEX)
         return "break"
 
     ''' (?) Uploads the variable file '''
+
     def getVariableFile(self, evt):
-        varFileDir = askopenfilename(title = "Select variable file",filetypes = (("txt files","*.txt"),("all files","*.*")))
+        varFileDir = askopenfilename(title = "Select variable file",
+                                     filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
         self.entryVariableFile.delete(0, END)
         self.entryVariableFile.insert(0, varFileDir)
         return "break"
 
     ''' (?) Uploads the values file '''
+
     def getValuesFile(self, evt):
-        valFileDir = askopenfilename(title = "Select values file",filetypes = (("txt files","*.txt"),("all files","*.*")))
-        self.entryValuesFile.delete(0,END)
+        valFileDir = askopenfilename(title = "Select values file",
+                                     filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
+        self.entryValuesFile.delete(0, END)
         self.entryValuesFile.insert(0, valFileDir)
         return "break"
+
     ''' Start dataset upload '''
 
     def uploadDataset(self, evt):
         # Upload initVarDesc (Variable Description)
 
-        if not self.hasUploadedVariableDescription: # Check if variable description was uploaded
+        if not self.hasUploadedVariableDescription:  # Check if variable description was uploaded
             tkMessageBox.showerror("Error: Upload Variable description",
                                    "Please select a valid variable description file.")
             return "break"
@@ -3863,13 +3888,11 @@ class OOTO_Miner:
                                        "Please select a valid variable description file.")
                 return "break"
             # else:
-                # tkMessageBox.showinfo("Variable description set", "Variable description uploaded")
-                # # getCommonGroups(features)
-
-
+            # tkMessageBox.showinfo("Variable description set", "Variable description uploaded")
+            # # getCommonGroups(features)
 
         # Upload populationDir (Population Dataset)
-        if not self.hasUploadedPopulation: # Check if population dataset was uploaded
+        if not self.hasUploadedPopulation:  # Check if population dataset was uploaded
             tkMessageBox.showerror("Error: Upload Population Dataset",
                                    "Please select a population dataset file.")
             return "break"
@@ -3889,12 +3912,12 @@ class OOTO_Miner:
 
             else:
                 # tkMessageBox.showinfo("Population set", "Population dataset uploaded")
-                self.populationDataset = readCSVDict(populationDir) # Must read this again here, or it won't register
+                self.populationDataset = readCSVDict(populationDir)  # Must read this again here, or it won't register
                 for record in self.populationDataset:
                     self.datasetA['Data'].append(record)
                     self.datasetB['Data'].append(record)
-                    self.populationDatasetOriginalA['Data'].append(record) # This keeps a copy of the unaltered dataset
-                    self.populationDatasetOriginalB['Data'].append(record) # This keeps a copy of the unaltered dataset
+                    self.populationDatasetOriginalA['Data'].append(record)  # This keeps a copy of the unaltered dataset
+                    self.populationDatasetOriginalB['Data'].append(record)  # This keeps a copy of the unaltered dataset
 
                 # TODO Show the total samples of the unaltered dataset
                 # self.datasetCountA = len(self.datasetA['Data'])
@@ -3912,12 +3935,13 @@ class OOTO_Miner:
 
         return "break"
 
-
     ''' Selects the variable description file '''
+
     def selectInitVarDesc(self, evt):
         self.hasUploadedVariableDescription = False
 
-        self.initVarDisc = askopenfilename(title = "Select file", filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
+        self.initVarDisc = askopenfilename(title = "Select file",
+                                           filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
 
         if len(self.initVarDisc) == 0:
             tkMessageBox.showerror("Error: Upload Variable description",
@@ -3927,14 +3951,16 @@ class OOTO_Miner:
             self.entryInitialVarDesc.delete(0, END)
             self.entryInitialVarDesc.insert(0, self.initVarDisc)
 
-        return "break" # this "unsinks" the button after opening the file explorer
+        return "break"  # this "unsinks" the button after opening the file explorer
 
     ''' Selects the population module file '''
+
     def selectSetPopulation(self, evt):
         self.hasUploadedPopulation = False
 
         global populationDir
-        populationDir = askopenfilename(title = "Select file", filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
+        populationDir = askopenfilename(title = "Select file",
+                                        filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
 
         if len(populationDir) == 0:
             tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
@@ -3961,39 +3987,45 @@ class OOTO_Miner:
         self.setFocusFeatureValues(selectedItems)
     '''
 
-    def setFocusFeatureValues(self, evt): ### TODO Add checker if listbox is not empty
+    def setFocusFeatureValues(self, evt):  ### TODO Add checker if listbox is not empty
         listBox = evt.widget
         selectedItems = listBox.curselection()
         setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
         setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
 
     ''' Initial (SELECT) query for DATA A '''
+
     def querySetDataA(self, evt):
         # CLEAR filter feature box first
         self.queryResetFilterDetails(evt)
 
         try:
             # findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, "Dataset_Feature")
-            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, self.populationDatasetOriginalA, True, "Dataset_Feature")
+            findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA,
+                        self.populationDatasetOriginalA, True, "Dataset_Feature")
         except NameError:
-            tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+            tkMessageBox.showerror("Error: No features",
+                                   "Features not found. Please upload your variable description file.")
         return "break"
 
     ''' Initial (SELECT) query for DATA B '''
+
     def querySetDataB(self, evt):
         # CLEAR filter feature box first
         self.queryResetFilterDetails(evt)
         try:
             # findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, "Dataset_Feature")
-            findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, self.populationDatasetOriginalB, True, "Dataset_Feature")
+            findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB,
+                        self.populationDatasetOriginalB, True, "Dataset_Feature")
 
         except NameError:
-            tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+            tkMessageBox.showerror("Error: No features",
+                                   "Features not found. Please upload your variable description file.")
         return "break"
 
     def queryResetDatasetA(self, evt):
-        self.isReadyDatasetA = False # When a dataset is reset, it is not ready
-        self.checkIfDatasetReady() # Update dataset status accordingly
+        self.isReadyDatasetA = False  # When a dataset is reset, it is not ready
+        self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
 
         self.buttonQueryResetFilterA.configure(relief = FLAT)
@@ -4012,7 +4044,7 @@ class OOTO_Miner:
 
         # if self.datasetA['Data'] is []:
 
-        self.datasetCountA = 0 # len(self.datasetA['Data'])
+        self.datasetCountA = 0  # len(self.datasetA['Data'])
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
 
@@ -4020,12 +4052,11 @@ class OOTO_Miner:
         self.queryResetFilterDetails(evt)
         self.listQuerySetDataA.delete(0, END)
 
-
         return "break"
 
     def queryResetDatasetB(self, evt):
-        self.isReadyDatasetB = False # When a dataset is reset, it is not ready
-        self.checkIfDatasetReady() # Update dataset status accordingly
+        self.isReadyDatasetB = False  # When a dataset is reset, it is not ready
+        self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesB)
 
         self.buttonQueryResetFilterB.configure(relief = FLAT)
@@ -4041,18 +4072,18 @@ class OOTO_Miner:
         )
 
         # if self.datasetB['Data'] is []:
-        self.datasetCountB = 0 # len(self.datasetB['Data'])
+        self.datasetCountB = 0  # len(self.datasetB['Data'])
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
         # Empty FILTER details of BOTH A and B
         self.queryResetFilterDetails(evt)
-        self.listQuerySetDataB.delete(0,END)
+        self.listQuerySetDataB.delete(0, END)
 
         return "break"
 
     def querySelectDataValuesA(self, evt):
-        self.isReadyDatasetA = False # When a listbox element is de/selected, mark the dataset as not ready
-        self.checkIfDatasetReady() # Update dataset status accordingly
+        self.isReadyDatasetA = False  # When a listbox element is de/selected, mark the dataset as not ready
+        self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
 
         # self.datasetCountA = selectDatasetValues(evt, self.datasetA, self.populationDataset)
@@ -4065,10 +4096,10 @@ class OOTO_Miner:
         print ("Dataset A" + str(len(self.datasetA['Data'])))
 
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-    
+
     def querySelectDataValuesB(self, evt):
-        self.isReadyDatasetB = False # When a listbox element is de/selected, mark the dataset as not ready
-        self.checkIfDatasetReady() # Update dataset status accordingly
+        self.isReadyDatasetB = False  # When a listbox element is de/selected, mark the dataset as not ready
+        self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesB)
 
         # self.datasetCountB = selectDatasetValues(evt, self.datasetB, self.populationDataset)
@@ -4094,15 +4125,17 @@ class OOTO_Miner:
         self.labelQueryDataFeatureName.configure(
             text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
         )
+
     # endregion
 
     '''FILTER HEADER'''
     # region
 
     ''' Simultaneously scrolls the FILTER listbox A and B'''
-    def scrollFilterListBox (self, evt): # To simultaneously scroll Filter listbox A and B
-        self.listQueryDataA.yview("scroll", evt.delta,"units")
-        self.listQueryDataB.yview("scroll",evt.delta,"units")
+
+    def scrollFilterListBox(self, evt):  # To simultaneously scroll Filter listbox A and B
+        self.listQueryDataA.yview("scroll", evt.delta, "units")
+        self.listQueryDataB.yview("scroll", evt.delta, "units")
         # this prevents default bindings from firing, which
         # would end up scrolling the widget twice
         return "break"
@@ -4115,13 +4148,15 @@ class OOTO_Miner:
 
         # If the dataset is empty, do not push through with filtering.
         if len(self.datasetA['Data']) <= 0:
-            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+            tkMessageBox.showerror("Error: Empty dataset",
+                                   "Dataset is empty. Please check if you uploaded your population dataset")
             # CLEAR filter feature box
             self.queryResetFilterDetails(evt)
 
         # If there are 0 samples in the selection, do not push through with filtering
         elif self.datasetCountA <= 0:
-            tkMessageBox.showerror("Error: No samples selected for A", "You must have at least 1 sample in your selection.")
+            tkMessageBox.showerror("Error: No samples selected for A",
+                                   "You must have at least 1 sample in your selection.")
             # CLEAR filter feature box
             self.queryResetFilterDetails(evt)
             self.labelQuerySetDataStatusA.configure(
@@ -4140,10 +4175,12 @@ class OOTO_Miner:
 
             # Filter the data given the feature inputted and its values selected
             try:
-                new_data = filterDataset(self.datasetA, self.datasetA['Feature'], self.datasetA['Feature']['Selected Responses'])
+                new_data = filterDataset(self.datasetA, self.datasetA['Feature'],
+                                         self.datasetA['Feature']['Selected Responses'])
                 # new_data = filterDataset(self.populationDatasetOriginalA, self.populationDatasetOriginalA['Feature'], self.populationDatasetOriginalA['Feature']['Selected Responses'])
             except KeyError:
-                tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
+                tkMessageBox.showerror("Error: No selected responses",
+                                       "You did not select any responses. Please select at least one.")
                 # return -1
                 return "break"
 
@@ -4155,7 +4192,7 @@ class OOTO_Miner:
             self.datasetA['Data'] = new_data
             # self.populationDatasetOriginalA['Data'] = new_data
 
-            if(queryType == 'Sample vs Sample'):
+            if (queryType == 'Sample vs Sample'):
                 queryStrFilterA = ''
                 # queryStrFilterA = 'Dataset A'
             else:
@@ -4166,10 +4203,11 @@ class OOTO_Miner:
             for i in range(0, len(self.datasetA['Filter Features'])):
                 # queryStrFilterA = queryStrFilterA + "->" + self.datasetA['Filter Features'][i]['Code']
                 queryStrFilterA = " [ " + self.datasetA['Filter Features'][i]['Code'] + " | "
-                for j in range(0,len(self.datasetA['Filter Features'][i]['Selected Responses'])):
+                for j in range(0, len(self.datasetA['Filter Features'][i]['Selected Responses'])):
                     # if j == 0:
                     #     queryStrFilterA = queryStrFilterA + " [ "
-                    queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
+                    queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j][
+                        'Code'] + " "
                     if j == (len(self.datasetA['Filter Features'][i]['Selected Responses']) - 1):
                         queryStrFilterA = queryStrFilterA + "]"
 
@@ -4194,14 +4232,16 @@ class OOTO_Miner:
 
         # If the dataset is empty, do not push through with filtering.
         if len(self.datasetB['Data']) <= 0:
-            tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+            tkMessageBox.showerror("Error: Empty dataset",
+                                   "Dataset is empty. Please check if you uploaded your population dataset")
             # CLEAR filter feature box
             self.queryResetFilterDetails(evt)
 
 
         # If there are 0 samples in the selection, do not push through with filtering
         elif self.datasetCountB <= 0:
-            tkMessageBox.showerror("Error: No samples selected for B", "You must have at least 1 sample in your selection.")
+            tkMessageBox.showerror("Error: No samples selected for B",
+                                   "You must have at least 1 sample in your selection.")
             # CLEAR filter feature box
             self.queryResetFilterDetails(evt)
 
@@ -4222,9 +4262,11 @@ class OOTO_Miner:
             # Filter the data given the feature inputted and its values selected
 
             try:
-                new_data = filterDataset(self.datasetB, self.datasetB['Feature'], self.datasetB['Feature']['Selected Responses'])
+                new_data = filterDataset(self.datasetB, self.datasetB['Feature'],
+                                         self.datasetB['Feature']['Selected Responses'])
             except KeyError:
-                tkMessageBox.showerror("Error: No selected responses", "You did not select any responses. Please select at least one.")
+                tkMessageBox.showerror("Error: No selected responses",
+                                       "You did not select any responses. Please select at least one.")
                 # return -1
                 return "break"
 
@@ -4234,7 +4276,7 @@ class OOTO_Miner:
             # Assign the new set of filtered data
             self.datasetB['Data'] = new_data
 
-            if(queryType == 'Sample vs Sample'): ### TODO
+            if (queryType == 'Sample vs Sample'):  ### TODO
                 queryStrFilterB = ''
             else:
                 queryStrFilterB = ''
@@ -4243,13 +4285,13 @@ class OOTO_Miner:
             for i in range(0, len(self.datasetB['Filter Features'])):
                 # queryStrFilterB = queryStrFilterB + "->" + self.datasetB['Filter Features'][i]['Code']
                 queryStrFilterB = " [ " + self.datasetB['Filter Features'][i]['Code'] + " | "
-                for j in range(0,len(self.datasetB['Filter Features'][i]['Selected Responses'])):
+                for j in range(0, len(self.datasetB['Filter Features'][i]['Selected Responses'])):
                     # if j == 0:
                     #     queryStrFilterB = queryStrFilterB + "("
-                    queryStrFilterB = queryStrFilterB + self.datasetB['Filter Features'][i]['Selected Responses'][j]['Code'] + " "
-                    if j == (len(self.datasetB['Filter Features'][i]['Selected Responses'])-1):
+                    queryStrFilterB = queryStrFilterB + self.datasetB['Filter Features'][i]['Selected Responses'][j][
+                        'Code'] + " "
+                    if j == (len(self.datasetB['Filter Features'][i]['Selected Responses']) - 1):
                         queryStrFilterB = queryStrFilterB + "]"
-
 
             # Concat the Filter String Here
             # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
@@ -4270,8 +4312,9 @@ class OOTO_Miner:
             entryQuery = self.entryQueryFeature.get()
 
             # If the dataset is empty, do not continue finding the feature
-            if(len(self.datasetA['Data']) <= 0 or len(self.datasetB['Data']) <= 0):
-                tkMessageBox.showerror("Error: Empty dataset", "Dataset is empty. Please check if you uploaded your population dataset")
+            if (len(self.datasetA['Data']) <= 0 or len(self.datasetB['Data']) <= 0):
+                tkMessageBox.showerror("Error: Empty dataset",
+                                       "Dataset is empty. Please check if you uploaded your population dataset")
                 self.setFilterStripeReady(False, self.labelFilterStripes)
                 # CLEAR filter feature box
                 self.queryResetFilterDetails(evt)
@@ -4291,14 +4334,15 @@ class OOTO_Miner:
                 # CLEAR filter feature box
                 self.queryResetFilterDetails(evt)
 
-            else :
+            else:
                 try:
                     self.querySetFeatureA(entryQuery)
                     self.querySetFeatureB(entryQuery)
                     self.setFilterStripeReady(True, self.labelFilterStripes)
 
                     # Get the feature description
-                    featureDesc = self.datasetA['Focus Feature']['Description'] # Doesn't matter if you use datasetA or datasetB
+                    featureDesc = self.datasetA['Focus Feature'][
+                        'Description']  # Doesn't matter if you use datasetA or datasetB
 
                     # If the description is too long
                     if len(featureDesc) > 70:
@@ -4308,16 +4352,19 @@ class OOTO_Miner:
                     self.labelQueryDataFeatureName.config(text = UI_support.FILTER_STATUS_CONFIRMED_TEXT + featureDesc)
 
                 except NameError:
-                    tkMessageBox.showerror("Error: No features", "Features not found. Please upload your variable description file.")
+                    tkMessageBox.showerror("Error: No features",
+                                           "Features not found. Please upload your variable description file.")
                     self.setFilterStripeReady(False, self.labelFilterStripes)
                 except:
                     print ("Exception in " + "def querySetFeature(self, evt)")
         return "break"
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
+
     def querySetFeatureA(self, entryQuery):
         # findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
-        findFeature(entryQuery, self.listQueryDataA, self.datasetA, self.populationDatasetOriginalA, False, "Focus_Feature")
+        findFeature(entryQuery, self.listQueryDataA, self.datasetA, self.populationDatasetOriginalA, False,
+                    "Focus_Feature")
         '''
         # Get the feature description
         featureDesc = self.datasetA['Focus Feature']['Description']
@@ -4331,14 +4378,17 @@ class OOTO_Miner:
         '''
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
+
     def querySetFeatureB(self, entryQuery):
         # findFeature(entryQuery, self.listQueryDataB, self.datasetB, "Focus_Feature")
-        findFeature(entryQuery, self.listQueryDataB, self.datasetB, self.populationDatasetOriginalB, True, "Focus_Feature")
+        findFeature(entryQuery, self.listQueryDataB, self.datasetB, self.populationDatasetOriginalB, True,
+                    "Focus_Feature")
+
     # endregion
 
     '''TEST HEADER'''
-    # region
 
+    # region
 
     def selectOptionChiSquare(self, evt):
 
@@ -4376,30 +4426,29 @@ class OOTO_Miner:
         # Hide Chi-square options
         self.showWidget(self.labelFrameProcessZTest)
 
-
     ''' Adds test to the queue '''
+
     def addToQueue(self, testType, **params):
         global tests
-        test = {'Type':testType}
+        test = {'Type': testType}
         for key in params:
-            if(key == 'popDirArg'):
+            if (key == 'popDirArg'):
                 test['Population Path'] = copy.copy(params[key])
-            elif(key == 'sampleFeatArg'):
+            elif (key == 'sampleFeatArg'):
                 test['Sample Feature'] = copy.copy(params[key])
-            elif(key == 'selectedFeatArg'):
+            elif (key == 'selectedFeatArg'):
                 test['Selected Feature'] = copy.copy(params[key])
-            elif(key == 'allValArg'):
+            elif (key == 'allValArg'):
                 test['SF All Values'] = copy.copy(params[key])
-            elif(key == 'selValArg'):
+            elif (key == 'selValArg'):
                 test['SF Selected Values'] = copy.copy(params[key])
-            elif(key == 'datasetArgs'):
+            elif (key == 'datasetArgs'):
                 test['Datasets'] = copy.deepcopy(params[key])
-            elif(key == 'zArg'):
+            elif (key == 'zArg'):
                 test['Z Critical Value'] = copy.copy(params[key])
         tests.append(test)
         self.labelQueueCount.configure(text = str(len(tests)))
         tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
-
 
         '''
         self.buttonInitialVarDesc.configure(
@@ -4411,6 +4460,7 @@ class OOTO_Miner:
         '''
 
     ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
+
     def queue(self, evt):
         self.buttonQueue.configure(relief = FLAT)
         datasets = []
@@ -4424,6 +4474,7 @@ class OOTO_Miner:
         return "break"
 
     ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
+
     def testQueue(self, evt):
         if len(tests) == 0:
             tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
@@ -4432,14 +4483,15 @@ class OOTO_Miner:
         # self.listQueryDataB.delete(0, END)
         i = 0
 
-        chiTest = ct.ChiTest() # Initialize singleton
+        chiTest = ct.ChiTest()  # Initialize singleton
         for test in tests:
             fileNames = []
-            if(test['Type'] == 'Sample vs Sample'):
-                i +=  1
-                for dataset in test['Datasets']: # For each sample pairs in queue
+            if (test['Type'] == 'Sample vs Sample'):
+                i += 1
+                for dataset in test['Datasets']:  # For each sample pairs in queue
                     convertDatasetValuesToGroups(dataset, features)
-                    fileName = makeFileName(dataset) # TODO
+                    fileName = makeFileName(
+                        dataset)  # TODO This makes the intermediate tables based on the selected features
                     # print ("GENERATED FILENAME: " + str(fileName))
                     writeCSVDict(fileName, dataset['Data'])
                     fileNames.append(fileName)
@@ -4448,14 +4500,16 @@ class OOTO_Miner:
 
                 # saveFile = ct.chiTest(fileNames)
                 saveFile = chiTest.chiTest(fileNames)
+                print ("saveFile is " + str(saveFile))
 
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
                 # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
-                removeFiles(fileNames) # TODO This removes the intermediate tables
+                # removeFiles(fileNames) # TODO This removes the intermediate tables
         tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
         return "break"
 
     ''' Clears the tests in the queue. '''
+
     def clearQueue(self, evt):
         tests[:] = []
         self.labelQueueCount.configure(text = str(len(tests)))
@@ -4464,6 +4518,7 @@ class OOTO_Miner:
         return "break"
 
     ''' Conduct the Z-Test between the two samples. '''
+
     def queryZTest(self, evt):
         self.buttonQueryZTest.configure(relief = FLAT)
         # Get selected confidence interval
@@ -4471,86 +4526,96 @@ class OOTO_Miner:
         confidenceInterval = self.spinBoxQueryZConfidence.get()
 
         # Get corresponding Z Critical Value of the confidence interval
-        zCritical = arrQueryCriticalValueMapping[confidenceInterval] 
+        zCritical = arrQueryCriticalValueMapping[confidenceInterval]
 
         if 'Focus Feature' in self.datasetA:
             # Check if the selected focus feature and selected values of it are the same for both samples
-            isSame = isSameFocusFeat(self.datasetA, self.datasetB, self.datasetA['Focus Feature']['Selected Values'], self.datasetB['Focus Feature']['Selected Values'])
-            if(isSame == 1):
+            isSame = isSameFocusFeat(self.datasetA, self.datasetB, self.datasetA['Focus Feature']['Selected Values'],
+                                     self.datasetB['Focus Feature']['Selected Values'])
+            if (isSame == 1):
                 # Calculate Z score between the two samples
-                zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'], self.datasetB['Total'], self.datasetB['ProportionPercent'])
+                zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'],
+                                               self.datasetB['Total'], self.datasetB['ProportionPercent'])
                 # Get result if accept/reject compared to the zCritical value
                 zResult = svs.compareZtoZCritical(zScore, zCritical)
                 # Display Z score and whether accept/reject at inputted confidence interval
                 # self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
-                consoleText = str('' + 'Z-Score:\t' + str(round(zScore,2)) +  ', ' +
+                consoleText = str('' + 'Z-Score:\t' + str(round(zScore, 2)) + ', ' +
                                   str(float(confidenceInterval)) +
-                                  '\n'+
-                                  '' + 'Confidence:\t'+ zResult + '\n\n')
+                                  '\n' +
+                                  '' + 'Confidence:\t' + zResult + '\n\n')
                 self.addToConsole(consoleText, self.listConsoleZTestScreen)
                 self.addToConsole(consoleText, self.listConsoleScreen)
 
         return "break"
 
     ''' Conduct Z-Test between the population and all samples '''
-    def querySVP(self,evt):
-        confidenceInterval = self.comboQueryCriticalValueSvP.get() #Get selected confidence interval
-        zCritical = arrQueryCriticalValueMapping[confidenceInterval] #Get corresponding Z Critical Value
+
+    def querySVP(self, evt):
+        confidenceInterval = self.comboQueryCriticalValueSvP.get()  # Get selected confidence interval
+        zCritical = arrQueryCriticalValueMapping[confidenceInterval]  # Get corresponding Z Critical Value
         sampleFeature = self.datasetB['Feature']['Code']
-        self.listQueryDataB.delete(0,END)
-        #Iterate through every sample 
+        self.listQueryDataB.delete(0, END)
+        # Iterate through every sample
         for sampleResponse in self.datasetB['Feature']['Responses']:
             resultsRows = []
 
-            sampleValue = sampleResponse['Code'] #Get sample code to get the samples by
-            
-            #Header of the results file
-            header = ['Feature Code','N','F','P','Sample','n','f','p','SE','Z Score','Z Critical Value','LB','UB','Accept/Reject']
+            sampleValue = sampleResponse['Code']  # Get sample code to get the samples by
+
+            # Header of the results file
+            header = ['Feature Code', 'N', 'F', 'P', 'Sample', 'n', 'f', 'p', 'SE', 'Z Score', 'Z Critical Value', 'LB',
+                      'UB', 'Accept/Reject']
             resultsRows.append(header)
-            
-            #Iterate through every feature
+
+            # Iterate through every feature
             for feature in features:
-                featureValues = [] #Values that are not in group -1. This will be all values of the feature.
-                selectedFeatureValues = []#Values within featureValues that are selected by the user. By default, it is just those with group 'b'
+                featureValues = []  # Values that are not in group -1. This will be all values of the feature.
+                selectedFeatureValues = []  # Values within featureValues that are selected by the user. By default, it is just those with group 'b'
 
-                #Iterate through the values of the feature
+                # Iterate through the values of the feature
                 for response in feature['Responses']:
-                    #If the group of that value is not -1
-                    if response['Group'] != '-1': 
-                        featureValues.append(response['Code'])#Add to the allValues that will determine n
+                    # If the group of that value is not -1
+                    if response['Group'] != '-1':
+                        featureValues.append(response['Code'])  # Add to the allValues that will determine n
 
-                        #If the group of the value is 'a'
-                        if(response['Group'] == 'a'): #MODIFY THIS SUCH THAT IT CAN BE SELECTED BY THE USER
-                            selectedFeatureValues.append(response['Code'])#Add to selectedValues that will determine p
-                
-                #Convert allValues to string separated by ':'
+                        # If the group of the value is 'a'
+                        if (response['Group'] == 'a'):  # MODIFY THIS SUCH THAT IT CAN BE SELECTED BY THE USER
+                            selectedFeatureValues.append(
+                                response['Code'])  # Add to selectedValues that will determine p
+
+                # Convert allValues to string separated by ':'
                 allValString = concatListToString(featureValues, ':')
 
-                #Convert selectedValues to string separated by ':'
+                # Convert selectedValues to string separated by ':'
                 selectedValString = concatListToString(selectedFeatureValues, ':')
 
-                #Get results of that sample vs population based on a feature given its values that determine
+                # Get results of that sample vs population based on a feature given its values that determine
                 # n and values that determine p
-                resultRow = svp.sampleVsPopulationSpecific(self.datasetA['Data'],sampleFeature, sampleValue,feature['Code'], allValString, selectedValString,zCritical, ':')
-                
+                resultRow = svp.sampleVsPopulationSpecific(self.datasetA['Data'], sampleFeature, sampleValue,
+                                                           feature['Code'], allValString, selectedValString, zCritical,
+                                                           ':')
+
                 resultsRows.append(resultRow)
-            #Write all results of all Z-Tests on all features of that sample in to a .csv file
+            # Write all results of all Z-Tests on all features of that sample in to a .csv file
             fileName = "SVP.csv"
             try:
-                fileName = "Z-Test_Sample " +sampleFeature+"("+ sampleValue +")" + "_vs_Pop" + self.datasetA['Feature']['Code']+".csv"
+                fileName = "Z-Test_Sample " + sampleFeature + "(" + sampleValue + ")" + "_vs_Pop" + \
+                           self.datasetA['Feature']['Code'] + ".csv"
             except KeyError:
-                fileName = "Z-Test_Sample " +sampleFeature+"("+ sampleValue +")" + "_vs_Pop.csv"
+                fileName = "Z-Test_Sample " + sampleFeature + "(" + sampleValue + ")" + "_vs_Pop.csv"
             writeOnCSV(resultsRows, fileName)
             self.listQueryDataB.insert(END, "Z-Test complete. Saved as " + fileName)
         tkMessageBox.showinfo(testType, testType + " completed.")
 
     ''' Sets test type: Sample vs Sample (Chi-Test, Z-Test) or Sample vs Population (Z-Test) '''
+
     def querySetType(self, evt):
         global queryType
         queryType = self.comboQueryTest.get()
         self.adjustQueryViews()
 
     ''' Disables/enables views (buttons, entry fields etc.) based on test type selected '''
+
     def adjustQueryViews(self):
         self.buttonQueryFeature.configure(state = "normal")
         # self.buttonQueryFeatureA.configure(state = "normal")
@@ -4566,7 +4631,7 @@ class OOTO_Miner:
         self.buttonQueue.configure(state = "normal")
         self.buttonClearQueue.configure(state = "normal")
         self.buttonTestQueue.configure(state = "normal")
-        #self.buttonTest.configure(state = "normal")
+        # self.buttonTest.configure(state = "normal")
         # self.labelQueryZTest.configure(state = "normal")
         self.labelQueryDataA.configure(state = "normal")
         self.labelQueryDataB.configure(state = "normal")
@@ -4583,8 +4648,8 @@ class OOTO_Miner:
             self.datasetCountA = len(self.datasetA['Data'])
             self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataA.configure(text = "")
-        self.listQueryDataA.delete(0,END)
-        self.listQuerySetDataA.delete(0,END)
+        self.listQueryDataA.delete(0, END)
+        self.listQuerySetDataA.delete(0, END)
 
         self.datasetB = resetDataset()
         self.entryQuerySetDataB.configure(text = '')
@@ -4593,8 +4658,8 @@ class OOTO_Miner:
             self.datasetCountB = len(self.datasetB['Data'])
             self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
         self.labelQueryDataB.configure(text = "")
-        self.listQueryDataB.delete(0,END)
-        self.listQuerySetDataB.delete(0,END)
+        self.listQueryDataB.delete(0, END)
+        self.listQuerySetDataB.delete(0, END)
 
         if queryType == 'Sample vs Population':
             self.buttonQueryFeature.configure(state = "disabled")
@@ -4610,7 +4675,7 @@ class OOTO_Miner:
             self.buttonQueue.configure(state = "disabled")
             self.buttonClearQueue.configure(state = "disabled")
             self.buttonTestQueue.configure(state = "disabled")
-            #self.buttonTest.configure(state = "disabled")
+            # self.buttonTest.configure(state = "disabled")
             # self.labelQueryZTest.configure(state = "disabled")
             self.labelQueryDataA.configure(state = "disabled")
             self.labelQueryDataB.configure(state = "disabled")
@@ -4646,12 +4711,14 @@ class OOTO_Miner:
             )
 
     def querySetAllFeatures(self):
-        #Test items
+        # Test items
         global strarrAllFeatures
         strarrAllFeatures = list(self.listQuerySetDataA.get(0, END))
+
     # endregion
 
     '''CONSOLE HEADER'''
+
     # region
 
     def clearConsole(self):
@@ -4662,7 +4729,7 @@ class OOTO_Miner:
             targetScreen = self.listConsoleZTestScreen
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.CHI_SQUARE:
-            targetScreen =self.listConsoleChiSquareScreen
+            targetScreen = self.listConsoleChiSquareScreen
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.QUEUE:
             targetScreen = self.listConsoleQueueScreen
@@ -4677,9 +4744,8 @@ class OOTO_Miner:
 
         targetScreen.configure(state = DISABLED)
 
-
-
     '''Select a single line in the console screen Text widget'''
+
     def selectConsoleEntry(self, event, consoleScreen):
         # Enable console
         consoleScreen.configure(state = NORMAL)
@@ -4706,7 +4772,6 @@ class OOTO_Miner:
         # print("E " + str(indexEnd))
         # self.listConsoleScreen.tag_raise("sel")
         # self.listConsoleScreen.tag_bind(CONSTANTS.CONSOLE.SELECT, show_hand_cursor)
-
 
         if consoleScreen.get(indexStart, indexEnd).strip() != '':
             # Highlight the range by specifying the tag
@@ -4775,17 +4840,14 @@ class OOTO_Miner:
             self.buttonConsoleAll['foreground'] = Color_support.WHITE
             self.buttonConsoleAll['relief'] = GROOVE
 
-
     # endregion
 
     # endregion
 
     # endregion
-
-
-
 
     """ >>> HELPER FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. enter, leave) <<< """
+
     # TODO Optimize (avoid resizing, keep a reference)
     # region
     def enterCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
@@ -4975,26 +5037,26 @@ class OOTO_Miner:
         self.buttonQueryZTest.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+
     # endregion
 
-
     """ >>> GENERAL HELPER FUNCTIONS <<< """
+
     # region
     def checkIfDatasetReady(self):
-        if not self.isReadyDatasetA: # If Dataset A is not ready
+        if not self.isReadyDatasetA:  # If Dataset A is not ready
             # Clear and disable filter features option
             self.disableFilter()
             self.setDatasetStatusReady(False, self.labelQuerySetDataStatusA, self.labelQuerySetDataStripesA)
 
-        if not self.isReadyDatasetB: # If Dataset B is not ready
+        if not self.isReadyDatasetB:  # If Dataset B is not ready
             # Clear and disable filter features option
             self.disableFilter()
             self.setDatasetStatusReady(False, self.labelQuerySetDataStatusB, self.labelQuerySetDataStripesB)
 
-        if self.isReadyDatasetA and self.isReadyDatasetB: # If both are ready
+        if self.isReadyDatasetA and self.isReadyDatasetB:  # If both are ready
             # Enable filter feature option
             self.enableFilter()
-
 
     def disableFilter(self):
         # Clear filter results
@@ -5018,7 +5080,8 @@ class OOTO_Miner:
         # Show lock cover
         self.labelOverlayFilterListData.place(
             relx = self.getRelX(self.labelFrameFilterListData), rely = self.getRelY(self.labelFrameFilterListData),
-            relwidth = self.getRelW(self.labelFrameFilterListData), relheight = self.getRelH(self.labelFrameFilterListData))
+            relwidth = self.getRelW(self.labelFrameFilterListData),
+            relheight = self.getRelH(self.labelFrameFilterListData))
 
         # Change stripe color
         self.setFilterStripeReady(False, self.labelFilterStripes)
@@ -5098,7 +5161,3 @@ class OOTO_Miner:
 
 if __name__ == '__main__':
     vp_start_gui()
-
-
-
-

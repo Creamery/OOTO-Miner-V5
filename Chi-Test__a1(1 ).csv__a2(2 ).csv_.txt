@@ -1,0 +1,53 @@
+Header after i killed it ['s7', '-1', 'a', 'b']
+
+diz are da header
+['s7', '-1', 'a', 'b']
+
+diz are the rows
+[[0.0, 0.0, 287.0, 258.0], [1.0, 0.0, 252.0, 183.0]]
+
+numpiRows:
+[[287. 258.]
+ [252. 183.]]
+
+total:
+[[545.]
+ [435.]]
+
+
+proportions
+[[0.5266055  0.4733945 ]
+ [0.57931034 0.42068966]]
+
+grandTotal: 980.0
+
+colsum: [539. 441.]
+
+Expected
+[[299.75 245.25]
+ [239.25 195.75]]
+
+Observed
+[[287. 258.]
+ [252. 183.]]
+
+Shape expected
+[[299.75]
+ [245.25]
+ [239.25]
+ [195.75]]
+
+observed 258.0
+expected 245.25
+
+Chi-Square
+[[0.54232694 0.66284404]
+ [0.67946708 0.83045977]]
+
+Chi -stat
+2.7150978305676183
+The H My teachers advise me on proper Internet use
+The Question s7
+2
+2
+Table [['s7', 'a', 'b'], [0, '287', '258'], [1, '252', '183']]
