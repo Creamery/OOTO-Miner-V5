@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chi-Test__a1(1 2 ).csv__a2(0 1 ).csv_.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Chi-Test__a1(1 2 ).csv__a2(0 1 ).csv_.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Chi-Test__b1(1 ).csv__b1(2 ).csv_.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tables Chi-Test__b1(1 ).csv__b1(2 ).csv_.csv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +16,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="2546" column="9" lean-forward="true" selection-start-line="2546" selection-start-column="9" selection-end-line="2546" selection-end-column="9" />
+            <state relative-caret-position="137">
+              <caret line="2548" column="42" selection-start-line="2548" selection-start-column="42" selection-end-line="2548" selection-end-column="42" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -159,9 +156,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="133" />
-    <option name="y" value="-28" />
+    <option name="y" value="-9" />
     <option name="width" value="1608" />
     <option name="height" value="1090" />
   </component>
@@ -269,7 +266,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
+    <frame x="-7" y="-7" width="1488" height="878" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22657342" />
@@ -437,8 +434,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="2546" column="9" lean-forward="true" selection-start-line="2546" selection-start-column="9" selection-end-line="2546" selection-end-column="9" />
+        <state relative-caret-position="137">
+          <caret line="2548" column="42" selection-start-line="2548" selection-start-column="42" selection-end-line="2548" selection-end-column="42" />
           <folding>
             <element signature="e#137#147#0" expanded="true" />
           </folding>
