@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Chi-Test__b1(1 ).csv__b1(2 ).csv_.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tables Chi-Test__b1(1 ).csv__b1(2 ).csv_.csv" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/Output_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChiTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Table.py" beforeDir="false" afterPath="$PROJECT_DIR$/Table.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VariableDescriptorMaker.py" beforeDir="false" afterPath="$PROJECT_DIR$/VariableDescriptorMaker.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,11 +21,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="137">
-              <caret line="2548" column="42" selection-start-line="2548" selection-start-column="42" selection-end-line="2548" selection-end-column="42" />
+            <state relative-caret-position="110">
+              <caret line="4515" selection-start-line="4515" selection-end-line="4515" />
               <folding>
                 <element signature="e#137#147#0" expanded="true" />
               </folding>
@@ -25,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ChiTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="444" column="14" selection-start-line="444" selection-start-column="14" selection-end-line="444" selection-end-column="14" />
+            <state relative-caret-position="292">
+              <caret line="642" column="111" selection-start-line="642" selection-start-column="111" selection-end-line="642" selection-end-column="111" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -38,37 +46,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Table.py">
+        <entry file="file://$PROJECT_DIR$/Output_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/numeric.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10203">
-              <caret line="537" selection-start-line="537" selection-end-line="537" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Color_support.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4427">
-              <caret line="233" selection-start-line="233" selection-end-line="233" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UI_support.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="223" selection-start-line="223" selection-end-line="223" />
+            <state relative-caret-position="263">
+              <caret line="43" selection-start-line="43" selection-end-line="43" />
             </state>
           </provider>
         </entry>
@@ -76,11 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Icon_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="30" selection-start-line="30" selection-end-line="30" />
-              <folding>
-                <element signature="e#1#11#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="437">
+              <caret line="29" column="16" lean-forward="true" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -96,19 +74,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>rawcritical =</find>
-      <find>formula</find>
-      <find>Degrees of Freedom</find>
-      <find>TODO</find>
-      <find>tests</find>
-      <find>tests =</find>
-      <find>dataset</find>
-      <find>dataset in</find>
-      <find># TODO</find>
-      <find>filenames</find>
-      <find>remove</find>
-      <find>delete</find>
-      <find>filename</find>
       <find>tables chi</find>
       <find>tableList</find>
       <find>observe</find>
@@ -126,6 +91,19 @@
       <find>''Option</find>
       <find>= Label(self.labelFrameProcessCommands)</find>
       <find>= Label(self.labelFrameProcessCommands</find>
+      <find># Run miner but</find>
+      <find>comment</find>
+      <find>grandtotal</find>
+      <find>HEADER_</find>
+      <find>out.HE</find>
+      <find>x[</find>
+      <find>x</find>
+      <find>result</find>
+      <find>instan</find>
+      <find>chi</find>
+      <find>out.</find>
+      <find>chitest(</find>
+      <find>chitest</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -147,20 +125,22 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Color_support.py" />
-        <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/CONSTANTS.py" />
+        <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
-        <option value="$PROJECT_DIR$/ChiTest.py" />
+        <option value="$PROJECT_DIR$/Color_support.py" />
+        <option value="$PROJECT_DIR$/Table.py" />
+        <option value="$PROJECT_DIR$/VariableDescriptorMaker.py" />
+        <option value="$PROJECT_DIR$/Output_support.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
+        <option value="$PROJECT_DIR$/ChiTest.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="133" />
-    <option name="y" value="-9" />
-    <option name="width" value="1608" />
-    <option name="height" value="1090" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="695" />
+    <option name="width" value="1155" />
+    <option name="height" value="1088" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -168,7 +148,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -180,6 +159,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -266,22 +246,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1488" height="878" extended-state="7" />
+    <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22657342" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28671327" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.16464238" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993007" visible="true" weight="0.42780027" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24426451" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32793522" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3287858" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32793522" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5006993" side_tool="true" weight="0.84075576" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32928476" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -295,27 +275,27 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Icon_support.py</url>
-          <line>25</line>
+          <line>31</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2467</line>
+          <line>2481</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>991</line>
+          <line>1005</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>4492</line>
+          <line>4506</line>
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTO.py</url>
-          <line>2550</line>
+          <line>2564</line>
           <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
@@ -365,13 +345,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CONSTANTS.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../School/MSCS Term 3/INTRNLP/LingSpam/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -384,60 +357,93 @@
     <entry file="file://$PROJECT_DIR$/clean.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Table.py">
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/numeric.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
+        <state relative-caret-position="642">
+          <caret line="537" selection-start-line="537" selection-end-line="537" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/numpy/core/numeric.py">
+    <entry file="file://$PROJECT_DIR$/CONSTANTS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10203">
-          <caret line="537" selection-start-line="537" selection-end-line="537" />
+        <state relative-caret-position="95">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Color_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4427">
-          <caret line="233" selection-start-line="233" selection-end-line="233" />
+        <state relative-caret-position="64">
+          <caret line="206" column="43" lean-forward="true" selection-start-line="206" selection-start-column="43" selection-end-line="206" selection-end-column="43" />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Table.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-174">
+          <caret line="4" column="37" selection-start-line="4" selection-start-column="37" selection-end-line="4" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VariableDescriptorMaker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4857">
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SampleVsSample.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Mother_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-402" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="437">
+          <caret line="29" column="16" lean-forward="true" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Output_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/scipy/stats/_continuous_distns.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="1082" selection-start-line="1082" selection-end-line="1082" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OOTO.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="4515" selection-start-line="4515" selection-end-line="4515" />
           <folding>
-            <element signature="e#1#11#0" expanded="true" />
+            <element signature="e#137#147#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ChiTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="444" column="14" selection-start-line="444" selection-start-column="14" selection-end-line="444" selection-end-column="14" />
+        <state relative-caret-position="292">
+          <caret line="642" column="111" selection-start-line="642" selection-start-column="111" selection-end-line="642" selection-end-column="111" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UI_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="223" selection-start-line="223" selection-end-line="223" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OOTO.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="2548" column="42" selection-start-line="2548" selection-start-column="42" selection-end-line="2548" selection-end-column="42" />
-          <folding>
-            <element signature="e#137#147#0" expanded="true" />
           </folding>
         </state>
       </provider>

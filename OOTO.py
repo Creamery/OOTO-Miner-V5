@@ -4,6 +4,20 @@
 # In conjunction with Tcl version 8.6
 #    Feb 26, 2018 12:01:25 PM
 
+"""
+{Description}
+The runnable script for OOTO Miner
+"""
+
+__author__ = ["Arren Antioquia", "Arces Talavera", "Jet Virtusio",
+              "Edmund Gerald Cruz", "Rgee Gallega",
+              "Candy Espulgar"]
+
+__copyright__ = "Copyright 2019, TE3D House"
+__credits__ = ["Arnulfo Azcarraga"]
+__version__ = "3.0"
+
+
 import sys
 import csv
 import tkMessageBox
@@ -4483,7 +4497,7 @@ class OOTO_Miner:
         # self.listQueryDataB.delete(0, END)
         i = 0
 
-        chiTest = ct.ChiTest()  # Initialize singleton
+        chiTest = ct.ChiTest.getInstance()  # Initialize singleton
         for test in tests:
             fileNames = []
             if (test['Type'] == 'Sample vs Sample'):
