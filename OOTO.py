@@ -837,7 +837,7 @@ class OOTO_Miner:
         global testTypes
         testTypes = ["Sample vs Sample", "Sample vs Population"]
         self.comboQueryTest = ttk.Combobox(self.Tabs_t3)
-        # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 0, width = 0) # 316)
+        # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 50, width = 360) # 316) # TODO SVP
         self.comboQueryTest.configure(exportselection = "0")
         self.comboQueryTest.configure(takefocus = "")
         self.comboQueryTest.configure(values = testTypes)
@@ -857,8 +857,8 @@ class OOTO_Miner:
         # > Z-TEST FRAME POPULATION ##### TODO Add functionality
         # region
         self.labelFrameQuerySvP = LabelFrame(self.Tabs_t3)
-        # self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0,
-        #                               relwidth = 0) # 0.48)
+        # self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0.1,
+        #                               relwidth = 0.3) # 0.48) # TODO SVP
         self.labelFrameQuerySvP.configure(relief = GROOVE)
         self.labelFrameQuerySvP.configure(foreground = "black")
         self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
@@ -881,7 +881,7 @@ class OOTO_Miner:
         self.labelQueryZTestSvP.configure(state = "disabled")
 
         self.buttonQueryZTestSvP = Button(self.labelFrameQuerySvP)
-        # self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 0, width = 0)
+        self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 20, width = 300)
         self.buttonQueryZTestSvP.configure(activebackground = "#d9d9d9")
         self.buttonQueryZTestSvP.configure(activeforeground = "#000000")
         self.buttonQueryZTestSvP.configure(background = "#d9d9d9")
@@ -4619,7 +4619,7 @@ class OOTO_Miner:
                 fileName = "Z-Test_Sample " + sampleFeature + "(" + sampleValue + ")" + "_vs_Pop.csv"
             writeOnCSV(resultsRows, fileName)
             self.listQueryDataB.insert(END, "Z-Test complete. Saved as " + fileName)
-        tkMessageBox.showinfo(testType, testType + " completed.")
+        # tkMessageBox.showinfo(testType, testType + " completed.")
 
     ''' Sets test type: Sample vs Sample (Chi-Test, Z-Test) or Sample vs Population (Z-Test) '''
 
@@ -4635,8 +4635,8 @@ class OOTO_Miner:
         # self.buttonQueryFeatureA.configure(state = "normal")
         # self.buttonQueryFeatureB.configure(state = "normal")
 
-        self.entryQueryFeatureA.configure(state = "normal")
-        self.entryQueryFeatureB.configure(state = "normal")
+        # self.entryQueryFeatureA.configure(state = "normal")
+        # self.entryQueryFeatureB.configure(state = "normal")
         self.buttonQueryZTest.configure(state = "normal")
 
         self.spinBoxQueryZConfidence.configure(state = "normal")
@@ -4657,7 +4657,7 @@ class OOTO_Miner:
 
         self.datasetA = resetDataset()
         self.entryQuerySetDataA.configure(text = '')
-        self.entryQueryFeatureA.configure(text = '')
+        # self.entryQueryFeatureA.configure(text = '')
         if self.datasetA is not []:
             self.datasetCountA = len(self.datasetA['Data'])
             self.labelQueryDataACount.configure(text = self.getDatasetCountA())
@@ -4667,7 +4667,7 @@ class OOTO_Miner:
 
         self.datasetB = resetDataset()
         self.entryQuerySetDataB.configure(text = '')
-        self.entryQueryFeatureB.configure(text = '')
+        # self.entryQueryFeatureB.configure(text = '')
         if self.datasetB is not []:
             self.datasetCountB = len(self.datasetB['Data'])
             self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
@@ -4679,8 +4679,8 @@ class OOTO_Miner:
             self.buttonQueryFeature.configure(state = "disabled")
             # self.buttonQueryFeatureA.configure(state = "disabled")
             # self.buttonQueryFeatureB.configure(state = "disabled")
-            self.entryQueryFeatureA.configure(state = "disabled")
-            self.entryQueryFeatureB.configure(state = "disabled")
+            # self.entryQueryFeatureA.configure(state = "disabled")
+            # self.entryQueryFeatureB.configure(state = "disabled")
             self.buttonQueryZTest.configure(state = "disabled")
 
             self.spinBoxQueryZConfidence.configure(state = "disabled")

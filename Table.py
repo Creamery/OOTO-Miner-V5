@@ -31,5 +31,6 @@ class Table(object):
 			rowLine = []
 			for e in row:
 				rowLine.append(e)
+				print ('rowLine e ' + str(e))
 			rowList.append(rowLine)
 		rowList.append("***********")

@@ -11,6 +11,7 @@ import xlsxwriter
 from Table import Table
 from clean import ColConverter
 import Output_support as out
+from collections import OrderedDict
 
 class ChiTest:
     # Singleton
@@ -303,17 +304,20 @@ class ChiTest:
         print "proportions " + str(proportions)
 
         proportions_list = proportions.tolist()
+        # print "proportion list " + str(proportions_list)
 
-        for group in proportions_list:  # for every group
-            if (len(group) >= 2):
-                '''
-                This specific if statement deletes any 0 values in the proportions list in case
-                there is one as the first element of the group array.
-                There should only be a proportion value for a and b. The proportion for everything
-                else is 1 - (a+b).
-                '''
-                if (len(group) > 2):
-                    del group[0]
+
+        #### TODO Momentarily commented out
+        # for group in proportions_list:  # for every group
+        #     if (len(group) >= 2):
+        #         '''
+        #         This specific if statement deletes any 0 values in the proportions list in case
+        #         there is one as the first element of the group array.
+        #         There should only be a proportion value for a and b. The proportion for everything
+        #         else is 1 - (a+b).
+        #         '''
+        #         if (len(group) > 2):
+        #             del group[0]
 
         errors = self.getStandardError(proportions, totals)  # Retrieve standard error of proportion
 
@@ -462,22 +466,25 @@ class ChiTest:
 
         results_temp.extend(totals_list)  # append populations for all groups
 
+        print "proportion list " + str(proportions_list)
+        # for group in proportions_list:  # for every group
         for group in proportions_list:  # for every group
+            print ("group contains " + str(group))
             if (len(group) >= 2):
                 results_temp.append(
                     str(round(float(group[0]) * 100, 2)) + '%')  # append proportion of answer a for each group
                 results_temp.append(
                     str(round(float(group[1]) * 100, 2)) + '%')  # append proportion of answer b for each group
                 results_temp.append(str(round((1 - (float(group[0]) + float(group[1]))) * 100,
-                                              2)) + '%')  # apend proportion of other answers for each group
+                                              2)) + '%')  # append proportion of other answers for each group
                 # results_temp.append(group[i]) #append each proportion of every answer for each group
                 # print group[i]
-
+        print ("results_temp GROUP " + str(results_temp))
         results.append(results_temp)
 
 
     def group(self, index, rows, V, header):
-        groups = {}
+        groups = OrderedDict()  # {}
         # 1 Because first index is question name
         if header not in V.keys():
             print "Warning " + header + " " + "not in Variable description"
@@ -485,10 +492,17 @@ class ChiTest:
             for i in range(1, len(V[header])):
                 entry = V[header][i][0]
                 groups[V[header][i][0]] = []
+                print ("b3 " + str(i) + " groups | header " + str(V[header][i][0]))
+
+        if (header == "b3"):
+            print ("b3 groups INIT " + str(groups))
 
         for i in range(0, len(rows)):
 
             entry = rows[i][index]
+            if (header == "b3"):
+                print ("b3 i " + str(i))
+                print ("b3 entry " + str(entry))
 
             if (entry != '-1' and entry != '' and entry != '-1.0'):
 
@@ -499,14 +513,29 @@ class ChiTest:
                     groups[entry] = []
                     groups[entry].append(i)
 
+            if (header == "b3"):
+                print ("b3 groups " + str(groups))
         return groups
 
 
     def getTable(self, col, clusters, V, header):
         groups = []
+        if (header == 'b3'):
+            print('b3 header ' + str(header))
+            print('col ' + str(col))
+            print('clusters ' + str(clusters))
+            print('V ' + str(V))
+
         for c in clusters:
+            if (header == 'b3'):
+                print('b3 cluster col ' + str(col))
+                print('c ' + str(c))
+                print('V ' + str(V))
+                print('header ' + str(header))
             groups.append(self.group(col, c, V, header))
 
+        if (header == 'b3'):
+            print('b3 groups ' + str(groups))
         keys = []
         for g in groups:
 
@@ -603,9 +632,15 @@ class ChiTest:
                 else:
                     H = vList[header[i]][0]  # H is the question itself
                 print "col " + str(i) + " " + header[i]
-                theTable = self.getTable(i, clusters, vList, header[
-                    i])  # Generates a table matrix for all datasets to do the chi-test for the question
 
+                # TODO check if 3-choice values are correct ( a and c seem reversed )
+                theTable = self.getTable(i, clusters, vList, header[i])  # Generates a table matrix for all datasets to do the chi-test for the question
+
+                print "~Table 0 (pre-doFile)"
+                print theTable.rows
+
+                print "~Table 0 (pre-doFile) HEADERS",
+                print header
                 self.doFile(theTable, i, results, converter, z[y], H)  # Chi test on the question and then writing it in the file
 
                 # Remove the column with -1 in the table.
@@ -614,7 +649,7 @@ class ChiTest:
                     for row in theTable.rows:  # Delete the entire -1 column.
                         del row[position]
 
-                print "Table",
+                print "~Table 1",
                 print theTable.rows
 
                 theTable.getPrintable(tableList)
@@ -624,16 +659,13 @@ class ChiTest:
             for name in dataset_names:
                 fileName = fileName + name + '_'
 
-            print("results contain: " + str(results))
-
-
+            # print("results contain: " + str(results))
 
             # Sort results by Chi-value column
             rowStart = results.index(results_headers) + 1
             chiValueColumn = out.ChiTest.getInstance().getHeaderIndex(out.ChiTest.getInstance().HEADER_chiValue)
 
             # Replace empty chi-value to 0 TODO : Optimize
-            print ("res 1 " + str(results[rowStart:]))
             for i in results[rowStart:]:
                 if i[chiValueColumn] == '':
                     i[chiValueColumn] = 0
@@ -643,9 +675,9 @@ class ChiTest:
             results[rowStart:] = sorted(results[rowStart:], key = lambda temp: temp[sortColumn], reverse = True)
             # results[rowStart:].sort(key = lambda temp: temp[sortColumn])
 
-            print("rowStart: " + str(rowStart))
-            print("sortColumn: " + str(sortColumn))
-            print("results now contain: " + str(results))
+            # print("rowStart: " + str(rowStart))
+            # print("sortColumn: " + str(sortColumn))
+            # print("results now contain: " + str(results))
             self.writeonXLSX(results, fileName + '.xlsx', results_headers)
 
             # Print interim chi-square tables

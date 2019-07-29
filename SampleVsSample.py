@@ -79,7 +79,7 @@ Requires total amount and proportion of the two groups that will be compared wit
 '''
 def ZTest(n1,p1,n2,p2):
     
-    PPrime = getPPrime(n1,p1,n2,p2)
+    PPrime = getPPrime(n1, p1, n2, p2)
 
     print 'PPrime: ' + str(PPrime)
     
@@ -87,9 +87,9 @@ def ZTest(n1,p1,n2,p2):
 
     print 'Standard Error: ' + str(standardError)
 
-    z = (p1 - p2) / float(standardError)
+    z = (p1 - p2) / float(standardError)  # Z-test Sample vs Sample Formula
 
-    return z,PPrime,standardError
+    return z, PPrime, standardError
 
 '''
 Returns P^ which is calculated by
@@ -121,6 +121,9 @@ and PPrime is P^
 def getStandardError(PPrime, n1, n2):
     temp = 1/float(n1) + 1/float(n2)
     return math.sqrt(PPrime * (1-PPrime) * temp)
+    # SEp1-p2 = sqrt [ p1(1-p1) / n1 + p2(1-p2) / n2 ]
+
+
 
 def sampleVsSample(datasetPaths, selectedFeature, featureValues, selectedFeatureValues):
   for datasetPath in datasetPaths:
