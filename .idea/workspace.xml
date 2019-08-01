@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chi-Test__a1(1 2 ).csv__a2(0 1 ).csv_.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Chi-Test__a1(1 2 ).csv__a2(0 1 ).csv_.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Chi-Test__b1(1 ).csv__b1(2 ).csv_.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Chi-Test__b1(1 ).csv__b1(2 ).csv_.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SampleVsPopulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/SampleVsPopulation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SampleVsSample.py" beforeDir="false" afterPath="$PROJECT_DIR$/SampleVsSample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Table.py" beforeDir="false" afterPath="$PROJECT_DIR$/Table.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tables Chi-Test__b1(1 ).csv__b1(2 ).csv_.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Tables Chi-Test__b1(1 ).csv__b1(2 ).csv_.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_a1(1 2 ) (Edit) VS _a2(0 1 ) (Edit).xlsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/_output/1_RiskTakers_Male_vs_Female - Chi-Test__b1(1 ).csv__b1(2 ).csv_ (Edit).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/1_RiskTakers_Male_vs_Female - Chi-Test__b1(1 ).csv__b1(2 ).csv_ (Edit).xlsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,7 +18,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/OOTO.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
+            <state relative-caret-position="15523">
               <caret line="829" column="9" selection-start-line="829" selection-start-column="9" selection-end-line="829" selection-end-column="9" />
             </state>
           </provider>
@@ -63,8 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Table.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="31" column="25" lean-forward="true" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+            <state relative-caret-position="589">
+              <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -124,9 +118,9 @@
       <find>it</find>
       <find>print &quot;proportion list &quot; + str(proportions_list)</find>
       <find>killed</find>
-      <find>killed it</find>
       <find>group</find>
       <find>killed i</find>
+      <find>killed it</find>
       <find>killed it</find>
     </findStrings>
     <replaceStrings>
@@ -273,19 +267,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1487" height="878" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2993007" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.30370888" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993007" visible="true" weight="0.42510122" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993007" weight="0.42510122" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24426451" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32793522" />
+      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.32793522" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32793522" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32793522" />
       <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5006993" side_tool="true" weight="0.84075576" />
@@ -436,6 +429,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/OOTO.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15523">
+          <caret line="829" column="9" selection-start-line="829" selection-start-column="9" selection-end-line="829" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SampleVsSample.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2432">
@@ -450,6 +450,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Table.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Output_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="817">
@@ -461,20 +468,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
           <caret line="29" column="16" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/OOTO.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="829" column="9" selection-start-line="829" selection-start-column="9" selection-end-line="829" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Table.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="31" column="25" lean-forward="true" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
         </state>
       </provider>
     </entry>

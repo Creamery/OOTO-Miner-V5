@@ -48,12 +48,24 @@
 	"buffers":
 	[
 		{
+			"contents": "- VISA IELTS\n- Income Tax (1701A)\n- Uniandes Dataset\n\n- GeeBee View\n\n\n<donotshow>\n3:00 - Wednesday\nTheoretical framework - in the sense that you need to study about visualization, etc etc.\nDoc Jay, Doc Nelson, Doc Joel, Doc Arnie\n\n\nJ+M Chapter 4 (3rd edition)\n\n[ Correlation ]\n- Synonymous to dependence\n- As datasets increase the number of variables, finding correlation between them becomes difficult\n\n- We need a measure of association between two categorical features\n\n[ Association Rules ]\n\n> Multidimensional or Hybrid\n\nAlgorithms\n> Apriori Algorithm\n> Elcat Algorithm\n> F.P. Growth Algorithm\n\n\nPyCharm Shortcuts:\n- Ctrl + N to search for class, Ctrl + Shift + N for any file in the project\n- Alt + F7 to find usages of a class/method/variable in the whole project\n- Ctrl + Q to view documentation\n\n\n\n\nLexical Semantics\nText Classification\nInformation Retrieval & Information Extraction\n\n\n\ny2012 = [128, 346]\ny2011 = [420, 324]\nindex = ['BSCS', 'BSIT']\ndf = pd.DataFrame({'2011': arr2011, '2012': y2012}, index=arrIndexTitles)\nax = df.plot.bar(rot=0)\n\n\n\n\ndf = pd.DataFrame({'2011': y2011, '2012': y2012}, index=index)\n\n\nhttps://www.forbes.com/sites/bernardmarr/2018/09/02/what-is-industry-4-0-heres-a-super-easy-explanation-for-anyone/#7a6bf1b79788\nOOTO Miner: Automated Extraction and Visualization of Noteworthy Insights from Data\n\nOOTO Miner: Automated Extraction and Visualization of Noteworthy Insights from Data\n\n11885041\n\nOrigin\nfpscarlet - gangsteratran@gmail.com\nJimfsterlings0n\n\n\nSteam\nfpscarlet\nl33th4x0rs\n\nI did:\nconda env export -n datasci -f datasci_environment.yml --no-builds\n\nbefore doing step #4 (conda env create -f datasci_environment.yml)\n\npip install jupyter\npip install jupyterlab\n\nIf Anaconda Prompt venv stops:\nCtrl + C + Pause/Break\n\n52831\nm1dh0a<Vm\n\nCreate from .yml:\nconda env export -n datasci -f datasci_environment.yml --no-builds\n\nRemove:\n> conda env remove --name datasci\n\nconda remove -n datasci --all\nconda remove -n dataci\nconda activate datasci\nconda deactivate\n\npython -m ipykernel install --user --name datasci --display-name \"Python (datasci)\"\n\nconda create -n ENV_NAME python=3.7\n\nA: Participants are to go to the dorm for registration, register, leave their belongings in their room and retrieve their kit. Person in charge will stay in the registration booth until either registration is complete or lunch.\n\nB: Registration is in a classroom near the Opening Ceremonies classroom. Their belongings would be left in the classroom until dinner, when they will be accompanied to the dorm.\n\n\n\n\n\n\n\nThis research presents a possible solution to lessen the user \n\n\nThe driving force behind all these accomplishments is the seemingly limitless amounts of data present in almost any field.\n\nAs previously mentioned, the driving force behind all of these is the presence of large amounts of data, commonly referred to as big data.\n\nData is something \n\n\n\nBig data can come from various sources. It is also present in \n\npopularity is the voluminous amounts of data present in almost any\n\nIn fact, the presence of big data makes information extraction such a daunting task.\n\nFrom private institutions up to government organisations, \nWe are currently rich with voluminous amounts of data.\nThis poses a problem \n\nData visualization is the transformation of data into graphs or images to aid understanding (Qin et al., 2018). \n\n\n\n\n\n\nWelcome Kit\nGame Development : https://drive.google.com/drive/folders/1WwGvwgfq4fOz1FmvzcK6VU39wlpLq-qn?usp=sharing\nData Science : https://drive.google.com/drive/folders/1cSO86HPrv69qieRBERs8JgifUFbfA9gx?usp=sharing\n\n\nBys+@nder\n@p\n8y3f\n\n### Senbei\n# Class: Priest\n# Format: Standard\n# Year of the Dragon\n#\n# 1x (0) Circle of Healing\n# 1x (0) Silence\n# 2x (1) Northshire Cleric\n# 1x (1) Power Word: Shield\n# 2x (1) Spirit of the Dead\n# 1x (2) Loot Hoarder\n# 1x (2) Mind Blast\n# 2x (2) Seance\n# 1x (3) Acolyte of Pain\n# 1x (3) Faceless Rager\n# 2x (3) Surrender to Madness\n# 1x (4) Auchenai Soulpriest\n# 1x (4) Hench-Clan Shadequill\n# 1x (4) Mass Dispel\n# 1x (4) Sen'jin Shieldmasta\n# 1x (5) Holy Nova\n# 1x (5) Mass Hysteria\n# 1x (5) Power Word: Replicate\n# 1x (5) Rotten Applebaum\n# 1x (5) Snapjaw Shellfighter\n# 1x (6) Damaged Stegotron\n# 1x (7) Bwonsamdi, the Dead\n# 1x (7) Giggling Inventor\n# 1x (9) Mass Resurrection\n# 1x (10) Mind Control\n# 1x (12) Grave Horror\n# \nAAECAa0GFgjtAfsBoQTlBPsEyQalCdIK1gr7DMXzAuL4AvX+Avv+ApeHA6eHA4WKA+uKA4OUA5mbA8idAwTyDOaIA+qIA7CJAwA=\n# \n# To use this deck, copy it to your clipboard and create a new deck in Hearthstone\n\n\nV { ...\n'b3': ['Age Group', ('a', 'Group a'), ('b', 'Group b'), ('c', 'Group c')],\n\n\nb3 groups [\n\n{'a': [1, 15, 19, 24, 26, 32, 41, 53, 55, 57, 58, 60, 61, 63, 65, 74, 79, 85, 95, 96, 99, 101, 109, 113, 117, 122, 123, 126, 127, 137, 141, 142, 145, 146, 149, 150, 151, 154, 158, 163, 166, 168, 169, 174, 177, 191, 193, 200, 204, 206, 222, 225, 230, 245, 249, 256, 260, 262, 266, 270, 276, 288, 289, 290, 296, 303, 314, 315, 317, 323, 326, 329, 336, 338, 350, 356, 359, 363, 368, 369, 371, 375, 380, 383, 386, 393],\n\n'c': [2, 7, 10, 14, 16, 17, 18, 21, 23, 29, 31, 35, 37, 40, 45, 47, 49, 54, 67, 69, 72, 75, 76, 78, 81, 83, 84, 88, 89, 91, 93, 98, 102, 105, 107, 108, 111, 112, 114, 115, 116, 119, 120, 125, 128, 129, 130, 134, 140, 144, 148, 153, 157, 159, 161, 162, 164, 165, 172, 173, 176, 180, 181, 182, 184, 186, 187, 188, 192, 197, 198, 199, 205, 207, 208, 211, 212, 214, 215, 217, 220, 221, 224, 228, 231, 233, 234, 235, 236, 237, 238, 240, 241, 242, 243, 248, 251, 253, 257, 258, 263, 271, 273, 274, 277, 280, 284, 285, 287, 292, 293, 298, 300, 301, 305, 306, 311, 321, 322, 324, 325, 328, 332, 334, 337, 339, 340, 341, 344, 346, 347, 348, 349, 351, 352, 353, 357, 358, 360, 361, 364, 365, 367, 370, 373, 377, 378, 379, 381, 385, 391, 395, 396],\n\n'b': [0, 3, 4, 5, 6, 8, 9, 11, 12, 13, 20, 22, 25, 27, 28, 30, 33, 34, 36, 38, 39, 42, 43, 44, 46, 48, 50, 51, 52, 56, 59, 62, 64, 66, 68, 70, 71, 73, 77, 80, 82, 86, 87, 90, 92, 94, 97, 100, 103, 104, 106, 110, 118, 121, 124, 131, 132, 133, 135, 136, 138, 139, 143, 147, 152, 155, 156, 160, 167, 170, 171, 175, 178, 179, 183, 185, 189, 190, 194, 195, 196, 201, 202, 203, 209, 210, 213, 216, 218, 219, 223, 226, 227, 229, 232, 239, 244, 246, 247, 250, 252, 254, 255, 259, 261, 264, 265, 267, 268, 269, 272, 275, 278, 279, 281, 282, 283, 286, 291, 294, 295, 297, 299, 302, 304, 307, 308, 309, 310, 312, 313, 316, 318, 319, 320, 327, 330, 331, 333, 335, 342, 343, 345, 354, 355, 362, 366, 372, 374, 376, 382, 384, 387, 388, 389, 390, 392, 394, 397]},\n\n{'a': [0, 3, 4, 10, 12, 17, 25, 29, 30, 38, 42, 45, 48, 49, 52, 53, 57, 62, 63, 68, 80, 84, 85, 93, 99, 101, 104, 105, 109, 111, 115, 116, 123, 124, 135, 143, 144, 145, 147, 148, 156, 165, 166, 179, 180, 181, 182, 186, 190, 193, 194, 196, 198, 199, 205, 209, 211, 212, 213, 223, 227, 228, 233, 237, 238, 239, 241, 243, 244, 247, 263, 279, 286, 294, 298, 305, 311, 315, 323, 328, 334, 340, 342, 343, 349, 378, 387, 395, 396, 400, 408, 412, 415, 418, 426, 430, 439, 444, 448, 449, 459, 468, 470, 476, 480, 481, 482, 484, 486, 493, 500, 505, 506, 507, 512, 519, 522, 532, 534, 535, 536, 543, 544, 545, 555, 558, 561, 563, 571, 572, 575, 581, 583, 585, 591, 592, 596, 597, 598, 599],\n\n\n'c': [1, 6, 13, 14, 15, 18, 19, 21, 22, 23, 26, 32, 35, 36, 37, 41, 51, 55, 56, 60, 61, 65, 67, 69, 72, 73, 78, 79, 81, 82, 83, 86, 87, 88, 89, 90, 92, 94, 95, 97, 98, 100, 102, 106, 107, 121, 122, 125, 126, 130, 131, 134, 137, 138, 139, 142, 149, 150, 153, 154, 155, 161, 163, 164, 169, 173, 174, 177, 178, 185, 187, 188, 189, 192, 195, 203, 204, 207, 208, 215, 217, 219, 221, 222, 226, 229, 230, 231, 232, 236, 240, 242, 245, 246, 249, 252, 253, 254, 256, 258, 260, 261, 264, 267, 269, 272, 274, 276, 278, 281, 282, 285, 289, 290, 291, 296, 297, 301, 302, 304, 308, 309, 312, 313, 316, 319, 322, 327, 330, 332, 338, 339, 345, 346, 348, 351, 352, 353, 354, 355, 358, 360, 361, 362, 363, 366, 367, 371, 372, 373, 375, 376, 377, 379, 381, 382, 386, 388, 389, 390, 392, 394, 399, 401, 403, 404, 409, 411, 417, 421, 423, 424, 428, 429, 433, 434, 436, 437, 438, 440, 441, 446, 447, 453, 455, 456, 461, 463, 465, 466, 467, 469, 473, 475, 478, 479, 485, 489, 490, 491, 498, 499, 502, 503, 504, 510, 514, 516, 518, 524, 525, 526, 527, 528, 529, 530, 533, 539, 541, 550, 552, 553, 554, 556, 557, 560, 565, 566, 569, 570, 574, 576, 578, 579, 580, 584, 587, 593, 594, 595, 601],\n\n\n'b': [2, 5, 7, 8, 9, 11, 16, 20, 24, 27, 28, 31, 33, 34, 39, 40, 43, 44, 46, 47, 50, 54, 58, 59, 64, 66, 70, 71, 74, 75, 76, 77, 91, 96, 103, 108, 110, 112, 113, 114, 117, 118, 119, 120, 127, 128, 129, 132, 133, 136, 140, 141, 146, 151, 152, 157, 158, 159, 160, 162, 167, 168, 170, 171, 172, 175, 176, 183, 184, 191, 197, 200, 201, 202, 206, 210, 214, 216, 218, 220, 224, 225, 234, 235, 248, 250, 251, 255, 257, 259, 262, 265, 266, 268, 270, 271, 273, 275, 277, 280, 283, 284, 287, 288, 292, 293, 295, 299, 300, 303, 306, 307, 310, 314, 317, 318, 320, 321, 324, 325, 326, 329, 331, 333, 335, 336, 337, 341, 344, 347, 350, 356, 357, 359, 364, 365, 368, 369, 370, 374, 380, 383, 384, 385, 391, 393, 397, 398, 402, 405, 406, 407, 410, 413, 414, 416, 419, 420, 422, 425, 427, 431, 432, 435, 442, 443, 445, 450, 451, 452, 454, 457, 458, 460, 462, 464, 471, 472, 474, 477, 483, 487, 488, 492, 494, 495, 496, 497, 501, 508, 509, 511, 513, 515, 517, 520, 521, 523, 531, 537, 538, 540, 542, 546, 547, 548, 549, 551, 559, 562, 564, 567, 568, 573, 577, 582, 586, 588, 589, 590, 600]}]\n\nTurn System Icons\n\n\nThey were born a year earlier but they're younger now\n\nD:/Program Files/Android/Android Studio\nGraph per frame with magnitude and zero-crossing count\n\ndeploytools\nappdesigner.internal.application.openTutorial('BasicCoding')\n\n\nimshow(a, 'parent', app.UIAxes);\n\n\nSmart body\nCreating objects:\n- obj = scene.createPawn('obj1')\n\n\n\n\nmicroKEY Air-49: 709 x 139 x 54 mm/27.91\" x 5.47\" x 2.13\"\n\n4nonymous\n@color/theme_menu_button\n65 40 (Scans)\n\nNailcutter\nTweezers\nTowel\nLoofah\n\n        android:theme=\"@style/Theme.AppCompat.NoActionBar\">\nhttps://www.teachingvisuallyimpaired.com/vision-classifications.html\n\nhttps://www.nidek-intl.com/visual_acuity.html\nMild – presenting visual acuity worse than 6/12 (20/40)\nModerate – presenting visual acuity worse than 6/18 (approx. 20/50)\nSevere – presenting visual acuity worse than 6/60 (20/200)\nBlindness – presenting visual acuity worse than 3/60\n\n- 9:00:00 AM - 12:00:00 PM\n- 4:00:00 PM - \n        \n- PATIENT LIST enable school name\n- PATIENT VIEW about\n\n\n- ABOUT in patient view\n- SPINNERS in data visualization\n\n2.25 - 4.25 \n\nColor changing BMI\n\n// ADB Monitor\nD:\\Candy\\Documents\\Android\\platform-tools\n\n\n/activate\n\n\n- Sentence fusion in slides\n/ Data Science machine learning dataset\n/ Highlight reasearch gap\n\t- What have been done\n\t- What have not been done\n\t- Contribution? Highlight. The new thing\n// User intervention - Object detection - Catalogue (name, tag, group)\n\t- How to AUTOMATE\n\t- Object captioning, noun replacement\n/ Highlight generic caption vs New caption\n\n\n\n\n\nSell as data science\n- Highlight the research gap\n\t- focus on what other people have done, what hasn't been done and what will be done\n\n\n- Highlight main conrtribution\n\n\n\n\nbased on sample ADs\ntransform the description to have the same form\n\n\n\nHighlight research gap\n\nFocus on what other people have done\n\nwhat hasnt be done\nand what well do \n\n\nHighlight main research contribution\n\nNew thing should be made\n\nThen research gap and how you plan to do it\n\nSell as a datascience\n\n\nFocus on the before and after captions in the presentation\nNoun Replacement \nHighlight\n\n\n\n\nData Science\n\n\n\n\n\nD:\\Environments\\vCharRecog\\Scripts\\activate.bat\ndeactivate\n\nRemoved:\nCalculates the difference of successive frame CLD features. Values that are maximal within the window and larger than local thresholds are treated as shot changes (Cvetkovic, Jelenkovic, & Nikolic, 2013).\tA suitable approach to video shot detection with a recall of 100 and precision of 65 at its optimal adaptive threshold value (Majumdar, Kumar, & Venkatesh, 2015). Can also be used to extract keyframes.\n\nC:\\Users\\Candy\\OneDrive\\Documents\n🤯 Mindblown\n🤤 Drool\n🤩 Starstruck\n🧝🏻‍♀️ Female Elf\n🧝🏻 Male Elf\n👁‍🗨\n🧛🏻\n\n\nVideo searching in scope\n\n\n\nDailianas, A., Allen, R., & England, P. (1996). Comparison of Automatic Video Segmentation Algorithms. Proceedings of SPIE - The International Society for Optical Engineering. 10.1117/12.229193. Retrieved from https://www.researchgate.net/publication/2451338_Comparison_of_Automatic_Video_Segmentation_Algorithms/download\n\n\n\n\n\n\n\n\nc:\\users\\candy\\appdata\\local\\programs\\python\\python36-32\npip install --target=d:\\Python27 numpy\n\n\nBlitz and Mirror Shield\n🍧🍪🍩☁ eehul!ahN ☁🍒🍰🍦\n\nTable 1. Comparative analysis of video segmentation approaches\n\n3P1C1m\ngangsteratran@gmail.com\nL33th4x0rs\n\nExpound for each objective (between input and output)\n\nhttps://0-www.sciencedirect.com.lib1000.dlsu.edu.ph/science/article/pii/S0893608016301800\nhttps://www.sciencedirect.com/science/article/pii/S0893608014002214\n(i.e. expound object naming, image captioning limitations & scope, dictionary, sentence grammar (limitation of NLP) Tool used for image captioning (candidate tools & their output) Tools for identified objects [!] State all existing tools and their input and output\n\n\n\nMovie genre classification based on video captions/color\n\n\n(1) Video segmentation, (2) unique object detection, (3) image caption generation, and (4) sentence fusion.\n\n\nExtra Audio\nBomb Fall:\nhttps://freesound.org/people/josecruz98/sounds/393006/\n\nBomb Explode:\nhttps://freesound.org/people/Xenonn/sounds/128295/\n\nLoot Box Open:\nhttps://freesound.org/people/NeoSpica/sounds/423518/\n\nCancel:\nhttps://freesound.org/people/farpro/sounds/264763/\n\nFireBurn:\nhttps://freesound.org/people/TRNGLE/sounds/368014/\n\nEmpty:\nhttps://freesound.org/people/flashdeejay/sounds/241030/\n\nEnable or disable ROTATOR\n\nAndroid Monitor: C:\\Users\\Candy\\AppData\\Local\\Android\\sdk\\tools\ntrain:\nRun cmd as Admin\n[1] .\\venv\\Scripts\\activate\n[2] cd D:\\venv\\Lib\\site-packages\\tensorflow\\models\\research\\im2txt\n[3] python train.py\n\ncheckpoint:\nD:\\venv\\Lib\\site-packages\\tensorflow\\models\\research\\im2txt\\im2txt\\model\\train\nD:/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/model/train\n\nvocab:\nD:\\tmp\\word_counts.txt\nD:/tmp/word_counts.txt\n\nimage:\nD:\\COCO Test Images\\COCO_test_1.jpg\nD:/COCO Test Images/COCO_test_1.jpg\n\nrun_inference:\nD:\\venv\\Lib\\site-packages\\tensorflow\\models\\research\\im2txt\\im2txt\n\npython run_inference_custom.py\nfrom D:\\venv\\Lib\\site-packages\\tensorflow\\models\\research\\im2txt\n\nMovie characterization (genre) through color and pacing \nMovie characterization through captions (verbs + nouns)\n\n\nMSCOCO Debug:\nbefore:\n def _bytes_feature(value):\n     return tf.train.Feature(bytes_list=tf.train.BytesList(value=[str(value)]))\n\nafter change:\ndef _bytes_feature(value):\n    return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value.encode('utf-8') if type(value)==str else value]))\n\n\n:: Tensorflow: .\\venv\\Scripts\\activate\ndeactivate\nsudo python -m nltk.downloader -d /usr/local/share/nltk_data all\n\n\"The enemy defense will replenish when your turn.\"\n\"Make sure to land a direct hit if you can\"\n\nset MSCOCO_DIR=d:/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/data/mscoco \n\nD:\\msys64\\usr\\bin\nexport BAZEL_SH=\"$(cygpath -m $(D:\\msys64\\usr\\bin $(which bash)))\"\nD:\\venv\\Lib\\site-packages\\tensorflow\\models\\research\\im2txt\\im2txt\\data\nD:/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/data\n\n!---!\nD:/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/data/download_and_preprocess_mscoco \"D:/venv/Lib/site-packages/tensorflow/models/research/im2txt/im2txt/data/mscoco\"\n\nC:/Program Files (x86)/Microsoft Visual Studio/2017/BuildTools\n\n~/computer_vision/tensorflow/models$ touch WORKSPACE\n\n~.\\venv\\Lib\\site-packages\\tensorflow\\models$ touch WORKSPACE\nD:\\venv\\Lib\\site-packages\\tensorflow\\models\\research\\im2txt\\im2txt\\data\\mscoco\n\nMake tensorflow work\nAcquire dataset\nLook for Data Science topic\n\ncp -r pycocotools lib/site-packages/tensorflow/models/research/\n\n\\lib\\site-packages\\tensorflow\n\nC:\\Program Files\\Java\\jre1.8.0_181\nDiscard git changes : git reset --hard\n<Tensorflow>\n1. In CMD\n\tSET PATH=C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v9.0\\bin;%PATH%\n\tSET PATH=C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA\\v9.0\\extras\\CUPTI\\libx64;%PATH%\n\tSET PATH=C:\\tools\\cuda\\bin;%PATH%\n\ncmake -G \"Visual Studio 14 2017 Win64\" -T host=x64 -DCMAKE_BUILD_TYPE=Release -DSWIG_EXECUTABLE=c:/swigwin-3.0.12/swig.exe -Dtensorflow_ENABLE_GPU=ON -Dtensorflow_CUDA_VERSION=10.0 -Dtensorflow_CUDNN_VERSION=7 -Dtensorflow_WIN_CPU_SIMD_OPTIONS=/arch:AVX2 ..\n\n\ncmake -G \"Visual Studio 15 2017 Win64\" -T host=x64 -DCMAKE_BUILD_TYPE=Release -DSWIG_EXECUTABLE=d:/swigwin-3.0.12/swig.exe -Dtensorflow_ENABLE_GPU=ON -Dtensorflow_CUDA_VERSION=10.0 -Dtensorflow_CUDNN_VERSION=7 -Dtensorflow_WIN_CPU_SIMD_OPTIONS=/arch:AVX ..\n\n- Video story generation using picture analysis\n- Video story generation through picture analysis\n\n- Video description generation through picture analysis\n- Video description generation through image captions with object similarity tracking through object detection and color histogram\n\n- Video description generation based on image captions with object similarity tracking\n- Image caption based video description with object similarity tracking\n\n\n- Automatic movie description based on image captioning\n- Automated Video Description generation based on Image-captions\n- Image caption-based video description \n\n\n- Movie event prediction based on previous scenes\n- Get key frames from previous scenes > train\n- Given a short clip, guess what happens next based on previous data\n\n\n\nPoint to the arena target to view the defense cards\n\nPoint to the hand target\n\n\nFixed duration off and transition duration zero.\n\nDisable Auto Bake\nfpscarlet\nTFFL\nUplay\ni.reisen\n2-------\n\ne-mail\ni.reisen\n------ -----\nSeptember 17, 19, 21 or October 1 to <?>\n(2 Days; 3 Hours each)\nOR-B947774\nD1\npre-test\ngame\npost-test\n\nD2\ncontrol post-test\ngame\n2nd post-test\n\n\nAugust 30 - Grade Consultation\nping editorbugs.untiy3d.com\nipconfig/flushdns\n\nDefense cards (in the field)\n\nAttack cards (on hand)\n\nselect hand cards, confirm,\ntarget defense, shoot.\n\nMust be greater than \n\n\nWONDERLAND POSTER\n- Explain gameplay (simplified)\n\n1 - Setup your defense of 6 cards\n2 - Use the your hand cards to destroy the enemy defenses\n3 - Destroy all defense cards to shoot the heart\n\n\nEMPATHIC\n- Process via jAudio\n- Tag CSV files and Merge\n- For feature selection, use Pearson's Correlation Coefficient (or others)\n- Model: Angry > Not Angry : Sad > Not Sad\n\n\nWONDERLAND\n- Fix roulette (shows wrong label)\n\n\n\n- Any text that appears after the <donotshow> tag will not display in Enigma Notes.\n- Click here to edit your notes!\n- Middle-click any skin to refresh.\n- Double-click any skin to switch to the next variant.\n- Load the \"Enigma\\Options\" skin to change your settings.\n\n\nCompensate for the lack of results\n\nJustify effectiveness of GILE through analysis\n\nReference learning systems that worked\n\nBase your systems on existing systems that worked\n\nPedagogical models that you based should have been proven effective\n\n\n** The best way to compensate for results\n- Related Systems\n- Working Theoretical Basis\n- Use existing systems to evaluate the quality of the system since we don't have results\n\n\n** Go back to the related systems, find out which were proven effective, identigy their features and look for their features in the GILE\n\n** We will use the features that contributed to their success as basis to EVALUATE the GILE in compensation of the lack of an actual evaluation\n\n** Identify systems that can be used as benchmark and the specific features that might have led to their success. Evaluaute the GILE's According to these features.\n\n** Increasing conceptual understanding increases performance therefore the GILES must increase conceptual understanding and increase performance and at the same time engaging\n\n** Playtest",
 			"file": "/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/Notes.txt",
+			"file_size": 15740,
+			"file_write_time": 132087883430162539,
 			"settings":
 			{
-				"buffer_size": 15081,
+				"buffer_size": 20013,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "V {'p9': ['I like dangerous and risky activities', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 's7': ['My teachers advise me on proper Internet use', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'b4': ['Socio-Economic Status', ('a', 'Group a'), ('b', 'Group b')], 'b5': ['Urban-Rural setting of household', ('a', 'Group a'), ('b', 'Group b')], 'b1': ['Gender', ('a', 'Group a'), ('b', 'Group b')], 'b2': ['Age', ('a', 'Group a'), ('b', 'Group b'), ('c', 'Group c')],\n\n\n'b3': ['Age Group', ('a', 'Group a'), ('b', 'Group b'), ('c', 'Group c')], 'd4': ['Do you use a laptop to access the Internet?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'd5': \n\n\n\n['Do you use a smart tablet to access the Internet?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'd2': ['Do you use a mobile phone to access the Internet?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'd3': ['Do you use a desktop computer to access the Internet?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'd1': ['Number of Devices Used to Access the Internet', ('a', 'Group a'), ('b', 'Group b')], 's8': ['Among friends, we help each other on proper Internet use', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'p4': ['I feel I need to be always into something new', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 's3': ['I tell my parents about what troubles me on the Internet', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'u4': ['Compared to other children, my digital skills are good', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 's1': ['I can count on my family for anything', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'n1': ['I received hurtful online messages', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'u1': ['How many of the following online activities do you do every day?', ('a', 'Group a'), ('b', 'Group b')], 's6': ['My parents are aware of my social media use', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'u3': ['How often do you use the Internet for personal stuff?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'u2': ['How often do you use the Internet for school work?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 's5': ['My parents use software and other technical restrictions on my Internet use', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'p10': ['I do exciting, fun activities, and I dont care of the danger', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'p11': ['I engage in the following risky offline activities', ('a', 'Group a'), ('b', 'Group b')], 'p2': ['In school, my friends find me aggressive', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'a1': ['Can you access the internet any time you want to?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'v1': ['I can be more myself online than in the real world', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'a3': ['Are you able to use the Internet at school?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'a2': ['Number of Internet Access Points', ('a', 'Group a'), ('b', 'Group b')], 'a5': [\"Do you use the Internet at a friend's house?\", ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'a4': ['Are you able to use the Internet at home?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'a7': ['Do you use an Internet shop to use the Internet?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'a6': ['Do you use a public place to use the Internet?', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'a8': ['How often do you go online, compared to other children, ? ', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'p7': ['Children think that I am not intelligent enough', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'r4': ['I engage in the following risky online activities', ('a', 'Group a'), ('b', 'Group b')], 'p3': ['I am often by myself in school', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'p1': ['In general, I usually do as I am told', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'p6': ['Other children are treated better than me', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'r1': ['I actively look for new friends on the Internet', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'r2': ['I send personal personal information to new online friends', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'r3': ['I do video calls with persons I only met on internet', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'p8': ['Children call me ugly names', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'p5': ['I am cautious in every new thing that I do', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 's4': ['My parents supervise my use of the Internet', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'v2': ['I feel safer in the online world', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'v3': ['People are nicer to me in the online world', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'p12': ['I can handle negative situations in the real world', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 's2': ['I get adequate advise from my parents', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'v4': ['I pretend to be someone else when I am online', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'n2': ['Nasty messages about me were passed around online', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'n3': ['I was threatened to be bullied on the Internet', ('a', 'Group a'), ('b', 'Group b'), ('-1', 'Group -1')], 'n4': ['I engage in excessive Internet use', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'n5': ['I forget to eat while on the internet', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')], 'n6': ['My performance in school is affected too much Internet', ('-1', 'Group -1'), ('a', 'Group a'), ('b', 'Group b')]}\nh",
+			"settings":
+			{
+				"buffer_size": 6075,
+				"line_ending": "Windows",
+				"name": "V {'p9': ['I like dangerous and risky activities',"
 			}
 		},
 		{
@@ -288,6 +300,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"a':",
+			"a:",
+			"a: ",
 			"querypopulat",
 			"start",
 			"makeInitialVarDesc",
@@ -412,10 +427,7 @@
 			"')\n",
 			"Tnote",
 			"theme_",
-			"use",
-			"style",
-			"tab",
-			"left"
+			"use"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -452,7 +464,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -461,15 +473,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 15081,
+						"buffer_size": 20013,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4542,
-								4542
+								5928,
+								5928
 							]
 						],
 						"settings":
@@ -477,14 +489,42 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2084.8,
+						"translation.y": 2256.8,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6075,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								690,
+								690
+							]
+						],
+						"settings":
+						{
+							"auto_name": "V {'p9': ['I like dangerous and risky activities',",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 2,
 					"semi_transient": false,
 					"settings":
 					{
@@ -508,11 +548,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "/D/Candy/Documents/School/BSCS 4 Term 3/AFFECTV/Data Processing/PerWindowNew/disgust_values.xml",
 					"semi_transient": false,
 					"settings":
@@ -537,11 +577,11 @@
 						"translation.y": 1025023.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "/D/Candy/Documents/School/BSCS 4 Term 3/AFFECTV/Data Processing/PerWindowNew/zREADME.txt",
 					"semi_transient": false,
 					"settings":
@@ -565,11 +605,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"semi_transient": false,
 					"settings":
 					{
@@ -593,7 +633,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
