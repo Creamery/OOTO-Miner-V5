@@ -102,7 +102,7 @@ class OOTO_Miner:
         # self.menubar.add_command(label = "Help")
 
         ''' TAB 1 - DATA (Tabs_t2) '''
-        self.configureDataTabElements()
+        self.configureDataTabElements(self.Tabs_t2)
 
         ''' TAB 2.1 - TEST (Tabs_t3) '''
         self.MM = self.configureTestTabElements(self.Tabs_t3)
@@ -236,10 +236,10 @@ class OOTO_Miner:
 
     ''' --> Configure DATA ("DATA") TAB (1) <-- '''
 
-    def configureDataTabElements(self):
+    def configureDataTabElements(self, parentFrame):
 
         # Create the parent frame
-        self.dataTabParentFrame = LabelFrame(self.Tabs_t2, bd = 0)
+        self.dataTabParentFrame = LabelFrame(parentFrame, bd = 0)
         self.dataTabParentFrame.place(
             relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
             relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
