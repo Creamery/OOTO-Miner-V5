@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/OOTODriver.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/UI_TestFrame.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UI_ManualMining.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOTODriver.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTODriver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_TestFrame.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_AutomatedMining.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,59 +15,80 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/UI_TestFrame.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="2843" selection-start-line="2843" selection-end-line="2843" />
-              <folding>
-                <element signature="e#1470#5989#0" />
-                <element signature="e#9601#10082#0" />
-                <element signature="e#10376#45449#0" />
-                <element signature="e#45574#73596#0" />
-                <element signature="e#73722#100874#0" />
-                <element signature="e#101154#101592#0" />
-                <element signature="e#101637#102245#0" />
-                <element signature="e#102292#102385#0" />
-                <element signature="e#102519#102959#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/OOTODriver.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="711" column="47" selection-start-line="711" selection-start-column="47" selection-end-line="711" selection-end-column="47" />
-              <folding>
-                <element signature="e#25151#33237#0" />
-                <element signature="e#33349#33831#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="29412">
-              <caret line="1548" column="33" selection-start-line="1548" selection-start-column="33" selection-end-line="1548" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Color_support.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.6655143">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/OOTODriver.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="151">
+                  <caret line="607" column="35" selection-start-line="607" selection-start-column="35" selection-end-line="607" selection-end-column="35" />
+                  <folding>
+                    <element signature="e#2500#2532#0" />
+                    <element signature="e#36034#36042#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/UI_ManualMining.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="118">
+                  <caret line="2512" selection-start-line="2512" selection-end-line="2512" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/UI_AutomatedMining.py">
+              <provider selected="true" editor-type-id="text-editor" />
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="29412">
+                  <caret line="1548" column="33" selection-start-line="1548" selection-start-column="33" selection-end-line="1548" selection-end-column="33" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Color_support.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="285">
+                  <caret line="15" selection-start-line="15" selection-end-line="15" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/UI_ManualMining.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="190">
+                  <caret line="64" selection-start-line="64" selection-end-line="64" />
+                  <folding>
+                    <element signature="e#1289#1297#0" />
+                    <element signature="e#6834#41907#0" />
+                    <element signature="e#42032#70054#0" />
+                    <element signature="e#70180#97332#0" />
+                    <element signature="e#98920#99360#0" />
+                    <element signature="e#99489#99552#0" />
+                    <element signature="e#114165#114173#0" />
+                    <element signature="e#129782#129812#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -76,36 +99,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>|</find>
-      <find>'b3'</find>
-      <find>after i</find>
-      <find>P1</find>
-      <find>p1(</find>
-      <find>p</find>
-      <find>proportions</find>
-      <find>results_te</find>
-      <find>proportions_list</find>
-      <find>killed it ['b3</find>
-      <find>it</find>
-      <find>print &quot;proportion list &quot; + str(proportions_list)</find>
-      <find>killed</find>
-      <find>group</find>
-      <find>killed i</find>
-      <find>killed it</find>
-      <find>root</find>
-      <find>tabs_t3</find>
-      <find>OOTO_M</find>
-      <find>ooto_min</find>
-      <find>testFre</find>
-      <find>Tabs_t</find>
-      <find>tabs_t</find>
-      <find>testFram</find>
-      <find>testFra</find>
-      <find>scrollFilterListBox</find>
-      <find>setFocusFeatureValues</find>
-      <find>querySelectDataValuesA</find>
-      <find>info</find>
-      <find>info&quot;</find>
+      <find>entryQuerySetDataA</find>
+      <find>global pop</find>
+      <find>count</find>
+      <find>uploaddata</find>
+      <find>uploadda</find>
+      <find>datasetCountA</find>
+      <find>uploaddataset</find>
+      <find>configurebin</find>
+      <find>listbox</find>
+      <find>configurebind</find>
+      <find>configure</find>
+      <find>labelFrameProcessChiSquare =</find>
+      <find>labelFrameProcessChiSquare</find>
+      <find>reset</find>
+      <find>buttonQueryResetFilterA</find>
+      <find>spinBoxQueryZConfidence</find>
+      <find>z-test</find>
+      <find>configurebindin</find>
+      <find>configureTestTabBindings</find>
+      <find>validateZConfidenceSpinbox</find>
+      <find>filterDataset</find>
+      <find>getcomm</find>
+      <find>labelConsoleScreenTaskBar =</find>
+      <find>catch</find>
+      <find>try</find>
+      <find>tkMessageBox</find>
+      <find>selectOptionChiSquare</find>
+      <find>sel</find>
+      <find>binding</find>
+      <find>invoke</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -139,12 +162,13 @@
         <option value="$PROJECT_DIR$/Table.py" />
         <option value="$PROJECT_DIR$/ChiTest.py" />
         <option value="$PROJECT_DIR$/UI_TestFrame.py" />
+        <option value="$PROJECT_DIR$/UI_ManualMining.py" />
         <option value="$PROJECT_DIR$/OOTODriver.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="6" />
+    <option name="x" value="5" />
     <option name="y" value="-10" />
     <option name="width" value="1730" />
     <option name="height" value="1090" />
@@ -155,6 +179,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -171,13 +196,12 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/OOTODriver.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -191,11 +215,11 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2\_icons" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -261,14 +285,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1487" height="878" extended-state="6" />
+    <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27851644" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19090909" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4982505" weight="0.04048583" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993007" weight="0.30499324" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4982505" weight="0.2645074" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993007" visible="true" weight="0.30364373" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24426451" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -318,19 +343,29 @@
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/UI_TestFrame.py</url>
-          <line>71</line>
-          <option name="timeStamp" value="34" />
+          <url>file://$PROJECT_DIR$/OOTODriver.py</url>
+          <line>1530</line>
+          <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/UI_TestFrame.py</url>
-          <line>1439</line>
-          <option name="timeStamp" value="35" />
+          <url>file://$PROJECT_DIR$/OOTODriver.py</url>
+          <line>2774</line>
+          <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/UI_TestFrame.py</url>
-          <line>2058</line>
-          <option name="timeStamp" value="36" />
+          <url>file://$PROJECT_DIR$/UI_ManualMining.py</url>
+          <line>186</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OOTODriver.py</url>
+          <line>116</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OOTODriver.py</url>
+          <line>142</line>
+          <option name="timeStamp" value="53" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -486,29 +521,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/UI_TestFrame.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
+        <state relative-caret-position="417">
           <caret line="2843" selection-start-line="2843" selection-end-line="2843" />
-          <folding>
-            <element signature="e#1470#5989#0" />
-            <element signature="e#9601#10082#0" />
-            <element signature="e#10376#45449#0" />
-            <element signature="e#45574#73596#0" />
-            <element signature="e#73722#100874#0" />
-            <element signature="e#101154#101592#0" />
-            <element signature="e#101637#102245#0" />
-            <element signature="e#102292#102385#0" />
-            <element signature="e#102519#102959#0" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UI_AutomatedMining.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UI_ManualMining.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="2512" selection-start-line="2512" selection-end-line="2512" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTODriver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="711" column="47" selection-start-line="711" selection-start-column="47" selection-end-line="711" selection-end-column="47" />
+        <state relative-caret-position="151">
+          <caret line="607" column="35" selection-start-line="607" selection-start-column="35" selection-end-line="607" selection-end-column="35" />
           <folding>
-            <element signature="e#25151#33237#0" />
-            <element signature="e#33349#33831#0" />
+            <element signature="e#2500#2532#0" />
+            <element signature="e#36034#36042#0" />
           </folding>
         </state>
       </provider>
