@@ -56,7 +56,7 @@ import CONSTANTS as const
 import Function_support as FS
 
 
-class MM_View:
+class ManualMining_View:
 
     def __init__(self, parentFrame):
 

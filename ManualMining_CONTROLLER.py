@@ -50,7 +50,7 @@ import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
 
-class MM_Controller:
+class ManualMining_Controller:
 
     def __init__(self, view):
         self.view = view
