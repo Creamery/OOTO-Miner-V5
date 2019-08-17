@@ -64,7 +64,6 @@ class OOTO_Miner:
         self.configureTestTabConsoleElements(parentFrame)
 
 
-
     """ >>> CONFIGURE MAIN TABS <<< """
     # region
     ''' --> Configure TEST ("TEST") TAB (2.1) <-- '''

@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/UI_ManualMining.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OOTODriver.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTODriver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_TestFrame.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_AutomatedMining.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_ManualMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_ManualMining.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -21,8 +19,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/OOTODriver.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="151">
-                  <caret line="607" column="35" selection-start-line="607" selection-start-column="35" selection-end-line="607" selection-end-column="35" />
+                <state relative-caret-position="269">
+                  <caret line="611" column="24" lean-forward="true" selection-start-line="611" selection-start-column="24" selection-end-line="611" selection-end-column="24" />
                   <folding>
                     <element signature="e#2500#2532#0" />
                     <element signature="e#36034#36042#0" />
@@ -35,7 +33,7 @@
             <entry file="file://$PROJECT_DIR$/UI_ManualMining.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="118">
-                  <caret line="2512" selection-start-line="2512" selection-end-line="2512" />
+                  <caret line="2511" selection-start-line="2511" selection-end-line="2511" />
                 </state>
               </provider>
             </entry>
@@ -70,7 +68,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/UI_ManualMining.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="190">
+                <state relative-caret-position="76">
                   <caret line="64" selection-start-line="64" selection-end-line="64" />
                   <folding>
                     <element signature="e#1289#1297#0" />
@@ -293,7 +291,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4982505" weight="0.2645074" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993007" visible="true" weight="0.30364373" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4993007" visible="true" weight="0.29014844" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24426451" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -344,17 +342,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTODriver.py</url>
-          <line>1530</line>
+          <line>1533</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTODriver.py</url>
-          <line>2774</line>
+          <line>2777</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/UI_ManualMining.py</url>
-          <line>186</line>
+          <line>185</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -532,14 +530,14 @@
     <entry file="file://$PROJECT_DIR$/UI_ManualMining.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="118">
-          <caret line="2512" selection-start-line="2512" selection-end-line="2512" />
+          <caret line="2511" selection-start-line="2511" selection-end-line="2511" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTODriver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="607" column="35" selection-start-line="607" selection-start-column="35" selection-end-line="607" selection-end-column="35" />
+        <state relative-caret-position="269">
+          <caret line="611" column="24" lean-forward="true" selection-start-line="611" selection-start-column="24" selection-end-line="611" selection-end-column="24" />
           <folding>
             <element signature="e#2500#2532#0" />
             <element signature="e#36034#36042#0" />

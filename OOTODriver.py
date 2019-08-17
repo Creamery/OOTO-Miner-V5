@@ -597,23 +597,25 @@ class OOTO_Miner:
         # Bind functionality to all UI elements
         self.configureBindings()
 
-        global queryType
-        queryType = self.comboQueryTest.get()
-
-        global populationDir
-        populationDir = ""
-
         self.initializeVariables()
-
-        self.selectOptionZTest(None)  # Select Z-test type
-        # self.buttonConsoleAll.invoke()  # Click ALL type
-        self.showConsoleScreen(None, self.listConsoleScreen)
 
         # self.enableFilter() # TODO REMOVE!
         # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
         # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
     def initializeVariables(self):
+        # Selected UI for MM
+        self.selectOptionZTest(None)
+        self.showConsoleScreen(None, self.listConsoleScreen) # Click ALL type
+
+
+        global queryType
+        queryType = self.comboQueryTest.get()
+
+        global populationDir
+        populationDir = ""
+
+
         # Button state variables (This is used instead of directly disabling buttons to keep their appearance)
         self.buttonQueryFeature_state = DISABLED
 
@@ -1425,6 +1427,7 @@ class OOTO_Miner:
 
     # region
     def configureTestTabBindings(self):
+
         # GENERAL
         self.dictConsoleScreens = self.MM.getDictConsoleScreens()
 
