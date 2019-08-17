@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/OOTODriver.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UI_TestFrame.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -12,11 +14,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/OOTO.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UI_TestFrame.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="707" column="67" lean-forward="true" selection-start-line="707" selection-start-column="67" selection-end-line="707" selection-end-column="67" />
+            <state relative-caret-position="113">
+              <caret line="2843" selection-start-line="2843" selection-end-line="2843" />
+              <folding>
+                <element signature="e#1470#5989#0" />
+                <element signature="e#9601#10082#0" />
+                <element signature="e#10376#45449#0" />
+                <element signature="e#45574#73596#0" />
+                <element signature="e#73722#100874#0" />
+                <element signature="e#101154#101592#0" />
+                <element signature="e#101637#102245#0" />
+                <element signature="e#102292#102385#0" />
+                <element signature="e#102519#102959#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/OOTODriver.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="141">
+              <caret line="711" column="47" selection-start-line="711" selection-start-column="47" selection-end-line="711" selection-end-column="47" />
+              <folding>
+                <element signature="e#25151#33237#0" />
+                <element signature="e#33349#33831#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="29412">
+              <caret line="1548" column="33" selection-start-line="1548" selection-start-column="33" selection-end-line="1548" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -24,7 +59,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Color_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
+            <state relative-caret-position="285">
               <caret line="15" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
@@ -41,19 +76,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>table</find>
-      <find>the question b3</find>
-      <find>diz a</find>
-      <find>b3</find>
-      <find>b3 h</find>
-      <find>diz</find>
-      <find>b3 hea</find>
-      <find>b3 head</find>
-      <find>b3 heade</find>
-      <find>b3 cluster col</find>
-      <find>b3 i</find>
-      <find>b3 groups</find>
-      <find>{}</find>
       <find>|</find>
       <find>'b3'</find>
       <find>after i</find>
@@ -70,7 +92,20 @@
       <find>group</find>
       <find>killed i</find>
       <find>killed it</find>
-      <find>killed it</find>
+      <find>root</find>
+      <find>tabs_t3</find>
+      <find>OOTO_M</find>
+      <find>ooto_min</find>
+      <find>testFre</find>
+      <find>Tabs_t</find>
+      <find>tabs_t</find>
+      <find>testFram</find>
+      <find>testFra</find>
+      <find>scrollFilterListBox</find>
+      <find>setFocusFeatureValues</find>
+      <find>querySelectDataValuesA</find>
+      <find>info</find>
+      <find>info&quot;</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -103,13 +138,16 @@
         <option value="$PROJECT_DIR$/OOTO.py" />
         <option value="$PROJECT_DIR$/Table.py" />
         <option value="$PROJECT_DIR$/ChiTest.py" />
+        <option value="$PROJECT_DIR$/UI_TestFrame.py" />
+        <option value="$PROJECT_DIR$/OOTODriver.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="75" />
-    <option name="width" value="1729" />
-    <option name="height" value="1089" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="6" />
+    <option name="y" value="-10" />
+    <option name="width" value="1730" />
+    <option name="height" value="1090" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -139,7 +177,7 @@
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../School/MSCS Term 3/INTRNLP/LingSpam" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/OOTODriver.py" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -153,6 +191,9 @@
     </option>
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2\_icons" />
     </key>
@@ -182,7 +223,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/OOTO.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/OOTODriver.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -220,22 +261,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="60" y="0" width="1383" height="871" extended-state="0" />
+    <frame x="-7" y="-7" width="1487" height="878" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21962264" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27851644" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993007" weight="0.30517712" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4982505" weight="0.04048583" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993007" weight="0.30499324" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.24426451" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32793522" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32793522" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32793522" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5006993" side_tool="true" weight="0.84075576" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32928476" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50174946" side_tool="true" weight="0.04048583" />
+      <window_info anchor="bottom" id="Python Console" order="9" weight="0.32928476" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32793522" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24965034" />
@@ -275,6 +316,21 @@
           <url>file://$PROJECT_DIR$/OOTO.py</url>
           <line>1185</line>
           <option name="timeStamp" value="33" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/UI_TestFrame.py</url>
+          <line>71</line>
+          <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/UI_TestFrame.py</url>
+          <line>1439</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/UI_TestFrame.py</url>
+          <line>2058</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -316,13 +372,6 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_right_arrow_small.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="1326" selection-start-line="1326" selection-end-line="1326" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../School/MSCS Term 3/INTRNLP/LingSpam/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -346,13 +395,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Color_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
@@ -423,8 +465,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/OOTO.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="707" column="67" lean-forward="true" selection-start-line="707" selection-start-column="67" selection-end-line="707" selection-end-column="67" />
+        <state relative-caret-position="135">
+          <caret line="589" column="33" selection-start-line="589" selection-start-column="26" selection-end-line="589" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29412">
+          <caret line="1548" column="33" selection-start-line="1548" selection-start-column="33" selection-end-line="1548" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Color_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UI_TestFrame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="2843" selection-start-line="2843" selection-end-line="2843" />
+          <folding>
+            <element signature="e#1470#5989#0" />
+            <element signature="e#9601#10082#0" />
+            <element signature="e#10376#45449#0" />
+            <element signature="e#45574#73596#0" />
+            <element signature="e#73722#100874#0" />
+            <element signature="e#101154#101592#0" />
+            <element signature="e#101637#102245#0" />
+            <element signature="e#102292#102385#0" />
+            <element signature="e#102519#102959#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OOTODriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="711" column="47" selection-start-line="711" selection-start-column="47" selection-end-line="711" selection-end-column="47" />
+          <folding>
+            <element signature="e#25151#33237#0" />
+            <element signature="e#33349#33831#0" />
+          </folding>
         </state>
       </provider>
     </entry>
