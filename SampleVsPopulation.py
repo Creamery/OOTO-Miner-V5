@@ -126,11 +126,11 @@ def getPopTotalsAndProportions(records,selectedFeature,allValues,selectedValues)
 '''
 Calculate the standard error.
 '''
-def getStandardError(p,n):
+def getStandardError(p, n):
     if(float(n) == 0):
         return 0
     else:
-        return math.sqrt( (p * (1-p)) / float(n))
+        return math.sqrt((p * (1 - p)) / float(n)) # ( P * (1 - P) / n ) Formula
 
 '''
 Calculate the z-score between a sample and the population
@@ -140,7 +140,7 @@ def getZScore(sample, population):
     if se == 0:
         z = 0
         return z, se
-    z = (sample['Proportion'] - population['Proportion']) / se
+    z = (sample['Proportion'] - population['Proportion']) / se  # Z-test Sample vs Population Formula
 
     return z,se
 '''
@@ -188,8 +188,8 @@ def sampleVsPopulationSpecific(popDataset, sampleFeature, sampleValue, selectedF
     population = getPopTotalsAndProportions(population_dataset, selectedFeature, allValues, selectedValues)
 
     for sample in samples:
-        #Perform Z-Test and Standard Error of Sample Proportion vs the population
-        zScore, standardError = getZScore(sample,population)#Retrieve the z-score of the sample and the standard error to the population
+        # Perform Z-Test and Standard Error of Sample Proportion vs the population
+        zScore, standardError = getZScore(sample, population) # Retrieve the z-score of the sample and the standard error to the population
         sample['Z'] = zScore
         sample['Standard Error'] = standardError
         sample['Upper Bound'] = sample['Proportion'] + (zCriticalValue * sample['Standard Error'])
@@ -234,6 +234,7 @@ def sampleVsPopulationSpecific(popDataset, sampleFeature, sampleValue, selectedF
 
 '''
 Call this method to initiate the Sample vs Population
+TODO : Check if depreecated
 '''
 def sampleVsPopulation(popDatasetPath, sampleFeature, selectedFeature, allValues, selectedValues, zCriticalValue):
     delimiter = ':'
