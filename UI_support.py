@@ -358,3 +358,35 @@ FILTER_STATUS_READY_TEXT = '''READY'''
 FILTER_STATUS_CONFIRMED_TEXT = '''FEATURE: '''
 FILTER_STATUS_LABEL_RELIEF = FLAT # Won't work unless you change FLAT to something else (i.e. GROOVE)
 FILTER_STATUS_LABEL_BORDER = 0
+
+
+def getRelX(element):
+    return float(element.place_info()['relx'])
+
+
+def getRelY(element):
+    return float(element.place_info()['rely'])
+
+
+def getRelW(element):
+    return float(element.place_info()['relwidth'])
+
+
+def getRelH(element):
+    return float(element.place_info()['relheight'])
+
+
+def getW(element):
+    return float(element.place_info()['width'])
+
+
+def getH(element):
+    return float(element.place_info()['height'])
+
+
+def getInfoH(element):
+    return element.winfo_height()
+
+
+def getInfoW(element):
+    return element.winfo_width()

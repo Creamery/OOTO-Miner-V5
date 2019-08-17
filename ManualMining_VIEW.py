@@ -6,7 +6,7 @@
 
 """
 {Description}
-The runnable script for OOTO Miner
+Manual Mining User Interface
 """
 
 __author__ = ["Arren Antioquia", "Arces Talavera", "Jet Virtusio",
@@ -46,23 +46,29 @@ except ImportError:
 
     py3 = 1
 
-import math
-import Mother_support
+
 import Color_support
 import Icon_support
 import UI_support
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
+import Function_support as FS
 
 
-class OOTO_Miner:
+class MM_View:
 
     def __init__(self, parentFrame):
 
         self.configureTestTabElements(parentFrame)
+        self.configureZTestElements(parentFrame)
         self.configureTestTabConsoleElements(parentFrame)
 
+    def setArrQueryCriticalValue(self, arrayValue):
+        self.arrQueryCriticalValue = arrayValue
+
+    def setArrQueryCriticalValueMapping(self, arrayValue):
+        self.arrQueryCriticalValueMapping = arrayValue
 
     """ >>> CONFIGURE MAIN TABS <<< """
     # region
@@ -89,7 +95,7 @@ class OOTO_Miner:
             background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR  # , text = '''TYPE'''
         )
 
-        newRelY = self.getRelY(self.labelFrameTypeElements) + self.getRelH(self.labelFrameTypeElements)
+        newRelY = FS.getRelY(self.labelFrameTypeElements) + FS.getRelH(self.labelFrameTypeElements)
 
         # SELECT Parent Frame (Datasets)
         self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame, bd = 0)
@@ -103,7 +109,7 @@ class OOTO_Miner:
 
         self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
 
-        newRelY = self.getRelY(self.labelFrameSelectElements) + self.getRelH(
+        newRelY = FS.getRelY(self.labelFrameSelectElements) + FS.getRelH(
             self.labelFrameSelectElements)  # TODO Make constant (space in between)
 
         # FILTER Parent Frame
@@ -118,13 +124,13 @@ class OOTO_Miner:
 
         self.configureFilterElements(self.labelFrameFilterElements)  # Configures all sub elements under FILTER
 
-        newRelY = self.getRelY(self.labelFrameFilterElements) + self.getRelH(self.labelFrameFilterElements)
+        newRelY = FS.getRelY(self.labelFrameFilterElements) + FS.getRelH(self.labelFrameFilterElements)
 
         # PROCESS Parent Frame
         self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameProcessElements.place(
             # relx = UI_support.TAB_TEST_PROCESS_REL_X,
-            relx = self.getRelX(self.labelFrameSelectElements),
+            relx = FS.getRelX(self.labelFrameSelectElements),
             rely = newRelY,
             relwidth = UI_support.TAB_TEST_PROCESS_REL_W,
             relheight = UI_support.TAB_TEST_PROCESS_REL_H
@@ -165,9 +171,9 @@ class OOTO_Miner:
         newRelW = 0.2
         # self.testTabConsoleParentFrame.place(
         #     relx = 1 - newRelW,
-        #     rely = self.getRelY(self.testTabParentFrame),
+        #     rely = FS.getRelY(self.testTabParentFrame),
         #     relwidth = newRelW,
-        #     relheight = self.getRelH(self.testTabParentFrame)
+        #     relheight = FS.getRelH(self.testTabParentFrame)
         # )
         self.testTabConsoleParentFrame.configure(
             background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR
@@ -175,6 +181,75 @@ class OOTO_Miner:
 
 
     # endregion
+
+
+    def configureZTestElements(self, parentFrame):
+
+        global arrQueryCriticalValue
+        global arrQueryCriticalValueMapping
+
+        # > COMBO BOX
+        global testTypes
+        testTypes = ["Sample vs Sample", "Sample vs Population"]
+        self.comboQueryTest = ttk.Combobox(parentFrame)
+        # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 50, width = 360) # 316) # TODO SVP
+        self.comboQueryTest.configure(exportselection = "0")
+        self.comboQueryTest.configure(takefocus = "")
+        self.comboQueryTest.configure(values = testTypes)
+        self.comboQueryTest.current(0)
+        self.comboQueryTest.configure(state = "readonly")
+
+        # > CHI-TEST FRAME
+
+        self.labelFrameQueryChi = LabelFrame(parentFrame)
+        # self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0,
+        #                               relwidth = 0)# 0.48)
+        self.labelFrameQueryChi.configure(relief = GROOVE)
+        self.labelFrameQueryChi.configure(foreground = "black")
+        self.labelFrameQueryChi.configure(text = '''Chi Test''')
+        self.labelFrameQueryChi.configure(background = "#d9d9d9")
+
+        # > Z-TEST FRAME POPULATION ##### TODO Add functionality
+        # region
+        self.labelFrameQuerySvP = LabelFrame(parentFrame)
+        # self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0.1,
+        #                               relwidth = 0.3) # 0.48) # TODO SVP
+        self.labelFrameQuerySvP.configure(relief = GROOVE)
+        self.labelFrameQuerySvP.configure(foreground = "black")
+        self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
+        self.labelFrameQuerySvP.configure(background = "#d9d9d9")
+
+        self.comboQueryCriticalValueSvP = ttk.Combobox(self.labelFrameQuerySvP)
+        # self.comboQueryCriticalValueSvP.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
+        self.comboQueryCriticalValueSvP.configure(exportselection = "0")
+        self.comboQueryCriticalValueSvP.configure(takefocus = "")
+        self.comboQueryCriticalValueSvP.configure(values = arrQueryCriticalValue)
+        self.comboQueryCriticalValueSvP.set(arrQueryCriticalValue[0])
+        self.comboQueryCriticalValueSvP.configure(state = "disabled")
+
+        self.labelQueryZTestSvP = Label(self.labelFrameQuerySvP)
+        # self.labelQueryZTestSvP.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
+        # self.labelQueryZTest.configure(background = "#d9d9d9")
+        self.labelQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
+        self.labelQueryZTestSvP.configure(foreground = "#000000")
+        self.labelQueryZTestSvP.configure(text = '''NO DATA''')
+        self.labelQueryZTestSvP.configure(state = "disabled")
+
+        self.buttonQueryZTestSvP = Button(self.labelFrameQuerySvP)
+        self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 20, width = 300)
+        self.buttonQueryZTestSvP.configure(activebackground = "#d9d9d9")
+        self.buttonQueryZTestSvP.configure(activeforeground = "#000000")
+        self.buttonQueryZTestSvP.configure(background = "#d9d9d9")
+        self.buttonQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
+        self.buttonQueryZTestSvP.configure(foreground = "#000000")
+        self.buttonQueryZTestSvP.configure(highlightbackground = "#d9d9d9")
+        self.buttonQueryZTestSvP.configure(highlightcolor = "black")
+        self.buttonQueryZTestSvP.configure(pady = "0")
+        self.buttonQueryZTestSvP.configure(text = '''Test''')
+        self.buttonQueryZTestSvP.configure(state = "disabled")
+
+        # endregion
+
 
     """ >>> FUNCTIONS FOR THE CONFIGURATION OF UI ELEMENTS <<< """
     # region
@@ -221,12 +296,12 @@ class OOTO_Miner:
             bd = 1, relief = GROOVE,
             anchor = SE
         )
-        newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
+        newRelX = FS.getRelX(self.labelFrameSelectTitleNumber) + FS.getRelW(self.labelFrameSelectTitleNumber)
 
         # SELECT TITLE
         self.labelFrameSelectTitleText = Label(self.labelFrameSelectTitle)
-        newRelY = self.getRelY(self.labelFrameSelectTitleNumber)
-        newRelH = self.getRelH(self.labelFrameSelectTitleNumber)
+        newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
+        newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
         self.labelFrameSelectTitleText.place(
             relx = newRelX - 0.001, rely = newRelY,
             relwidth = 0.15, relheight = newRelH, anchor = NW)
@@ -245,9 +320,9 @@ class OOTO_Miner:
             coordinate = 0.99, specifiedAnchor = NW
         )
 
-        newRelY = self.getRelY(self.labelFrameSelectTitle) + self.getRelH(
+        newRelY = FS.getRelY(self.labelFrameSelectTitle) + FS.getRelH(
             self.labelFrameSelectTitle)  # + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
-        titleRelH = self.getRelH(self.labelFrameSelectTitle)
+        titleRelH = FS.getRelH(self.labelFrameSelectTitle)
 
         self.labelFrameDatasetA = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetA.place(
@@ -257,11 +332,11 @@ class OOTO_Miner:
         self.labelFrameDatasetA.configure(
             background = Color_support.SELECT_BG
         )
-        newRelH = self.getRelH(self.labelFrameDatasetA)
+        newRelH = FS.getRelH(self.labelFrameDatasetA)
         self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
             relx = UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15,
-            # (2 * self.getRelX(self.labelFrameDatasetA)) + self.getRelW(self.labelFrameDatasetA),
+            # (2 * FS.getRelX(self.labelFrameDatasetA)) + FS.getRelW(self.labelFrameDatasetA),
             rely = newRelY, relwidth = 0.4, relheight = newRelH
         )
         self.labelFrameDatasetB.configure(
@@ -303,7 +378,7 @@ class OOTO_Miner:
 
         # LISTBOX PARENT (DATASET A)
         # region
-        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + self.getRelY(self.labelFrameQueryDataA) + self.getRelH(
+        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + FS.getRelY(self.labelFrameQueryDataA) + FS.getRelH(
             self.labelFrameQueryDataA)
 
         self.labelFrameListBoxA = LabelFrame(self.labelFrameDatasetA, bd = 0)
@@ -313,8 +388,8 @@ class OOTO_Miner:
 
         # QUERY STATUS PARENT - DATASET A
         # region
-        # newRelY = self.getRelY(self.listQuerySetDataA) + self.getRelH(self.listQuerySetDataA)
-        # newRelH = 1 - self.getRelH(self.listQuerySetDataA)
+        # newRelY = FS.getRelY(self.listQuerySetDataA) + FS.getRelH(self.listQuerySetDataA)
+        # newRelH = 1 - FS.getRelH(self.listQuerySetDataA)
 
         self.labelFrameQuerySetDataStatusA = LabelFrame(self.labelFrameListBoxA, bd = 0)
         # self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
@@ -324,8 +399,8 @@ class OOTO_Miner:
 
         # QUERY TOP STRIPE PARENT - DATASET A
         # region
-        # newRelH = self.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
-        newRelH = self.getRelH(
+        # newRelH = FS.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
+        newRelH = FS.getRelH(
             self.labelFrameQuerySetDataStatusA) * UI_support.SELECT_LABEL_STRIPES_REL_H_MULTIPLIER  # 5 / 8 # TODO Make constant reference
         self.labelQuerySetDataStripesA = Label(self.labelFrameListBoxA, bd = 0, relief = GROOVE)
         self.labelQuerySetDataStripesA.place(
@@ -336,12 +411,12 @@ class OOTO_Miner:
             relheight = newRelH,
             anchor = NW
         )
-        newRelY = self.getRelY(self.labelQuerySetDataStripesA) + self.getRelH(self.labelQuerySetDataStripesA)
+        newRelY = FS.getRelY(self.labelQuerySetDataStripesA) + FS.getRelH(self.labelQuerySetDataStripesA)
         self.labelFrameQuerySetDataStatusA.place(
-            relx = self.getRelX(self.labelFrameQuerySetDataStatusA),
+            relx = FS.getRelX(self.labelFrameQuerySetDataStatusA),
             rely = newRelY,
-            relwidth = self.getRelW(self.labelFrameQuerySetDataStatusA),
-            relheight = self.getRelH(self.labelFrameQuerySetDataStatusA),
+            relwidth = FS.getRelW(self.labelFrameQuerySetDataStatusA),
+            relheight = FS.getRelH(self.labelFrameQuerySetDataStatusA),
         )
         im = PIL.Image.open(
             Icon_support.TEXTURE_STRIPE_PINK)
@@ -377,7 +452,7 @@ class OOTO_Miner:
             bd = 0, relief = FLAT,
         )
 
-        newRelX = self.getRelX(self.labelFrameBorderQuerySetDataA) + self.getRelW(
+        newRelX = FS.getRelX(self.labelFrameBorderQuerySetDataA) + FS.getRelW(
             self.labelFrameBorderQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # ENTRY - DATASET A
@@ -398,7 +473,7 @@ class OOTO_Miner:
         # endregion
         # QUERY BUTTON - DATASET A
         # region
-        newRelX = self.getRelX(self.entryQuerySetDataA) + self.getRelW(
+        newRelX = FS.getRelX(self.entryQuerySetDataA) + FS.getRelW(
             self.entryQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
@@ -443,8 +518,8 @@ class OOTO_Miner:
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
-        newRelY = self.getRelY(self.labelFrameQuerySetDataStatusA) + self.getRelH(self.labelFrameQuerySetDataStatusA)
-        newRelH = 1 - (self.getRelH(self.labelFrameQuerySetDataStatusA) + self.getRelH(self.labelQuerySetDataStripesA))
+        newRelY = FS.getRelY(self.labelFrameQuerySetDataStatusA) + FS.getRelH(self.labelFrameQuerySetDataStatusA)
+        newRelH = 1 - (FS.getRelH(self.labelFrameQuerySetDataStatusA) + FS.getRelH(self.labelQuerySetDataStripesA))
         self.listQuerySetDataA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
 
         # self.listQuerySetDataA.place(
@@ -453,7 +528,7 @@ class OOTO_Miner:
         # # self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78 - 0.03)
         # endregion
 
-        newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + self.getRelY(self.labelFrameListBoxA) + self.getRelH(
+        newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(
             self.labelFrameListBoxA)
 
         # COMMANDS PARENT (DATASET A)
@@ -489,7 +564,7 @@ class OOTO_Miner:
 
         # QUERY COUNT (DATASET A)
         # region
-        newRelX = self.getRelX(self.buttonQueryResetFilterA) + self.getRelW(self.buttonQueryResetFilterA)
+        newRelX = FS.getRelX(self.buttonQueryResetFilterA) + FS.getRelW(self.buttonQueryResetFilterA)
 
         self.labelFrameQueryCount = LabelFrame(self.labelFrameCommandsA, bd = 1)
         self.labelFrameQueryCount.place(
@@ -514,7 +589,7 @@ class OOTO_Miner:
         )
         self.labelQueryDataACountText = Label(self.labelFrameQueryCount)
         self.labelQueryDataACountText.place(
-            relx = 0, rely = self.getRelH(self.labelQueryDataACount),
+            relx = 0, rely = FS.getRelH(self.labelQueryDataACount),
             relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
         self.labelQueryDataACountText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
@@ -525,11 +600,11 @@ class OOTO_Miner:
 
         # COMMAND BORDERS - DATASET A
         # region
-        newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
+        newRelY = FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(self.labelFrameListBoxA)
 
         self.separatorlabelFrameCommandsARight = Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsARight.place(
-            relx = self.getRelX(self.labelFrameQueryDataA),
+            relx = FS.getRelX(self.labelFrameQueryDataA),
             rely = newRelY,
             relheight = 1 - newRelY - 0.025,  # TODO To adjust border height, just adjust this
             width = 1)
@@ -537,31 +612,31 @@ class OOTO_Miner:
 
         self.separatorlabelFrameCommandsALeft = Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsALeft.place(
-            relx = 1 - self.getRelX(self.labelFrameQueryDataA),
-            rely = self.getRelY(self.separatorlabelFrameCommandsARight),
-            relheight = self.getRelH(self.separatorlabelFrameCommandsARight),
+            relx = 1 - FS.getRelX(self.labelFrameQueryDataA),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsARight),
+            relheight = FS.getRelH(self.separatorlabelFrameCommandsARight),
             width = 1
         )
         self.separatorlabelFrameCommandsALeft.configure(background = Color_support.DISABLED_D_BLUE)
 
         self.separatorlabelFrameCommandsABottom = Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsABottom.place(
-            relx = self.getRelX(self.separatorlabelFrameCommandsARight),
+            relx = FS.getRelX(self.separatorlabelFrameCommandsARight),
             # rely = 0.997,
-            rely = self.getRelY(self.separatorlabelFrameCommandsALeft) +
-                   self.getRelH(self.separatorlabelFrameCommandsALeft) - 0.003,
-            relwidth = self.getRelX(self.separatorlabelFrameCommandsALeft) - self.getRelX(
+            rely = FS.getRelY(self.separatorlabelFrameCommandsALeft) +
+                   FS.getRelH(self.separatorlabelFrameCommandsALeft) - 0.003,
+            relwidth = FS.getRelX(self.separatorlabelFrameCommandsALeft) - FS.getRelX(
                 self.separatorlabelFrameCommandsARight),
             height = 1)
         self.separatorlabelFrameCommandsABottom.configure(background = Color_support.DISABLED_D_BLUE)
 
-        newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
+        newRelY = FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(self.labelFrameListBoxA)
 
         self.separatorlabelFrameCommandsATop = Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsATop.place(
-            relx = self.getRelX(self.separatorlabelFrameCommandsARight),
+            relx = FS.getRelX(self.separatorlabelFrameCommandsARight),
             rely = newRelY,
-            relwidth = self.getRelW(self.separatorlabelFrameCommandsABottom),
+            relwidth = FS.getRelW(self.separatorlabelFrameCommandsABottom),
             height = 1)
         self.separatorlabelFrameCommandsATop.configure(background = Color_support.DISABLED_D_BLUE)
 
@@ -573,10 +648,10 @@ class OOTO_Miner:
         # region
         self.labelFrameQueryDataB = LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameQueryDataB.place(
-            relx = self.getRelX(self.labelFrameQueryDataA),
-            rely = self.getRelY(self.labelFrameQueryDataA),
-            relwidth = self.getRelW(self.labelFrameQueryDataA),
-            relheight = self.getRelH(self.labelFrameQueryDataA))
+            relx = FS.getRelX(self.labelFrameQueryDataA),
+            rely = FS.getRelY(self.labelFrameQueryDataA),
+            relwidth = FS.getRelW(self.labelFrameQueryDataA),
+            relheight = FS.getRelH(self.labelFrameQueryDataA))
         self.labelFrameQueryDataB.configure(
             background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
             relief = GROOVE  # , text = '''Dataset B'''
@@ -586,10 +661,10 @@ class OOTO_Miner:
         # region
         self.labelFrameListBoxB = LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameListBoxB.place(
-            relx = self.getRelX(self.labelFrameListBoxA),
-            rely = self.getRelY(self.labelFrameListBoxA),
-            relwidth = self.getRelW(self.labelFrameListBoxA),
-            relheight = self.getRelH(self.labelFrameListBoxA)
+            relx = FS.getRelX(self.labelFrameListBoxA),
+            rely = FS.getRelY(self.labelFrameListBoxA),
+            relwidth = FS.getRelW(self.labelFrameListBoxA),
+            relheight = FS.getRelH(self.labelFrameListBoxA)
         )
 
         # STATUS CHILDREN - DATASET B
@@ -599,10 +674,10 @@ class OOTO_Miner:
         # region
         self.labelQuerySetDataStripesB = Label(self.labelFrameListBoxB, bd = 0, relief = GROOVE)
         self.labelQuerySetDataStripesB.place(
-            relx = self.getRelX(self.labelQuerySetDataStripesA),
-            rely = self.getRelY(self.labelQuerySetDataStripesA),
-            relwidth = self.getRelW(self.labelQuerySetDataStripesA),
-            relheight = self.getRelH(self.labelQuerySetDataStripesA)
+            relx = FS.getRelX(self.labelQuerySetDataStripesA),
+            rely = FS.getRelY(self.labelQuerySetDataStripesA),
+            relwidth = FS.getRelW(self.labelQuerySetDataStripesA),
+            relheight = FS.getRelH(self.labelQuerySetDataStripesA)
         )
         im = PIL.Image.open(
             Icon_support.TEXTURE_STRIPE_PINK)
@@ -617,10 +692,10 @@ class OOTO_Miner:
         self.labelQuerySetDataStatusB = Label(self.labelFrameQueryDataB)
         # self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
         self.labelQuerySetDataStatusB.place(
-            relx = self.getRelX(self.labelQuerySetDataStatusA),
-            rely = self.getRelY(self.labelQuerySetDataStatusA),
-            relwidth = self.getRelW(self.labelQuerySetDataStatusA),
-            relheight = self.getRelH(self.labelQuerySetDataStatusA)
+            relx = FS.getRelX(self.labelQuerySetDataStatusA),
+            rely = FS.getRelY(self.labelQuerySetDataStatusA),
+            relwidth = FS.getRelW(self.labelQuerySetDataStatusA),
+            relheight = FS.getRelH(self.labelQuerySetDataStatusA)
         )
         # self.labelQuerySetDataStatusB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusB.configure(
@@ -646,20 +721,20 @@ class OOTO_Miner:
         )
 
         self.listQuerySetDataB.place(
-            relx = self.getRelX(self.listQuerySetDataA),
-            rely = self.getRelY(self.listQuerySetDataA),
-            relwidth = self.getRelW(self.listQuerySetDataA),
-            relheight = self.getRelH(self.listQuerySetDataA)
+            relx = FS.getRelX(self.listQuerySetDataA),
+            rely = FS.getRelY(self.listQuerySetDataA),
+            relwidth = FS.getRelW(self.listQuerySetDataA),
+            relheight = FS.getRelH(self.listQuerySetDataA)
         )
 
         # STATUS - DATASET B
         # region
         self.labelFrameQuerySetDataStatusB = LabelFrame(self.labelFrameListBoxB, bd = 0)
         self.labelFrameQuerySetDataStatusB.place(
-            relx = self.getRelX(self.labelFrameQuerySetDataStatusA),
-            rely = self.getRelY(self.labelFrameQuerySetDataStatusA),
-            relwidth = self.getRelW(self.labelFrameQuerySetDataStatusA),
-            relheight = self.getRelH(self.labelFrameQuerySetDataStatusA)
+            relx = FS.getRelX(self.labelFrameQuerySetDataStatusA),
+            rely = FS.getRelY(self.labelFrameQuerySetDataStatusA),
+            relwidth = FS.getRelW(self.labelFrameQuerySetDataStatusA),
+            relheight = FS.getRelH(self.labelFrameQuerySetDataStatusA)
         )
         # endregion
 
@@ -667,10 +742,10 @@ class OOTO_Miner:
         # region
         self.labelFrameBorderQuerySetDataB = LabelFrame(self.labelFrameQuerySetDataStatusB, bd = 0)
         self.labelFrameBorderQuerySetDataB.place(
-            relx = self.getRelX(self.labelFrameBorderQuerySetDataA),
-            rely = self.getRelY(self.labelFrameBorderQuerySetDataA),
-            relwidth = self.getRelW(self.labelFrameBorderQuerySetDataA),
-            relheight = self.getRelH(self.labelFrameBorderQuerySetDataA))
+            relx = FS.getRelX(self.labelFrameBorderQuerySetDataA),
+            rely = FS.getRelY(self.labelFrameBorderQuerySetDataA),
+            relwidth = FS.getRelW(self.labelFrameBorderQuerySetDataA),
+            relheight = FS.getRelH(self.labelFrameBorderQuerySetDataA))
         self.labelFrameBorderQuerySetDataB.configure(
             background = Color_support.SELECT_BUTTONS_BG
         )
@@ -678,10 +753,10 @@ class OOTO_Miner:
         self.labelQuerySetDataB = Label(self.labelFrameBorderQuerySetDataB)
 
         self.labelQuerySetDataB.place(
-            relx = self.getRelX(self.labelQuerySetDataA),
-            rely = self.getRelY(self.labelQuerySetDataA),
-            relwidth = self.getRelW(self.labelQuerySetDataA),
-            relheight = self.getRelH(self.labelQuerySetDataA))
+            relx = FS.getRelX(self.labelQuerySetDataA),
+            rely = FS.getRelY(self.labelQuerySetDataA),
+            relwidth = FS.getRelW(self.labelQuerySetDataA),
+            relheight = FS.getRelH(self.labelQuerySetDataA))
         self.labelQuerySetDataB.configure(
             background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
             text = UI_support.SELECT_LABEL_DATASETB_TEXT,
@@ -693,10 +768,10 @@ class OOTO_Miner:
 
         self.entryQuerySetDataB = Entry(self.labelFrameQuerySetDataStatusB)
         self.entryQuerySetDataB.place(
-            relx = self.getRelX(self.entryQuerySetDataA),
-            rely = self.getRelY(self.entryQuerySetDataA),
-            relwidth = self.getRelW(self.entryQuerySetDataA),
-            relheight = self.getRelH(self.entryQuerySetDataA))
+            relx = FS.getRelX(self.entryQuerySetDataA),
+            rely = FS.getRelY(self.entryQuerySetDataA),
+            relwidth = FS.getRelW(self.entryQuerySetDataA),
+            relheight = FS.getRelH(self.entryQuerySetDataA))
         self.entryQuerySetDataB.configure(
             background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
             bd = 1,
@@ -709,10 +784,10 @@ class OOTO_Miner:
         # DATASET B
         self.buttonQuerySetDataB = Button(self.labelFrameQuerySetDataStatusB)
         self.buttonQuerySetDataB.place(
-            relx = self.getRelX(self.buttonQuerySetDataA),
-            rely = self.getRelY(self.buttonQuerySetDataA),
-            relwidth = self.getRelW(self.buttonQuerySetDataA),
-            relheight = self.getRelH(self.buttonQuerySetDataA))
+            relx = FS.getRelX(self.buttonQuerySetDataA),
+            rely = FS.getRelY(self.buttonQuerySetDataA),
+            relwidth = FS.getRelW(self.buttonQuerySetDataA),
+            relheight = FS.getRelH(self.buttonQuerySetDataA))
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
@@ -734,10 +809,10 @@ class OOTO_Miner:
         # region
         self.labelFrameCommandsB = LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameCommandsB.place(
-            relx = self.getRelX(self.labelFrameCommandsA),
-            rely = self.getRelY(self.labelFrameCommandsA),
-            relwidth = self.getRelW(self.labelFrameCommandsA),
-            relheight = self.getRelH(self.labelFrameCommandsA)
+            relx = FS.getRelX(self.labelFrameCommandsA),
+            rely = FS.getRelY(self.labelFrameCommandsA),
+            relwidth = FS.getRelW(self.labelFrameCommandsA),
+            relheight = FS.getRelH(self.labelFrameCommandsA)
         )
         # self.labelFrameCommandsB.place(
         #     relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
@@ -769,41 +844,41 @@ class OOTO_Miner:
 
         # COMMAND BORDERS - DATASET B
         # region
-        # newRelY = self.getRelY(self.labelFrameListBoxB) + self.getRelH(self.labelFrameListBoxB)
+        # newRelY = FS.getRelY(self.labelFrameListBoxB) + FS.getRelH(self.labelFrameListBoxB)
 
         self.separatorlabelFrameCommandsBRight = Label(self.labelFrameDatasetB)
         self.separatorlabelFrameCommandsBRight.place(
-            relx = self.getRelX(self.separatorlabelFrameCommandsARight),
-            rely = self.getRelY(self.separatorlabelFrameCommandsARight),
-            relheight = self.getRelH(self.separatorlabelFrameCommandsARight),
+            relx = FS.getRelX(self.separatorlabelFrameCommandsARight),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsARight),
+            relheight = FS.getRelH(self.separatorlabelFrameCommandsARight),
             width = 1
         )
         self.separatorlabelFrameCommandsBRight.configure(background = Color_support.DISABLED_D_BLUE)
 
         self.separatorlabelFrameCommandsBLeft = Label(self.labelFrameDatasetB)
         self.separatorlabelFrameCommandsBLeft.place(
-            relx = self.getRelX(self.separatorlabelFrameCommandsALeft),
-            rely = self.getRelY(self.separatorlabelFrameCommandsALeft),
-            relheight = self.getRelH(self.separatorlabelFrameCommandsALeft),
+            relx = FS.getRelX(self.separatorlabelFrameCommandsALeft),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsALeft),
+            relheight = FS.getRelH(self.separatorlabelFrameCommandsALeft),
             width = 1
         )
         self.separatorlabelFrameCommandsBLeft.configure(background = Color_support.DISABLED_D_BLUE)
 
         self.separatorlabelFrameCommandsBBottom = Label(self.labelFrameDatasetB)
         self.separatorlabelFrameCommandsBBottom.place(
-            relx = self.getRelX(self.separatorlabelFrameCommandsABottom),
-            rely = self.getRelY(self.separatorlabelFrameCommandsABottom),
-            relwidth = self.getRelW(self.separatorlabelFrameCommandsABottom),
+            relx = FS.getRelX(self.separatorlabelFrameCommandsABottom),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsABottom),
+            relwidth = FS.getRelW(self.separatorlabelFrameCommandsABottom),
             height = 1)
         self.separatorlabelFrameCommandsBBottom.configure(background = Color_support.DISABLED_D_BLUE)
 
-        newRelY = self.getRelY(self.labelFrameListBoxA) + self.getRelH(self.labelFrameListBoxA)
+        newRelY = FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(self.labelFrameListBoxA)
 
         self.separatorlabelFrameCommandsBTop = Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsBTop.place(
-            relx = self.getRelX(self.separatorlabelFrameCommandsATop),
-            rely = self.getRelY(self.separatorlabelFrameCommandsATop),
-            relwidth = self.getRelW(self.separatorlabelFrameCommandsATop),
+            relx = FS.getRelX(self.separatorlabelFrameCommandsATop),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsATop),
+            relwidth = FS.getRelW(self.separatorlabelFrameCommandsATop),
             height = 1)
         self.separatorlabelFrameCommandsATop.configure(background = Color_support.DISABLED_PALER_YELLOW)
 
@@ -830,7 +905,7 @@ class OOTO_Miner:
         )
         self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
         self.labelQueryDataBCountText.place(
-            relx = 0, rely = self.getRelH(self.labelQueryDataBCount),
+            relx = 0, rely = FS.getRelH(self.labelQueryDataBCount),
             relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
         self.labelQueryDataBCountText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
@@ -848,8 +923,8 @@ class OOTO_Miner:
 
         # FILTER BUTTON (DATASET A)
         # region
-        newRelX = self.getRelX(self.labelFrameQueryCount) + self.getRelW(self.labelFrameQueryCount)
-        newRelX = self.getRelX(self.labelFrameQueryCount) + self.getRelW(self.labelFrameQueryCount)
+        newRelX = FS.getRelX(self.labelFrameQueryCount) + FS.getRelW(self.labelFrameQueryCount)
+        newRelX = FS.getRelX(self.labelFrameQueryCount) + FS.getRelW(self.labelFrameQueryCount)
 
         self.buttonQueryAddFilterA = Button(self.labelFrameCommandsA, compound = CENTER)
         self.buttonQueryAddFilterA.place(
@@ -873,7 +948,7 @@ class OOTO_Miner:
         # endregion
         # FILTER BUTTON (DATASET B)
         # region
-        newRelX = self.getRelX(self.labelFrameQueryCountB) + self.getRelW(self.labelFrameQueryCountB)
+        newRelX = FS.getRelX(self.labelFrameQueryCountB) + FS.getRelW(self.labelFrameQueryCountB)
 
         self.buttonQueryAddFilterB = Button(self.labelFrameCommandsB, compound = CENTER)
         self.buttonQueryAddFilterB.place(
@@ -918,13 +993,13 @@ class OOTO_Miner:
 
         # FILTER NUMBER
         self.labelFrameFilterTitleNumber = Label(self.labelFrameFilterTitle)
-        newRelY = self.getRelY(self.labelFrameSelectTitleNumber)
-        newRelH = self.getRelH(self.labelFrameSelectTitleNumber)
+        newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
+        newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
         self.labelFrameFilterTitleNumber.place(
-            relx = self.getRelX(self.labelFrameSelectTitleNumber),
-            rely = self.getRelY(self.labelFrameSelectTitleNumber),
-            relwidth = self.getRelW(self.labelFrameSelectTitleNumber),
-            relheight = self.getRelH(self.labelFrameSelectTitleNumber),
+            relx = FS.getRelX(self.labelFrameSelectTitleNumber),
+            rely = FS.getRelY(self.labelFrameSelectTitleNumber),
+            relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
+            relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
             anchor = NW)
 
         self.labelFrameFilterTitleNumber.configure(
@@ -936,16 +1011,16 @@ class OOTO_Miner:
             anchor = SE
         )
 
-        # newRelX = self.getRelX(self.labelFrameSelectTitleNumber) + self.getRelW(self.labelFrameSelectTitleNumber)
-        newRelX = self.getRelX(self.labelFrameSelectTitleText)
+        # newRelX = FS.getRelX(self.labelFrameSelectTitleNumber) + FS.getRelW(self.labelFrameSelectTitleNumber)
+        newRelX = FS.getRelX(self.labelFrameSelectTitleText)
 
         # FILTER TITLE
         self.labelFrameFilterTitleText = Label(self.labelFrameFilterTitle)
         self.labelFrameFilterTitleText.place(
-            relx = self.getRelX(self.labelFrameSelectTitleText),
-            rely = self.getRelY(self.labelFrameSelectTitleText),
-            relwidth = self.getRelW(self.labelFrameSelectTitleText),
-            relheight = self.getRelH(self.labelFrameSelectTitleText),
+            relx = FS.getRelX(self.labelFrameSelectTitleText),
+            rely = FS.getRelY(self.labelFrameSelectTitleText),
+            relwidth = FS.getRelW(self.labelFrameSelectTitleText),
+            relheight = FS.getRelH(self.labelFrameSelectTitleText),
             anchor = NW)
         self.labelFrameFilterTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
@@ -963,7 +1038,7 @@ class OOTO_Miner:
             coordinate = 0.99, specifiedAnchor = NW
         )
 
-        newRelY = self.getRelY(self.labelFrameFilterTitle) + self.getRelH(
+        newRelY = FS.getRelY(self.labelFrameFilterTitle) + FS.getRelH(
             self.labelFrameFilterTitle) + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
 
         # TOP LABEL FEATURE NAME
@@ -986,7 +1061,7 @@ class OOTO_Miner:
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
 
-        newRelY = self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)
+        newRelY = FS.getRelY(self.labelQueryDataFeatureName) + FS.getRelH(self.labelQueryDataFeatureName)
 
         # FILTER LIST PARENT
         self.labelFrameFilterListData = LabelFrame(parentFrame, bd = 0)
@@ -1038,7 +1113,7 @@ class OOTO_Miner:
         )
         # endregion
 
-        newRelX = self.getRelX(self.labelFrameBorderQueryFeature) + self.getRelW(self.labelFrameBorderQueryFeature)
+        newRelX = FS.getRelX(self.labelFrameBorderQueryFeature) + FS.getRelW(self.labelFrameBorderQueryFeature)
 
         # FILTER QUERY ENTRY
         # region
@@ -1055,7 +1130,7 @@ class OOTO_Miner:
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.FILTER_ENTRY_JUSTIFY
         )
         # endregion
-        newRelX = self.getRelX(self.entryQueryFeature) + self.getRelW(self.entryQueryFeature)
+        newRelX = FS.getRelX(self.entryQueryFeature) + FS.getRelW(self.entryQueryFeature)
 
         # FILTER QUERY BUTTON
         # region
@@ -1080,14 +1155,14 @@ class OOTO_Miner:
         )
         # endregion
 
-        # newRelY = self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)
+        # newRelY = FS.getRelY(self.labelFrameFilterQueryData) + FS.getRelH(self.labelFrameFilterQueryData)
         ### INSERT CODE HERE
 
-        # newRelY = self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)
-        # newRelH = 1 - (self.getRelY(self.labelQueryDataFeatureName) + self.getRelH(self.labelQueryDataFeatureName)) - 0.2
-        newRelY = self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)
+        # newRelY = FS.getRelY(self.labelQueryDataFeatureName) + FS.getRelH(self.labelQueryDataFeatureName)
+        # newRelH = 1 - (FS.getRelY(self.labelQueryDataFeatureName) + FS.getRelH(self.labelQueryDataFeatureName)) - 0.2
+        newRelY = FS.getRelY(self.labelFrameFilterQueryData) + FS.getRelH(self.labelFrameFilterQueryData)
         newRelH = 1 - (
-                    self.getRelY(self.labelFrameFilterQueryData) + self.getRelH(self.labelFrameFilterQueryData)) - 0.2
+                    FS.getRelY(self.labelFrameFilterQueryData) + FS.getRelH(self.labelFrameFilterQueryData)) - 0.2
 
         # FILTER LIST DATA A PARENT
         self.labelFrameFilterListDataA = LabelFrame(self.labelFrameFilterListData, bd = 0)
@@ -1123,8 +1198,8 @@ class OOTO_Miner:
             highlightthickness = 0
         )
 
-        newRelY = self.getRelY(self.listQueryDataA) + self.getRelH(self.listQueryDataA)
-        newRelH = 1 - (self.getRelY(self.listQueryDataA) + self.getRelH(self.listQueryDataA))
+        newRelY = FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA)
+        newRelH = 1 - (FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA))
 
         # BOTTOM STATUS LABEL - DATASET A
         self.labelQueryDataA = Label(self.labelFrameFilterListDataA)
@@ -1139,12 +1214,12 @@ class OOTO_Miner:
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
 
-        newRelX = self.getRelX(self.labelFrameFilterListDataA) + self.getRelW(self.labelFrameFilterListDataA)
-        newRelY = self.getRelY(self.labelFrameFilterListDataA)
+        newRelX = FS.getRelX(self.labelFrameFilterListDataA) + FS.getRelW(self.labelFrameFilterListDataA)
+        newRelY = FS.getRelY(self.labelFrameFilterListDataA)
         # FILTER LIST DATA B PARENT
         self.labelFrameFilterListDataB = LabelFrame(self.labelFrameFilterListData, bd = 0)
 
-        newRelH = self.getRelH(self.labelFrameFilterListDataA)
+        newRelH = FS.getRelH(self.labelFrameFilterListDataA)
         self.labelFrameFilterListDataB.place(
             relx = newRelX, rely = newRelY,
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_REL_W, relheight = newRelH
@@ -1158,9 +1233,9 @@ class OOTO_Miner:
 
         self.listQueryDataB = Listbox(self.labelFrameFilterListDataB, bd = 0)
         self.listQueryDataB.place(
-            relx = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = self.getRelY(self.listQueryDataA),
+            relx = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = FS.getRelY(self.listQueryDataA),
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W,
-            relheight = self.getRelH(self.listQueryDataA))
+            relheight = FS.getRelH(self.listQueryDataA))
 
         self.listQueryDataB.configure(
             background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
@@ -1173,8 +1248,8 @@ class OOTO_Miner:
             highlightthickness = 0
         )
 
-        newRelY = self.getRelY(self.listQueryDataB) + self.getRelH(self.listQueryDataB)
-        newRelH = 1 - (self.getRelY(self.listQueryDataA) + self.getRelH(self.listQueryDataA))
+        newRelY = FS.getRelY(self.listQueryDataB) + FS.getRelH(self.listQueryDataB)
+        newRelH = 1 - (FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA))
         # BOTTOM STATUS LABEL - DATASET B
         self.labelQueryDataB = Label(self.labelFrameFilterListDataB)
         self.labelQueryDataB.place(
@@ -1192,12 +1267,12 @@ class OOTO_Miner:
         # QUERY BOTTOM STRIPES
         self.labelFilterStripes = Label(self.labelFrameFilterListData, bd = 1, relief = GROOVE)
         self.labelFilterStripes.place(
-            relx = self.getRelX(self.labelFrameFilterListDataA),
-            rely = self.getRelY(self.labelFrameFilterListDataA),
+            relx = FS.getRelX(self.labelFrameFilterListDataA),
+            rely = FS.getRelY(self.labelFrameFilterListDataA),
             relwidth = 1,
             # relheight = UI_support.FILTER_LABEL_STRIPES_REL_H # * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER,
             relheight = UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER,
-            # relheight = self.getRelH(self.labelFrameFilterQueryData) * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER,
+            # relheight = FS.getRelH(self.labelFrameFilterQueryData) * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER,
             anchor = NW
         )
         im = PIL.Image.open(
@@ -1232,11 +1307,11 @@ class OOTO_Miner:
 
         #
         self.labelOverlayFilterListData.place(
-            relx = self.getRelX(self.labelFrameFilterListData),
-            rely = self.getRelY(self.labelFrameFilterListData),
+            relx = FS.getRelX(self.labelFrameFilterListData),
+            rely = FS.getRelY(self.labelFrameFilterListData),
             # relwidth = 0, relheight = 0)
-            relwidth = self.getRelW(self.labelFrameFilterListData),
-            relheight = self.getRelH(self.labelFrameFilterListData))
+            relwidth = FS.getRelW(self.labelFrameFilterListData),
+            relheight = FS.getRelH(self.labelFrameFilterListData))
 
         self.labelOverlayFilterListData.configure(
             background = self.labelFrameFilterListData['background'],
@@ -1247,10 +1322,10 @@ class OOTO_Miner:
         # MOCK QUERY PARENT FRAME
         self.labelOverlayFilterQueryData = Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterQueryData.place(
-            relx = self.getRelX(self.labelFrameFilterQueryData),
-            rely = self.getRelY(self.labelFrameFilterQueryData),
-            relwidth = self.getRelW(self.labelFrameFilterQueryData),
-            relheight = self.getRelH(self.labelFrameFilterQueryData) * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER
+            relx = FS.getRelX(self.labelFrameFilterQueryData),
+            rely = FS.getRelY(self.labelFrameFilterQueryData),
+            relwidth = FS.getRelW(self.labelFrameFilterQueryData),
+            relheight = FS.getRelH(self.labelFrameFilterQueryData) * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER
         )
         self.labelOverlayFilterQueryData.configure(
             background = self.labelFrameFilterQueryData['background'],
@@ -1265,10 +1340,10 @@ class OOTO_Miner:
         # MOCK LABEL BORDER
         self.labelOverlayBorderQueryFeature = Label(self.labelOverlayFilterQueryData)
         self.labelOverlayBorderQueryFeature.place(
-            relx = self.getRelX(self.labelFrameBorderQueryFeature),
-            rely = self.getRelY(self.labelFrameBorderQueryFeature),
-            relwidth = self.getRelW(self.labelFrameBorderQueryFeature),
-            relheight = self.getRelH(self.labelFrameBorderQueryFeature)
+            relx = FS.getRelX(self.labelFrameBorderQueryFeature),
+            rely = FS.getRelY(self.labelFrameBorderQueryFeature),
+            relwidth = FS.getRelW(self.labelFrameBorderQueryFeature),
+            relheight = FS.getRelH(self.labelFrameBorderQueryFeature)
         )
         self.labelOverlayBorderQueryFeature.configure(
             background = Color_support.FILTER_LABEL_OVERLAY_BG,
@@ -1282,10 +1357,10 @@ class OOTO_Miner:
         # MOCK LABEL
         self.labelOverlayLabelQueryFeature = Label(self.labelOverlayBorderQueryFeature)
         self.labelOverlayLabelQueryFeature.place(
-            relx = self.getRelX(self.labelQueryFeature),
-            rely = self.getRelY(self.labelQueryFeature),
-            relwidth = self.getRelW(self.labelQueryFeature),
-            relheight = self.getRelH(self.labelQueryFeature)
+            relx = FS.getRelX(self.labelQueryFeature),
+            rely = FS.getRelY(self.labelQueryFeature),
+            relwidth = FS.getRelW(self.labelQueryFeature),
+            relheight = FS.getRelH(self.labelQueryFeature)
         )
         self.labelOverlayLabelQueryFeature.configure(
             background = self.labelQueryFeature['background'],
@@ -1300,10 +1375,10 @@ class OOTO_Miner:
         # MOCK BUTTON
         self.labelOverlayButtonQueryFeature = Label(self.labelOverlayFilterQueryData)
         self.labelOverlayButtonQueryFeature.place(
-            relx = self.getRelX(self.buttonQueryFeature),
-            rely = self.getRelY(self.buttonQueryFeature),
-            relwidth = self.getRelW(self.buttonQueryFeature),
-            relheight = self.getRelH(self.buttonQueryFeature)
+            relx = FS.getRelX(self.buttonQueryFeature),
+            rely = FS.getRelY(self.buttonQueryFeature),
+            relwidth = FS.getRelW(self.buttonQueryFeature),
+            relheight = FS.getRelH(self.buttonQueryFeature)
         )
         self.labelOverlayButtonQueryFeature.configure(
             background = Color_support.FILTER_LABEL_OVERLAY_BG,
@@ -1344,17 +1419,17 @@ class OOTO_Miner:
         # region
         # self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListDataA)
         self.labelOverlayFilterListDataA = Label(self.labelOverlayFilterListData)
-        newRelY = self.getRelY(self.labelOverlayFilterQueryData) + self.getRelH(self.labelOverlayFilterQueryData)
+        newRelY = FS.getRelY(self.labelOverlayFilterQueryData) + FS.getRelH(self.labelOverlayFilterQueryData)
         self.labelOverlayFilterListDataA.place(
-            relx = self.getRelX(self.labelFrameFilterListDataA),
-            # rely = self.getRelY(self.labelFrameFilterListDataA) - UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION,
+            relx = FS.getRelX(self.labelFrameFilterListDataA),
+            # rely = FS.getRelY(self.labelFrameFilterListDataA) - UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION,
             rely = newRelY,
-            relwidth = self.getRelW(self.labelFrameFilterListDataA),
-            # relheight = self.getRelH(self.labelFrameFilterListDataA) + UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION)
-            # relheight = self.getRelH(self.labelFrameFilterListDataA) + self.getRelH(self.labelOverlayFilterQueryData))
-            relheight = self.getRelH(self.labelFrameFilterListDataA) +
-                        self.getRelH(self.labelOverlayFilterQueryData) +
-                        self.getRelH(self.labelFilterStripes) - 0.018)
+            relwidth = FS.getRelW(self.labelFrameFilterListDataA),
+            # relheight = FS.getRelH(self.labelFrameFilterListDataA) + UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION)
+            # relheight = FS.getRelH(self.labelFrameFilterListDataA) + FS.getRelH(self.labelOverlayFilterQueryData))
+            relheight = FS.getRelH(self.labelFrameFilterListDataA) +
+                        FS.getRelH(self.labelOverlayFilterQueryData) +
+                        FS.getRelH(self.labelFilterStripes) - 0.018)
 
         self.labelOverlayFilterListDataA.configure(
             background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
@@ -1368,11 +1443,11 @@ class OOTO_Miner:
         self.labelOverlayQueryDataA = Label(self.labelOverlayFilterListDataA)
         newRelYReduction = 0.01
         self.labelOverlayQueryDataA.place(
-            relx = self.getRelX(self.labelQueryDataA),
-            rely = self.getRelY(self.labelQueryDataA) + (UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2),
+            relx = FS.getRelX(self.labelQueryDataA),
+            rely = FS.getRelY(self.labelQueryDataA) + (UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2),
             # TODO Make constant
-            relwidth = self.getRelW(self.labelQueryDataA),
-            relheight = self.getRelH(self.labelQueryDataA) - newRelYReduction)
+            relwidth = FS.getRelW(self.labelQueryDataA),
+            relheight = FS.getRelH(self.labelQueryDataA) - newRelYReduction)
 
         self.labelOverlayQueryDataA.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
@@ -1393,9 +1468,9 @@ class OOTO_Miner:
         # region
         self.labelOverlayFilterListDataB = Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterListDataB.place(
-            relx = self.getRelX(self.labelFrameFilterListDataB), rely = self.getRelY(self.labelOverlayFilterListDataA),
-            relwidth = self.getRelW(self.labelFrameFilterListDataB),
-            relheight = self.getRelH(self.labelOverlayFilterListDataA))
+            relx = FS.getRelX(self.labelFrameFilterListDataB), rely = FS.getRelY(self.labelOverlayFilterListDataA),
+            relwidth = FS.getRelW(self.labelFrameFilterListDataB),
+            relheight = FS.getRelH(self.labelOverlayFilterListDataA))
         self.labelOverlayFilterListDataB.configure(
             background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
             foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
@@ -1407,10 +1482,10 @@ class OOTO_Miner:
         # FILTER LOCK BOTTOM MOCK NO DATA LABEL
         self.labelOverlayQueryDataB = Label(self.labelOverlayFilterListDataB)
         self.labelOverlayQueryDataB.place(
-            relx = self.getRelX(self.labelOverlayQueryDataA),
-            rely = self.getRelY(self.labelOverlayQueryDataA),
-            relwidth = self.getRelW(self.labelOverlayQueryDataA),
-            relheight = self.getRelH(self.labelOverlayQueryDataA))
+            relx = FS.getRelX(self.labelOverlayQueryDataA),
+            rely = FS.getRelY(self.labelOverlayQueryDataA),
+            relwidth = FS.getRelW(self.labelOverlayQueryDataA),
+            relheight = FS.getRelH(self.labelOverlayQueryDataA))
 
         self.labelOverlayQueryDataB.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
@@ -1456,14 +1531,14 @@ class OOTO_Miner:
         )
 
         self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
-        newRelY = self.getRelY(self.labelFrameSelectTitleNumber)
-        newRelH = self.getRelH(self.labelFrameSelectTitleNumber)
+        newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
+        newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
 
         self.labelFrameProcessTitleNumber.place(
-            relx = self.getRelX(self.labelFrameSelectTitleNumber),
-            rely = self.getRelY(self.labelFrameSelectTitleNumber),
-            relwidth = self.getRelW(self.labelFrameSelectTitleNumber),
-            relheight = self.getRelH(self.labelFrameSelectTitleNumber),
+            relx = FS.getRelX(self.labelFrameSelectTitleNumber),
+            rely = FS.getRelY(self.labelFrameSelectTitleNumber),
+            relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
+            relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
             anchor = NW)
 
         self.labelFrameProcessTitleNumber.configure(
@@ -1478,10 +1553,10 @@ class OOTO_Miner:
         # PROCESS TITLE
         self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
         self.labelFrameProcessTitleText.place(
-            relx = self.getRelX(self.labelFrameSelectTitleText),
-            rely = self.getRelY(self.labelFrameSelectTitleText),
-            relwidth = self.getRelW(self.labelFrameSelectTitleText),
-            relheight = self.getRelH(self.labelFrameSelectTitleText),
+            relx = FS.getRelX(self.labelFrameSelectTitleText),
+            rely = FS.getRelY(self.labelFrameSelectTitleText),
+            relwidth = FS.getRelW(self.labelFrameSelectTitleText),
+            relheight = FS.getRelH(self.labelFrameSelectTitleText),
             anchor = NW)
 
         self.labelFrameProcessTitleText.configure(
@@ -1500,7 +1575,7 @@ class OOTO_Miner:
             coordinate = 0.99, specifiedAnchor = NW
         )
 
-        newRelY = self.getRelH(self.labelFrameProcessTitle) + UI_support.TAB_TEST_PROCESS_COMMANDS_REL_Y
+        newRelY = FS.getRelH(self.labelFrameProcessTitle) + UI_support.TAB_TEST_PROCESS_COMMANDS_REL_Y
 
         # PROCESS COMMANDS PARENT
         self.labelFrameProcessCommands = LabelFrame(parentFrame, bd = 0)
@@ -1540,14 +1615,14 @@ class OOTO_Miner:
             bd = 0, relief = GROOVE
         )
 
-        newRelY = self.getRelY(self.labelFrameProcessStatTestsTitle) + self.getRelH(
+        newRelY = FS.getRelY(self.labelFrameProcessStatTestsTitle) + FS.getRelH(
             self.labelFrameProcessStatTestsTitle)
         self.labelFrameProcessStatTestsButtonElements = LabelFrame(self.labelFrameProcessStatTests, bd = 0)
         self.labelFrameProcessStatTestsButtonElements.place(
-            relx = self.getRelX(self.labelFrameProcessStatTestsTitle),
+            relx = FS.getRelX(self.labelFrameProcessStatTestsTitle),
             rely = newRelY,
-            relwidth = self.getRelW(self.labelFrameProcessStatTestsTitle),
-            relheight = 1 - self.getRelH(self.labelFrameProcessStatTestsTitle)  # 0.35
+            relwidth = FS.getRelW(self.labelFrameProcessStatTestsTitle),
+            relheight = 1 - FS.getRelH(self.labelFrameProcessStatTestsTitle)  # 0.35
         )
         self.labelFrameProcessStatTestsButtonElements.configure(
             background = Color_support.PROCESS_BG
@@ -1584,10 +1659,10 @@ class OOTO_Miner:
         #     image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         # self.buttonChooseChiSquare.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
-        newRelY = 0.05 + self.getRelY(self.buttonChooseZTest) + self.getRelH(self.buttonChooseZTest)
+        newRelY = 0.05 + FS.getRelY(self.buttonChooseZTest) + FS.getRelH(self.buttonChooseZTest)
         self.buttonChooseChiSquare.place(
             relx = 0, rely = newRelY,
-            relwidth = self.getRelW(self.buttonChooseZTest), relheight = self.getRelH(self.buttonChooseZTest)
+            relwidth = FS.getRelW(self.buttonChooseZTest), relheight = FS.getRelH(self.buttonChooseZTest)
         )
         self.buttonChooseChiSquare.configure(
             background = Color_support.WHITE, foreground = Color_support.D_BLUE,
@@ -1604,7 +1679,7 @@ class OOTO_Miner:
         # TEST OPTIONS PARENT
         # region
         # PROCESS Z-TEST PARENT
-        newRelX = self.getRelX(self.labelFrameProcessStatTests) + self.getRelW(self.labelFrameProcessStatTests)
+        newRelX = FS.getRelX(self.labelFrameProcessStatTests) + FS.getRelW(self.labelFrameProcessStatTests)
         self.labelFrameProcessTestOptions = LabelFrame(self.labelFrameProcessCommands, bd = 0)
         self.labelFrameProcessTestOptions.place(
             relx = newRelX, rely = 0,
@@ -1634,7 +1709,7 @@ class OOTO_Miner:
         # region
 
         # PROCESS Z-TEST PARENT
-        # newRelX = self.getRelX(self.labelFrameProcessStatTests) + self.getRelW(self.labelFrameProcessStatTests)
+        # newRelX = FS.getRelX(self.labelFrameProcessStatTests) + FS.getRelW(self.labelFrameProcessStatTests)
         self.labelFrameProcessZTest = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
                                                  name = 'labelFrameProcessZTest')
         self.labelFrameProcessZTest.place(
@@ -1668,7 +1743,7 @@ class OOTO_Miner:
         global arrQueryCriticalValueMapping
         arrQueryCriticalValueMapping = {"0.80": 1.28, "0.90": 1.645, "0.95": 1.96, "0.98": 2.33, "0.99": 2.58}
 
-        newRelY = self.getRelY(self.labelFrameProcessZTestTitle) + self.getRelH(
+        newRelY = FS.getRelY(self.labelFrameProcessZTestTitle) + FS.getRelH(
             self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
         # SPINBOX ELEMENTS
@@ -1682,16 +1757,16 @@ class OOTO_Miner:
             background = Color_support.PROCESS_BG
         )
 
-        newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(
+        newRelX = FS.getRelX(self.labelFrameProcessZTestConfidence) + FS.getRelW(
             self.labelFrameProcessZTestConfidence)
-        newRelY = self.getRelY(self.labelFrameProcessZTestConfidence)
+        newRelY = FS.getRelY(self.labelFrameProcessZTestConfidence)
 
         # BUTTON ELEMENTS
         self.labelFrameProcessZTestButtonElements = LabelFrame(self.labelFrameProcessZTest, bd = 0)
         self.labelFrameProcessZTestButtonElements.place(
             relx = newRelX + 0.05, rely = newRelY,
-            relwidth = 1 - (newRelX + self.getRelX(self.labelFrameProcessZTestConfidence)),
-            # relwidth = 0.5 - 2 * self.getRelX(self.labelFrameProcessZTestConfidence),
+            relwidth = 1 - (newRelX + FS.getRelX(self.labelFrameProcessZTestConfidence)),
+            # relwidth = 0.5 - 2 * FS.getRelX(self.labelFrameProcessZTestConfidence),
             relheight = 0.35
         )
         self.labelFrameProcessZTestButtonElements.configure(
@@ -1709,8 +1784,8 @@ class OOTO_Miner:
             text = '''CONFIDENCE'''
         )
 
-        newRelY = self.getRelY(self.labelQueryZConfidenceText) + self.getRelH(self.labelQueryZConfidenceText)
-        newRelH = 1 - self.getRelH(self.labelQueryZConfidenceText)
+        newRelY = FS.getRelY(self.labelQueryZConfidenceText) + FS.getRelH(self.labelQueryZConfidenceText)
+        newRelH = 1 - FS.getRelH(self.labelQueryZConfidenceText)
 
         # CONFIDENCE SPINBOX
         self.spinBoxQueryZConfidence = Spinbox(self.labelFrameProcessZTestConfidence,
@@ -1742,9 +1817,9 @@ class OOTO_Miner:
         )
         self.refreshSpinBoxValue(self.spinBoxQueryZConfidence)
 
-        # newRelX = self.getRelX(self.labelFrameProcessZTestConfidence) + self.getRelW(self.labelFrameProcessZTestConfidence)
-        # newRelY = self.getRelY(self.labelFrameProcessZTestConfidence)
-        # newRelH = self.getRelH(self.labelFrameProcessZTestConfidence)
+        # newRelX = FS.getRelX(self.labelFrameProcessZTestConfidence) + FS.getRelW(self.labelFrameProcessZTestConfidence)
+        # newRelY = FS.getRelY(self.labelFrameProcessZTestConfidence)
+        # newRelH = FS.getRelH(self.labelFrameProcessZTestConfidence)
 
         # Z-TEST BUTTON
         self.buttonQueryZTest = Button(self.labelFrameProcessZTestButtonElements, compound = CENTER)
@@ -1788,7 +1863,7 @@ class OOTO_Miner:
             background = Color_support.PROCESS_BG
         )
 
-        # newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(self.labelFrameProcessChiSquare)
+        # newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(self.labelFrameProcessChiSquare)
 
         # PROCESS CHI-SQUARE TITLE
         self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
@@ -1815,7 +1890,7 @@ class OOTO_Miner:
         # self.chiSquareRightSeparator = ttk.Separator(self.labelFrameProcessChiSquare, orient = VERTICAL)
         # self.chiSquareRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
 
-        newRelY = self.getRelY(self.labelFrameProcessZTestTitle) + self.getRelH(
+        newRelY = FS.getRelY(self.labelFrameProcessZTestTitle) + FS.getRelH(
             self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
         # BUTTON ELEMENTS
@@ -1838,7 +1913,7 @@ class OOTO_Miner:
             background = Color_support.PROCESS_BG
         )
 
-        newRelX = self.getRelX(self.labelFrameProcessChiSquare) + self.getRelW(
+        newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(
             self.labelFrameProcessChiSquare)
 
         # > QUEUE COUNT
@@ -1853,8 +1928,8 @@ class OOTO_Miner:
             text = '''QUEUE SIZE'''
         )
 
-        newRelY = self.getRelY(self.labelQueueText) + self.getRelH(self.labelQueueText)
-        newRelH = 1 - self.getRelH(self.labelQueueText)
+        newRelY = FS.getRelY(self.labelQueueText) + FS.getRelH(self.labelQueueText)
+        newRelH = 1 - FS.getRelH(self.labelQueueText)
 
         self.labelQueueCount = Label(self.labelFrameProcessChiSquareQueue)
         self.labelQueueCount.place(
@@ -1869,7 +1944,7 @@ class OOTO_Miner:
         # ENQUEUE BUTTON
         # Enqueue button parent (to handle centering after pack)
 
-        newRelX = self.getRelX(self.labelFrameProcessChiSquareQueue) + self.getRelW(
+        newRelX = FS.getRelX(self.labelFrameProcessChiSquareQueue) + FS.getRelW(
             self.labelFrameProcessChiSquareQueue)
 
         self.labelFrameProcessQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
@@ -1927,7 +2002,7 @@ class OOTO_Miner:
 
         # endregion
 
-        newRelX = self.getRelX(self.labelFrameProcessTestOptions) + self.getRelW(self.labelFrameProcessTestOptions)
+        newRelX = FS.getRelX(self.labelFrameProcessTestOptions) + FS.getRelW(self.labelFrameProcessTestOptions)
 
         # PROCESS RUN PARENT
         self.labelFrameProcessRun = LabelFrame(self.labelFrameProcessCommands, bd = 0)
@@ -1959,8 +2034,8 @@ class OOTO_Miner:
         self.runMinerTitleSeparator = ttk.Separator(self.labelFrameProcessRunMinerTitle, orient = HORIZONTAL)
         self.runMinerTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
 
-        newRelY = self.getRelH(self.labelFrameProcessRunMinerTitle) + self.getRelY(self.labelFrameProcessRunMinerTitle)
-        newRelH = 1 - (self.getRelH(self.labelFrameProcessRunMinerTitle) + self.getRelY(
+        newRelY = FS.getRelH(self.labelFrameProcessRunMinerTitle) + FS.getRelY(self.labelFrameProcessRunMinerTitle)
+        newRelH = 1 - (FS.getRelH(self.labelFrameProcessRunMinerTitle) + FS.getRelY(
             self.labelFrameProcessRunMinerTitle))
         self.labelFrameRunMiner = LabelFrame(self.labelFrameProcessRun, bd = 0)
         self.labelFrameRunMiner.place(
@@ -2010,11 +2085,11 @@ class OOTO_Miner:
         # endregion
 
         # SEPARATOR  ELEMENTS
-        newRelX = self.getRelX(self.labelFrameProcessTestOptions)  # + self.getRelW(self.labelFrameProcessZTest)
+        newRelX = FS.getRelX(self.labelFrameProcessTestOptions)  # + FS.getRelW(self.labelFrameProcessZTest)
         self.zTestRightSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.zTestRightSeparator.place(relx = 0.335, rely = 0, relheight = 1, anchor = NE)
 
-        newRelX = self.getRelX(self.labelFrameProcessRun)  # + self.getRelW(self.labelFrameProcessChiSquare)
+        newRelX = FS.getRelX(self.labelFrameProcessRun)  # + FS.getRelW(self.labelFrameProcessChiSquare)
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
@@ -2086,7 +2161,7 @@ class OOTO_Miner:
 
         # STRIPES
         self.labelConsoleStripes = Label(self.labelFrameConsoleScreen, bd = 0, relief = GROOVE)
-        newRelY = self.getRelY(self.labelConsoleScreenTaskBar) + self.getRelH(self.labelConsoleScreenTaskBar)
+        newRelY = FS.getRelY(self.labelConsoleScreenTaskBar) + FS.getRelH(self.labelConsoleScreenTaskBar)
         newRelH = 0.014  # 0.008
         self.labelConsoleStripes.place(
             relx = 0,
@@ -2111,12 +2186,12 @@ class OOTO_Miner:
         self.labelFrameConsoleControls = LabelFrame(self.labelFrameConsoleScreen)
 
         sizeReference = self.labelConsoleScreenTaskBar
-        newRelY = self.getRelY(self.listConsoleScreen) + self.getRelH(self.listConsoleScreen)
+        newRelY = FS.getRelY(self.listConsoleScreen) + FS.getRelH(self.listConsoleScreen)
         self.labelFrameConsoleControls.place(
-            relx = self.getRelX(sizeReference) + 0.025,
+            relx = FS.getRelX(sizeReference) + 0.025,
             rely = newRelY + 0.01,
             relwidth = 0.95,
-            relheight = self.getRelH(sizeReference) * 2 * 2 / 3
+            relheight = FS.getRelH(sizeReference) * 2 * 2 / 3
         )
 
         self.labelFrameConsoleControls.configure(
@@ -2145,13 +2220,13 @@ class OOTO_Miner:
         # SHOW Z-TEST CONSOLE
         self.buttonConsoleZTest = Button(self.labelFrameConsoleControls)
         buttonReference = self.buttonConsoleAll
-        newRelX = self.getRelX(buttonReference) + self.getRelW(buttonReference) + self.getRelX(self.buttonConsoleAll)
+        newRelX = FS.getRelX(buttonReference) + FS.getRelW(buttonReference) + FS.getRelX(self.buttonConsoleAll)
 
         self.buttonConsoleZTest.place(
             relx = newRelX,
-            rely = self.getRelY(buttonReference),
-            relwidth = self.getRelW(buttonReference),
-            relheight = self.getRelH(buttonReference)
+            rely = FS.getRelY(buttonReference),
+            relwidth = FS.getRelW(buttonReference),
+            relheight = FS.getRelH(buttonReference)
         )
 
         self.buttonConsoleZTest.configure(
@@ -2167,13 +2242,13 @@ class OOTO_Miner:
         # SHOW CHI-SQUARE CONSOLE
         self.buttonConsoleChiSquare = Button(self.labelFrameConsoleControls)
         buttonReference = self.buttonConsoleZTest
-        newRelX = self.getRelX(buttonReference) + self.getRelW(buttonReference) + self.getRelX(self.buttonConsoleAll)
+        newRelX = FS.getRelX(buttonReference) + FS.getRelW(buttonReference) + FS.getRelX(self.buttonConsoleAll)
 
         self.buttonConsoleChiSquare.place(
             relx = newRelX,
-            rely = self.getRelY(buttonReference),
-            relwidth = self.getRelW(buttonReference),
-            relheight = self.getRelH(buttonReference)
+            rely = FS.getRelY(buttonReference),
+            relwidth = FS.getRelW(buttonReference),
+            relheight = FS.getRelH(buttonReference)
         )
 
         self.buttonConsoleChiSquare.configure(
@@ -2189,13 +2264,13 @@ class OOTO_Miner:
         # SHOW QUEUE CONSOLE
         self.buttonConsoleQueue = Button(self.labelFrameConsoleControls)
         buttonReference = self.buttonConsoleChiSquare
-        newRelX = self.getRelX(buttonReference) + self.getRelW(buttonReference) + self.getRelX(self.buttonConsoleAll)
+        newRelX = FS.getRelX(buttonReference) + FS.getRelW(buttonReference) + FS.getRelX(self.buttonConsoleAll)
 
         self.buttonConsoleQueue.place(
             relx = newRelX,
-            rely = self.getRelY(buttonReference),
-            relwidth = self.getRelW(buttonReference),
-            relheight = self.getRelH(buttonReference)
+            rely = FS.getRelY(buttonReference),
+            relwidth = FS.getRelW(buttonReference),
+            relheight = FS.getRelH(buttonReference)
         )
 
         self.buttonConsoleQueue.configure(
@@ -2217,7 +2292,7 @@ class OOTO_Miner:
                                              name = 'scrollConsoleScreen')
 
         newRelH = 0.8
-        newRelY = self.getRelY(self.labelConsoleStripes) + self.getRelH(self.labelConsoleStripes)
+        newRelY = FS.getRelY(self.labelConsoleStripes) + FS.getRelH(self.labelConsoleStripes)
 
         # BASIC CONSOLE SCREEN
         # self.listConsoleScreen = Listbox(self.scrollConsoleScreen, name = 'listConsoleScreen')
@@ -2261,10 +2336,10 @@ class OOTO_Miner:
         screenReference = self.listConsoleScreen
 
         screenWidget.place(
-            relx = self.getRelX(screenReference),
-            rely = self.getRelY(screenReference),
-            relwidth = self.getRelW(screenReference),
-            relheight = self.getRelH(screenReference)
+            relx = FS.getRelX(screenReference),
+            rely = FS.getRelY(screenReference),
+            relwidth = FS.getRelW(screenReference),
+            relheight = FS.getRelH(screenReference)
         )
         screenWidget.configure(
             background = screenReference['background'],
@@ -2303,10 +2378,10 @@ class OOTO_Miner:
         screenReference = self.listConsoleScreen
 
         screenWidget.place(
-            relx = self.getRelX(screenReference),
-            rely = self.getRelY(screenReference),
-            relwidth = self.getRelW(screenReference),
-            relheight = self.getRelH(screenReference)
+            relx = FS.getRelX(screenReference),
+            rely = FS.getRelY(screenReference),
+            relwidth = FS.getRelW(screenReference),
+            relheight = FS.getRelH(screenReference)
         )
         screenWidget.configure(
             background = screenReference['background'],
@@ -2344,10 +2419,10 @@ class OOTO_Miner:
         screenReference = self.listConsoleScreen
 
         screenWidget.place(
-            relx = self.getRelX(screenReference),
-            rely = self.getRelY(screenReference),
-            relwidth = self.getRelW(screenReference),
-            relheight = self.getRelH(screenReference)
+            relx = FS.getRelX(screenReference),
+            rely = FS.getRelY(screenReference),
+            relwidth = FS.getRelW(screenReference),
+            relheight = FS.getRelH(screenReference)
         )
         screenWidget.configure(
             background = screenReference['background'],
@@ -2406,29 +2481,6 @@ class OOTO_Miner:
     """ >>> HELPER FUNCTIONS UI ELEMENTS <<< """
 
     # region
-    def getRelX(self, element):
-        return float(element.place_info()['relx'])
-
-    def getRelY(self, element):
-        return float(element.place_info()['rely'])
-
-    def getRelW(self, element):
-        return float(element.place_info()['relwidth'])
-
-    def getRelH(self, element):
-        return float(element.place_info()['relheight'])
-
-    def getW(self, element):
-        return float(element.place_info()['width'])
-
-    def getH(self, element):
-        return float(element.place_info()['height'])
-
-    def getInfoH(self, element):
-        return element.winfo_height()
-
-    def getInfoW(self, element):
-        return element.winfo_width()
 
     def getDatasetCountA(self):
         return str(self.datasetCountA)
@@ -2633,5 +2685,11 @@ class OOTO_Miner:
 
     def getLabelQueueCount(self):
         return self.labelQueueCount
+
+    def getButtonQueryZTestSvP(self):
+        return self.buttonQueryZTestSvP
+
+    def getComboQueryTest(self):
+        return self.comboQueryTest
 
     # endregion
