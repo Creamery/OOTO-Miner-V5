@@ -57,7 +57,7 @@ import Function_support as FS
 
 import MODULE_Input as INPUT
 import MODULE_ManualMining as MM
-import UI_AutomatedMining as AM
+import MODULE_AutomatedMining as AM
 
 w = None
 
@@ -116,7 +116,7 @@ class OOTO_Miner:
         ''' TAB 3 - INFO (Tabs_t4) '''
         self.configureInfoTabElements()
 
-        self.configureChiTabElements(self.Tabs_t5)
+        self.AM = self.configureChiTabElements(self.Tabs_t5)
 
         # Bind functionality to all UI elements
         # self.configureBindings()
@@ -251,7 +251,7 @@ class OOTO_Miner:
 
     def configureTestTabConsoleElements(self):
         self.testTabConsoleParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
-        newRelW = 0.2
+        # newRelW = 0.2
         # self.testTabConsoleParentFrame.place(
         #     relx = 1 - newRelW,
         #     rely = self.getRelY(self.testTabParentFrame),
@@ -264,16 +264,17 @@ class OOTO_Miner:
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
     def configureChiTabElements(self, parentFrame):
-        chiFrame = AM.OOTO_Miner(parentFrame)
-        self.chiTabParentFrame = chiFrame.getMainFrame()
+        automatedMining = AM.AutomatedMining(parentFrame)
+        return automatedMining
 
-        self.chiTabParentFrame.place(
-            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
-        )
-        self.chiTabParentFrame.configure(
-            background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
-        )
+        # self.chiTabParentFrame = chiFrame.getMainFrame()
+        # self.chiTabParentFrame.place(
+        #     relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
+        #     relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
+        # )
+        # self.chiTabParentFrame.configure(
+        #     background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
+        # )
 
     def configureInfoTabElements(self):
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)

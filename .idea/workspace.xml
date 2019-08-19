@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/MODULE_AutomatedMining.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.sublime-workspace" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.sublime-workspace" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOTODriver.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTODriver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_AutomatedMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,10 +21,48 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/OOTODriver.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="383">
-                  <caret line="527" column="55" selection-start-line="527" selection-start-column="39" selection-end-line="527" selection-end-column="55" />
+                <state relative-caret-position="121">
+                  <caret line="109" column="61" lean-forward="true" selection-start-line="109" selection-start-column="61" selection-end-line="109" selection-end-column="61" />
                   <folding>
                     <element signature="e#450#460#0" expanded="true" />
+                    <element signature="e#8702#8716#0" />
+                    <element signature="e#9465#9515#0" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/MODULE_AutomatedMining.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="180">
+                  <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+                  <folding>
+                    <element signature="e#176#208#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="47">
+                  <caret line="483" column="19" lean-forward="true" selection-start-line="483" selection-start-column="19" selection-end-line="483" selection-end-column="19" />
+                  <folding>
+                    <element signature="e#392#412#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state>
+                  <caret selection-end-line="10" selection-end-column="19" />
+                  <folding>
+                    <element signature="e#438#457#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -122,8 +163,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>END</find>
-      <find>END</find>
       <find>uploadd</find>
       <find>hasUploadedVariableDescription =</find>
       <find>entryInitialVarDesc =</find>
@@ -139,7 +178,6 @@
       <find>bindin</find>
       <find>hasUploadedVariableDescription</find>
       <find>constat</find>
-      <find>END</find>
       <find>uploadda</find>
       <find>consta</find>
       <find>END)</find>
@@ -152,6 +190,9 @@
       <find>configureDataTabBindings</find>
       <find>getButtonStartDatasetUpload</find>
       <find>populationDir</find>
+      <find>am.</find>
+      <find>manualm</find>
+      <find>manual</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -198,12 +239,15 @@
         <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/Input_VIEW.py" />
         <option value="$PROJECT_DIR$/Input_CONTROLLER.py" />
-        <option value="$PROJECT_DIR$/OOTODriver.py" />
         <option value="$PROJECT_DIR$/MODULE_Input.py" />
+        <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
+        <option value="$PROJECT_DIR$/OOTODriver.py" />
+        <option value="$PROJECT_DIR$/AutomatedMining_VIEW.py" />
+        <option value="$PROJECT_DIR$/MODULE_AutomatedMining.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="695" />
     <option name="width" value="1157" />
     <option name="height" value="1098" />
@@ -245,11 +289,11 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2\_icons" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2\_icons" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -316,19 +360,20 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" id="Project" order="0" visible="true" weight="0.22587413" />
+      <window_info id="Project" order="0" visible="true" weight="0.21748252" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4979021" weight="0.2645074" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49720278" visible="true" weight="0.19568151" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49720278" visible="true" weight="0.30094466" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4993007" weight="0.24426451" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32793522" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32793522" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5027972" side_tool="true" visible="true" weight="0.19568151" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5027972" side_tool="true" visible="true" weight="0.30094466" />
       <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.4986014" weight="0.32928476" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32793522" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -378,13 +423,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTODriver.py</url>
-          <line>312</line>
+          <line>313</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/OOTODriver.py</url>
           <line>132</line>
           <option name="timeStamp" value="68" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/MODULE_AutomatedMining.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -619,12 +669,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="10" selection-end-column="19" />
+          <folding>
+            <element signature="e#438#457#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MODULE_AutomatedMining.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+          <folding>
+            <element signature="e#176#208#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="483" column="19" lean-forward="true" selection-start-line="483" selection-start-column="19" selection-end-line="483" selection-end-column="19" />
+          <folding>
+            <element signature="e#392#412#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/OOTODriver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="527" column="55" selection-start-line="527" selection-start-column="39" selection-end-line="527" selection-end-column="55" />
+        <state relative-caret-position="121">
+          <caret line="109" column="61" lean-forward="true" selection-start-line="109" selection-start-column="61" selection-end-line="109" selection-end-column="61" />
           <folding>
             <element signature="e#450#460#0" expanded="true" />
+            <element signature="e#8702#8716#0" />
+            <element signature="e#9465#9515#0" />
           </folding>
         </state>
       </provider>
