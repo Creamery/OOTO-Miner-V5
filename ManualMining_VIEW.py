@@ -35,7 +35,7 @@ import Tkinter as tk
 try:
     from Tkinter import *
 except ImportError:
-    from tkinter import *
+    from _tkinter import *
 
 try:
     import ttk
