@@ -50,8 +50,8 @@ class AutomatedMining_Controller:
         self.dictWidgetPlace = {}
 
 
-        self.configureTestTabBindings()
-        self.initializeVariables()
+        # self.configureTestTabBindings()
+        # self.initializeVariables()
 
     def setArrQueryCriticalValue(self, arrayValue):
         self.arrQueryCriticalValue = arrayValue

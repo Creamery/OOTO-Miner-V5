@@ -12,11 +12,10 @@ __credits__ = ["Arnulfo Azcarraga"]
 __version__ = "3.0"
 
 
-
 try:
     from Tkinter import *
 except ImportError:
-    from tkinter import *
+    from _tkinter import *
 
 try:
     import ttk
@@ -40,33 +39,31 @@ import Function_support as FS
 class AutomatedMining_View:
 
     def __init__(self, parentFrame):
+        self.lfTabParentFrame = self.initTabFrame(parentFrame)
 
-        self.configureTestTabElements(parentFrame)
-        self.configureZTestElements(parentFrame)
+        self.initInputUI(self.lfTabParentFrame)
+        self.initProcessUI(self.lfTabParentFrame)
+        self.initResultsUI(self.lfTabParentFrame)
+        self.initConsoleUI(self.lfTabParentFrame)
+        # self.configureTestTabElements(parentFrame)
+        # self.configureZTestElements(parentFrame)
         self.configureTestTabConsoleElements(parentFrame)
 
-    def setArrQueryCriticalValue(self, arrayValue):
-        self.arrQueryCriticalValue = arrayValue
-
-    def setArrQueryCriticalValueMapping(self, arrayValue):
-        self.arrQueryCriticalValueMapping = arrayValue
-
-    """ >>> CONFIGURE MAIN TABS <<< """
-    # region
-    ''' --> Configure TEST ("TEST") TAB (2.1) <-- '''
-
-    def configureTestTabElements(self, parentFrame):
-        self.testTabParentFrame = LabelFrame(parentFrame, bd = 0)
-        self.testTabParentFrame.place(
+    def initTabFrame(self, parentFrame):
+        tabFrame = LabelFrame(parentFrame, bd = 0)
+        tabFrame.place(
             relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
             relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
         )
-        self.testTabParentFrame.configure(
+        tabFrame.configure(
             background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
         )
+        return tabFrame
+
+    def initInputUI(self, parentFrame):
 
         # TYPE Parent Frame
-        self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        self.labelFrameTypeElements = LabelFrame(parentFrame, bd = 0)
         self.labelFrameTypeElements.place(
             relx = UI_support.TAB_TEST_TYPE_REL_X, rely = UI_support.TAB_TEST_TYPE_REL_Y,
             relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
@@ -79,7 +76,7 @@ class AutomatedMining_View:
         newRelY = FS.getRelY(self.labelFrameTypeElements) + FS.getRelH(self.labelFrameTypeElements)
 
         # SELECT Parent Frame (Datasets)
-        self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        self.labelFrameSelectElements = LabelFrame(parentFrame, bd = 0)
         self.labelFrameSelectElements.place(
             relx = UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
@@ -90,11 +87,14 @@ class AutomatedMining_View:
 
         self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
 
+
+    def initProcessUI(self, parentFrame):
+
         newRelY = FS.getRelY(self.labelFrameSelectElements) + FS.getRelH(
             self.labelFrameSelectElements)  # TODO Make constant (space in between)
 
         # FILTER Parent Frame
-        self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        self.labelFrameFilterElements = LabelFrame(parentFrame, bd = 0)
         self.labelFrameFilterElements.place(
             relx = UI_support.TAB_TEST_FILTER_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
@@ -105,10 +105,13 @@ class AutomatedMining_View:
 
         self.configureFilterElements(self.labelFrameFilterElements)  # Configures all sub elements under FILTER
 
+
+    def initResultsUI(self, parentFrame):
+
         newRelY = FS.getRelY(self.labelFrameFilterElements) + FS.getRelH(self.labelFrameFilterElements)
 
         # PROCESS Parent Frame
-        self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        self.labelFrameProcessElements = LabelFrame(parentFrame, bd = 0)
         self.labelFrameProcessElements.place(
             # relx = UI_support.TAB_TEST_PROCESS_REL_X,
             relx = FS.getRelX(self.labelFrameSelectElements),
@@ -122,12 +125,13 @@ class AutomatedMining_View:
 
         self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
 
+    def initConsoleUI(self, parentFrame):
         prevFrameRelX = float(self.labelFrameFilterElements.place_info()['relx'])
         prevFrameRelW = float(self.labelFrameFilterElements.place_info()['relwidth'])
         newRelX = prevFrameRelX + prevFrameRelW
 
         # CONSOLE Parent Frame
-        self.labelFrameConsoleElements = LabelFrame(self.testTabParentFrame, bd = 1, relief = GROOVE)
+        self.labelFrameConsoleElements = LabelFrame(parentFrame, bd = 1, relief = GROOVE)
         # self.labelFrameConsoleElements.place(
         #     relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
         #     relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
@@ -141,8 +145,102 @@ class AutomatedMining_View:
         )
 
         self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
-        self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient = VERTICAL)
+        self.testTabLeftSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
         self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+
+
+
+
+
+
+    # def configureTestTabElements(self, parentFrame):
+    #     self.lfTabParentFrame = LabelFrame(parentFrame, bd = 0)
+    #     self.lfTabParentFrame.place(
+    #         relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
+    #         relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
+    #     )
+    #     self.lfTabParentFrame.configure(
+    #         background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
+    #     )
+    #
+    #     # TYPE Parent Frame
+    #     self.labelFrameTypeElements = LabelFrame(self.lfTabParentFrame, bd = 0)
+    #     self.labelFrameTypeElements.place(
+    #         relx = UI_support.TAB_TEST_TYPE_REL_X, rely = UI_support.TAB_TEST_TYPE_REL_Y,
+    #         relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
+    #         # + 0.05 # TODO Type edit
+    #     )
+    #     self.labelFrameTypeElements.configure(
+    #         background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR  # , text = '''TYPE'''
+    #     )
+    #
+    #     newRelY = FS.getRelY(self.labelFrameTypeElements) + FS.getRelH(self.labelFrameTypeElements)
+    #
+    #     # SELECT Parent Frame (Datasets)
+    #     self.labelFrameSelectElements = LabelFrame(self.lfTabParentFrame, bd = 0)
+    #     self.labelFrameSelectElements.place(
+    #         relx = UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
+    #         relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
+    #     )
+    #     self.labelFrameSelectElements.configure(
+    #         background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
+    #     )
+    #
+    #     self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
+    #
+    #     newRelY = FS.getRelY(self.labelFrameSelectElements) + FS.getRelH(
+    #         self.labelFrameSelectElements)  # TODO Make constant (space in between)
+    #
+    #     # FILTER Parent Frame
+    #     self.labelFrameFilterElements = LabelFrame(self.lfTabParentFrame, bd = 0)
+    #     self.labelFrameFilterElements.place(
+    #         relx = UI_support.TAB_TEST_FILTER_REL_X, rely = newRelY,
+    #         relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
+    #     )
+    #     self.labelFrameFilterElements.configure(
+    #         background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+    #     )
+    #
+    #     self.configureFilterElements(self.labelFrameFilterElements)  # Configures all sub elements under FILTER
+    #
+    #     newRelY = FS.getRelY(self.labelFrameFilterElements) + FS.getRelH(self.labelFrameFilterElements)
+    #
+    #     # PROCESS Parent Frame
+    #     self.labelFrameProcessElements = LabelFrame(self.lfTabParentFrame, bd = 0)
+    #     self.labelFrameProcessElements.place(
+    #         # relx = UI_support.TAB_TEST_PROCESS_REL_X,
+    #         relx = FS.getRelX(self.labelFrameSelectElements),
+    #         rely = newRelY,
+    #         relwidth = UI_support.TAB_TEST_PROCESS_REL_W,
+    #         relheight = UI_support.TAB_TEST_PROCESS_REL_H
+    #     )
+    #     self.labelFrameProcessElements.configure(
+    #         background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
+    #     )
+    #
+    #     self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
+    #
+    #     prevFrameRelX = float(self.labelFrameFilterElements.place_info()['relx'])
+    #     prevFrameRelW = float(self.labelFrameFilterElements.place_info()['relwidth'])
+    #     newRelX = prevFrameRelX + prevFrameRelW
+    #
+    #     # CONSOLE Parent Frame
+    #     self.labelFrameConsoleElements = LabelFrame(self.lfTabParentFrame, bd = 1, relief = GROOVE)
+    #     # self.labelFrameConsoleElements.place(
+    #     #     relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
+    #     #     relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
+    #     # )
+    #     self.labelFrameConsoleElements.place(
+    #         relx = newRelX, rely = 0,
+    #         relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = 1
+    #     )
+    #     self.labelFrameConsoleElements.configure(
+    #         background = Color_support.WHITE, foreground = Color_support.FG_COLOR  # , text = '''CONSOLE'''
+    #     )
+    #
+    #     self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
+    #     self.testTabLeftSeparator = ttk.Separator(self.lfTabParentFrame, orient = VERTICAL)
+    #     self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
 
     ''' --> Configure TEST ("TEST") TAB (2.2) <-- '''
@@ -160,8 +258,6 @@ class AutomatedMining_View:
             background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR
         )
 
-
-    # endregion
 
 
     def configureZTestElements(self, parentFrame):
@@ -1279,14 +1375,10 @@ class AutomatedMining_View:
         self.separatorFilterListDataB.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         # FILTER LOCK OVERLAY
-        # region
-
         # FILTER LOCK QUERY ENTRY COVER
-        # region
         # FILTER LOCK MOCK PARENT COVER
         self.labelOverlayFilterListData = LabelFrame(parentFrame, bd = 0)
 
-        #
         self.labelOverlayFilterListData.place(
             relx = FS.getRelX(self.labelFrameFilterListData),
             rely = FS.getRelY(self.labelFrameFilterListData),
@@ -1317,60 +1409,6 @@ class AutomatedMining_View:
             # bd = self.labelFrameFilterQueryData['bd'], relief = self.labelFrameFilterQueryData['relief'],
         )
 
-        '''
-        # MOCK LABEL BORDER
-        self.labelOverlayBorderQueryFeature = Label(self.labelOverlayFilterQueryData)
-        self.labelOverlayBorderQueryFeature.place(
-            relx = FS.getRelX(self.labelFrameBorderQueryFeature),
-            rely = FS.getRelY(self.labelFrameBorderQueryFeature),
-            relwidth = FS.getRelW(self.labelFrameBorderQueryFeature),
-            relheight = FS.getRelH(self.labelFrameBorderQueryFeature)
-        )
-        self.labelOverlayBorderQueryFeature.configure(
-            background = Color_support.FILTER_LABEL_OVERLAY_BG,
-            foreground = self.labelFrameBorderQueryFeature['foreground'],
-            text = self.labelFrameBorderQueryFeature['text'],
-            # text = ''''Please confirm the dataset groupings before filtering''''',
-            font = self.labelFrameBorderQueryFeature['font'],
-            bd = self.labelFrameBorderQueryFeature['bd'], relief = self.labelFrameBorderQueryFeature['relief'],
-        )
-
-        # MOCK LABEL
-        self.labelOverlayLabelQueryFeature = Label(self.labelOverlayBorderQueryFeature)
-        self.labelOverlayLabelQueryFeature.place(
-            relx = FS.getRelX(self.labelQueryFeature),
-            rely = FS.getRelY(self.labelQueryFeature),
-            relwidth = FS.getRelW(self.labelQueryFeature),
-            relheight = FS.getRelH(self.labelQueryFeature)
-        )
-        self.labelOverlayLabelQueryFeature.configure(
-            background = self.labelQueryFeature['background'],
-            foreground = Color_support.FILTER_LABEL_OVERLAY_BG,
-            text = self.labelQueryFeature['text'],
-            # text = ''''Please confirm the dataset groupings before filtering'''',
-            font = self.labelQueryFeature['font'],
-            bd = self.labelQueryFeature['bd'], relief = self.labelQueryFeature['relief'],
-        )
-
-
-        # MOCK BUTTON
-        self.labelOverlayButtonQueryFeature = Label(self.labelOverlayFilterQueryData)
-        self.labelOverlayButtonQueryFeature.place(
-            relx = FS.getRelX(self.buttonQueryFeature),
-            rely = FS.getRelY(self.buttonQueryFeature),
-            relwidth = FS.getRelW(self.buttonQueryFeature),
-            relheight = FS.getRelH(self.buttonQueryFeature)
-        )
-        self.labelOverlayButtonQueryFeature.configure(
-            background = Color_support.FILTER_LABEL_OVERLAY_BG,
-            foreground = self.buttonQueryFeature['foreground'],
-            text = self.buttonQueryFeature['text'],
-            # text = ''''Please confirm the dataset groupings before filtering'''',
-            font = self.buttonQueryFeature['font'],
-            bd = 1, relief = self.buttonQueryFeature['relief'],
-            image = self.buttonQueryFeature['image']
-        )
-        '''
         # MOCK STRIPED COVER
         self.labelOverlayFilterStripes = Label(self.labelOverlayFilterQueryData)
         self.labelOverlayFilterStripes.place(
@@ -1387,17 +1425,13 @@ class AutomatedMining_View:
             image = texture_orange_stripes,
             anchor = SW,
             bd = 0
-        )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        )
         self.labelOverlayFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
 
-        # self.separatorOverlayFilterQueryData = ttk.Separator(self.labelOverlayFilterQueryData, orient = VERTICAL)
-        # self.separatorOverlayFilterQueryData.place(relx = 0, rely = 0, relheight = 1)
-        # endregion
 
         # FILTER LOCK LISTBOX COVER
 
         # LEFT COVER
-        # region
         # self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListDataA)
         self.labelOverlayFilterListDataA = Label(self.labelOverlayFilterListData)
         newRelY = FS.getRelY(self.labelOverlayFilterQueryData) + FS.getRelH(self.labelOverlayFilterQueryData)
@@ -1443,10 +1477,8 @@ class AutomatedMining_View:
         self.separatorOverlayFilterListDataA.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
-        # endregion
 
         # RIGHT COVER
-        # region
         self.labelOverlayFilterListDataB = Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterListDataB.place(
             relx = FS.getRelX(self.labelFrameFilterListDataB), rely = FS.getRelY(self.labelOverlayFilterListDataA),
@@ -1486,9 +1518,7 @@ class AutomatedMining_View:
         self.separatorOverlayFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataB.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
-        # endregion
 
-        # endregion
 
     ''' -> Elements under the PROCESS ("TEST") HEADER <- '''
 
@@ -1570,7 +1600,6 @@ class AutomatedMining_View:
         )
 
         # PROCESS STATISTICAL TEST OPTIONS
-        # region
         self.labelFrameProcessStatTests = LabelFrame(self.labelFrameProcessCommands, bd = 0)
         self.labelFrameProcessStatTests.place(
             relx = 0, rely = 0,
@@ -1655,10 +1684,8 @@ class AutomatedMining_View:
         # self.buttonChooseChiSquare.pack(fill = X, expand = True)
         # self.buttonChooseChiSquare.update()
 
-        # endregion
 
         # TEST OPTIONS PARENT
-        # region
         # PROCESS Z-TEST PARENT
         newRelX = FS.getRelX(self.labelFrameProcessStatTests) + FS.getRelW(self.labelFrameProcessStatTests)
         self.labelFrameProcessTestOptions = LabelFrame(self.labelFrameProcessCommands, bd = 0)
@@ -1684,10 +1711,7 @@ class AutomatedMining_View:
             bd = 1, relief = GROOVE
         )
 
-        # endregion
 
-        # PROCESS Z-TEST OPTIONS
-        # region
 
         # PROCESS Z-TEST PARENT
         # newRelX = FS.getRelX(self.labelFrameProcessStatTests) + FS.getRelW(self.labelFrameProcessStatTests)
@@ -1782,12 +1806,8 @@ class AutomatedMining_View:
         stringVar.trace('w', lambda nm, idx, mode, var = stringVar: self.validateZConfidenceSpinbox(var,
                                                                                                     self.spinBoxQueryZConfidence))
 
-        # ent = Entry(root, textvariable = sv)
-
         self.spinBoxQueryZConfidence.configure(
             textvariable = stringVar,
-            # validate = "key",
-            # validatecommand = vcmd,
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.WHITE, foreground = Color_support.FG_COLOR,
             exportselection = 0,
@@ -1798,9 +1818,6 @@ class AutomatedMining_View:
         )
         self.refreshSpinBoxValue(self.spinBoxQueryZConfidence)
 
-        # newRelX = FS.getRelX(self.labelFrameProcessZTestConfidence) + FS.getRelW(self.labelFrameProcessZTestConfidence)
-        # newRelY = FS.getRelY(self.labelFrameProcessZTestConfidence)
-        # newRelH = FS.getRelH(self.labelFrameProcessZTestConfidence)
 
         # Z-TEST BUTTON
         self.buttonQueryZTest = Button(self.labelFrameProcessZTestButtonElements, compound = CENTER)
@@ -1821,12 +1838,6 @@ class AutomatedMining_View:
         self.buttonQueryZTest.pack(anchor = CENTER)
         self.buttonQueryZTest.update()
 
-        # Z-TEST RESULTS
-        # self.labelQueryZTest = Label(self.labelFrameProcessZTest)  ## TODO functionality switch
-        # self.labelQueryZTest.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
-        # self.labelQueryZTest.configure(disabledforeground = "#a3a3a3")
-        # self.labelQueryZTest.configure(foreground = "#000000")
-        # self.labelQueryZTest.configure(text = '''NO DATA''')
 
         # endregion
 
@@ -2035,8 +2046,7 @@ class AutomatedMining_View:
             background = Color_support.PROCESS_BG
         )
 
-        # RUN MINER BUTTON
-        # region
+        # region RUN MINER BUTTON
         self.buttonTestQueue = Button(self.labelFrameRunMinerElements, compound = CENTER)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.RUN_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -2063,7 +2073,7 @@ class AutomatedMining_View:
         self.runLeftSeparator = ttk.Separator(self.labelFrameProcessRun, orient = VERTICAL)
         self.runLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
-        # endregion
+        # endregion RUN MINER BUTTON
 
         # SEPARATOR  ELEMENTS
         newRelX = FS.getRelX(self.labelFrameProcessTestOptions)  # + FS.getRelW(self.labelFrameProcessZTest)
@@ -2075,10 +2085,7 @@ class AutomatedMining_View:
         self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
 
-    """
-        Performs spinbox value validation
-    """
-
+    """ Performs spinbox value validation """
     def validateZConfidenceSpinbox(self, spinBoxValue, spinBox):
         global arrQueryCriticalValue, arrQueryCriticalValueMapping
 
@@ -2093,14 +2100,12 @@ class AutomatedMining_View:
 
         spinBox.update()
 
-    """Reconfigures spinbox value by pressing the up then down buttons"""
-
+    """ Reconfigures spinbox value by pressing the up then down buttons """
     def refreshSpinBoxValue(self, spinBox):
         spinBox.invoke("buttonup")
         spinBox.invoke("buttondown")
 
-    ''' -> Elements under the CONSOLE ("") HEADER <- '''
-
+    """ Elements under the CONSOLE ("") HEADER """
     def configureConsoleElements(self, parentFrame):
 
         # PROCESS COMMANDS PARENT
@@ -2266,24 +2271,18 @@ class AutomatedMining_View:
 
         # Add console borders
         self.createLabelBorders(self.labelFrameConsoleScreen)
-
     def configureConsoleScreenElements(self):
-
         self.scrollConsoleScreen = Scrollbar(self.labelFrameConsoleScreen, orient = VERTICAL,
                                              name = 'scrollConsoleScreen')
-
         newRelH = 0.8
         newRelY = FS.getRelY(self.labelConsoleStripes) + FS.getRelH(self.labelConsoleStripes)
 
-        # BASIC CONSOLE SCREEN
+        # region BASIC CONSOLE SCREEN
         # self.listConsoleScreen = Listbox(self.scrollConsoleScreen, name = 'listConsoleScreen')
         self.listConsoleScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleScreen')
         # self.listConsoleScreen.insert(END, "A really \n long \n text \n to \n test \n this")
         self.listConsoleScreen.place(
             relx = 0,
-            # rely = 0,
-            # relwidth = 1,
-            # relheight = 1
             rely = newRelY,
             relwidth = 1,
             relheight = newRelH
@@ -2310,8 +2309,10 @@ class AutomatedMining_View:
                                              spacing3 = 0,
                                              justify = LEFT)
 
-        # QUEUE SCREEN listConsoleQueueScreen
-        # region
+
+        # endregion BASIC CONSOLE SCREEN
+
+        # region QUEUE SCREEN listConsoleQueueScreen
         self.listConsoleQueueScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleQueueScreen')
         screenWidget = self.listConsoleQueueScreen
         screenReference = self.listConsoleScreen
@@ -2324,12 +2325,7 @@ class AutomatedMining_View:
         )
         screenWidget.configure(
             background = screenReference['background'],
-            # background = Color_support.D_GRAY,
             foreground = screenReference['foreground'],
-
-            # selectmode = screenReference['selectmode'],
-            # exportselection = screenReference['exportselection'],
-            # activestyle = screenReference['activestyle'],
             selectbackground = screenReference['selectbackground'],
             selectforeground = screenReference['selectforeground'],
 
@@ -2350,10 +2346,9 @@ class AutomatedMining_View:
                                    spacing2 = 0,
                                    spacing3 = 0,
                                    justify = LEFT)
-        # endregion
+        # endregion QUEUE SCREEN listConsoleQueueScreen
 
-        # Z-TEST CONSOLE SCREEN listConsoleZTestScreen
-        # region
+        # region Z-TEST CONSOLE SCREEN listConsoleZTestScreen
         self.listConsoleZTestScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleZTestScreen')
         screenWidget = self.listConsoleZTestScreen
         screenReference = self.listConsoleScreen
@@ -2367,10 +2362,6 @@ class AutomatedMining_View:
         screenWidget.configure(
             background = screenReference['background'],
             foreground = screenReference['foreground'],
-
-            # selectmode = screenReference['selectmode'],
-            # exportselection = screenReference['exportselection'],
-            # activestyle = screenReference['activestyle'],
             selectbackground = screenReference['selectbackground'],
             selectforeground = screenReference['selectforeground'],
 
@@ -2391,10 +2382,10 @@ class AutomatedMining_View:
                                    spacing2 = 0,
                                    spacing3 = 0,
                                    justify = LEFT)
-        # endregion
 
-        # CHI-SQUARE CONSOLE SCREEN listConsoleChiSquareScreen
-        # region
+        # endregion Z-TEST CONSOLE SCREEN listConsoleZTestScreen
+
+        # region CHI-SQUARE CONSOLE SCREEN listConsoleChiSquareScreen
         self.listConsoleChiSquareScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleChiSquareScreen')
         screenWidget = self.listConsoleChiSquareScreen
         screenReference = self.listConsoleScreen
@@ -2432,7 +2423,7 @@ class AutomatedMining_View:
                                    spacing2 = 0,
                                    spacing3 = 0,
                                    justify = LEFT)
-        # endregion
+
 
         self.scrollConsoleScreen.place(
             relx = 0,
@@ -2448,6 +2439,8 @@ class AutomatedMining_View:
             bd = 0,
         )
 
+        # endregion CHI-SQUARE CONSOLE SCREEN listConsoleChiSquareScreen
+
         # Configure screen dictionary
         self.dictConsoleScreens = {
             self.listConsoleScreen: const.SCREENS.ALL,
@@ -2456,19 +2449,10 @@ class AutomatedMining_View:
             self.listConsoleChiSquareScreen: const.SCREENS.CHI_SQUARE,
         }
 
-    # endregion
 
 
-    """ >>> HELPER FUNCTIONS UI ELEMENTS <<< """
-
-    # region
-
-    def getDatasetCountA(self):
-        return str(self.datasetCountA)
-
-    def getDatasetCountB(self):
-        return str(self.datasetCountB)
-
+    """ UI HELPER FUNCTIONS """
+    # region UI HELPER FUNCTIONS
     def createCornerImage(self, cornerParent):
 
         labelNE = Label(cornerParent)
@@ -2538,15 +2522,30 @@ class AutomatedMining_View:
             coordinate = 0.995
         )
 
-    # endregion
+    # endregion UI HELPER FUNCTIONS
+
+
+    """ SETTERS """
+    # region SETTERS
+    def setArrQueryCriticalValue(self, arrayValue):
+        self.arrQueryCriticalValue = arrayValue
+
+    def setArrQueryCriticalValueMapping(self, arrayValue):
+        self.arrQueryCriticalValueMapping = arrayValue
 
     def getMainFrame(self):
-        return self.testTabParentFrame
+        return self.lfTabParentFrame
+    # endregion SETTERS
 
-
-    """ >>> GETTERS FOR TO-BIND ELEMENTS (e.g. buttons, listboxes) <<< """
-
+    """ GETTERS """
     # region GETTERS
+    def getDatasetCountA(self):
+        return str(self.datasetCountA)
+
+    def getDatasetCountB(self):
+        return str(self.datasetCountB)
+
+
     def getButtonQuerySetDataA(self):
         return self.buttonQuerySetDataA
     def getButtonQuerySetDataB(self):
@@ -2562,8 +2561,6 @@ class AutomatedMining_View:
 
     def getButtonQueryZTest(self):
         return self.buttonQueryZTest
-
-
 
     def getButtonQueue(self):
         return self.buttonQueue
@@ -2649,7 +2646,6 @@ class AutomatedMining_View:
     def getListQuerySetDataB(self):
         return self.listQuerySetDataB
 
-
     def getLabelFrameProcessChiSquare(self):
         return self.labelFrameProcessChiSquare
     def getLabelFrameProcessZTest(self):
@@ -2673,4 +2669,4 @@ class AutomatedMining_View:
     def getComboQueryTest(self):
         return self.comboQueryTest
 
-    # endregion
+    # endregion GETTERS
