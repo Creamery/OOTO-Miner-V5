@@ -45,13 +45,23 @@ import Function_support as FS
 
 class AutomatedMining_Controller:
 
-    def __init__(self, view):
+    def __init__(self, view, model):
         self.view = view
+        self.model = model
         self.dictWidgetPlace = {}
 
+        self.configureButtonBindings()
 
         # self.configureTestTabBindings()
         # self.initializeVariables()
+    def configureButtonBindings(self):
+
+        button = self.view.getBtnConfirmFeatureSelect()
+        button.bind('<Button-1>', self.model.confirmFeatureSelect)
+
+
+        button = self.view.getBtnResetFeatureSelect()
+        button.bind('<Button-1>', self.model.resetFeatureSelect)
 
     def setArrQueryCriticalValue(self, arrayValue):
         self.arrQueryCriticalValue = arrayValue

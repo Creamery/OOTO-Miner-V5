@@ -25,6 +25,7 @@ except ImportError:
 
     py3 = 1
 
+import AutomatedMining_MODEL as MODEL
 import AutomatedMining_VIEW as VIEW
 import AutomatedMining_CONTROLLER as CONTROLLER
 
@@ -36,9 +37,9 @@ class AutomatedMining:
         arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
         arrQueryCriticalValueMapping = {"0.80": 1.28, "0.90": 1.645, "0.95": 1.96, "0.98": 2.33, "0.99": 2.58}
 
-
+        self.model = MODEL.AutomatedMining_Model()
         self.view = VIEW.AutomatedMining_View(parentFrame)
-        self.controller = CONTROLLER.AutomatedMining_Controller(self.view)
+        self.controller = CONTROLLER.AutomatedMining_Controller(self.view, self.model)
 
         self.view.setArrQueryCriticalValue(arrQueryCriticalValue)
         self.view.setArrQueryCriticalValueMapping(arrQueryCriticalValueMapping)

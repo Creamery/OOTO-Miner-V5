@@ -3134,7 +3134,7 @@ class AutomatedMining_View:
     def getButtonQuerySetDataB(self):
         return self.btnQueryConfirmedFeatures
 
-    def getButtonQueryAddFilterA(self):
+    def getButtonQueryAddFilterA(self): # TODO remove getter
         return self.btnConfirmFeatureSelect
     def getButtonQueryAddFilterB(self):
         return self.btnConfirmConfirmedFeatures
@@ -3152,7 +3152,7 @@ class AutomatedMining_View:
     def getButtonTestQueue(self):
         return self.buttonTestQueue
 
-    def getButtonQueryResetFilterA(self):
+    def getButtonQueryResetFilterA(self): # TODO remove getter
         return self.btnResetFeatureSelect
     def getButtonQueryResetFilterB(self):
         return self.btnResetConfirmedFeatures
@@ -3252,4 +3252,11 @@ class AutomatedMining_View:
     def getComboQueryTest(self):
         return self.comboQueryTest
 
+
+    # NEW GETTERS
+    def getBtnConfirmFeatureSelect(self):
+        return self.btnConfirmFeatureSelect
+
+    def getBtnResetFeatureSelect(self):
+        return self.btnResetFeatureSelect
     # endregion GETTERS
