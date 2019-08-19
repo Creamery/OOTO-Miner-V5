@@ -47,7 +47,7 @@ class AutomatedMining:
         self.controller.setArrQueryCriticalValueMapping(arrQueryCriticalValueMapping)
 
     def readFeatures(self, variableDescription):
-        self.controller.readFeatures(variableDescription, "^")
+        return self.controller.readFeatures(variableDescription, "^")
 
     def uploadDataset(self, directory, populationDataset):
         return self.controller.uploadDataset(directory, populationDataset)

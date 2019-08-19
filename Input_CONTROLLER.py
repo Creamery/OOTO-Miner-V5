@@ -31,7 +31,15 @@ class Input_Controller:
 
     def __init__(self, view):
         self.view = view
+        self.initializeVariables()
         self.configureDataTabBindings()
+
+
+    def initializeVariables(self):
+        self.hasUploadedVariableDescription = False
+        self.hasUploadedPopulation = False
+
+
 
     ''' --> Binding elements under the DATA ("DATA") TAB (1) <-- '''
 

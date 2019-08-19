@@ -110,10 +110,10 @@ class ManualMining_Controller:
     def readFeatures(self, variableDescription, itemMarker):
         global features
         features = FS.readFeatures(variableDescription, itemMarker)
-        if (len(features)) <= 0:
-            tkMessageBox.showerror("Error 2: Upload Variable description",
-                                   "Please select a valid variable description file.")
-            return "break"
+        if (len(features)) <= 0: # Invalid variable description file
+            return False
+        else:
+            return True
 
     def uploadDataset(self, directory, newDataset):
         global populationDir

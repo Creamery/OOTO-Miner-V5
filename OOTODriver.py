@@ -104,7 +104,7 @@ class OOTO_Miner:
 
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.INPUT = self.configureDataTabElements(self.Tabs_t2)
-        self.INPUT.getButtonStartDatasetUpload().bind('<Button-1>', self.uploadDataset)
+        self.INPUT.getButtonStartDatasetUpload().bind('<Button-1>', self.uploadInputFiles)
 
         ''' TAB 2.1 - TEST (Tabs_t3) '''
         self.MM = self.configureTestTabElements(self.Tabs_t3)
@@ -503,9 +503,10 @@ class OOTO_Miner:
 
     """ >>> FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. buttons, listboxes) <<< """
 
-    ''' Start dataset upload '''
 
-    def uploadDataset(self, evt):
+    ''' Upload the dataset and variable description files '''
+
+    def uploadInputFiles(self, evt):
         # Upload initVarDesc (Variable Description)
 
         if not self.INPUT.hasUploadedVariableDescription():  # Check if variable description was uploaded
@@ -513,29 +514,50 @@ class OOTO_Miner:
                                    "Please select a valid variable description file.")
             return "break"
         else:
-            self.MM.readFeatures(self.INPUT.getInitVarDisc())
+            # Upload Variable Descriptions to modules
+            isSuccessfulMM = self.MM.readFeatures(self.INPUT.getInitVarDisc())
+            isSuccessfulAM = self.AM.readFeatures(self.INPUT.getInitVarDisc())
 
+            if not (isSuccessfulMM and isSuccessfulAM):
+                tkMessageBox.showerror("Error 1: Upload Variable description",
+                                       "Please select a valid variable description file.")
+                return "break"
             # else:
             # tkMessageBox.showinfo("Variable description set", "Variable description uploaded")
             # # getCommonGroups(features)
 
         # Upload populationDir (Population Dataset)
         if not self.INPUT.getHasUploadedPopulation():  # Check if population dataset was uploaded
-            tkMessageBox.showerror("Error: Upload Population Dataset",
+            tkMessageBox.showerror("Error 1: Upload Population Dataset",
                                    "Please select a population dataset file.")
             return "break"
+
         else:
-            ## global populationDir
             populationDir = self.INPUT.getPopulationDir()
+
             populationDataset = FS.readCSVDict(populationDir)
-            isUploaded = self.MM.uploadDataset(populationDir, populationDataset)
-            if (isUploaded):
+            isSuccessfulAM = self.AM.uploadDataset(populationDir, populationDataset)
+
+
+            populationDataset = FS.readCSVDict(populationDir)
+            isSuccessfulMM = self.MM.uploadDataset(populationDir, populationDataset)
+
+            if (isSuccessfulMM and isSuccessfulAM):
                 tkMessageBox.showinfo("Success: Upload Dataset",
                                        "Dataset successfully uploaded!")
                 self.Tabs.select(UI_support.TAB_TEST_INDEX)
-            else:
-                tkMessageBox.showerror("Error: Upload Dataset",
+
+            elif not (isSuccessfulMM and isSuccessfulAM):
+                tkMessageBox.showerror("Error 1: Upload Dataset",
                                        "Dataset upload failed, please check input files.")
+
+            elif not isSuccessfulMM:
+                tkMessageBox.showerror("Error 2: Upload Dataset",
+                                       "Manual Mining dataset upload failed, please check input files.")
+
+            elif not isSuccessfulAM:
+                tkMessageBox.showerror("Error 3: Upload Dataset",
+                                       "Automated Mining dataset upload failed, please check input files.")
 
         return "break"
 
