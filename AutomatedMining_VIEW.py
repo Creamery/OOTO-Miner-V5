@@ -39,15 +39,30 @@ import Function_support as FS
 class AutomatedMining_View:
 
     def __init__(self, parentFrame):
+        # parent frame for all elements in the Automated Mining tab
         self.lfTabParentFrame = self.initTabFrame(parentFrame)
 
-        self.initInputUI(self.lfTabParentFrame)
-        self.initProcessUI(self.lfTabParentFrame)
-        self.initResultsUI(self.lfTabParentFrame)
-        self.initConsoleUI(self.lfTabParentFrame)
+        # empty frame for top padding
+        self.lfTopPadding = self.initTopPaddingUI(self.lfTabParentFrame)
+
+        # frame containing the first row of UI elements
+        self.lfInputFrame = self.initInputUI(self.lfTabParentFrame, self.lfTopPadding)
+
+        # frame containing the second row of UI elements
+        self.lfProcessFrame = self.initProcessUI(self.lfTabParentFrame, self.lfInputFrame)
+
+        # frame containing the third row of UI elements
+        self.lfResultsFrame = self.initResultsUI(self.lfTabParentFrame, self.lfProcessFrame)
+
+        # frame containing the console UI elements
+        self.lfConsoleFrame = self.initConsoleUI(self.lfTabParentFrame, self.lfProcessFrame)
+
+
+
+
         # self.configureTestTabElements(parentFrame)
         # self.configureZTestElements(parentFrame)
-        self.configureTestTabConsoleElements(parentFrame)
+        # self.configureTestTabConsoleElements(parentFrame)
 
     def initTabFrame(self, parentFrame):
         tabFrame = LabelFrame(parentFrame, bd = 0)
@@ -60,94 +75,806 @@ class AutomatedMining_View:
         )
         return tabFrame
 
-    def initInputUI(self, parentFrame):
-
-        # TYPE Parent Frame
-        self.labelFrameTypeElements = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameTypeElements.place(
+    def initTopPaddingUI(self, parentFrame):
+        topPaddingFrame = LabelFrame(parentFrame, bd = 0)
+        # region init topPaddingFrame
+        topPaddingFrame.place(
             relx = UI_support.TAB_TEST_TYPE_REL_X, rely = UI_support.TAB_TEST_TYPE_REL_Y,
             relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
-            # + 0.05 # TODO Type edit
         )
-        self.labelFrameTypeElements.configure(
-            background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR  # , text = '''TYPE'''
+        topPaddingFrame.configure(
+            background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR
         )
+        # endregion topPaddingFrame
+        return topPaddingFrame
 
-        newRelY = FS.getRelY(self.labelFrameTypeElements) + FS.getRelH(self.labelFrameTypeElements)
+    def initInputUI(self, parentFrame, relativeFrame):
+        # set the UI parent position below relativeFrame
+        newRelY = FS.getRelY(relativeFrame) + FS.getRelH(relativeFrame)
 
-        # SELECT Parent Frame (Datasets)
-        self.labelFrameSelectElements = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameSelectElements.place(
+        inputFrame = LabelFrame(parentFrame, bd = 0)
+        # region init inputFrame
+        inputFrame.place(
             relx = UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
-        self.labelFrameSelectElements.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
+        inputFrame.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR
+        )
+        # endregion init lfInputElements
+        self.initFeatureList(inputFrame)
+        return inputFrame
+
+    def createTitleBar(self, parentFrame, strNumber, strName, colorBG):
+        titleFrame = LabelFrame(parentFrame, bd = 0)
+        titleFrame.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
 
-        self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
+        # COLORED SEPARATOR
+        coloredSeparator = self.createLabelSeparator(
+            titleFrame, 1,
+            False, colorBG, UI_support.TITLE_SEPARATOR_H,
+            0.5, W
+        )
+
+        titleNumber = Label(titleFrame)
+        newRelY = UI_support.LABEL_TITLE_REL_Y
+        titleNumber.place(
+            relx = 0, rely = newRelY,
+            relwidth = 0.04 + 0.05,
+            relheight = 1 - (newRelY * 2), anchor = NW)
+
+        titleNumber.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
+            text = str(strNumber) + '''  ''',
+            bd = 1, relief = GROOVE,
+            anchor = SE
+        )
+        newRelX = FS.getRelX(titleNumber) + FS.getRelW(titleNumber)
+
+        titleText = Label(titleFrame)
+        newRelY = FS.getRelY(titleNumber)
+        newRelH = FS.getRelH(titleNumber)
+        titleText.place(
+            relx = newRelX - 0.001, rely = newRelY,
+            relwidth = 0.15, relheight = newRelH, anchor = NW)
+        titleText.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = colorBG, foreground = Color_support.SELECT_TITLE_FG,
+            text = str(strName),
+            bd = 0, relief = GROOVE,
+            anchor = S
+        )
+        # Title border
+        self.separatorlabelFrameSelectTitleText = self.createLabelSeparator(
+            titleText, 1,
+            True, Color_support.WHITE,
+            coordinate = 0.99, specifiedAnchor = NW
+        )
+
+        return titleFrame
+
+    def initFeatureList(self, parentFrame):
+        titleFrame = self.createTitleBar(parentFrame, '1', 'INPUT', Color_support.SELECT_TITLE_BG)
+        titleFrame.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
+        newRelY = FS.getRelY(titleFrame) + FS.getRelH(titleFrame)
+        titleRelH = FS.getRelH(titleFrame)
+
+        self.labelFrameDatasetA = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameDatasetA.place(
+            relx = 0.05, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
+        )
+        self.labelFrameDatasetA.configure(
+            background = Color_support.SELECT_BG
+        )
+        newRelH = FS.getRelH(self.labelFrameDatasetA)
+        self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameDatasetB.place(
+            relx = UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15,
+            # (2 * FS.getRelX(self.labelFrameDatasetA)) + FS.getRelW(self.labelFrameDatasetA),
+            rely = newRelY, relwidth = 0.4, relheight = newRelH
+        )
+        self.labelFrameDatasetB.configure(
+            background = Color_support.SELECT_BG
+        )
+
+        # DATASET SEPARATOR
+        self.labelFrameDatasetCenterSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
+        self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = newRelY + 0.05, relheight = 1 - titleRelH - 0.1)
+
+        # QUERY PARENT (DATASET A)
+        self.labelFrameQueryDataA = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameQueryDataA.place(
+            relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
+            relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
+        self.labelFrameQueryDataA.configure(
+            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            relief = GROOVE  # , text = '''Dataset A'''
+        )
+
+        # QUERY STATUS CHILD - DATASET A
+        # region
+        self.labelQuerySetDataStatusA = Label(self.labelFrameQueryDataA)
+        # self.labelQuerySetDataStatusA = Label(self.labelFrameQuerySetDataStatusA)
+        # self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
+        self.labelQuerySetDataStatusA.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
+        # self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+        self.labelQuerySetDataStatusA.configure(
+            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
+            text = UI_support.LBL_SELECT_NO_DATA,
+            font = UI_support.SELECT_STATUS_LABEL_FONT,
+        )
+        if UI_support.SELECT_STATUS_LABEL_TOP_SEPARATOR:
+            self.labelFrameNoDataAHorizontalSeparator = ttk.Separator(self.labelQuerySetDataStatusA,
+                                                                      orient = HORIZONTAL)
+            self.labelFrameNoDataAHorizontalSeparator.place(relx = 0, rely = 0, relwidth = 1, anchor = NW)
+        # endregion
+
+        # LISTBOX PARENT (DATASET A)
+        # region
+        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + FS.getRelY(self.labelFrameQueryDataA) + FS.getRelH(
+            self.labelFrameQueryDataA)
+
+        self.labelFrameListBoxA = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameListBoxA.place(
+            relx = UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = UI_support.TAB_TEST_LISTBOX_QUERY_REL_H)
+
+        # QUERY STATUS PARENT - DATASET A
+        # region
+        # newRelY = FS.getRelY(self.listQuerySetDataA) + FS.getRelH(self.listQuerySetDataA)
+        # newRelH = 1 - FS.getRelH(self.listQuerySetDataA)
+
+        self.labelFrameQuerySetDataStatusA = LabelFrame(self.labelFrameListBoxA, bd = 0)
+        # self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+        specifiedListBoxHeight = (0.78 - 0.03)
+        newRelH = 1 - specifiedListBoxHeight  # TODO Make constant (0.78 - 0.03) is the listbox's supposed height
+        self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = 0, relwidth = 1, relheight = newRelH)
+
+        # QUERY TOP STRIPE PARENT - DATASET A
+        # region
+        # newRelH = FS.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
+        newRelH = FS.getRelH(
+            self.labelFrameQuerySetDataStatusA) * UI_support.SELECT_LABEL_STRIPES_REL_H_MULTIPLIER  # 5 / 8 # TODO Make constant reference
+        self.labelQuerySetDataStripesA = Label(self.labelFrameListBoxA, bd = 0, relief = GROOVE)
+        self.labelQuerySetDataStripesA.place(
+            relx = 0,
+            rely = 0,
+            # rely = newRelY,
+            relwidth = 1,
+            relheight = newRelH,
+            anchor = NW
+        )
+        newRelY = FS.getRelY(self.labelQuerySetDataStripesA) + FS.getRelH(self.labelQuerySetDataStripesA)
+        self.labelFrameQuerySetDataStatusA.place(
+            relx = FS.getRelX(self.labelFrameQuerySetDataStatusA),
+            rely = newRelY,
+            relwidth = FS.getRelW(self.labelFrameQuerySetDataStatusA),
+            relheight = FS.getRelH(self.labelFrameQuerySetDataStatusA),
+        )
+        im = PIL.Image.open(
+            Icon_support.TEXTURE_STRIPE_PINK)
+        texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+        self.labelQuerySetDataStripesA.configure(
+            image = texture_pink_stripes,
+            anchor = SW
+        )
+        self.labelQuerySetDataStripesA.image = texture_pink_stripes  # < ! > Required to make images appear
+        # endregion
+
+        # QUERY FRAME - DATASET A
+        # region
+        # self.labelFrameBorderQuerySetDataA = LabelFrame(self.labelFrameQueryDataA, bd = 0)
+        self.labelFrameBorderQuerySetDataA = LabelFrame(self.labelFrameQuerySetDataStatusA, bd = 0)
+        self.labelFrameBorderQuerySetDataA.place(
+            relx = 0, rely = 0,
+            relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
+        )
+        self.labelFrameBorderQuerySetDataA.configure(
+            background = Color_support.SELECT_BUTTONS_BG
+        )
+
+        self.labelQuerySetDataA = Label(self.labelFrameBorderQuerySetDataA)
+
+        self.labelQuerySetDataA.place(
+            relx = 0.01, rely = 0.025,
+            relwidth = 0.98, relheight = 0.95)
+        self.labelQuerySetDataA.configure(
+            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            text = UI_support.SELECT_LABEL_DATASETA_TEXT,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = 0, relief = FLAT,
+        )
+
+        newRelX = FS.getRelX(self.labelFrameBorderQuerySetDataA) + FS.getRelW(
+            self.labelFrameBorderQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
+
+        # ENTRY - DATASET A
+        # region
+        # self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
+        self.entryQuerySetDataA = Entry(self.labelFrameQuerySetDataStatusA)
+        self.entryQuerySetDataA.place(
+            relx = newRelX, rely = 0,
+            relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
+        self.entryQuerySetDataA.configure(
+            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            bd = 1,
+            font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
+            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
+        )  # TODO Constant font definiton
+        # endregion
+        # QUERY BUTTON - DATASET A
+        # region
+        newRelX = FS.getRelX(self.entryQuerySetDataA) + FS.getRelW(
+            self.entryQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
+
+        # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
+        self.buttonQuerySetDataA = Button(self.labelFrameQuerySetDataStatusA)
+        self.buttonQuerySetDataA.place(
+            relx = newRelX, rely = 0,
+            relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
+                                                                     PIL.Image.ANTIALIAS)
+        btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQuerySetDataA.configure(
+            image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQuerySetDataA.image = btn_query_set_icon  # < ! > Required to make images appear
+
+        self.buttonQuerySetDataA.configure(
+            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
+            activebackground = Color_support.SELECT_BG,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE,
+            # text = '''Find Feature'''
+        )
+        # endregion
+
+        # endregion
+
+        # endregion
+
+        # LISTBOX - DATASET A
+        # region
+        # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
+        # self.listQuerySetDataA = Listbox(self.labelFrameListBoxA, yscrollcommand = self.scrollbarQuerySetDataA.set)
+
+        self.listQuerySetDataA = Listbox(self.labelFrameListBoxA)
+        self.listQuerySetDataA.configure(
+            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+            selectmode = MULTIPLE, exportselection = "0",
+            activestyle = "none",
+            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
+            highlightthickness = 0
+        )
+        newRelY = FS.getRelY(self.labelFrameQuerySetDataStatusA) + FS.getRelH(self.labelFrameQuerySetDataStatusA)
+        newRelH = 1 - (FS.getRelH(self.labelFrameQuerySetDataStatusA) + FS.getRelH(self.labelQuerySetDataStripesA))
+        self.listQuerySetDataA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+
+        # self.listQuerySetDataA.place(
+        #     relx = 0.01, rely = 0.025,
+        #     relwidth = 0.98, relheight = 0.95)
+        # # self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78 - 0.03)
+        # endregion
+
+        newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(
+            self.labelFrameListBoxA)
+
+        # COMMANDS PARENT (DATASET A)
+        # region
+
+        self.labelFrameCommandsA = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameCommandsA.place(
+            relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
+            relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W,
+            relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H * 0.85)  # TODO Reduced size
+
+        self.labelFrameCommandsA.configure(
+            background = Color_support.WHITE
+        )
+
+        # RESET BUTTON (DATASET A)
+        # region
+        self.buttonQueryResetFilterA = Button(self.labelFrameCommandsA)
+        self.buttonQueryResetFilterA.place(
+            relx = 0, rely = 0,
+            relwidth = 0.25, relheight = 1)
+        self.buttonQueryResetFilterA.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+        # text = '''Reset''')
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterA.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterA.image = btn_query_reset_icon  # < ! > Required to make images appear
+        # endregion
+
+        # QUERY COUNT (DATASET A)
+        # region
+        newRelX = FS.getRelX(self.buttonQueryResetFilterA) + FS.getRelW(self.buttonQueryResetFilterA)
+
+        self.labelFrameQueryCount = LabelFrame(self.labelFrameCommandsA, bd = 1)
+        self.labelFrameQueryCount.place(
+            relx = newRelX + 0.005, rely = 0,
+            relwidth = 0.50 - 0.005, relheight = 1
+        )
+        self.labelFrameQueryCount.configure(
+            background = Color_support.SELECT_BG
+        )
+
+        # Define count variables
+        self.datasetCountA = 0
+        self.datasetCountB = 0
+
+        self.labelQueryDataACount = Label(self.labelFrameQueryCount)
+        self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1,
+                                        relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
+        self.labelQueryDataACount.configure(
+            font = UI_support.FONT_LARGE_BOLD,
+            background = Color_support.SELECT_BG,
+            text = self.getDatasetCountA()
+        )
+        self.labelQueryDataACountText = Label(self.labelFrameQueryCount)
+        self.labelQueryDataACountText.place(
+            relx = 0, rely = FS.getRelH(self.labelQueryDataACount),
+            relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
+        self.labelQueryDataACountText.configure(
+            font = UI_support.FONT_DEFAULT_BOLD,
+            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            text = '''SAMPLES'''
+        )
+        # endregion
+
+        # COMMAND BORDERS - DATASET A
+        # region
+        newRelY = FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(self.labelFrameListBoxA)
+
+        self.separatorlabelFrameCommandsARight = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsARight.place(
+            relx = FS.getRelX(self.labelFrameQueryDataA),
+            rely = newRelY,
+            relheight = 1 - newRelY - 0.025,  # TODO To adjust border height, just adjust this
+            width = 1)
+        self.separatorlabelFrameCommandsARight.configure(background = Color_support.DISABLED_D_BLUE)
+
+        self.separatorlabelFrameCommandsALeft = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsALeft.place(
+            relx = 1 - FS.getRelX(self.labelFrameQueryDataA),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsARight),
+            relheight = FS.getRelH(self.separatorlabelFrameCommandsARight),
+            width = 1
+        )
+        self.separatorlabelFrameCommandsALeft.configure(background = Color_support.DISABLED_D_BLUE)
+
+        self.separatorlabelFrameCommandsABottom = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsABottom.place(
+            relx = FS.getRelX(self.separatorlabelFrameCommandsARight),
+            # rely = 0.997,
+            rely = FS.getRelY(self.separatorlabelFrameCommandsALeft) +
+                   FS.getRelH(self.separatorlabelFrameCommandsALeft) - 0.003,
+            relwidth = FS.getRelX(self.separatorlabelFrameCommandsALeft) - FS.getRelX(
+                self.separatorlabelFrameCommandsARight),
+            height = 1)
+        self.separatorlabelFrameCommandsABottom.configure(background = Color_support.DISABLED_D_BLUE)
+
+        newRelY = FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(self.labelFrameListBoxA)
+
+        self.separatorlabelFrameCommandsATop = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsATop.place(
+            relx = FS.getRelX(self.separatorlabelFrameCommandsARight),
+            rely = newRelY,
+            relwidth = FS.getRelW(self.separatorlabelFrameCommandsABottom),
+            height = 1)
+        self.separatorlabelFrameCommandsATop.configure(background = Color_support.DISABLED_D_BLUE)
+
+        # endregion
+
+        # endregion
+
+        #  QUERY PARENT (DATASET B)
+        # region
+        self.labelFrameQueryDataB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameQueryDataB.place(
+            relx = FS.getRelX(self.labelFrameQueryDataA),
+            rely = FS.getRelY(self.labelFrameQueryDataA),
+            relwidth = FS.getRelW(self.labelFrameQueryDataA),
+            relheight = FS.getRelH(self.labelFrameQueryDataA))
+        self.labelFrameQueryDataB.configure(
+            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            relief = GROOVE  # , text = '''Dataset B'''
+        )
+        # endregion
+        # LISTBOX PARENT (DATASET B)
+        # region
+        self.labelFrameListBoxB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameListBoxB.place(
+            relx = FS.getRelX(self.labelFrameListBoxA),
+            rely = FS.getRelY(self.labelFrameListBoxA),
+            relwidth = FS.getRelW(self.labelFrameListBoxA),
+            relheight = FS.getRelH(self.labelFrameListBoxA)
+        )
+
+        # STATUS CHILDREN - DATASET B
+        # region
+
+        # QUERY TOP STRIPE PARENT - DATASET B
+        # region
+        self.labelQuerySetDataStripesB = Label(self.labelFrameListBoxB, bd = 0, relief = GROOVE)
+        self.labelQuerySetDataStripesB.place(
+            relx = FS.getRelX(self.labelQuerySetDataStripesA),
+            rely = FS.getRelY(self.labelQuerySetDataStripesA),
+            relwidth = FS.getRelW(self.labelQuerySetDataStripesA),
+            relheight = FS.getRelH(self.labelQuerySetDataStripesA)
+        )
+        im = PIL.Image.open(
+            Icon_support.TEXTURE_STRIPE_PINK)
+        texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+        self.labelQuerySetDataStripesB.configure(
+            image = texture_pink_stripes,
+            anchor = SW
+        )
+        self.labelQuerySetDataStripesB.image = texture_pink_stripes  # < ! > Required to make images appear
+        # endregion
+
+        self.labelQuerySetDataStatusB = Label(self.labelFrameQueryDataB)
+        # self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
+        self.labelQuerySetDataStatusB.place(
+            relx = FS.getRelX(self.labelQuerySetDataStatusA),
+            rely = FS.getRelY(self.labelQuerySetDataStatusA),
+            relwidth = FS.getRelW(self.labelQuerySetDataStatusA),
+            relheight = FS.getRelH(self.labelQuerySetDataStatusA)
+        )
+        # self.labelQuerySetDataStatusB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+        self.labelQuerySetDataStatusB.configure(
+            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
+            text = UI_support.LBL_SELECT_NO_DATA,
+            font = UI_support.SELECT_STATUS_LABEL_FONT,
+        )
+        # endregion
+
+        # endregion
+
+        self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
+        self.listQuerySetDataB.configure(
+            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+            selectmode = MULTIPLE, exportselection = "0",
+            activestyle = "none",
+            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
+            highlightthickness = 0
+        )
+
+        self.listQuerySetDataB.place(
+            relx = FS.getRelX(self.listQuerySetDataA),
+            rely = FS.getRelY(self.listQuerySetDataA),
+            relwidth = FS.getRelW(self.listQuerySetDataA),
+            relheight = FS.getRelH(self.listQuerySetDataA)
+        )
+
+        # STATUS - DATASET B
+        # region
+        self.labelFrameQuerySetDataStatusB = LabelFrame(self.labelFrameListBoxB, bd = 0)
+        self.labelFrameQuerySetDataStatusB.place(
+            relx = FS.getRelX(self.labelFrameQuerySetDataStatusA),
+            rely = FS.getRelY(self.labelFrameQuerySetDataStatusA),
+            relwidth = FS.getRelW(self.labelFrameQuerySetDataStatusA),
+            relheight = FS.getRelH(self.labelFrameQuerySetDataStatusA)
+        )
+        # endregion
+
+        # QUERY CHILDREN - DATASET B
+        # region
+        self.labelFrameBorderQuerySetDataB = LabelFrame(self.labelFrameQuerySetDataStatusB, bd = 0)
+        self.labelFrameBorderQuerySetDataB.place(
+            relx = FS.getRelX(self.labelFrameBorderQuerySetDataA),
+            rely = FS.getRelY(self.labelFrameBorderQuerySetDataA),
+            relwidth = FS.getRelW(self.labelFrameBorderQuerySetDataA),
+            relheight = FS.getRelH(self.labelFrameBorderQuerySetDataA))
+        self.labelFrameBorderQuerySetDataB.configure(
+            background = Color_support.SELECT_BUTTONS_BG
+        )
+
+        self.labelQuerySetDataB = Label(self.labelFrameBorderQuerySetDataB)
+
+        self.labelQuerySetDataB.place(
+            relx = FS.getRelX(self.labelQuerySetDataA),
+            rely = FS.getRelY(self.labelQuerySetDataA),
+            relwidth = FS.getRelW(self.labelQuerySetDataA),
+            relheight = FS.getRelH(self.labelQuerySetDataA))
+        self.labelQuerySetDataB.configure(
+            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            text = UI_support.SELECT_LABEL_DATASETB_TEXT,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = 0, relief = FLAT,
+        )
+
+        # ENTER CODE DATASET B
+
+        self.entryQuerySetDataB = Entry(self.labelFrameQuerySetDataStatusB)
+        self.entryQuerySetDataB.place(
+            relx = FS.getRelX(self.entryQuerySetDataA),
+            rely = FS.getRelY(self.entryQuerySetDataA),
+            relwidth = FS.getRelW(self.entryQuerySetDataA),
+            relheight = FS.getRelH(self.entryQuerySetDataA))
+        self.entryQuerySetDataB.configure(
+            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            bd = 1,
+            font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
+            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
+        )  # TODO Constant font definiton
+
+        # DATASET B
+        self.buttonQuerySetDataB = Button(self.labelFrameQuerySetDataStatusB)
+        self.buttonQuerySetDataB.place(
+            relx = FS.getRelX(self.buttonQuerySetDataA),
+            rely = FS.getRelY(self.buttonQuerySetDataA),
+            relwidth = FS.getRelW(self.buttonQuerySetDataA),
+            relheight = FS.getRelH(self.buttonQuerySetDataA))
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
+                                                                     PIL.Image.ANTIALIAS)
+        btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQuerySetDataB.configure(
+            image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQuerySetDataB.image = btn_query_set_icon  # < ! > Required to make images appear
+
+        self.buttonQuerySetDataB.configure(
+            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
+            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE,
+            # text = '''Find Feature'''
+        )
+        # endregion
+
+        # COMMANDS PARENT (DATASET B)
+        # region
+        self.labelFrameCommandsB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameCommandsB.place(
+            relx = FS.getRelX(self.labelFrameCommandsA),
+            rely = FS.getRelY(self.labelFrameCommandsA),
+            relwidth = FS.getRelW(self.labelFrameCommandsA),
+            relheight = FS.getRelH(self.labelFrameCommandsA)
+        )
+        # self.labelFrameCommandsB.place(
+        #     relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
+        #     relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
+
+        self.labelFrameCommandsB.configure(
+            background = Color_support.WHITE
+        )
+        # endregion
+
+        # RESET BUTTON (DATASET B)
+        # region
+        self.buttonQueryResetFilterB = Button(self.labelFrameCommandsB)
+        self.buttonQueryResetFilterB.place(
+            relx = 0, rely = 0,
+            relwidth = 0.25, relheight = 1)
+        self.buttonQueryResetFilterB.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+        # text = '''Reset''')
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryResetFilterB.configure(
+            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryResetFilterB.image = btn_query_reset_icon  # < ! > Required to make images appear
+
+        # endregion
+
+        # COMMAND BORDERS - DATASET B
+        # region
+        # newRelY = FS.getRelY(self.labelFrameListBoxB) + FS.getRelH(self.labelFrameListBoxB)
+
+        self.separatorlabelFrameCommandsBRight = Label(self.labelFrameDatasetB)
+        self.separatorlabelFrameCommandsBRight.place(
+            relx = FS.getRelX(self.separatorlabelFrameCommandsARight),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsARight),
+            relheight = FS.getRelH(self.separatorlabelFrameCommandsARight),
+            width = 1
+        )
+        self.separatorlabelFrameCommandsBRight.configure(background = Color_support.DISABLED_D_BLUE)
+
+        self.separatorlabelFrameCommandsBLeft = Label(self.labelFrameDatasetB)
+        self.separatorlabelFrameCommandsBLeft.place(
+            relx = FS.getRelX(self.separatorlabelFrameCommandsALeft),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsALeft),
+            relheight = FS.getRelH(self.separatorlabelFrameCommandsALeft),
+            width = 1
+        )
+        self.separatorlabelFrameCommandsBLeft.configure(background = Color_support.DISABLED_D_BLUE)
+
+        self.separatorlabelFrameCommandsBBottom = Label(self.labelFrameDatasetB)
+        self.separatorlabelFrameCommandsBBottom.place(
+            relx = FS.getRelX(self.separatorlabelFrameCommandsABottom),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsABottom),
+            relwidth = FS.getRelW(self.separatorlabelFrameCommandsABottom),
+            height = 1)
+        self.separatorlabelFrameCommandsBBottom.configure(background = Color_support.DISABLED_D_BLUE)
+
+        newRelY = FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(self.labelFrameListBoxA)
+
+        self.separatorlabelFrameCommandsBTop = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsBTop.place(
+            relx = FS.getRelX(self.separatorlabelFrameCommandsATop),
+            rely = FS.getRelY(self.separatorlabelFrameCommandsATop),
+            relwidth = FS.getRelW(self.separatorlabelFrameCommandsATop),
+            height = 1)
+        self.separatorlabelFrameCommandsATop.configure(background = Color_support.DISABLED_PALER_YELLOW)
+
+        # endregion
+
+        # QUERY COUNT (DATASET B)
+        # region
+        self.labelFrameQueryCountB = LabelFrame(self.labelFrameCommandsB, bd = 1)
+        self.labelFrameQueryCountB.place(
+            relx = newRelX + 0.005, rely = 0,
+            relwidth = 0.50 - 0.005, relheight = 1
+        )
+        self.labelFrameQueryCountB.configure(
+            background = Color_support.SELECT_BG
+        )
+
+        self.labelQueryDataBCount = Label(self.labelFrameQueryCountB)
+        self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1,
+                                        relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
+        self.labelQueryDataBCount.configure(
+            font = UI_support.FONT_LARGE_BOLD,
+            background = Color_support.SELECT_BG,
+            text = self.getDatasetCountB()
+        )
+        self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
+        self.labelQueryDataBCountText.place(
+            relx = 0, rely = FS.getRelH(self.labelQueryDataBCount),
+            relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
+        self.labelQueryDataBCountText.configure(
+            font = UI_support.FONT_DEFAULT_BOLD,
+            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            text = '''SAMPLES'''
+        )
+
+        # Create the left separator
+        # self.labelFrameQueryCountLeftSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
+        # self.labelFrameQueryCountLeftSeparatorB.place(relx = 0, rely = 0, relheight = 1)
+
+        # self.labelFrameQueryCountRightSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
+        # self.labelFrameQueryCountRightSeparatorB.place(relx = 0.99, rely = 0, relheight = 1)
+        # endregion
+
+        # FILTER BUTTON (DATASET A)
+        # region
+        newRelX = FS.getRelX(self.labelFrameQueryCount) + FS.getRelW(self.labelFrameQueryCount)
+        newRelX = FS.getRelX(self.labelFrameQueryCount) + FS.getRelW(self.labelFrameQueryCount)
+
+        self.buttonQueryAddFilterA = Button(self.labelFrameCommandsA, compound = CENTER)
+        self.buttonQueryAddFilterA.place(
+            relx = newRelX + 0.005, rely = 0,
+            relwidth = 0.25 - 0.005, relheight = 1
+        )
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterA.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+        self.buttonQueryAddFilterA.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+        # text = '''Filter''')
+        self.buttonQueryAddFilterA.pack(side = RIGHT)
+        self.buttonQueryResetFilterA.pack(side = LEFT)
+
+        # endregion
+        # FILTER BUTTON (DATASET B)
+        # region
+        newRelX = FS.getRelX(self.labelFrameQueryCountB) + FS.getRelW(self.labelFrameQueryCountB)
+
+        self.buttonQueryAddFilterB = Button(self.labelFrameCommandsB, compound = CENTER)
+        self.buttonQueryAddFilterB.place(
+            relx = newRelX + 0.005, rely = 0,
+            relwidth = 0.25 - 0.005, relheight = 1
+        )
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonQueryAddFilterB.configure(
+            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+
+        self.buttonQueryAddFilterB.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+        # text = '''Filter''')
+        self.buttonQueryAddFilterB.pack(side = RIGHT)
+
+        self.buttonQueryResetFilterB.pack(side = LEFT)
+        # endregion
+
+        # self.configureSelectElements(self.lfInputElements)  # Configures all sub elements under SELECT
 
 
-    def initProcessUI(self, parentFrame):
 
-        newRelY = FS.getRelY(self.labelFrameSelectElements) + FS.getRelH(
-            self.labelFrameSelectElements)  # TODO Make constant (space in between)
+
+    def initProcessUI(self, parentFrame, relativeFrame):
+
+        newRelY = FS.getRelY(relativeFrame) + FS.getRelH(relativeFrame)  # TODO Make constant (space in between)
 
         # FILTER Parent Frame
-        self.labelFrameFilterElements = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameFilterElements.place(
+        processFrame = LabelFrame(parentFrame, bd = 0)
+        processFrame.place(
             relx = UI_support.TAB_TEST_FILTER_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
         )
-        self.labelFrameFilterElements.configure(
+        processFrame.configure(
             background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
 
-        self.configureFilterElements(self.labelFrameFilterElements)  # Configures all sub elements under FILTER
+        self.configureFilterElements(processFrame)  # Configures all sub elements under FILTER
+        return processFrame
 
+    def initResultsUI(self, parentFrame, relativeFrame):
 
-    def initResultsUI(self, parentFrame):
-
-        newRelY = FS.getRelY(self.labelFrameFilterElements) + FS.getRelH(self.labelFrameFilterElements)
+        newRelY = FS.getRelY(relativeFrame) + FS.getRelH(relativeFrame)
 
         # PROCESS Parent Frame
-        self.labelFrameProcessElements = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameProcessElements.place(
+        resultsFrame = LabelFrame(parentFrame, bd = 0)
+        resultsFrame.place(
             # relx = UI_support.TAB_TEST_PROCESS_REL_X,
-            relx = FS.getRelX(self.labelFrameSelectElements),
+            relx = FS.getRelX(relativeFrame),
             rely = newRelY,
             relwidth = UI_support.TAB_TEST_PROCESS_REL_W,
             relheight = UI_support.TAB_TEST_PROCESS_REL_H
         )
-        self.labelFrameProcessElements.configure(
+        resultsFrame.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
         )
 
-        self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
+        self.configureProcessElements(resultsFrame)  # Configures all sub elements under FILTER
+        return resultsFrame
 
-    def initConsoleUI(self, parentFrame):
-        prevFrameRelX = float(self.labelFrameFilterElements.place_info()['relx'])
-        prevFrameRelW = float(self.labelFrameFilterElements.place_info()['relwidth'])
+
+    def initConsoleUI(self, parentFrame, relativeFrame):
+        prevFrameRelX = float(relativeFrame.place_info()['relx'])
+        prevFrameRelW = float(relativeFrame.place_info()['relwidth'])
         newRelX = prevFrameRelX + prevFrameRelW
 
         # CONSOLE Parent Frame
-        self.labelFrameConsoleElements = LabelFrame(parentFrame, bd = 1, relief = GROOVE)
+        consoleFrame = LabelFrame(parentFrame, bd = 1, relief = GROOVE)
         # self.labelFrameConsoleElements.place(
         #     relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
         #     relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
         # )
-        self.labelFrameConsoleElements.place(
+        consoleFrame.place(
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = 1
         )
-        self.labelFrameConsoleElements.configure(
+        consoleFrame.configure(
             background = Color_support.WHITE, foreground = Color_support.FG_COLOR  # , text = '''CONSOLE'''
         )
 
-        self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
+        self.configureConsoleElements(consoleFrame)  # Configures all sub elements under CONSOLE
         self.testTabLeftSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
         self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
-
+        return consoleFrame
 
 
 
@@ -1051,72 +1778,11 @@ class AutomatedMining_View:
     ''' -> Elements under the FILTER ("FILTER") HEADER <- '''
 
     def configureFilterElements(self, parentFrame):
-        global queryStrFilterA
+        titleFrame = self.createTitleBar(parentFrame, '2', 'PROCESS', Color_support.FILTER_TITLE_BG)
+        titleFrame.place(relx = 0, rely = 0.08, relwidth = 1,
+                         relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
 
-        # FILTER TITLE
-        self.labelFrameFilterTitle = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameFilterTitle.place(relx = 0, rely = 0.08, relwidth = 1,
-                                         relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
-        self.labelFrameFilterTitle.configure(
-            background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
-        )
-
-        # COLORED SEPARATOR
-        self.separatorlabelFrameFilterTitleNumber = self.createLabelSeparator(
-            self.labelFrameFilterTitle, 1,
-            False, Color_support.FILTER_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
-            0.5, W
-        )
-
-        # FILTER NUMBER
-        self.labelFrameFilterTitleNumber = Label(self.labelFrameFilterTitle)
-        newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
-        newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
-        self.labelFrameFilterTitleNumber.place(
-            relx = FS.getRelX(self.labelFrameSelectTitleNumber),
-            rely = FS.getRelY(self.labelFrameSelectTitleNumber),
-            relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
-            relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
-            anchor = NW)
-
-        self.labelFrameFilterTitleNumber.configure(
-            font = UI_support.FONT_MED_BOLD,
-            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.FILTER_NUMBER_BG, foreground = Color_support.FILTER_NUMBER_FG,
-            text = '''2  ''',
-            bd = 1, relief = GROOVE,
-            anchor = SE
-        )
-
-        # newRelX = FS.getRelX(self.labelFrameSelectTitleNumber) + FS.getRelW(self.labelFrameSelectTitleNumber)
-        newRelX = FS.getRelX(self.labelFrameSelectTitleText)
-
-        # FILTER TITLE
-        self.labelFrameFilterTitleText = Label(self.labelFrameFilterTitle)
-        self.labelFrameFilterTitleText.place(
-            relx = FS.getRelX(self.labelFrameSelectTitleText),
-            rely = FS.getRelY(self.labelFrameSelectTitleText),
-            relwidth = FS.getRelW(self.labelFrameSelectTitleText),
-            relheight = FS.getRelH(self.labelFrameSelectTitleText),
-            anchor = NW)
-        self.labelFrameFilterTitleText.configure(
-            font = UI_support.FONT_MED_BOLD,
-            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.FILTER_TITLE_BG, foreground = Color_support.FILTER_TITLE_FG,
-            text = '''FILTER''',
-            bd = 0, relief = GROOVE,
-            anchor = S
-        )
-
-        # Title border
-        self.separatorlabelFrameFilterTitleText = self.createLabelSeparator(
-            self.labelFrameFilterTitleText, 1,
-            True, Color_support.WHITE,
-            coordinate = 0.99, specifiedAnchor = NW
-        )
-
-        newRelY = FS.getRelY(self.labelFrameFilterTitle) + FS.getRelH(
-            self.labelFrameFilterTitle) + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
+        newRelY = FS.getRelY(titleFrame) + FS.getRelH(titleFrame) + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
 
         # TOP LABEL FEATURE NAME
         # self.labelQueryDataFeatureName = Label(self.labelFrameFilterListData)
@@ -1524,69 +2190,12 @@ class AutomatedMining_View:
 
     def configureProcessElements(self, parentFrame):
 
-        # PROCESS TITLE
-        self.labelFrameProcessTitle = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1,
-                                          relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
-        self.labelFrameProcessTitle.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
-        )
+        titleFrame = self.createTitleBar(parentFrame, '3', 'RESULTS', Color_support.PROCESS_TITLE_BG)
+        titleFrame.place(relx = 0, rely = 0,
+                         relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
 
-        # PROCESS NUMBER
 
-        # COLORED SEPARATOR
-        self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
-            self.labelFrameProcessTitle, 1,
-            False, Color_support.PROCESS_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
-            0.5, W
-        )
-
-        self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
-        newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
-        newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
-
-        self.labelFrameProcessTitleNumber.place(
-            relx = FS.getRelX(self.labelFrameSelectTitleNumber),
-            rely = FS.getRelY(self.labelFrameSelectTitleNumber),
-            relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
-            relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
-            anchor = NW)
-
-        self.labelFrameProcessTitleNumber.configure(
-            font = UI_support.FONT_MED_BOLD,
-            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
-            text = '''3  ''',
-            bd = 1, relief = GROOVE,
-            anchor = SE
-        )
-
-        # PROCESS TITLE
-        self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
-        self.labelFrameProcessTitleText.place(
-            relx = FS.getRelX(self.labelFrameSelectTitleText),
-            rely = FS.getRelY(self.labelFrameSelectTitleText),
-            relwidth = FS.getRelW(self.labelFrameSelectTitleText),
-            relheight = FS.getRelH(self.labelFrameSelectTitleText),
-            anchor = NW)
-
-        self.labelFrameProcessTitleText.configure(
-            font = UI_support.FONT_MED_BOLD,
-            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.PROCESS_TITLE_BG, foreground = Color_support.PROCESS_TITLE_FG,
-            bd = 0, relief = GROOVE,
-            text = '''TEST''',
-            anchor = S
-        )
-
-        # Title border
-        self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
-            self.labelFrameProcessTitleText, 1,
-            True, Color_support.WHITE,
-            coordinate = 0.99, specifiedAnchor = NW
-        )
-
-        newRelY = FS.getRelH(self.labelFrameProcessTitle) + UI_support.TAB_TEST_PROCESS_COMMANDS_REL_Y
+        newRelY = FS.getRelH(titleFrame) + UI_support.TAB_TEST_PROCESS_COMMANDS_REL_Y
 
         # PROCESS COMMANDS PARENT
         self.labelFrameProcessCommands = LabelFrame(parentFrame, bd = 0)
