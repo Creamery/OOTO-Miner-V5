@@ -14,7 +14,6 @@ except ImportError:
     py3 = 1
 
 import threading
-import Queue
 import time
 
 
@@ -42,37 +41,49 @@ class AutomatedMining_Model:
                 self.winProgress = None
 
             self.winProgress = Tk()
+            self.progress_var = 0
+            [self.prog_bar, self.prog_text] = self.initProgress(self.winProgress)
 
-            self.progress(self.winProgress)
-            self.prog_bar.start()
-            self.queue = Queue.Queue()
-            ThreadedTask(self.queue).start()
-            self.winProgress.after(100, self.process_queue)
+            ThreadedTask(self.winProgress, self.prog_bar, self.prog_text, self.progress_var).start()
 
 
-    def progress(self, parentFrame):
-        self.prog_bar = ttk.Progressbar(
+    def initProgress(self, parentFrame):
+        progBar = ttk.Progressbar(
             parentFrame, orient = "horizontal",
-            length = 200, mode = "indeterminate"
+            length = 300, variable = self.progress_var
             )
-        self.prog_bar.pack(side=  TOP)
 
-    def process_queue(self):
-        try:
-            msg = self.queue.get(0)
-            print str(msg)
-            # Show result of the task if needed
+        progBar.pack(side = TOP)
+        progText = Label(progBar)
+        progText.place(relx = 0, rely = 0, relh = 1)
+        return progBar, progText
 
-            self.prog_bar.stop()
-            self.isProcessing = False
-        except Queue.Empty:
-            self.winProgress.after(100, self.process_queue)
 
 class ThreadedTask(threading.Thread):
-    def __init__(self, queue):
+    def __init__(self, winProgress, prog_bar, prog_text, prog_val):
         threading.Thread.__init__(self)
-        self.queue = queue
+        self.winProgress = winProgress
+        self.prog_bar = prog_bar
+        self.prog_text = prog_text
+        self.prog_val = prog_val
+        self.count = 0
 
     def run(self):
-        time.sleep(5)  # Simulate long running process
-        self.queue.put("Task finished")
+        try:
+            while self.count < 100:
+                self.count += 10
+                self.process_queue()
+                time.sleep(1)
+
+
+        finally:
+            # self.prog_bar.stop()
+            print('TASK FINISHED')
+            self.isProcessing = False
+
+    def process_queue(self):
+        self.prog_val = float(self.count)
+        self.prog_bar["value"] = self.prog_val
+        self.prog_text["text"] = self.prog_val
+        # self.prog_bar.start()
+        # print str(self.prog_val)
