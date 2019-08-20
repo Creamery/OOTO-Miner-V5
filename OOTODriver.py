@@ -273,6 +273,7 @@ class OOTO_Miner:
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
     def configureChiTabElements(self, parentFrame):
+        self.Tabs.select(2)  # Show the current tab to be able to retrieve height and
         automatedMining = AM.AutomatedMining(parentFrame)
         return automatedMining
 
