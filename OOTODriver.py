@@ -65,7 +65,9 @@ w = None
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
+
     root = Tk()
+    root.protocol("WM_DELETE_WINDOW", onRootClose)
     root.resizable(0, 0)
     Mother_support.set_Tk_var()
     top = OOTO_Miner(root)
@@ -73,22 +75,29 @@ def vp_start_gui():
     Mother_support.init(root, top)
     root.mainloop()
 
-
-def create_OOTO_Miner(root, *args, **kwargs):
-    '''Starting point when module is imported by another program.'''
-    global w, w_win, rt
-    rt = root
-    w = Toplevel(root)
-    Mother_support.set_Tk_var()
-    top = OOTO_Miner(w)
-    Mother_support.init(w, top, *args, **kwargs)
-    return (w, top)
+def onRootClose():
+    if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
+        global root
+        root.destroy()
+        root = None
 
 
-def destroy_OOTO_Miner():
-    global w
-    w.destroy()
-    w = None
+
+# def create_OOTO_Miner(root, *args, **kwargs):
+#     '''Starting point when module is imported by another program.'''
+#     global w, w_win, rt
+#     rt = root
+#     w = Toplevel(root)
+#     Mother_support.set_Tk_var()
+#     top = OOTO_Miner(w)
+#     Mother_support.init(w, top, *args, **kwargs)
+#     return (w, top)
+
+
+# def destroy_OOTO_Miner():
+#     global w
+#     w.destroy()
+#     w = None
 
 class OOTO_Miner:
 

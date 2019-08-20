@@ -51,4 +51,5 @@ class AutomatedMining:
         return self.controller.readFeatures(variableDescription, "^")
 
     def uploadDataset(self, directory, populationDataset):
-        return self.controller.uploadDataset(directory, populationDataset)
+        # return self.controller.uploadDataset(directory, populationDataset)
+        return True
