@@ -43,22 +43,37 @@ import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
 
+
 class AutomatedMining_Controller:
 
     def __init__(self, view, model):
         self.view = view
         self.model = model
         self.dictWidgetPlace = {}
+        self.populationDataset = []
+
+        self.populationDatasetOriginalA = {'Data': [], 'Filter Features': []}
+        self.populationDatasetOriginalB = {'Data': [], 'Filter Features': []}
+        self.datasetA = {'Data': [], 'Filter Features': []}
+        self.datasetB = {'Data': [], 'Filter Features': []}
+
+        self.tests = []
+        self.datasetCountA = 0
+        self.datasetCountB = 0
+
+
+        self.arrQueryCriticalValue = None
+        self.arrQueryCriticalValueMapping = None
+
 
         self.configureButtonBindings()
 
         # self.configureTestTabBindings()
         # self.initializeVariables()
-    def configureButtonBindings(self):
 
+    def configureButtonBindings(self):
         button = self.view.getBtnConfirmFeatureSelect()
         button.bind('<Button-1>', self.model.confirmFeatureSelect)
-
 
         button = self.view.getBtnResetFeatureSelect()
         button.bind('<Button-1>', self.model.resetFeatureSelect)
@@ -69,7 +84,6 @@ class AutomatedMining_Controller:
     def setArrQueryCriticalValueMapping(self, arrayValue):
         self.arrQueryCriticalValueMapping = arrayValue
 
-
     def initializeVariables(self):
         # Selected UI for MM
         self.selectOptionZTest(None)
@@ -78,8 +92,7 @@ class AutomatedMining_Controller:
         global queryType
         queryType = self.comboQueryTest.get()
 
-        global populationDir
-        populationDir = ""
+        self.populationDir = ""
 
         # Button state variables (This is used instead of directly disabling buttons to keep their appearance)
         self.buttonQueryFeature_state = DISABLED
@@ -92,7 +105,6 @@ class AutomatedMining_Controller:
         self.checkIfDatasetReady()
         self.resetDatasetContents()
 
-
     def resetDatasetContents(self):
         # self.populationDataset = []
         self.populationDatasetOriginalA = {'Data': [], 'Filter Features': []}
@@ -100,10 +112,10 @@ class AutomatedMining_Controller:
         self.datasetA = {'Data': [], 'Filter Features': []}
         self.datasetB = {'Data': [], 'Filter Features': []}
 
-        global tests
-        tests = []
+        self.tests = []
         self.datasetCountA = len(self.datasetA['Data'])
         self.datasetCountB = len(self.datasetB['Data'])
+
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
@@ -111,37 +123,34 @@ class AutomatedMining_Controller:
         self.queryResetDatasetB(None)
 
     def readFeatures(self, variableDescription, itemMarker):
-        global features
         features = FS.readFeatures(variableDescription, itemMarker)
         if (len(features)) <= 0:
             return False
         else:
+            self.model.readFeatures(features)
+            # print "FEATURES " + str(features)
             return True
 
-    def uploadDataset(self, directory, newDataset):
-        global populationDir
-        populationDir = directory
+    def uploadDataset(self, dataset):
 
-        self.populationDataset = newDataset
+        # self.populationDir = directory
+        # self.populationDataset = dataset
 
         # Reset contents of dataset variables
-        self.resetDatasetContents()
+        # self.resetDatasetContents() # TODO return
 
+        self.model.readDataset(dataset)
 
-        for record in self.populationDataset:
-            self.datasetA['Data'].append(record)
-            self.datasetB['Data'].append(record)
-            self.populationDatasetOriginalA['Data'].append(record)  # This keeps a copy of the unaltered dataset
-            self.populationDatasetOriginalB['Data'].append(record)  # This keeps a copy of the unaltered dataset
 
         # TODO Show the total samples of the unaltered dataset
         # self.datasetCountA = len(self.datasetA['Data'])
         # self.datasetCountB = len(self.datasetB['Data'])
-        self.datasetCountA = 0
-        self.datasetCountB = 0
+        # self.datasetCountA = 0
+        # self.datasetCountB = 0
 
-        self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-        self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
+        # TODO return
+        # self.labelQueryDataACount.configure(text = self.getDatasetCountA())
+        # self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
         print "UPLOADED"
         return True
@@ -236,7 +245,6 @@ class AutomatedMining_Controller:
         self.buttonConsoleAll = self.view.getButtonConsoleAll()
         self.buttonConsoleAll.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleScreen))
 
-
         self.buttonConsoleZTest = self.view.getButtonConsoleZTest()
         self.buttonConsoleZTest.bind("<Button-1>",
                                      lambda event: self.showConsoleScreen(event, self.listConsoleZTestScreen))
@@ -252,7 +260,6 @@ class AutomatedMining_Controller:
         # self.buttonConsoleZTest.bind('<Button-1>', self.showConsoleScreen(self.listConsoleZTestScreen))
         # self.buttonConsoleChiSquare.bind('<Button-1>', self.showConsoleScreen(self.listConsoleChiSquareScreen))
         # self.buttonConsoleQueue.bind('<Button-1>', self.showConsoleScreen(self.listConsoleQueueScreen))
-
 
         # FOCUS IN / OUT
 
@@ -325,7 +332,6 @@ class AutomatedMining_Controller:
         self.listQueryDataB = self.view.getListQueryDataB()
         self.listQueryDataB.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
 
-
         # MOUSEWHEEL
         self.listQueryDataA.bind("<MouseWheel>", self.scrollFilterListBox)
         self.listQueryDataB.bind("<MouseWheel>", self.scrollFilterListBox)
@@ -359,7 +365,7 @@ class AutomatedMining_Controller:
         try:
             # findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, "Dataset_Feature")
             self.findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA,
-                        self.populationDatasetOriginalA, True, "Dataset_Feature")
+                             self.populationDatasetOriginalA, True, "Dataset_Feature")
         except NameError:
             tkMessageBox.showerror("Error: No features",
                                    "Features not found. Please upload your variable description file.")
@@ -372,6 +378,7 @@ class AutomatedMining_Controller:
     two samples, it will also display all of the proportions, frequencies and total for each value of that 
     feature
     '''
+
     # def findFeature(entryFeat, listFeat, dataset, *args):
     def findFeature(self, entryFeat, listFeat, dataset, populationDatasetOriginal, isPrintingError = False, *args):
         global features
@@ -482,7 +489,7 @@ class AutomatedMining_Controller:
         try:
             # findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, "Dataset_Feature")
             self.findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB,
-                        self.populationDatasetOriginalB, True, "Dataset_Feature")
+                             self.populationDatasetOriginalB, True, "Dataset_Feature")
 
         except NameError:
             tkMessageBox.showerror("Error: No features",
@@ -641,7 +648,7 @@ class AutomatedMining_Controller:
             # Filter the data given the feature inputted and its values selected
             try:
                 new_data = FS.filterDataset(self.datasetA, self.datasetA['Feature'],
-                                         self.datasetA['Feature']['Selected Responses'])
+                                            self.datasetA['Feature']['Selected Responses'])
                 # new_data = filterDataset(self.populationDatasetOriginalA, self.populationDatasetOriginalA['Feature'], self.populationDatasetOriginalA['Feature']['Selected Responses'])
             except KeyError:
                 tkMessageBox.showerror("Error: No selected responses",
@@ -728,7 +735,7 @@ class AutomatedMining_Controller:
 
             try:
                 new_data = FS.filterDataset(self.datasetB, self.datasetB['Feature'],
-                                         self.datasetB['Feature']['Selected Responses'])
+                                            self.datasetB['Feature']['Selected Responses'])
             except KeyError:
                 tkMessageBox.showerror("Error: No selected responses",
                                        "You did not select any responses. Please select at least one.")
@@ -829,7 +836,7 @@ class AutomatedMining_Controller:
     def querySetFeatureA(self, entryQuery):
         # findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
         self.findFeature(entryQuery, self.listQueryDataA, self.datasetA, self.populationDatasetOriginalA, False,
-                    "Focus_Feature")
+                         "Focus_Feature")
         '''
         # Get the feature description
         featureDesc = self.datasetA['Focus Feature']['Description']
@@ -847,7 +854,7 @@ class AutomatedMining_Controller:
     def querySetFeatureB(self, entryQuery):
         # findFeature(entryQuery, self.listQueryDataB, self.datasetB, "Focus_Feature")
         self.findFeature(entryQuery, self.listQueryDataB, self.datasetB, self.populationDatasetOriginalB, True,
-                    "Focus_Feature")
+                         "Focus_Feature")
 
     # endregion
 
@@ -894,7 +901,6 @@ class AutomatedMining_Controller:
     ''' Adds test to the queue '''
 
     def addToQueue(self, testType, **params):
-        global tests
         test = {'Type': testType}
         for key in params:
             if (key == 'popDirArg'):
@@ -911,8 +917,8 @@ class AutomatedMining_Controller:
                 test['Datasets'] = copy.deepcopy(params[key])
             elif (key == 'zArg'):
                 test['Z Critical Value'] = copy.copy(params[key])
-        tests.append(test)
-        self.labelQueueCount.configure(text = str(len(tests)))
+        self.tests.append(test)
+        self.labelQueueCount.configure(text = str(len(self.tests)))
         tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
 
         '''
@@ -955,7 +961,8 @@ class AutomatedMining_Controller:
                 i += 1
                 for dataset in test['Datasets']:  # For each sample pairs in queue
                     FS.convertDatasetValuesToGroups(dataset, features)
-                    fileName = FS.makeFileName(dataset)  # TODO This makes the intermediate tables based on the selected features
+                    fileName = FS.makeFileName(
+                        dataset)  # TODO This makes the intermediate tables based on the selected features
                     # print ("GENERATED FILENAME: " + str(fileName))
                     FS.writeCSVDict(fileName, dataset['Data'])
                     fileNames.append(fileName)
@@ -996,8 +1003,8 @@ class AutomatedMining_Controller:
             try:
                 # Check if the selected focus feature and selected values of it are the same for both samples
                 isSame = FS.isSameFocusFeat(self.datasetA, self.datasetB,
-                                         self.datasetA['Focus Feature']['Selected Values'],
-                                         self.datasetB['Focus Feature']['Selected Values'])
+                                            self.datasetA['Focus Feature']['Selected Values'],
+                                            self.datasetB['Focus Feature']['Selected Values'])
                 if (isSame == 1):
                     # Calculate Z score between the two samples
                     zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'],
@@ -1307,7 +1314,6 @@ class AutomatedMining_Controller:
             self.buttonConsoleAll['foreground'] = Color_support.WHITE
             self.buttonConsoleAll['relief'] = GROOVE
 
-
     """ >>> HELPER FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. enter, leave) <<< """
 
     # TODO Optimize (avoid resizing, keep a reference)
@@ -1473,7 +1479,8 @@ class AutomatedMining_Controller:
 
         # Show lock cover
         self.labelOverlayFilterListData.place(
-            relx = UI_support.getRelX(self.labelFrameFilterListData), rely = UI_support.getRelY(self.labelFrameFilterListData),
+            relx = UI_support.getRelX(self.labelFrameFilterListData),
+            rely = UI_support.getRelY(self.labelFrameFilterListData),
             relwidth = UI_support.getRelW(self.labelFrameFilterListData),
             relheight = UI_support.getRelH(self.labelFrameFilterListData))
 
@@ -1550,7 +1557,6 @@ class AutomatedMining_Controller:
             )
             stripeWidget.image = texture_orange_stripes
 
-
     """
     Hides the widget by setting its relative width and height to 0.
     Use showWidget() to make the widget re-appear.
@@ -1591,21 +1597,16 @@ class AutomatedMining_Controller:
         # print("widget name:", str(widget).split(".")[-1])
         return str(widget).split(".")[-1]
 
-
-
-
-
-
     '''
     Clears all of the filters of the dataset and resets the data back to that of
     the uploaded population file. 
     '''
 
     def resetDataset(self):
-        global populationDir
+
         new_dataset = {'Data': [], 'Filter Features': []}
         try:
-            populationDataset = FS.readCSVDict(populationDir)
+            populationDataset = FS.readCSVDict(self.populationDir)
             for record in populationDataset:
                 new_dataset['Data'].append(record)
             return new_dataset

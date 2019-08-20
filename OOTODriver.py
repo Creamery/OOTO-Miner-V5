@@ -545,7 +545,7 @@ class OOTO_Miner:
             populationDir = self.INPUT.getPopulationDir()
 
             populationDataset = FS.readCSVDict(populationDir)
-            isSuccessfulAM = self.AM.uploadDataset(populationDir, populationDataset)
+            isSuccessfulAM = self.AM.uploadDataset(populationDataset)
 
 
             populationDataset = FS.readCSVDict(populationDir)

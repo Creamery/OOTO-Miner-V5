@@ -1,3 +1,4 @@
+from enum import Enum
 
 try:
     from Tkinter import *
@@ -13,17 +14,114 @@ except ImportError:
 
     py3 = 1
 
-
 import threading
 import time
+from collections import OrderedDict
 import tkMessageBox
 
+
+class key:
+    SAMPLES = 'Samples'
+    CODE = 'Code'
+    DESCRIPTION = 'Description'
+    RESPONSES = 'Responses'
+    GROUP = 'Group'
+
+
 class AutomatedMining_Model:
+
     def __init__(self):
+        self.__resetFeatureDescription()
+        self.__resetDatasets()
+
         self.isProcessing = False
         self.winProgressBar = None
         self.pbProgressBar = None
 
+
+    def readFeatures(self, features):
+        self.__resetFeatureDescription()
+        # count = 0
+        for feature in features:
+            code = feature[key.CODE]
+            description = feature[key.DESCRIPTION]
+            responses = feature[key.RESPONSES]
+            dictResponses = self.parseResponses(responses)
+
+
+            featureDescription = {}
+            featureDescription[key.DESCRIPTION] = description
+            featureDescription[key.RESPONSES] = dictResponses
+
+            self.getFeatureDescription()[code] = featureDescription
+
+            # if(count <= 3):
+            #     print str(dictResponses)
+            #     print str(self.getFeatureDescription()[code])
+            #     count += 1
+
+        # print(str(self.getFeatureDescription().keys()))
+
+
+
+    """
+    Change the format of responses to a dictionary of the form :
+    { 'a': { 'Code': [], 'Description': [] } }
+    """
+    def parseResponses(self, responses):
+        dictResponses = {}
+
+        for response in responses:
+            group = response[key.GROUP]
+            code = response[key.CODE]
+            description = response[key.DESCRIPTION]
+
+
+            entry = dictResponses.setdefault(group, OrderedDict({key.CODE: [], key.DESCRIPTION: []}))
+            entry[key.CODE].append(code)
+            entry[key.DESCRIPTION].append(description)
+
+        return dictResponses
+
+
+    def readDataset(self, dataset):
+        self.__resetDatasets()
+
+        for record in dataset:
+            orderedRecord = OrderedDict(record)
+            self.getPopulationDataset()[key.SAMPLES].append(orderedRecord)
+            self.getDatasetA()[key.SAMPLES].append(orderedRecord)
+            self.getDatasetB()[key.SAMPLES].append(orderedRecord)
+
+
+        # print "> __populationDataset"
+        # print str(self.getPopulationDataset()[key.SAMPLES][0].keys())
+        # print str(self.getPopulationDataset()[key.SAMPLES][0]['p9'])
+        # print "> __datasetA"
+        # print str(type(self.getDatasetA()))
+        # print "> __datasetB"
+        # print str(type(self.getDatasetB()))
+
+    def __resetFeatureDescription(self):
+        self.__setFeatureDescription({})
+
+    def __resetDatasets(self):
+        self.__setPopulationDataset({key.SAMPLES: [], 'Filter Features': []})
+        self.__setDatasetA({key.SAMPLES: [], 'Filter Features': []})
+        self.__setDatasetB({key.SAMPLES: [], 'Filter Features': []})
+
+        # self.tests = []
+        # self.datasetCountA = len(self.datasetA['Data'])
+        # self.datasetCountB = len(self.datasetB['Data'])
+
+        # TODO
+        # self.labelQueryDataACount.configure(text = self.getDatasetCountA())
+        # self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
+        # self.queryResetDatasetA(None)
+        # self.queryResetDatasetB(None)
+
+
+    """BUTTON FUNCTIONS"""
     def confirmFeatureSelect(self, evt):
         print "confirmFeatureSelect"
         self.startThread(evt)
@@ -33,6 +131,39 @@ class AutomatedMining_Model:
         print "resetFeatureSelect"
         return "break"
 
+    """GETTERS"""
+    def getFeatureDescription(self):
+        return self.__featureDescription
+
+    def getPopulationDataset(self):
+        return self.__populationDataset
+
+    def getDatasetA(self):
+        return self.__datasetA
+
+    def getDatasetB(self):
+        return self.__datasetA
+
+    def getCountDatasetA(self):
+        count = len(self.getDatasetA()['Data'])
+        return count
+
+    def getCountDatasetB(self):
+        count = len(self.getDatasetB()['Data'])
+        return count
+
+    """SETTERS"""
+    def __setFeatureDescription(self, value):
+        self.__featureDescription = OrderedDict(value)
+
+    def __setPopulationDataset(self, value):
+        self.__populationDataset = OrderedDict(value)
+
+    def __setDatasetA(self, value):
+        self.__datasetA = OrderedDict(value)
+
+    def __setDatasetB(self, value):
+        self.__datasetB = OrderedDict(value)
 
     # THREADING TEST FUNCTIONS
     def startThread(self, evt):
