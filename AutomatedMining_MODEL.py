@@ -17,7 +17,7 @@ from collections import OrderedDict
 import threading
 import time
 import copy
-
+import Function_support as FS
 
 class key:
     SAMPLES = 'Samples'
@@ -28,15 +28,54 @@ class key:
     FEATURE_LIST = 'FeatureList'
 
 
+
+class ViewModel:
+
+    def __init__(self):
+        self.setCurrentFeature('')
+        self.setCurrentResponses({})
+        self.setSelectedResponses([])
+
+    """FUNCTIONS"""
+    def resetFeature(self):
+        self.setCurrentFeature('')
+        self.setSelectedResponses([])
+
+    """GETTERS"""
+    def getCurrentFeature(self):
+        return self.__currentFeature
+
+    def getCurrentResponses(self):
+        return self.__currentResponses
+
+    def getSelectedResponses(self):
+        return self.__selectedResponses
+
+    """SETTERS"""
+    def setCurrentFeature(self, value):
+        self.__currentFeature = value
+
+    def setCurrentResponses(self, value):
+        self.__currentResponses = value
+
+    def setSelectedResponses(self, value):
+        self.__selectedResponses = value
+
+
+
+
 class AutomatedMining_Model:
 
     def __init__(self):
-        self.__resetFeatureDescription()
-        self.__resetDatasets()
+        self.viewModel = ViewModel()
 
         self.isProcessing = False
         self.winProgressBar = None
         self.pbProgressBar = None
+
+        self.__resetFeatureDescription()
+        self.__resetDatasets()
+
 
 
     def readFeatures(self, features):
@@ -64,14 +103,16 @@ class AutomatedMining_Model:
 
         for response in responses:
             group = response[key.GROUP]
-            code = response[key.CODE]
-            description = response[key.DESCRIPTION]
+            if not(str(group).strip() == '-1'):
+                code = response[key.CODE]
+                description = response[key.DESCRIPTION]
 
 
-            entry = dictResponses.setdefault(group, OrderedDict({key.CODE: [], key.DESCRIPTION: []}))
-            entry[key.CODE].append(code)
-            entry[key.DESCRIPTION].append(description)
+                entry = dictResponses.setdefault(group, OrderedDict({key.CODE: [], key.DESCRIPTION: []}))
+                entry[key.CODE].append(code)
+                entry[key.DESCRIPTION].append(description)
 
+        dictResponses = OrderedDict(sorted(dictResponses.items())) # Sort keys alphabetically
         return dictResponses
 
 
@@ -110,6 +151,17 @@ class AutomatedMining_Model:
         # self.queryResetDatasetA(None)
         # self.queryResetDatasetB(None)
 
+    def __getFeatureResponses(self, featureID):
+        featureList = self.getFeatureDescription()
+        hasKey = FS.checkKey(featureList, featureID)
+
+        if hasKey:
+            responses = featureList[featureID][key.RESPONSES]
+            print "Key found"
+        else:
+            responses = {}
+
+        return responses
 
     """BUTTON FUNCTIONS"""
     def confirmFeatureSelect(self, evt):
@@ -120,6 +172,16 @@ class AutomatedMining_Model:
     def resetFeatureSelect(self, evt):
         print "resetFeatureSelect"
         return "break"
+
+    def queryFeature(self, featureID):
+        # featureID = self.viewModel.getCurrentFeature()
+        print "featureID " + str(featureID)
+        self.viewModel.setCurrentFeature(featureID)
+        responses = self.__getFeatureResponses(featureID)
+
+        # Update contents of listbox
+        self.viewModel.setCurrentResponses(responses)
+        return responses
 
     """GETTERS"""
     def getFeatureDescription(self):
@@ -219,3 +281,5 @@ class ThreadedTask(threading.Thread):
         self.prog_text["text"] = self.prog_val
         # self.prog_bar.start()
         # print str(self.prog_val)
+
+

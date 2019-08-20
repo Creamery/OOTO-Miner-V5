@@ -66,17 +66,43 @@ class AutomatedMining_Controller:
         self.arrQueryCriticalValueMapping = None
 
 
-        self.configureButtonBindings()
+        self.configureViewBindings()
 
         # self.configureTestTabBindings()
         # self.initializeVariables()
 
-    def configureButtonBindings(self):
+    def configureViewBindings(self):
         button = self.view.getBtnConfirmFeatureSelect()
         button.bind('<Button-1>', self.model.confirmFeatureSelect)
 
         button = self.view.getBtnResetFeatureSelect()
         button.bind('<Button-1>', self.model.resetFeatureSelect)
+
+        button = self.view.getBtnQueryFeatureList()
+        button.bind('<Button-1>', self.queryFeatureID)
+
+        listbox = self.view.getLbListFeatureSelect()
+        listbox.bind('<<ListboxSelect>>', self.selectFeature)
+
+        # TODO Entry Change
+
+
+    def queryFeatureID(self, evt):
+        print "queryFeatureID"
+        featureID = self.view.getEntryQueryFeatureList().get()
+        responses = self.model.queryFeature(featureID)
+
+        self.view.updateLbListFeatureSelect(responses)
+
+
+    def selectFeature(self, evt):
+        listbox = evt.widget
+        selectedItems = listbox.curselection()
+
+        self.model.viewModel.setSelectedResponses(selectedItems)
+        print str(self.model.viewModel.getSelectedResponses())
+
+
 
     def setArrQueryCriticalValue(self, arrayValue):
         self.arrQueryCriticalValue = arrayValue
@@ -132,15 +158,7 @@ class AutomatedMining_Controller:
             return True
 
     def uploadDataset(self, dataset):
-
-        # self.populationDir = directory
-        # self.populationDataset = dataset
-
-        # Reset contents of dataset variables
-        # self.resetDatasetContents() # TODO return
-
         self.model.readDataset(dataset)
-
 
         # TODO Show the total samples of the unaltered dataset
         # self.datasetCountA = len(self.datasetA['Data'])
