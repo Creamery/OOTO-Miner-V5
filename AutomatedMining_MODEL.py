@@ -13,14 +13,16 @@ except ImportError:
 
     py3 = 1
 
+
 import threading
 import time
-
+import tkMessageBox
 
 class AutomatedMining_Model:
     def __init__(self):
         self.isProcessing = False
-        self.winProgress = None
+        self.winProgressBar = None
+        self.pbProgressBar = None
 
     def confirmFeatureSelect(self, evt):
         print "confirmFeatureSelect"
@@ -36,27 +38,36 @@ class AutomatedMining_Model:
     def startThread(self, evt):
         if not self.isProcessing:
             self.isProcessing = True
-            if not (self.winProgress is None):
-                self.winProgress.destroy()
-                self.winProgress = None
+            if not (self.winProgressBar is None):
+                self.onProgressBarClose()
 
-            self.winProgress = Tk()
-            self.progress_var = 0
-            [self.prog_bar, self.prog_text] = self.initProgress(self.winProgress)
+            self.winProgressBar = Tk()
+            self.winProgressBar.protocol("WM_DELETE_WINDOW", self.onProgressBarClose)
+            self.varProgressBar = 0
+            [self.pbProgressBar, self.lblProgressBar] = self.initProgressBar(self.winProgressBar)
 
-            ThreadedTask(self.winProgress, self.prog_bar, self.prog_text, self.progress_var).start()
+            ThreadedTask(self.winProgressBar, self.pbProgressBar, self.lblProgressBar, self.varProgressBar).start()
+        else:
+            print ("isProcessing")
 
-
-    def initProgress(self, parentFrame):
+    def initProgressBar(self, parentFrame):
         progBar = ttk.Progressbar(
             parentFrame, orient = "horizontal",
-            length = 300, variable = self.progress_var
-            )
+            length = 300, variable = self.varProgressBar)
 
         progBar.pack(side = TOP)
         progText = Label(progBar)
         progText.place(relx = 0, rely = 0, relh = 1)
         return progBar, progText
+
+    def onProgressBarClose(self):
+        # if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
+        #     self.winProgressBar.destroy()
+        #     self.winProgressBar = None
+        #     self.isProcessing = False
+        self.winProgressBar.destroy()
+        self.winProgressBar = None
+        self.isProcessing = False
 
 
 class ThreadedTask(threading.Thread):
@@ -70,16 +81,16 @@ class ThreadedTask(threading.Thread):
 
     def run(self):
         try:
+            # self.prog_bar.start()
             while self.count < 100:
-                self.count += 10
+                self.count += 1
+                # self.prog_bar.after(1, self.process_queue)
                 self.process_queue()
-                time.sleep(1)
+                time.sleep(0.01)
 
 
         finally:
-            # self.prog_bar.stop()
-            print('TASK FINISHED')
-            self.isProcessing = False
+            self.prog_text["text"] = "COMPLETE"
 
     def process_queue(self):
         self.prog_val = float(self.count)
