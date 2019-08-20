@@ -18,14 +18,7 @@ import threading
 import time
 import copy
 import Function_support as FS
-
-class key:
-    SAMPLES = 'Samples'
-    CODE = 'Code'
-    DESCRIPTION = 'Description'
-    RESPONSES = 'Responses'
-    GROUP = 'Group'
-    FEATURE_LIST = 'FeatureList'
+import KEYS_support as key
 
 
 

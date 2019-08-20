@@ -34,6 +34,7 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
+import KEYS_support as key
 
 
 class AutomatedMining_View:
@@ -3182,6 +3183,7 @@ class AutomatedMining_View:
     def updateLbListFeatureSelect(self, dictContents):
         self.getLbListFeatureSelect().delete(0, END)
 
-        keys = dictContents.keys()
-        for dictContents in keys:
-            self.getLbListFeatureSelect().insert(END, str(dictContents))
+        featureIDs = dictContents.keys()
+        for featureID in featureIDs:
+            entry = "  " + str(featureID) + "  -  " + str(dictContents[featureID][key.DESCRIPTION])
+            self.getLbListFeatureSelect().insert(END, str(entry))
