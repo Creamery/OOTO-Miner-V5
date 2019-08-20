@@ -1,4 +1,3 @@
-from enum import Enum
 
 try:
     from Tkinter import *
@@ -14,10 +13,10 @@ except ImportError:
 
     py3 = 1
 
+from collections import OrderedDict
 import threading
 import time
-from collections import OrderedDict
-import tkMessageBox
+import copy
 
 
 class key:
@@ -26,6 +25,7 @@ class key:
     DESCRIPTION = 'Description'
     RESPONSES = 'Responses'
     GROUP = 'Group'
+    FEATURE_LIST = 'FeatureList'
 
 
 class AutomatedMining_Model:
@@ -41,7 +41,7 @@ class AutomatedMining_Model:
 
     def readFeatures(self, features):
         self.__resetFeatureDescription()
-        # count = 0
+
         for feature in features:
             code = feature[key.CODE]
             description = feature[key.DESCRIPTION]
@@ -54,15 +54,6 @@ class AutomatedMining_Model:
             featureDescription[key.RESPONSES] = dictResponses
 
             self.getFeatureDescription()[code] = featureDescription
-
-            # if(count <= 3):
-            #     print str(dictResponses)
-            #     print str(self.getFeatureDescription()[code])
-            #     count += 1
-
-        # print(str(self.getFeatureDescription().keys()))
-
-
 
     """
     Change the format of responses to a dictionary of the form :
@@ -87,28 +78,27 @@ class AutomatedMining_Model:
     def readDataset(self, dataset):
         self.__resetDatasets()
 
+        # Append SAMPLES
         for record in dataset:
             orderedRecord = OrderedDict(record)
             self.getPopulationDataset()[key.SAMPLES].append(orderedRecord)
             self.getDatasetA()[key.SAMPLES].append(orderedRecord)
             self.getDatasetB()[key.SAMPLES].append(orderedRecord)
 
+        # Set FEATURE_LIST
+        self.getPopulationDataset()[key.FEATURE_LIST] = self.getFeatureDescription()
+        self.getDatasetA()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+        self.getDatasetB()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
 
-        # print "> __populationDataset"
-        # print str(self.getPopulationDataset()[key.SAMPLES][0].keys())
-        # print str(self.getPopulationDataset()[key.SAMPLES][0]['p9'])
-        # print "> __datasetA"
-        # print str(type(self.getDatasetA()))
-        # print "> __datasetB"
-        # print str(type(self.getDatasetB()))
+
 
     def __resetFeatureDescription(self):
         self.__setFeatureDescription({})
 
     def __resetDatasets(self):
-        self.__setPopulationDataset({key.SAMPLES: [], 'Filter Features': []})
-        self.__setDatasetA({key.SAMPLES: [], 'Filter Features': []})
-        self.__setDatasetB({key.SAMPLES: [], 'Filter Features': []})
+        self.__setPopulationDataset({key.SAMPLES: [], key.FEATURE_LIST: {}})
+        self.__setDatasetA({key.SAMPLES: [], key.FEATURE_LIST: {}})
+        self.__setDatasetB({key.SAMPLES: [], key.FEATURE_LIST: {}})
 
         # self.tests = []
         # self.datasetCountA = len(self.datasetA['Data'])
