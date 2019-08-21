@@ -10,3 +10,4 @@ The Out of the Ordinary (OOTO) Miner is a data mining application that analyses 
 - Install Pillow (run 'pip install Pillow' in terminal)
 - Install scipy and numpy
 - Install enum
+- Install pymongo
