@@ -27,7 +27,7 @@ except ImportError:
     py3 = 1
 
 
-import Color_support
+import Color_support as CS
 import Icon_support
 import UI_support
 import PIL.Image
@@ -96,7 +96,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
         )
         tabFrame.configure(
-            background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
+            background = CS.TAB_BG_COLOR, foreground = CS.FG_COLOR
         )
         return tabFrame
 
@@ -108,7 +108,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
         )
         topPaddingFrame.configure(
-            background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR
+            background = CS.TYPE_BG, foreground = CS.FG_COLOR
         )
         # endregion topPaddingFrame
         return topPaddingFrame
@@ -125,7 +125,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
         inputFrame.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR
         )
         # endregion init lfInputElements
 
@@ -140,31 +140,62 @@ class AutomatedMining_View:
     def adjustFeatureList(self, parentFrame):
         self.redraw(parentFrame)
 
-        # region extend Feature List and emborder Commands
-        height = self.lfCommandsFeatureSelect.winfo_height() * 5
+        # region extend lfFeatureList
+        height = 165 # self.lfCommandsFeatureSelect.winfo_height() * 5
+        partialTopHeight = 100
+        partialBottomHeight = height - partialTopHeight
+
         parentFrame.place(height = parentFrame.winfo_height() + height)
 
         self.lfFeatureSelect.place(height = self.lfFeatureSelect.winfo_height() + height)
 
         self.lfListFeatureSelect.place(
-            height = self.lfListFeatureSelect.winfo_height() + height)
+            height = self.lfListFeatureSelect.winfo_height() + partialTopHeight)
 
         self.lbListFeatureSelect.place(y = self.lbListFeatureSelect.winfo_y(),
-                                       height = self.lbListFeatureSelect.winfo_height() + height)
+                                       height = self.lbListFeatureSelect.winfo_height() + partialTopHeight)
 
         self.lfCommandsFeatureSelect.place(y = self.lfCommandsFeatureSelect.winfo_y() + height)
 
+
+        # endregion extend lfFeatureList
+
+        # region create lfListFeatureDetails
         self.redraw(parentFrame)
+        self.lfListFeatureDetails, self.lbListFeatureDetails = self.createFeatureDetails(self.lfFeatureSelect,
+                                                                                         self.lfListFeatureSelect,
+                                                                                         partialBottomHeight)
+        self.redraw(parentFrame)
+        self.lfListFeatureSelect.place(
+            y = self.lfListFeatureSelect.winfo_y(),
+            height = self.lfListFeatureSelect.winfo_height()
+        )
+        # endregion create lfListFeatureDetails
 
-        borderX = self.lfListFeatureSelect.winfo_x()
-        borderY = self.lfListFeatureSelect.winfo_y() + self.lfListFeatureSelect.winfo_height() - 1
+        # region emborder lfListFeatureDetails
+        self.redraw(parentFrame)
+        borderX = self.lfListFeatureDetails.winfo_x()
+        borderY = self.lfListFeatureSelect.winfo_y() + self.lfListFeatureSelect.winfo_height()
+        borderW = self.lfListFeatureDetails.winfo_width() - 1
+        borderH = self.lfListFeatureDetails.winfo_height()
+        self.emborder(self.lfFeatureSelect,
+                      borderX, borderY, borderW, borderH,
+                      [True, True, False, True],
+                      [CS.DEFAULT_LIGHT_BORDER, CS.DEFAULT_LIGHT_BORDER, None, CS.DEFAULT_BORDER])
+        # endregion emborder lfListFeatureDetails
+
+
+        # region emborder lfCommandsFeatureSelect
+        self.redraw(parentFrame)
+        borderX = self.lfListFeatureDetails.winfo_x()
+        borderY = self.lfListFeatureDetails.winfo_y() + self.lfListFeatureDetails.winfo_height()
         borderW = self.lfListFeatureSelect.winfo_width() - 1
-        borderH = self.lfFeatureSelect.winfo_height() - (self.lfListFeatureSelect.winfo_y() + self.lfListFeatureSelect.winfo_height())
+        borderH = self.lfFeatureSelect.winfo_height() - borderY - 1
         self.emborder(self.lfFeatureSelect, borderX, borderY, borderW, borderH)
-
-        # endregion extend Feature List and emborder Commands
+        # endregion emborder
 
         # region adjust counter
+        self.redraw(parentFrame)
         self.lfCountFeatureSelect.place(
             relwidth = 0, relheight = 0,
             width = self.lfCountFeatureSelect.winfo_width(),
@@ -174,7 +205,7 @@ class AutomatedMining_View:
         self.lblCountFeatureSelectText.place(
             relx = 0,
             rely = 0,
-            x = self.lblCountFeatureSelectText.winfo_x() - 5,
+            x = self.lblCountFeatureSelectText.winfo_x() - 8,
             y = - 2)
         FS.placeBelow(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText)
         FS.alignStart(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText, - 1)
@@ -183,11 +214,37 @@ class AutomatedMining_View:
 
         # endregion
 
+    def createFeatureDetails(self, parentFrame, referenceFrame, listHeight):
+        lfListFeatureDetails = LabelFrame(parentFrame, bd = 0)
 
+        # region init lfListFeatureDetails
+        referenceFrame.update()
+        lfListFeatureDetails.place(width = referenceFrame.winfo_width(), height = listHeight)
+        FS.placeBelow(lfListFeatureDetails, referenceFrame, -1)
+        FS.alignStart(lfListFeatureDetails, referenceFrame)
+        # endregion lfListFeatureDetails
+
+        lbListFeatureDetails = Listbox(lfListFeatureDetails)  # TODO getter
+        # region init lbListFeatureDetails
+        lbListFeatureDetails.configure(
+            background = CS.SELECT_LISTBOX_BG, foreground = CS.D_BLUE,
+            selectmode = MULTIPLE, exportselection = "0",
+            activestyle = "none",
+            selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = 0, # UI_support.SELECT_LISTBOX_BORDER,
+            relief = UI_support.SELECT_LISTBOX_RELIEF,
+            highlightthickness = 0
+        )
+        lbListFeatureDetails.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+        # endregion lbListFeatureDetails
+
+        return lfListFeatureDetails, lbListFeatureDetails
     def createTitleBar(self, parentFrame, strNumber, strName, colorBG):
         titleFrame = LabelFrame(parentFrame, bd = 0)
         titleFrame.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR  # , text = '''FILTER'''
         )
 
         # COLORED SEPARATOR
@@ -206,7 +263,7 @@ class AutomatedMining_View:
 
         titleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
+            background = CS.SELECT_NUMBER_BG, foreground = CS.SELECT_NUMBER_FG,
             text = str(strNumber) + '''  ''',
             bd = 1, relief = GROOVE,
             anchor = SE
@@ -221,7 +278,7 @@ class AutomatedMining_View:
             relwidth = 0.15, relheight = newRelH, anchor = NW)
         titleText.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = colorBG, foreground = Color_support.SELECT_TITLE_FG,
+            background = colorBG, foreground = CS.SELECT_TITLE_FG,
             text = str(strName),
             bd = 0, relief = GROOVE,
             anchor = S
@@ -229,7 +286,7 @@ class AutomatedMining_View:
         # Title border
         self.separatorlabelFrameSelectTitleText = self.createLabelSeparator(
             titleText, 1,
-            True, Color_support.WHITE,
+            True, CS.WHITE,
             coordinate = 0.99, specifiedAnchor = NW
         )
 
@@ -237,7 +294,7 @@ class AutomatedMining_View:
 
     def initFeatureList(self, parentFrame):
 
-        titleFrame = self.createTitleBar(parentFrame, '1', 'INPUT', Color_support.SELECT_TITLE_BG)
+        titleFrame = self.createTitleBar(parentFrame, '1', 'INPUT', CS.SELECT_TITLE_BG)
         # region init titleFrame
         titleFrame.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
         newRelY = FS.getRelY(titleFrame) + FS.getRelH(titleFrame)
@@ -251,7 +308,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
         )
         self.lfFeatureSelect.configure(
-            background = Color_support.SELECT_BG
+            background = CS.SELECT_BG
         )
         newRelH = FS.getRelH(self.lfFeatureSelect)
         # endregion init lfFeatureSelect
@@ -263,7 +320,7 @@ class AutomatedMining_View:
             rely = newRelY, relwidth = 0.4, relheight = newRelH
         )
         self.lfConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG
+            background = CS.SELECT_BG
         )
         # endregion init lfConfirmedFeatures
 
@@ -279,7 +336,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
 
         self.lfHeaderFeatureSelect.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
             relief = GROOVE
         )
 
@@ -290,7 +347,7 @@ class AutomatedMining_View:
         self.lblHeaderFeatureSelect.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
 
         self.lblHeaderFeatureSelect.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = 'FEATURE LIST',
             font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -359,7 +416,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
         )
         lfBorderQueryFeatureList.configure(
-            background = Color_support.SELECT_BUTTONS_BG
+            background = CS.SELECT_BUTTONS_BG
         )
         # endregion init lfBorderQueryFeatureList
 
@@ -369,7 +426,7 @@ class AutomatedMining_View:
             relx = 0.01, rely = 0.025,
             relwidth = 0.98, relheight = 0.95)
         lblQueryFeatureList.configure(
-            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
             text = 'Search',
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
@@ -385,11 +442,11 @@ class AutomatedMining_View:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
         self.entryQueryFeatureList.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            selectbackground = CS.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = CS.SELECT_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
         )  # TODO Constant font definiton
 
@@ -412,8 +469,8 @@ class AutomatedMining_View:
         self.btnQueryFeatureList.image = btn_query_set_icon  # < ! > Required to make images appear
 
         self.btnQueryFeatureList.configure(
-            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BG,
+            background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
+            activebackground = CS.SELECT_BG,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE
         )
@@ -422,11 +479,11 @@ class AutomatedMining_View:
         self.lbListFeatureSelect = Listbox(self.lfListFeatureSelect)  # TODO getter
         # region init lbListFeatureSelect
         self.lbListFeatureSelect.configure(
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+            background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -448,7 +505,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H * 0.85)  # TODO Reduced size
 
         self.lfCommandsFeatureSelect.configure(
-            background = Color_support.WHITE
+            background = CS.WHITE
         )
         # endregion init lfCommandsFeatureSelect
 
@@ -458,7 +515,7 @@ class AutomatedMining_View:
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
         self.btnResetFeatureSelect.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -478,7 +535,7 @@ class AutomatedMining_View:
             relwidth = 0.50 - 0.005, relheight = 1
         )
         self.lfCountFeatureSelect.configure(
-            background = Color_support.SELECT_BG
+            background = CS.SELECT_BG
         )
 
         # Define count variables
@@ -493,7 +550,7 @@ class AutomatedMining_View:
                                              relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.lblCountFeatureSelectText.configure(
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
+            background = CS.SELECT_BG,
             text = self.getDatasetCountA()
         )
         # endregion init lblCountFeatureSelectText
@@ -505,7 +562,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
         self.lblCountFeatureSelectTitle.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = CS.FG_COLOR, foreground = CS.SELECT_BG,
             text = '''SAMPLES'''
         )
         # endregion init self.lblCountFeatureSelectTitle
@@ -520,7 +577,7 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.lfHeaderFeatureSelect),
             relheight = FS.getRelH(self.lfHeaderFeatureSelect))
         self.lfStatusConfirmedFeatures.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
             relief = GROOVE
         )
         # endregion init lfStatusConfirmedFeatures
@@ -564,7 +621,7 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.lblHeaderFeatureSelect)
         )
         self.lblStatusConfirmedFeatures.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = UI_support.LBL_SELECT_NO_DATA,
             font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -575,11 +632,11 @@ class AutomatedMining_View:
         self.lbListConfirmedFeatures = Listbox(self.lfConfirmedFeaturesList)  # TODO getter
         # region init lbListConfirmedFeatures
         self.lbListConfirmedFeatures.configure(
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+            background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -613,7 +670,7 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(lfBorderQueryFeatureList),
             relheight = FS.getRelH(lfBorderQueryFeatureList))
         lfBorderQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_BUTTONS_BG
+            background = CS.SELECT_BUTTONS_BG
         )
         # endregion init lfBorderQueryConfirmedFeatures
 
@@ -626,7 +683,7 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(lblQueryFeatureList),
             relheight = FS.getRelH(lblQueryFeatureList))
         lblQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
             text = UI_support.SELECT_LABEL_DATASETB_TEXT,
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
@@ -642,11 +699,11 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.entryQueryFeatureList),
             relheight = FS.getRelH(self.entryQueryFeatureList))
         self.entryQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            selectbackground = CS.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = CS.SELECT_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
         )  # TODO Constant font definiton
 
@@ -669,8 +726,8 @@ class AutomatedMining_View:
         self.btnQueryConfirmedFeatures.image = btn_query_set_icon  # < ! > Required to make images appear
 
         self.btnQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+            background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
+            activebackground = CS.SELECT_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE,
         )
@@ -686,7 +743,7 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.lfCommandsFeatureSelect)
         )
         self.lfCommandsConfirmedFeatures.configure(
-            background = Color_support.WHITE
+            background = CS.WHITE
         )
         # endregion init self.lfCommandsConfirmedFeatures
 
@@ -696,7 +753,7 @@ class AutomatedMining_View:
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
         self.btnResetConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -714,7 +771,7 @@ class AutomatedMining_View:
         #     relheight = FS.getRelH(self.sepCommandRight),
         #     width = 1
         # )
-        # sepCommandsConfirmedFeaturesRight.configure(background = Color_support.DISABLED_D_BLUE)
+        # sepCommandsConfirmedFeaturesRight.configure(background = CS.DISABLED_D_BLUE)
         #
         # sepCommandsConfirmedFeaturesLeft = Label(self.lfConfirmedFeatures)
         # sepCommandsConfirmedFeaturesLeft.place(
@@ -723,7 +780,7 @@ class AutomatedMining_View:
         #     relheight = FS.getRelH(self.sepCommandLeft),
         #     width = 1
         # )
-        # sepCommandsConfirmedFeaturesLeft.configure(background = Color_support.DISABLED_D_BLUE)
+        # sepCommandsConfirmedFeaturesLeft.configure(background = CS.DISABLED_D_BLUE)
         #
         # sepCommandsConfirmedFeaturesBottom = Label(self.lfConfirmedFeatures)
         # sepCommandsConfirmedFeaturesBottom.place(
@@ -731,7 +788,7 @@ class AutomatedMining_View:
         #     rely = FS.getRelY(self.sepCommandBottom),
         #     relwidth = FS.getRelW(self.sepCommandBottom),
         #     height = 1)
-        # sepCommandsConfirmedFeaturesBottom.configure(background = Color_support.DISABLED_D_BLUE)
+        # sepCommandsConfirmedFeaturesBottom.configure(background = CS.DISABLED_D_BLUE)
         #
         #
         # sepCommandsConfirmedFeaturesTop = Label(self.lfFeatureSelect)
@@ -740,7 +797,7 @@ class AutomatedMining_View:
         #     rely = FS.getRelY(self.sepCommandTop),
         #     relwidth = FS.getRelW(self.sepCommandTop),
         #     height = 1)
-        # self.sepCommandTop.configure(background = Color_support.DISABLED_PALER_YELLOW)
+        # self.sepCommandTop.configure(background = CS.DISABLED_PALER_YELLOW)
         #
         # # endregion init command separators
 
@@ -752,7 +809,7 @@ class AutomatedMining_View:
             relwidth = 0.50 - 0.005, relheight = 1
         )
         self.lfCountConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG
+            background = CS.SELECT_BG
         )
         # endregion init self.lfCountConfirmedFeatures
 
@@ -762,7 +819,7 @@ class AutomatedMining_View:
                                                  relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.lblCountConfirmedFeaturesText.configure(
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
+            background = CS.SELECT_BG,
             text = self.getDatasetCountB()
         )
         # endregion init lblCountConfirmedFeaturesText
@@ -774,7 +831,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
         self.lblCountConfirmedFeaturesTitle.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = CS.FG_COLOR, foreground = CS.SELECT_BG,
             text = '''SAMPLES'''
         )
         newRelX = FS.getRelX(self.lfCountFeatureSelect) + FS.getRelW(self.lfCountFeatureSelect)
@@ -796,7 +853,7 @@ class AutomatedMining_View:
         self.btnConfirmFeatureSelect.image = btn_query_filter_icon  # < ! > Required to make images appear
 
         self.btnConfirmFeatureSelect.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         self.btnConfirmFeatureSelect.pack(side = RIGHT)
         self.btnResetFeatureSelect.pack(side = LEFT)
@@ -818,48 +875,57 @@ class AutomatedMining_View:
         self.btnConfirmConfirmedFeatures.image = btn_query_filter_icon  # < ! > Required to make images appear
 
         self.btnConfirmConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         self.btnConfirmConfirmedFeatures.pack(side = RIGHT)
         self.btnResetConfirmedFeatures.pack(side = LEFT)
         # endregion init btnConfirmConfirmedFeatures
 
 
-    def emborder(self, parentFrame, borderX, borderY, borderW, borderH):
+    def emborder(self, parentFrame, borderX, borderY, borderW, borderH,
+                 conditions = [True, True, True, True], colors = [None, None, None, None]):
+        # use default color if not specified by the user
+        colors = [CS.DISABLED_D_BLUE if color is None else color for color in colors]
 
-        sepCommandRight = Label(parentFrame)
-        sepCommandRight.place(
-            x = borderX,
-            y = borderY,
-            width = 1,
-            height = borderH)
-        sepCommandRight.configure(background = Color_support.DISABLED_D_BLUE)
+        index = 0
+        if conditions[index]:
+            sepCommandTop = Label(parentFrame)
+            sepCommandTop.place(
+                x = borderX,
+                y = borderY,
+                width = borderW,
+                height = 1)
+            sepCommandTop.configure(background = colors[index])
 
-        sepCommandLeft = Label(parentFrame)
-        sepCommandLeft.place(
-            x = borderX + borderW,
-            y = borderY,
-            width = 1,
-            height = borderH)
-        sepCommandLeft.configure(background = Color_support.DISABLED_D_BLUE)
+        index = 2
+        if conditions[index]:
+            sepCommandBottom = Label(parentFrame)
+            sepCommandBottom.place(
+                x = borderX,
+                y = borderY + borderH,
+                width = borderW,
+                height = 1)
+            sepCommandBottom.configure(background = colors[index])
 
-        sepCommandBottom = Label(parentFrame)
-        sepCommandBottom.place(
-            x = borderX,
-            y = borderY + borderH,
-            width = borderW,
-            height = 1)
-        sepCommandBottom.configure(background = Color_support.DISABLED_D_BLUE)
+        index = 3
+        if conditions[index]:
+            sepCommandLeft = Label(parentFrame)
+            sepCommandLeft.place(
+                x = borderX,
+                y = borderY,
+                width = 1,
+                height = borderH)
+            sepCommandLeft.configure(background = colors[index])
 
-        sepCommandTop = Label(parentFrame)
-        sepCommandTop.place(
-            x = borderX,
-            y = borderY,
-            width = borderW,
-            height = 1)
-        sepCommandTop.configure(background = Color_support.DISABLED_D_BLUE)
-
-
+        index = 1
+        if conditions[index]:
+            sepCommandRight = Label(parentFrame)
+            sepCommandRight.place(
+                x = borderX + borderW,
+                y = borderY,
+                width = 1,
+                height = borderH)
+            sepCommandRight.configure(background = colors[index])
 
     def initProcessUI(self, parentFrame, relativeFrame):
 
@@ -872,7 +938,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
         )
         processFrame.configure(
-            background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+            background = CS.FILTER_BG, foreground = CS.FG_COLOR  # , text = '''FILTER'''
         )
 
         self.configureFilterElements(processFrame)  # Configures all sub elements under FILTER
@@ -892,7 +958,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_REL_H
         )
         resultsFrame.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
+            background = CS.PROCESS_BG, foreground = CS.FG_COLOR  # , text = '''PROCESS'''
         )
 
         self.configureProcessElements(resultsFrame)  # Configures all sub elements under FILTER
@@ -915,7 +981,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = 1
         )
         consoleFrame.configure(
-            background = Color_support.WHITE, foreground = Color_support.FG_COLOR  # , text = '''CONSOLE'''
+            background = CS.WHITE, foreground = CS.FG_COLOR  # , text = '''CONSOLE'''
         )
 
         self.configureConsoleElements(consoleFrame)  # Configures all sub elements under CONSOLE
@@ -936,7 +1002,7 @@ class AutomatedMining_View:
         #     relheight = FS.getRelH(self.testTabParentFrame)
         # )
         self.testTabConsoleParentFrame.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR
+            background = CS.D_BLUE, foreground = CS.FG_COLOR
         )
 
 
@@ -1024,7 +1090,7 @@ class AutomatedMining_View:
     #     self.labelFrameSelectTitle = LabelFrame(parentFrame, bd = 0)
     #     self.labelFrameSelectTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
     #     self.labelFrameSelectTitle.configure(
-    #         background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR  # , text = '''FILTER'''
     #     )
     #
     #     # Create the top separator
@@ -1034,7 +1100,7 @@ class AutomatedMining_View:
     #     # COLORED SEPARATOR
     #     self.separatorlabelFrameSelectTitleNumber = self.createLabelSeparator(
     #         self.labelFrameSelectTitle, 1,
-    #         False, Color_support.SELECT_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
+    #         False, CS.SELECT_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
     #         0.5, W
     #     )
     #
@@ -1048,8 +1114,8 @@ class AutomatedMining_View:
     #
     #     self.labelFrameSelectTitleNumber.configure(
     #         font = UI_support.FONT_MED_BOLD,
-    #         # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-    #         background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
+    #         # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
+    #         background = CS.SELECT_NUMBER_BG, foreground = CS.SELECT_NUMBER_FG,
     #         text = '''1  ''',
     #         bd = 1, relief = GROOVE,
     #         anchor = SE
@@ -1065,8 +1131,8 @@ class AutomatedMining_View:
     #         relwidth = 0.15, relheight = newRelH, anchor = NW)
     #     self.labelFrameSelectTitleText.configure(
     #         font = UI_support.FONT_MED_BOLD,
-    #         # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-    #         background = Color_support.SELECT_TITLE_BG, foreground = Color_support.SELECT_TITLE_FG,
+    #         # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
+    #         background = CS.SELECT_TITLE_BG, foreground = CS.SELECT_TITLE_FG,
     #         text = '''GROUP''',
     #         bd = 0, relief = GROOVE,
     #         anchor = S
@@ -1074,7 +1140,7 @@ class AutomatedMining_View:
     #     # Title border
     #     self.separatorlabelFrameSelectTitleText = self.createLabelSeparator(
     #         self.labelFrameSelectTitleText, 1,
-    #         True, Color_support.WHITE,
+    #         True, CS.WHITE,
     #         coordinate = 0.99, specifiedAnchor = NW
     #     )
     #
@@ -1088,7 +1154,7 @@ class AutomatedMining_View:
     #         relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
     #     )
     #     self.lfFeatureSelect.configure(
-    #         background = Color_support.SELECT_BG
+    #         background = CS.SELECT_BG
     #     )
     #     newRelH = FS.getRelH(self.lfFeatureSelect)
     #     self.lfConfirmedFeatures = LabelFrame(parentFrame, bd = 0)
@@ -1098,7 +1164,7 @@ class AutomatedMining_View:
     #         rely = newRelY, relwidth = 0.4, relheight = newRelH
     #     )
     #     self.lfConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_BG
+    #         background = CS.SELECT_BG
     #     )
     #
     #     # DATASET SEPARATOR
@@ -1111,7 +1177,7 @@ class AutomatedMining_View:
     #         relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
     #         relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
     #     self.lfStatusFeatureSelect.configure(
-    #         background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+    #         background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
     #         relief = GROOVE  # , text = '''Dataset A'''
     #     )
     #
@@ -1123,7 +1189,7 @@ class AutomatedMining_View:
     #     self.lblStatusFeatureSelect.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
     #     # self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
     #     self.lblStatusFeatureSelect.configure(
-    #         background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+    #         background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
     #         bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
     #         text = UI_support.LBL_SELECT_NO_DATA,
     #         font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -1195,7 +1261,7 @@ class AutomatedMining_View:
     #         relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
     #     )
     #     lfBorderQueryFeatureList.configure(
-    #         background = Color_support.SELECT_BUTTONS_BG
+    #         background = CS.SELECT_BUTTONS_BG
     #     )
     #
     #     lblQueryFeatureList = Label(lfBorderQueryFeatureList)
@@ -1204,7 +1270,7 @@ class AutomatedMining_View:
     #         relx = 0.01, rely = 0.025,
     #         relwidth = 0.98, relheight = 0.95)
     #     lblQueryFeatureList.configure(
-    #         background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+    #         background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
     #         text = UI_support.SELECT_LABEL_DATASETA_TEXT,
     #         font = UI_support.SELECT_LABEL_FONT,
     #         bd = 0, relief = FLAT,
@@ -1221,11 +1287,11 @@ class AutomatedMining_View:
     #         relx = newRelX, rely = 0,
     #         relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
     #     self.entryQueryFeatureList.configure(
-    #         background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+    #         background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
     #         bd = 1,
     #         font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-    #         selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-    #         insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+    #         selectbackground = CS.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+    #         insertbackground = CS.SELECT_ENTRY_SELECT_INSERT_BG,
     #         takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
     #     )  # TODO Constant font definiton
     #     # endregion
@@ -1248,8 +1314,8 @@ class AutomatedMining_View:
     #     self.btnQueryFeatureList.image = btn_query_set_icon  # < ! > Required to make images appear
     #
     #     self.btnQueryFeatureList.configure(
-    #         background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-    #         activebackground = Color_support.SELECT_BG,
+    #         background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
+    #         activebackground = CS.SELECT_BG,
     #         highlightthickness = 0, padx = 0, pady = 0,
     #         bd = 0, relief = FLAT, overrelief = GROOVE,
     #         # text = '''Find Feature'''
@@ -1267,11 +1333,11 @@ class AutomatedMining_View:
     #
     #     self.lbListFeatureSelect = Listbox(self.lfListFeatureSelect)
     #     self.lbListFeatureSelect.configure(
-    #         background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+    #         background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
     #         selectmode = MULTIPLE, exportselection = "0",
     #         activestyle = "none",
-    #         selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-    #         selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+    #         selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+    #         selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
     #         font = UI_support.SELECT_LABEL_FONT,
     #         bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
     #         highlightthickness = 0
@@ -1299,7 +1365,7 @@ class AutomatedMining_View:
     #         relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H * 0.85)  # TODO Reduced size
     #
     #     lfCommandsFeatureSelect.configure(
-    #         background = Color_support.WHITE
+    #         background = CS.WHITE
     #     )
     #
     #     # RESET BUTTON (DATASET A)
@@ -1309,7 +1375,7 @@ class AutomatedMining_View:
     #         relx = 0, rely = 0,
     #         relwidth = 0.25, relheight = 1)
     #     self.btnResetFeatureSelect.configure(
-    #         background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR,
     #         bd = 1, relief = FLAT, overrelief = FLAT)
     #     # text = '''Reset''')
     #
@@ -1330,7 +1396,7 @@ class AutomatedMining_View:
     #         relwidth = 0.50 - 0.005, relheight = 1
     #     )
     #     self.lfCountFeatureSelect.configure(
-    #         background = Color_support.SELECT_BG
+    #         background = CS.SELECT_BG
     #     )
     #
     #     # Define count variables
@@ -1342,7 +1408,7 @@ class AutomatedMining_View:
     #                                          relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
     #     self.lblCountFeatureSelectText.configure(
     #         font = UI_support.FONT_LARGE_BOLD,
-    #         background = Color_support.SELECT_BG,
+    #         background = CS.SELECT_BG,
     #         text = self.getDatasetCountA()
     #     )
     #     self.lblCountFeatureSelectTitle = Label(self.lfCountFeatureSelect)
@@ -1351,7 +1417,7 @@ class AutomatedMining_View:
     #         relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
     #     self.lblCountFeatureSelectTitle.configure(
     #         font = UI_support.FONT_DEFAULT_BOLD,
-    #         background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+    #         background = CS.FG_COLOR, foreground = CS.SELECT_BG,
     #         text = '''SAMPLES'''
     #     )
     #     # endregion
@@ -1366,7 +1432,7 @@ class AutomatedMining_View:
     #         rely = newRelY,
     #         relheight = 1 - newRelY - 0.025,  # TODO To adjust border height, just adjust this
     #         width = 1)
-    #     self.sepCommandRight.configure(background = Color_support.DISABLED_D_BLUE)
+    #     self.sepCommandRight.configure(background = CS.DISABLED_D_BLUE)
     #
     #     self.sepCommandLeft = Label(self.lfFeatureSelect)
     #     self.sepCommandLeft.place(
@@ -1375,7 +1441,7 @@ class AutomatedMining_View:
     #         relheight = FS.getRelH(self.sepCommandRight),
     #         width = 1
     #     )
-    #     self.sepCommandLeft.configure(background = Color_support.DISABLED_D_BLUE)
+    #     self.sepCommandLeft.configure(background = CS.DISABLED_D_BLUE)
     #
     #     self.sepCommandBottom = Label(self.lfFeatureSelect)
     #     self.sepCommandBottom.place(
@@ -1386,7 +1452,7 @@ class AutomatedMining_View:
     #         relwidth = FS.getRelX(self.sepCommandLeft) - FS.getRelX(
     #             self.sepCommandRight),
     #         height = 1)
-    #     self.sepCommandBottom.configure(background = Color_support.DISABLED_D_BLUE)
+    #     self.sepCommandBottom.configure(background = CS.DISABLED_D_BLUE)
     #
     #     newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
     #
@@ -1396,7 +1462,7 @@ class AutomatedMining_View:
     #         rely = newRelY,
     #         relwidth = FS.getRelW(self.sepCommandBottom),
     #         height = 1)
-    #     self.sepCommandTop.configure(background = Color_support.DISABLED_D_BLUE)
+    #     self.sepCommandTop.configure(background = CS.DISABLED_D_BLUE)
     #
     #     # endregion
     #
@@ -1411,7 +1477,7 @@ class AutomatedMining_View:
     #         relwidth = FS.getRelW(self.lfStatusFeatureSelect),
     #         relheight = FS.getRelH(self.lfStatusFeatureSelect))
     #     self.lfStatusConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+    #         background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
     #         relief = GROOVE  # , text = '''Dataset B'''
     #     )
     #     # endregion
@@ -1457,7 +1523,7 @@ class AutomatedMining_View:
     #     )
     #     # self.lblStatusConfirmedFeatures.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
     #     self.lblStatusConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+    #         background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
     #         bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
     #         text = UI_support.LBL_SELECT_NO_DATA,
     #         font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -1468,11 +1534,11 @@ class AutomatedMining_View:
     #
     #     self.lbListConfirmedFeatures = Listbox(self.lfConfirmedFeaturesList)
     #     self.lbListConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+    #         background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
     #         selectmode = MULTIPLE, exportselection = "0",
     #         activestyle = "none",
-    #         selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-    #         selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+    #         selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+    #         selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
     #         font = UI_support.SELECT_LABEL_FONT,
     #         bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
     #         highlightthickness = 0
@@ -1505,7 +1571,7 @@ class AutomatedMining_View:
     #         relwidth = FS.getRelW(lfBorderQueryFeatureList),
     #         relheight = FS.getRelH(lfBorderQueryFeatureList))
     #     lfBorderQueryConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_BUTTONS_BG
+    #         background = CS.SELECT_BUTTONS_BG
     #     )
     #
     #     lblQueryConfirmedFeatures = Label(lfBorderQueryConfirmedFeatures)
@@ -1516,7 +1582,7 @@ class AutomatedMining_View:
     #         relwidth = FS.getRelW(lblQueryFeatureList),
     #         relheight = FS.getRelH(lblQueryFeatureList))
     #     lblQueryConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+    #         background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
     #         text = UI_support.SELECT_LABEL_DATASETB_TEXT,
     #         font = UI_support.SELECT_LABEL_FONT,
     #         bd = 0, relief = FLAT,
@@ -1531,11 +1597,11 @@ class AutomatedMining_View:
     #         relwidth = FS.getRelW(self.entryQueryFeatureList),
     #         relheight = FS.getRelH(self.entryQueryFeatureList))
     #     self.entryQueryConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+    #         background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
     #         bd = 1,
     #         font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-    #         selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-    #         insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+    #         selectbackground = CS.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+    #         insertbackground = CS.SELECT_ENTRY_SELECT_INSERT_BG,
     #         takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
     #     )  # TODO Constant font definiton
     #
@@ -1555,8 +1621,8 @@ class AutomatedMining_View:
     #     self.btnQueryConfirmedFeatures.image = btn_query_set_icon  # < ! > Required to make images appear
     #
     #     self.btnQueryConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-    #         activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+    #         background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
+    #         activebackground = CS.SELECT_BTN_BG_ACTIVE,
     #         highlightthickness = 0, padx = 0, pady = 0,
     #         bd = 0, relief = FLAT, overrelief = GROOVE,
     #         # text = '''Find Feature'''
@@ -1577,7 +1643,7 @@ class AutomatedMining_View:
     #     #     relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
     #
     #     self.lfCommandsConfirmedFeatures.configure(
-    #         background = Color_support.WHITE
+    #         background = CS.WHITE
     #     )
     #     # endregion
     #
@@ -1588,7 +1654,7 @@ class AutomatedMining_View:
     #         relx = 0, rely = 0,
     #         relwidth = 0.25, relheight = 1)
     #     self.btnResetConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR,
     #         bd = 1, relief = FLAT, overrelief = FLAT)
     #     # text = '''Reset''')
     #
@@ -1611,7 +1677,7 @@ class AutomatedMining_View:
     #         relheight = FS.getRelH(self.sepCommandRight),
     #         width = 1
     #     )
-    #     sepCommandsConfirmedFeaturesRight.configure(background = Color_support.DISABLED_D_BLUE)
+    #     sepCommandsConfirmedFeaturesRight.configure(background = CS.DISABLED_D_BLUE)
     #
     #     sepCommandsConfirmedFeaturesLeft = Label(self.lfConfirmedFeatures)
     #     sepCommandsConfirmedFeaturesLeft.place(
@@ -1620,7 +1686,7 @@ class AutomatedMining_View:
     #         relheight = FS.getRelH(self.sepCommandLeft),
     #         width = 1
     #     )
-    #     sepCommandsConfirmedFeaturesLeft.configure(background = Color_support.DISABLED_D_BLUE)
+    #     sepCommandsConfirmedFeaturesLeft.configure(background = CS.DISABLED_D_BLUE)
     #
     #     sepCommandsConfirmedFeaturesBottom = Label(self.lfConfirmedFeatures)
     #     sepCommandsConfirmedFeaturesBottom.place(
@@ -1628,7 +1694,7 @@ class AutomatedMining_View:
     #         rely = FS.getRelY(self.sepCommandBottom),
     #         relwidth = FS.getRelW(self.sepCommandBottom),
     #         height = 1)
-    #     sepCommandsConfirmedFeaturesBottom.configure(background = Color_support.DISABLED_D_BLUE)
+    #     sepCommandsConfirmedFeaturesBottom.configure(background = CS.DISABLED_D_BLUE)
     #
     #     newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
     #
@@ -1638,7 +1704,7 @@ class AutomatedMining_View:
     #         rely = FS.getRelY(self.sepCommandTop),
     #         relwidth = FS.getRelW(self.sepCommandTop),
     #         height = 1)
-    #     self.sepCommandTop.configure(background = Color_support.DISABLED_PALER_YELLOW)
+    #     self.sepCommandTop.configure(background = CS.DISABLED_PALER_YELLOW)
     #
     #     # endregion
     #
@@ -1650,7 +1716,7 @@ class AutomatedMining_View:
     #         relwidth = 0.50 - 0.005, relheight = 1
     #     )
     #     self.lfCountFeatureSelectB.configure(
-    #         background = Color_support.SELECT_BG
+    #         background = CS.SELECT_BG
     #     )
     #
     #     self.lblCountConfirmedFeaturesText = Label(self.lfCountFeatureSelectB)
@@ -1658,7 +1724,7 @@ class AutomatedMining_View:
     #                                              relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
     #     self.lblCountConfirmedFeaturesText.configure(
     #         font = UI_support.FONT_LARGE_BOLD,
-    #         background = Color_support.SELECT_BG,
+    #         background = CS.SELECT_BG,
     #         text = self.getDatasetCountB()
     #     )
     #     self.lblCountConfirmedFeaturesTitle = Label(self.lfCountFeatureSelectB)
@@ -1667,7 +1733,7 @@ class AutomatedMining_View:
     #         relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
     #     self.lblCountConfirmedFeaturesTitle.configure(
     #         font = UI_support.FONT_DEFAULT_BOLD,
-    #         background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+    #         background = CS.FG_COLOR, foreground = CS.SELECT_BG,
     #         text = '''SAMPLES'''
     #     )
     #
@@ -1697,7 +1763,7 @@ class AutomatedMining_View:
     #     self.btnConfirmFeatureSelect.image = btn_query_filter_icon  # < ! > Required to make images appear
     #
     #     self.btnConfirmFeatureSelect.configure(
-    #         background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR,
     #         bd = 1, relief = FLAT, overrelief = FLAT)
     #     # text = '''Filter''')
     #     self.btnConfirmFeatureSelect.pack(side = RIGHT)
@@ -1721,7 +1787,7 @@ class AutomatedMining_View:
     #     self.btnConfirmConfirmedFeatures.image = btn_query_filter_icon  # < ! > Required to make images appear
     #
     #     self.btnConfirmConfirmedFeatures.configure(
-    #         background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR,
     #         bd = 1, relief = FLAT, overrelief = FLAT)
     #     # text = '''Filter''')
     #     self.btnConfirmConfirmedFeatures.pack(side = RIGHT)
@@ -1732,7 +1798,7 @@ class AutomatedMining_View:
     ''' -> Elements under the FILTER ("FILTER") HEADER <- '''
 
     def configureFilterElements(self, parentFrame):
-        titleFrame = self.createTitleBar(parentFrame, '2', 'PROCESS', Color_support.FILTER_TITLE_BG)
+        titleFrame = self.createTitleBar(parentFrame, '2', 'PROCESS', CS.FILTER_TITLE_BG)
         titleFrame.place(relx = 0, rely = 0.08, relwidth = 1,
                          relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
 
@@ -1751,8 +1817,8 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_REL_W, relheight = UI_support.TAB_TEST_FILTER_QUERY_REL_H
         )
         self.labelQueryDataFeatureName.configure(
-            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG,
-            foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
+            background = CS.FILTER_LISTBOX_FEATURE_STATUS_BG,
+            foreground = CS.FILTER_LISTBOX_FEATURE_STATUS_FG,
             bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -1769,7 +1835,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_H
         )
         self.labelFrameFilterListData.configure(
-            background = Color_support.FILTER_BG
+            background = CS.FILTER_BG
         )
 
         # FILTER QUERY PARENT
@@ -1785,7 +1851,7 @@ class AutomatedMining_View:
         #     relwidth = UI_support.TAB_TEST_FILTER_QUERY_REL_W, relheight = UI_support.TAB_TEST_FILTER_QUERY_REL_H
         # )
         self.labelFrameFilterQueryData.configure(
-            background = Color_support.FILTER_BG
+            background = CS.FILTER_BG
         )
 
         # FILTER QUERY LABEL
@@ -1795,7 +1861,7 @@ class AutomatedMining_View:
             relx = 0, rely = 0,
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_LBL_REL_W, relheight = 1)
         self.labelFrameBorderQueryFeature.configure(
-            background = Color_support.FILTER_BUTTONS_BG
+            background = CS.FILTER_BUTTONS_BG
         )
 
         self.labelQueryFeature = Label(self.labelFrameBorderQueryFeature)
@@ -1803,7 +1869,7 @@ class AutomatedMining_View:
             relx = 0.01, rely = 0.025,
             relwidth = 0.98, relheight = 0.95)
         self.labelQueryFeature.configure(
-            background = Color_support.FILTER_LABEL_BG, foreground = Color_support.FILTER_LABEL_FG,
+            background = CS.FILTER_LABEL_BG, foreground = CS.FILTER_LABEL_FG,
             text = UI_support.FILTER_LABEL_QUERY_FEATURE_TEXT,
             font = UI_support.FILTER_LABEL_FONT,
             bd = 0, relief = FLAT,
@@ -1819,11 +1885,11 @@ class AutomatedMining_View:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_ENTRY_REL_W - 0.001, relheight = 1)
         self.entryQueryFeature.configure(
-            background = Color_support.FILTER_ENTRY_BG, foreground = Color_support.FILTER_ENTRY_FG,
+            background = CS.FILTER_ENTRY_BG, foreground = CS.FILTER_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.FILTER_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.FILTER_ENTRY_SELECT_INSERT_BG,
+            selectbackground = CS.FILTER_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = CS.FILTER_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.FILTER_ENTRY_JUSTIFY
         )
         # endregion
@@ -1845,8 +1911,8 @@ class AutomatedMining_View:
         self.buttonQueryFeature.image = btn_query_feature_icon  # < ! > Required to make images appear
 
         self.buttonQueryFeature.configure(
-            background = Color_support.FILTER_BUTTONS_BG, foreground = Color_support.FILTER_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+            background = CS.FILTER_BUTTONS_BG, foreground = CS.FILTER_BUTTONS_FG,
+            activebackground = CS.SELECT_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = FLAT
         )
@@ -1869,7 +1935,7 @@ class AutomatedMining_View:
             # UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
         )
         self.labelFrameFilterListDataA.configure(
-            background = Color_support.FILTER_BG
+            background = CS.FILTER_BG
         )
 
         # FILTER LIST BOX - DATASET A
@@ -1885,11 +1951,11 @@ class AutomatedMining_View:
                                     UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
 
         self.listQueryDataA.configure(
-            background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
+            background = CS.FILTER_LISTBOX_BG, foreground = CS.FILTER_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = CS.FILTER_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = CS.FILTER_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.FILTER_LABEL_FONT,
             bd = UI_support.FILTER_LISTBOX_BORDER, relief = UI_support.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -1905,7 +1971,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_STATUS_REL_W, relheight = newRelH)
 
         self.labelQueryDataA.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_BG, foreground = Color_support.FILTER_LISTBOX_STATUS_FG,
+            background = CS.FILTER_LISTBOX_STATUS_BG, foreground = CS.FILTER_LISTBOX_STATUS_FG,
             bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -1923,7 +1989,7 @@ class AutomatedMining_View:
             # UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
         )
         self.labelFrameFilterListDataB.configure(
-            background = Color_support.FILTER_BG
+            background = CS.FILTER_BG
         )
 
         # FILTER LIST BOX - DATASET B
@@ -1935,11 +2001,11 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.listQueryDataA))
 
         self.listQueryDataB.configure(
-            background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
+            background = CS.FILTER_LISTBOX_BG, foreground = CS.FILTER_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = CS.FILTER_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = CS.FILTER_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.FILTER_LABEL_FONT,
             bd = UI_support.FILTER_LISTBOX_BORDER, relief = UI_support.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -1955,7 +2021,7 @@ class AutomatedMining_View:
             relheight = newRelH)
 
         self.labelQueryDataB.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_BG, foreground = Color_support.FILTER_LISTBOX_STATUS_FG,
+            background = CS.FILTER_LISTBOX_STATUS_BG, foreground = CS.FILTER_LISTBOX_STATUS_FG,
             bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -1984,15 +2050,15 @@ class AutomatedMining_View:
         # FILTER BORDERS
         self.separatorFilterListDataA = Label(self.labelFrameFilterListDataA)
         self.separatorFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
-        self.separatorFilterListDataA.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+        self.separatorFilterListDataA.configure(background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         self.separatorFilterListDataCenter = Label(self.labelFrameFilterListDataB)
         self.separatorFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
-        self.separatorFilterListDataCenter.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+        self.separatorFilterListDataCenter.configure(background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         self.separatorFilterListDataB = Label(self.labelFrameFilterListDataB)
         self.separatorFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
-        self.separatorFilterListDataB.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+        self.separatorFilterListDataB.configure(background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         # FILTER LOCK OVERLAY
         # FILTER LOCK QUERY ENTRY COVER
@@ -2022,7 +2088,7 @@ class AutomatedMining_View:
         )
         self.labelOverlayFilterQueryData.configure(
             background = self.labelFrameFilterQueryData['background'],
-            foreground = Color_support.FILTER_LABEL_OVERLAY_BG,
+            foreground = CS.FILTER_LABEL_OVERLAY_BG,
             text = '''Please confirm the dataset groupings before filtering''',
             font = UI_support.FILTER_LABEL_FONT,
             bd = 0, relief = GROOVE,
@@ -2067,8 +2133,8 @@ class AutomatedMining_View:
                         FS.getRelH(self.labelFilterStripes) - 0.018)
 
         self.labelOverlayFilterListDataA.configure(
-            background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
-            foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
+            background = CS.FILTER_LISTBOX_OVERLAY_BG,
+            foreground = CS.FILTER_LABEL_OVERLAY_FG,
             font = UI_support.FILTER_LABEL_FONT,
             # bd = 0, relief = RIDGE,
             bd = self.labelFrameFilterListDataA['bd'], relief = self.labelFrameFilterListDataA['relief'],
@@ -2085,8 +2151,8 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.labelQueryDataA) - newRelYReduction)
 
         self.labelOverlayQueryDataA.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
-            foreground = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
+            foreground = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
             bd = self.labelQueryDataA['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -2095,7 +2161,7 @@ class AutomatedMining_View:
         self.separatorOverlayFilterListDataA = Label(self.labelOverlayFilterListDataA)
         self.separatorOverlayFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataA.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
 
         # RIGHT COVER
@@ -2105,8 +2171,8 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.labelFrameFilterListDataB),
             relheight = FS.getRelH(self.labelOverlayFilterListDataA))
         self.labelOverlayFilterListDataB.configure(
-            background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
-            foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
+            background = CS.FILTER_LISTBOX_OVERLAY_BG,
+            foreground = CS.FILTER_LABEL_OVERLAY_FG,
             font = UI_support.FILTER_LABEL_FONT,
             bd = self.labelOverlayFilterListDataA['border'], relief = self.labelOverlayFilterListDataA['relief'],
             # bd = 1, relief = RIDGE,
@@ -2121,8 +2187,8 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.labelOverlayQueryDataA))
 
         self.labelOverlayQueryDataB.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
-            foreground = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
+            foreground = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
             bd = self.labelQueryDataA['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -2132,19 +2198,19 @@ class AutomatedMining_View:
         self.separatorOverlayFilterListDataCenter = Label(self.labelOverlayFilterListDataB)
         self.separatorOverlayFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataCenter.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         self.separatorOverlayFilterListDataB = Label(self.labelOverlayFilterListDataB)
         self.separatorOverlayFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataB.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
 
     ''' -> Elements under the PROCESS ("TEST") HEADER <- '''
 
     def configureProcessElements(self, parentFrame):
 
-        titleFrame = self.createTitleBar(parentFrame, '3', 'RESULTS', Color_support.PROCESS_TITLE_BG)
+        titleFrame = self.createTitleBar(parentFrame, '3', 'RESULTS', CS.PROCESS_TITLE_BG)
         titleFrame.place(relx = 0, rely = 0,
                          relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
 
@@ -2159,7 +2225,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_H
         )
         self.labelFrameProcessCommands.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # PROCESS STATISTICAL TEST OPTIONS
@@ -2170,7 +2236,7 @@ class AutomatedMining_View:
         )
 
         self.labelFrameProcessStatTests.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # TITLE
@@ -2182,7 +2248,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessStatTestsTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG, foreground = CS.PROCESS_Z_TEST_TITLE_FG,
             text = '''TYPE''',
             anchor = CENTER,
             bd = 0, relief = GROOVE
@@ -2198,7 +2264,7 @@ class AutomatedMining_View:
             relheight = 1 - FS.getRelH(self.labelFrameProcessStatTestsTitle)  # 0.35
         )
         self.labelFrameProcessStatTestsButtonElements.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # CHOOSE Z-TEST BUTTON
@@ -2214,8 +2280,8 @@ class AutomatedMining_View:
             relwidth = 1, relheight = 0.28
         )
         self.buttonChooseZTest.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.WHITE,
-            activebackground = Color_support.PROCESS_Z_TEST_TITLE_BG,
+            background = CS.D_BLUE, foreground = CS.WHITE,
+            activebackground = CS.PROCESS_Z_TEST_TITLE_BG,
             bd = 1, relief = GROOVE, overrelief = SUNKEN,
             font = UI_support.FONT_DEFAULT_BOLD,
             text = '''Z - TEST''')
@@ -2238,8 +2304,8 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.buttonChooseZTest), relheight = FS.getRelH(self.buttonChooseZTest)
         )
         self.buttonChooseChiSquare.configure(
-            background = Color_support.WHITE, foreground = Color_support.D_BLUE,
-            activebackground = Color_support.PROCESS_Z_TEST_TITLE_BG,
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            activebackground = CS.PROCESS_Z_TEST_TITLE_BG,
             bd = 1, relief = GROOVE, overrelief = SUNKEN,
             font = UI_support.FONT_DEFAULT_BOLD,
             text = '''CHI - SQUARE''')
@@ -2257,7 +2323,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
         )
         self.labelFrameProcessTestOptions.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         self.labelFrameProcessTestOptionsTitle = Label(self.labelFrameProcessTestOptions)
@@ -2268,7 +2334,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessTestOptionsTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG, foreground = CS.PROCESS_Z_TEST_TITLE_FG,
             # text = '''OPTIONS''',
             anchor = CENTER,
             bd = 1, relief = GROOVE
@@ -2287,7 +2353,7 @@ class AutomatedMining_View:
             # relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
         )
         self.labelFrameProcessZTest.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         self.labelFrameProcessZTestTitle = Label(self.labelFrameProcessZTest)
@@ -2298,7 +2364,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessZTestTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG, foreground = CS.PROCESS_Z_TEST_TITLE_FG,
             text = '''Z - TEST''',
             # text = '''OPTIONS''',
             anchor = CENTER,
@@ -2322,7 +2388,7 @@ class AutomatedMining_View:
             relwidth = 0.525, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_H
         )
         self.labelFrameProcessZTestConfidence.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         newRelX = FS.getRelX(self.labelFrameProcessZTestConfidence) + FS.getRelW(
@@ -2338,7 +2404,7 @@ class AutomatedMining_View:
             relheight = 0.35
         )
         self.labelFrameProcessZTestButtonElements.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # CONFIDENCE SPINBOX LABEL
@@ -2348,7 +2414,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_CONFIDENCE_TEXT_REL_H)
         self.labelQueryZConfidenceText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = CS.FG_COLOR, foreground = CS.SELECT_BG,
             text = '''CONFIDENCE'''
         )
 
@@ -2372,9 +2438,9 @@ class AutomatedMining_View:
         self.spinBoxQueryZConfidence.configure(
             textvariable = stringVar,
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.WHITE, foreground = Color_support.FG_COLOR,
+            background = CS.WHITE, foreground = CS.FG_COLOR,
             exportselection = 0,
-            buttonbackground = Color_support.WHITE,
+            buttonbackground = CS.WHITE,
             buttonuprelief = FLAT, buttondownrelief = GROOVE,
             justify = CENTER
 
@@ -2392,9 +2458,9 @@ class AutomatedMining_View:
         self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
         self.buttonQueryZTest.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
-            activebackground = Color_support.PROCESS_TITLE_BG,
-            highlightbackground = Color_support.PROCESS_TITLE_BG,
+            background = CS.PROCESS_BG, foreground = CS.PROCESS_BUTTONS_FG,
+            activebackground = CS.PROCESS_TITLE_BG,
+            highlightbackground = CS.PROCESS_TITLE_BG,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Test''')
 
@@ -2415,7 +2481,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = 1
         )
         self.labelFrameProcessChiSquare.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(self.labelFrameProcessChiSquare)
@@ -2430,8 +2496,8 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessChiSquareTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG,
-            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
+            background = CS.PROCESS_CHI_SQUARE_TITLE_BG,
+            foreground = CS.PROCESS_CHI_SQUARE_TITLE_FG,
 
             text = '''CHI - SQUARE''',
             anchor = CENTER,
@@ -2455,7 +2521,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = 0.35
         )
         self.labelFrameProcessChiSquareElements.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # QUEUE ELEMENTS
@@ -2465,7 +2531,7 @@ class AutomatedMining_View:
             relwidth = 0.45, relheight = 1
         )
         self.labelFrameProcessChiSquareQueue.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(
@@ -2479,7 +2545,7 @@ class AutomatedMining_View:
         )
         self.labelQueueText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = CS.FG_COLOR, foreground = CS.SELECT_BG,
             text = '''QUEUE SIZE'''
         )
 
@@ -2492,7 +2558,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = newRelH)
         self.labelQueueCount.configure(
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
+            background = CS.SELECT_BG,
             text = '''0'''
         )
 
@@ -2508,7 +2574,7 @@ class AutomatedMining_View:
             relwidth = 0.25, relheight = 1
         )
         self.labelFrameProcessQueue.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # Enqueue button
@@ -2521,7 +2587,7 @@ class AutomatedMining_View:
         self.buttonQueue.image = btn_queue_icon  # < ! > Required to make images appear
 
         self.buttonQueue.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            background = CS.PROCESS_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
 
         self.buttonQueue.pack(side = LEFT)
@@ -2536,7 +2602,7 @@ class AutomatedMining_View:
             relwidth = 0.25, relheight = 1
         )
         self.labelFrameProcessClearQueue.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         self.buttonClearQueue = Button(self.labelFrameProcessClearQueue, compound = CENTER)
@@ -2548,7 +2614,7 @@ class AutomatedMining_View:
         self.buttonClearQueue.image = btn_clear_queue_icon  # < ! > Required to make images appear
 
         self.buttonClearQueue.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            background = CS.PROCESS_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT
         )
 
@@ -2566,7 +2632,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TEST_PROCESS_RUN_PARENT, relheight = 1
         )
         self.labelFrameProcessRun.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # PROCESS RUN MINER TITLE
@@ -2578,8 +2644,8 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessRunMinerTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.D_BLUE, foreground = Color_support.WHITE,
-            # background = Color_support.PROCESS_RUN_MINER_TITLE_BG, foreground = Color_support.PROCESS_RUN_MINER_TITLE_FG,
+            background = CS.D_BLUE, foreground = CS.WHITE,
+            # background = CS.PROCESS_RUN_MINER_TITLE_BG, foreground = CS.PROCESS_RUN_MINER_TITLE_FG,
             text = '''RUN MINER''',
             anchor = CENTER,
             bd = 1, relief = GROOVE
@@ -2598,7 +2664,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = newRelH
         )
         self.labelFrameRunMiner.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
         self.labelFrameRunMinerElements = LabelFrame(self.labelFrameRunMiner, bd = 0)
         self.labelFrameRunMinerElements.place(
@@ -2606,7 +2672,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = 1
         )
         self.labelFrameRunMinerElements.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # region RUN MINER BUTTON
@@ -2621,7 +2687,7 @@ class AutomatedMining_View:
         self.buttonTestQueue.image = btn_queue_icon  # < ! > Required to make images appear
 
         self.buttonTestQueue.configure(
-            background = Color_support.PROCESS_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
+            background = CS.PROCESS_BUTTONS_BG, foreground = CS.PROCESS_BUTTONS_FG,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = FLAT)
 
@@ -2685,7 +2751,7 @@ class AutomatedMining_View:
         )
 
         self.labelFrameConsoleScreen.configure(
-            background = Color_support.CONSOLE_BG,
+            background = CS.CONSOLE_BG,
             bd = 0, relief = GROOVE
         )
 
@@ -2700,7 +2766,7 @@ class AutomatedMining_View:
         )
 
         self.labelConsoleScreenTaskBar.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = UI_support.LBL_SELECT_NO_DATA,
             font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -2744,7 +2810,7 @@ class AutomatedMining_View:
         )
 
         self.labelFrameConsoleControls.configure(
-            background = Color_support.WHITE,
+            background = CS.WHITE,
             bd = 0, relief = GROOVE
         )
 
@@ -2758,12 +2824,12 @@ class AutomatedMining_View:
 
         self.buttonConsoleAll.configure(
             text = '''ALL''',
-            background = Color_support.WHITE,
-            foreground = Color_support.FG_COLOR,
+            background = CS.WHITE,
+            foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.L_GRAY,
-            activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR
+            activebackground = CS.L_GRAY,
+            activeforeground = CS.DATASET_BTN_FG_ACTIVE,
+            disabledforeground = CS.FG_DISABLED_COLOR
         )
 
         # SHOW Z-TEST CONSOLE
@@ -2852,8 +2918,8 @@ class AutomatedMining_View:
         )
         self.listConsoleScreen.configure(
             yscrollcommand = self.scrollConsoleScreen.set,
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
-            selectbackground = Color_support.SELECT_LISTBOX_BG, selectforeground = Color_support.SELECT_LISTBOX_FG,
+            background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
+            selectbackground = CS.SELECT_LISTBOX_BG, selectforeground = CS.SELECT_LISTBOX_FG,
             font = UI_support.FONT_SMALL,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
 
@@ -2998,7 +3064,7 @@ class AutomatedMining_View:
             # relheight = newRelH
         )
         self.scrollConsoleScreen.configure(
-            background = Color_support.D_BLUE,
+            background = CS.D_BLUE,
             bd = 0,
         )
 
@@ -3031,7 +3097,7 @@ class AutomatedMining_View:
         labelNE.configure(
             image = corner_round_ne)
         labelNE.image = corner_round_ne  # < ! > Required to make images appear
-        labelNE.configure(background = Color_support.PALE_ORANGE)  # cornerParent['background'])
+        labelNE.configure(background = CS.PALE_ORANGE)  # cornerParent['background'])
         labelNE.pack()
         # labelNE.pack(side = RIGHT, fill = Y, expand = True, anchor = CENTER)
 
@@ -3060,7 +3126,7 @@ class AutomatedMining_View:
         separatorHolder.configure(background = color)
         return separatorHolder
 
-    def createLabelBorders(self, borderParent, color = Color_support.DISABLED_D_BLUE):
+    def createLabelBorders(self, borderParent, color = CS.DISABLED_D_BLUE):
 
         # COLORED SEPARATOR
         topBorder = self.createLabelSeparator(
