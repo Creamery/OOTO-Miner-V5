@@ -105,7 +105,7 @@ class AutomatedMining_Model:
                 entry[key.CODE].append(code)
                 entry[key.DESCRIPTION].append(description)
 
-        dictResponses = OrderedDict(sorted(dictResponses.items())) # Sort keys alphabetically
+        dictResponses = OrderedDict(sorted(dictResponses.items()))  # sort keys alphabetically
         return dictResponses
 
 
@@ -114,7 +114,7 @@ class AutomatedMining_Model:
 
         # Append SAMPLES
         for record in dataset:
-            orderedRecord = OrderedDict(record)
+            orderedRecord = OrderedDict(sorted(record.items()))  # sort keys alphabetically
             self.getPopulationDataset()[key.SAMPLES].append(orderedRecord)
             self.getDatasetA()[key.SAMPLES].append(orderedRecord)
             self.getDatasetB()[key.SAMPLES].append(orderedRecord)
@@ -123,7 +123,9 @@ class AutomatedMining_Model:
         self.getPopulationDataset()[key.FEATURE_LIST] = self.getFeatureDescription()
         self.getDatasetA()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
         self.getDatasetB()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
-
+        print "getPopulationDataset[key.SAMPLES]"
+        # print str(type(self.getPopulationDataset()[key.SAMPLES][0]))
+        # print str(self.getPopulationDataset()[key.SAMPLES])
 
 
     def __resetFeatureDescription(self):

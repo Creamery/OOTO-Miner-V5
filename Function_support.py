@@ -351,6 +351,12 @@ def getX(element):
 def getY(element):
     return float(element.place_info()['y'])
 
+def getInfoX(element):
+    return float(element.winfo_x())
+
+def getInfoY(element):
+    return float(element.winfo_y())
+
 def getInfoW(element):
     return float(element.winfo_width())
 
