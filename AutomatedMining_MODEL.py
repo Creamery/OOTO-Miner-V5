@@ -183,6 +183,10 @@ class AutomatedMining_Model:
         self.startThread(evt)
         return "break"
 
+    def confirmConfirmedFeatures(self, evt):
+        print "confirmConfirmedFeatures"
+        return "break"
+
     def resetFeatureSelect(self, evt):
         print "resetFeatureSelect"
         return "break"

@@ -75,6 +75,9 @@ class AutomatedMining_Controller:
         button = self.view.getBtnConfirmFeatureSelect()
         button.bind('<Button-1>', self.model.confirmFeatureSelect)
 
+        button = self.view.getBtnConfirmConfirmedFeatures()
+        button.bind('<Button-1>', self.model.confirmConfirmedFeatures)
+
         button = self.view.getBtnResetFeatureSelect()
         button.bind('<Button-1>', self.model.resetFeatureSelect)
 

@@ -386,14 +386,11 @@ def copyWidget(widget, parent):
     # parent = widget.nametowidget(widget.winfo_parent())
 
     widgetClass = widget.__class__
-    print("class is " + str(widgetClass))
     clone = widgetClass(parent)
 
 
     # set configuration according to class
     copyWidgetConfiguration(clone, widget)
-    # for key in widget.configure():
-    #     clone.configure({key: widget.cget(key)})
     return clone
 
 def copyWidgetConfiguration(widget, reference):
@@ -455,16 +452,3 @@ def copyWidgetConfiguration(widget, reference):
             relief = reference['relief'],
             highlightthickness = reference['highlightthickness']
         )
-
-
-
-
-
-# def copyWidget(widget):
-#     parent = widget.nametowidget(widget.winfo_parent())
-#     widgetClass = widget.__class__
-#
-#     clone = widgetClass(parent)
-#     # for key in widget.configure():
-#     #     clone.configure({key: widget.cget(key)})
-#     return clone

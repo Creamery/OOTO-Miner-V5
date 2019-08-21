@@ -40,6 +40,8 @@ import KEYS_support as key
 class AutomatedMining_View:
 
     def __init__(self, parentFrame):
+        self.initializeProperties()
+
         # parent frame for all elements in the Automated Mining tab
         self.lfTabParentFrame = self.initTabFrame(parentFrame)
 
@@ -71,6 +73,17 @@ class AutomatedMining_View:
         # self.configureTestTabElements(parentFrame)
         # self.configureZTestElements(parentFrame)
         # self.configureTestTabConsoleElements(parentFrame)
+
+    def initializeProperties(self):
+        self.btnConfirmConfirmedFeatures = [None]
+        self.btnResetConfirmedFeatures = [None]
+        self.btnQueryConfirmedFeatures = [None]
+        self.lbListConfirmedFeatures = [None]
+        self.lbListConfirmedDetails = [None]
+        self.lblCountConfirmedFeaturesText = [None]
+        self.entryQueryConfirmedFeatures = [None]
+        self.lblHeaderConfirmedFeatures = [None]
+
 
     """A recursive call that updates all Widgets and their Widget children"""
     def redraw(self, parentFrame):
@@ -135,41 +148,104 @@ class AutomatedMining_View:
         # adjust elements
         self.adjustFeatureList(inputFrame)
 
-        # create a copy of featurelist
-        self.lfConfirmedFeatures = LabelFrame(inputFrame, bd = 0)
+        # create the ConfirmedFeatures frame, which is a copy of the FeatureSelect frame
+        self.lfFeatureSelect.update()
+        self.lfConfirmedFeatures = FS.copyWidget(self.lfFeatureSelect, inputFrame)
+        # region init lfConfirmedFeatures
         reference = self.lfFeatureSelect
         self.lfConfirmedFeatures.place(
             x = 300, y = reference.winfo_y(),
             width = reference.winfo_width(),
             height = reference.winfo_height())
-        self.createConfirmedFeatures(self.lfConfirmedFeatures, self.lfFeatureSelect)
+        # endregion lfConfirmedFeatures
+
+        # assign widgets to track from FeatureSelect to ConfirmedFeatures
+        trackedWidgets, trackedVariableList = self.getTrackedConfirmedFeaturesWidgets()
+
+        # create a copy of FeatureSelect and assign 'tracked' widgets (e.g. buttons, entries, labels)
+        # to corresponding ConfirmedFeatures (self) variables
+        self.createConfirmedFeatures(self.lfConfirmedFeatures, self.lfFeatureSelect, trackedWidgets, trackedVariableList)
+
+        # 'apply' tracked widget variables to ConfirmedFeatures (self) variables by 'de-listing' them
+        self.applyTrackedConfirmedFeaturesWidgets()
+
+        # adjust elements
+        self.adjustConfirmedFeatures(inputFrame)
 
         return inputFrame
 
-    def createConfirmedFeatures(self, parentFrame, reference):
+    """Adjust values of ConfirmedFeatures (since it is a direct clone of FeatureSelect)"""
+    def adjustConfirmedFeatures(self, parentFrame):
+        self.lblHeaderConfirmedFeatures['text'] = 'SELECTED FEATURES'
+
+
+    """
+    Track FeatureSelect widgets to be assigned to ConfirmedFeatures widgets.
+    You must call applyTracked<...>Widgets afterwards.
+    """
+    def getTrackedConfirmedFeaturesWidgets(self):
+        trackedWidgets = {
+            repr(self.btnConfirmFeatureSelect): 0,
+            repr(self.btnResetFeatureSelect): 1,
+            repr(self.btnQueryFeatureList): 2,
+            repr(self.lbListFeatureSelect): 3,
+            repr(self.lbListFeatureDetails): 4,
+            repr(self.lblCountFeatureSelectText): 5,
+            repr(self.entryQueryFeatureList): 6,
+            repr(self.lblHeaderFeatureSelect): 7
+        }
+        trackedVariableList = [
+            self.btnConfirmConfirmedFeatures,
+            self.btnResetConfirmedFeatures,
+            self.btnQueryConfirmedFeatures,
+            self.lbListConfirmedFeatures,
+            self.lbListConfirmedDetails,
+            self.lblCountConfirmedFeaturesText,
+            self.entryQueryConfirmedFeatures,
+            self.lblHeaderConfirmedFeatures
+        ]
+        return trackedWidgets, trackedVariableList
+
+    """
+    Sets the variable values to the widget assignment
+    (Since the widgets are placed in a list in order to be updated).
+    """
+    def applyTrackedConfirmedFeaturesWidgets(self):
+        self.btnConfirmConfirmedFeatures = self.btnConfirmConfirmedFeatures[0]
+        self.btnResetConfirmedFeatures = self.btnResetConfirmedFeatures[0]
+        self.btnQueryConfirmedFeatures = self.btnQueryConfirmedFeatures[0]
+        self.lbListConfirmedFeatures = self.lbListConfirmedFeatures[0]
+        self.lbListConfirmedDetails = self.lbListConfirmedDetails[0]
+        self.lblCountConfirmedFeaturesText = self.lblCountConfirmedFeaturesText[0]
+        self.entryQueryConfirmedFeatures = self.entryQueryConfirmedFeatures[0]
+        self.lblHeaderConfirmedFeatures = self.lblHeaderConfirmedFeatures[0]
+
+
+    def createConfirmedFeatures(self, parentFrame, reference, trackedWidgets, trackedVariableList):
         reference.update()
         for item in reference.winfo_children():
             itemClone = FS.copyWidget(item, parentFrame)
+
+            [isTracking, variableIndex] = self.checkTracking(item, trackedWidgets)
+            if isTracking:
+                print "isTracking index " + str(variableIndex)
+                trackedVariableList[variableIndex][0] = itemClone
+
+
             if isinstance(itemClone, Widget):
-                self.createConfirmedFeatures(itemClone, item)
+                self.createConfirmedFeatures(itemClone, item, trackedWidgets, trackedVariableList)
             else:
                 return "break"
-    # def createConfirmedFeatures(self, parentFrame, reference):
-    #
-    #     self.lfConfirmedFeatures = LabelFrame(parentFrame, bd = 0)
-    #     self.lfConfirmedFeatures.place(
-    #         x = 300, y = reference.winfo_y(),
-    #         width = reference.winfo_width(),
-    #         height = reference.winfo_height())
-    #
-    #     parent = self.lfConfirmedFeatures
-    #     for item in reference.winfo_children():
-    #         FS.copyWidget(item, parent)
-    #         if isinstance(item, Widget):
-    #             self.redraw(item)
-    #         else:
-    #             return "break"
 
+
+
+    def checkTracking(self, item, trackedWidgets):
+        itemKey = repr(item)
+        # print("itemKey is " + str(itemKey) + " in " + str(trackedWidgets.keys()))
+        if FS.checkKey(trackedWidgets, itemKey):
+            return True, trackedWidgets[itemKey]
+        else:
+            return False, -1
 
     def adjustFeatureList(self, parentFrame):
         self.redraw(parentFrame)
@@ -531,6 +607,7 @@ class AutomatedMining_View:
 
         # endregion init lbListFeatureSelect
 
+
         self.lfCommandsFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
         # region init lfCommandsFeatureSelect
         self.lfCommandsFeatureSelect.place(
@@ -601,8 +678,7 @@ class AutomatedMining_View:
         )
         # endregion init self.lblCountFeatureSelectTitle
 
-
-
+        """
         self.lfStatusConfirmedFeatures = LabelFrame(self.lfConfirmedFeatures, bd = 0)
         # region init lfStatusConfirmedFeatures
         self.lfStatusConfirmedFeatures.place(
@@ -835,7 +911,6 @@ class AutomatedMining_View:
         #
         # # endregion init command separators
 
-
         self.lfCountConfirmedFeatures = LabelFrame(self.lfCommandsConfirmedFeatures, bd = 1)
         # region init self.lfCountConfirmedFeatures
         self.lfCountConfirmedFeatures.place(
@@ -871,7 +946,8 @@ class AutomatedMining_View:
         newRelX = FS.getRelX(self.lfCountFeatureSelect) + FS.getRelW(self.lfCountFeatureSelect)
 
         # endregion init self.lblCountConfirmedFeaturesTitle
-
+        
+        """
 
         self.btnConfirmFeatureSelect = Button(self.lfCommandsFeatureSelect, compound = CENTER)  # TODO getter
         # region init btnConfirmFeatureSelect
@@ -892,6 +968,7 @@ class AutomatedMining_View:
         self.btnConfirmFeatureSelect.pack(side = RIGHT)
         self.btnResetFeatureSelect.pack(side = LEFT)
 
+        """
         newRelX = FS.getRelX(self.lfCountConfirmedFeatures) + FS.getRelW(self.lfCountConfirmedFeatures)
         # endregion init btnConfirmFeatureSelect
 
@@ -914,6 +991,8 @@ class AutomatedMining_View:
         self.btnConfirmConfirmedFeatures.pack(side = RIGHT)
         self.btnResetConfirmedFeatures.pack(side = LEFT)
         # endregion init btnConfirmConfirmedFeatures
+        """
+
 
 
     def emborder(self, parentFrame, borderX, borderY, borderW, borderH,
@@ -3348,6 +3427,10 @@ class AutomatedMining_View:
 
     def getEntryQueryFeatureList(self):
         return self.entryQueryFeatureList
+
+
+    def getBtnConfirmConfirmedFeatures(self):
+        return self.btnConfirmConfirmedFeatures
     # endregion GETTERS
 
 
