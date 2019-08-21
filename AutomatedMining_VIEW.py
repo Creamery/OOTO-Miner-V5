@@ -77,7 +77,7 @@ class AutomatedMining_View:
         parentFrame.update()
 
         for item in parentFrame.winfo_children():
-            print 'item type is ' + str(type(item))
+            # print 'item type is ' + str(type(item))
             item.place(
                 relx = 0, rely = 0, relwidth = 0, relheight = 0,
                 x = item.winfo_x(), y = item.winfo_y(), width = item.winfo_width(), height = item.winfo_height())
@@ -140,6 +140,7 @@ class AutomatedMining_View:
     def adjustFeatureList(self, parentFrame):
         self.redraw(parentFrame)
 
+        # region extend Feature List and emborder Commands
         height = self.lfCommandsFeatureSelect.winfo_height() * 5
         parentFrame.place(height = parentFrame.winfo_height() + height)
 
@@ -161,6 +162,28 @@ class AutomatedMining_View:
         borderH = self.lfFeatureSelect.winfo_height() - (self.lfListFeatureSelect.winfo_y() + self.lfListFeatureSelect.winfo_height())
         self.emborder(self.lfFeatureSelect, borderX, borderY, borderW, borderH)
 
+        # endregion extend Feature List and emborder Commands
+
+        # region adjust counter
+        self.lfCountFeatureSelect.place(
+            relwidth = 0, relheight = 0,
+            width = self.lfCountFeatureSelect.winfo_width(),
+            height = self.lfCountFeatureSelect.winfo_height() + 6
+        )
+
+        self.lblCountFeatureSelectText.place(
+            relx = 0,
+            rely = 0,
+            x = self.lblCountFeatureSelectText.winfo_x() - 5,
+            y = - 2)
+        FS.placeBelow(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText)
+        FS.alignStart(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText, - 1)
+
+        self.redraw(parentFrame)
+
+        # endregion
+
+
     def createTitleBar(self, parentFrame, strNumber, strName, colorBG):
         titleFrame = LabelFrame(parentFrame, bd = 0)
         titleFrame.configure(
@@ -171,7 +194,7 @@ class AutomatedMining_View:
         self.createLabelSeparator(
             titleFrame, 1,
             False, colorBG, UI_support.TITLE_SEPARATOR_H,
-            0.5, W
+            0.5
         )
 
         titleNumber = Label(titleFrame)
@@ -653,7 +676,7 @@ class AutomatedMining_View:
         )
         # endregion init btnQueryConfirmedFeatures
 
-        
+
         self.lfCommandsConfirmedFeatures = LabelFrame(self.lfConfirmedFeatures, bd = 0)
         # region init self.lfCommandsConfirmedFeatures
         self.lfCommandsConfirmedFeatures.place(
@@ -682,7 +705,7 @@ class AutomatedMining_View:
             image = btn_query_reset_icon)
         self.btnResetConfirmedFeatures.image = btn_query_reset_icon  # < ! > Required to make images appear
         # endregion init btnResetConfirmedFeatures
-    
+
         # # region init command separators
         # sepCommandsConfirmedFeaturesRight = Label(self.lfConfirmedFeatures)
         # sepCommandsConfirmedFeaturesRight.place(

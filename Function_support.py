@@ -363,4 +363,21 @@ def getInfoW(element):
 def getInfoH(element):
     return float(element.winfo_height())
 
+def placeBelow(element, reference):
+    element.update()
+    reference.update()
+
+    newY = reference.winfo_y() + reference.winfo_height()
+    element.place(
+        rely = 0, y = newY
+    )
+
+def alignStart(element, reference, offset = 0):
+    element.update()
+    reference.update()
+
+    newX = reference.winfo_x()
+    element.place(
+        relx = 0, x = newX + offset
+    )
 
