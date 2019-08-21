@@ -83,6 +83,7 @@ class AutomatedMining_View:
         self.lblCountConfirmedFeaturesText = [None]
         self.entryQueryConfirmedFeatures = [None]
         self.lblHeaderConfirmedFeatures = [None]
+        self.lblCountConfirmedFeaturesTitle = [None]
 
 
     """A recursive call that updates all Widgets and their Widget children"""
@@ -153,8 +154,9 @@ class AutomatedMining_View:
         self.lfConfirmedFeatures = FS.copyWidget(self.lfFeatureSelect, inputFrame)
         # region init lfConfirmedFeatures
         reference = self.lfFeatureSelect
+        newX = inputFrame.winfo_width() - reference.winfo_x() - reference.winfo_width()
         self.lfConfirmedFeatures.place(
-            x = 300, y = reference.winfo_y(),
+            x = newX, y = reference.winfo_y(),
             width = reference.winfo_width(),
             height = reference.winfo_height())
         # endregion lfConfirmedFeatures
@@ -172,12 +174,30 @@ class AutomatedMining_View:
         # adjust elements
         self.adjustConfirmedFeatures(inputFrame)
 
+        # region create vertical separator
+        inputFrame.update()
+        offset = 5
+        newY = self.lfFeatureSelect.winfo_y() + self.lfHeaderFeatureSelect.winfo_y() + offset
+        newHeight = self.lfFeatureSelect.winfo_height() - (offset * 6)
+        verticalSeparator = ttk.Separator(inputFrame, orient = VERTICAL)
+        verticalSeparator.place(relx = 0.5, y = newY,
+                                height = newHeight)
+        # endregion create vertical separator
+
         return inputFrame
 
     """Adjust values of ConfirmedFeatures (since it is a direct clone of FeatureSelect)"""
     def adjustConfirmedFeatures(self, parentFrame):
-        self.lblHeaderConfirmedFeatures['text'] = 'SELECTED FEATURES'
+        parentFrame.update()
 
+        self.lblHeaderConfirmedFeatures['text'] = 'SELECTED FEATURES'
+        self.lblCountConfirmedFeaturesText.place(
+            relx = 0, rely = 0,
+            x = - 1, y = - 1)
+            # x = self.lblCountFeatureSelectTitle,
+            # y = self.lblCountFeatureSelectTitle)
+        FS.placeBelow(self.lblCountConfirmedFeaturesTitle, self.lblCountConfirmedFeaturesText)
+        FS.alignStart(self.lblCountConfirmedFeaturesTitle, self.lblCountConfirmedFeaturesText)
 
     """
     Track FeatureSelect widgets to be assigned to ConfirmedFeatures widgets.
@@ -192,7 +212,8 @@ class AutomatedMining_View:
             repr(self.lbListFeatureDetails): 4,
             repr(self.lblCountFeatureSelectText): 5,
             repr(self.entryQueryFeatureList): 6,
-            repr(self.lblHeaderFeatureSelect): 7
+            repr(self.lblHeaderFeatureSelect): 7,
+            repr(self.lblCountFeatureSelectTitle): 8
         }
         trackedVariableList = [
             self.btnConfirmConfirmedFeatures,
@@ -202,7 +223,8 @@ class AutomatedMining_View:
             self.lbListConfirmedDetails,
             self.lblCountConfirmedFeaturesText,
             self.entryQueryConfirmedFeatures,
-            self.lblHeaderConfirmedFeatures
+            self.lblHeaderConfirmedFeatures,
+            self.lblCountConfirmedFeaturesTitle
         ]
         return trackedWidgets, trackedVariableList
 
@@ -219,6 +241,7 @@ class AutomatedMining_View:
         self.lblCountConfirmedFeaturesText = self.lblCountConfirmedFeaturesText[0]
         self.entryQueryConfirmedFeatures = self.entryQueryConfirmedFeatures[0]
         self.lblHeaderConfirmedFeatures = self.lblHeaderConfirmedFeatures[0]
+        self.lblCountConfirmedFeaturesTitle = self.lblCountConfirmedFeaturesTitle[0]
 
 
     def createConfirmedFeatures(self, parentFrame, reference, trackedWidgets, trackedVariableList):
@@ -434,10 +457,6 @@ class AutomatedMining_View:
         )
         # endregion init lfConfirmedFeatures
 
-        verticalSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
-        # region init vertical separator
-        verticalSeparator.place(relx = 0.5, rely = newRelY + 0.05, relheight = 1 - titleRelH - 0.1)
-        # endregion init vertical separator
 
         self.lfHeaderFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
         # region init lfHeaderFeatureSelect
