@@ -26,7 +26,7 @@ class ViewModel:
 
     def __init__(self):
         self.setQueryFeatureList('')
-        self.setCurrentResponses({})
+        self.setCurrentResponse({})
         self.setSelectedFeatures([])
         self.setPrevSelectedFeatures([])
 
@@ -39,8 +39,8 @@ class ViewModel:
     def getCurrentFeature(self):
         return self.__currentQueryFeatureList
 
-    def getCurrentResponses(self):
-        return self.__currentResponses
+    def getCurrentResponse(self):
+        return self.__currentResponse
 
     def getSelectedFeatures(self):
         return self.__selectedFeatures
@@ -52,8 +52,8 @@ class ViewModel:
     def setQueryFeatureList(self, value):
         self.__currentQueryFeatureList = value
 
-    def setCurrentResponses(self, value):
-        self.__currentResponses = value
+    def setCurrentResponse(self, value):
+        self.__currentResponse = value
 
     def setSelectedFeatures(self, value):
         self.__selectedFeatures = value
@@ -77,9 +77,11 @@ class ViewModel:
             self.setPrevSelectedFeatures(newSelectedFeatures)
             changedSelection = newSelectedFeatures
 
-        index = int(list(changedSelection)[0])
-        lastSelectedIndex = listbox.get(index)
-
+        if len(changedSelection) > 0:
+            index = int(list(changedSelection)[0])
+            lastSelectedIndex = listbox.get(index)
+        else:
+            lastSelectedIndex = -1
         print('ls '+ str(lastSelectedIndex))
         return lastSelectedIndex
 
@@ -203,12 +205,13 @@ class AutomatedMining_Model:
         hasKey = FS.checkKey(featureList, featureID)
 
         if hasKey:
-            responses = featureList[featureID][key.RESPONSES]
+            response = featureList[featureID][key.RESPONSES]
             print "Key found"
         else:
             responses = {}
 
-        return responses
+        self.setCurrentResponse(response)
+        return response
 
     """BUTTON FUNCTIONS"""
     def confirmFeatureSelect(self, evt):
@@ -242,11 +245,11 @@ class AutomatedMining_Model:
         print "featureID " + str(featureID)
 
         self.viewModel.setQueryFeatureList(featureID)
-        responses = self.__getFeatureResponses(featureID)
+        response = self.__getFeatureResponses(featureID)
 
         # Update contents of listbox
-        self.viewModel.setCurrentResponses(responses)
-        return responses
+        self.viewModel.setCurrentResponse(response)
+        return response
 
     """GETTERS"""
     def getFeatureDescription(self):
@@ -281,6 +284,22 @@ class AutomatedMining_Model:
 
     def __setDatasetB(self, value):
         self.__datasetB = OrderedDict(value)
+
+    """UPDATERS"""
+    def updateSelectedFeatureResponse(self, selectedItem):
+        featureId = self.extractFeatureID(selectedItem)
+        response = {}
+        if len(self.getFeatureDescription()) > 0:
+            response = self.getFeatureDescription()[featureId][key.RESPONSES]
+            self.viewModel.setCurrentResponse(response)
+
+        return response
+
+    def extractFeatureID(self, selectedItem):
+        featureId = str(selectedItem).strip()[0:2]
+        print str(featureId)
+        return featureId
+
 
     # THREADING TEST FUNCTIONS
     def startThread(self, evt):

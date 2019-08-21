@@ -195,7 +195,7 @@ class AutomatedMining_View:
             relx = 0, rely = 0,
             x = - 1, y = - 1)
         FS.placeBelow(self.lblCountConfirmedFeaturesTitle, self.lblCountConfirmedFeaturesText)
-        FS.alignStart(self.lblCountConfirmedFeaturesTitle, self.lblCountConfirmedFeaturesText)
+        FS.alignStart(self.lblCountConfirmedFeaturesTitle, self.lblCountConfirmedFeaturesText, -1)
 
     """
     Track FeatureSelect widgets to be assigned to ConfirmedFeatures widgets.
@@ -273,7 +273,7 @@ class AutomatedMining_View:
 
         # region extend lfFeatureList
         height = 165 # self.lfCommandsFeatureSelect.winfo_height() * 5
-        partialTopHeight = 100
+        partialTopHeight = 80
         partialBottomHeight = height - partialTopHeight
 
         parentFrame.place(height = parentFrame.winfo_height() + height)
@@ -293,7 +293,7 @@ class AutomatedMining_View:
 
         # region create lfListFeatureDetails
         self.redraw(parentFrame)
-        self.lfListFeatureDetails, self.lbListFeatureDetails = self.createFeatureDetails(self.lfFeatureSelect,
+        self.lfListFeatureDetails, self.lbListFeatureDetails, self.lblHeaderFeatureDetails = self.createFeatureDetails(self.lfFeatureSelect,
                                                                                          self.lfListFeatureSelect,
                                                                                          partialBottomHeight)
         self.redraw(parentFrame)
@@ -347,7 +347,6 @@ class AutomatedMining_View:
 
     def createFeatureDetails(self, parentFrame, referenceFrame, listHeight):
         lfListFeatureDetails = LabelFrame(parentFrame, bd = 0)
-
         # region init lfListFeatureDetails
         referenceFrame.update()
         lfListFeatureDetails.place(width = referenceFrame.winfo_width(), height = listHeight)
@@ -355,23 +354,38 @@ class AutomatedMining_View:
         FS.alignStart(lfListFeatureDetails, referenceFrame)
         # endregion lfListFeatureDetails
 
+        lblHeaderFeatureDetails = Label(lfListFeatureDetails)
+        # region init lblHeaderFeatureDetails
+        lblHeaderFeatureDetails.place(
+            x = 0, y = 1,
+            width = referenceFrame.winfo_width(), height = self.lblHeaderFeatureSelect.winfo_height())
+        lblHeaderFeatureDetails.configure(
+            background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
+            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
+            text = 'OPTIONS',
+            font = UI_support.SELECT_STATUS_LABEL_FONT,
+        )
+        # endregion lblHeaderFeatureDetails
+
         lbListFeatureDetails = Listbox(lfListFeatureDetails)  # TODO getter
         # region init lbListFeatureDetails
         lbListFeatureDetails.configure(
-            background = CS.SELECT_LISTBOX_BG, foreground = CS.D_BLUE,
-            selectmode = MULTIPLE, exportselection = "0",
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            selectmode = SINGLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectbackground = CS.DISABLED_ORANGE,
             selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
-            bd = 0, # UI_support.SELECT_LISTBOX_BORDER,
+            bd = 0,
             relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
-        lbListFeatureDetails.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+        lbListFeatureDetails.place(relwidth = 1, relheight = 1)
+        FS.placeBelow(lbListFeatureDetails, lblHeaderFeatureDetails, -1)
+        FS.alignStart(lbListFeatureDetails, lblHeaderFeatureDetails)
         # endregion lbListFeatureDetails
 
-        return lfListFeatureDetails, lbListFeatureDetails
+        return lfListFeatureDetails, lbListFeatureDetails, lblHeaderFeatureDetails
     def createTitleBar(self, parentFrame, strNumber, strName, colorBG):
         titleFrame = LabelFrame(parentFrame, bd = 0)
         titleFrame.configure(
@@ -3442,6 +3456,9 @@ class AutomatedMining_View:
     def getLbListFeatureSelect(self):
         return self.lbListFeatureSelect
 
+    def getLbListFeatureDetails(self):
+        return self.lbListFeatureDetails
+
     def getEntryQueryFeatureList(self):
         return self.entryQueryFeatureList
 
@@ -3459,3 +3476,11 @@ class AutomatedMining_View:
         for featureID in featureIDs:
             entry = "  " + str(featureID) + "  -  " + str(dictContents[featureID][key.DESCRIPTION])
             self.getLbListFeatureSelect().insert(END, str(entry))
+
+    def updateLbListFeatureDetails(self, dictResponses):
+        self.getLbListFeatureDetails().delete(0, END)
+
+        responseIDs = dictResponses.keys()
+        for responseID in responseIDs:
+            entry = "  " + str(responseID) + "  -  " + str(dictResponses[responseID][key.DESCRIPTION])
+            self.getLbListFeatureDetails().insert(END, str(entry))
