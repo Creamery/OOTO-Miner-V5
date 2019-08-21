@@ -25,18 +25,18 @@ import KEYS_support as key
 class ViewModel:
 
     def __init__(self):
-        self.setCurrentFeature('')
+        self.setQueryFeatureList('')
         self.setCurrentResponses({})
         self.setSelectedResponses([])
 
     """FUNCTIONS"""
     def resetFeature(self):
-        self.setCurrentFeature('')
+        self.setQueryFeatureList('')
         self.setSelectedResponses([])
 
     """GETTERS"""
     def getCurrentFeature(self):
-        return self.__currentFeature
+        return self.__currentQueryFeatureList
 
     def getCurrentResponses(self):
         return self.__currentResponses
@@ -45,8 +45,8 @@ class ViewModel:
         return self.__selectedResponses
 
     """SETTERS"""
-    def setCurrentFeature(self, value):
-        self.__currentFeature = value
+    def setQueryFeatureList(self, value):
+        self.__currentQueryFeatureList = value
 
     def setCurrentResponses(self, value):
         self.__currentResponses = value
@@ -146,6 +146,25 @@ class AutomatedMining_Model:
         # self.queryResetDatasetA(None)
         # self.queryResetDatasetB(None)
 
+
+    """Returns a list of feature values"""
+    def __getFeatureQuery(self, queryString):
+        featureList = self.getFeatureDescription()
+
+        queryStringKeys = []
+        for featureKey in featureList.keys():
+            print(str(featureKey) + " vs " + queryString)
+            print("find returns : " + str(str(featureKey).find(queryString)))
+            if str(featureKey).find(queryString) > -1: # if key contains string
+                queryStringKeys.append(featureKey)
+
+
+        # queryFeatureList = [featureList[x] for x in queryStringKeys]
+        queryFeatureList = {key: value for key, value in featureList.items() if key in queryStringKeys}
+        queryFeatureList = OrderedDict(sorted(queryFeatureList.items()))
+        print(str(queryFeatureList))
+        return queryFeatureList
+
     def __getFeatureResponses(self, featureID):
         featureList = self.getFeatureDescription()
         hasKey = FS.checkKey(featureList, featureID)
@@ -171,7 +190,21 @@ class AutomatedMining_Model:
     def queryFeature(self, featureID):
         # featureID = self.viewModel.getCurrentFeature()
         print "featureID " + str(featureID)
-        self.viewModel.setCurrentFeature(featureID)
+
+        self.viewModel.setQueryFeatureList(featureID)
+        queryFeatureList = self.__getFeatureQuery(featureID)
+        # responses = self.__getFeatureResponses(featureID)
+
+        # Update contents of listbox
+        self.viewModel.setQueryFeatureList(queryFeatureList)
+        # self.viewModel.setCurrentResponses(responses)
+        return queryFeatureList
+
+    def queryFeatureResponses(self, featureID):
+        # featureID = self.viewModel.getCurrentFeature()
+        print "featureID " + str(featureID)
+
+        self.viewModel.setQueryFeatureList(featureID)
         responses = self.__getFeatureResponses(featureID)
 
         # Update contents of listbox

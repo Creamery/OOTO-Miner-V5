@@ -89,10 +89,12 @@ class AutomatedMining_Controller:
 
     def queryFeatureID(self, evt):
         print "queryFeatureID"
+        # get featureID from entry widget
         featureID = self.view.getEntryQueryFeatureList().get()
-        responses = self.model.queryFeature(featureID)
 
-        self.view.updateLbListFeatureSelect(responses)
+        queryFeatureList = self.model.queryFeature(featureID)
+
+        self.view.updateLbListFeatureSelect(queryFeatureList)
 
 
     def selectFeature(self, evt):
