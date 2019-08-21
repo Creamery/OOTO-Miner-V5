@@ -27,18 +27,21 @@ except ImportError:
     py3 = 1
 
 
-import Color_support
+import Color_support as CS
 import Icon_support
 import UI_support
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
+import KEYS_support as key
 
 
 class AutomatedMining_View:
 
     def __init__(self, parentFrame):
+        self.initializeProperties()
+
         # parent frame for all elements in the Automated Mining tab
         self.lfTabParentFrame = self.initTabFrame(parentFrame)
 
@@ -57,9 +60,48 @@ class AutomatedMining_View:
         # frame containing the console UI elements
         self.lfConsoleFrame = self.initConsoleUI(self.lfTabParentFrame, self.lfProcessFrame)
 
+        self.redraw(self.lfTabParentFrame)
+        self.lfProcessFrame.place(width = 0, height = 0)
+        self.lfResultsFrame.place(width = 0, height = 0)
+        # self.lfConsoleFrame.place(width = 0, height = 0)
+
+
+
+        # print "After HEIGHT: " + str(self.lfCommandsFeatureSelect.place_info())
+        # print "After HEIGHT: " + str(self.lfCommandsFeatureSelect.winfo_height())
+
         # self.configureTestTabElements(parentFrame)
         # self.configureZTestElements(parentFrame)
         # self.configureTestTabConsoleElements(parentFrame)
+
+    def initializeProperties(self):
+        self.btnConfirmConfirmedFeatures = [None]
+        self.btnResetConfirmedFeatures = [None]
+        self.btnQueryConfirmedFeatures = [None]
+        self.lbListConfirmedFeatures = [None]
+        self.lbListConfirmedDetails = [None]
+        self.lblCountConfirmedFeaturesText = [None]
+        self.entryQueryConfirmedFeatures = [None]
+        self.lblHeaderConfirmedFeatures = [None]
+        self.lblCountConfirmedFeaturesTitle = [None]
+
+
+    """A recursive call that updates all Widgets and their Widget children"""
+    def redraw(self, parentFrame):
+        parentFrame.update()
+
+        for item in parentFrame.winfo_children():
+            # print 'item type is ' + str(type(item))
+            item.place(
+                relx = 0, rely = 0, relwidth = 0, relheight = 0,
+                x = item.winfo_x(), y = item.winfo_y(), width = item.winfo_width(), height = item.winfo_height())
+            if isinstance(item, Widget):
+                self.redraw(item)
+            else:
+                return "break"
+
+        parentFrame.update()
+        # print "HEIGHT: " + str(self.lfFeatureSelect.place_info())
 
     def initTabFrame(self, parentFrame):
         tabFrame = LabelFrame(parentFrame, bd = 0)
@@ -68,7 +110,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
         )
         tabFrame.configure(
-            background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
+            background = CS.TAB_BG_COLOR, foreground = CS.FG_COLOR
         )
         return tabFrame
 
@@ -80,7 +122,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
         )
         topPaddingFrame.configure(
-            background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR
+            background = CS.TYPE_BG, foreground = CS.FG_COLOR
         )
         # endregion topPaddingFrame
         return topPaddingFrame
@@ -97,25 +139,264 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
         inputFrame.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR
         )
         # endregion init lfInputElements
 
+        # configure elements
         self.initFeatureList(inputFrame)
+
+        # adjust elements
+        self.adjustFeatureList(inputFrame)
+
+        # create the ConfirmedFeatures frame, which is a copy of the FeatureSelect frame
+        self.lfFeatureSelect.update()
+        self.lfConfirmedFeatures = FS.copyWidget(self.lfFeatureSelect, inputFrame)
+        # region init lfConfirmedFeatures
+        reference = self.lfFeatureSelect
+        newX = inputFrame.winfo_width() - reference.winfo_x() - reference.winfo_width()
+        self.lfConfirmedFeatures.place(
+            x = newX, y = reference.winfo_y(),
+            width = reference.winfo_width(),
+            height = reference.winfo_height())
+        # endregion lfConfirmedFeatures
+
+        # assign widgets to track from FeatureSelect to ConfirmedFeatures
+        trackedWidgets, trackedVariableList = self.getTrackedConfirmedFeaturesWidgets()
+
+        # create a copy of FeatureSelect and assign 'tracked' widgets (e.g. buttons, entries, labels)
+        # to corresponding ConfirmedFeatures (self) variables
+        self.createConfirmedFeatures(self.lfConfirmedFeatures, self.lfFeatureSelect, trackedWidgets, trackedVariableList)
+
+        # 'apply' tracked widget variables to ConfirmedFeatures (self) variables by 'de-listing' them
+        self.applyTrackedConfirmedFeaturesWidgets()
+
+        # adjust elements
+        self.adjustConfirmedFeatures(inputFrame)
+
+        # region create vertical separator
+        inputFrame.update()
+        offset = 5
+        newY = self.lfFeatureSelect.winfo_y() + self.lfHeaderFeatureSelect.winfo_y() + offset
+        newHeight = self.lfFeatureSelect.winfo_height() - (offset * 6)
+        verticalSeparator = ttk.Separator(inputFrame, orient = VERTICAL)
+        verticalSeparator.place(relx = 0.5, y = newY,
+                                height = newHeight)
+        # endregion create vertical separator
 
         return inputFrame
 
+    """Adjust values of ConfirmedFeatures (since it is a direct clone of FeatureSelect)"""
+    def adjustConfirmedFeatures(self, parentFrame):
+        parentFrame.update()
+
+        self.lblHeaderConfirmedFeatures['text'] = 'SELECTED FEATURES'
+        self.lblCountConfirmedFeaturesText.place(
+            relx = 0, rely = 0,
+            x = - 1, y = - 1)
+        FS.placeBelow(self.lblCountConfirmedFeaturesTitle, self.lblCountConfirmedFeaturesText)
+        FS.alignStart(self.lblCountConfirmedFeaturesTitle, self.lblCountConfirmedFeaturesText, -1)
+
+    """
+    Track FeatureSelect widgets to be assigned to ConfirmedFeatures widgets.
+    You must call applyTracked<...>Widgets afterwards.
+    """
+    def getTrackedConfirmedFeaturesWidgets(self):
+        trackedWidgets = {
+            repr(self.btnConfirmFeatureSelect): 0,
+            repr(self.btnResetFeatureSelect): 1,
+            repr(self.btnQueryFeatureList): 2,
+            repr(self.lbListFeatureSelect): 3,
+            repr(self.lbListFeatureDetails): 4,
+            repr(self.lblCountFeatureSelectText): 5,
+            repr(self.entryQueryFeatureList): 6,
+            repr(self.lblHeaderFeatureSelect): 7,
+            repr(self.lblCountFeatureSelectTitle): 8
+        }
+        trackedVariableList = [
+            self.btnConfirmConfirmedFeatures,
+            self.btnResetConfirmedFeatures,
+            self.btnQueryConfirmedFeatures,
+            self.lbListConfirmedFeatures,
+            self.lbListConfirmedDetails,
+            self.lblCountConfirmedFeaturesText,
+            self.entryQueryConfirmedFeatures,
+            self.lblHeaderConfirmedFeatures,
+            self.lblCountConfirmedFeaturesTitle
+        ]
+        return trackedWidgets, trackedVariableList
+
+    """
+    Sets the variable values to the widget assignment
+    (Since the widgets are placed in a list in order to be updated).
+    """
+    def applyTrackedConfirmedFeaturesWidgets(self):
+        self.btnConfirmConfirmedFeatures = self.btnConfirmConfirmedFeatures[0]
+        self.btnResetConfirmedFeatures = self.btnResetConfirmedFeatures[0]
+        self.btnQueryConfirmedFeatures = self.btnQueryConfirmedFeatures[0]
+        self.lbListConfirmedFeatures = self.lbListConfirmedFeatures[0]
+        self.lbListConfirmedDetails = self.lbListConfirmedDetails[0]
+        self.lblCountConfirmedFeaturesText = self.lblCountConfirmedFeaturesText[0]
+        self.entryQueryConfirmedFeatures = self.entryQueryConfirmedFeatures[0]
+        self.lblHeaderConfirmedFeatures = self.lblHeaderConfirmedFeatures[0]
+        self.lblCountConfirmedFeaturesTitle = self.lblCountConfirmedFeaturesTitle[0]
+
+
+    def createConfirmedFeatures(self, parentFrame, reference, trackedWidgets, trackedVariableList):
+        reference.update()
+        for item in reference.winfo_children():
+            itemClone = FS.copyWidget(item, parentFrame)
+
+            [isTracking, variableIndex] = self.checkTracking(item, trackedWidgets)
+            if isTracking:
+                print "isTracking index " + str(variableIndex)
+                trackedVariableList[variableIndex][0] = itemClone
+
+
+            if isinstance(itemClone, Widget):
+                self.createConfirmedFeatures(itemClone, item, trackedWidgets, trackedVariableList)
+            else:
+                return "break"
+
+
+
+    def checkTracking(self, item, trackedWidgets):
+        itemKey = repr(item)
+        # print("itemKey is " + str(itemKey) + " in " + str(trackedWidgets.keys()))
+        if FS.checkKey(trackedWidgets, itemKey):
+            return True, trackedWidgets[itemKey]
+        else:
+            return False, -1
+
+    def adjustFeatureList(self, parentFrame):
+        self.redraw(parentFrame)
+
+        # region extend lfFeatureList
+        height = 165 # self.lfCommandsFeatureSelect.winfo_height() * 5
+        partialTopHeight = 80
+        partialBottomHeight = height - partialTopHeight
+
+        parentFrame.place(height = parentFrame.winfo_height() + height)
+
+        self.lfFeatureSelect.place(height = self.lfFeatureSelect.winfo_height() + height)
+
+        self.lfListFeatureSelect.place(
+            height = self.lfListFeatureSelect.winfo_height() + partialTopHeight)
+
+        self.lbListFeatureSelect.place(y = self.lbListFeatureSelect.winfo_y(),
+                                       height = self.lbListFeatureSelect.winfo_height() + partialTopHeight)
+
+        self.lfCommandsFeatureSelect.place(y = self.lfCommandsFeatureSelect.winfo_y() + height)
+
+
+        # endregion extend lfFeatureList
+
+        # region create lfListFeatureDetails
+        self.redraw(parentFrame)
+        self.lfListFeatureDetails, self.lbListFeatureDetails, self.lblHeaderFeatureDetails = self.createFeatureDetails(self.lfFeatureSelect,
+                                                                                         self.lfListFeatureSelect,
+                                                                                         partialBottomHeight)
+        self.redraw(parentFrame)
+        self.lfListFeatureSelect.place(
+            y = self.lfListFeatureSelect.winfo_y(),
+            height = self.lfListFeatureSelect.winfo_height()
+        )
+        # endregion create lfListFeatureDetails
+
+        # region emborder lfListFeatureDetails
+        self.redraw(parentFrame)
+        borderX = self.lfListFeatureDetails.winfo_x()
+        borderY = self.lfListFeatureSelect.winfo_y() + self.lfListFeatureSelect.winfo_height()
+        borderW = self.lfListFeatureDetails.winfo_width() - 1
+        borderH = self.lfListFeatureDetails.winfo_height()
+        self.emborder(self.lfFeatureSelect,
+                      borderX, borderY, borderW, borderH,
+                      [True, True, False, True],
+                      [None, CS.DEFAULT_LIGHT_BORDER, None, CS.DEFAULT_BORDER])
+        # endregion emborder lfListFeatureDetails
+
+
+        # region emborder lfCommandsFeatureSelect
+        self.redraw(parentFrame)
+        borderX = self.lfListFeatureDetails.winfo_x()
+        borderY = self.lfListFeatureDetails.winfo_y() + self.lfListFeatureDetails.winfo_height()
+        borderW = self.lfListFeatureSelect.winfo_width() - 1
+        borderH = self.lfFeatureSelect.winfo_height() - borderY - 1
+        self.emborder(self.lfFeatureSelect, borderX, borderY, borderW, borderH)
+        # endregion emborder
+
+        # region adjust counter
+        self.redraw(parentFrame)
+        self.lfCountFeatureSelect.place(
+            relwidth = 0, relheight = 0,
+            width = self.lfCountFeatureSelect.winfo_width(),
+            height = self.lfCountFeatureSelect.winfo_height() + 6
+        )
+
+        self.lblCountFeatureSelectText.place(
+            relx = 0,
+            rely = 0,
+            x = self.lblCountFeatureSelectText.winfo_x() - 9,
+            y = - 2)
+        FS.placeBelow(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText)
+        FS.alignStart(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText, - 1)
+
+        self.redraw(parentFrame)
+
+        # endregion
+
+    def createFeatureDetails(self, parentFrame, referenceFrame, listHeight):
+        lfListFeatureDetails = LabelFrame(parentFrame, bd = 0)
+        # region init lfListFeatureDetails
+        referenceFrame.update()
+        lfListFeatureDetails.place(width = referenceFrame.winfo_width(), height = listHeight)
+        FS.placeBelow(lfListFeatureDetails, referenceFrame, -1)
+        FS.alignStart(lfListFeatureDetails, referenceFrame)
+        # endregion lfListFeatureDetails
+
+        lblHeaderFeatureDetails = Label(lfListFeatureDetails)
+        # region init lblHeaderFeatureDetails
+        lblHeaderFeatureDetails.place(
+            x = 0, y = 1,
+            width = referenceFrame.winfo_width(), height = self.lblHeaderFeatureSelect.winfo_height())
+        lblHeaderFeatureDetails.configure(
+            background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
+            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
+            text = 'OPTIONS',
+            font = UI_support.SELECT_STATUS_LABEL_FONT,
+        )
+        # endregion lblHeaderFeatureDetails
+
+        lbListFeatureDetails = Listbox(lfListFeatureDetails)  # TODO getter
+        # region init lbListFeatureDetails
+        lbListFeatureDetails.configure(
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            selectmode = SINGLE, exportselection = "0",
+            activestyle = "none",
+            selectbackground = CS.DISABLED_ORANGE,
+            selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            font = UI_support.SELECT_LABEL_FONT,
+            bd = 0,
+            relief = UI_support.SELECT_LISTBOX_RELIEF,
+            highlightthickness = 0
+        )
+        lbListFeatureDetails.place(relwidth = 1, relheight = 1)
+        FS.placeBelow(lbListFeatureDetails, lblHeaderFeatureDetails, -1)
+        FS.alignStart(lbListFeatureDetails, lblHeaderFeatureDetails)
+        # endregion lbListFeatureDetails
+
+        return lfListFeatureDetails, lbListFeatureDetails, lblHeaderFeatureDetails
     def createTitleBar(self, parentFrame, strNumber, strName, colorBG):
         titleFrame = LabelFrame(parentFrame, bd = 0)
         titleFrame.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR  # , text = '''FILTER'''
         )
 
         # COLORED SEPARATOR
         self.createLabelSeparator(
             titleFrame, 1,
             False, colorBG, UI_support.TITLE_SEPARATOR_H,
-            0.5, W
+            0.5
         )
 
         titleNumber = Label(titleFrame)
@@ -127,7 +408,7 @@ class AutomatedMining_View:
 
         titleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
+            background = CS.SELECT_NUMBER_BG, foreground = CS.SELECT_NUMBER_FG,
             text = str(strNumber) + '''  ''',
             bd = 1, relief = GROOVE,
             anchor = SE
@@ -142,7 +423,7 @@ class AutomatedMining_View:
             relwidth = 0.15, relheight = newRelH, anchor = NW)
         titleText.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = colorBG, foreground = Color_support.SELECT_TITLE_FG,
+            background = colorBG, foreground = CS.SELECT_TITLE_FG,
             text = str(strName),
             bd = 0, relief = GROOVE,
             anchor = S
@@ -150,7 +431,7 @@ class AutomatedMining_View:
         # Title border
         self.separatorlabelFrameSelectTitleText = self.createLabelSeparator(
             titleText, 1,
-            True, Color_support.WHITE,
+            True, CS.WHITE,
             coordinate = 0.99, specifiedAnchor = NW
         )
 
@@ -158,7 +439,7 @@ class AutomatedMining_View:
 
     def initFeatureList(self, parentFrame):
 
-        titleFrame = self.createTitleBar(parentFrame, '1', 'INPUT', Color_support.SELECT_TITLE_BG)
+        titleFrame = self.createTitleBar(parentFrame, '1', 'INPUT', CS.SELECT_TITLE_BG)
         # region init titleFrame
         titleFrame.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
         newRelY = FS.getRelY(titleFrame) + FS.getRelH(titleFrame)
@@ -172,7 +453,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
         )
         self.lfFeatureSelect.configure(
-            background = Color_support.SELECT_BG
+            background = CS.SELECT_BG
         )
         newRelH = FS.getRelH(self.lfFeatureSelect)
         # endregion init lfFeatureSelect
@@ -184,47 +465,43 @@ class AutomatedMining_View:
             rely = newRelY, relwidth = 0.4, relheight = newRelH
         )
         self.lfConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG
+            background = CS.SELECT_BG
         )
         # endregion init lfConfirmedFeatures
 
-        verticalSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
-        # region init vertical separator
-        verticalSeparator.place(relx = 0.5, rely = newRelY + 0.05, relheight = 1 - titleRelH - 0.1)
-        # endregion init vertical separator
 
-        self.lfStatusFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
-        # region init lfStatusFeatureSelect
-        self.lfStatusFeatureSelect.place(
+        self.lfHeaderFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
+        # region init lfHeaderFeatureSelect
+        self.lfHeaderFeatureSelect.place(
             relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
             relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
 
-        self.lfStatusFeatureSelect.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+        self.lfHeaderFeatureSelect.configure(
+            background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
             relief = GROOVE
         )
 
-        # endregion init lfStatusFeatureSelect
+        # endregion init lfHeaderFeatureSelect
 
-        self.lblStatusFeatureSelect = Label(self.lfStatusFeatureSelect)  # TODO getter
-        # region init lblStatusFeatureSelect
-        self.lblStatusFeatureSelect.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
+        self.lblHeaderFeatureSelect = Label(self.lfHeaderFeatureSelect)  # TODO getter
+        # region init lblHeaderFeatureSelect
+        self.lblHeaderFeatureSelect.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
 
-        self.lblStatusFeatureSelect.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+        self.lblHeaderFeatureSelect.configure(
+            background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
-            text = UI_support.LBL_SELECT_NO_DATA,
+            text = 'FEATURE LIST',
             font = UI_support.SELECT_STATUS_LABEL_FONT,
         )
         if UI_support.SELECT_STATUS_LABEL_TOP_SEPARATOR:
-            sepStatusHorizontal = ttk.Separator(self.lblStatusFeatureSelect,
-                                                                      orient = HORIZONTAL)
+            sepStatusHorizontal = ttk.Separator(self.lblHeaderFeatureSelect,
+                                                orient = HORIZONTAL)
             sepStatusHorizontal.place(relx = 0, rely = 0, relwidth = 1, anchor = NW)
 
-        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + FS.getRelY(self.lfStatusFeatureSelect) + FS.getRelH(
-            self.lfStatusFeatureSelect)
+        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + FS.getRelY(self.lfHeaderFeatureSelect) + FS.getRelH(
+            self.lfHeaderFeatureSelect)
 
-        # endregion init lblStatusFeatureSelect
+        # endregion init lblHeaderFeatureSelect
 
         self.lfListFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
         # region lfListFeatureSelect
@@ -280,7 +557,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
         )
         lfBorderQueryFeatureList.configure(
-            background = Color_support.SELECT_BUTTONS_BG
+            background = CS.SELECT_BUTTONS_BG
         )
         # endregion init lfBorderQueryFeatureList
 
@@ -290,8 +567,8 @@ class AutomatedMining_View:
             relx = 0.01, rely = 0.025,
             relwidth = 0.98, relheight = 0.95)
         lblQueryFeatureList.configure(
-            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
-            text = UI_support.SELECT_LABEL_DATASETA_TEXT,
+            background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
+            text = 'Search',
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
         )
@@ -306,11 +583,11 @@ class AutomatedMining_View:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
         self.entryQueryFeatureList.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            selectbackground = CS.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = CS.SELECT_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
         )  # TODO Constant font definiton
 
@@ -333,8 +610,8 @@ class AutomatedMining_View:
         self.btnQueryFeatureList.image = btn_query_set_icon  # < ! > Required to make images appear
 
         self.btnQueryFeatureList.configure(
-            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BG,
+            background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
+            activebackground = CS.SELECT_BG,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE
         )
@@ -343,11 +620,11 @@ class AutomatedMining_View:
         self.lbListFeatureSelect = Listbox(self.lfListFeatureSelect)  # TODO getter
         # region init lbListFeatureSelect
         self.lbListFeatureSelect.configure(
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+            background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -361,25 +638,26 @@ class AutomatedMining_View:
 
         # endregion init lbListFeatureSelect
 
-        lfCommandsFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
+
+        self.lfCommandsFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
         # region init lfCommandsFeatureSelect
-        lfCommandsFeatureSelect.place(
+        self.lfCommandsFeatureSelect.place(
             relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W,
             relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H * 0.85)  # TODO Reduced size
 
-        lfCommandsFeatureSelect.configure(
-            background = Color_support.WHITE
+        self.lfCommandsFeatureSelect.configure(
+            background = CS.WHITE
         )
         # endregion init lfCommandsFeatureSelect
 
-        self.btnResetFeatureSelect = Button(lfCommandsFeatureSelect)  # TODO getter
+        self.btnResetFeatureSelect = Button(self.lfCommandsFeatureSelect)  # TODO getter
         # region init btnResetFeatureSelect
         self.btnResetFeatureSelect.place(
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
         self.btnResetFeatureSelect.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -392,96 +670,55 @@ class AutomatedMining_View:
 
         # endregion init btnResetFeatureSelect
 
-        lfCountFeatureSelect = LabelFrame(lfCommandsFeatureSelect, bd = 1)
-        # region init lfCountFeatureSelect
-        lfCountFeatureSelect.place(
+        self.lfCountFeatureSelect = LabelFrame(self.lfCommandsFeatureSelect, bd = 1)
+        # region init self.lfCountFeatureSelect
+        self.lfCountFeatureSelect.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.50 - 0.005, relheight = 1
         )
-        lfCountFeatureSelect.configure(
-            background = Color_support.SELECT_BG
+        self.lfCountFeatureSelect.configure(
+            background = CS.SELECT_BG
         )
 
         # Define count variables
         self.featureSelectCount = 0
         self.confirmedFeaturesCount = 0
 
-        # endregion init lfCountFeatureSelect
+        # endregion init self.lfCountFeatureSelect
 
-        self.lblCountFeatureSelectText = Label(lfCountFeatureSelect)  # TODO getter
+        self.lblCountFeatureSelectText = Label(self.lfCountFeatureSelect)  # TODO getter
         # region init lblCountFeatureSelectText
         self.lblCountFeatureSelectText.place(relx = 0, rely = 0, relwidth = 1,
                                              relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.lblCountFeatureSelectText.configure(
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
+            background = CS.SELECT_BG,
             text = self.getDatasetCountA()
         )
         # endregion init lblCountFeatureSelectText
 
-        lblCountFeatureSelectTitle = Label(lfCountFeatureSelect)
-        # region init lblCountFeatureSelectTitle
-        lblCountFeatureSelectTitle.place(
+        self.lblCountFeatureSelectTitle = Label(self.lfCountFeatureSelect)
+        # region init self.lblCountFeatureSelectTitle
+        self.lblCountFeatureSelectTitle.place(
             relx = 0, rely = FS.getRelH(self.lblCountFeatureSelectText),
             relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
-        lblCountFeatureSelectTitle.configure(
+        self.lblCountFeatureSelectTitle.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
-            text = '''SAMPLES'''
+            background = CS.FG_COLOR, foreground = CS.SELECT_BG,
+            text = 'SELECTED'
         )
-        newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
-        # endregion init lblCountFeatureSelectTitle
+        # endregion init self.lblCountFeatureSelectTitle
 
-        # region init command separators
-        sepCommandRight = Label(self.lfFeatureSelect)
-        sepCommandRight.place(
-            relx = FS.getRelX(self.lfStatusFeatureSelect),
-            rely = newRelY,
-            relheight = 1 - newRelY - 0.025,  # TODO To adjust border height, just adjust this
-            width = 1)
-        sepCommandRight.configure(background = Color_support.DISABLED_D_BLUE)
-
-        sepCommandLeft = Label(self.lfFeatureSelect)
-        sepCommandLeft.place(
-            relx = 1 - FS.getRelX(self.lfStatusFeatureSelect),
-            rely = FS.getRelY(sepCommandRight),
-            relheight = FS.getRelH(sepCommandRight),
-            width = 1
-        )
-        sepCommandLeft.configure(background = Color_support.DISABLED_D_BLUE)
-
-        sepCommandBottom = Label(self.lfFeatureSelect)
-        sepCommandBottom.place(
-            relx = FS.getRelX(sepCommandRight),
-            # rely = 0.997,
-            rely = FS.getRelY(sepCommandLeft) +
-                   FS.getRelH(sepCommandLeft) - 0.003,
-            relwidth = FS.getRelX(sepCommandLeft) - FS.getRelX(
-                sepCommandRight),
-            height = 1)
-        sepCommandBottom.configure(background = Color_support.DISABLED_D_BLUE)
-
-        newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
-
-        sepCommandTop = Label(self.lfFeatureSelect)
-        sepCommandTop.place(
-            relx = FS.getRelX(sepCommandRight),
-            rely = newRelY,
-            relwidth = FS.getRelW(sepCommandBottom),
-            height = 1)
-        sepCommandTop.configure(background = Color_support.DISABLED_D_BLUE)
-
-        # endregion init command separators
-
+        """
         self.lfStatusConfirmedFeatures = LabelFrame(self.lfConfirmedFeatures, bd = 0)
         # region init lfStatusConfirmedFeatures
         self.lfStatusConfirmedFeatures.place(
-            relx = FS.getRelX(self.lfStatusFeatureSelect),
-            rely = FS.getRelY(self.lfStatusFeatureSelect),
-            relwidth = FS.getRelW(self.lfStatusFeatureSelect),
-            relheight = FS.getRelH(self.lfStatusFeatureSelect))
+            relx = FS.getRelX(self.lfHeaderFeatureSelect),
+            rely = FS.getRelY(self.lfHeaderFeatureSelect),
+            relwidth = FS.getRelW(self.lfHeaderFeatureSelect),
+            relheight = FS.getRelH(self.lfHeaderFeatureSelect))
         self.lfStatusConfirmedFeatures.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
             relief = GROOVE
         )
         # endregion init lfStatusConfirmedFeatures
@@ -519,13 +756,13 @@ class AutomatedMining_View:
         self.lblStatusConfirmedFeatures = Label(self.lfStatusConfirmedFeatures)  # TODO getter
         # region init lblStatusConfirmedFeatures
         self.lblStatusConfirmedFeatures.place(
-            relx = FS.getRelX(self.lblStatusFeatureSelect),
-            rely = FS.getRelY(self.lblStatusFeatureSelect),
-            relwidth = FS.getRelW(self.lblStatusFeatureSelect),
-            relheight = FS.getRelH(self.lblStatusFeatureSelect)
+            relx = FS.getRelX(self.lblHeaderFeatureSelect),
+            rely = FS.getRelY(self.lblHeaderFeatureSelect),
+            relwidth = FS.getRelW(self.lblHeaderFeatureSelect),
+            relheight = FS.getRelH(self.lblHeaderFeatureSelect)
         )
         self.lblStatusConfirmedFeatures.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = UI_support.LBL_SELECT_NO_DATA,
             font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -536,11 +773,11 @@ class AutomatedMining_View:
         self.lbListConfirmedFeatures = Listbox(self.lfConfirmedFeaturesList)  # TODO getter
         # region init lbListConfirmedFeatures
         self.lbListConfirmedFeatures.configure(
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+            background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -574,7 +811,7 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(lfBorderQueryFeatureList),
             relheight = FS.getRelH(lfBorderQueryFeatureList))
         lfBorderQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_BUTTONS_BG
+            background = CS.SELECT_BUTTONS_BG
         )
         # endregion init lfBorderQueryConfirmedFeatures
 
@@ -587,7 +824,7 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(lblQueryFeatureList),
             relheight = FS.getRelH(lblQueryFeatureList))
         lblQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
             text = UI_support.SELECT_LABEL_DATASETB_TEXT,
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
@@ -603,11 +840,11 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.entryQueryFeatureList),
             relheight = FS.getRelH(self.entryQueryFeatureList))
         self.entryQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            selectbackground = CS.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = CS.SELECT_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
         )  # TODO Constant font definiton
 
@@ -630,34 +867,34 @@ class AutomatedMining_View:
         self.btnQueryConfirmedFeatures.image = btn_query_set_icon  # < ! > Required to make images appear
 
         self.btnQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+            background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
+            activebackground = CS.SELECT_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE,
         )
         # endregion init btnQueryConfirmedFeatures
 
-        
-        lfCommandsConfirmedFeatures = LabelFrame(self.lfConfirmedFeatures, bd = 0)
-        # region init lfCommandsConfirmedFeatures
-        lfCommandsConfirmedFeatures.place(
-            relx = FS.getRelX(lfCommandsFeatureSelect),
-            rely = FS.getRelY(lfCommandsFeatureSelect),
-            relwidth = FS.getRelW(lfCommandsFeatureSelect),
-            relheight = FS.getRelH(lfCommandsFeatureSelect)
-        )
-        lfCommandsConfirmedFeatures.configure(
-            background = Color_support.WHITE
-        )
-        # endregion init lfCommandsConfirmedFeatures
 
-        self.btnResetConfirmedFeatures = Button(lfCommandsConfirmedFeatures)  # TODO getter
+        self.lfCommandsConfirmedFeatures = LabelFrame(self.lfConfirmedFeatures, bd = 0)
+        # region init self.lfCommandsConfirmedFeatures
+        self.lfCommandsConfirmedFeatures.place(
+            relx = FS.getRelX(self.lfCommandsFeatureSelect),
+            rely = FS.getRelY(self.lfCommandsFeatureSelect),
+            relwidth = FS.getRelW(self.lfCommandsFeatureSelect),
+            relheight = FS.getRelH(self.lfCommandsFeatureSelect)
+        )
+        self.lfCommandsConfirmedFeatures.configure(
+            background = CS.WHITE
+        )
+        # endregion init self.lfCommandsConfirmedFeatures
+
+        self.btnResetConfirmedFeatures = Button(self.lfCommandsConfirmedFeatures)  # TODO getter
         # region init btnResetConfirmedFeatures
         self.btnResetConfirmedFeatures.place(
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
         self.btnResetConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -666,85 +903,84 @@ class AutomatedMining_View:
             image = btn_query_reset_icon)
         self.btnResetConfirmedFeatures.image = btn_query_reset_icon  # < ! > Required to make images appear
         # endregion init btnResetConfirmedFeatures
-    
-        # region init command separators
-        sepCommandsConfirmedFeaturesRight = Label(self.lfConfirmedFeatures)
-        sepCommandsConfirmedFeaturesRight.place(
-            relx = FS.getRelX(sepCommandRight),
-            rely = FS.getRelY(sepCommandRight),
-            relheight = FS.getRelH(sepCommandRight),
-            width = 1
-        )
-        sepCommandsConfirmedFeaturesRight.configure(background = Color_support.DISABLED_D_BLUE)
 
-        sepCommandsConfirmedFeaturesLeft = Label(self.lfConfirmedFeatures)
-        sepCommandsConfirmedFeaturesLeft.place(
-            relx = FS.getRelX(sepCommandLeft),
-            rely = FS.getRelY(sepCommandLeft),
-            relheight = FS.getRelH(sepCommandLeft),
-            width = 1
-        )
-        sepCommandsConfirmedFeaturesLeft.configure(background = Color_support.DISABLED_D_BLUE)
+        # # region init command separators
+        # sepCommandsConfirmedFeaturesRight = Label(self.lfConfirmedFeatures)
+        # sepCommandsConfirmedFeaturesRight.place(
+        #     relx = FS.getRelX(self.sepCommandRight),
+        #     rely = FS.getRelY(self.sepCommandRight),
+        #     relheight = FS.getRelH(self.sepCommandRight),
+        #     width = 1
+        # )
+        # sepCommandsConfirmedFeaturesRight.configure(background = CS.DISABLED_D_BLUE)
+        #
+        # sepCommandsConfirmedFeaturesLeft = Label(self.lfConfirmedFeatures)
+        # sepCommandsConfirmedFeaturesLeft.place(
+        #     relx = FS.getRelX(self.sepCommandLeft),
+        #     rely = FS.getRelY(self.sepCommandLeft),
+        #     relheight = FS.getRelH(self.sepCommandLeft),
+        #     width = 1
+        # )
+        # sepCommandsConfirmedFeaturesLeft.configure(background = CS.DISABLED_D_BLUE)
+        #
+        # sepCommandsConfirmedFeaturesBottom = Label(self.lfConfirmedFeatures)
+        # sepCommandsConfirmedFeaturesBottom.place(
+        #     relx = FS.getRelX(self.sepCommandBottom),
+        #     rely = FS.getRelY(self.sepCommandBottom),
+        #     relwidth = FS.getRelW(self.sepCommandBottom),
+        #     height = 1)
+        # sepCommandsConfirmedFeaturesBottom.configure(background = CS.DISABLED_D_BLUE)
+        #
+        #
+        # sepCommandsConfirmedFeaturesTop = Label(self.lfFeatureSelect)
+        # sepCommandsConfirmedFeaturesTop.place(
+        #     relx = FS.getRelX(self.sepCommandTop),
+        #     rely = FS.getRelY(self.sepCommandTop),
+        #     relwidth = FS.getRelW(self.sepCommandTop),
+        #     height = 1)
+        # self.sepCommandTop.configure(background = CS.DISABLED_PALER_YELLOW)
+        #
+        # # endregion init command separators
 
-        sepCommandsConfirmedFeaturesBottom = Label(self.lfConfirmedFeatures)
-        sepCommandsConfirmedFeaturesBottom.place(
-            relx = FS.getRelX(sepCommandBottom),
-            rely = FS.getRelY(sepCommandBottom),
-            relwidth = FS.getRelW(sepCommandBottom),
-            height = 1)
-        sepCommandsConfirmedFeaturesBottom.configure(background = Color_support.DISABLED_D_BLUE)
-
-
-        sepCommandsConfirmedFeaturesTop = Label(self.lfFeatureSelect)
-        sepCommandsConfirmedFeaturesTop.place(
-            relx = FS.getRelX(sepCommandTop),
-            rely = FS.getRelY(sepCommandTop),
-            relwidth = FS.getRelW(sepCommandTop),
-            height = 1)
-        sepCommandTop.configure(background = Color_support.DISABLED_PALER_YELLOW)
-
-        # endregion init command separators
-
-
-        lfCountConfirmedFeatures = LabelFrame(lfCommandsConfirmedFeatures, bd = 1)
-        # region init lfCountConfirmedFeatures
-        lfCountConfirmedFeatures.place(
+        self.lfCountConfirmedFeatures = LabelFrame(self.lfCommandsConfirmedFeatures, bd = 1)
+        # region init self.lfCountConfirmedFeatures
+        self.lfCountConfirmedFeatures.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.50 - 0.005, relheight = 1
         )
-        lfCountConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG
+        self.lfCountConfirmedFeatures.configure(
+            background = CS.SELECT_BG
         )
-        # endregion init lfCountConfirmedFeatures
+        # endregion init self.lfCountConfirmedFeatures
 
-        self.lblCountConfirmedFeaturesText = Label(lfCountConfirmedFeatures)  # TODO getter
+        self.lblCountConfirmedFeaturesText = Label(self.lfCountConfirmedFeatures)  # TODO getter
         # region init lblCountConfirmedFeaturesText
         self.lblCountConfirmedFeaturesText.place(relx = 0, rely = 0, relwidth = 1,
                                                  relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.lblCountConfirmedFeaturesText.configure(
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
+            background = CS.SELECT_BG,
             text = self.getDatasetCountB()
         )
         # endregion init lblCountConfirmedFeaturesText
 
-        lblCountConfirmedFeaturesTitle = Label(lfCountConfirmedFeatures)
-        # region init lblCountConfirmedFeaturesTitle
-        lblCountConfirmedFeaturesTitle.place(
+        self.lblCountConfirmedFeaturesTitle = Label(self.lfCountConfirmedFeatures)
+        # region init self.lblCountConfirmedFeaturesTitle
+        self.lblCountConfirmedFeaturesTitle.place(
             relx = 0, rely = FS.getRelH(self.lblCountConfirmedFeaturesText),
             relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
-        lblCountConfirmedFeaturesTitle.configure(
+        self.lblCountConfirmedFeaturesTitle.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = CS.FG_COLOR, foreground = CS.SELECT_BG,
             text = '''SAMPLES'''
         )
-        newRelX = FS.getRelX(lfCountFeatureSelect) + FS.getRelW(lfCountFeatureSelect)
-        newRelX = FS.getRelX(lfCountFeatureSelect) + FS.getRelW(lfCountFeatureSelect)
+        newRelX = FS.getRelX(self.lfCountFeatureSelect) + FS.getRelW(self.lfCountFeatureSelect)
 
-        # endregion init lblCountConfirmedFeaturesTitle
+        # endregion init self.lblCountConfirmedFeaturesTitle
+        
+        """
 
-
-        self.btnConfirmFeatureSelect = Button(lfCommandsFeatureSelect, compound = CENTER)  # TODO getter
+        self.btnConfirmFeatureSelect = Button(self.lfCommandsFeatureSelect, compound = CENTER)  # TODO getter
         # region init btnConfirmFeatureSelect
         self.btnConfirmFeatureSelect.place(
             relx = newRelX + 0.005, rely = 0,
@@ -758,15 +994,16 @@ class AutomatedMining_View:
         self.btnConfirmFeatureSelect.image = btn_query_filter_icon  # < ! > Required to make images appear
 
         self.btnConfirmFeatureSelect.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         self.btnConfirmFeatureSelect.pack(side = RIGHT)
         self.btnResetFeatureSelect.pack(side = LEFT)
 
-        newRelX = FS.getRelX(lfCountConfirmedFeatures) + FS.getRelW(lfCountConfirmedFeatures)
+        """
+        newRelX = FS.getRelX(self.lfCountConfirmedFeatures) + FS.getRelW(self.lfCountConfirmedFeatures)
         # endregion init btnConfirmFeatureSelect
 
-        self.btnConfirmConfirmedFeatures = Button(lfCommandsConfirmedFeatures, compound = CENTER)  # TODO getter
+        self.btnConfirmConfirmedFeatures = Button(self.lfCommandsConfirmedFeatures, compound = CENTER)  # TODO getter
         # region init btnConfirmConfirmedFeatures
         self.btnConfirmConfirmedFeatures.place(
             relx = newRelX + 0.005, rely = 0,
@@ -780,13 +1017,59 @@ class AutomatedMining_View:
         self.btnConfirmConfirmedFeatures.image = btn_query_filter_icon  # < ! > Required to make images appear
 
         self.btnConfirmConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         self.btnConfirmConfirmedFeatures.pack(side = RIGHT)
         self.btnResetConfirmedFeatures.pack(side = LEFT)
         # endregion init btnConfirmConfirmedFeatures
+        """
 
 
+
+    def emborder(self, parentFrame, borderX, borderY, borderW, borderH,
+                 conditions = [True, True, True, True], colors = [None, None, None, None]):
+        # use default color if not specified by the user
+        colors = [CS.DISABLED_D_BLUE if color is None else color for color in colors]
+
+        index = 0
+        if conditions[index]:
+            sepCommandTop = Label(parentFrame)
+            sepCommandTop.place(
+                x = borderX,
+                y = borderY,
+                width = borderW,
+                height = 1)
+            sepCommandTop.configure(background = colors[index])
+
+        index = 2
+        if conditions[index]:
+            sepCommandBottom = Label(parentFrame)
+            sepCommandBottom.place(
+                x = borderX,
+                y = borderY + borderH,
+                width = borderW,
+                height = 1)
+            sepCommandBottom.configure(background = colors[index])
+
+        index = 3
+        if conditions[index]:
+            sepCommandLeft = Label(parentFrame)
+            sepCommandLeft.place(
+                x = borderX,
+                y = borderY,
+                width = 1,
+                height = borderH)
+            sepCommandLeft.configure(background = colors[index])
+
+        index = 1
+        if conditions[index]:
+            sepCommandRight = Label(parentFrame)
+            sepCommandRight.place(
+                x = borderX + borderW,
+                y = borderY,
+                width = 1,
+                height = borderH)
+            sepCommandRight.configure(background = colors[index])
 
     def initProcessUI(self, parentFrame, relativeFrame):
 
@@ -799,7 +1082,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
         )
         processFrame.configure(
-            background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+            background = CS.FILTER_BG, foreground = CS.FG_COLOR  # , text = '''FILTER'''
         )
 
         self.configureFilterElements(processFrame)  # Configures all sub elements under FILTER
@@ -819,7 +1102,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_REL_H
         )
         resultsFrame.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
+            background = CS.PROCESS_BG, foreground = CS.FG_COLOR  # , text = '''PROCESS'''
         )
 
         self.configureProcessElements(resultsFrame)  # Configures all sub elements under FILTER
@@ -842,106 +1125,13 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = 1
         )
         consoleFrame.configure(
-            background = Color_support.WHITE, foreground = Color_support.FG_COLOR  # , text = '''CONSOLE'''
+            background = CS.WHITE, foreground = CS.FG_COLOR  # , text = '''CONSOLE'''
         )
 
         self.configureConsoleElements(consoleFrame)  # Configures all sub elements under CONSOLE
         self.testTabLeftSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
         self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
         return consoleFrame
-
-
-
-
-
-    # def configureTestTabElements(self, parentFrame):
-    #     self.lfTabParentFrame = LabelFrame(parentFrame, bd = 0)
-    #     self.lfTabParentFrame.place(
-    #         relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-    #         relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
-    #     )
-    #     self.lfTabParentFrame.configure(
-    #         background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
-    #     )
-    #
-    #     # TYPE Parent Frame
-    #     self.labelFrameTypeElements = LabelFrame(self.lfTabParentFrame, bd = 0)
-    #     self.labelFrameTypeElements.place(
-    #         relx = UI_support.TAB_TEST_TYPE_REL_X, rely = UI_support.TAB_TEST_TYPE_REL_Y,
-    #         relwidth = UI_support.TAB_TEST_TYPE_REL_W, relheight = UI_support.TAB_TEST_TYPE_REL_H
-    #         # + 0.05 # TODO Type edit
-    #     )
-    #     self.labelFrameTypeElements.configure(
-    #         background = Color_support.TYPE_BG, foreground = Color_support.FG_COLOR  # , text = '''TYPE'''
-    #     )
-    #
-    #     newRelY = FS.getRelY(self.labelFrameTypeElements) + FS.getRelH(self.labelFrameTypeElements)
-    #
-    #     # SELECT Parent Frame (Datasets)
-    #     self.labelFrameSelectElements = LabelFrame(self.lfTabParentFrame, bd = 0)
-    #     self.labelFrameSelectElements.place(
-    #         relx = UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
-    #         relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
-    #     )
-    #     self.labelFrameSelectElements.configure(
-    #         background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
-    #     )
-    #
-    #     self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
-    #
-    #     newRelY = FS.getRelY(self.labelFrameSelectElements) + FS.getRelH(
-    #         self.labelFrameSelectElements)  # TODO Make constant (space in between)
-    #
-    #     # FILTER Parent Frame
-    #     self.labelFrameFilterElements = LabelFrame(self.lfTabParentFrame, bd = 0)
-    #     self.labelFrameFilterElements.place(
-    #         relx = UI_support.TAB_TEST_FILTER_REL_X, rely = newRelY,
-    #         relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
-    #     )
-    #     self.labelFrameFilterElements.configure(
-    #         background = Color_support.FILTER_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
-    #     )
-    #
-    #     self.configureFilterElements(self.labelFrameFilterElements)  # Configures all sub elements under FILTER
-    #
-    #     newRelY = FS.getRelY(self.labelFrameFilterElements) + FS.getRelH(self.labelFrameFilterElements)
-    #
-    #     # PROCESS Parent Frame
-    #     self.labelFrameProcessElements = LabelFrame(self.lfTabParentFrame, bd = 0)
-    #     self.labelFrameProcessElements.place(
-    #         # relx = UI_support.TAB_TEST_PROCESS_REL_X,
-    #         relx = FS.getRelX(self.labelFrameSelectElements),
-    #         rely = newRelY,
-    #         relwidth = UI_support.TAB_TEST_PROCESS_REL_W,
-    #         relheight = UI_support.TAB_TEST_PROCESS_REL_H
-    #     )
-    #     self.labelFrameProcessElements.configure(
-    #         background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
-    #     )
-    #
-    #     self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
-    #
-    #     prevFrameRelX = float(self.labelFrameFilterElements.place_info()['relx'])
-    #     prevFrameRelW = float(self.labelFrameFilterElements.place_info()['relwidth'])
-    #     newRelX = prevFrameRelX + prevFrameRelW
-    #
-    #     # CONSOLE Parent Frame
-    #     self.labelFrameConsoleElements = LabelFrame(self.lfTabParentFrame, bd = 1, relief = GROOVE)
-    #     # self.labelFrameConsoleElements.place(
-    #     #     relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
-    #     #     relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
-    #     # )
-    #     self.labelFrameConsoleElements.place(
-    #         relx = newRelX, rely = 0,
-    #         relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = 1
-    #     )
-    #     self.labelFrameConsoleElements.configure(
-    #         background = Color_support.WHITE, foreground = Color_support.FG_COLOR  # , text = '''CONSOLE'''
-    #     )
-    #
-    #     self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
-    #     self.testTabLeftSeparator = ttk.Separator(self.lfTabParentFrame, orient = VERTICAL)
-    #     self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
 
     ''' --> Configure TEST ("TEST") TAB (2.2) <-- '''
@@ -956,77 +1146,77 @@ class AutomatedMining_View:
         #     relheight = FS.getRelH(self.testTabParentFrame)
         # )
         self.testTabConsoleParentFrame.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR
+            background = CS.D_BLUE, foreground = CS.FG_COLOR
         )
 
 
 
-    def configureZTestElements(self, parentFrame):
-
-        global arrQueryCriticalValue
-        global arrQueryCriticalValueMapping
-
-        # > COMBO BOX
-        global testTypes
-        testTypes = ["Sample vs Sample", "Sample vs Population"]
-        self.comboQueryTest = ttk.Combobox(parentFrame)
-        # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 50, width = 360) # 316) # TODO SVP
-        self.comboQueryTest.configure(exportselection = "0")
-        self.comboQueryTest.configure(takefocus = "")
-        self.comboQueryTest.configure(values = testTypes)
-        self.comboQueryTest.current(0)
-        self.comboQueryTest.configure(state = "readonly")
-
-        # > CHI-TEST FRAME
-
-        self.labelFrameQueryChi = LabelFrame(parentFrame)
-        # self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0,
-        #                               relwidth = 0)# 0.48)
-        self.labelFrameQueryChi.configure(relief = GROOVE)
-        self.labelFrameQueryChi.configure(foreground = "black")
-        self.labelFrameQueryChi.configure(text = '''Chi Test''')
-        self.labelFrameQueryChi.configure(background = "#d9d9d9")
-
-        # > Z-TEST FRAME POPULATION ##### TODO Add functionality
-        # region
-        self.labelFrameQuerySvP = LabelFrame(parentFrame)
-        # self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0.1,
-        #                               relwidth = 0.3) # 0.48) # TODO SVP
-        self.labelFrameQuerySvP.configure(relief = GROOVE)
-        self.labelFrameQuerySvP.configure(foreground = "black")
-        self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
-        self.labelFrameQuerySvP.configure(background = "#d9d9d9")
-
-        self.comboQueryCriticalValueSvP = ttk.Combobox(self.labelFrameQuerySvP)
-        # self.comboQueryCriticalValueSvP.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
-        self.comboQueryCriticalValueSvP.configure(exportselection = "0")
-        self.comboQueryCriticalValueSvP.configure(takefocus = "")
-        self.comboQueryCriticalValueSvP.configure(values = arrQueryCriticalValue)
-        self.comboQueryCriticalValueSvP.set(arrQueryCriticalValue[0])
-        self.comboQueryCriticalValueSvP.configure(state = "disabled")
-
-        self.labelQueryZTestSvP = Label(self.labelFrameQuerySvP)
-        # self.labelQueryZTestSvP.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
-        # self.labelQueryZTest.configure(background = "#d9d9d9")
-        self.labelQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
-        self.labelQueryZTestSvP.configure(foreground = "#000000")
-        self.labelQueryZTestSvP.configure(text = '''NO DATA''')
-        self.labelQueryZTestSvP.configure(state = "disabled")
-
-        self.buttonQueryZTestSvP = Button(self.labelFrameQuerySvP)
-        self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 20, width = 300)
-        self.buttonQueryZTestSvP.configure(activebackground = "#d9d9d9")
-        self.buttonQueryZTestSvP.configure(activeforeground = "#000000")
-        self.buttonQueryZTestSvP.configure(background = "#d9d9d9")
-        self.buttonQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
-        self.buttonQueryZTestSvP.configure(foreground = "#000000")
-        self.buttonQueryZTestSvP.configure(highlightbackground = "#d9d9d9")
-        self.buttonQueryZTestSvP.configure(highlightcolor = "black")
-        self.buttonQueryZTestSvP.configure(pady = "0")
-        self.buttonQueryZTestSvP.configure(text = '''Test''')
-        self.buttonQueryZTestSvP.configure(state = "disabled")
-
-        # endregion
+    # def configureZTestElements(self, parentFrame):
+    #
+    #     global arrQueryCriticalValue
+    #     global arrQueryCriticalValueMapping
+    #
+    #     # > COMBO BOX
+    #     global testTypes
+    #     testTypes = ["Sample vs Sample", "Sample vs Population"]
+    #     self.comboQueryTest = ttk.Combobox(parentFrame)
+    #     # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 50, width = 360) # 316) # TODO SVP
+    #     self.comboQueryTest.configure(exportselection = "0")
+    #     self.comboQueryTest.configure(takefocus = "")
+    #     self.comboQueryTest.configure(values = testTypes)
+    #     self.comboQueryTest.current(0)
+    #     self.comboQueryTest.configure(state = "readonly")
+    #
+    #     # > CHI-TEST FRAME
+    #
+    #     self.labelFrameQueryChi = LabelFrame(parentFrame)
+    #     # self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0,
+    #     #                               relwidth = 0)# 0.48)
+    #     self.labelFrameQueryChi.configure(relief = GROOVE)
+    #     self.labelFrameQueryChi.configure(foreground = "black")
+    #     self.labelFrameQueryChi.configure(text = '''Chi Test''')
+    #     self.labelFrameQueryChi.configure(background = "#d9d9d9")
+    #
+    #     # > Z-TEST FRAME POPULATION ##### TODO Add functionality
+    #     # region
+    #     self.labelFrameQuerySvP = LabelFrame(parentFrame)
+    #     # self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0.1,
+    #     #                               relwidth = 0.3) # 0.48) # TODO SVP
+    #     self.labelFrameQuerySvP.configure(relief = GROOVE)
+    #     self.labelFrameQuerySvP.configure(foreground = "black")
+    #     self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
+    #     self.labelFrameQuerySvP.configure(background = "#d9d9d9")
+    #
+    #     self.comboQueryCriticalValueSvP = ttk.Combobox(self.labelFrameQuerySvP)
+    #     # self.comboQueryCriticalValueSvP.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
+    #     self.comboQueryCriticalValueSvP.configure(exportselection = "0")
+    #     self.comboQueryCriticalValueSvP.configure(takefocus = "")
+    #     self.comboQueryCriticalValueSvP.configure(values = arrQueryCriticalValue)
+    #     self.comboQueryCriticalValueSvP.set(arrQueryCriticalValue[0])
+    #     self.comboQueryCriticalValueSvP.configure(state = "disabled")
+    #
+    #     self.labelQueryZTestSvP = Label(self.labelFrameQuerySvP)
+    #     # self.labelQueryZTestSvP.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
+    #     # self.labelQueryZTest.configure(background = "#d9d9d9")
+    #     self.labelQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
+    #     self.labelQueryZTestSvP.configure(foreground = "#000000")
+    #     self.labelQueryZTestSvP.configure(text = '''NO DATA''')
+    #     self.labelQueryZTestSvP.configure(state = "disabled")
+    #
+    #     self.buttonQueryZTestSvP = Button(self.labelFrameQuerySvP)
+    #     self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 20, width = 300)
+    #     self.buttonQueryZTestSvP.configure(activebackground = "#d9d9d9")
+    #     self.buttonQueryZTestSvP.configure(activeforeground = "#000000")
+    #     self.buttonQueryZTestSvP.configure(background = "#d9d9d9")
+    #     self.buttonQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
+    #     self.buttonQueryZTestSvP.configure(foreground = "#000000")
+    #     self.buttonQueryZTestSvP.configure(highlightbackground = "#d9d9d9")
+    #     self.buttonQueryZTestSvP.configure(highlightcolor = "black")
+    #     self.buttonQueryZTestSvP.configure(pady = "0")
+    #     self.buttonQueryZTestSvP.configure(text = '''Test''')
+    #     self.buttonQueryZTestSvP.configure(state = "disabled")
+    #
+    #     # endregion
 
 
     """ >>> FUNCTIONS FOR THE CONFIGURATION OF UI ELEMENTS <<< """
@@ -1036,723 +1226,723 @@ class AutomatedMining_View:
     # region
     ''' -> Elements under the SELECT ("GROUP") HEADER <- '''
 
-    def configureSelectElements(self, parentFrame):
-
-        global queryStrFilterB
-
-        # SELECT TITLE
-        self.labelFrameSelectTitle = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameSelectTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
-        self.labelFrameSelectTitle.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
-        )
-
-        # Create the top separator
-        # self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = HORIZONTAL)
-        # self.labelFrameSelectHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
-
-        # COLORED SEPARATOR
-        self.separatorlabelFrameSelectTitleNumber = self.createLabelSeparator(
-            self.labelFrameSelectTitle, 1,
-            False, Color_support.SELECT_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
-            0.5, W
-        )
-
-        # SELECT NUMBER
-        self.labelFrameSelectTitleNumber = Label(self.labelFrameSelectTitle)
-        newRelY = UI_support.LABEL_TITLE_REL_Y
-        self.labelFrameSelectTitleNumber.place(
-            relx = 0, rely = newRelY,
-            relwidth = 0.04 + 0.05,
-            relheight = 1 - (newRelY * 2), anchor = NW)
-
-        self.labelFrameSelectTitleNumber.configure(
-            font = UI_support.FONT_MED_BOLD,
-            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
-            text = '''1  ''',
-            bd = 1, relief = GROOVE,
-            anchor = SE
-        )
-        newRelX = FS.getRelX(self.labelFrameSelectTitleNumber) + FS.getRelW(self.labelFrameSelectTitleNumber)
-
-        # SELECT TITLE
-        self.labelFrameSelectTitleText = Label(self.labelFrameSelectTitle)
-        newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
-        newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
-        self.labelFrameSelectTitleText.place(
-            relx = newRelX - 0.001, rely = newRelY,
-            relwidth = 0.15, relheight = newRelH, anchor = NW)
-        self.labelFrameSelectTitleText.configure(
-            font = UI_support.FONT_MED_BOLD,
-            # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.SELECT_TITLE_BG, foreground = Color_support.SELECT_TITLE_FG,
-            text = '''GROUP''',
-            bd = 0, relief = GROOVE,
-            anchor = S
-        )
-        # Title border
-        self.separatorlabelFrameSelectTitleText = self.createLabelSeparator(
-            self.labelFrameSelectTitleText, 1,
-            True, Color_support.WHITE,
-            coordinate = 0.99, specifiedAnchor = NW
-        )
-
-        newRelY = FS.getRelY(self.labelFrameSelectTitle) + FS.getRelH(
-            self.labelFrameSelectTitle)  # + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
-        titleRelH = FS.getRelH(self.labelFrameSelectTitle)
-
-        self.lfFeatureSelect = LabelFrame(parentFrame, bd = 0)
-        self.lfFeatureSelect.place(
-            relx = 0.05, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
-        )
-        self.lfFeatureSelect.configure(
-            background = Color_support.SELECT_BG
-        )
-        newRelH = FS.getRelH(self.lfFeatureSelect)
-        self.lfConfirmedFeatures = LabelFrame(parentFrame, bd = 0)
-        self.lfConfirmedFeatures.place(
-            relx = UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15,
-            # (2 * FS.getRelX(self.labelFrameDatasetA)) + FS.getRelW(self.labelFrameDatasetA),
-            rely = newRelY, relwidth = 0.4, relheight = newRelH
-        )
-        self.lfConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG
-        )
-
-        # DATASET SEPARATOR
-        self.labelFrameDatasetCenterSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
-        self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = newRelY + 0.05, relheight = 1 - titleRelH - 0.1)
-
-        # QUERY PARENT (DATASET A)
-        self.lfStatusFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
-        self.lfStatusFeatureSelect.place(
-            relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
-            relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
-        self.lfStatusFeatureSelect.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
-            relief = GROOVE  # , text = '''Dataset A'''
-        )
-
-        # QUERY STATUS CHILD - DATASET A
-        # region
-        self.lblStatusFeatureSelect = Label(self.lfStatusFeatureSelect)
-        # self.labelQuerySetDataStatusA = Label(self.labelFrameQuerySetDataStatusA)
-        # self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
-        self.lblStatusFeatureSelect.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
-        # self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
-        self.lblStatusFeatureSelect.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
-            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
-            text = UI_support.LBL_SELECT_NO_DATA,
-            font = UI_support.SELECT_STATUS_LABEL_FONT,
-        )
-        if UI_support.SELECT_STATUS_LABEL_TOP_SEPARATOR:
-            sepStatusHorizontal = ttk.Separator(self.lblStatusFeatureSelect,
-                                                                      orient = HORIZONTAL)
-            sepStatusHorizontal.place(relx = 0, rely = 0, relwidth = 1, anchor = NW)
-        # endregion
-
-        # LISTBOX PARENT (DATASET A)
-        # region
-        newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + FS.getRelY(self.lfStatusFeatureSelect) + FS.getRelH(
-            self.lfStatusFeatureSelect)
-
-        self.lfListFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
-        self.lfListFeatureSelect.place(
-            relx = UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = UI_support.TAB_TEST_LISTBOX_QUERY_REL_H)
-
-        # QUERY STATUS PARENT - DATASET A
-        # region
-        # newRelY = FS.getRelY(self.listQuerySetDataA) + FS.getRelH(self.listQuerySetDataA)
-        # newRelH = 1 - FS.getRelH(self.listQuerySetDataA)
-
-        self.lfQueryFeatureSelect = LabelFrame(self.lfListFeatureSelect, bd = 0)
-        # self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
-        specifiedListBoxHeight = (0.78 - 0.03)
-        newRelH = 1 - specifiedListBoxHeight  # TODO Make constant (0.78 - 0.03) is the listbox's supposed height
-        self.lfQueryFeatureSelect.place(relx = 0, rely = 0, relwidth = 1, relheight = newRelH)
-
-        # QUERY TOP STRIPE PARENT - DATASET A
-        # region
-        # newRelH = FS.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
-        newRelH = FS.getRelH(
-            self.lfQueryFeatureSelect) * UI_support.SELECT_LABEL_STRIPES_REL_H_MULTIPLIER  # 5 / 8 # TODO Make constant reference
-        self.lblStripesQueryFeatureSelect = Label(self.lfListFeatureSelect, bd = 0, relief = GROOVE)
-        self.lblStripesQueryFeatureSelect.place(
-            relx = 0,
-            rely = 0,
-            # rely = newRelY,
-            relwidth = 1,
-            relheight = newRelH,
-            anchor = NW
-        )
-        newRelY = FS.getRelY(self.lblStripesQueryFeatureSelect) + FS.getRelH(self.lblStripesQueryFeatureSelect)
-        self.lfQueryFeatureSelect.place(
-            relx = FS.getRelX(self.lfQueryFeatureSelect),
-            rely = newRelY,
-            relwidth = FS.getRelW(self.lfQueryFeatureSelect),
-            relheight = FS.getRelH(self.lfQueryFeatureSelect),
-        )
-        im = PIL.Image.open(
-            Icon_support.TEXTURE_STRIPE_PINK)
-        texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
-        self.lblStripesQueryFeatureSelect.configure(
-            image = texture_pink_stripes,
-            anchor = SW
-        )
-        self.lblStripesQueryFeatureSelect.image = texture_pink_stripes  # < ! > Required to make images appear
-        # endregion
-
-        # QUERY FRAME - DATASET A
-        # region
-        # lfBorderQueryFeatureList = LabelFrame(self.labelFrameQueryDataA, bd = 0)
-        lfBorderQueryFeatureList = LabelFrame(self.lfQueryFeatureSelect, bd = 0)
-        lfBorderQueryFeatureList.place(
-            relx = 0, rely = 0,
-            relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
-        )
-        lfBorderQueryFeatureList.configure(
-            background = Color_support.SELECT_BUTTONS_BG
-        )
-
-        lblQueryFeatureList = Label(lfBorderQueryFeatureList)
-
-        lblQueryFeatureList.place(
-            relx = 0.01, rely = 0.025,
-            relwidth = 0.98, relheight = 0.95)
-        lblQueryFeatureList.configure(
-            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
-            text = UI_support.SELECT_LABEL_DATASETA_TEXT,
-            font = UI_support.SELECT_LABEL_FONT,
-            bd = 0, relief = FLAT,
-        )
-
-        newRelX = FS.getRelX(lfBorderQueryFeatureList) + FS.getRelW(
-            lfBorderQueryFeatureList)  # + UI_support.TAB_3CHILD_LBL_REL_X
-
-        # ENTRY - DATASET A
-        # region
-        # self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
-        self.entryQueryFeatureList = Entry(self.lfQueryFeatureSelect)
-        self.entryQueryFeatureList.place(
-            relx = newRelX, rely = 0,
-            relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
-        self.entryQueryFeatureList.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
-            bd = 1,
-            font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
-            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
-        )  # TODO Constant font definiton
-        # endregion
-        # QUERY BUTTON - DATASET A
-        # region
-        newRelX = FS.getRelX(self.entryQueryFeatureList) + FS.getRelW(
-            self.entryQueryFeatureList)  # + UI_support.TAB_3CHILD_LBL_REL_X
-
-        # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
-        self.btnQueryFeatureList = Button(self.lfQueryFeatureSelect)
-        self.btnQueryFeatureList.place(
-            relx = newRelX, rely = 0,
-            relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
-                                                                     PIL.Image.ANTIALIAS)
-        btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnQueryFeatureList.configure(
-            image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnQueryFeatureList.image = btn_query_set_icon  # < ! > Required to make images appear
-
-        self.btnQueryFeatureList.configure(
-            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BG,
-            highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE,
-            # text = '''Find Feature'''
-        )
-        # endregion
-
-        # endregion
-
-        # endregion
-
-        # LISTBOX - DATASET A
-        # region
-        # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
-        # self.listQuerySetDataA = Listbox(self.labelFrameListBoxA, yscrollcommand = self.scrollbarQuerySetDataA.set)
-
-        self.lbListFeatureSelect = Listbox(self.lfListFeatureSelect)
-        self.lbListFeatureSelect.configure(
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
-            selectmode = MULTIPLE, exportselection = "0",
-            activestyle = "none",
-            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
-            font = UI_support.SELECT_LABEL_FONT,
-            bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
-            highlightthickness = 0
-        )
-        newRelY = FS.getRelY(self.lfQueryFeatureSelect) + FS.getRelH(self.lfQueryFeatureSelect)
-        newRelH = 1 - (FS.getRelH(self.lfQueryFeatureSelect) + FS.getRelH(self.lblStripesQueryFeatureSelect))
-        self.lbListFeatureSelect.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
-
-        # self.listQuerySetDataA.place(
-        #     relx = 0.01, rely = 0.025,
-        #     relwidth = 0.98, relheight = 0.95)
-        # # self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78 - 0.03)
-        # endregion
-
-        newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(
-            self.lfListFeatureSelect)
-
-        # COMMANDS PARENT (DATASET A)
-        # region
-
-        lfCommandsFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
-        lfCommandsFeatureSelect.place(
-            relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W,
-            relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H * 0.85)  # TODO Reduced size
-
-        lfCommandsFeatureSelect.configure(
-            background = Color_support.WHITE
-        )
-
-        # RESET BUTTON (DATASET A)
-        # region
-        self.btnResetFeatureSelect = Button(lfCommandsFeatureSelect)
-        self.btnResetFeatureSelect.place(
-            relx = 0, rely = 0,
-            relwidth = 0.25, relheight = 1)
-        self.btnResetFeatureSelect.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
-        # text = '''Reset''')
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnResetFeatureSelect.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnResetFeatureSelect.image = btn_query_reset_icon  # < ! > Required to make images appear
-        # endregion
-
-        # QUERY COUNT (DATASET A)
-        # region
-        newRelX = FS.getRelX(self.btnResetFeatureSelect) + FS.getRelW(self.btnResetFeatureSelect)
-
-        lfCountFeatureSelect = LabelFrame(lfCommandsFeatureSelect, bd = 1)
-        lfCountFeatureSelect.place(
-            relx = newRelX + 0.005, rely = 0,
-            relwidth = 0.50 - 0.005, relheight = 1
-        )
-        lfCountFeatureSelect.configure(
-            background = Color_support.SELECT_BG
-        )
-
-        # Define count variables
-        self.featureSelectCount = 0
-        self.confirmedFeaturesCount = 0
-
-        self.lblCountFeatureSelectText = Label(lfCountFeatureSelect)
-        self.lblCountFeatureSelectText.place(relx = 0, rely = 0, relwidth = 1,
-                                             relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
-        self.lblCountFeatureSelectText.configure(
-            font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
-            text = self.getDatasetCountA()
-        )
-        lblCountFeatureSelectTitle = Label(lfCountFeatureSelect)
-        lblCountFeatureSelectTitle.place(
-            relx = 0, rely = FS.getRelH(self.lblCountFeatureSelectText),
-            relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
-        lblCountFeatureSelectTitle.configure(
-            font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
-            text = '''SAMPLES'''
-        )
-        # endregion
-
-        # COMMAND BORDERS - DATASET A
-        # region
-        newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
-
-        sepCommandRight = Label(self.lfFeatureSelect)
-        sepCommandRight.place(
-            relx = FS.getRelX(self.lfStatusFeatureSelect),
-            rely = newRelY,
-            relheight = 1 - newRelY - 0.025,  # TODO To adjust border height, just adjust this
-            width = 1)
-        sepCommandRight.configure(background = Color_support.DISABLED_D_BLUE)
-
-        sepCommandLeft = Label(self.lfFeatureSelect)
-        sepCommandLeft.place(
-            relx = 1 - FS.getRelX(self.lfStatusFeatureSelect),
-            rely = FS.getRelY(sepCommandRight),
-            relheight = FS.getRelH(sepCommandRight),
-            width = 1
-        )
-        sepCommandLeft.configure(background = Color_support.DISABLED_D_BLUE)
-
-        sepCommandBottom = Label(self.lfFeatureSelect)
-        sepCommandBottom.place(
-            relx = FS.getRelX(sepCommandRight),
-            # rely = 0.997,
-            rely = FS.getRelY(sepCommandLeft) +
-                   FS.getRelH(sepCommandLeft) - 0.003,
-            relwidth = FS.getRelX(sepCommandLeft) - FS.getRelX(
-                sepCommandRight),
-            height = 1)
-        sepCommandBottom.configure(background = Color_support.DISABLED_D_BLUE)
-
-        newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
-
-        sepCommandTop = Label(self.lfFeatureSelect)
-        sepCommandTop.place(
-            relx = FS.getRelX(sepCommandRight),
-            rely = newRelY,
-            relwidth = FS.getRelW(sepCommandBottom),
-            height = 1)
-        sepCommandTop.configure(background = Color_support.DISABLED_D_BLUE)
-
-        # endregion
-
-        # endregion
-
-        #  QUERY PARENT (DATASET B)
-        # region
-        self.lfStatusConfirmedFeatures = LabelFrame(self.lfConfirmedFeatures, bd = 0)
-        self.lfStatusConfirmedFeatures.place(
-            relx = FS.getRelX(self.lfStatusFeatureSelect),
-            rely = FS.getRelY(self.lfStatusFeatureSelect),
-            relwidth = FS.getRelW(self.lfStatusFeatureSelect),
-            relheight = FS.getRelH(self.lfStatusFeatureSelect))
-        self.lfStatusConfirmedFeatures.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
-            relief = GROOVE  # , text = '''Dataset B'''
-        )
-        # endregion
-        # LISTBOX PARENT (DATASET B)
-        # region
-        self.lfConfirmedFeaturesList = LabelFrame(self.lfConfirmedFeatures, bd = 0)
-        self.lfConfirmedFeaturesList.place(
-            relx = FS.getRelX(self.lfListFeatureSelect),
-            rely = FS.getRelY(self.lfListFeatureSelect),
-            relwidth = FS.getRelW(self.lfListFeatureSelect),
-            relheight = FS.getRelH(self.lfListFeatureSelect)
-        )
-
-        # STATUS CHILDREN - DATASET B
-        # region
-
-        # QUERY TOP STRIPE PARENT - DATASET B
-        # region
-        self.lblStripesConfirmedFeatures = Label(self.lfConfirmedFeaturesList, bd = 0, relief = GROOVE)
-        self.lblStripesConfirmedFeatures.place(
-            relx = FS.getRelX(self.lblStripesQueryFeatureSelect),
-            rely = FS.getRelY(self.lblStripesQueryFeatureSelect),
-            relwidth = FS.getRelW(self.lblStripesQueryFeatureSelect),
-            relheight = FS.getRelH(self.lblStripesQueryFeatureSelect)
-        )
-        im = PIL.Image.open(
-            Icon_support.TEXTURE_STRIPE_PINK)
-        texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
-        self.lblStripesConfirmedFeatures.configure(
-            image = texture_pink_stripes,
-            anchor = SW
-        )
-        self.lblStripesConfirmedFeatures.image = texture_pink_stripes  # < ! > Required to make images appear
-        # endregion
-
-        self.lblStatusConfirmedFeatures = Label(self.lfStatusConfirmedFeatures)
-        # self.lblStatusConfirmedFeatures = Label(self.labelFrameListBoxB)
-        self.lblStatusConfirmedFeatures.place(
-            relx = FS.getRelX(self.lblStatusFeatureSelect),
-            rely = FS.getRelY(self.lblStatusFeatureSelect),
-            relwidth = FS.getRelW(self.lblStatusFeatureSelect),
-            relheight = FS.getRelH(self.lblStatusFeatureSelect)
-        )
-        # self.lblStatusConfirmedFeatures.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
-        self.lblStatusConfirmedFeatures.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
-            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
-            text = UI_support.LBL_SELECT_NO_DATA,
-            font = UI_support.SELECT_STATUS_LABEL_FONT,
-        )
-        # endregion
-
-        # endregion
-
-        self.lbListConfirmedFeatures = Listbox(self.lfConfirmedFeaturesList)
-        self.lbListConfirmedFeatures.configure(
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
-            selectmode = MULTIPLE, exportselection = "0",
-            activestyle = "none",
-            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
-            font = UI_support.SELECT_LABEL_FONT,
-            bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
-            highlightthickness = 0
-        )
-
-        self.lbListConfirmedFeatures.place(
-            relx = FS.getRelX(self.lbListFeatureSelect),
-            rely = FS.getRelY(self.lbListFeatureSelect),
-            relwidth = FS.getRelW(self.lbListFeatureSelect),
-            relheight = FS.getRelH(self.lbListFeatureSelect)
-        )
-
-        # STATUS - DATASET B
-        # region
-        lfStatusConfirmedFeatures = LabelFrame(self.lfConfirmedFeaturesList, bd = 0)
-        lfStatusConfirmedFeatures.place(
-            relx = FS.getRelX(self.lfQueryFeatureSelect),
-            rely = FS.getRelY(self.lfQueryFeatureSelect),
-            relwidth = FS.getRelW(self.lfQueryFeatureSelect),
-            relheight = FS.getRelH(self.lfQueryFeatureSelect)
-        )
-        # endregion
-
-        # QUERY CHILDREN - DATASET B
-        # region
-        lfBorderQueryConfirmedFeatures = LabelFrame(lfStatusConfirmedFeatures, bd = 0)
-        lfBorderQueryConfirmedFeatures.place(
-            relx = FS.getRelX(lfBorderQueryFeatureList),
-            rely = FS.getRelY(lfBorderQueryFeatureList),
-            relwidth = FS.getRelW(lfBorderQueryFeatureList),
-            relheight = FS.getRelH(lfBorderQueryFeatureList))
-        lfBorderQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_BUTTONS_BG
-        )
-
-        lblQueryConfirmedFeatures = Label(lfBorderQueryConfirmedFeatures)
-
-        lblQueryConfirmedFeatures.place(
-            relx = FS.getRelX(lblQueryFeatureList),
-            rely = FS.getRelY(lblQueryFeatureList),
-            relwidth = FS.getRelW(lblQueryFeatureList),
-            relheight = FS.getRelH(lblQueryFeatureList))
-        lblQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
-            text = UI_support.SELECT_LABEL_DATASETB_TEXT,
-            font = UI_support.SELECT_LABEL_FONT,
-            bd = 0, relief = FLAT,
-        )
-
-        # ENTER CODE DATASET B
-
-        self.entryQueryConfirmedFeatures = Entry(lfStatusConfirmedFeatures)
-        self.entryQueryConfirmedFeatures.place(
-            relx = FS.getRelX(self.entryQueryFeatureList),
-            rely = FS.getRelY(self.entryQueryFeatureList),
-            relwidth = FS.getRelW(self.entryQueryFeatureList),
-            relheight = FS.getRelH(self.entryQueryFeatureList))
-        self.entryQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
-            bd = 1,
-            font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
-            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
-        )  # TODO Constant font definiton
-
-        # DATASET B
-        self.btnQueryConfirmedFeatures = Button(lfStatusConfirmedFeatures)
-        self.btnQueryConfirmedFeatures.place(
-            relx = FS.getRelX(self.btnQueryFeatureList),
-            rely = FS.getRelY(self.btnQueryFeatureList),
-            relwidth = FS.getRelW(self.btnQueryFeatureList),
-            relheight = FS.getRelH(self.btnQueryFeatureList))
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
-                                                                     PIL.Image.ANTIALIAS)
-        btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnQueryConfirmedFeatures.configure(
-            image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnQueryConfirmedFeatures.image = btn_query_set_icon  # < ! > Required to make images appear
-
-        self.btnQueryConfirmedFeatures.configure(
-            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
-            highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE,
-            # text = '''Find Feature'''
-        )
-        # endregion
-
-        # COMMANDS PARENT (DATASET B)
-        # region
-        lfCommandsConfirmedFeatures = LabelFrame(self.lfConfirmedFeatures, bd = 0)
-        lfCommandsConfirmedFeatures.place(
-            relx = FS.getRelX(lfCommandsFeatureSelect),
-            rely = FS.getRelY(lfCommandsFeatureSelect),
-            relwidth = FS.getRelW(lfCommandsFeatureSelect),
-            relheight = FS.getRelH(lfCommandsFeatureSelect)
-        )
-        # lfCommandsConfirmedFeatures.place(
-        #     relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
-        #     relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
-
-        lfCommandsConfirmedFeatures.configure(
-            background = Color_support.WHITE
-        )
-        # endregion
-
-        # RESET BUTTON (DATASET B)
-        # region
-        self.btnResetConfirmedFeatures = Button(lfCommandsConfirmedFeatures)
-        self.btnResetConfirmedFeatures.place(
-            relx = 0, rely = 0,
-            relwidth = 0.25, relheight = 1)
-        self.btnResetConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
-        # text = '''Reset''')
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnResetConfirmedFeatures.configure(
-            image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnResetConfirmedFeatures.image = btn_query_reset_icon  # < ! > Required to make images appear
-
-        # endregion
-
-        # COMMAND BORDERS - DATASET B
-        # region
-        # newRelY = FS.getRelY(self.labelFrameListBoxB) + FS.getRelH(self.labelFrameListBoxB)
-
-        sepCommandsConfirmedFeaturesRight = Label(self.lfConfirmedFeatures)
-        sepCommandsConfirmedFeaturesRight.place(
-            relx = FS.getRelX(sepCommandRight),
-            rely = FS.getRelY(sepCommandRight),
-            relheight = FS.getRelH(sepCommandRight),
-            width = 1
-        )
-        sepCommandsConfirmedFeaturesRight.configure(background = Color_support.DISABLED_D_BLUE)
-
-        sepCommandsConfirmedFeaturesLeft = Label(self.lfConfirmedFeatures)
-        sepCommandsConfirmedFeaturesLeft.place(
-            relx = FS.getRelX(sepCommandLeft),
-            rely = FS.getRelY(sepCommandLeft),
-            relheight = FS.getRelH(sepCommandLeft),
-            width = 1
-        )
-        sepCommandsConfirmedFeaturesLeft.configure(background = Color_support.DISABLED_D_BLUE)
-
-        sepCommandsConfirmedFeaturesBottom = Label(self.lfConfirmedFeatures)
-        sepCommandsConfirmedFeaturesBottom.place(
-            relx = FS.getRelX(sepCommandBottom),
-            rely = FS.getRelY(sepCommandBottom),
-            relwidth = FS.getRelW(sepCommandBottom),
-            height = 1)
-        sepCommandsConfirmedFeaturesBottom.configure(background = Color_support.DISABLED_D_BLUE)
-
-        newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
-
-        sepCommandsConfirmedFeaturesTop = Label(self.lfFeatureSelect)
-        sepCommandsConfirmedFeaturesTop.place(
-            relx = FS.getRelX(sepCommandTop),
-            rely = FS.getRelY(sepCommandTop),
-            relwidth = FS.getRelW(sepCommandTop),
-            height = 1)
-        sepCommandTop.configure(background = Color_support.DISABLED_PALER_YELLOW)
-
-        # endregion
-
-        # QUERY COUNT (DATASET B)
-        # region
-        lfCountFeatureSelectB = LabelFrame(lfCommandsConfirmedFeatures, bd = 1)
-        lfCountFeatureSelectB.place(
-            relx = newRelX + 0.005, rely = 0,
-            relwidth = 0.50 - 0.005, relheight = 1
-        )
-        lfCountFeatureSelectB.configure(
-            background = Color_support.SELECT_BG
-        )
-
-        self.lblCountConfirmedFeaturesText = Label(lfCountFeatureSelectB)
-        self.lblCountConfirmedFeaturesText.place(relx = 0, rely = 0, relwidth = 1,
-                                                 relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
-        self.lblCountConfirmedFeaturesText.configure(
-            font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
-            text = self.getDatasetCountB()
-        )
-        lblCountConfirmedFeaturesTitle = Label(lfCountFeatureSelectB)
-        lblCountConfirmedFeaturesTitle.place(
-            relx = 0, rely = FS.getRelH(self.lblCountConfirmedFeaturesText),
-            relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
-        lblCountConfirmedFeaturesTitle.configure(
-            font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
-            text = '''SAMPLES'''
-        )
-
-        # Create the left separator
-        # lfCountFeatureSelectLeftSeparatorB = ttk.Separator(lfCountFeatureSelectB, orient = VERTICAL)
-        # lfCountFeatureSelectLeftSeparatorB.place(relx = 0, rely = 0, relheight = 1)
-
-        # lfCountFeatureSelectRightSeparatorB = ttk.Separator(lfCountFeatureSelectB, orient = VERTICAL)
-        # lfCountFeatureSelectRightSeparatorB.place(relx = 0.99, rely = 0, relheight = 1)
-        # endregion
-
-        # FILTER BUTTON (DATASET A)
-        # region
-        newRelX = FS.getRelX(lfCountFeatureSelect) + FS.getRelW(lfCountFeatureSelect)
-        newRelX = FS.getRelX(lfCountFeatureSelect) + FS.getRelW(lfCountFeatureSelect)
-
-        self.btnConfirmFeatureSelect = Button(lfCommandsFeatureSelect, compound = CENTER)
-        self.btnConfirmFeatureSelect.place(
-            relx = newRelX + 0.005, rely = 0,
-            relwidth = 0.25 - 0.005, relheight = 1
-        )
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnConfirmFeatureSelect.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnConfirmFeatureSelect.image = btn_query_filter_icon  # < ! > Required to make images appear
-
-        self.btnConfirmFeatureSelect.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
-        # text = '''Filter''')
-        self.btnConfirmFeatureSelect.pack(side = RIGHT)
-        self.btnResetFeatureSelect.pack(side = LEFT)
-
-        # endregion
-        # FILTER BUTTON (DATASET B)
-        # region
-        newRelX = FS.getRelX(lfCountFeatureSelectB) + FS.getRelW(lfCountFeatureSelectB)
-
-        self.btnConfirmConfirmedFeatures = Button(lfCommandsConfirmedFeatures, compound = CENTER)
-        self.btnConfirmConfirmedFeatures.place(
-            relx = newRelX + 0.005, rely = 0,
-            relwidth = 0.25 - 0.005, relheight = 1
-        )
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnConfirmConfirmedFeatures.configure(
-            image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnConfirmConfirmedFeatures.image = btn_query_filter_icon  # < ! > Required to make images appear
-
-        self.btnConfirmConfirmedFeatures.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
-        # text = '''Filter''')
-        self.btnConfirmConfirmedFeatures.pack(side = RIGHT)
-
-        self.btnResetConfirmedFeatures.pack(side = LEFT)
-        # endregion
+    # def configureSelectElements(self, parentFrame):
+    #
+    #     global queryStrFilterB
+    #
+    #     # SELECT TITLE
+    #     self.labelFrameSelectTitle = LabelFrame(parentFrame, bd = 0)
+    #     self.labelFrameSelectTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
+    #     self.labelFrameSelectTitle.configure(
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR  # , text = '''FILTER'''
+    #     )
+    #
+    #     # Create the top separator
+    #     # self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = HORIZONTAL)
+    #     # self.labelFrameSelectHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
+    #
+    #     # COLORED SEPARATOR
+    #     self.separatorlabelFrameSelectTitleNumber = self.createLabelSeparator(
+    #         self.labelFrameSelectTitle, 1,
+    #         False, CS.SELECT_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
+    #         0.5, W
+    #     )
+    #
+    #     # SELECT NUMBER
+    #     self.labelFrameSelectTitleNumber = Label(self.labelFrameSelectTitle)
+    #     newRelY = UI_support.LABEL_TITLE_REL_Y
+    #     self.labelFrameSelectTitleNumber.place(
+    #         relx = 0, rely = newRelY,
+    #         relwidth = 0.04 + 0.05,
+    #         relheight = 1 - (newRelY * 2), anchor = NW)
+    #
+    #     self.labelFrameSelectTitleNumber.configure(
+    #         font = UI_support.FONT_MED_BOLD,
+    #         # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
+    #         background = CS.SELECT_NUMBER_BG, foreground = CS.SELECT_NUMBER_FG,
+    #         text = '''1  ''',
+    #         bd = 1, relief = GROOVE,
+    #         anchor = SE
+    #     )
+    #     newRelX = FS.getRelX(self.labelFrameSelectTitleNumber) + FS.getRelW(self.labelFrameSelectTitleNumber)
+    #
+    #     # SELECT TITLE
+    #     self.labelFrameSelectTitleText = Label(self.labelFrameSelectTitle)
+    #     newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
+    #     newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
+    #     self.labelFrameSelectTitleText.place(
+    #         relx = newRelX - 0.001, rely = newRelY,
+    #         relwidth = 0.15, relheight = newRelH, anchor = NW)
+    #     self.labelFrameSelectTitleText.configure(
+    #         font = UI_support.FONT_MED_BOLD,
+    #         # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
+    #         background = CS.SELECT_TITLE_BG, foreground = CS.SELECT_TITLE_FG,
+    #         text = '''GROUP''',
+    #         bd = 0, relief = GROOVE,
+    #         anchor = S
+    #     )
+    #     # Title border
+    #     self.separatorlabelFrameSelectTitleText = self.createLabelSeparator(
+    #         self.labelFrameSelectTitleText, 1,
+    #         True, CS.WHITE,
+    #         coordinate = 0.99, specifiedAnchor = NW
+    #     )
+    #
+    #     newRelY = FS.getRelY(self.labelFrameSelectTitle) + FS.getRelH(
+    #         self.labelFrameSelectTitle)  # + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
+    #     titleRelH = FS.getRelH(self.labelFrameSelectTitle)
+    #
+    #     self.lfFeatureSelect = LabelFrame(parentFrame, bd = 0)
+    #     self.lfFeatureSelect.place(
+    #         relx = 0.05, rely = newRelY,
+    #         relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
+    #     )
+    #     self.lfFeatureSelect.configure(
+    #         background = CS.SELECT_BG
+    #     )
+    #     newRelH = FS.getRelH(self.lfFeatureSelect)
+    #     self.lfConfirmedFeatures = LabelFrame(parentFrame, bd = 0)
+    #     self.lfConfirmedFeatures.place(
+    #         relx = UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15,
+    #         # (2 * FS.getRelX(self.labelFrameDatasetA)) + FS.getRelW(self.labelFrameDatasetA),
+    #         rely = newRelY, relwidth = 0.4, relheight = newRelH
+    #     )
+    #     self.lfConfirmedFeatures.configure(
+    #         background = CS.SELECT_BG
+    #     )
+    #
+    #     # DATASET SEPARATOR
+    #     self.labelFrameDatasetCenterSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
+    #     self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = newRelY + 0.05, relheight = 1 - titleRelH - 0.1)
+    #
+    #     # QUERY PARENT (DATASET A)
+    #     self.lfStatusFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
+    #     self.lfStatusFeatureSelect.place(
+    #         relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
+    #         relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
+    #     self.lfStatusFeatureSelect.configure(
+    #         background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
+    #         relief = GROOVE  # , text = '''Dataset A'''
+    #     )
+    #
+    #     # QUERY STATUS CHILD - DATASET A
+    #     # region
+    #     self.lblStatusFeatureSelect = Label(self.lfStatusFeatureSelect)
+    #     # self.labelQuerySetDataStatusA = Label(self.labelFrameQuerySetDataStatusA)
+    #     # self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
+    #     self.lblStatusFeatureSelect.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
+    #     # self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+    #     self.lblStatusFeatureSelect.configure(
+    #         background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
+    #         bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
+    #         text = UI_support.LBL_SELECT_NO_DATA,
+    #         font = UI_support.SELECT_STATUS_LABEL_FONT,
+    #     )
+    #     if UI_support.SELECT_STATUS_LABEL_TOP_SEPARATOR:
+    #         sepStatusHorizontal = ttk.Separator(self.lblStatusFeatureSelect,
+    #                                                                   orient = HORIZONTAL)
+    #         sepStatusHorizontal.place(relx = 0, rely = 0, relwidth = 1, anchor = NW)
+    #     # endregion
+    #
+    #     # LISTBOX PARENT (DATASET A)
+    #     # region
+    #     newRelY = UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + FS.getRelY(self.lfStatusFeatureSelect) + FS.getRelH(
+    #         self.lfStatusFeatureSelect)
+    #
+    #     self.lfListFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
+    #     self.lfListFeatureSelect.place(
+    #         relx = UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
+    #         relwidth = UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = UI_support.TAB_TEST_LISTBOX_QUERY_REL_H)
+    #
+    #     # QUERY STATUS PARENT - DATASET A
+    #     # region
+    #     # newRelY = FS.getRelY(self.listQuerySetDataA) + FS.getRelH(self.listQuerySetDataA)
+    #     # newRelH = 1 - FS.getRelH(self.listQuerySetDataA)
+    #
+    #     self.lfQueryFeatureSelect = LabelFrame(self.lfListFeatureSelect, bd = 0)
+    #     # self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+    #     specifiedListBoxHeight = (0.78 - 0.03)
+    #     newRelH = 1 - specifiedListBoxHeight  # TODO Make constant (0.78 - 0.03) is the listbox's supposed height
+    #     self.lfQueryFeatureSelect.place(relx = 0, rely = 0, relwidth = 1, relheight = newRelH)
+    #
+    #     # QUERY TOP STRIPE PARENT - DATASET A
+    #     # region
+    #     # newRelH = FS.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
+    #     newRelH = FS.getRelH(
+    #         self.lfQueryFeatureSelect) * UI_support.SELECT_LABEL_STRIPES_REL_H_MULTIPLIER  # 5 / 8 # TODO Make constant reference
+    #     self.lblStripesQueryFeatureSelect = Label(self.lfListFeatureSelect, bd = 0, relief = GROOVE)
+    #     self.lblStripesQueryFeatureSelect.place(
+    #         relx = 0,
+    #         rely = 0,
+    #         # rely = newRelY,
+    #         relwidth = 1,
+    #         relheight = newRelH,
+    #         anchor = NW
+    #     )
+    #     newRelY = FS.getRelY(self.lblStripesQueryFeatureSelect) + FS.getRelH(self.lblStripesQueryFeatureSelect)
+    #     self.lfQueryFeatureSelect.place(
+    #         relx = FS.getRelX(self.lfQueryFeatureSelect),
+    #         rely = newRelY,
+    #         relwidth = FS.getRelW(self.lfQueryFeatureSelect),
+    #         relheight = FS.getRelH(self.lfQueryFeatureSelect),
+    #     )
+    #     im = PIL.Image.open(
+    #         Icon_support.TEXTURE_STRIPE_PINK)
+    #     texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+    #     self.lblStripesQueryFeatureSelect.configure(
+    #         image = texture_pink_stripes,
+    #         anchor = SW
+    #     )
+    #     self.lblStripesQueryFeatureSelect.image = texture_pink_stripes  # < ! > Required to make images appear
+    #     # endregion
+    #
+    #     # QUERY FRAME - DATASET A
+    #     # region
+    #     # lfBorderQueryFeatureList = LabelFrame(self.labelFrameQueryDataA, bd = 0)
+    #     lfBorderQueryFeatureList = LabelFrame(self.lfQueryFeatureSelect, bd = 0)
+    #     lfBorderQueryFeatureList.place(
+    #         relx = 0, rely = 0,
+    #         relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
+    #     )
+    #     lfBorderQueryFeatureList.configure(
+    #         background = CS.SELECT_BUTTONS_BG
+    #     )
+    #
+    #     lblQueryFeatureList = Label(lfBorderQueryFeatureList)
+    #
+    #     lblQueryFeatureList.place(
+    #         relx = 0.01, rely = 0.025,
+    #         relwidth = 0.98, relheight = 0.95)
+    #     lblQueryFeatureList.configure(
+    #         background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
+    #         text = UI_support.SELECT_LABEL_DATASETA_TEXT,
+    #         font = UI_support.SELECT_LABEL_FONT,
+    #         bd = 0, relief = FLAT,
+    #     )
+    #
+    #     newRelX = FS.getRelX(lfBorderQueryFeatureList) + FS.getRelW(
+    #         lfBorderQueryFeatureList)  # + UI_support.TAB_3CHILD_LBL_REL_X
+    #
+    #     # ENTRY - DATASET A
+    #     # region
+    #     # self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
+    #     self.entryQueryFeatureList = Entry(self.lfQueryFeatureSelect)
+    #     self.entryQueryFeatureList.place(
+    #         relx = newRelX, rely = 0,
+    #         relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
+    #     self.entryQueryFeatureList.configure(
+    #         background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
+    #         bd = 1,
+    #         font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
+    #         selectbackground = CS.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+    #         insertbackground = CS.SELECT_ENTRY_SELECT_INSERT_BG,
+    #         takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
+    #     )  # TODO Constant font definiton
+    #     # endregion
+    #     # QUERY BUTTON - DATASET A
+    #     # region
+    #     newRelX = FS.getRelX(self.entryQueryFeatureList) + FS.getRelW(
+    #         self.entryQueryFeatureList)  # + UI_support.TAB_3CHILD_LBL_REL_X
+    #
+    #     # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
+    #     self.btnQueryFeatureList = Button(self.lfQueryFeatureSelect)
+    #     self.btnQueryFeatureList.place(
+    #         relx = newRelX, rely = 0,
+    #         relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
+    #
+    #     im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
+    #                                                                  PIL.Image.ANTIALIAS)
+    #     btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
+    #     self.btnQueryFeatureList.configure(
+    #         image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+    #     self.btnQueryFeatureList.image = btn_query_set_icon  # < ! > Required to make images appear
+    #
+    #     self.btnQueryFeatureList.configure(
+    #         background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
+    #         activebackground = CS.SELECT_BG,
+    #         highlightthickness = 0, padx = 0, pady = 0,
+    #         bd = 0, relief = FLAT, overrelief = GROOVE,
+    #         # text = '''Find Feature'''
+    #     )
+    #     # endregion
+    #
+    #     # endregion
+    #
+    #     # endregion
+    #
+    #     # LISTBOX - DATASET A
+    #     # region
+    #     # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
+    #     # self.listQuerySetDataA = Listbox(self.labelFrameListBoxA, yscrollcommand = self.scrollbarQuerySetDataA.set)
+    #
+    #     self.lbListFeatureSelect = Listbox(self.lfListFeatureSelect)
+    #     self.lbListFeatureSelect.configure(
+    #         background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
+    #         selectmode = MULTIPLE, exportselection = "0",
+    #         activestyle = "none",
+    #         selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+    #         selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
+    #         font = UI_support.SELECT_LABEL_FONT,
+    #         bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
+    #         highlightthickness = 0
+    #     )
+    #     newRelY = FS.getRelY(self.lfQueryFeatureSelect) + FS.getRelH(self.lfQueryFeatureSelect)
+    #     newRelH = 1 - (FS.getRelH(self.lfQueryFeatureSelect) + FS.getRelH(self.lblStripesQueryFeatureSelect))
+    #     self.lbListFeatureSelect.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+    #
+    #     # self.listQuerySetDataA.place(
+    #     #     relx = 0.01, rely = 0.025,
+    #     #     relwidth = 0.98, relheight = 0.95)
+    #     # # self.listQuerySetDataA.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.78 - 0.03)
+    #     # endregion
+    #
+    #     newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(
+    #         self.lfListFeatureSelect)
+    #
+    #     # COMMANDS PARENT (DATASET A)
+    #     # region
+    #
+    #     lfCommandsFeatureSelect = LabelFrame(self.lfFeatureSelect, bd = 0)
+    #     lfCommandsFeatureSelect.place(
+    #         relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
+    #         relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W,
+    #         relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H * 0.85)  # TODO Reduced size
+    #
+    #     lfCommandsFeatureSelect.configure(
+    #         background = CS.WHITE
+    #     )
+    #
+    #     # RESET BUTTON (DATASET A)
+    #     # region
+    #     self.btnResetFeatureSelect = Button(lfCommandsFeatureSelect)
+    #     self.btnResetFeatureSelect.place(
+    #         relx = 0, rely = 0,
+    #         relwidth = 0.25, relheight = 1)
+    #     self.btnResetFeatureSelect.configure(
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR,
+    #         bd = 1, relief = FLAT, overrelief = FLAT)
+    #     # text = '''Reset''')
+    #
+    #     im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+    #     btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+    #     self.btnResetFeatureSelect.configure(
+    #         image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+    #     self.btnResetFeatureSelect.image = btn_query_reset_icon  # < ! > Required to make images appear
+    #     # endregion
+    #
+    #     # QUERY COUNT (DATASET A)
+    #     # region
+    #     newRelX = FS.getRelX(self.btnResetFeatureSelect) + FS.getRelW(self.btnResetFeatureSelect)
+    #
+    #     self.lfCountFeatureSelect = LabelFrame(lfCommandsFeatureSelect, bd = 1)
+    #     self.lfCountFeatureSelect.place(
+    #         relx = newRelX + 0.005, rely = 0,
+    #         relwidth = 0.50 - 0.005, relheight = 1
+    #     )
+    #     self.lfCountFeatureSelect.configure(
+    #         background = CS.SELECT_BG
+    #     )
+    #
+    #     # Define count variables
+    #     self.featureSelectCount = 0
+    #     self.confirmedFeaturesCount = 0
+    #
+    #     self.lblCountFeatureSelectText = Label(self.lfCountFeatureSelect)
+    #     self.lblCountFeatureSelectText.place(relx = 0, rely = 0, relwidth = 1,
+    #                                          relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
+    #     self.lblCountFeatureSelectText.configure(
+    #         font = UI_support.FONT_LARGE_BOLD,
+    #         background = CS.SELECT_BG,
+    #         text = self.getDatasetCountA()
+    #     )
+    #     self.lblCountFeatureSelectTitle = Label(self.lfCountFeatureSelect)
+    #     self.lblCountFeatureSelectTitle.place(
+    #         relx = 0, rely = FS.getRelH(self.lblCountFeatureSelectText),
+    #         relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
+    #     self.lblCountFeatureSelectTitle.configure(
+    #         font = UI_support.FONT_DEFAULT_BOLD,
+    #         background = CS.FG_COLOR, foreground = CS.SELECT_BG,
+    #         text = '''SAMPLES'''
+    #     )
+    #     # endregion
+    #
+    #     # COMMAND BORDERS - DATASET A
+    #     # region
+    #     newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
+    #
+    #     self.sepCommandRight = Label(self.lfFeatureSelect)
+    #     self.sepCommandRight.place(
+    #         relx = FS.getRelX(self.lfStatusFeatureSelect),
+    #         rely = newRelY,
+    #         relheight = 1 - newRelY - 0.025,  # TODO To adjust border height, just adjust this
+    #         width = 1)
+    #     self.sepCommandRight.configure(background = CS.DISABLED_D_BLUE)
+    #
+    #     self.sepCommandLeft = Label(self.lfFeatureSelect)
+    #     self.sepCommandLeft.place(
+    #         relx = 1 - FS.getRelX(self.lfStatusFeatureSelect),
+    #         rely = FS.getRelY(self.sepCommandRight),
+    #         relheight = FS.getRelH(self.sepCommandRight),
+    #         width = 1
+    #     )
+    #     self.sepCommandLeft.configure(background = CS.DISABLED_D_BLUE)
+    #
+    #     self.sepCommandBottom = Label(self.lfFeatureSelect)
+    #     self.sepCommandBottom.place(
+    #         relx = FS.getRelX(self.sepCommandRight),
+    #         # rely = 0.997,
+    #         rely = FS.getRelY(self.sepCommandLeft) +
+    #                FS.getRelH(self.sepCommandLeft) - 0.003,
+    #         relwidth = FS.getRelX(self.sepCommandLeft) - FS.getRelX(
+    #             self.sepCommandRight),
+    #         height = 1)
+    #     self.sepCommandBottom.configure(background = CS.DISABLED_D_BLUE)
+    #
+    #     newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
+    #
+    #     self.sepCommandTop = Label(self.lfFeatureSelect)
+    #     self.sepCommandTop.place(
+    #         relx = FS.getRelX(self.sepCommandRight),
+    #         rely = newRelY,
+    #         relwidth = FS.getRelW(self.sepCommandBottom),
+    #         height = 1)
+    #     self.sepCommandTop.configure(background = CS.DISABLED_D_BLUE)
+    #
+    #     # endregion
+    #
+    #     # endregion
+    #
+    #     #  QUERY PARENT (DATASET B)
+    #     # region
+    #     self.lfStatusConfirmedFeatures = LabelFrame(self.lfConfirmedFeatures, bd = 0)
+    #     self.lfStatusConfirmedFeatures.place(
+    #         relx = FS.getRelX(self.lfStatusFeatureSelect),
+    #         rely = FS.getRelY(self.lfStatusFeatureSelect),
+    #         relwidth = FS.getRelW(self.lfStatusFeatureSelect),
+    #         relheight = FS.getRelH(self.lfStatusFeatureSelect))
+    #     self.lfStatusConfirmedFeatures.configure(
+    #         background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
+    #         relief = GROOVE  # , text = '''Dataset B'''
+    #     )
+    #     # endregion
+    #     # LISTBOX PARENT (DATASET B)
+    #     # region
+    #     self.lfConfirmedFeaturesList = LabelFrame(self.lfConfirmedFeatures, bd = 0)
+    #     self.lfConfirmedFeaturesList.place(
+    #         relx = FS.getRelX(self.lfListFeatureSelect),
+    #         rely = FS.getRelY(self.lfListFeatureSelect),
+    #         relwidth = FS.getRelW(self.lfListFeatureSelect),
+    #         relheight = FS.getRelH(self.lfListFeatureSelect)
+    #     )
+    #
+    #     # STATUS CHILDREN - DATASET B
+    #     # region
+    #
+    #     # QUERY TOP STRIPE PARENT - DATASET B
+    #     # region
+    #     self.lblStripesConfirmedFeatures = Label(self.lfConfirmedFeaturesList, bd = 0, relief = GROOVE)
+    #     self.lblStripesConfirmedFeatures.place(
+    #         relx = FS.getRelX(self.lblStripesQueryFeatureSelect),
+    #         rely = FS.getRelY(self.lblStripesQueryFeatureSelect),
+    #         relwidth = FS.getRelW(self.lblStripesQueryFeatureSelect),
+    #         relheight = FS.getRelH(self.lblStripesQueryFeatureSelect)
+    #     )
+    #     im = PIL.Image.open(
+    #         Icon_support.TEXTURE_STRIPE_PINK)
+    #     texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+    #     self.lblStripesConfirmedFeatures.configure(
+    #         image = texture_pink_stripes,
+    #         anchor = SW
+    #     )
+    #     self.lblStripesConfirmedFeatures.image = texture_pink_stripes  # < ! > Required to make images appear
+    #     # endregion
+    #
+    #     self.lblStatusConfirmedFeatures = Label(self.lfStatusConfirmedFeatures)
+    #     # self.lblStatusConfirmedFeatures = Label(self.labelFrameListBoxB)
+    #     self.lblStatusConfirmedFeatures.place(
+    #         relx = FS.getRelX(self.lblStatusFeatureSelect),
+    #         rely = FS.getRelY(self.lblStatusFeatureSelect),
+    #         relwidth = FS.getRelW(self.lblStatusFeatureSelect),
+    #         relheight = FS.getRelH(self.lblStatusFeatureSelect)
+    #     )
+    #     # self.lblStatusConfirmedFeatures.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+    #     self.lblStatusConfirmedFeatures.configure(
+    #         background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
+    #         bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
+    #         text = UI_support.LBL_SELECT_NO_DATA,
+    #         font = UI_support.SELECT_STATUS_LABEL_FONT,
+    #     )
+    #     # endregion
+    #
+    #     # endregion
+    #
+    #     self.lbListConfirmedFeatures = Listbox(self.lfConfirmedFeaturesList)
+    #     self.lbListConfirmedFeatures.configure(
+    #         background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
+    #         selectmode = MULTIPLE, exportselection = "0",
+    #         activestyle = "none",
+    #         selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
+    #         selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
+    #         font = UI_support.SELECT_LABEL_FONT,
+    #         bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
+    #         highlightthickness = 0
+    #     )
+    #
+    #     self.lbListConfirmedFeatures.place(
+    #         relx = FS.getRelX(self.lbListFeatureSelect),
+    #         rely = FS.getRelY(self.lbListFeatureSelect),
+    #         relwidth = FS.getRelW(self.lbListFeatureSelect),
+    #         relheight = FS.getRelH(self.lbListFeatureSelect)
+    #     )
+    #
+    #     # STATUS - DATASET B
+    #     # region
+    #     lfStatusConfirmedFeatures = LabelFrame(self.lfConfirmedFeaturesList, bd = 0)
+    #     lfStatusConfirmedFeatures.place(
+    #         relx = FS.getRelX(self.lfQueryFeatureSelect),
+    #         rely = FS.getRelY(self.lfQueryFeatureSelect),
+    #         relwidth = FS.getRelW(self.lfQueryFeatureSelect),
+    #         relheight = FS.getRelH(self.lfQueryFeatureSelect)
+    #     )
+    #     # endregion
+    #
+    #     # QUERY CHILDREN - DATASET B
+    #     # region
+    #     lfBorderQueryConfirmedFeatures = LabelFrame(lfStatusConfirmedFeatures, bd = 0)
+    #     lfBorderQueryConfirmedFeatures.place(
+    #         relx = FS.getRelX(lfBorderQueryFeatureList),
+    #         rely = FS.getRelY(lfBorderQueryFeatureList),
+    #         relwidth = FS.getRelW(lfBorderQueryFeatureList),
+    #         relheight = FS.getRelH(lfBorderQueryFeatureList))
+    #     lfBorderQueryConfirmedFeatures.configure(
+    #         background = CS.SELECT_BUTTONS_BG
+    #     )
+    #
+    #     lblQueryConfirmedFeatures = Label(lfBorderQueryConfirmedFeatures)
+    #
+    #     lblQueryConfirmedFeatures.place(
+    #         relx = FS.getRelX(lblQueryFeatureList),
+    #         rely = FS.getRelY(lblQueryFeatureList),
+    #         relwidth = FS.getRelW(lblQueryFeatureList),
+    #         relheight = FS.getRelH(lblQueryFeatureList))
+    #     lblQueryConfirmedFeatures.configure(
+    #         background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
+    #         text = UI_support.SELECT_LABEL_DATASETB_TEXT,
+    #         font = UI_support.SELECT_LABEL_FONT,
+    #         bd = 0, relief = FLAT,
+    #     )
+    #
+    #     # ENTER CODE DATASET B
+    #
+    #     self.entryQueryConfirmedFeatures = Entry(lfStatusConfirmedFeatures)
+    #     self.entryQueryConfirmedFeatures.place(
+    #         relx = FS.getRelX(self.entryQueryFeatureList),
+    #         rely = FS.getRelY(self.entryQueryFeatureList),
+    #         relwidth = FS.getRelW(self.entryQueryFeatureList),
+    #         relheight = FS.getRelH(self.entryQueryFeatureList))
+    #     self.entryQueryConfirmedFeatures.configure(
+    #         background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
+    #         bd = 1,
+    #         font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
+    #         selectbackground = CS.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
+    #         insertbackground = CS.SELECT_ENTRY_SELECT_INSERT_BG,
+    #         takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
+    #     )  # TODO Constant font definiton
+    #
+    #     # DATASET B
+    #     self.btnQueryConfirmedFeatures = Button(lfStatusConfirmedFeatures)
+    #     self.btnQueryConfirmedFeatures.place(
+    #         relx = FS.getRelX(self.btnQueryFeatureList),
+    #         rely = FS.getRelY(self.btnQueryFeatureList),
+    #         relwidth = FS.getRelW(self.btnQueryFeatureList),
+    #         relheight = FS.getRelH(self.btnQueryFeatureList))
+    #
+    #     im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
+    #                                                                  PIL.Image.ANTIALIAS)
+    #     btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
+    #     self.btnQueryConfirmedFeatures.configure(
+    #         image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+    #     self.btnQueryConfirmedFeatures.image = btn_query_set_icon  # < ! > Required to make images appear
+    #
+    #     self.btnQueryConfirmedFeatures.configure(
+    #         background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
+    #         activebackground = CS.SELECT_BTN_BG_ACTIVE,
+    #         highlightthickness = 0, padx = 0, pady = 0,
+    #         bd = 0, relief = FLAT, overrelief = GROOVE,
+    #         # text = '''Find Feature'''
+    #     )
+    #     # endregion
+    #
+    #     # COMMANDS PARENT (DATASET B)
+    #     # region
+    #     self.lfCommandsConfirmedFeatures = LabelFrame(self.lfConfirmedFeatures, bd = 0)
+    #     self.lfCommandsConfirmedFeatures.place(
+    #         relx = FS.getRelX(lfCommandsFeatureSelect),
+    #         rely = FS.getRelY(lfCommandsFeatureSelect),
+    #         relwidth = FS.getRelW(lfCommandsFeatureSelect),
+    #         relheight = FS.getRelH(lfCommandsFeatureSelect)
+    #     )
+    #     # self.lfCommandsConfirmedFeatures.place(
+    #     #     relx = UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
+    #     #     relwidth = UI_support.TAB_TEST_COMMANDS_QUERY_REL_W, relheight = UI_support.TAB_TEST_COMMANDS_QUERY_REL_H)
+    #
+    #     self.lfCommandsConfirmedFeatures.configure(
+    #         background = CS.WHITE
+    #     )
+    #     # endregion
+    #
+    #     # RESET BUTTON (DATASET B)
+    #     # region
+    #     self.btnResetConfirmedFeatures = Button(self.lfCommandsConfirmedFeatures)
+    #     self.btnResetConfirmedFeatures.place(
+    #         relx = 0, rely = 0,
+    #         relwidth = 0.25, relheight = 1)
+    #     self.btnResetConfirmedFeatures.configure(
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR,
+    #         bd = 1, relief = FLAT, overrelief = FLAT)
+    #     # text = '''Reset''')
+    #
+    #     im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+    #     btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
+    #     self.btnResetConfirmedFeatures.configure(
+    #         image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+    #     self.btnResetConfirmedFeatures.image = btn_query_reset_icon  # < ! > Required to make images appear
+    #
+    #     # endregion
+    #
+    #     # COMMAND BORDERS - DATASET B
+    #     # region
+    #     # newRelY = FS.getRelY(self.labelFrameListBoxB) + FS.getRelH(self.labelFrameListBoxB)
+    #
+    #     sepCommandsConfirmedFeaturesRight = Label(self.lfConfirmedFeatures)
+    #     sepCommandsConfirmedFeaturesRight.place(
+    #         relx = FS.getRelX(self.sepCommandRight),
+    #         rely = FS.getRelY(self.sepCommandRight),
+    #         relheight = FS.getRelH(self.sepCommandRight),
+    #         width = 1
+    #     )
+    #     sepCommandsConfirmedFeaturesRight.configure(background = CS.DISABLED_D_BLUE)
+    #
+    #     sepCommandsConfirmedFeaturesLeft = Label(self.lfConfirmedFeatures)
+    #     sepCommandsConfirmedFeaturesLeft.place(
+    #         relx = FS.getRelX(self.sepCommandLeft),
+    #         rely = FS.getRelY(self.sepCommandLeft),
+    #         relheight = FS.getRelH(self.sepCommandLeft),
+    #         width = 1
+    #     )
+    #     sepCommandsConfirmedFeaturesLeft.configure(background = CS.DISABLED_D_BLUE)
+    #
+    #     sepCommandsConfirmedFeaturesBottom = Label(self.lfConfirmedFeatures)
+    #     sepCommandsConfirmedFeaturesBottom.place(
+    #         relx = FS.getRelX(self.sepCommandBottom),
+    #         rely = FS.getRelY(self.sepCommandBottom),
+    #         relwidth = FS.getRelW(self.sepCommandBottom),
+    #         height = 1)
+    #     sepCommandsConfirmedFeaturesBottom.configure(background = CS.DISABLED_D_BLUE)
+    #
+    #     newRelY = FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(self.lfListFeatureSelect)
+    #
+    #     sepCommandsConfirmedFeaturesTop = Label(self.lfFeatureSelect)
+    #     sepCommandsConfirmedFeaturesTop.place(
+    #         relx = FS.getRelX(self.sepCommandTop),
+    #         rely = FS.getRelY(self.sepCommandTop),
+    #         relwidth = FS.getRelW(self.sepCommandTop),
+    #         height = 1)
+    #     self.sepCommandTop.configure(background = CS.DISABLED_PALER_YELLOW)
+    #
+    #     # endregion
+    #
+    #     # QUERY COUNT (DATASET B)
+    #     # region
+    #     self.lfCountFeatureSelectB = LabelFrame(self.lfCommandsConfirmedFeatures, bd = 1)
+    #     self.lfCountFeatureSelectB.place(
+    #         relx = newRelX + 0.005, rely = 0,
+    #         relwidth = 0.50 - 0.005, relheight = 1
+    #     )
+    #     self.lfCountFeatureSelectB.configure(
+    #         background = CS.SELECT_BG
+    #     )
+    #
+    #     self.lblCountConfirmedFeaturesText = Label(self.lfCountFeatureSelectB)
+    #     self.lblCountConfirmedFeaturesText.place(relx = 0, rely = 0, relwidth = 1,
+    #                                              relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
+    #     self.lblCountConfirmedFeaturesText.configure(
+    #         font = UI_support.FONT_LARGE_BOLD,
+    #         background = CS.SELECT_BG,
+    #         text = self.getDatasetCountB()
+    #     )
+    #     self.lblCountConfirmedFeaturesTitle = Label(self.lfCountFeatureSelectB)
+    #     self.lblCountConfirmedFeaturesTitle.place(
+    #         relx = 0, rely = FS.getRelH(self.lblCountConfirmedFeaturesText),
+    #         relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
+    #     self.lblCountConfirmedFeaturesTitle.configure(
+    #         font = UI_support.FONT_DEFAULT_BOLD,
+    #         background = CS.FG_COLOR, foreground = CS.SELECT_BG,
+    #         text = '''SAMPLES'''
+    #     )
+    #
+    #     # Create the left separator
+    #     # self.lfCountFeatureSelectLeftSeparatorB = ttk.Separator(self.lfCountFeatureSelectB, orient = VERTICAL)
+    #     # self.lfCountFeatureSelectLeftSeparatorB.place(relx = 0, rely = 0, relheight = 1)
+    #
+    #     # self.lfCountFeatureSelectRightSeparatorB = ttk.Separator(self.lfCountFeatureSelectB, orient = VERTICAL)
+    #     # self.lfCountFeatureSelectRightSeparatorB.place(relx = 0.99, rely = 0, relheight = 1)
+    #     # endregion
+    #
+    #     # FILTER BUTTON (DATASET A)
+    #     # region
+    #     newRelX = FS.getRelX(self.lfCountFeatureSelect) + FS.getRelW(self.lfCountFeatureSelect)
+    #     newRelX = FS.getRelX(self.lfCountFeatureSelect) + FS.getRelW(self.lfCountFeatureSelect)
+    #
+    #     self.btnConfirmFeatureSelect = Button(lfCommandsFeatureSelect, compound = CENTER)
+    #     self.btnConfirmFeatureSelect.place(
+    #         relx = newRelX + 0.005, rely = 0,
+    #         relwidth = 0.25 - 0.005, relheight = 1
+    #     )
+    #
+    #     im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+    #     btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+    #     self.btnConfirmFeatureSelect.configure(
+    #         image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+    #     self.btnConfirmFeatureSelect.image = btn_query_filter_icon  # < ! > Required to make images appear
+    #
+    #     self.btnConfirmFeatureSelect.configure(
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR,
+    #         bd = 1, relief = FLAT, overrelief = FLAT)
+    #     # text = '''Filter''')
+    #     self.btnConfirmFeatureSelect.pack(side = RIGHT)
+    #     self.btnResetFeatureSelect.pack(side = LEFT)
+    #
+    #     # endregion
+    #     # FILTER BUTTON (DATASET B)
+    #     # region
+    #     newRelX = FS.getRelX(self.lfCountFeatureSelectB) + FS.getRelW(self.lfCountFeatureSelectB)
+    #
+    #     self.btnConfirmConfirmedFeatures = Button(self.lfCommandsConfirmedFeatures, compound = CENTER)
+    #     self.btnConfirmConfirmedFeatures.place(
+    #         relx = newRelX + 0.005, rely = 0,
+    #         relwidth = 0.25 - 0.005, relheight = 1
+    #     )
+    #
+    #     im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+    #     btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
+    #     self.btnConfirmConfirmedFeatures.configure(
+    #         image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+    #     self.btnConfirmConfirmedFeatures.image = btn_query_filter_icon  # < ! > Required to make images appear
+    #
+    #     self.btnConfirmConfirmedFeatures.configure(
+    #         background = CS.SELECT_BG, foreground = CS.FG_COLOR,
+    #         bd = 1, relief = FLAT, overrelief = FLAT)
+    #     # text = '''Filter''')
+    #     self.btnConfirmConfirmedFeatures.pack(side = RIGHT)
+    #
+    #     self.btnResetConfirmedFeatures.pack(side = LEFT)
+    #     # endregion
 
     ''' -> Elements under the FILTER ("FILTER") HEADER <- '''
 
     def configureFilterElements(self, parentFrame):
-        titleFrame = self.createTitleBar(parentFrame, '2', 'PROCESS', Color_support.FILTER_TITLE_BG)
+        titleFrame = self.createTitleBar(parentFrame, '2', 'PROCESS', CS.FILTER_TITLE_BG)
         titleFrame.place(relx = 0, rely = 0.08, relwidth = 1,
                          relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
 
@@ -1771,8 +1961,8 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_REL_W, relheight = UI_support.TAB_TEST_FILTER_QUERY_REL_H
         )
         self.labelQueryDataFeatureName.configure(
-            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG,
-            foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
+            background = CS.FILTER_LISTBOX_FEATURE_STATUS_BG,
+            foreground = CS.FILTER_LISTBOX_FEATURE_STATUS_FG,
             bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -1789,7 +1979,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_FILTER_LIST_DATA_REL_H
         )
         self.labelFrameFilterListData.configure(
-            background = Color_support.FILTER_BG
+            background = CS.FILTER_BG
         )
 
         # FILTER QUERY PARENT
@@ -1805,7 +1995,7 @@ class AutomatedMining_View:
         #     relwidth = UI_support.TAB_TEST_FILTER_QUERY_REL_W, relheight = UI_support.TAB_TEST_FILTER_QUERY_REL_H
         # )
         self.labelFrameFilterQueryData.configure(
-            background = Color_support.FILTER_BG
+            background = CS.FILTER_BG
         )
 
         # FILTER QUERY LABEL
@@ -1815,7 +2005,7 @@ class AutomatedMining_View:
             relx = 0, rely = 0,
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_LBL_REL_W, relheight = 1)
         self.labelFrameBorderQueryFeature.configure(
-            background = Color_support.FILTER_BUTTONS_BG
+            background = CS.FILTER_BUTTONS_BG
         )
 
         self.labelQueryFeature = Label(self.labelFrameBorderQueryFeature)
@@ -1823,7 +2013,7 @@ class AutomatedMining_View:
             relx = 0.01, rely = 0.025,
             relwidth = 0.98, relheight = 0.95)
         self.labelQueryFeature.configure(
-            background = Color_support.FILTER_LABEL_BG, foreground = Color_support.FILTER_LABEL_FG,
+            background = CS.FILTER_LABEL_BG, foreground = CS.FILTER_LABEL_FG,
             text = UI_support.FILTER_LABEL_QUERY_FEATURE_TEXT,
             font = UI_support.FILTER_LABEL_FONT,
             bd = 0, relief = FLAT,
@@ -1839,11 +2029,11 @@ class AutomatedMining_View:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_FILTER_QUERY_ENTRY_REL_W - 0.001, relheight = 1)
         self.entryQueryFeature.configure(
-            background = Color_support.FILTER_ENTRY_BG, foreground = Color_support.FILTER_ENTRY_FG,
+            background = CS.FILTER_ENTRY_BG, foreground = CS.FILTER_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.FILTER_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.FILTER_ENTRY_SELECT_INSERT_BG,
+            selectbackground = CS.FILTER_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = CS.FILTER_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.FILTER_ENTRY_JUSTIFY
         )
         # endregion
@@ -1865,8 +2055,8 @@ class AutomatedMining_View:
         self.buttonQueryFeature.image = btn_query_feature_icon  # < ! > Required to make images appear
 
         self.buttonQueryFeature.configure(
-            background = Color_support.FILTER_BUTTONS_BG, foreground = Color_support.FILTER_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+            background = CS.FILTER_BUTTONS_BG, foreground = CS.FILTER_BUTTONS_FG,
+            activebackground = CS.SELECT_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = FLAT
         )
@@ -1889,7 +2079,7 @@ class AutomatedMining_View:
             # UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
         )
         self.labelFrameFilterListDataA.configure(
-            background = Color_support.FILTER_BG
+            background = CS.FILTER_BG
         )
 
         # FILTER LIST BOX - DATASET A
@@ -1905,11 +2095,11 @@ class AutomatedMining_View:
                                     UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
 
         self.listQueryDataA.configure(
-            background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
+            background = CS.FILTER_LISTBOX_BG, foreground = CS.FILTER_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = CS.FILTER_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = CS.FILTER_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.FILTER_LABEL_FONT,
             bd = UI_support.FILTER_LISTBOX_BORDER, relief = UI_support.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -1925,7 +2115,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_STATUS_REL_W, relheight = newRelH)
 
         self.labelQueryDataA.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_BG, foreground = Color_support.FILTER_LISTBOX_STATUS_FG,
+            background = CS.FILTER_LISTBOX_STATUS_BG, foreground = CS.FILTER_LISTBOX_STATUS_FG,
             bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -1943,7 +2133,7 @@ class AutomatedMining_View:
             # UI_support.TAB_TEST_FILTER_LISTBOX_REL_H
         )
         self.labelFrameFilterListDataB.configure(
-            background = Color_support.FILTER_BG
+            background = CS.FILTER_BG
         )
 
         # FILTER LIST BOX - DATASET B
@@ -1955,11 +2145,11 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.listQueryDataA))
 
         self.listQueryDataB.configure(
-            background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
+            background = CS.FILTER_LISTBOX_BG, foreground = CS.FILTER_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = CS.FILTER_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = CS.FILTER_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.FILTER_LABEL_FONT,
             bd = UI_support.FILTER_LISTBOX_BORDER, relief = UI_support.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -1975,7 +2165,7 @@ class AutomatedMining_View:
             relheight = newRelH)
 
         self.labelQueryDataB.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_BG, foreground = Color_support.FILTER_LISTBOX_STATUS_FG,
+            background = CS.FILTER_LISTBOX_STATUS_BG, foreground = CS.FILTER_LISTBOX_STATUS_FG,
             bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -2004,15 +2194,15 @@ class AutomatedMining_View:
         # FILTER BORDERS
         self.separatorFilterListDataA = Label(self.labelFrameFilterListDataA)
         self.separatorFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
-        self.separatorFilterListDataA.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+        self.separatorFilterListDataA.configure(background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         self.separatorFilterListDataCenter = Label(self.labelFrameFilterListDataB)
         self.separatorFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
-        self.separatorFilterListDataCenter.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+        self.separatorFilterListDataCenter.configure(background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         self.separatorFilterListDataB = Label(self.labelFrameFilterListDataB)
         self.separatorFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
-        self.separatorFilterListDataB.configure(background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+        self.separatorFilterListDataB.configure(background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         # FILTER LOCK OVERLAY
         # FILTER LOCK QUERY ENTRY COVER
@@ -2042,7 +2232,7 @@ class AutomatedMining_View:
         )
         self.labelOverlayFilterQueryData.configure(
             background = self.labelFrameFilterQueryData['background'],
-            foreground = Color_support.FILTER_LABEL_OVERLAY_BG,
+            foreground = CS.FILTER_LABEL_OVERLAY_BG,
             text = '''Please confirm the dataset groupings before filtering''',
             font = UI_support.FILTER_LABEL_FONT,
             bd = 0, relief = GROOVE,
@@ -2087,8 +2277,8 @@ class AutomatedMining_View:
                         FS.getRelH(self.labelFilterStripes) - 0.018)
 
         self.labelOverlayFilterListDataA.configure(
-            background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
-            foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
+            background = CS.FILTER_LISTBOX_OVERLAY_BG,
+            foreground = CS.FILTER_LABEL_OVERLAY_FG,
             font = UI_support.FILTER_LABEL_FONT,
             # bd = 0, relief = RIDGE,
             bd = self.labelFrameFilterListDataA['bd'], relief = self.labelFrameFilterListDataA['relief'],
@@ -2105,8 +2295,8 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.labelQueryDataA) - newRelYReduction)
 
         self.labelOverlayQueryDataA.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
-            foreground = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
+            foreground = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
             bd = self.labelQueryDataA['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -2115,7 +2305,7 @@ class AutomatedMining_View:
         self.separatorOverlayFilterListDataA = Label(self.labelOverlayFilterListDataA)
         self.separatorOverlayFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataA.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
 
         # RIGHT COVER
@@ -2125,8 +2315,8 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.labelFrameFilterListDataB),
             relheight = FS.getRelH(self.labelOverlayFilterListDataA))
         self.labelOverlayFilterListDataB.configure(
-            background = Color_support.FILTER_LISTBOX_OVERLAY_BG,
-            foreground = Color_support.FILTER_LABEL_OVERLAY_FG,
+            background = CS.FILTER_LISTBOX_OVERLAY_BG,
+            foreground = CS.FILTER_LABEL_OVERLAY_FG,
             font = UI_support.FILTER_LABEL_FONT,
             bd = self.labelOverlayFilterListDataA['border'], relief = self.labelOverlayFilterListDataA['relief'],
             # bd = 1, relief = RIDGE,
@@ -2141,8 +2331,8 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.labelOverlayQueryDataA))
 
         self.labelOverlayQueryDataB.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
-            foreground = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
+            foreground = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
             bd = self.labelQueryDataA['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
@@ -2152,19 +2342,19 @@ class AutomatedMining_View:
         self.separatorOverlayFilterListDataCenter = Label(self.labelOverlayFilterListDataB)
         self.separatorOverlayFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataCenter.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         self.separatorOverlayFilterListDataB = Label(self.labelOverlayFilterListDataB)
         self.separatorOverlayFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataB.configure(
-            background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
+            background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
 
     ''' -> Elements under the PROCESS ("TEST") HEADER <- '''
 
     def configureProcessElements(self, parentFrame):
 
-        titleFrame = self.createTitleBar(parentFrame, '3', 'RESULTS', Color_support.PROCESS_TITLE_BG)
+        titleFrame = self.createTitleBar(parentFrame, '3', 'RESULTS', CS.PROCESS_TITLE_BG)
         titleFrame.place(relx = 0, rely = 0,
                          relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
 
@@ -2179,7 +2369,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_COMMANDS_REL_H
         )
         self.labelFrameProcessCommands.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # PROCESS STATISTICAL TEST OPTIONS
@@ -2190,7 +2380,7 @@ class AutomatedMining_View:
         )
 
         self.labelFrameProcessStatTests.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # TITLE
@@ -2202,7 +2392,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessStatTestsTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG, foreground = CS.PROCESS_Z_TEST_TITLE_FG,
             text = '''TYPE''',
             anchor = CENTER,
             bd = 0, relief = GROOVE
@@ -2218,7 +2408,7 @@ class AutomatedMining_View:
             relheight = 1 - FS.getRelH(self.labelFrameProcessStatTestsTitle)  # 0.35
         )
         self.labelFrameProcessStatTestsButtonElements.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # CHOOSE Z-TEST BUTTON
@@ -2234,8 +2424,8 @@ class AutomatedMining_View:
             relwidth = 1, relheight = 0.28
         )
         self.buttonChooseZTest.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.WHITE,
-            activebackground = Color_support.PROCESS_Z_TEST_TITLE_BG,
+            background = CS.D_BLUE, foreground = CS.WHITE,
+            activebackground = CS.PROCESS_Z_TEST_TITLE_BG,
             bd = 1, relief = GROOVE, overrelief = SUNKEN,
             font = UI_support.FONT_DEFAULT_BOLD,
             text = '''Z - TEST''')
@@ -2258,8 +2448,8 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.buttonChooseZTest), relheight = FS.getRelH(self.buttonChooseZTest)
         )
         self.buttonChooseChiSquare.configure(
-            background = Color_support.WHITE, foreground = Color_support.D_BLUE,
-            activebackground = Color_support.PROCESS_Z_TEST_TITLE_BG,
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            activebackground = CS.PROCESS_Z_TEST_TITLE_BG,
             bd = 1, relief = GROOVE, overrelief = SUNKEN,
             font = UI_support.FONT_DEFAULT_BOLD,
             text = '''CHI - SQUARE''')
@@ -2277,7 +2467,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
         )
         self.labelFrameProcessTestOptions.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         self.labelFrameProcessTestOptionsTitle = Label(self.labelFrameProcessTestOptions)
@@ -2288,7 +2478,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessTestOptionsTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG, foreground = CS.PROCESS_Z_TEST_TITLE_FG,
             # text = '''OPTIONS''',
             anchor = CENTER,
             bd = 1, relief = GROOVE
@@ -2307,7 +2497,7 @@ class AutomatedMining_View:
             # relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
         )
         self.labelFrameProcessZTest.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         self.labelFrameProcessZTestTitle = Label(self.labelFrameProcessZTest)
@@ -2318,7 +2508,7 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessZTestTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG, foreground = CS.PROCESS_Z_TEST_TITLE_FG,
             text = '''Z - TEST''',
             # text = '''OPTIONS''',
             anchor = CENTER,
@@ -2342,7 +2532,7 @@ class AutomatedMining_View:
             relwidth = 0.525, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_H
         )
         self.labelFrameProcessZTestConfidence.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         newRelX = FS.getRelX(self.labelFrameProcessZTestConfidence) + FS.getRelW(
@@ -2358,7 +2548,7 @@ class AutomatedMining_View:
             relheight = 0.35
         )
         self.labelFrameProcessZTestButtonElements.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # CONFIDENCE SPINBOX LABEL
@@ -2368,7 +2558,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_CONFIDENCE_TEXT_REL_H)
         self.labelQueryZConfidenceText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = CS.FG_COLOR, foreground = CS.SELECT_BG,
             text = '''CONFIDENCE'''
         )
 
@@ -2392,9 +2582,9 @@ class AutomatedMining_View:
         self.spinBoxQueryZConfidence.configure(
             textvariable = stringVar,
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.WHITE, foreground = Color_support.FG_COLOR,
+            background = CS.WHITE, foreground = CS.FG_COLOR,
             exportselection = 0,
-            buttonbackground = Color_support.WHITE,
+            buttonbackground = CS.WHITE,
             buttonuprelief = FLAT, buttondownrelief = GROOVE,
             justify = CENTER
 
@@ -2412,9 +2602,9 @@ class AutomatedMining_View:
         self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
         self.buttonQueryZTest.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
-            activebackground = Color_support.PROCESS_TITLE_BG,
-            highlightbackground = Color_support.PROCESS_TITLE_BG,
+            background = CS.PROCESS_BG, foreground = CS.PROCESS_BUTTONS_FG,
+            activebackground = CS.PROCESS_TITLE_BG,
+            highlightbackground = CS.PROCESS_TITLE_BG,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Test''')
 
@@ -2435,7 +2625,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = 1
         )
         self.labelFrameProcessChiSquare.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(self.labelFrameProcessChiSquare)
@@ -2450,8 +2640,8 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessChiSquareTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG,
-            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
+            background = CS.PROCESS_CHI_SQUARE_TITLE_BG,
+            foreground = CS.PROCESS_CHI_SQUARE_TITLE_FG,
 
             text = '''CHI - SQUARE''',
             anchor = CENTER,
@@ -2475,7 +2665,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = 0.35
         )
         self.labelFrameProcessChiSquareElements.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # QUEUE ELEMENTS
@@ -2485,7 +2675,7 @@ class AutomatedMining_View:
             relwidth = 0.45, relheight = 1
         )
         self.labelFrameProcessChiSquareQueue.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(
@@ -2499,7 +2689,7 @@ class AutomatedMining_View:
         )
         self.labelQueueText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = CS.FG_COLOR, foreground = CS.SELECT_BG,
             text = '''QUEUE SIZE'''
         )
 
@@ -2512,7 +2702,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = newRelH)
         self.labelQueueCount.configure(
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
+            background = CS.SELECT_BG,
             text = '''0'''
         )
 
@@ -2528,7 +2718,7 @@ class AutomatedMining_View:
             relwidth = 0.25, relheight = 1
         )
         self.labelFrameProcessQueue.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # Enqueue button
@@ -2541,7 +2731,7 @@ class AutomatedMining_View:
         self.buttonQueue.image = btn_queue_icon  # < ! > Required to make images appear
 
         self.buttonQueue.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            background = CS.PROCESS_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
 
         self.buttonQueue.pack(side = LEFT)
@@ -2556,7 +2746,7 @@ class AutomatedMining_View:
             relwidth = 0.25, relheight = 1
         )
         self.labelFrameProcessClearQueue.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         self.buttonClearQueue = Button(self.labelFrameProcessClearQueue, compound = CENTER)
@@ -2568,7 +2758,7 @@ class AutomatedMining_View:
         self.buttonClearQueue.image = btn_clear_queue_icon  # < ! > Required to make images appear
 
         self.buttonClearQueue.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+            background = CS.PROCESS_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT
         )
 
@@ -2586,7 +2776,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TEST_PROCESS_RUN_PARENT, relheight = 1
         )
         self.labelFrameProcessRun.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # PROCESS RUN MINER TITLE
@@ -2598,8 +2788,8 @@ class AutomatedMining_View:
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
         self.labelFrameProcessRunMinerTitle.configure(
             font = UI_support.FONT_MED_BOLD,
-            background = Color_support.D_BLUE, foreground = Color_support.WHITE,
-            # background = Color_support.PROCESS_RUN_MINER_TITLE_BG, foreground = Color_support.PROCESS_RUN_MINER_TITLE_FG,
+            background = CS.D_BLUE, foreground = CS.WHITE,
+            # background = CS.PROCESS_RUN_MINER_TITLE_BG, foreground = CS.PROCESS_RUN_MINER_TITLE_FG,
             text = '''RUN MINER''',
             anchor = CENTER,
             bd = 1, relief = GROOVE
@@ -2618,7 +2808,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = newRelH
         )
         self.labelFrameRunMiner.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
         self.labelFrameRunMinerElements = LabelFrame(self.labelFrameRunMiner, bd = 0)
         self.labelFrameRunMinerElements.place(
@@ -2626,7 +2816,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = 1
         )
         self.labelFrameRunMinerElements.configure(
-            background = Color_support.PROCESS_BG
+            background = CS.PROCESS_BG
         )
 
         # region RUN MINER BUTTON
@@ -2641,7 +2831,7 @@ class AutomatedMining_View:
         self.buttonTestQueue.image = btn_queue_icon  # < ! > Required to make images appear
 
         self.buttonTestQueue.configure(
-            background = Color_support.PROCESS_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
+            background = CS.PROCESS_BUTTONS_BG, foreground = CS.PROCESS_BUTTONS_FG,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = FLAT)
 
@@ -2705,7 +2895,7 @@ class AutomatedMining_View:
         )
 
         self.labelFrameConsoleScreen.configure(
-            background = Color_support.CONSOLE_BG,
+            background = CS.CONSOLE_BG,
             bd = 0, relief = GROOVE
         )
 
@@ -2720,7 +2910,7 @@ class AutomatedMining_View:
         )
 
         self.labelConsoleScreenTaskBar.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = UI_support.LBL_SELECT_NO_DATA,
             font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -2764,7 +2954,7 @@ class AutomatedMining_View:
         )
 
         self.labelFrameConsoleControls.configure(
-            background = Color_support.WHITE,
+            background = CS.WHITE,
             bd = 0, relief = GROOVE
         )
 
@@ -2778,12 +2968,12 @@ class AutomatedMining_View:
 
         self.buttonConsoleAll.configure(
             text = '''ALL''',
-            background = Color_support.WHITE,
-            foreground = Color_support.FG_COLOR,
+            background = CS.WHITE,
+            foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.L_GRAY,
-            activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR
+            activebackground = CS.L_GRAY,
+            activeforeground = CS.DATASET_BTN_FG_ACTIVE,
+            disabledforeground = CS.FG_DISABLED_COLOR
         )
 
         # SHOW Z-TEST CONSOLE
@@ -2872,8 +3062,8 @@ class AutomatedMining_View:
         )
         self.listConsoleScreen.configure(
             yscrollcommand = self.scrollConsoleScreen.set,
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
-            selectbackground = Color_support.SELECT_LISTBOX_BG, selectforeground = Color_support.SELECT_LISTBOX_FG,
+            background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
+            selectbackground = CS.SELECT_LISTBOX_BG, selectforeground = CS.SELECT_LISTBOX_FG,
             font = UI_support.FONT_SMALL,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
 
@@ -3018,7 +3208,7 @@ class AutomatedMining_View:
             # relheight = newRelH
         )
         self.scrollConsoleScreen.configure(
-            background = Color_support.D_BLUE,
+            background = CS.D_BLUE,
             bd = 0,
         )
 
@@ -3051,7 +3241,7 @@ class AutomatedMining_View:
         labelNE.configure(
             image = corner_round_ne)
         labelNE.image = corner_round_ne  # < ! > Required to make images appear
-        labelNE.configure(background = Color_support.PALE_ORANGE)  # cornerParent['background'])
+        labelNE.configure(background = CS.PALE_ORANGE)  # cornerParent['background'])
         labelNE.pack()
         # labelNE.pack(side = RIGHT, fill = Y, expand = True, anchor = CENTER)
 
@@ -3080,7 +3270,7 @@ class AutomatedMining_View:
         separatorHolder.configure(background = color)
         return separatorHolder
 
-    def createLabelBorders(self, borderParent, color = Color_support.DISABLED_D_BLUE):
+    def createLabelBorders(self, borderParent, color = CS.DISABLED_D_BLUE):
 
         # COLORED SEPARATOR
         topBorder = self.createLabelSeparator(
@@ -3205,7 +3395,7 @@ class AutomatedMining_View:
         return self.labelFilterStripes
 
     def getLabelQuerySetDataStatusA(self):
-        return self.lblStatusFeatureSelect
+        return self.lblHeaderFeatureSelect
     def getLabelQuerySetDataStatusB(self):
         return self.lblStatusConfirmedFeatures
 
@@ -3259,4 +3449,38 @@ class AutomatedMining_View:
 
     def getBtnResetFeatureSelect(self):
         return self.btnResetFeatureSelect
+
+    def getBtnQueryFeatureList(self):
+        return self.btnQueryFeatureList
+
+    def getLbListFeatureSelect(self):
+        return self.lbListFeatureSelect
+
+    def getLbListFeatureDetails(self):
+        return self.lbListFeatureDetails
+
+    def getEntryQueryFeatureList(self):
+        return self.entryQueryFeatureList
+
+
+    def getBtnConfirmConfirmedFeatures(self):
+        return self.btnConfirmConfirmedFeatures
     # endregion GETTERS
+
+
+    """UPDATERS"""
+    def updateLbListFeatureSelect(self, dictContents):
+        self.getLbListFeatureSelect().delete(0, END)
+
+        featureIDs = dictContents.keys()
+        for featureID in featureIDs:
+            entry = "  " + str(featureID) + "  -  " + str(dictContents[featureID][key.DESCRIPTION])
+            self.getLbListFeatureSelect().insert(END, str(entry))
+
+    def updateLbListFeatureDetails(self, dictResponses):
+        self.getLbListFeatureDetails().delete(0, END)
+
+        responseIDs = dictResponses.keys()
+        for responseID in responseIDs:
+            entry = "  " + str(responseID) + "  -  " + str(dictResponses[responseID][key.DESCRIPTION])
+            self.getLbListFeatureDetails().insert(END, str(entry))

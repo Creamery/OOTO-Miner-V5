@@ -17,26 +17,93 @@ from collections import OrderedDict
 import threading
 import time
 import copy
+import Function_support as FS
+import KEYS_support as key
 
 
-class key:
-    SAMPLES = 'Samples'
-    CODE = 'Code'
-    DESCRIPTION = 'Description'
-    RESPONSES = 'Responses'
-    GROUP = 'Group'
-    FEATURE_LIST = 'FeatureList'
+
+class ViewModel:
+
+    def __init__(self):
+        self.setQueryFeatureList('')
+        self.setCurrentResponse({})
+        self.setSelectedFeatures([])
+        self.setPrevSelectedFeatures([])
+
+    """FUNCTIONS"""
+    def resetFeature(self):
+        self.setQueryFeatureList('')
+        self.setSelectedFeatures([])
+
+    """GETTERS"""
+    def getCurrentFeature(self):
+        return self.__currentQueryFeatureList
+
+    def getCurrentResponse(self):
+        return self.__currentResponse
+
+    def getSelectedFeatures(self):
+        return self.__selectedFeatures
+
+    def getPrevSelectedFeatures(self):
+        return self.__prevSelectedFeatures
+
+    """SETTERS"""
+    def setQueryFeatureList(self, value):
+        self.__currentQueryFeatureList = value
+
+    def setCurrentResponse(self, value):
+        self.__currentResponse = value
+
+    def setSelectedFeatures(self, value):
+        self.__selectedFeatures = value
+
+    def setPrevSelectedFeatures(self, value):
+        self.__prevSelectedFeatures = value
+
+    """UPDATERS"""
+
+    def updateSelectedFeatures(self, listbox, newSelectedFeatures):
+        self.updatePrevSelectedFeatures()
+        self.setSelectedFeatures(newSelectedFeatures)
+
+        # w = evt.widget
+        if self.getPrevSelectedFeatures():  # if not empty
+            # compare last selectionlist with new list and extract the difference
+            changedSelection = set(self.getPrevSelectedFeatures()).symmetric_difference(set(newSelectedFeatures))
+            self.setPrevSelectedFeatures(newSelectedFeatures)
+        else:
+            # if empty, assign current selection
+            self.setPrevSelectedFeatures(newSelectedFeatures)
+            changedSelection = newSelectedFeatures
+
+        if len(changedSelection) > 0:
+            index = int(list(changedSelection)[0])
+            lastSelectedIndex = listbox.get(index)
+        else:
+            lastSelectedIndex = -1
+        print('ls '+ str(lastSelectedIndex))
+        return lastSelectedIndex
+
+
+    def updatePrevSelectedFeatures(self):
+        self.__prevSelectedFeatures = self.getSelectedFeatures()
+
+
 
 
 class AutomatedMining_Model:
 
     def __init__(self):
-        self.__resetFeatureDescription()
-        self.__resetDatasets()
+        self.viewModel = ViewModel()
 
         self.isProcessing = False
         self.winProgressBar = None
         self.pbProgressBar = None
+
+        self.__resetFeatureDescription()
+        self.__resetDatasets()
+
 
 
     def readFeatures(self, features):
@@ -64,14 +131,16 @@ class AutomatedMining_Model:
 
         for response in responses:
             group = response[key.GROUP]
-            code = response[key.CODE]
-            description = response[key.DESCRIPTION]
+            if not(str(group).strip() == '-1'):
+                code = response[key.CODE]
+                description = response[key.DESCRIPTION]
 
 
-            entry = dictResponses.setdefault(group, OrderedDict({key.CODE: [], key.DESCRIPTION: []}))
-            entry[key.CODE].append(code)
-            entry[key.DESCRIPTION].append(description)
+                entry = dictResponses.setdefault(group, OrderedDict({key.CODE: [], key.DESCRIPTION: []}))
+                entry[key.CODE].append(code)
+                entry[key.DESCRIPTION].append(description)
 
+        dictResponses = OrderedDict(sorted(dictResponses.items()))  # sort keys alphabetically
         return dictResponses
 
 
@@ -80,7 +149,7 @@ class AutomatedMining_Model:
 
         # Append SAMPLES
         for record in dataset:
-            orderedRecord = OrderedDict(record)
+            orderedRecord = OrderedDict(sorted(record.items()))  # sort keys alphabetically
             self.getPopulationDataset()[key.SAMPLES].append(orderedRecord)
             self.getDatasetA()[key.SAMPLES].append(orderedRecord)
             self.getDatasetB()[key.SAMPLES].append(orderedRecord)
@@ -89,7 +158,9 @@ class AutomatedMining_Model:
         self.getPopulationDataset()[key.FEATURE_LIST] = self.getFeatureDescription()
         self.getDatasetA()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
         self.getDatasetB()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
-
+        print "getPopulationDataset[key.SAMPLES]"
+        # print str(type(self.getPopulationDataset()[key.SAMPLES][0]))
+        # print str(self.getPopulationDataset()[key.SAMPLES])
 
 
     def __resetFeatureDescription(self):
@@ -111,15 +182,74 @@ class AutomatedMining_Model:
         # self.queryResetDatasetB(None)
 
 
+    """Returns a list of feature values"""
+    def __getFeatureQuery(self, queryString):
+        featureList = self.getFeatureDescription()
+
+        queryStringKeys = []
+        for featureKey in featureList.keys():
+            print(str(featureKey) + " vs " + queryString)
+            print("find returns : " + str(str(featureKey).find(queryString)))
+            if str(featureKey).find(queryString) > -1: # if key contains string
+                queryStringKeys.append(featureKey)
+
+
+        # queryFeatureList = [featureList[x] for x in queryStringKeys]
+        queryFeatureList = {key: value for key, value in featureList.items() if key in queryStringKeys}
+        queryFeatureList = OrderedDict(sorted(queryFeatureList.items()))
+        print(str(queryFeatureList))
+        return queryFeatureList
+
+    def __getFeatureResponses(self, featureID):
+        featureList = self.getFeatureDescription()
+        hasKey = FS.checkKey(featureList, featureID)
+
+        if hasKey:
+            response = featureList[featureID][key.RESPONSES]
+            print "Key found"
+        else:
+            responses = {}
+
+        self.setCurrentResponse(response)
+        return response
+
     """BUTTON FUNCTIONS"""
     def confirmFeatureSelect(self, evt):
         print "confirmFeatureSelect"
         self.startThread(evt)
         return "break"
 
+    def confirmConfirmedFeatures(self, evt):
+        print "confirmConfirmedFeatures"
+        return "break"
+
     def resetFeatureSelect(self, evt):
         print "resetFeatureSelect"
         return "break"
+
+    def queryFeature(self, featureID):
+        # featureID = self.viewModel.getCurrentFeature()
+        print "featureID " + str(featureID)
+
+        self.viewModel.setQueryFeatureList(featureID)
+        queryFeatureList = self.__getFeatureQuery(featureID)
+        # responses = self.__getFeatureResponses(featureID)
+
+        # Update contents of listbox
+        self.viewModel.setQueryFeatureList(queryFeatureList)
+        # self.viewModel.setCurrentResponses(responses)
+        return queryFeatureList
+
+    def queryFeatureResponses(self, featureID):
+        # featureID = self.viewModel.getCurrentFeature()
+        print "featureID " + str(featureID)
+
+        self.viewModel.setQueryFeatureList(featureID)
+        response = self.__getFeatureResponses(featureID)
+
+        # Update contents of listbox
+        self.viewModel.setCurrentResponse(response)
+        return response
 
     """GETTERS"""
     def getFeatureDescription(self):
@@ -154,6 +284,22 @@ class AutomatedMining_Model:
 
     def __setDatasetB(self, value):
         self.__datasetB = OrderedDict(value)
+
+    """UPDATERS"""
+    def updateSelectedFeatureResponse(self, selectedItem):
+        featureId = self.extractFeatureID(selectedItem)
+        response = {}
+        if len(self.getFeatureDescription()) > 0:
+            response = self.getFeatureDescription()[featureId][key.RESPONSES]
+            self.viewModel.setCurrentResponse(response)
+
+        return response
+
+    def extractFeatureID(self, selectedItem):
+        featureId = str(selectedItem).strip()[0:2]
+        print str(featureId)
+        return featureId
+
 
     # THREADING TEST FUNCTIONS
     def startThread(self, evt):
@@ -219,3 +365,5 @@ class ThreadedTask(threading.Thread):
         self.prog_text["text"] = self.prog_val
         # self.prog_bar.start()
         # print str(self.prog_val)
+
+

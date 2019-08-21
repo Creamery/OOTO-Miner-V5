@@ -66,17 +66,48 @@ class AutomatedMining_Controller:
         self.arrQueryCriticalValueMapping = None
 
 
-        self.configureButtonBindings()
+        self.configureViewBindings()
 
         # self.configureTestTabBindings()
         # self.initializeVariables()
 
-    def configureButtonBindings(self):
+    def configureViewBindings(self):
         button = self.view.getBtnConfirmFeatureSelect()
         button.bind('<Button-1>', self.model.confirmFeatureSelect)
 
+        button = self.view.getBtnConfirmConfirmedFeatures()
+        button.bind('<Button-1>', self.model.confirmConfirmedFeatures)
+
         button = self.view.getBtnResetFeatureSelect()
         button.bind('<Button-1>', self.model.resetFeatureSelect)
+
+        button = self.view.getBtnQueryFeatureList()
+        button.bind('<Button-1>', self.queryFeatureID)
+
+        listbox = self.view.getLbListFeatureSelect()
+        listbox.bind('<<ListboxSelect>>', self.selectFeature)
+
+        # TODO Entry Change
+
+
+    def queryFeatureID(self, evt):
+        print "queryFeatureID"
+        # get featureID from entry widget
+        featureID = self.view.getEntryQueryFeatureList().get()
+
+        queryFeatureList = self.model.queryFeature(featureID)
+
+        self.view.updateLbListFeatureSelect(queryFeatureList)
+
+    def selectFeature(self, evt):
+        listbox = evt.widget
+        selectedItems = listbox.curselection()
+
+        lastSelectedItem = self.model.viewModel.updateSelectedFeatures(listbox, selectedItems)
+        # lastSelectedItem = listbox.get(lastSelectedIndex)
+
+        response = self.model.updateSelectedFeatureResponse(lastSelectedItem)
+        self.view.updateLbListFeatureDetails(response)
 
     def setArrQueryCriticalValue(self, arrayValue):
         self.arrQueryCriticalValue = arrayValue
@@ -132,15 +163,7 @@ class AutomatedMining_Controller:
             return True
 
     def uploadDataset(self, dataset):
-
-        # self.populationDir = directory
-        # self.populationDataset = dataset
-
-        # Reset contents of dataset variables
-        # self.resetDatasetContents() # TODO return
-
         self.model.readDataset(dataset)
-
 
         # TODO Show the total samples of the unaltered dataset
         # self.datasetCountA = len(self.datasetA['Data'])
