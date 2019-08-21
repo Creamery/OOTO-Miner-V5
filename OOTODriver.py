@@ -115,17 +115,18 @@ class OOTO_Miner:
         self.INPUT = self.configureDataTabElements(self.Tabs_t2)
         self.INPUT.getButtonStartDatasetUpload().bind('<Button-1>', self.uploadInputFiles)
 
-        ''' TAB 2.1 - TEST (Tabs_t3) '''
-        self.MM = self.configureTestTabElements(self.Tabs_t3)
+        ''' TAB 2 - AM (Tabs_t3) '''
+        self.MM = self.configureManualMiningTab(self.Tabs_t3)
 
+        # ''' TAB 2.2 TEST CONSOLE - (Tabs_t3)'''
+        # self.configureTestTabConsoleElements()
 
-        ''' TAB 2.2 TEST CONSOLE - (Tabs_t3)'''
-        self.configureTestTabConsoleElements()
+        ''' TAB 3 - AM (Tabs_t5) '''
+        self.AM = self.configureAutomatedMiningTab(self.Tabs_t5)
 
-        ''' TAB 3 - INFO (Tabs_t4) '''
+        ''' TAB 4 - INFO (Tabs_t4) '''
         self.configureInfoTabElements()
 
-        self.AM = self.configureChiTabElements(self.Tabs_t5)
 
         # Bind functionality to all UI elements
         # self.configureBindings()
@@ -204,7 +205,7 @@ class OOTO_Miner:
         im = PIL.Image.open(Icon_support.TAB_ICO_TEST).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_test_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t3.image = tab_test_icon  # < ! > Required to make images appear
-        self.Tabs.add(self.Tabs_t3, text = "Test", image = tab_test_icon,
+        self.Tabs.add(self.Tabs_t3, text = "MM", image = tab_test_icon,
                       compound = CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
 
 
@@ -214,7 +215,7 @@ class OOTO_Miner:
         im = PIL.Image.open(Icon_support.TAB_ICO_INFO).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_info_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t5.image = tab_info_icon  # < ! > Required to make images appear
-        self.Tabs.add(self.Tabs_t5, text = "Chi", image = tab_info_icon,
+        self.Tabs.add(self.Tabs_t5, text = "AM", image = tab_info_icon,
                       compound = CENTER)
 
 
@@ -252,7 +253,7 @@ class OOTO_Miner:
         return self.INPUT
     ''' --> Configure TEST ("TEST") TAB (2.1) <-- '''
 
-    def configureTestTabElements(self, parentFrame):
+    def configureManualMiningTab(self, parentFrame):
         manualMining = MM.ManualMining(parentFrame)
         # self.testTabParentFrame = manualMining.getMainFrame() # LabelFrame(self.Tabs_t3, bd = 0)
         return manualMining
@@ -272,9 +273,10 @@ class OOTO_Miner:
         )
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
-    def configureChiTabElements(self, parentFrame):
-        self.Tabs.select(2)  # Show the current tab to be able to retrieve height and
+    def configureAutomatedMiningTab(self, parentFrame):
+        self.Tabs.select(2)  # show the current tab to be able to retrieve height and
         automatedMining = AM.AutomatedMining(parentFrame)
+        self.Tabs.select(0)  # return to first tab
         return automatedMining
 
         # self.chiTabParentFrame = chiFrame.getMainFrame()

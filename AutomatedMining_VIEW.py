@@ -194,8 +194,6 @@ class AutomatedMining_View:
         self.lblCountConfirmedFeaturesText.place(
             relx = 0, rely = 0,
             x = - 1, y = - 1)
-            # x = self.lblCountFeatureSelectTitle,
-            # y = self.lblCountFeatureSelectTitle)
         FS.placeBelow(self.lblCountConfirmedFeaturesTitle, self.lblCountConfirmedFeaturesText)
         FS.alignStart(self.lblCountConfirmedFeaturesTitle, self.lblCountConfirmedFeaturesText)
 

@@ -27,12 +27,13 @@ class ViewModel:
     def __init__(self):
         self.setQueryFeatureList('')
         self.setCurrentResponses({})
-        self.setSelectedResponses([])
+        self.setSelectedFeatures([])
+        self.setPrevSelectedFeatures([])
 
     """FUNCTIONS"""
     def resetFeature(self):
         self.setQueryFeatureList('')
-        self.setSelectedResponses([])
+        self.setSelectedFeatures([])
 
     """GETTERS"""
     def getCurrentFeature(self):
@@ -41,8 +42,11 @@ class ViewModel:
     def getCurrentResponses(self):
         return self.__currentResponses
 
-    def getSelectedResponses(self):
-        return self.__selectedResponses
+    def getSelectedFeatures(self):
+        return self.__selectedFeatures
+
+    def getPrevSelectedFeatures(self):
+        return self.__prevSelectedFeatures
 
     """SETTERS"""
     def setQueryFeatureList(self, value):
@@ -51,8 +55,37 @@ class ViewModel:
     def setCurrentResponses(self, value):
         self.__currentResponses = value
 
-    def setSelectedResponses(self, value):
-        self.__selectedResponses = value
+    def setSelectedFeatures(self, value):
+        self.__selectedFeatures = value
+
+    def setPrevSelectedFeatures(self, value):
+        self.__prevSelectedFeatures = value
+
+    """UPDATERS"""
+
+    def updateSelectedFeatures(self, listbox, newSelectedFeatures):
+        self.updatePrevSelectedFeatures()
+        self.setSelectedFeatures(newSelectedFeatures)
+
+        # w = evt.widget
+        if self.getPrevSelectedFeatures():  # if not empty
+            # compare last selectionlist with new list and extract the difference
+            changedSelection = set(self.getPrevSelectedFeatures()).symmetric_difference(set(newSelectedFeatures))
+            self.setPrevSelectedFeatures(newSelectedFeatures)
+        else:
+            # if empty, assign current selection
+            self.setPrevSelectedFeatures(newSelectedFeatures)
+            changedSelection = newSelectedFeatures
+
+        index = int(list(changedSelection)[0])
+        lastSelectedIndex = listbox.get(index)
+
+        print('ls '+ str(lastSelectedIndex))
+        return lastSelectedIndex
+
+
+    def updatePrevSelectedFeatures(self):
+        self.__prevSelectedFeatures = self.getSelectedFeatures()
 
 
 

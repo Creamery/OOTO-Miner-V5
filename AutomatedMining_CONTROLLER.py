@@ -99,15 +99,14 @@ class AutomatedMining_Controller:
 
         self.view.updateLbListFeatureSelect(queryFeatureList)
 
-
     def selectFeature(self, evt):
         listbox = evt.widget
         selectedItems = listbox.curselection()
 
-        self.model.viewModel.setSelectedResponses(selectedItems)
-        print str(self.model.viewModel.getSelectedResponses())
+        lastSelectedIndex = self.model.viewModel.updateSelectedFeatures(listbox, selectedItems)
+        lastSelectedItem = listbox.get(lastSelectedIndex)
 
-
+ 
 
     def setArrQueryCriticalValue(self, arrayValue):
         self.arrQueryCriticalValue = arrayValue
