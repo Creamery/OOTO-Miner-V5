@@ -181,7 +181,7 @@ class AutomatedMining_View:
         self.emborder(self.lfFeatureSelect,
                       borderX, borderY, borderW, borderH,
                       [True, True, False, True],
-                      [CS.DEFAULT_LIGHT_BORDER, CS.DEFAULT_LIGHT_BORDER, None, CS.DEFAULT_BORDER])
+                      [None, CS.DEFAULT_LIGHT_BORDER, None, CS.DEFAULT_BORDER])
         # endregion emborder lfListFeatureDetails
 
 
@@ -205,7 +205,7 @@ class AutomatedMining_View:
         self.lblCountFeatureSelectText.place(
             relx = 0,
             rely = 0,
-            x = self.lblCountFeatureSelectText.winfo_x() - 8,
+            x = self.lblCountFeatureSelectText.winfo_x() - 9,
             y = - 2)
         FS.placeBelow(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText)
         FS.alignStart(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText, - 1)
@@ -563,7 +563,7 @@ class AutomatedMining_View:
         self.lblCountFeatureSelectTitle.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
             background = CS.FG_COLOR, foreground = CS.SELECT_BG,
-            text = '''SAMPLES'''
+            text = 'SELECTED'
         )
         # endregion init self.lblCountFeatureSelectTitle
 
