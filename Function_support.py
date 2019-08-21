@@ -381,3 +381,90 @@ def alignStart(element, reference, offset = 0):
         relx = 0, x = newX + offset
     )
 
+
+def copyWidget(widget, parent):
+    # parent = widget.nametowidget(widget.winfo_parent())
+
+    widgetClass = widget.__class__
+    print("class is " + str(widgetClass))
+    clone = widgetClass(parent)
+
+
+    # set configuration according to class
+    copyWidgetConfiguration(clone, widget)
+    # for key in widget.configure():
+    #     clone.configure({key: widget.cget(key)})
+    return clone
+
+def copyWidgetConfiguration(widget, reference):
+    reference.update()
+    widget.place(
+        x = reference.winfo_x(),
+        y = reference.winfo_y(),
+        width = reference.winfo_width(),
+        height = reference.winfo_height(),
+    )
+
+    if isinstance(widget, LabelFrame):
+        widget.configure(
+            bd = reference['bd'],
+            background = reference['background']
+        )
+
+    elif isinstance(widget, Label):
+        widget.configure(
+            font = reference['font'],
+            background = reference['background'], foreground = reference['foreground'],
+            text = reference['text'],
+            bd = reference['bd'], relief = reference['relief'],
+            anchor = reference['anchor'],
+            image = reference['image'],
+        )
+        widget.image = reference['image']  # < ! > Required to make images appear
+
+    elif isinstance(widget, Button):
+        widget.configure(
+            background = reference['background'], foreground = reference['foreground'],
+            activebackground = reference['activebackground'],
+            highlightthickness = reference['highlightthickness'], padx = reference['padx'], pady = reference['pady'],
+            bd = reference['bd'], relief = reference['relief'], overrelief = reference['overrelief'],
+            anchor = reference['anchor'],
+            image = reference['image']
+        )
+        widget.image = reference['image']  # < ! > Required to make images appear
+
+    elif isinstance(widget, Entry):
+        widget.configure(
+            background = reference['background'], foreground = reference['foreground'],
+            bd = reference['bd'],
+            font = reference['font'], insertwidth = reference['insertwidth'],
+            selectbackground = reference['selectbackground'],
+            insertbackground = reference['insertbackground'],
+            takefocus = reference['takefocus'], justify = reference['justify']
+        )
+
+    elif isinstance(widget, Listbox):
+        widget.configure(
+            background = reference['background'], foreground = reference['foreground'],
+            selectmode = reference['selectmode'], exportselection = reference['exportselection'],
+            activestyle = reference['activestyle'],
+            selectbackground = reference['selectbackground'],
+            selectforeground = reference['selectforeground'],
+            font =reference['font'],
+            bd = reference['bd'],
+            relief = reference['relief'],
+            highlightthickness = reference['highlightthickness']
+        )
+
+
+
+
+
+# def copyWidget(widget):
+#     parent = widget.nametowidget(widget.winfo_parent())
+#     widgetClass = widget.__class__
+#
+#     clone = widgetClass(parent)
+#     # for key in widget.configure():
+#     #     clone.configure({key: widget.cget(key)})
+#     return clone

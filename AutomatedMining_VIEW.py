@@ -135,7 +135,41 @@ class AutomatedMining_View:
         # adjust elements
         self.adjustFeatureList(inputFrame)
 
+        # create a copy of featurelist
+        self.lfConfirmedFeatures = LabelFrame(inputFrame, bd = 0)
+        reference = self.lfFeatureSelect
+        self.lfConfirmedFeatures.place(
+            x = 300, y = reference.winfo_y(),
+            width = reference.winfo_width(),
+            height = reference.winfo_height())
+        self.createConfirmedFeatures(self.lfConfirmedFeatures, self.lfFeatureSelect)
+
         return inputFrame
+
+    def createConfirmedFeatures(self, parentFrame, reference):
+        reference.update()
+        for item in reference.winfo_children():
+            itemClone = FS.copyWidget(item, parentFrame)
+            if isinstance(itemClone, Widget):
+                self.createConfirmedFeatures(itemClone, item)
+            else:
+                return "break"
+    # def createConfirmedFeatures(self, parentFrame, reference):
+    #
+    #     self.lfConfirmedFeatures = LabelFrame(parentFrame, bd = 0)
+    #     self.lfConfirmedFeatures.place(
+    #         x = 300, y = reference.winfo_y(),
+    #         width = reference.winfo_width(),
+    #         height = reference.winfo_height())
+    #
+    #     parent = self.lfConfirmedFeatures
+    #     for item in reference.winfo_children():
+    #         FS.copyWidget(item, parent)
+    #         if isinstance(item, Widget):
+    #             self.redraw(item)
+    #         else:
+    #             return "break"
+
 
     def adjustFeatureList(self, parentFrame):
         self.redraw(parentFrame)
