@@ -62,7 +62,7 @@
 			"file": "/C/Users/Candy/Documents/Rainmeter/Skins/Enigma/@Resources/User/Notes/MSCS Data Structure Formats",
 			"settings":
 			{
-				"buffer_size": 3252,
+				"buffer_size": 3509,
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
 				"name": "FEATURES ="
@@ -515,15 +515,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3252,
+						"buffer_size": 3509,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								116,
-								116
+								37,
+								37
 							]
 						],
 						"settings":
