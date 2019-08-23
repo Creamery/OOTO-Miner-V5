@@ -60,7 +60,7 @@ class AutomatedMining_View:
         # frame containing the console UI elements
         self.lfConsoleFrame = self.initConsoleUI(self.lfTabParentFrame, self.lfProcessFrame)
 
-        self.redraw(self.lfTabParentFrame)
+        FS.redraw(self.lfTabParentFrame)
         self.lfProcessFrame.place(width = 0, height = 0)
         self.lfResultsFrame.place(width = 0, height = 0)
         # self.lfConsoleFrame.place(width = 0, height = 0)
@@ -85,23 +85,6 @@ class AutomatedMining_View:
         self.lblHeaderConfirmedFeatures = [None]
         self.lblCountConfirmedFeaturesTitle = [None]
 
-
-    """A recursive call that updates all Widgets and their Widget children"""
-    def redraw(self, parentFrame):
-        parentFrame.update()
-
-        for item in parentFrame.winfo_children():
-            # print 'item type is ' + str(type(item))
-            item.place(
-                relx = 0, rely = 0, relwidth = 0, relheight = 0,
-                x = item.winfo_x(), y = item.winfo_y(), width = item.winfo_width(), height = item.winfo_height())
-            if isinstance(item, Widget):
-                self.redraw(item)
-            else:
-                return "break"
-
-        parentFrame.update()
-        # print "HEIGHT: " + str(self.lfFeatureSelect.place_info())
 
     def initTabFrame(self, parentFrame):
         tabFrame = LabelFrame(parentFrame, bd = 0)
@@ -269,7 +252,7 @@ class AutomatedMining_View:
             return False, -1
 
     def adjustFeatureList(self, parentFrame):
-        self.redraw(parentFrame)
+        FS.redraw(parentFrame)
 
         # region extend lfFeatureList
         height = 165 # self.lfCommandsFeatureSelect.winfo_height() * 5
@@ -292,11 +275,11 @@ class AutomatedMining_View:
         # endregion extend lfFeatureList
 
         # region create lfListFeatureDetails
-        self.redraw(parentFrame)
+        FS.redraw(parentFrame)
         self.lfListFeatureDetails, self.lbListFeatureDetails, self.lblHeaderFeatureDetails = self.createFeatureDetails(self.lfFeatureSelect,
                                                                                          self.lfListFeatureSelect,
                                                                                          partialBottomHeight)
-        self.redraw(parentFrame)
+        FS.redraw(parentFrame)
         self.lfListFeatureSelect.place(
             y = self.lfListFeatureSelect.winfo_y(),
             height = self.lfListFeatureSelect.winfo_height()
@@ -304,7 +287,7 @@ class AutomatedMining_View:
         # endregion create lfListFeatureDetails
 
         # region emborder lfListFeatureDetails
-        self.redraw(parentFrame)
+        FS.redraw(parentFrame)
         borderX = self.lfListFeatureDetails.winfo_x()
         borderY = self.lfListFeatureSelect.winfo_y() + self.lfListFeatureSelect.winfo_height()
         borderW = self.lfListFeatureDetails.winfo_width() - 1
@@ -317,7 +300,7 @@ class AutomatedMining_View:
 
 
         # region emborder lfCommandsFeatureSelect
-        self.redraw(parentFrame)
+        FS.redraw(parentFrame)
         borderX = self.lfListFeatureDetails.winfo_x()
         borderY = self.lfListFeatureDetails.winfo_y() + self.lfListFeatureDetails.winfo_height()
         borderW = self.lfListFeatureSelect.winfo_width() - 1
@@ -326,7 +309,7 @@ class AutomatedMining_View:
         # endregion emborder
 
         # region adjust counter
-        self.redraw(parentFrame)
+        FS.redraw(parentFrame)
         self.lfCountFeatureSelect.place(
             relwidth = 0, relheight = 0,
             width = self.lfCountFeatureSelect.winfo_width(),
@@ -341,7 +324,7 @@ class AutomatedMining_View:
         FS.placeBelow(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText)
         FS.alignStart(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText, - 1)
 
-        self.redraw(parentFrame)
+        FS.redraw(parentFrame)
 
         # endregion
 

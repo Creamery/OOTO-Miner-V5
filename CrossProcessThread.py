@@ -3,6 +3,8 @@ import time
 
 
 class CrossProcessThread(threading.Thread):
+
+    # pass the widgets that the thread will update
     def __init__(self, parentFrame, progressBar, lblText, lblValue):
         threading.Thread.__init__(self)
         self.winProgressBar = parentFrame

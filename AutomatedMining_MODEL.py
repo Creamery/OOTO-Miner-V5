@@ -285,10 +285,11 @@ class AutomatedMining_Model:
 
     """UPDATERS"""
     def updateSelectedFeatureResponse(self, selectedItem):
-        featureId = self.extractFeatureID(selectedItem)
+        featureID = self.extractFeatureID(selectedItem)
         response = {}
-        if len(self.getFeatureDescription()) > 0:
-            response = self.getFeatureDescription()[featureId][key.RESPONSES]
+        print "featureID is " + str(featureID)
+        if not (featureID == '-1'):
+            response = self.getFeatureDescription()[featureID][key.RESPONSES]
             self.viewModel.setCurrentResponse(response)
 
         return response

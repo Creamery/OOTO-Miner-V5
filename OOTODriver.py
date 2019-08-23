@@ -55,9 +55,9 @@ import PIL.Image
 import PIL.ImageTk
 import Function_support as FS
 
-import MODULE_Input as INPUT
-import MODULE_ManualMining as MM
-import MODULE_AutomatedMining as AM
+import _MODULE_Input as INPUT
+import _MODULE_ManualMining as MM
+import _MODULE_AutomatedMining as AM
 
 w = None
 
@@ -69,10 +69,11 @@ def vp_start_gui():
     root = Tk()
     root.protocol("WM_DELETE_WINDOW", onRootClose)
     root.resizable(0, 0)
-    Mother_support.set_Tk_var()
-    top = OOTO_Miner(root)
-    root.update()
-    Mother_support.init(root, top)
+    # Mother_support.set_Tk_var()
+    # top = OOTO_Miner(root)
+    OOTO_Miner(root)
+    # root.update()
+    # Mother_support.init(root, top)
     root.mainloop()
 
 def onRootClose():

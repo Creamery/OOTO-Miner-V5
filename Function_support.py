@@ -381,6 +381,21 @@ def alignStart(element, reference, offset = 0):
         relx = 0, x = newX + offset
     )
 
+"""A recursive call that updates all Widgets and their Widget children"""
+def redraw(parentFrame):
+    parentFrame.update()
+
+    for item in parentFrame.winfo_children():
+        # print 'item type is ' + str(type(item))
+        item.place(
+            relx = 0, rely = 0, relwidth = 0, relheight = 0,
+            x = item.winfo_x(), y = item.winfo_y(), width = item.winfo_width(), height = item.winfo_height())
+        if isinstance(item, Widget):
+            redraw(item)
+        else:
+            return "break"
+
+    parentFrame.update()
 
 def copyWidget(widget, parent):
     # parent = widget.nametowidget(widget.winfo_parent())
@@ -452,3 +467,4 @@ def copyWidgetConfiguration(widget, reference):
             relief = reference['relief'],
             highlightthickness = reference['highlightthickness']
         )
+
