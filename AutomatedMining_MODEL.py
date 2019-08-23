@@ -14,12 +14,10 @@ except ImportError:
     py3 = 1
 
 from collections import OrderedDict
-import threading
-import time
 import copy
 import Function_support as FS
 import KEYS_support as key
-
+from CrossProcessThread import CrossProcessThread
 
 
 class ViewModel:
@@ -308,12 +306,14 @@ class AutomatedMining_Model:
             if not (self.winProgressBar is None):
                 self.onProgressBarClose()
 
-            self.winProgressBar = Tk()
+            self.winProgressBar = Toplevel()  # Tk() TODO add parent
             self.winProgressBar.protocol("WM_DELETE_WINDOW", self.onProgressBarClose)
             self.varProgressBar = 0
             [self.pbProgressBar, self.lblProgressBar] = self.initProgressBar(self.winProgressBar)
 
-            ThreadedTask(self.winProgressBar, self.pbProgressBar, self.lblProgressBar, self.varProgressBar).start()
+            crossProcess = CrossProcessThread(self.winProgressBar, self.pbProgressBar,
+                                              self.lblProgressBar, self.varProgressBar)
+            crossProcess.start()
         else:
             print ("isProcessing")
 
@@ -335,35 +335,3 @@ class AutomatedMining_Model:
         self.winProgressBar.destroy()
         self.winProgressBar = None
         self.isProcessing = False
-
-
-class ThreadedTask(threading.Thread):
-    def __init__(self, winProgress, prog_bar, prog_text, prog_val):
-        threading.Thread.__init__(self)
-        self.winProgress = winProgress
-        self.prog_bar = prog_bar
-        self.prog_text = prog_text
-        self.prog_val = prog_val
-        self.count = 0
-
-    def run(self):
-        try:
-            # self.prog_bar.start()
-            while self.count < 100:
-                self.count += 1
-                # self.prog_bar.after(1, self.process_queue)
-                self.process_queue()
-                time.sleep(0.01)
-
-
-        finally:
-            self.prog_text["text"] = "COMPLETE"
-
-    def process_queue(self):
-        self.prog_val = float(self.count)
-        self.prog_bar["value"] = self.prog_val
-        self.prog_text["text"] = self.prog_val
-        # self.prog_bar.start()
-        # print str(self.prog_val)
-
-
