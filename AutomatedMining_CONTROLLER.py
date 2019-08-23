@@ -43,10 +43,12 @@ import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
 
+import _MODULE_SystematicFiltering as SF
 
 class AutomatedMining_Controller:
 
-    def __init__(self, view, model):
+    def __init__(self, view, model, root = None):
+        self.root = root
         self.view = view
         self.model = model
         self.dictWidgetPlace = {}
@@ -73,7 +75,7 @@ class AutomatedMining_Controller:
 
     def configureViewBindings(self):
         button = self.view.getBtnConfirmFeatureSelect()
-        button.bind('<Button-1>', self.model.confirmFeatureSelect)
+        button.bind('<Button-1>', self.confirmFeatureSelect)
 
         button = self.view.getBtnConfirmConfirmedFeatures()
         button.bind('<Button-1>', self.model.confirmConfirmedFeatures)
@@ -89,6 +91,12 @@ class AutomatedMining_Controller:
 
         # TODO Entry Change
 
+    def confirmFeatureSelect(self, evt):
+        self.systematicFiltering = SF.SystematicFiltering(self.root)
+        self.root.wait_window(self.systematicFiltering.winTop)
+        self.model.confirmFeatureSelect(evt)
+
+        return "break"
 
     def queryFeatureID(self, evt):
         print "queryFeatureID"

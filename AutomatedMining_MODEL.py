@@ -19,7 +19,6 @@ import Function_support as FS
 import KEYS_support as key
 from CrossProcessThread import CrossProcessThread
 
-
 class ViewModel:
 
     def __init__(self):
@@ -214,7 +213,7 @@ class AutomatedMining_Model:
     """BUTTON FUNCTIONS"""
     def confirmFeatureSelect(self, evt):
         print "confirmFeatureSelect"
-        self.startThread(evt)
+        # self.startThread(evt)  # TODO
         return "break"
 
     def confirmConfirmedFeatures(self, evt):
