@@ -35,7 +35,7 @@ import Tkinter as tk
 try:
     from Tkinter import *
 except ImportError:
-    from tkinter import *
+    from _tkinter import *
 
 try:
     import ttk
@@ -55,8 +55,9 @@ import PIL.Image
 import PIL.ImageTk
 import Function_support as FS
 
-import ManualMining as MM
-import UI_AutomatedMining as AM
+import _MODULE_Input as INPUT
+import _MODULE_ManualMining as MM
+import _MODULE_AutomatedMining as AM
 
 w = None
 
@@ -64,30 +65,40 @@ w = None
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
+
     root = Tk()
+    root.protocol("WM_DELETE_WINDOW", onRootClose)
     root.resizable(0, 0)
-    Mother_support.set_Tk_var()
-    top = OOTO_Miner(root)
-    root.update()
-    Mother_support.init(root, top)
+    # Mother_support.set_Tk_var()
+    # top = OOTO_Miner(root)
+    OOTO_Miner(root)
+    # root.update()
+    # Mother_support.init(root, top)
     root.mainloop()
 
-
-def create_OOTO_Miner(root, *args, **kwargs):
-    '''Starting point when module is imported by another program.'''
-    global w, w_win, rt
-    rt = root
-    w = Toplevel(root)
-    Mother_support.set_Tk_var()
-    top = OOTO_Miner(w)
-    Mother_support.init(w, top, *args, **kwargs)
-    return (w, top)
+def onRootClose():
+    if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
+        global root
+        root.destroy()
+        root = None
 
 
-def destroy_OOTO_Miner():
-    global w
-    w.destroy()
-    w = None
+
+# def create_OOTO_Miner(root, *args, **kwargs):
+#     '''Starting point when module is imported by another program.'''
+#     global w, w_win, rt
+#     rt = root
+#     w = Toplevel(root)
+#     Mother_support.set_Tk_var()
+#     top = OOTO_Miner(w)
+#     Mother_support.init(w, top, *args, **kwargs)
+#     return (w, top)
+
+
+# def destroy_OOTO_Miner():
+#     global w
+#     w.destroy()
+#     w = None
 
 class OOTO_Miner:
 
@@ -102,22 +113,24 @@ class OOTO_Miner:
         # self.menubar.add_command(label = "Help")
 
         ''' TAB 1 - DATA (Tabs_t2) '''
-        self.configureDataTabElements(self.Tabs_t2)
+        self.INPUT = self.configureDataTabElements(self.Tabs_t2)
+        self.INPUT.getButtonStartDatasetUpload().bind('<Button-1>', self.uploadInputFiles)
 
-        ''' TAB 2.1 - TEST (Tabs_t3) '''
-        self.MM = self.configureTestTabElements(self.Tabs_t3)
+        ''' TAB 2 - AM (Tabs_t3) '''
+        self.MM = self.configureManualMiningTab(self.Tabs_t3)
 
+        # ''' TAB 2.2 TEST CONSOLE - (Tabs_t3)'''
+        # self.configureTestTabConsoleElements()
 
-        ''' TAB 2.2 TEST CONSOLE - (Tabs_t3)'''
-        self.configureTestTabConsoleElements()
+        ''' TAB 3 - AM (Tabs_t5) '''
+        self.AM = self.configureAutomatedMiningTab(self.Tabs_t5)
 
-        ''' TAB 3 - INFO (Tabs_t4) '''
+        ''' TAB 4 - INFO (Tabs_t4) '''
         self.configureInfoTabElements()
 
-        self.configureChiTabElements(self.Tabs_t5)
 
         # Bind functionality to all UI elements
-        self.configureBindings()
+        # self.configureBindings()
 
         # self.initializeVariables()
 
@@ -193,7 +206,7 @@ class OOTO_Miner:
         im = PIL.Image.open(Icon_support.TAB_ICO_TEST).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_test_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t3.image = tab_test_icon  # < ! > Required to make images appear
-        self.Tabs.add(self.Tabs_t3, text = "Test", image = tab_test_icon,
+        self.Tabs.add(self.Tabs_t3, text = "MM", image = tab_test_icon,
                       compound = CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
 
 
@@ -203,7 +216,7 @@ class OOTO_Miner:
         im = PIL.Image.open(Icon_support.TAB_ICO_INFO).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_info_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t5.image = tab_info_icon  # < ! > Required to make images appear
-        self.Tabs.add(self.Tabs_t5, text = "Chi", image = tab_info_icon,
+        self.Tabs.add(self.Tabs_t5, text = "AM", image = tab_info_icon,
                       compound = CENTER)
 
 
@@ -237,25 +250,11 @@ class OOTO_Miner:
     ''' --> Configure DATA ("DATA") TAB (1) <-- '''
 
     def configureDataTabElements(self, parentFrame):
-
-        # Create the parent frame
-        self.dataTabParentFrame = LabelFrame(parentFrame, bd = 0)
-        self.dataTabParentFrame.place(
-            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
-        self.dataTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
-
-        # Create the left separator
-        self.dataTabLeftSeparator = ttk.Separator(self.dataTabParentFrame, orient = VERTICAL)
-        self.dataTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
-
-        self.configureDatasetElements()
-        self.configureVariableDescriptionElements()
-        self.configureStartElements()
-
+        self.INPUT = INPUT.InputModule(parentFrame)
+        return self.INPUT
     ''' --> Configure TEST ("TEST") TAB (2.1) <-- '''
 
-    def configureTestTabElements(self, parentFrame):
+    def configureManualMiningTab(self, parentFrame):
         manualMining = MM.ManualMining(parentFrame)
         # self.testTabParentFrame = manualMining.getMainFrame() # LabelFrame(self.Tabs_t3, bd = 0)
         return manualMining
@@ -263,7 +262,7 @@ class OOTO_Miner:
 
     def configureTestTabConsoleElements(self):
         self.testTabConsoleParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
-        newRelW = 0.2
+        # newRelW = 0.2
         # self.testTabConsoleParentFrame.place(
         #     relx = 1 - newRelW,
         #     rely = self.getRelY(self.testTabParentFrame),
@@ -275,17 +274,20 @@ class OOTO_Miner:
         )
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
-    def configureChiTabElements(self, parentFrame):
-        chiFrame = AM.OOTO_Miner(parentFrame)
-        self.chiTabParentFrame = chiFrame.getMainFrame()
+    def configureAutomatedMiningTab(self, parentFrame):
+        self.Tabs.select(2)  # show the current tab to be able to retrieve height and
+        automatedMining = AM.AutomatedMining(parentFrame)
+        self.Tabs.select(0)  # return to first tab
+        return automatedMining
 
-        self.chiTabParentFrame.place(
-            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
-        )
-        self.chiTabParentFrame.configure(
-            background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
-        )
+        # self.chiTabParentFrame = chiFrame.getMainFrame()
+        # self.chiTabParentFrame.place(
+        #     relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
+        #     relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
+        # )
+        # self.chiTabParentFrame.configure(
+        #     background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
+        # )
 
     def configureInfoTabElements(self):
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)
@@ -313,283 +315,6 @@ class OOTO_Miner:
 
     ''' --> Elements under DATA ("DATA") TAB (1) <-- '''
     # region
-
-    ''' -> Elements under the DATASET ("Dataset") HEADER <- '''
-
-    def configureDatasetElements(self):
-
-        # Create the Dataset parent frame
-        self.labelFrameDataset = LabelFrame(self.dataTabParentFrame, bd = 0)
-        self.labelFrameDataset.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_DATASET)
-        self.labelFrameDataset.place(
-            relx = UI_support.TAB_DATASET_REL_X, rely = UI_support.TAB_DATASET_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
-            relwidth = UI_support.TAB_DATASET_REL_W, relheight = UI_support.TAB_DATASET_REL_H)
-
-        # Create the Dataset element parent frame
-        self.labelFrameDatasetElements = LabelFrame(self.labelFrameDataset, bd = 0)
-        self.labelFrameDatasetElements.configure(
-            background = Color_support.DATASET_BG, foreground = Color_support.FG_COLOR)
-        self.labelFrameDatasetElements.place(
-            relx = UI_support.TAB_ELEMENT_REL_X, rely = 0.1,
-            relwidth = UI_support.TAB_ELEMENT_REL_W, relheight = 0.80)
-
-        # DATASET ELEMENTS
-
-        # Variable Description label
-        self.labelInitialVarDesc = Label(self.labelFrameDatasetElements)
-        self.labelInitialVarDesc.place(
-            relx = UI_support.TAB_3CHILD_LBL_REL_X, rely = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL,
-            relwidth = UI_support.TAB_3CHILD_LBL_REL_W, relheight = UI_support.TAB_3CHILD_LBL_REL_H_SMALL)
-        self.labelInitialVarDesc.configure(
-            background = Color_support.DATASET_LBL_BG, foreground = Color_support.DATASET_LBL_FG,
-            text = UI_support.LBL_DATASET_VARDESC,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
-            bd = 1)
-
-        # Previous values (1.1)
-        prevLblRelX = float(self.labelInitialVarDesc.place_info()['relx'])
-        prevLblRelY = float(self.labelInitialVarDesc.place_info()['rely'])
-        prevLblRelW = float(self.labelInitialVarDesc.place_info()['relwidth'])
-        prevLblRelH = float(self.labelInitialVarDesc.place_info()['relheight'])
-
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
-
-        # Variable Description entry
-        self.entryInitialVarDesc = Entry(self.labelFrameDatasetElements)
-        self.entryInitialVarDesc.place(
-            relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_3CHILD_ENTRY_REL_W, relheight = prevLblRelH)
-        self.entryInitialVarDesc.configure(
-            background = Color_support.DATASET_ENTRY_BG, foreground = Color_support.DATASET_ENTRY_FG,
-            bd = 1,
-            font = UI_support.FONT_DEFAULT,
-            disabledforeground = Color_support.FG_DISABLED_COLOR
-        )
-
-        # Previous values (1.2)
-        prevEntryRelX = float(self.entryInitialVarDesc.place_info()['relx'])
-        prevEntryRelW = float(self.entryInitialVarDesc.place_info()['relwidth'])
-        prevEntryRelH = float(self.entryInitialVarDesc.place_info()['relheight'])
-
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevEntryRelX + prevEntryRelW
-
-        # Variable Description upload
-        self.buttonInitialVarDesc = Button(self.labelFrameDatasetElements)
-        self.buttonInitialVarDesc.place(
-            relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
-
-        self.buttonInitialVarDesc.configure(
-            background = Color_support.DATASET_BTN_BG, foreground = Color_support.DATASET_BTN_FG,
-            text = UI_support.BTN_DATASET_UPLOAD,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.DATASET_BTN_BG_ACTIVE,
-            activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-        # Previous values (1.3)
-        prevBtnRelX = float(self.buttonInitialVarDesc.place_info()['relx'])
-        prevBtnRelY = float(self.buttonInitialVarDesc.place_info()['rely'])
-        prevBtnRelW = float(self.buttonInitialVarDesc.place_info()['relwidth'])
-        prevBtnRelH = float(self.buttonInitialVarDesc.place_info()['relheight'])
-
-        newRelY = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL + prevBtnRelY + prevBtnRelH
-
-        # Population Dataset label
-        self.labelInitialVarDesc = Label(self.labelFrameDatasetElements)
-        self.labelInitialVarDesc.place(
-            relx = prevLblRelX, rely = newRelY,
-            relwidth = prevLblRelW, relheight = prevLblRelH)
-        self.labelInitialVarDesc.configure(
-            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG,
-            text = UI_support.LBL_DATASET_POPULATION,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
-            bd = 1)
-
-        # Population Dataset entry
-        self.entryQueryPopulation = Entry(self.labelFrameDatasetElements)
-        self.entryQueryPopulation.place(
-            relx = prevEntryRelX, rely = newRelY,
-            relwidth = prevEntryRelW, relheight = prevEntryRelH)
-        self.entryQueryPopulation.configure(
-            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
-            bd = 1,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Population Dataset upload
-        self.buttonQueryPopulation = Button(self.labelFrameDatasetElements)
-        self.buttonQueryPopulation.place(
-            relx = prevBtnRelX, rely = newRelY,
-            relwidth = prevBtnRelW, relheight = prevBtnRelH)
-        self.buttonQueryPopulation.configure(
-            background = Color_support.DATASET_BTN_BG, foreground = Color_support.DATASET_BTN_FG,
-            text = UI_support.BTN_DATASET_UPLOAD,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.DATASET_BTN_BG_ACTIVE,
-            activeforeground = Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-    ''' -> Elements under the VARIABLE DESCRIPTION ("Variable Description Generator") HEADER <- '''
-
-    def configureVariableDescriptionElements(self):
-        prevFrameRelY = float(self.labelFrameDataset.place_info()['rely'])
-        prevFrameRelH = float(self.labelFrameDataset.place_info()['relheight'])
-        newFrameRelY = UI_support.TAB_VARDESC_REL_Y + prevFrameRelY + prevFrameRelH
-
-        # Create the Variable Description Generator parent frame
-        self.labelFrameVariableDescriptor = LabelFrame(self.dataTabParentFrame, bd = 0)
-        self.labelFrameVariableDescriptor.configure(
-            background = Color_support.VARDESC_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_VARDESC)
-        self.labelFrameVariableDescriptor.place(
-            relx = UI_support.TAB_VARDESC_REL_X, rely = newFrameRelY,
-            relwidth = UI_support.TAB_VARDESC_REL_W, relheight = UI_support.TAB_VARDESC_REL_H)
-
-        # Create the Variable Descriptor element parent frame
-        self.labelFrameVarDescElements = LabelFrame(self.labelFrameVariableDescriptor, bd = 0)
-        self.labelFrameVarDescElements.configure(
-            background = Color_support.VARDESC_BG, foreground = Color_support.FG_COLOR)
-        self.labelFrameVarDescElements.place(
-            relx = UI_support.TAB_ELEMENT_REL_X, rely = 0.1,
-            relwidth = UI_support.TAB_ELEMENT_REL_W, relheight = 0.80)
-
-        # > VARDESC ELEMENTS
-
-        # Variable File
-
-        # Variable File label
-        self.labelVariableFile = Label(self.labelFrameVarDescElements)
-        self.labelVariableFile.place(
-            relx = UI_support.TAB_3CHILD_LBL_REL_X, rely = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL,
-            relwidth = UI_support.TAB_3CHILD_LBL_REL_W, relheight = UI_support.TAB_3CHILD_LBL_REL_H_SMALL)
-        self.labelVariableFile.configure(
-            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG,
-            text = UI_support.LBL_VARDESC_VARFILE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
-            bd = 1)
-
-
-        # Previous values (1.1)
-        prevLblRelX = float(self.labelVariableFile.place_info()['relx'])
-        prevLblRelY = float(self.labelVariableFile.place_info()['rely'])
-        prevLblRelW = float(self.labelVariableFile.place_info()['relwidth'])
-        prevLblRelH = float(self.labelVariableFile.place_info()['relheight'])
-
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
-
-        # Variable File entry
-        self.entryVariableFile = Entry(self.labelFrameVarDescElements)
-        self.entryVariableFile.place(
-            relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_3CHILD_ENTRY_REL_W, relheight = prevLblRelH)
-        self.entryVariableFile.configure(
-            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
-            bd = 1,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Previous values (1.2)
-        prevEntryRelX = float(self.entryVariableFile.place_info()['relx'])
-        prevEntryRelW = float(self.entryVariableFile.place_info()['relwidth'])
-        prevEntryRelH = float(self.entryVariableFile.place_info()['relheight'])
-
-        newRelX = UI_support.TAB_3CHILD_LBL_REL_X + prevEntryRelX + prevEntryRelW
-
-        # Variable File upload
-        self.buttonVariableFile = Button(self.labelFrameVarDescElements)
-        self.buttonVariableFile.place(
-            relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
-        self.buttonVariableFile.configure(
-            background = Color_support.VARDESC_BTN_BG, foreground = Color_support.VARDESC_BTN_FG,
-            text = UI_support.BTN_VARDESC_UPLOAD,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.VARDESC_BTN_BG_ACTIVE,
-            activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Previous values (1.3)
-        prevBtnRelX = float(self.buttonVariableFile.place_info()['relx'])
-        prevBtnRelY = float(self.buttonVariableFile.place_info()['rely'])
-        prevBtnRelW = float(self.buttonVariableFile.place_info()['relwidth'])
-        prevBtnRelH = float(self.buttonVariableFile.place_info()['relheight'])
-
-        newRelY = UI_support.TAB_3CHILD_LBL_REL_Y_SMALL + prevBtnRelY + prevBtnRelH
-
-        # Values File label
-        self.labelValuesFile = Label(self.labelFrameVarDescElements)
-        self.labelValuesFile.place(
-            relx = prevLblRelX, rely = newRelY,
-            relwidth = prevLblRelW, relheight = prevLblRelH)
-        self.labelValuesFile.configure(
-            background = Color_support.VARDESC_LBL_BG, foreground = Color_support.VARDESC_LBL_FG,
-            text = UI_support.LBL_VARDESC_VALFILE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
-            bd = 1)
-
-        # Values File entry
-        self.entryValuesFile = Entry(self.labelFrameVarDescElements)
-        self.entryValuesFile.place(
-            relx = prevEntryRelX, rely = newRelY,
-            relwidth = prevEntryRelW, relheight = prevEntryRelH)
-        self.entryValuesFile.configure(
-            background = Color_support.VARDESC_ENTRY_BG, foreground = Color_support.VARDESC_ENTRY_FG,
-            bd = 1,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-        # Values File upload
-        self.buttonValuesFile = Button(self.labelFrameVarDescElements)
-        self.buttonValuesFile.place(
-            relx = prevBtnRelX, rely = newRelY,
-            relwidth = prevBtnRelW, relheight = prevBtnRelH)
-        self.buttonValuesFile.configure(
-            background = Color_support.VARDESC_BTN_BG, foreground = Color_support.VARDESC_BTN_FG,
-            text = UI_support.BTN_VARDESC_UPLOAD,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.VARDESC_BTN_BG_ACTIVE,
-            activeforeground = Color_support.VARDESC_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-
-    ''' -> Elements under the START (" ") HEADER <- '''
-
-    def configureStartElements(self):
-        # START
-        # Always update to reflect height and width values in winfo when using relheight/relwidth
-        self.buttonValuesFile.update()
-        self.labelFrameVariableDescriptor.update()
-
-        # print "height " + str(self.buttonValuesFile.winfo_height())
-        # print "width " + str(self.buttonValuesFile.winfo_width())
-
-        buttonX = 0.5  # self.labelFrameVariableDescriptor.winfo_x()
-
-        prevFrameRelY = float(self.labelFrameVariableDescriptor.place_info()['rely'])
-        prevFrameRelH = float(self.labelFrameVariableDescriptor.place_info()['relheight'])
-        buttonY = UI_support.TAB_VARDESC_REL_Y + prevFrameRelY + prevFrameRelH
-
-        buttonHeight = self.buttonValuesFile.winfo_height()
-        buttonWidth = self.buttonValuesFile.winfo_width()
-
-        self.buttonStartDatasetUpload = Button(self.dataTabParentFrame)
-        self.buttonStartDatasetUpload.place(
-            relx = buttonX, rely = buttonY,
-            width = buttonWidth, height = buttonHeight, anchor = CENTER)
-        self.buttonStartDatasetUpload.configure(
-            background = Color_support.START_BTN_BG, foreground = Color_support.START_BTN_FG,
-            text = UI_support.BTN_START,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.START_BTN_BG_ACTIVE, activeforeground = Color_support.START_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-        '''
-        self.buttonStartVariableDescriptor = Button(self.dataTabParentFrame)
-        self.buttonStartVariableDescriptor.place(
-            relx = buttonX, rely = buttonY,
-            width = buttonWidth, height = buttonHeight, anchor = CENTER)
-        self.buttonStartVariableDescriptor.configure(
-            background = Color_support.START_BTN_BG, foreground = Color_support.START_BTN_FG,
-            text = UI_support.BTN_START,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = Color_support.START_BTN_BG_ACTIVE, activeforeground = Color_support.START_BTN_FG_ACTIVE,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
-        '''
 
 
     ''' --> Elements under TEST ("TEST") TAB (2) <-- '''
@@ -781,143 +506,74 @@ class OOTO_Miner:
     # region
     ''' --> General call to all binding sub-functions <-- '''
 
-    def configureBindings(self):
-        self.configureDataTabBindings()
+    # def configureBindings(self):
+        # self.configureDataTabBindings()
         # self.configureTestTabBindings()
 
-    ''' --> Binding elements under the DATA ("DATA") TAB (1) <-- '''
-
-    # region
-    def configureDataTabBindings(self):
-        # TODO Add integrity check - if ENTRY is edited, change the file input
-        self.buttonInitialVarDesc.bind('<Button-1>', self.selectInitVarDesc)
-        self.buttonQueryPopulation.bind('<Button-1>', self.selectSetPopulation)
-
-        self.buttonVariableFile.bind('<Button-1>', self.getVariableFile)
-        self.buttonValuesFile.bind('<Button-1>', self.getValuesFile)
-
-        # self.buttonStartVariableDescriptor.bind('<Button-1>', self.makeInitialVarDesc) ### TODO
-        self.buttonStartDatasetUpload.bind('<Button-1>', self.uploadDataset)
-
-    # endregion
 
     ''' --> Binding elements under the TEST ("TEST") TAB (2) <-- '''
     # MOVED
 
     """ >>> FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. buttons, listboxes) <<< """
 
-    ''' --> Elements under the DATA ("DATA") TAB (1) <-- '''
-    # region
-    ''' (?) Generates the initial variable description '''
 
-    def makeInitialVarDesc(self, evt):
-        varFileDir = self.entryVariableFile.get()
-        valFileDir = self.entryValuesFile.get()
+    ''' Upload the dataset and variable description files '''
 
-        # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
-        print self.entryQueryPopulation.get()[-4:]
-
-        if self.entryInitialVarDesc.get()[-4:] != ".csv":  # TODO Properly check for valid files
-            tkMessageBox.showinfo("System Message", "Please enter a valid Variable Description CSV file")  # TODO!!
-
-        elif self.entryQueryPopulation.get()[-4:] != ".csv":
-            tkMessageBox.showinfo("System Message", "Please enter a valid Population Dataset CSV file")  # TODO!!
-
-        else:
-            tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!")  # TODO!!
-            self.Tabs.select(UI_support.TAB_TEST_INDEX)
-        return "break"
-
-    ''' (?) Uploads the variable file '''
-
-    def getVariableFile(self, evt):
-        varFileDir = askopenfilename(title = "Select variable file",
-                                     filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
-        self.entryVariableFile.delete(0, END)
-        self.entryVariableFile.insert(0, varFileDir)
-        return "break"
-
-    ''' (?) Uploads the values file '''
-
-    def getValuesFile(self, evt):
-        valFileDir = askopenfilename(title = "Select values file",
-                                     filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
-        self.entryValuesFile.delete(0, END)
-        self.entryValuesFile.insert(0, valFileDir)
-        return "break"
-
-    ''' Start dataset upload '''
-
-    def uploadDataset(self, evt):
+    def uploadInputFiles(self, evt):
         # Upload initVarDesc (Variable Description)
 
-        if not self.hasUploadedVariableDescription:  # Check if variable description was uploaded
+        if not self.INPUT.hasUploadedVariableDescription():  # Check if variable description was uploaded
             tkMessageBox.showerror("Error 1: Upload Variable description",
                                    "Please select a valid variable description file.")
             return "break"
         else:
-            self.MM.readFeatures(self.initVarDisc)
+            # Upload Variable Descriptions to modules
+            isSuccessfulMM = self.MM.readFeatures(self.INPUT.getInitVarDisc())
+            isSuccessfulAM = self.AM.readFeatures(self.INPUT.getInitVarDisc())
 
+            if not (isSuccessfulMM and isSuccessfulAM):
+                tkMessageBox.showerror("Error 1: Upload Variable description",
+                                       "Please select a valid variable description file.")
+                return "break"
             # else:
             # tkMessageBox.showinfo("Variable description set", "Variable description uploaded")
             # # getCommonGroups(features)
 
         # Upload populationDir (Population Dataset)
-        if not self.hasUploadedPopulation:  # Check if population dataset was uploaded
-            tkMessageBox.showerror("Error: Upload Population Dataset",
+        if not self.INPUT.getHasUploadedPopulation():  # Check if population dataset was uploaded
+            tkMessageBox.showerror("Error 1: Upload Population Dataset",
                                    "Please select a population dataset file.")
             return "break"
+
         else:
-            global populationDir
+            populationDir = self.INPUT.getPopulationDir()
 
             populationDataset = FS.readCSVDict(populationDir)
-            isUploaded = self.MM.uploadDataset(populationDir, populationDataset)
-            if (isUploaded):
+            isSuccessfulAM = self.AM.uploadDataset(populationDataset)
+
+
+            populationDataset = FS.readCSVDict(populationDir)
+            isSuccessfulMM = self.MM.uploadDataset(populationDir, populationDataset)
+
+            if (isSuccessfulMM and isSuccessfulAM):
                 tkMessageBox.showinfo("Success: Upload Dataset",
                                        "Dataset successfully uploaded!")
                 self.Tabs.select(UI_support.TAB_TEST_INDEX)
-            else:
-                tkMessageBox.showerror("Error: Upload Dataset",
+
+            elif not (isSuccessfulMM and isSuccessfulAM):
+                tkMessageBox.showerror("Error 1: Upload Dataset",
                                        "Dataset upload failed, please check input files.")
 
+            elif not isSuccessfulMM:
+                tkMessageBox.showerror("Error 2: Upload Dataset",
+                                       "Manual Mining dataset upload failed, please check input files.")
+
+            elif not isSuccessfulAM:
+                tkMessageBox.showerror("Error 3: Upload Dataset",
+                                       "Automated Mining dataset upload failed, please check input files.")
+
         return "break"
 
-    ''' Selects the variable description file '''
-
-    def selectInitVarDesc(self, evt):
-        self.hasUploadedVariableDescription = False
-
-        self.initVarDisc = askopenfilename(title = "Select file",
-                                           filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
-
-        if len(self.initVarDisc) == 0:
-            tkMessageBox.showerror("Error: Upload Variable description",
-                                   "Please select a valid variable description file.")
-        else:
-            self.hasUploadedVariableDescription = True
-            self.entryInitialVarDesc.delete(0, END)
-            self.entryInitialVarDesc.insert(0, self.initVarDisc)
-
-        return "break"  # this "unsinks" the button after opening the file explorer
-
-    ''' Selects the population module file '''
-
-    def selectSetPopulation(self, evt):
-        self.hasUploadedPopulation = False
-
-        global populationDir
-        populationDir = askopenfilename(title = "Select file",
-                                        filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
-
-        if len(populationDir) == 0:
-            tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
-        else:
-            self.hasUploadedPopulation = True
-            self.entryQueryPopulation.delete(0, END)
-            self.entryQueryPopulation.insert(0, populationDir)
-        return "break"
-
-    # endregion
 
 
 

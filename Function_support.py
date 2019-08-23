@@ -345,9 +345,126 @@ def getW(element):
 def getH(element):
     return float(element.place_info()['height'])
 
-def getInfoH(element):
-    return element.winfo_height()
+def getX(element):
+    return float(element.place_info()['x'])
+
+def getY(element):
+    return float(element.place_info()['y'])
+
+def getInfoX(element):
+    return float(element.winfo_x())
+
+def getInfoY(element):
+    return float(element.winfo_y())
 
 def getInfoW(element):
-    return element.winfo_width()
+    return float(element.winfo_width())
+
+def getInfoH(element):
+    return float(element.winfo_height())
+
+def placeBelow(element, reference, offset = 0):
+    element.update()
+    reference.update()
+
+    newY = reference.winfo_y() + reference.winfo_height()
+    element.place(
+        rely = 0, y = newY + offset
+    )
+
+def alignStart(element, reference, offset = 0):
+    element.update()
+    reference.update()
+
+    newX = reference.winfo_x()
+    element.place(
+        relx = 0, x = newX + offset
+    )
+
+"""A recursive call that updates all Widgets and their Widget children"""
+def redraw(parentFrame):
+    parentFrame.update()
+
+    for item in parentFrame.winfo_children():
+        # print 'item type is ' + str(type(item))
+        item.place(
+            relx = 0, rely = 0, relwidth = 0, relheight = 0,
+            x = item.winfo_x(), y = item.winfo_y(), width = item.winfo_width(), height = item.winfo_height())
+        if isinstance(item, Widget):
+            redraw(item)
+        else:
+            return "break"
+
+    parentFrame.update()
+
+def copyWidget(widget, parent):
+    # parent = widget.nametowidget(widget.winfo_parent())
+
+    widgetClass = widget.__class__
+    clone = widgetClass(parent)
+
+
+    # set configuration according to class
+    copyWidgetConfiguration(clone, widget)
+    return clone
+
+def copyWidgetConfiguration(widget, reference):
+    reference.update()
+    widget.place(
+        x = reference.winfo_x(),
+        y = reference.winfo_y(),
+        width = reference.winfo_width(),
+        height = reference.winfo_height(),
+    )
+
+    if isinstance(widget, LabelFrame):
+        widget.configure(
+            bd = reference['bd'],
+            background = reference['background']
+        )
+
+    elif isinstance(widget, Label):
+        widget.configure(
+            font = reference['font'],
+            background = reference['background'], foreground = reference['foreground'],
+            text = reference['text'],
+            bd = reference['bd'], relief = reference['relief'],
+            anchor = reference['anchor'],
+            image = reference['image'],
+        )
+        widget.image = reference['image']  # < ! > Required to make images appear
+
+    elif isinstance(widget, Button):
+        widget.configure(
+            background = reference['background'], foreground = reference['foreground'],
+            activebackground = reference['activebackground'],
+            highlightthickness = reference['highlightthickness'], padx = reference['padx'], pady = reference['pady'],
+            bd = reference['bd'], relief = reference['relief'], overrelief = reference['overrelief'],
+            anchor = reference['anchor'],
+            image = reference['image']
+        )
+        widget.image = reference['image']  # < ! > Required to make images appear
+
+    elif isinstance(widget, Entry):
+        widget.configure(
+            background = reference['background'], foreground = reference['foreground'],
+            bd = reference['bd'],
+            font = reference['font'], insertwidth = reference['insertwidth'],
+            selectbackground = reference['selectbackground'],
+            insertbackground = reference['insertbackground'],
+            takefocus = reference['takefocus'], justify = reference['justify']
+        )
+
+    elif isinstance(widget, Listbox):
+        widget.configure(
+            background = reference['background'], foreground = reference['foreground'],
+            selectmode = reference['selectmode'], exportselection = reference['exportselection'],
+            activestyle = reference['activestyle'],
+            selectbackground = reference['selectbackground'],
+            selectforeground = reference['selectforeground'],
+            font =reference['font'],
+            bd = reference['bd'],
+            relief = reference['relief'],
+            highlightthickness = reference['highlightthickness']
+        )
 
