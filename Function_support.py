@@ -4,7 +4,7 @@ import Tkinter as tk
 try:
     from Tkinter import *
 except ImportError:
-    from tkinter import *
+    from _tkinter import *
 
 try:
     import ttk
@@ -19,10 +19,25 @@ import tkMessageBox
 import SampleVsSample as svs
 import os
 import numpy as np
+import Color_support as CS
 from collections import Counter
 
 import csv
 import copy
+
+from ctypes import windll
+
+GWL_EXSTYLE = -20
+WS_EX_APPWINDOW = 0x00040000
+WS_EX_TOOLWINDOW = 0x00000080
+
+
+rootWidth = 1000
+rootHeight = 700
+rootTabWidth = 50
+
+gripHeight = 25
+
 
 def checkKey(dict, key):
     if key in dict.keys():
@@ -325,6 +340,17 @@ def selectDatasetValues(evt, dataset):
     # labelFeatCount.configure(text = str(datasetCount))
     return datasetCount
 
+""" Allows windows to appear in taskbar when overideredirect is set to True """
+def showInTaskBar(root):
+    hwnd = windll.user32.GetParent(root.winfo_id())
+    style = windll.user32.GetWindowLongPtrW(hwnd, GWL_EXSTYLE)
+    style = style & ~WS_EX_TOOLWINDOW
+    style = style | WS_EX_APPWINDOW
+    res = windll.user32.SetWindowLongPtrW(hwnd, GWL_EXSTYLE, style)
+    # re-assert the new window style
+    root.wm_withdraw()
+    root.after(10, lambda: root.wm_deiconify())
+
 
 
 def getRelX(element):
@@ -381,6 +407,92 @@ def alignStart(element, reference, offset = 0):
         relx = 0, x = newX + offset
     )
 
+def centerWindow(window, reference = None):
+    window.update()
+    winWidth = window.winfo_width()
+    winHeight = window.winfo_height()
+    print("winWidth " + str(winWidth))
+    print("winHeight " + str(winHeight))
+
+    if reference is None:
+        parentWidth = window.winfo_screenwidth()
+        parentHeight = window.winfo_screenheight()
+        newX = (parentWidth / 2) - (winWidth / 2)
+        newY = (parentHeight / 2) - (winHeight / 2)
+    else:
+        reference.update()
+        parentX = reference.winfo_x()
+        parentY = reference.winfo_y()
+        parentWidth = reference.winfo_width()
+        parentHeight = reference.winfo_height()
+        newX = parentX + ((parentWidth / 2) - (winWidth / 2))
+        newY = parentY + ((parentHeight / 2) - (winHeight / 2))
+
+    return newX, newY
+
+
+def emborder(parentFrame, borderX, borderY, borderW, borderH,
+             conditions = [True, True, True, True], colors = [None, None, None, None]):
+    # use default color if not specified by the user
+    colors = [CS.DISABLED_D_BLUE if color is None else color for color in colors]
+
+    index = 0
+    if conditions[index]:
+        sepCommandTop = Label(parentFrame)
+        sepCommandTop.place(
+            x = borderX,
+            y = borderY,
+            width = borderW,
+            height = 1)
+        sepCommandTop.configure(background = colors[index])
+
+    index = 2
+    if conditions[index]:
+        sepCommandBottom = Label(parentFrame)
+        sepCommandBottom.place(
+            x = borderX,
+            y = borderY + borderH,
+            width = borderW,
+            height = 1)
+        sepCommandBottom.configure(background = colors[index])
+
+    index = 3
+    if conditions[index]:
+        sepCommandLeft = Label(parentFrame)
+        sepCommandLeft.place(
+            x = borderX,
+            y = borderY,
+            width = 1,
+            height = borderH)
+        sepCommandLeft.configure(background = colors[index])
+
+    index = 1
+    if conditions[index]:
+        sepCommandRight = Label(parentFrame)
+        sepCommandRight.place(
+            x = borderX + borderW,
+            y = borderY,
+            width = 1,
+            height = borderH)
+        sepCommandRight.configure(background = colors[index])
+
+
+
+"""A recursive call that updates all Widgets and their Widget children"""
+def redraw(parentFrame):
+    parentFrame.update()
+
+    for item in parentFrame.winfo_children():
+        # print 'item type is ' + str(type(item))
+        item.place(
+            relx = 0, rely = 0, relwidth = 0, relheight = 0,
+            x = item.winfo_x(), y = item.winfo_y(), width = item.winfo_width(), height = item.winfo_height())
+        if isinstance(item, Widget):
+            redraw(item)
+        else:
+            return "break"
+
+    parentFrame.update()
 
 def copyWidget(widget, parent):
     # parent = widget.nametowidget(widget.winfo_parent())
@@ -452,3 +564,4 @@ def copyWidgetConfiguration(widget, reference):
             relief = reference['relief'],
             highlightthickness = reference['highlightthickness']
         )
+

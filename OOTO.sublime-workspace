@@ -69,6 +69,15 @@
 			}
 		},
 		{
+			"contents": "Improvement of an old system\n\nSyntetic data taken from the cloud\n\nLocal \n\n\nProblems encountered + corresponding action\n\nFeatures of the system\n- Screenshots\n\n\ntbl_user\ntbl_ideal_growth_val\ntbl_dataset\n\n\n- Screenshots\n- Features\n- Problems Encounterd\n- Action Undertaken\n\n\n- Video\n- Manual\n- Useful Technical Details for Next Group\n\n\n- GeeBee Local",
+			"settings":
+			{
+				"buffer_size": 347,
+				"line_ending": "Windows",
+				"name": "Improvement of an old system"
+			}
+		},
+		{
 			"contents": "18010333\n\n\ninternationaladmission@hope.ac.uk",
 			"settings":
 			{
@@ -169,6 +178,7 @@
 	],
 	"file_history":
 	[
+		"/D/Candy/Documents/GitHub/OOTO Miner Python v2/.idea/workspace.xml",
 		"/D/Candy/Documents/GitHub/Master's Thesis/ProjectSettings/ProjectVersion.txt",
 		"/D/Candy/Documents/GitHub/GDAPWonderland/README.txt",
 		"/D/Candy/Documents/GitHub/GDAPWonderland/Library/shadercompiler-UnityShaderCompiler.exe0.log",
@@ -295,8 +305,7 @@
 		"/D/Candy/Documents/School/MSCS Term 1/AUTOMAT/Deliverables (Testing Fundamentals)/Kara/AUTOMAT_MP2.world",
 		"/D/Candy/Documents/School/MSCS Term 1/AUTOMAT/Deliverables (Testing Fundamentals)/Kara/AUTOMAT_MP2_program_multiply_final.kara",
 		"/D/Candy/Downloads/citation-327549939.txt",
-		"/D/darknet/README.md",
-		"/C/Users/Candy/Documents/AUTOMAT_MP2_program.kara"
+		"/D/darknet/README.md"
 	],
 	"find":
 	{
@@ -478,7 +487,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -506,7 +515,7 @@
 						"translation.y": 156.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -522,8 +531,8 @@
 						"selection":
 						[
 							[
-								37,
-								37
+								407,
+								407
 							]
 						],
 						"settings":
@@ -535,11 +544,39 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 347,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								347,
+								347
+							]
+						],
+						"settings":
+						{
+							"auto_name": "Improvement of an old system",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 78.4,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"semi_transient": false,
 					"settings":
 					{
@@ -563,11 +600,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"semi_transient": false,
 					"settings":
 					{
@@ -591,11 +628,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "/C/Users/Candy/Downloads/MSCS Proposal Comments and Notes.txt",
 					"semi_transient": false,
 					"settings":
@@ -619,11 +656,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"semi_transient": false,
 					"settings":
 					{
@@ -647,11 +684,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "/D/Candy/Documents/School/MSCS Thesis Writing 1/MSCS August 9 Updates.txt",
 					"semi_transient": false,
 					"settings":
@@ -676,7 +713,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]

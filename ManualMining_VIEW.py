@@ -64,11 +64,22 @@ class ManualMining_View:
         self.configureZTestElements(parentFrame)
         self.configureTestTabConsoleElements(parentFrame)
 
+        self.configureSeparators(parentFrame)
+
     def setArrQueryCriticalValue(self, arrayValue):
         self.arrQueryCriticalValue = arrayValue
 
     def setArrQueryCriticalValueMapping(self, arrayValue):
         self.arrQueryCriticalValueMapping = arrayValue
+
+    def configureSeparators(self, parentFrame):
+        parentFrame.update()
+
+        borderX = (FS.rootWidth - FS.rootTabWidth) * (float(self.labelFrameConsoleElements.place_info()['relx']) - 0.015)
+
+        FS.emborder(parentFrame,
+                    borderX, 0, 1, FS.rootHeight,
+                    [False, False, False, True])
 
     """ >>> CONFIGURE MAIN TABS <<< """
     # region
@@ -146,7 +157,7 @@ class ManualMining_View:
         newRelX = prevFrameRelX + prevFrameRelW
 
         # CONSOLE Parent Frame
-        self.labelFrameConsoleElements = LabelFrame(self.testTabParentFrame, bd = 1, relief = GROOVE)
+        self.labelFrameConsoleElements = LabelFrame(self.testTabParentFrame, bd = 0, relief = GROOVE)
         # self.labelFrameConsoleElements.place(
         #     relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
         #     relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
@@ -160,6 +171,7 @@ class ManualMining_View:
         )
 
         self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
+
         self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient = VERTICAL)
         self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 

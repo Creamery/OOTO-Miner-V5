@@ -53,11 +53,12 @@ import Icon_support
 import UI_support
 import PIL.Image
 import PIL.ImageTk
-import Function_support as FS
 
-import MODULE_Input as INPUT
-import MODULE_ManualMining as MM
-import MODULE_AutomatedMining as AM
+import GripLabel as GS
+import Function_support as FS
+import _MODULE_Input as INPUT
+import _MODULE_ManualMining as MM
+import _MODULE_AutomatedMining as AM
 
 w = None
 
@@ -69,10 +70,11 @@ def vp_start_gui():
     root = Tk()
     root.protocol("WM_DELETE_WINDOW", onRootClose)
     root.resizable(0, 0)
-    Mother_support.set_Tk_var()
-    top = OOTO_Miner(root)
-    root.update()
-    Mother_support.init(root, top)
+    # Mother_support.set_Tk_var()
+    # top = OOTO_Miner(root)
+    OOTO_Miner(root)
+    # root.update()
+    # Mother_support.init(root, top)
     root.mainloop()
 
 def onRootClose():
@@ -102,6 +104,7 @@ def onRootClose():
 class OOTO_Miner:
 
     def __init__(self, top = None):
+        self.top = top
         # Configure style maps / themes
         self.configureStyle(top)
 
@@ -127,6 +130,8 @@ class OOTO_Miner:
         ''' TAB 4 - INFO (Tabs_t4) '''
         self.configureInfoTabElements()
 
+        # create a draggable label
+        self.configureGrip(top)
 
         # Bind functionality to all UI elements
         # self.configureBindings()
@@ -137,12 +142,53 @@ class OOTO_Miner:
         # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
         # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
+
+    def configureGrip(self, parentFrame):
+        self.grip = GS.GripLabel(parentFrame).getGrip()
+        self.grip.update()
+        self.Tabs.place(y = self.Tabs.winfo_y() + self.grip.winfo_height())
+
+        # strRootWidth = str(FS.rootWidth)
+        # strRootHeight = str(FS.rootHeight)
+        # strGripHeight = str(FS.gripHeight)
+        #
+        # FS.rootHeight = str(strRootHeight + strGripHeight)
+        # self.Tabs.place(y = self.Tabs.winfo_y() + FS.gripHeight)
+        # parentFrame.geometry(strRootWidth + "x" + strRootHeight)
+        #
+        # self.grip = tk.Label(parentFrame, bitmap = "gray25")
+        # self.grip.pack(side = "top", fill = "x")
+        #
+        # self.grip.bind("<ButtonPress-1>", self.startWinMove)
+        # self.grip.bind("<ButtonRelease-1>", self.stopWinMove)
+        # self.grip.bind("<B1-Motion>", self.onWinMove)
+
+    """ Functions for draggable window """
+    # def startWinMove(self, event):
+    #     self.gripX = event.x
+    #     self.gripY = event.y
+    #
+    # def stopWinMove(self, event):
+    #     self.top.x = None
+    #     self.top.y = None
+    #
+    # def onWinMove(self, event):
+    #     deltaX = event.x - self.gripX
+    #     deltaY = event.y - self.gripY
+    #     x = self.top.winfo_x() + deltaX
+    #     y = self.top.winfo_y() + deltaY
+    #     self.top.geometry("+%s+%s" % (x, y))
+
+
     """ >>> CONFIGURE STYLE MAPS / THEMES <<< """
 
     # region
     def configureStyle(self, top):
-        '''This class configures and populates the toplevel window.
-           top is the toplevel containing window.'''
+
+        # remove title bar
+        top.overrideredirect(True)
+        # show window in taskbar after titlebar is removed
+        top.after(10, lambda: FS.showInTaskBar(root))
 
         self.style = ttk.Style()
         if sys.platform == "win32":
@@ -154,10 +200,13 @@ class OOTO_Miner:
         # self.style.map('.',background =
         #     [('selected', _compcolor), ('active',_ana2color)])
 
-        # op.geometry("1000x800+522+139")
-        # top.geometry("1000x700+522+139")
-        top.geometry("1000x700+222+39")
+        strRootWidth = str(FS.rootWidth)
+        strRootHeight = str(FS.rootHeight)
+        top.geometry(strRootWidth + "x" + strRootHeight)
+        newX, newY = FS.centerWindow(top)
+        top.geometry(strRootWidth + "x" + strRootHeight + "+" + str(newX) + "+" + str(newY))
         top.title("OOTO Miner")
+
         # root.wm_attributes('-transparentcolor', root['bg'])
         # root.wm_attributes('-transparentcolor', 'black')
 
@@ -236,7 +285,7 @@ class OOTO_Miner:
                              foreground = Color_support.FG_COLOR,
                              borderwidth = 0,
                              tabposition = 'wn',
-                             height = 50)
+                             height = FS.rootTabWidth)
 
         self.style.map("Tab",
                        background = [('selected', Color_support.ACTIVE_COLOR), ('active', Color_support.L_GRAY)])
@@ -274,8 +323,9 @@ class OOTO_Miner:
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
     def configureAutomatedMiningTab(self, parentFrame):
+        global root
         self.Tabs.select(2)  # show the current tab to be able to retrieve height and
-        automatedMining = AM.AutomatedMining(parentFrame)
+        automatedMining = AM.AutomatedMining(parentFrame, root)
         self.Tabs.select(0)  # return to first tab
         return automatedMining
 
@@ -518,7 +568,7 @@ class OOTO_Miner:
 
     ''' Upload the dataset and variable description files '''
 
-    def uploadInputFiles(self, evt):
+    def uploadInputFiles(self, event):
         # Upload initVarDesc (Variable Description)
 
         if not self.INPUT.hasUploadedVariableDescription():  # Check if variable description was uploaded
