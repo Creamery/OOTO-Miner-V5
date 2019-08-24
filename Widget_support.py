@@ -50,7 +50,8 @@ def createDefaultFrame(parentFrame, wX, wY, wWidth, wHeight,
     return lfFrame
 
 def createDefaultHeader(parentFrame, wX, wY, wWidth, wHeight, wText = "",
-                        isRelative = [False, False], bgColor = CS.D_BLUE, fgColor = CS.WHITE):
+                        isRelative = [False, False], bgColor = CS.D_BLUE, fgColor = CS.WHITE,
+                        wFont = US.FONT_DEFAULT_BOLD):
 
     lblHeader = Label(parentFrame)
 
@@ -71,7 +72,7 @@ def createDefaultHeader(parentFrame, wX, wY, wWidth, wHeight, wText = "",
         background =bgColor, foreground = fgColor,
         bd = 0, relief = FLAT,
         text = wText,
-        font = US.FONT_DEFAULT_BOLD,
+        font = wFont,
     )
 
 

@@ -38,7 +38,7 @@ rootWidth = 1000
 rootHeight = 700
 rootTabWidth = 50
 
-sfWidth = 600
+sfWidth = 480
 sfHeight = 180
 
 
@@ -439,10 +439,18 @@ def centerWindow(window, reference = None, offsetX = 0, offsetY = 0):
     return (newX + offsetX), (newY + offsetY)
 
 
-def emborder(parentFrame, borderX, borderY, borderW, borderH,
+def emborder(parentFrame, borderX = 0, borderY = 0, borderW = None, borderH = None,
              conditions = [True, True, True, True], colors = [None, None, None, None]):
+    # region handle defaults
     # use default color if not specified by the user
     colors = [CS.DISABLED_D_BLUE if color is None else color for color in colors]
+    # use parentFrame width and height if not specified by the user
+    if borderW is None:
+        borderW = parentFrame.winfo_width()
+    if borderH is None:
+        borderH = parentFrame.winfo_height()
+    # endregion handle defaults
+
     borderW = borderW - 1  # done so that the end borders won't get cut off
     borderH = borderH - 1  # done so that the end borders won't get cut off
 
