@@ -14,8 +14,12 @@ except ImportError:
 
     py3 = 1
 
+import PIL.Image
+import PIL.ImageTk
+
 import Color_support as CS
 import UI_support as US
+import Icon_support as IS
 
 
 def createDefaultFrame(parentFrame, wX, wY, wWidth, wHeight,
@@ -49,8 +53,6 @@ def createDefaultHeader(parentFrame, wX, wY, wWidth, wHeight, wText = "",
                         isRelative = [False, False], bgColor = CS.D_BLUE, fgColor = CS.WHITE):
 
     lblHeader = Label(parentFrame)
-    lblHeader.place(x = wX, y = wY, width = wWidth, height = wHeight)
-
 
     lblHeader.place(x = wX, y = wY,)
     # region relative conditions
@@ -78,6 +80,36 @@ def createDefaultHeader(parentFrame, wX, wY, wWidth, wHeight, wText = "",
 
 
 
+def createDefaultStripe(parentFrame, wX, wY, wWidth, wHeight,
+                        isRelative = [False, False],
+                        texture = IS.TEXTURE_STRIPE_PINK):
+
+    lblStripes = Label(parentFrame, bd = 0, relief = GROOVE)
+
+    lblStripes.place(x = wX, y = wY,)
+    # region relative conditions
+    if isRelative[0]: # width is relative
+        lblStripes.place(relwidth = wWidth)
+    else:
+        lblStripes.place(width = wWidth)
+
+    if isRelative[1]: # height is relative
+        lblStripes.place(relheight = wHeight)
+    else:
+        lblStripes.place(height = wHeight)
+    # endregion relative conditions
+
+    im = PIL.Image.open(texture)
+    icoStripes = PIL.ImageTk.PhotoImage(im)
+    lblStripes.configure(
+        image = icoStripes,
+        anchor = SW
+    )
+    lblStripes.image = icoStripes  # < ! > Required to make images appear
+
+
+    lblStripes.update()
+    return lblStripes
 
 
 

@@ -51,10 +51,12 @@ class SystematicFiltering_View:
 
     def initializeWidgets(self, parentFrame):
         self.lfProgressBar = WS.createDefaultFrame(parentFrame,
-                                                   0, 0, 1, FS.headerHeight,
-                                                   [True, False])
+                                                   0, 0, 1, 1,
+                                                   [True, True])
 
-        WS.createDefaultHeader(self.lfProgressBar, 0, 0, 1, 1, "PROGRESS", [True, True])
+        lblHeader = WS.createDefaultHeader(self.lfProgressBar, 0, 0, 1, FS.headerHeight, "PROGRESS", [True, False])
+        lblStripe = WS.createDefaultStripe(self.lfProgressBar, 0, 0, 1, FS.stripeHeight, [True, False])
+        FS.placeBelow(lblStripe, lblHeader)
 
     def initializeProperties(self):
         print "initializeProperties"
