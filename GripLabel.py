@@ -72,9 +72,10 @@ class GripLabel:
 
         button.configure(
             background = CS.SELECT_BG, foreground = CS.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
+            bd = 0, relief = FLAT, overrelief = FLAT)
 
-        iconSize = (parentHeight - 2, parentHeight - 2)
+        offset = 5
+        iconSize = (parentHeight - offset, parentHeight - offset)
         im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
         icoClose = PIL.ImageTk.PhotoImage(im)
         button.configure(image = icoClose)
