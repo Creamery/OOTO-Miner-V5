@@ -23,8 +23,9 @@ import Icon_support as IS
 
 class GripLabel:
 
-    def __init__(self, parentFrame):
+    def __init__(self, parentFrame, hasPrompt = False):
         self.top = parentFrame
+        self.hasPrompt = hasPrompt
 
         parentWidth = parentFrame.winfo_width()
         parentHeight = parentFrame.winfo_height()
@@ -38,10 +39,10 @@ class GripLabel:
         self.btnClose = self.createGripButtons(self.grip)
 
         FS.redraw(self.grip)
-        borderColor = CS.L_GRAY
+        borderColor = CS.D_GRAY
         FS.emborder(self.grip, 0, 0, self.grip.winfo_width(), self.grip.winfo_height(),
                     [True, True, True, True],
-                    [borderColor, borderColor, borderColor, borderColor])
+                    [borderColor, borderColor, CS.L_GRAY, borderColor])
 
     def createGrip(self, parentFrame):
 
@@ -88,10 +89,14 @@ class GripLabel:
         return button
 
     def onTopClose(self):
-        if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
+        if self.hasPrompt:
+            if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
+                self.top.destroy()
+                self.top = None
+            return "break"
+        else:
             self.top.destroy()
             self.top = None
-        return "break"
 
     """ Functions for draggable window """
     def startWinMove(self, event):

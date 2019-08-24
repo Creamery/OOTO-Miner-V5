@@ -28,11 +28,13 @@ class SystematicFiltering:
         self.threadCrossProcess = None
         self.lfProgressView = None
 
-        self.winTop, self.parentFrame = self.initializeWindow(root)
+        self.winTop = self.initializeWindow(root)
+        self.view = VIEW.SystematicFiltering_View(self.winTop)
 
-        self.view = VIEW.SystematicFiltering_View(self.parentFrame)
+        self.grip = self.configureGrip(self.winTop)
+        FS.placeBelow(self.view.getFrame(), self.grip)
 
-        self.configureGrip(self.winTop)
+        self.configureBorders(self.winTop)
 
     def initializeWindow(self, root):
         top = Toplevel(root)
@@ -60,17 +62,19 @@ class SystematicFiltering:
         top.title("Systematic Filtering")
 
 
-        parentFrame = LabelFrame(top, bd = 0)
-        parentFrame.configure(background = CS.WHITE)
-        parentFrame.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+        return top
 
+    def configureGrip(self, parentWindow):
+        grip = GS.GripLabel(parentWindow).getGrip()
+        return grip
 
-        return top, parentFrame
-
-    def configureGrip(self, parentFrame):
-        self.grip = GS.GripLabel(parentFrame).getGrip()
-        self.grip.update()
-
+    def configureBorders(self, parentFrame):
+        borderWidth = parentFrame.winfo_width()
+        borderHeight = parentFrame.winfo_height()
+        borderColor = CS.D_GRAY
+        FS.emborder(parentFrame, 0, 0, borderWidth, borderHeight,
+                    [True, True, True, True],
+                    [borderColor, borderColor, borderColor, borderColor])
 
 
 

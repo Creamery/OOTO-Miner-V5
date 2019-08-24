@@ -39,20 +39,22 @@ import Function_support as FS
 
 class SystematicFiltering_View:
 
-    def __init__(self, parentFrame):
+    def __init__(self, parentWindow):
+        self.parentFrame = LabelFrame(parentWindow, bd = 0)
+        self.parentFrame.configure(background = CS.WHITE)
+        self.parentFrame.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
         self.initializeProperties()
-        FS.redraw(parentFrame)
+        FS.redraw(self.parentFrame)
 
-        self.configureBorders(parentFrame)
+
 
 
     def initializeProperties(self):
         print "initializeProperties"
         # self.btnConfirmConfirmedFeatures = [None]
 
-    def configureBorders(self, parentFrame):
-        borderWidth = parentFrame.winfo_width()
-        borderHeight = parentFrame.winfo_height()
 
-        FS.emborder(parentFrame, 0, 0, borderWidth, borderHeight)
+    " GETTERS "
+    def getFrame(self):
+        return self.parentFrame
