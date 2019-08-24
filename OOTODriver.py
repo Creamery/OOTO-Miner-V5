@@ -155,10 +155,12 @@ class OOTO_Miner:
         # self.style.map('.',background =
         #     [('selected', _compcolor), ('active',_ana2color)])
 
-        # op.geometry("1000x800+522+139")
-        # top.geometry("1000x700+522+139")
-        top.geometry("1000x700+222+39")
+
+        top.geometry("1000x700")
+        newX, newY = FS.centerWindow(top)
+        top.geometry("1000x700" + "+" + str(newX) + "+" + str(newY))
         top.title("OOTO Miner")
+
         # root.wm_attributes('-transparentcolor', root['bg'])
         # root.wm_attributes('-transparentcolor', 'black')
 

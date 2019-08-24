@@ -46,7 +46,7 @@ class AutomatedMining:
 
         self.controller.setArrQueryCriticalValue(arrQueryCriticalValue)
         self.controller.setArrQueryCriticalValueMapping(arrQueryCriticalValueMapping)
-
+        
     def readFeatures(self, variableDescription):
         return self.controller.readFeatures(variableDescription, "^")
 

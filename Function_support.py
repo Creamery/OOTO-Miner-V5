@@ -381,6 +381,25 @@ def alignStart(element, reference, offset = 0):
         relx = 0, x = newX + offset
     )
 
+def centerWindow(window, reference = None):
+    window.update()
+    winWidth = window.winfo_width()
+    winHeight = window.winfo_height()
+    print("winWidth " + str(winWidth))
+    print("winHeight " + str(winHeight))
+
+    if reference is None:
+        parentWidth = window.winfo_screenwidth()
+        parentHeight = window.winfo_screenheight()
+    else:
+        reference.update()
+        parentWidth = reference.winfo_width()
+        parentHeight = reference.winfo_height()
+
+    newX = (parentWidth / 2) - (winWidth / 2)
+    newY = (parentHeight / 2) - (winHeight / 2)
+    return newX, newY
+
 """A recursive call that updates all Widgets and their Widget children"""
 def redraw(parentFrame):
     parentFrame.update()

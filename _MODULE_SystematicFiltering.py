@@ -15,6 +15,7 @@ except ImportError:
 
 # import tkMessageBox
 import Color_support as CS
+import Function_support as FS
 import SystematicFiltering_VIEW as VIEW
 
 class SystematicFiltering:
@@ -44,8 +45,10 @@ class SystematicFiltering:
 
         self.style.configure('.', font = "TkDefaultFont")
 
-        # top.geometry("1000x700+222+39")
         top.geometry("700x500")
+        newX, newY = FS.centerWindow(top)
+        top.geometry("700x500" + "+" + str(newX) + "+" + str(newY))
+
         top.title("Systematic Filtering")
 
 
