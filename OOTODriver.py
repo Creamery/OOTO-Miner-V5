@@ -108,11 +108,7 @@ class OOTO_Miner:
         # Configure style maps / themes
         self.configureStyle(top)
 
-        # > MENU BAR
-        # self.menubar = Menu(top,font = "TkMenuFont",background = _bgcolor,fg = _fgcolor)
-        # top.configure(menu = self.menubar)
-        # self.menubar.add_command(label = "About", command = self.showAbout)
-        # self.menubar.add_command(label = "Help")
+
 
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.INPUT = self.configureDataTabElements(self.Tabs_t2)
@@ -134,6 +130,8 @@ class OOTO_Miner:
         self.configureGrip(top)
         # create frame borders
         self.configureBorders(top)
+
+
 
         # Bind functionality to all UI elements
         # self.configureBindings()

@@ -27,7 +27,6 @@ except ImportError:
     py3 = 1
 
 
-import Color_support as CS
 import Icon_support
 import UI_support
 import PIL.Image
@@ -35,7 +34,9 @@ import PIL.ImageTk
 import CONSTANTS as const
 import KEYS_support as key
 
+import Color_support as CS
 import Function_support as FS
+import Widget_support as WS
 
 class SystematicFiltering_View:
 
@@ -44,11 +45,16 @@ class SystematicFiltering_View:
         self.parentFrame.configure(background = CS.WHITE)
         self.parentFrame.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
-        self.initializeProperties()
+        self.initializeWidgets(self.parentFrame)
         FS.redraw(self.parentFrame)
 
 
+    def initializeWidgets(self, parentFrame):
+        self.lfProgressBar = WS.createDefaultFrame(parentFrame,
+                                                   0, 0, 1, FS.headerHeight,
+                                                   [True, False])
 
+        WS.createDefaultHeader(self.lfProgressBar, 0, 0, 1, 1, "PROGRESS", [True, True])
 
     def initializeProperties(self):
         print "initializeProperties"

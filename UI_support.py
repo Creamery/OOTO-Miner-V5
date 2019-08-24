@@ -360,6 +360,8 @@ FILTER_STATUS_LABEL_RELIEF = FLAT # Won't work unless you change FLAT to somethi
 FILTER_STATUS_LABEL_BORDER = 0
 
 
+
+" GETTERS "
 def getRelX(element):
     return float(element.place_info()['relx'])
 
@@ -390,3 +392,6 @@ def getInfoH(element):
 
 def getInfoW(element):
     return element.winfo_width()
+
+
+

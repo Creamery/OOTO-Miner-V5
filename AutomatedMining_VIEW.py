@@ -66,6 +66,8 @@ class AutomatedMining_View:
         # self.lfConsoleFrame.place(width = 0, height = 0)
 
         self.configureSeparators(parentFrame)
+        FS.headerWidth = self.lblHeaderFeatureSelect.winfo_width()
+        FS.headerHeight = self.lblHeaderFeatureSelect.winfo_height()
 
         # print "After HEIGHT: " + str(self.lfCommandsFeatureSelect.place_info())
         # print "After HEIGHT: " + str(self.lfCommandsFeatureSelect.winfo_height())
@@ -243,7 +245,7 @@ class AutomatedMining_View:
 
             [isTracking, variableIndex] = self.checkTracking(item, trackedWidgets)
             if isTracking:
-                print "isTracking index " + str(variableIndex)
+                # print "isTracking index " + str(variableIndex)
                 trackedVariableList[variableIndex][0] = itemClone
 
 

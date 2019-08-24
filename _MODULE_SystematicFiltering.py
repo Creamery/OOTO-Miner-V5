@@ -19,6 +19,7 @@ import Function_support as FS
 import Grip_support as GS
 import SystematicFiltering_VIEW as VIEW
 
+
 class SystematicFiltering:
     def __init__(self, root = None):
         self.root = root
@@ -54,10 +55,11 @@ class SystematicFiltering:
         self.style.configure('.', font = "TkDefaultFont")
 
         # center window
-        top.geometry("700x500")
+        strDimensions = str(FS.sfWidth) + "x" + str(FS.sfHeight)
+        top.geometry(strDimensions)
         root.update()
-        newX, newY = FS.centerWindow(top, root)
-        top.geometry("700x500" + "+" + str(newX) + "+" + str(newY))
+        newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
+        top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
 
         top.title("Systematic Filtering")
 
@@ -75,12 +77,3 @@ class SystematicFiltering:
         FS.emborder(parentFrame, 0, 0, borderWidth, borderHeight,
                     [True, True, True, True],
                     [borderColor, borderColor, borderColor, borderColor])
-
-
-
-# def onTopClose():
-#     print "onTopClose"
-#     if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
-#         global winTop
-#         winTop.destroy()
-#         winTop = None
