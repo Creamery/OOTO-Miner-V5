@@ -27,9 +27,17 @@ import copy
 
 from ctypes import windll
 
-GWL_EXSTYLE=-20
-WS_EX_APPWINDOW=0x00040000
-WS_EX_TOOLWINDOW=0x00000080
+GWL_EXSTYLE = -20
+WS_EX_APPWINDOW = 0x00040000
+WS_EX_TOOLWINDOW = 0x00000080
+
+
+rootWidth = 1000
+rootHeight = 700
+rootTabWidth = 50
+
+gripHeight = 20
+
 
 def checkKey(dict, key):
     if key in dict.keys():

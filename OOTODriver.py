@@ -104,8 +104,6 @@ class OOTO_Miner:
 
     def __init__(self, top = None):
         self.top = top
-        self.topWidth = str(1000)
-        self.topHeight = str(700)
         # Configure style maps / themes
         self.configureStyle(top)
 
@@ -147,10 +145,13 @@ class OOTO_Miner:
 
 
     def configureGrip(self, parentFrame):
-        self.gripHeight = 20
-        self.topHeight = str(int(self.topHeight) + self.gripHeight)
-        self.Tabs.place(y = self.Tabs.winfo_y() + self.gripHeight)
-        parentFrame.geometry(self.topWidth + "x" + self.topHeight)
+        strRootWidth = str(FS.rootWidth)
+        strRootHeight = str(FS.rootHeight)
+        strGripHeight = str(FS.gripHeight)
+
+        FS.rootHeight = str(strRootHeight + strGripHeight)
+        self.Tabs.place(y = self.Tabs.winfo_y() + FS.gripHeight)
+        parentFrame.geometry(strRootWidth + "x" + strRootHeight)
 
         self.grip = tk.Label(parentFrame, bitmap = "gray25")
         self.grip.pack(side = "top", fill = "x")
@@ -196,10 +197,11 @@ class OOTO_Miner:
         # self.style.map('.',background =
         #     [('selected', _compcolor), ('active',_ana2color)])
 
-
-        top.geometry(self.topWidth + "x" + self.topHeight)
+        strRootWidth = str(FS.rootWidth)
+        strRootHeight = str(FS.rootHeight)
+        top.geometry(strRootWidth + "x" + strRootHeight)
         newX, newY = FS.centerWindow(top)
-        top.geometry(self.topWidth + "x" + self.topHeight + "+" + str(newX) + "+" + str(newY))
+        top.geometry(strRootWidth + "x" + strRootHeight + "+" + str(newX) + "+" + str(newY))
         top.title("OOTO Miner")
 
         # root.wm_attributes('-transparentcolor', root['bg'])

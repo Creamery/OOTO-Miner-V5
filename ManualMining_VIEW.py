@@ -64,25 +64,22 @@ class ManualMining_View:
         self.configureZTestElements(parentFrame)
         self.configureTestTabConsoleElements(parentFrame)
 
-
-        parentFrame.update()
-        print str(self.labelFrameConsoleElements.place_info())
-
-        print str(self.labelFrameConsoleElements.place_info()['relx'])
-        borderX = (1000-50) * (float(self.labelFrameConsoleElements.place_info()['relx']) - 0.015)
-
-        print str(borderX)
-
-        borderHeight = parentFrame.winfo_height()  # self.labelFrameConsoleElements.winfo_height()
-        FS.emborder(parentFrame,
-                    borderX, 0, 1, 700,
-                    [False, False, False, True])
+        self.configureSeparators(parentFrame)
 
     def setArrQueryCriticalValue(self, arrayValue):
         self.arrQueryCriticalValue = arrayValue
 
     def setArrQueryCriticalValueMapping(self, arrayValue):
         self.arrQueryCriticalValueMapping = arrayValue
+
+    def configureSeparators(self, parentFrame):
+        parentFrame.update()
+
+        borderX = (FS.rootWidth - FS.rootTabWidth) * (float(self.labelFrameConsoleElements.place_info()['relx']) - 0.015)
+
+        FS.emborder(parentFrame,
+                    borderX, 0, 1, FS.rootHeight,
+                    [False, False, False, True])
 
     """ >>> CONFIGURE MAIN TABS <<< """
     # region
