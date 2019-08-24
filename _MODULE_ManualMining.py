@@ -6,11 +6,10 @@ except ImportError:
 
 try:
     import ttk
-
     py3 = 0
+
 except ImportError:
     import tkinter.ttk as ttk
-
     py3 = 1
 
 import ManualMining_VIEW as VIEW

@@ -41,40 +41,11 @@ class SystematicFiltering_View:
 
     def __init__(self, parentFrame):
         self.initializeProperties()
-
-        # parent frame for all elements in the Automated Mining tab
-        self.lfTabParentFrame = self.initTabFrame(parentFrame)
-
-        # empty frame for top padding
-        self.lfTopPadding = self.initTopPaddingUI(self.lfTabParentFrame)
-
-        # frame containing the first row of UI elements
-        self.lfInputFrame = self.initInputUI(self.lfTabParentFrame, self.lfTopPadding)
-
-        # frame containing the second row of UI elements
-        self.lfProcessFrame = self.initProcessUI(self.lfTabParentFrame, self.lfInputFrame)
-
-        # frame containing the third row of UI elements
-        self.lfResultsFrame = self.initResultsUI(self.lfTabParentFrame, self.lfProcessFrame)
-
-        # frame containing the console UI elements
-        self.lfConsoleFrame = self.initConsoleUI(self.lfTabParentFrame, self.lfProcessFrame)
-
-        self.redraw(self.lfTabParentFrame)
-        self.lfProcessFrame.place(width = 0, height = 0)
-        self.lfResultsFrame.place(width = 0, height = 0)
-        # self.lfConsoleFrame.place(width = 0, height = 0)
+        FS.redraw(parentFrame)
 
 
     def initializeProperties(self):
-        self.btnConfirmConfirmedFeatures = [None]
-        self.btnResetConfirmedFeatures = [None]
-        self.btnQueryConfirmedFeatures = [None]
-        self.lbListConfirmedFeatures = [None]
-        self.lbListConfirmedDetails = [None]
-        self.lblCountConfirmedFeaturesText = [None]
-        self.entryQueryConfirmedFeatures = [None]
-        self.lblHeaderConfirmedFeatures = [None]
-        self.lblCountConfirmedFeaturesTitle = [None]
+        print "initializeProperties"
+        # self.btnConfirmConfirmedFeatures = [None]
 
 
