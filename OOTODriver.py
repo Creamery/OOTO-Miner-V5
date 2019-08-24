@@ -103,6 +103,9 @@ def onRootClose():
 class OOTO_Miner:
 
     def __init__(self, top = None):
+        self.top = top
+        self.topWidth = str(1000)
+        self.topHeight = str(700)
         # Configure style maps / themes
         self.configureStyle(top)
 
@@ -115,6 +118,7 @@ class OOTO_Miner:
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.INPUT = self.configureDataTabElements(self.Tabs_t2)
         self.INPUT.getButtonStartDatasetUpload().bind('<Button-1>', self.uploadInputFiles)
+        FS.redraw(self.Tabs_t2)
 
         ''' TAB 2 - AM (Tabs_t3) '''
         self.MM = self.configureManualMiningTab(self.Tabs_t3)
@@ -124,10 +128,13 @@ class OOTO_Miner:
 
         ''' TAB 3 - AM (Tabs_t5) '''
         self.AM = self.configureAutomatedMiningTab(self.Tabs_t5)
+        FS.redraw(self.Tabs_t5)
 
         ''' TAB 4 - INFO (Tabs_t4) '''
         self.configureInfoTabElements()
 
+        # create a draggable label
+        self.configureGrip(top)
 
         # Bind functionality to all UI elements
         # self.configureBindings()
@@ -138,12 +145,46 @@ class OOTO_Miner:
         # self.labelQueryDataACount.configure(text = "n: " + str(len(self.datasetA['Data'])))
         # self.labelQueryDataBCount.configure(text = "n: " + str(len(self.datasetB['Data'])))
 
+
+    def configureGrip(self, parentFrame):
+        self.gripHeight = 20
+        self.topHeight = str(int(self.topHeight) + self.gripHeight)
+        self.Tabs.place(y = self.Tabs.winfo_y() + self.gripHeight)
+        parentFrame.geometry(self.topWidth + "x" + self.topHeight)
+
+        self.grip = tk.Label(parentFrame, bitmap = "gray25")
+        self.grip.pack(side = "top", fill = "x")
+
+        self.grip.bind("<ButtonPress-1>", self.startWinMove)
+        self.grip.bind("<ButtonRelease-1>", self.stopWinMove)
+        self.grip.bind("<B1-Motion>", self.onWinMove)
+
+    """ Functions for draggable window """
+    def startWinMove(self, event):
+        self.gripX = event.x
+        self.gripY = event.y
+
+    def stopWinMove(self, event):
+        self.top.x = None
+        self.top.y = None
+
+    def onWinMove(self, event):
+        deltaX = event.x - self.gripX
+        deltaY = event.y - self.gripY
+        x = self.top.winfo_x() + deltaX
+        y = self.top.winfo_y() + deltaY
+        self.top.geometry("+%s+%s" % (x, y))
+
+
     """ >>> CONFIGURE STYLE MAPS / THEMES <<< """
 
     # region
     def configureStyle(self, top):
-        '''This class configures and populates the toplevel window.
-           top is the toplevel containing window.'''
+
+        # remove title bar
+        top.overrideredirect(True)
+        # show window in taskbar after titlebar is removed
+        top.after(10, lambda: FS.showInTaskBar(root))
 
         self.style = ttk.Style()
         if sys.platform == "win32":
@@ -156,9 +197,9 @@ class OOTO_Miner:
         #     [('selected', _compcolor), ('active',_ana2color)])
 
 
-        top.geometry("1000x700")
+        top.geometry(self.topWidth + "x" + self.topHeight)
         newX, newY = FS.centerWindow(top)
-        top.geometry("1000x700" + "+" + str(newX) + "+" + str(newY))
+        top.geometry(self.topWidth + "x" + self.topHeight + "+" + str(newX) + "+" + str(newY))
         top.title("OOTO Miner")
 
         # root.wm_attributes('-transparentcolor', root['bg'])
@@ -522,7 +563,7 @@ class OOTO_Miner:
 
     ''' Upload the dataset and variable description files '''
 
-    def uploadInputFiles(self, evt):
+    def uploadInputFiles(self, event):
         # Upload initVarDesc (Variable Description)
 
         if not self.INPUT.hasUploadedVariableDescription():  # Check if variable description was uploaded

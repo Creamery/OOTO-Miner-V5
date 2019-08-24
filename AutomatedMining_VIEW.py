@@ -292,7 +292,7 @@ class AutomatedMining_View:
         borderY = self.lfListFeatureSelect.winfo_y() + self.lfListFeatureSelect.winfo_height()
         borderW = self.lfListFeatureDetails.winfo_width() - 1
         borderH = self.lfListFeatureDetails.winfo_height()
-        self.emborder(self.lfFeatureSelect,
+        FS.emborder(self.lfFeatureSelect,
                       borderX, borderY, borderW, borderH,
                       [True, True, False, True],
                       [None, CS.DEFAULT_LIGHT_BORDER, None, CS.DEFAULT_BORDER])
@@ -305,7 +305,7 @@ class AutomatedMining_View:
         borderY = self.lfListFeatureDetails.winfo_y() + self.lfListFeatureDetails.winfo_height()
         borderW = self.lfListFeatureSelect.winfo_width() - 1
         borderH = self.lfFeatureSelect.winfo_height() - borderY - 1
-        self.emborder(self.lfFeatureSelect, borderX, borderY, borderW, borderH)
+        FS.emborder(self.lfFeatureSelect, borderX, borderY, borderW, borderH)
         # endregion emborder
 
         # region adjust counter
@@ -1008,52 +1008,6 @@ class AutomatedMining_View:
         """
 
 
-
-    def emborder(self, parentFrame, borderX, borderY, borderW, borderH,
-                 conditions = [True, True, True, True], colors = [None, None, None, None]):
-        # use default color if not specified by the user
-        colors = [CS.DISABLED_D_BLUE if color is None else color for color in colors]
-
-        index = 0
-        if conditions[index]:
-            sepCommandTop = Label(parentFrame)
-            sepCommandTop.place(
-                x = borderX,
-                y = borderY,
-                width = borderW,
-                height = 1)
-            sepCommandTop.configure(background = colors[index])
-
-        index = 2
-        if conditions[index]:
-            sepCommandBottom = Label(parentFrame)
-            sepCommandBottom.place(
-                x = borderX,
-                y = borderY + borderH,
-                width = borderW,
-                height = 1)
-            sepCommandBottom.configure(background = colors[index])
-
-        index = 3
-        if conditions[index]:
-            sepCommandLeft = Label(parentFrame)
-            sepCommandLeft.place(
-                x = borderX,
-                y = borderY,
-                width = 1,
-                height = borderH)
-            sepCommandLeft.configure(background = colors[index])
-
-        index = 1
-        if conditions[index]:
-            sepCommandRight = Label(parentFrame)
-            sepCommandRight.place(
-                x = borderX + borderW,
-                y = borderY,
-                width = 1,
-                height = borderH)
-            sepCommandRight.configure(background = colors[index])
-
     def initProcessUI(self, parentFrame, relativeFrame):
 
         newRelY = FS.getRelY(relativeFrame) + FS.getRelH(relativeFrame)  # TODO Make constant (space in between)
@@ -1098,7 +1052,7 @@ class AutomatedMining_View:
         newRelX = prevFrameRelX + prevFrameRelW
 
         # CONSOLE Parent Frame
-        consoleFrame = LabelFrame(parentFrame, bd = 1, relief = GROOVE)
+        consoleFrame = LabelFrame(parentFrame, bd = 0, relief = GROOVE)
         # self.labelFrameConsoleElements.place(
         #     relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
         #     relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
@@ -3027,6 +2981,7 @@ class AutomatedMining_View:
 
         # Add console borders
         self.createLabelBorders(self.labelFrameConsoleScreen)
+
     def configureConsoleScreenElements(self):
         self.scrollConsoleScreen = Scrollbar(self.labelFrameConsoleScreen, orient = VERTICAL,
                                              name = 'scrollConsoleScreen')

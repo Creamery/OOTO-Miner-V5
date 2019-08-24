@@ -34,6 +34,10 @@ class SystematicFiltering:
 
     def initializeWindow(self, root):
         top = Toplevel(root)
+        # remove title bar
+        top.overrideredirect(True)
+        top.after(10, lambda: FS.showInTaskBar(top))
+
         # top.transient(root)
         top.grab_set()
         # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
@@ -45,8 +49,10 @@ class SystematicFiltering:
 
         self.style.configure('.', font = "TkDefaultFont")
 
+        # center window
         top.geometry("700x500")
-        newX, newY = FS.centerWindow(top)
+        root.update()
+        newX, newY = FS.centerWindow(top, root)
         top.geometry("700x500" + "+" + str(newX) + "+" + str(newY))
 
         top.title("Systematic Filtering")
