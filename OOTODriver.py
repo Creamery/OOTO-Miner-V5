@@ -132,6 +132,8 @@ class OOTO_Miner:
 
         # create a draggable label
         self.configureGrip(top)
+        # create frame borders
+        self.configureBorders(top)
 
         # Bind functionality to all UI elements
         # self.configureBindings()
@@ -148,21 +150,10 @@ class OOTO_Miner:
         self.grip.update()
         self.Tabs.place(y = self.Tabs.winfo_y() + self.grip.winfo_height())
 
-
-        # strRootWidth = str(FS.rootWidth)
-        # strRootHeight = str(FS.rootHeight)
-        # strGripHeight = str(FS.gripHeight)
-        #
-        # FS.rootHeight = str(strRootHeight + strGripHeight)
-        # self.Tabs.place(y = self.Tabs.winfo_y() + FS.gripHeight)
-        # parentFrame.geometry(strRootWidth + "x" + strRootHeight)
-        #
-        # self.grip = tk.Label(parentFrame, bitmap = "gray25")
-        # self.grip.pack(side = "top", fill = "x")
-        #
-        # self.grip.bind("<ButtonPress-1>", self.startWinMove)
-        # self.grip.bind("<ButtonRelease-1>", self.stopWinMove)
-        # self.grip.bind("<B1-Motion>", self.onWinMove)
+    def configureBorders(self, parentFrame):
+        borderWidth = parentFrame.winfo_width()
+        borderHeight = parentFrame.winfo_height()
+        FS.emborder(parentFrame, 0, 0, borderWidth, borderHeight)
 
     """ Functions for draggable window """
     # def startWinMove(self, event):

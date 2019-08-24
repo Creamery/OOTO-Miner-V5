@@ -435,6 +435,8 @@ def emborder(parentFrame, borderX, borderY, borderW, borderH,
              conditions = [True, True, True, True], colors = [None, None, None, None]):
     # use default color if not specified by the user
     colors = [CS.DISABLED_D_BLUE if color is None else color for color in colors]
+    borderW = borderW - 1  # done so that the end borders won't get cut off
+    borderH = borderH - 1  # done so that the end borders won't get cut off
 
     index = 0
     if conditions[index]:

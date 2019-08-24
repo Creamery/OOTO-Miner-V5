@@ -39,7 +39,7 @@ class GripLabel:
 
         FS.redraw(self.grip)
         borderColor = CS.L_GRAY
-        FS.emborder(self.grip, 0, 0, self.grip.winfo_width() - 1, self.grip.winfo_height() - 1,
+        FS.emborder(self.grip, 0, 0, self.grip.winfo_width(), self.grip.winfo_height(),
                     [True, True, True, True],
                     [borderColor, borderColor, borderColor, borderColor])
 
@@ -50,7 +50,6 @@ class GripLabel:
         gripHeight = FS.gripHeight
 
         # create grip label
-        # grip = Label(self.top, bitmap = "gray25")
         grip = LabelFrame(self.top, bd = 0)
         grip.place(x = 0, y = 0, width = gripWidth, height = gripHeight)
         grip.configure(background = CS.WHITE)
@@ -86,9 +85,6 @@ class GripLabel:
 
         # button.bind("<ButtonRelease-1>", self.onTopClose)
         button.bind("<Button-1>", lambda event: self.onTopClose())
-
-
-
         return button
 
     def onTopClose(self):
