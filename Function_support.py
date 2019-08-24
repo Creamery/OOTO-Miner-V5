@@ -36,7 +36,7 @@ rootWidth = 1000
 rootHeight = 700
 rootTabWidth = 50
 
-gripHeight = 20
+gripHeight = 25
 
 
 def checkKey(dict, key):

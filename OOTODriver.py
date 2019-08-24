@@ -53,8 +53,9 @@ import Icon_support
 import UI_support
 import PIL.Image
 import PIL.ImageTk
-import Function_support as FS
 
+import GripLabel as GS
+import Function_support as FS
 import _MODULE_Input as INPUT
 import _MODULE_ManualMining as MM
 import _MODULE_AutomatedMining as AM
@@ -116,7 +117,6 @@ class OOTO_Miner:
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.INPUT = self.configureDataTabElements(self.Tabs_t2)
         self.INPUT.getButtonStartDatasetUpload().bind('<Button-1>', self.uploadInputFiles)
-        FS.redraw(self.Tabs_t2)
 
         ''' TAB 2 - AM (Tabs_t3) '''
         self.MM = self.configureManualMiningTab(self.Tabs_t3)
@@ -126,7 +126,6 @@ class OOTO_Miner:
 
         ''' TAB 3 - AM (Tabs_t5) '''
         self.AM = self.configureAutomatedMiningTab(self.Tabs_t5)
-        FS.redraw(self.Tabs_t5)
 
         ''' TAB 4 - INFO (Tabs_t4) '''
         self.configureInfoTabElements()
@@ -145,36 +144,40 @@ class OOTO_Miner:
 
 
     def configureGrip(self, parentFrame):
-        strRootWidth = str(FS.rootWidth)
-        strRootHeight = str(FS.rootHeight)
-        strGripHeight = str(FS.gripHeight)
+        self.grip = GS.GripLabel(parentFrame).getGrip()
+        self.grip.update()
+        self.Tabs.place(y = self.Tabs.winfo_y() + self.grip.winfo_height())
 
-        FS.rootHeight = str(strRootHeight + strGripHeight)
-        self.Tabs.place(y = self.Tabs.winfo_y() + FS.gripHeight)
-        parentFrame.geometry(strRootWidth + "x" + strRootHeight)
-
-        self.grip = tk.Label(parentFrame, bitmap = "gray25")
-        self.grip.pack(side = "top", fill = "x")
-
-        self.grip.bind("<ButtonPress-1>", self.startWinMove)
-        self.grip.bind("<ButtonRelease-1>", self.stopWinMove)
-        self.grip.bind("<B1-Motion>", self.onWinMove)
+        # strRootWidth = str(FS.rootWidth)
+        # strRootHeight = str(FS.rootHeight)
+        # strGripHeight = str(FS.gripHeight)
+        #
+        # FS.rootHeight = str(strRootHeight + strGripHeight)
+        # self.Tabs.place(y = self.Tabs.winfo_y() + FS.gripHeight)
+        # parentFrame.geometry(strRootWidth + "x" + strRootHeight)
+        #
+        # self.grip = tk.Label(parentFrame, bitmap = "gray25")
+        # self.grip.pack(side = "top", fill = "x")
+        #
+        # self.grip.bind("<ButtonPress-1>", self.startWinMove)
+        # self.grip.bind("<ButtonRelease-1>", self.stopWinMove)
+        # self.grip.bind("<B1-Motion>", self.onWinMove)
 
     """ Functions for draggable window """
-    def startWinMove(self, event):
-        self.gripX = event.x
-        self.gripY = event.y
-
-    def stopWinMove(self, event):
-        self.top.x = None
-        self.top.y = None
-
-    def onWinMove(self, event):
-        deltaX = event.x - self.gripX
-        deltaY = event.y - self.gripY
-        x = self.top.winfo_x() + deltaX
-        y = self.top.winfo_y() + deltaY
-        self.top.geometry("+%s+%s" % (x, y))
+    # def startWinMove(self, event):
+    #     self.gripX = event.x
+    #     self.gripY = event.y
+    #
+    # def stopWinMove(self, event):
+    #     self.top.x = None
+    #     self.top.y = None
+    #
+    # def onWinMove(self, event):
+    #     deltaX = event.x - self.gripX
+    #     deltaY = event.y - self.gripY
+    #     x = self.top.winfo_x() + deltaX
+    #     y = self.top.winfo_y() + deltaY
+    #     self.top.geometry("+%s+%s" % (x, y))
 
 
     """ >>> CONFIGURE STYLE MAPS / THEMES <<< """
@@ -282,7 +285,7 @@ class OOTO_Miner:
                              foreground = Color_support.FG_COLOR,
                              borderwidth = 0,
                              tabposition = 'wn',
-                             height = 50)
+                             height = FS.rootTabWidth)
 
         self.style.map("Tab",
                        background = [('selected', Color_support.ACTIVE_COLOR), ('active', Color_support.L_GRAY)])
