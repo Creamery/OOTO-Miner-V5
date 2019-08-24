@@ -16,6 +16,7 @@ except ImportError:
 # import tkMessageBox
 import Color_support as CS
 import Function_support as FS
+import Grip_support as GS
 import SystematicFiltering_VIEW as VIEW
 
 class SystematicFiltering:
@@ -31,6 +32,7 @@ class SystematicFiltering:
 
         self.view = VIEW.SystematicFiltering_View(self.parentFrame)
 
+        self.configureGrip(self.winTop)
 
     def initializeWindow(self, root):
         top = Toplevel(root)
@@ -64,6 +66,12 @@ class SystematicFiltering:
 
 
         return top, parentFrame
+
+    def configureGrip(self, parentFrame):
+        self.grip = GS.GripLabel(parentFrame).getGrip()
+        self.grip.update()
+
+
 
 
 # def onTopClose():

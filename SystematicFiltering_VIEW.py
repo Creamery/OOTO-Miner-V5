@@ -33,9 +33,9 @@ import UI_support
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
-import Function_support as FS
 import KEYS_support as key
 
+import Function_support as FS
 
 class SystematicFiltering_View:
 
@@ -47,5 +47,3 @@ class SystematicFiltering_View:
     def initializeProperties(self):
         print "initializeProperties"
         # self.btnConfirmConfirmedFeatures = [None]
-
-

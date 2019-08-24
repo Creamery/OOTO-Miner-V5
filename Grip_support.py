@@ -26,11 +26,12 @@ class GripLabel:
     def __init__(self, parentFrame):
         self.top = parentFrame
 
+        parentWidth = parentFrame.winfo_width()
+        parentHeight = parentFrame.winfo_height()
+
         # add grip on top of parentFrame
-        strRootWidth = str(FS.rootWidth)
-        strRootHeight = str(FS.rootHeight)
-        strGripHeight = str(FS.gripHeight)
-        FS.rootHeight = str(strRootHeight + strGripHeight)
+        strRootWidth = str(parentWidth)
+        strRootHeight = str(parentHeight + FS.gripHeight)
         self.top.geometry(strRootWidth + "x" + strRootHeight)
 
         self.grip = self.createGrip(parentFrame)
@@ -74,7 +75,7 @@ class GripLabel:
             background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 0, relief = FLAT, overrelief = FLAT)
 
-        offset = 5
+        offset = 6
         iconSize = (parentHeight - offset, parentHeight - offset)
         im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
         icoClose = PIL.ImageTk.PhotoImage(im)

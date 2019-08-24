@@ -54,7 +54,7 @@ import UI_support
 import PIL.Image
 import PIL.ImageTk
 
-import GripLabel as GS
+import Grip_support as GS
 import Function_support as FS
 import _MODULE_Input as INPUT
 import _MODULE_ManualMining as MM
@@ -68,7 +68,7 @@ def vp_start_gui():
     global val, w, root
 
     root = Tk()
-    root.protocol("WM_DELETE_WINDOW", onRootClose)
+    # root.protocol("WM_DELETE_WINDOW", onRootClose)
     root.resizable(0, 0)
     # Mother_support.set_Tk_var()
     # top = OOTO_Miner(root)
@@ -77,11 +77,11 @@ def vp_start_gui():
     # Mother_support.init(root, top)
     root.mainloop()
 
-def onRootClose():
-    if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
-        global root
-        root.destroy()
-        root = None
+# def onRootClose():
+#     if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
+#         global root
+#         root.destroy()
+#         root = None
 
 
 
@@ -147,6 +147,7 @@ class OOTO_Miner:
         self.grip = GS.GripLabel(parentFrame).getGrip()
         self.grip.update()
         self.Tabs.place(y = self.Tabs.winfo_y() + self.grip.winfo_height())
+
 
         # strRootWidth = str(FS.rootWidth)
         # strRootHeight = str(FS.rootHeight)
