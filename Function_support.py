@@ -25,12 +25,6 @@ from collections import Counter
 import csv
 import copy
 
-from ctypes import windll
-
-GWL_EXSTYLE = -20
-WS_EX_APPWINDOW = 0x00040000
-WS_EX_TOOLWINDOW = 0x00000080
-
 
 gripHeight = 25
 
@@ -342,17 +336,6 @@ def selectDatasetValues(evt, dataset):
     # labelFeatCount.configure(text = str(datasetCount))
     return datasetCount
 
-
-""" Allows windows to appear in taskbar when overideredirect is set to True """
-def showInTaskBar(root):
-    hwnd = windll.user32.GetParent(root.winfo_id())
-    style = windll.user32.GetWindowLongPtrW(hwnd, GWL_EXSTYLE)
-    style = style & ~WS_EX_TOOLWINDOW
-    style = style | WS_EX_APPWINDOW
-    res = windll.user32.SetWindowLongPtrW(hwnd, GWL_EXSTYLE, style)
-    # re-assert the new window style
-    root.wm_withdraw()
-    root.after(10, lambda: root.wm_deiconify())
 
 
 def getRelX(element):

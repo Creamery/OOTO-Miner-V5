@@ -104,10 +104,10 @@ def vp_start_gui():
 
 class OOTO_Miner:
 
-    def __init__(self, top = None):
-        self.top = top
+    def __init__(self, root = None):
+        self.root = root
         # Configure style maps / themes
-        self.configureStyle(top)
+        self.configureStyle(root)
 
 
 
@@ -122,15 +122,16 @@ class OOTO_Miner:
         # self.configureTestTabConsoleElements()
 
         ''' TAB 3 - AM (Tabs_t5) '''
-        self.AM = self.configureAutomatedMiningTab(self.Tabs_t5)
+        self.AM = self.configureAutomatedMiningTab(self.Tabs_t5, root)
 
         ''' TAB 4 - INFO (Tabs_t4) '''
         self.configureInfoTabElements()
 
         # create a draggable label
-        self.configureGrip(top)
+        self.configureGrip(root)
+
         # create frame borders
-        self.configureBorders(top)
+        self.configureBorders(root)
 
 
 
@@ -183,7 +184,7 @@ class OOTO_Miner:
         # remove title bar
         top.overrideredirect(True)
         # show window in taskbar after titlebar is removed
-        top.after(10, lambda: FS.showInTaskBar(root))
+        top.after(10, lambda: WS.showInTaskBar(root))
 
         self.style = ttk.Style()
         if sys.platform == "win32":
@@ -317,8 +318,7 @@ class OOTO_Miner:
         )
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
-    def configureAutomatedMiningTab(self, parentFrame):
-        global root
+    def configureAutomatedMiningTab(self, parentFrame, root):
         self.Tabs.select(2)  # show the current tab to be able to retrieve height and
         automatedMining = AM.AutomatedMining(parentFrame, root)
         self.Tabs.select(0)  # return to first tab

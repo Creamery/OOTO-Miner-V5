@@ -30,19 +30,45 @@ class SystematicFiltering:
         self.threadCrossProcess = None
         self.lfProgressView = None
 
+        # create overlay
+        self.winOverlay = WS.createOverlayWindow(root)
+
         self.winTop = self.initializeWindow(root)
         self.view = VIEW.SystematicFiltering_View(self.winTop)
 
-        self.grip = self.configureGrip(self.winTop)
+        self.grip = self.configureGrip(self.winTop, self.winOverlay, self.root)
         FS.placeBelow(self.view.getFrame(), self.grip)
 
         self.configureBorders(self.winTop)
+        self.winOverlay.lower(self.winTop)
+        # self.winOverlay.lift(self.root)
+
+        # self.root.wm_attributes("-topmost", 1)
+        # self.winOverlay.wm_attributes("-topmost", 1)
+        # self.winTop.wm_attributes("-topmost", 1)
+        self.configureBind()
+
+    def handleConfigure(self, event):
+        print "CONFIG"
+        self.configureUnbind()
+        self.winOverlay.lift(self.root)
+        self.root.lower(self.winOverlay)
+        self.winTop.lift(self.winOverlay)
+        self.root.after(1, lambda: self.configureBind())
+
+    def configureBind(self):
+        self.root.bind("<Configure>", self.handleConfigure)
+        self.winTop.bind("<Configure>", self.handleConfigure)
+
+    def configureUnbind(self):
+        self.root.unbind("<Configure>")
+        self.winTop.unbind("<Configure>")
 
     def initializeWindow(self, root):
         top = Toplevel(root)
         # remove title bar
         top.overrideredirect(True)
-        top.after(10, lambda: FS.showInTaskBar(top))
+        # top.after(10, lambda: WS.showInTaskBar(top))
 
         # top.transient(root)
         top.grab_set()
@@ -67,9 +93,11 @@ class SystematicFiltering:
 
         return top
 
-    def configureGrip(self, parentWindow):
-        grip = GS.GripLabel(parentWindow).getGrip()
-        return grip
+    def configureGrip(self, parentWindow, winOverlay, root):
+        grip = GS.GripLabel(parentWindow, False)
+        grip.assignOverlay(winOverlay, root)
+
+        return grip.getGrip()
 
     def configureBorders(self, parentFrame):
         borderWidth = parentFrame.winfo_width()
