@@ -16,6 +16,7 @@ import PIL.ImageTk
 import tkMessageBox
 
 import Function_support as FS
+import Widget_support as WS
 import Color_support as CS
 import UI_support as US
 import Icon_support as IS
@@ -38,9 +39,10 @@ class GripLabel:
         self.grip = self.createGrip(parentFrame)
         self.btnClose = self.createGripButtons(self.grip)
 
-        FS.redraw(self.grip)
+        WS.redraw(self.grip)
         borderColor = CS.D_GRAY
-        FS.emborder(self.grip, 0, 0, self.grip.winfo_width(), self.grip.winfo_height(),
+        WS.emborder(self.grip,
+                    [0, 0, self.grip.winfo_width(), self.grip.winfo_height()],
                     [True, True, True, True],
                     [borderColor, borderColor, CS.L_GRAY, borderColor])
 

@@ -17,6 +17,7 @@ except ImportError:
 import Color_support as CS
 import Function_support as FS
 import Grip_support as GS
+import Widget_support as WS
 import SystematicFiltering_VIEW as VIEW
 
 
@@ -74,6 +75,7 @@ class SystematicFiltering:
         borderWidth = parentFrame.winfo_width()
         borderHeight = parentFrame.winfo_height()
         borderColor = CS.D_GRAY
-        FS.emborder(parentFrame, 0, 0, borderWidth, borderHeight,
+        WS.emborder(parentFrame,
+                    [0, 0, borderWidth, borderHeight],
                     [True, True, True, True],
                     [borderColor, borderColor, borderColor, borderColor])

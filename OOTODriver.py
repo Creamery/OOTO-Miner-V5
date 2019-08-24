@@ -56,6 +56,7 @@ import PIL.ImageTk
 
 import Grip_support as GS
 import Function_support as FS
+import Widget_support as WS
 import _MODULE_Input as INPUT
 import _MODULE_ManualMining as MM
 import _MODULE_AutomatedMining as AM
@@ -152,7 +153,8 @@ class OOTO_Miner:
         borderWidth = parentFrame.winfo_width()
         borderHeight = parentFrame.winfo_height()
         borderColor = CS.D_GRAY
-        FS.emborder(parentFrame, 0, 0, borderWidth, borderHeight,
+        WS.emborder(parentFrame,
+                    [0, 0, borderWidth, borderHeight],
                     [True, True, True, True],
                     [borderColor, borderColor, borderColor, borderColor])
 

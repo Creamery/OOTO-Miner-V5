@@ -34,6 +34,7 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
+import Widget_support as WS
 import KEYS_support as key
 
 
@@ -60,7 +61,7 @@ class AutomatedMining_View:
         # frame containing the console UI elements
         self.lfConsoleFrame = self.initConsoleUI(self.lfTabParentFrame, self.lfProcessFrame)
 
-        FS.redraw(self.lfTabParentFrame)
+        WS.redraw(self.lfTabParentFrame)
         self.lfProcessFrame.place(width = 0, height = 0)
         self.lfResultsFrame.place(width = 0, height = 0)
         # self.lfConsoleFrame.place(width = 0, height = 0)
@@ -83,6 +84,7 @@ class AutomatedMining_View:
         FS.stripeWidth = self.lblStripesQueryFeatureSelect.winfo_width()
         FS.stripeHeight = self.lblStripesQueryFeatureSelect.winfo_height()
 
+
     def initializeProperties(self):
         self.btnConfirmConfirmedFeatures = [None]
         self.btnResetConfirmedFeatures = [None]
@@ -101,8 +103,8 @@ class AutomatedMining_View:
         borderX = self.lfConsoleFrame.winfo_x()
         borderHeight = self.lfConsoleFrame.winfo_height()
 
-        FS.emborder(parentFrame,
-                    borderX, 0, 1, borderHeight,
+        WS.emborder(parentFrame,
+                    [borderX, 0, 1, borderHeight],
                     [False, False, False, True])
 
 
@@ -154,7 +156,7 @@ class AutomatedMining_View:
 
         # create the ConfirmedFeatures frame, which is a copy of the FeatureSelect frame
         self.lfFeatureSelect.update()
-        self.lfConfirmedFeatures = FS.copyWidget(self.lfFeatureSelect, inputFrame)
+        self.lfConfirmedFeatures = WS.copyWidget(self.lfFeatureSelect, inputFrame)
         # region init lfConfirmedFeatures
         reference = self.lfFeatureSelect
         newX = inputFrame.winfo_width() - reference.winfo_x() - reference.winfo_width()
@@ -248,7 +250,7 @@ class AutomatedMining_View:
     def createConfirmedFeatures(self, parentFrame, reference, trackedWidgets, trackedVariableList):
         reference.update()
         for item in reference.winfo_children():
-            itemClone = FS.copyWidget(item, parentFrame)
+            itemClone = WS.copyWidget(item, parentFrame)
 
             [isTracking, variableIndex] = self.checkTracking(item, trackedWidgets)
             if isTracking:
@@ -272,7 +274,7 @@ class AutomatedMining_View:
             return False, -1
 
     def adjustFeatureList(self, parentFrame):
-        FS.redraw(parentFrame)
+        WS.redraw(parentFrame)
 
         # region extend lfFeatureList
         height = 165 # self.lfCommandsFeatureSelect.winfo_height() * 5
@@ -295,11 +297,11 @@ class AutomatedMining_View:
         # endregion extend lfFeatureList
 
         # region create lfListFeatureDetails
-        FS.redraw(parentFrame)
+        WS.redraw(parentFrame)
         self.lfListFeatureDetails, self.lbListFeatureDetails, self.lblHeaderFeatureDetails = self.createFeatureDetails(self.lfFeatureSelect,
                                                                                          self.lfListFeatureSelect,
                                                                                          partialBottomHeight)
-        FS.redraw(parentFrame)
+        WS.redraw(parentFrame)
         self.lfListFeatureSelect.place(
             y = self.lfListFeatureSelect.winfo_y(),
             height = self.lfListFeatureSelect.winfo_height()
@@ -307,29 +309,30 @@ class AutomatedMining_View:
         # endregion create lfListFeatureDetails
 
         # region emborder lfListFeatureDetails
-        FS.redraw(parentFrame)
+        WS.redraw(parentFrame)
         borderX = self.lfListFeatureDetails.winfo_x()
         borderY = self.lfListFeatureSelect.winfo_y() + self.lfListFeatureSelect.winfo_height()
         borderW = self.lfListFeatureDetails.winfo_width()
         borderH = self.lfListFeatureDetails.winfo_height()
-        FS.emborder(self.lfFeatureSelect,
-                      borderX, borderY, borderW, borderH,
+        WS.emborder(self.lfFeatureSelect,
+                      [borderX, borderY, borderW, borderH],
                       [True, True, False, True],
                       [None, CS.DEFAULT_LIGHT_BORDER, None, CS.DEFAULT_BORDER])
         # endregion emborder lfListFeatureDetails
 
 
         # region emborder lfCommandsFeatureSelect
-        FS.redraw(parentFrame)
+        WS.redraw(parentFrame)
         borderX = self.lfListFeatureDetails.winfo_x()
         borderY = self.lfListFeatureDetails.winfo_y() + self.lfListFeatureDetails.winfo_height()
         borderW = self.lfListFeatureSelect.winfo_width()
         borderH = self.lfFeatureSelect.winfo_height() - borderY
-        FS.emborder(self.lfFeatureSelect, borderX, borderY, borderW, borderH)
+        WS.emborder(self.lfFeatureSelect,
+                    [borderX, borderY, borderW, borderH])
         # endregion emborder
 
         # region adjust counter
-        FS.redraw(parentFrame)
+        WS.redraw(parentFrame)
         self.lfCountFeatureSelect.place(
             relwidth = 0, relheight = 0,
             width = self.lfCountFeatureSelect.winfo_width(),
@@ -344,7 +347,7 @@ class AutomatedMining_View:
         FS.placeBelow(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText)
         FS.alignStart(self.lblCountFeatureSelectTitle, self.lblCountFeatureSelectText, - 1)
 
-        FS.redraw(parentFrame)
+        WS.redraw(parentFrame)
 
         # endregion
 

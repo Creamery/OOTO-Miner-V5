@@ -54,6 +54,7 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
+import Widget_support as WS
 
 
 class ManualMining_View:
@@ -77,8 +78,8 @@ class ManualMining_View:
 
         borderX = (FS.rootWidth - FS.rootTabWidth) * (float(self.labelFrameConsoleElements.place_info()['relx']) - 0.015)
 
-        FS.emborder(parentFrame,
-                    borderX, 0, 1, FS.rootHeight,
+        WS.emborder(parentFrame,
+                    [borderX, 0, 1, FS.rootHeight],
                     [False, False, False, True])
 
     """ >>> CONFIGURE MAIN TABS <<< """

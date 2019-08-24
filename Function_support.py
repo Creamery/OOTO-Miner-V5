@@ -39,7 +39,7 @@ rootHeight = 700
 rootTabWidth = 50
 
 sfWidth = 480
-sfHeight = 180
+sfHeight = 300
 
 
 headerWidth = 100  # blue header
@@ -47,17 +47,19 @@ headerHeight = 23
 stripeWidth = 0  # pink stripe
 stripeHeight = 0
 
-def checkKey(dict, key):
-    if key in dict.keys():
+commandsHeight = 60
+
+
+def checkKey(dictionary, key):
+    if key in dictionary.keys():
         return True
     else:
         return False
 
 
-'''
+"""
 Reads features and their responses from the Variable Description file
-'''
-
+"""
 def readFeatures(filename, varMark):
     features = []
     try:
@@ -74,51 +76,46 @@ def readFeatures(filename, varMark):
     except:
         return []
 
-'''
+
+"""
 Reads a .csv file and returns a list of dictionaries where the header of the file 
 has all of the dictionary keys
-'''
-
+"""
 def readCSVDict(filename):
     rows = csv.DictReader(open(filename))
     return rows
 
 
-
-
-
-'''
+"""
 Saves the dataset as a .csv file
-'''
-
+"""
 def saveDatasetFile(dataset):
     fileName = makeFileName(dataset)
     writeCSVDict(fileName, dataset['Data'])
     return fileName
 
 
-'''
+"""
 Writes a list of dictionaries into a .csv file
-'''
-
+"""
 def writeCSVDict(filename, dataset):
     with open(filename, 'wb') as f:
         w = csv.DictWriter(f, dataset[0].keys())
         w.writeheader()
         w.writerows(dataset)
 
-'''
-Writes a set of rows into a .csv file given the filename
-'''
 
+"""
+Writes a set of rows into a .csv file given the filename
+"""
 def writeOnCSV(rows, filename):
     with open(filename, 'wb') as f:
         writer = csv.writer(f)
         writer.writerows(rows)
 
-'''
+"""
 Returns a new dataset by filtering from the old one based on a feature and its selected values
-'''
+"""
 
 def filterDataset(dataset, feature, responses):
     new_data = []
@@ -130,7 +127,7 @@ def filterDataset(dataset, feature, responses):
 
     return new_data
 
-'''
+"""
 For every feature, each value falls into a group.
 Each value in the dataset gets converted to its corresponding group.
 
@@ -138,8 +135,7 @@ If a value in the dataset does not exist in the feature values in the variable d
 its group is automatically assigned to -1.
 
 If a feature in the dataset does not exist in the variable description, assign that value to -1.
-'''
-
+"""
 def convertDatasetValuesToGroups(dataset, features):
     # response['Code'] == record[self.datasetA['Feature']['Code']] for response in self.datasetA['Selected Responses']
     for record in dataset['Data']:
@@ -156,19 +152,19 @@ def convertDatasetValuesToGroups(dataset, features):
                 record[feature['Code']] = '-1.0'
     return dataset
 
-'''
-Remove the files given their filenames.
-'''
 
+"""
+Remove the files given their filenames.
+"""
 def removeFiles(fileNames):
     for fileName in fileNames:
         os.remove(fileName)
 
-'''
+
+"""
 Returns filename of the dataset based on the features it was filtered by and selected values for 
 each feature
-'''
-
+"""
 def makeFileName(dataset):
     fileName = ''
     for filterFeature in dataset['Filter Features']:
@@ -183,11 +179,11 @@ def makeFileName(dataset):
     fileName = fileName + ".csv"
     return fileName
 
-'''
+
+"""
 Writes converted features (where the values are converted to their groups)
 into a csv file
-'''
-
+"""
 def makeUpdatedVariables(features, fileName):
     with open(fileName, "wb") as csv_file:
         writer = csv.writer(csv_file, delimiter = ',')
@@ -208,14 +204,14 @@ def makeUpdatedVariables(features, fileName):
                     # Write that responseRow
                     writer.writerow(responseRow)
 
-'''
+
+"""
 Concantenates values of a list into a string using a delimiter
 Example:
 if delimiter is ':'
 [1,2,3] -> '1:2:3'
 ['a',2,'x'] -> 'a:2:x'
-'''
-
+"""
 def concatListToString(lst, delimiter):
     listString = ""
     for i in range(0, len(lst)):
@@ -226,10 +222,10 @@ def concatListToString(lst, delimiter):
 
     return listString
 
-'''
-Concatenates all of the focus feature values together into a string
-'''
 
+"""
+Concatenates all of the focus feature values together into a string
+"""
 def getFocusFeatureValues(selectedFocusFeature, selectedFocusFeatureValues):
     allValues = ""
     selectedValues = ""
@@ -243,11 +239,11 @@ def getFocusFeatureValues(selectedFocusFeature, selectedFocusFeatureValues):
 
     return allValues, selectedValues
 
-'''
+
+"""
 Splits an array retrieved from a listbox based on a delimiter, and appends to a new array
 which element of the split array given an index. The new array will be returned.
-'''
-
+"""
 def parseListBoxValues(raw_arr, delimiter, index):
     proc_arr = []
     for x in raw_arr:
@@ -255,12 +251,12 @@ def parseListBoxValues(raw_arr, delimiter, index):
         proc_arr.append(temp[index])
     return proc_arr
 
-'''
+
+"""
 Selects the values of the focus feature
 and calculates the proportion of those values
 and the total
-'''
-
+"""
 def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
     datasets = []
     allValues = []
@@ -298,10 +294,10 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
                                      "WARNING: You selected all of the valid values of " + dataset['Focus Feature'][
                                          'Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
 
-'''
-Verifies if the focus features and their selected values for datasets 1 and 2 are the same.
-'''
 
+"""
+Verifies if the focus features and their selected values for datasets 1 and 2 are the same.
+"""
 def isSameFocusFeat(dataset1, dataset2, selectedValD1, selectedValD2):
     print selectedValD1
     print selectedValD2
@@ -316,11 +312,9 @@ def isSameFocusFeat(dataset1, dataset2, selectedValD1, selectedValD2):
         return -1
 
 
-'''
+"""
 Set selected dataset values for that dataset. 
-'''
-
-# def selectDatasetValues(evt, dataset, populationDataset):
+"""
 def selectDatasetValues(evt, dataset):
     global populationDir
 
@@ -348,6 +342,7 @@ def selectDatasetValues(evt, dataset):
     # labelFeatCount.configure(text = str(datasetCount))
     return datasetCount
 
+
 """ Allows windows to appear in taskbar when overideredirect is set to True """
 def showInTaskBar(root):
     hwnd = windll.user32.GetParent(root.winfo_id())
@@ -358,7 +353,6 @@ def showInTaskBar(root):
     # re-assert the new window style
     root.wm_withdraw()
     root.after(10, lambda: root.wm_deiconify())
-
 
 
 def getRelX(element):
@@ -437,149 +431,4 @@ def centerWindow(window, reference = None, offsetX = 0, offsetY = 0):
         newY = parentY + ((parentHeight / 2) - (winHeight / 2))
 
     return (newX + offsetX), (newY + offsetY)
-
-
-def emborder(parentFrame, borderX = 0, borderY = 0, borderW = None, borderH = None,
-             conditions = [True, True, True, True], colors = [None, None, None, None]):
-    # region handle defaults
-    # use default color if not specified by the user
-    colors = [CS.DISABLED_D_BLUE if color is None else color for color in colors]
-    # use parentFrame width and height if not specified by the user
-    if borderW is None:
-        borderW = parentFrame.winfo_width()
-    if borderH is None:
-        borderH = parentFrame.winfo_height()
-    # endregion handle defaults
-
-    borderW = borderW - 1  # done so that the end borders won't get cut off
-    borderH = borderH - 1  # done so that the end borders won't get cut off
-
-    index = 0
-    if conditions[index]:
-        sepCommandTop = Label(parentFrame)
-        sepCommandTop.place(
-            x = borderX,
-            y = borderY,
-            width = borderW,
-            height = 1)
-        sepCommandTop.configure(background = colors[index])
-
-    index = 2
-    if conditions[index]:
-        sepCommandBottom = Label(parentFrame)
-        sepCommandBottom.place(
-            x = borderX,
-            y = borderY + borderH,
-            width = borderW,
-            height = 1)
-        sepCommandBottom.configure(background = colors[index])
-
-    index = 3
-    if conditions[index]:
-        sepCommandLeft = Label(parentFrame)
-        sepCommandLeft.place(
-            x = borderX,
-            y = borderY,
-            width = 1,
-            height = borderH)
-        sepCommandLeft.configure(background = colors[index])
-
-    index = 1
-    if conditions[index]:
-        sepCommandRight = Label(parentFrame)
-        sepCommandRight.place(
-            x = borderX + borderW,
-            y = borderY,
-            width = 1,
-            height = borderH)
-        sepCommandRight.configure(background = colors[index])
-
-
-
-"""A recursive call that updates all Widgets and their Widget children"""
-def redraw(parentFrame):
-    parentFrame.update()
-
-    for item in parentFrame.winfo_children():
-        # print 'item type is ' + str(type(item))
-        item.place(
-            relx = 0, rely = 0, relwidth = 0, relheight = 0,
-            x = item.winfo_x(), y = item.winfo_y(), width = item.winfo_width(), height = item.winfo_height())
-        if isinstance(item, Widget):
-            redraw(item)
-        else:
-            return "break"
-
-    parentFrame.update()
-
-def copyWidget(widget, parent):
-    # parent = widget.nametowidget(widget.winfo_parent())
-
-    widgetClass = widget.__class__
-    clone = widgetClass(parent)
-
-
-    # set configuration according to class
-    copyWidgetConfiguration(clone, widget)
-    return clone
-
-def copyWidgetConfiguration(widget, reference):
-    reference.update()
-    widget.place(
-        x = reference.winfo_x(),
-        y = reference.winfo_y(),
-        width = reference.winfo_width(),
-        height = reference.winfo_height(),
-    )
-
-    if isinstance(widget, LabelFrame):
-        widget.configure(
-            bd = reference['bd'],
-            background = reference['background']
-        )
-
-    elif isinstance(widget, Label):
-        widget.configure(
-            font = reference['font'],
-            background = reference['background'], foreground = reference['foreground'],
-            text = reference['text'],
-            bd = reference['bd'], relief = reference['relief'],
-            anchor = reference['anchor'],
-            image = reference['image'],
-        )
-        widget.image = reference['image']  # < ! > Required to make images appear
-
-    elif isinstance(widget, Button):
-        widget.configure(
-            background = reference['background'], foreground = reference['foreground'],
-            activebackground = reference['activebackground'],
-            highlightthickness = reference['highlightthickness'], padx = reference['padx'], pady = reference['pady'],
-            bd = reference['bd'], relief = reference['relief'], overrelief = reference['overrelief'],
-            anchor = reference['anchor'],
-            image = reference['image']
-        )
-        widget.image = reference['image']  # < ! > Required to make images appear
-
-    elif isinstance(widget, Entry):
-        widget.configure(
-            background = reference['background'], foreground = reference['foreground'],
-            bd = reference['bd'],
-            font = reference['font'], insertwidth = reference['insertwidth'],
-            selectbackground = reference['selectbackground'],
-            insertbackground = reference['insertbackground'],
-            takefocus = reference['takefocus'], justify = reference['justify']
-        )
-
-    elif isinstance(widget, Listbox):
-        widget.configure(
-            background = reference['background'], foreground = reference['foreground'],
-            selectmode = reference['selectmode'], exportselection = reference['exportselection'],
-            activestyle = reference['activestyle'],
-            selectbackground = reference['selectbackground'],
-            selectforeground = reference['selectforeground'],
-            font =reference['font'],
-            bd = reference['bd'],
-            relief = reference['relief'],
-            highlightthickness = reference['highlightthickness']
-        )
 
