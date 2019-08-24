@@ -16,7 +16,9 @@ except ImportError:
 # import tkMessageBox
 import Color_support as CS
 import Function_support as FS
+import Grip_support as GS
 import SystematicFiltering_VIEW as VIEW
+
 
 class SystematicFiltering:
     def __init__(self, root = None):
@@ -27,10 +29,13 @@ class SystematicFiltering:
         self.threadCrossProcess = None
         self.lfProgressView = None
 
-        self.winTop, self.parentFrame = self.initializeWindow(root)
+        self.winTop = self.initializeWindow(root)
+        self.view = VIEW.SystematicFiltering_View(self.winTop)
 
-        self.view = VIEW.SystematicFiltering_View(self.parentFrame)
+        self.grip = self.configureGrip(self.winTop)
+        FS.placeBelow(self.view.getFrame(), self.grip)
 
+        self.configureBorders(self.winTop)
 
     def initializeWindow(self, root):
         top = Toplevel(root)
@@ -50,25 +55,25 @@ class SystematicFiltering:
         self.style.configure('.', font = "TkDefaultFont")
 
         # center window
-        top.geometry("700x500")
+        strDimensions = str(FS.sfWidth) + "x" + str(FS.sfHeight)
+        top.geometry(strDimensions)
         root.update()
-        newX, newY = FS.centerWindow(top, root)
-        top.geometry("700x500" + "+" + str(newX) + "+" + str(newY))
+        newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
+        top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
 
         top.title("Systematic Filtering")
 
 
-        parentFrame = LabelFrame(top, bd = 0)
-        parentFrame.configure(background = CS.WHITE)
-        parentFrame.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+        return top
 
+    def configureGrip(self, parentWindow):
+        grip = GS.GripLabel(parentWindow).getGrip()
+        return grip
 
-        return top, parentFrame
-
-
-# def onTopClose():
-#     print "onTopClose"
-#     if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
-#         global winTop
-#         winTop.destroy()
-#         winTop = None
+    def configureBorders(self, parentFrame):
+        borderWidth = parentFrame.winfo_width()
+        borderHeight = parentFrame.winfo_height()
+        borderColor = CS.D_GRAY
+        FS.emborder(parentFrame, 0, 0, borderWidth, borderHeight,
+                    [True, True, True, True],
+                    [borderColor, borderColor, borderColor, borderColor])

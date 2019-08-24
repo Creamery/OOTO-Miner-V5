@@ -48,13 +48,13 @@ except ImportError:
 
 import math
 import Mother_support
-import Color_support
-import Icon_support
-import UI_support
+import Color_support as CS
+import Icon_support as IS
+import UI_support as US
 import PIL.Image
 import PIL.ImageTk
 
-import GripLabel as GS
+import Grip_support as GS
 import Function_support as FS
 import _MODULE_Input as INPUT
 import _MODULE_ManualMining as MM
@@ -68,7 +68,7 @@ def vp_start_gui():
     global val, w, root
 
     root = Tk()
-    root.protocol("WM_DELETE_WINDOW", onRootClose)
+    # root.protocol("WM_DELETE_WINDOW", onRootClose)
     root.resizable(0, 0)
     # Mother_support.set_Tk_var()
     # top = OOTO_Miner(root)
@@ -77,11 +77,11 @@ def vp_start_gui():
     # Mother_support.init(root, top)
     root.mainloop()
 
-def onRootClose():
-    if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
-        global root
-        root.destroy()
-        root = None
+# def onRootClose():
+#     if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
+#         global root
+#         root.destroy()
+#         root = None
 
 
 
@@ -108,11 +108,7 @@ class OOTO_Miner:
         # Configure style maps / themes
         self.configureStyle(top)
 
-        # > MENU BAR
-        # self.menubar = Menu(top,font = "TkMenuFont",background = _bgcolor,fg = _fgcolor)
-        # top.configure(menu = self.menubar)
-        # self.menubar.add_command(label = "About", command = self.showAbout)
-        # self.menubar.add_command(label = "Help")
+
 
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.INPUT = self.configureDataTabElements(self.Tabs_t2)
@@ -132,6 +128,10 @@ class OOTO_Miner:
 
         # create a draggable label
         self.configureGrip(top)
+        # create frame borders
+        self.configureBorders(top)
+
+
 
         # Bind functionality to all UI elements
         # self.configureBindings()
@@ -144,24 +144,17 @@ class OOTO_Miner:
 
 
     def configureGrip(self, parentFrame):
-        self.grip = GS.GripLabel(parentFrame).getGrip()
+        self.grip = GS.GripLabel(parentFrame, True).getGrip()
         self.grip.update()
         self.Tabs.place(y = self.Tabs.winfo_y() + self.grip.winfo_height())
 
-        # strRootWidth = str(FS.rootWidth)
-        # strRootHeight = str(FS.rootHeight)
-        # strGripHeight = str(FS.gripHeight)
-        #
-        # FS.rootHeight = str(strRootHeight + strGripHeight)
-        # self.Tabs.place(y = self.Tabs.winfo_y() + FS.gripHeight)
-        # parentFrame.geometry(strRootWidth + "x" + strRootHeight)
-        #
-        # self.grip = tk.Label(parentFrame, bitmap = "gray25")
-        # self.grip.pack(side = "top", fill = "x")
-        #
-        # self.grip.bind("<ButtonPress-1>", self.startWinMove)
-        # self.grip.bind("<ButtonRelease-1>", self.stopWinMove)
-        # self.grip.bind("<B1-Motion>", self.onWinMove)
+    def configureBorders(self, parentFrame):
+        borderWidth = parentFrame.winfo_width()
+        borderHeight = parentFrame.winfo_height()
+        borderColor = CS.D_GRAY
+        FS.emborder(parentFrame, 0, 0, borderWidth, borderHeight,
+                    [True, True, True, True],
+                    [borderColor, borderColor, borderColor, borderColor])
 
     """ Functions for draggable window """
     # def startWinMove(self, event):
@@ -240,7 +233,7 @@ class OOTO_Miner:
         # > START TAB (0)
         self.Tabs_t2 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
-        im = PIL.Image.open(Icon_support.TAB_ICO_START).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(IS.TAB_ICO_START).resize(IS.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_start_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t2.image = tab_start_icon  # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t2, text = "Data", image = tab_start_icon,
@@ -251,7 +244,7 @@ class OOTO_Miner:
 
         self.Tabs_t3 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
-        im = PIL.Image.open(Icon_support.TAB_ICO_TEST).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(IS.TAB_ICO_TEST).resize(IS.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_test_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t3.image = tab_test_icon  # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t3, text = "MM", image = tab_test_icon,
@@ -261,7 +254,7 @@ class OOTO_Miner:
         # > ABOUT TAB (2)
         self.Tabs_t5 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
-        im = PIL.Image.open(Icon_support.TAB_ICO_INFO).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(IS.TAB_ICO_INFO).resize(IS.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_info_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t5.image = tab_info_icon  # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t5, text = "AM", image = tab_info_icon,
@@ -271,7 +264,7 @@ class OOTO_Miner:
         # > ABOUT TAB (4)
         self.Tabs_t4 = ttk.Frame(self.Tabs)
         ''' Tab icon '''
-        im = PIL.Image.open(Icon_support.TAB_ICO_INFO).resize(Icon_support.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(IS.TAB_ICO_INFO).resize(IS.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_info_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t4.image = tab_info_icon  # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t4, text = "Info", image = tab_info_icon,
@@ -281,14 +274,14 @@ class OOTO_Miner:
 
 
         self.style.configure("Tab",
-                             background = Color_support.TAB_BG_COLOR,
-                             foreground = Color_support.FG_COLOR,
+                             background = CS.TAB_BG_COLOR,
+                             foreground = CS.FG_COLOR,
                              borderwidth = 0,
                              tabposition = 'wn',
                              height = FS.rootTabWidth)
 
         self.style.map("Tab",
-                       background = [('selected', Color_support.ACTIVE_COLOR), ('active', Color_support.L_GRAY)])
+                       background = [('selected', CS.ACTIVE_COLOR), ('active', CS.L_GRAY)])
 
     # endregion
 
@@ -318,7 +311,7 @@ class OOTO_Miner:
         #     relheight = self.getRelH(self.testTabParentFrame)
         # )
         self.testTabConsoleParentFrame.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.FG_COLOR
+            background = CS.D_BLUE, foreground = CS.FG_COLOR
         )
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
@@ -331,20 +324,20 @@ class OOTO_Miner:
 
         # self.chiTabParentFrame = chiFrame.getMainFrame()
         # self.chiTabParentFrame.place(
-        #     relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-        #     relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H
+        #     relx = US.TAB_REL_X, rely = US.TAB_REL_Y,
+        #     relwidth = US.TAB_REL_W, relheight = US.TAB_REL_H
         # )
         # self.chiTabParentFrame.configure(
-        #     background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR
+        #     background = CS.TAB_BG_COLOR, foreground = CS.FG_COLOR
         # )
 
     def configureInfoTabElements(self):
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)
         self.infoTabParentFrame = LabelFrame(self.Tabs_t4, bd = 0)
         self.infoTabParentFrame.place(
-            relx = UI_support.TAB_REL_X, rely = UI_support.TAB_REL_Y,
-            relwidth = UI_support.TAB_REL_W, relheight = UI_support.TAB_REL_H)
-        self.infoTabParentFrame.configure(background = Color_support.TAB_BG_COLOR, foreground = Color_support.FG_COLOR)
+            relx = US.TAB_REL_X, rely = US.TAB_REL_Y,
+            relwidth = US.TAB_REL_W, relheight = US.TAB_REL_H)
+        self.infoTabParentFrame.configure(background = CS.TAB_BG_COLOR, foreground = CS.FG_COLOR)
         # Create the left separator
         self.infoTabLeftSeparator = ttk.Separator(self.infoTabParentFrame, orient = VERTICAL)
         self.infoTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
@@ -377,29 +370,29 @@ class OOTO_Miner:
         # Create the About parent frame
         self.labelFrameAbout = LabelFrame(self.infoTabParentFrame, bd = 0)
         self.labelFrameAbout.configure(
-            background = Color_support.ABOUT_BG, foreground = Color_support.FG_COLOR, text = UI_support.TITLE_ABOUT)
+            background = CS.ABOUT_BG, foreground = CS.FG_COLOR, text = US.TITLE_ABOUT)
         self.labelFrameAbout.place(
-            relx = UI_support.TAB_ABOUT_REL_X, rely = UI_support.TAB_ABOUT_REL_Y + UI_support.TAB_CHILD_PADDING_TOP,
-            relwidth = UI_support.TAB_ABOUT_REL_W, relheight = UI_support.TAB_ABOUT_REL_H)
+            relx = US.TAB_ABOUT_REL_X, rely = US.TAB_ABOUT_REL_Y + US.TAB_CHILD_PADDING_TOP,
+            relwidth = US.TAB_ABOUT_REL_W, relheight = US.TAB_ABOUT_REL_H)
 
         # Create the About element parent frame
         self.labelFrameAboutElements = LabelFrame(self.labelFrameAbout, bd = 0)
         self.labelFrameAboutElements.configure(
-            background = Color_support.ABOUT_BG, foreground = Color_support.FG_COLOR)
+            background = CS.ABOUT_BG, foreground = CS.FG_COLOR)
         self.labelFrameAboutElements.place(
-            relx = UI_support.TAB_ELEMENT_REL_X, rely = 0.1,
-            relwidth = UI_support.TAB_ELEMENT_REL_W, relheight = 0.80)
+            relx = US.TAB_ELEMENT_REL_X, rely = 0.1,
+            relwidth = US.TAB_ELEMENT_REL_W, relheight = 0.80)
 
         # > ABOUT ELEMENTS
         # Version label
         self.labelVersion = Label(self.labelFrameAboutElements)
         self.labelVersion.place(
-            relx = UI_support.TAB_CHILD_LBL_REL_X, rely = UI_support.TAB_CHILD_LBL_REL_Y,
-            relwidth = UI_support.TAB_CHILD_LBL_REL_W, relheight = UI_support.TAB_CHILD_LBL_REL_H)
+            relx = US.TAB_CHILD_LBL_REL_X, rely = US.TAB_CHILD_LBL_REL_Y,
+            relwidth = US.TAB_CHILD_LBL_REL_W, relheight = US.TAB_CHILD_LBL_REL_H)
         self.labelVersion.configure(
-            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG,
-            text = UI_support.LBL_ABOUT_VER,
-            disabledforeground = Color_support.FG_DISABLED_COLOR,
+            background = CS.ABOUT_LBL_BG, foreground = CS.ABOUT_LBL_FG,
+            text = US.LBL_ABOUT_VER,
+            disabledforeground = CS.FG_DISABLED_COLOR,
             bd = 1)
 
         # Previous values (1.1)
@@ -408,18 +401,18 @@ class OOTO_Miner:
         prevLblRelW = float(self.labelVersion.place_info()['relwidth'])
         prevLblRelH = float(self.labelVersion.place_info()['relheight'])
 
-        newRelX = UI_support.TAB_CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
+        newRelX = US.TAB_CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
 
         # Version text
         self.labelVersionText = Label(self.labelFrameAboutElements)
         self.labelVersionText.place(
             relx = newRelX, rely = prevLblRelY,
-            relwidth = UI_support.TAB_CHILD_STR_REL_W, relheight = prevLblRelH)
+            relwidth = US.TAB_CHILD_STR_REL_W, relheight = prevLblRelH)
         self.labelVersionText.configure(
-            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG,
-            text = UI_support.STR_ABOUT_VER,
+            background = CS.ABOUT_STR_BG, foreground = CS.ABOUT_STR_FG,
+            text = US.STR_ABOUT_VER,
             bd = 1,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
+            disabledforeground = CS.FG_DISABLED_COLOR)
 
         # Previous values (1.2)
         prevStrRelX = float(self.labelVersionText.place_info()['relx'])
@@ -427,7 +420,7 @@ class OOTO_Miner:
         prevStrRelW = float(self.labelVersionText.place_info()['relwidth'])
         prevStrRelH = float(self.labelVersionText.place_info()['relheight'])
 
-        newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
+        newRelY = US.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
 
         # Author label
         self.labelAuthor = Label(self.labelFrameAboutElements)
@@ -435,9 +428,9 @@ class OOTO_Miner:
             relx = prevLblRelX, rely = newRelY,
             relwidth = prevLblRelW, relheight = prevLblRelH)
         self.labelAuthor.configure(
-            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG,
-            text = UI_support.LBL_ABOUT_AUTHOR,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
+            background = CS.ABOUT_LBL_BG, foreground = CS.ABOUT_LBL_FG,
+            text = US.LBL_ABOUT_AUTHOR,
+            disabledforeground = CS.FG_DISABLED_COLOR)
 
         # Author text
         self.labelAuthorText = Label(self.labelFrameAboutElements)
@@ -445,15 +438,15 @@ class OOTO_Miner:
             relx = prevStrRelX, rely = newRelY,
             relwidth = prevStrRelW, relheight = prevStrRelH)
         self.labelAuthorText.configure(
-            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG,
-            text = UI_support.STR_ABOUT_AUTHOR,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
+            background = CS.ABOUT_STR_BG, foreground = CS.ABOUT_STR_FG,
+            text = US.STR_ABOUT_AUTHOR,
+            disabledforeground = CS.FG_DISABLED_COLOR)
 
         # Previous Y values
         prevLblRelY = float(self.labelAuthor.place_info()['rely'])
         prevStrRelY = float(self.labelAuthorText.place_info()['rely'])
 
-        newRelY = UI_support.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
+        newRelY = US.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
 
         # Affiliation label
         self.labelAffiliation = Label(self.labelFrameAboutElements)
@@ -461,9 +454,9 @@ class OOTO_Miner:
             relx = prevLblRelX, rely = newRelY,
             relwidth = prevLblRelW, relheight = prevLblRelH)
         self.labelAffiliation.configure(
-            background = Color_support.ABOUT_LBL_BG, foreground = Color_support.ABOUT_LBL_FG,
-            text = UI_support.LBL_ABOUT_AFFILIATION,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
+            background = CS.ABOUT_LBL_BG, foreground = CS.ABOUT_LBL_FG,
+            text = US.LBL_ABOUT_AFFILIATION,
+            disabledforeground = CS.FG_DISABLED_COLOR)
 
         # Affiliation text
         self.labelAffiliationText = Label(self.labelFrameAboutElements)
@@ -471,9 +464,9 @@ class OOTO_Miner:
             relx = prevStrRelX, rely = newRelY,
             relwidth = prevStrRelW, relheight = prevStrRelH)
         self.labelAffiliationText.configure(
-            background = Color_support.ABOUT_STR_BG, foreground = Color_support.ABOUT_STR_FG,
-            text = UI_support.STR_ABOUT_AFFILIATION,
-            disabledforeground = Color_support.FG_DISABLED_COLOR)
+            background = CS.ABOUT_STR_BG, foreground = CS.ABOUT_STR_FG,
+            text = US.STR_ABOUT_AFFILIATION,
+            disabledforeground = CS.FG_DISABLED_COLOR)
 
     # endregion
 
@@ -484,7 +477,7 @@ class OOTO_Miner:
 
         labelNE = Label(cornerParent)
         im = PIL.Image.open(
-            Icon_support.CORNER_ROUND_NE)  # .resize(Icon_support.CORNER_ICO_SIZE_SMALL, PIL.Image.ANTIALIAS)
+            IS.CORNER_ROUND_NE)  # .resize(IS.CORNER_ICO_SIZE_SMALL, PIL.Image.ANTIALIAS)
         corner_round_ne = PIL.ImageTk.PhotoImage(im)
         labelNE.place(
             relx = 0,
@@ -495,7 +488,7 @@ class OOTO_Miner:
         labelNE.configure(
             image = corner_round_ne)
         labelNE.image = corner_round_ne  # < ! > Required to make images appear
-        labelNE.configure(background = Color_support.PALE_ORANGE)  # cornerParent['background'])
+        labelNE.configure(background = CS.PALE_ORANGE)  # cornerParent['background'])
         labelNE.pack()
         # labelNE.pack(side = RIGHT, fill = Y, expand = True, anchor = CENTER)
 
@@ -524,7 +517,7 @@ class OOTO_Miner:
         separatorHolder.configure(background = color)
         return separatorHolder
 
-    def createLabelBorders(self, borderParent, color = Color_support.DISABLED_D_BLUE):
+    def createLabelBorders(self, borderParent, color = CS.DISABLED_D_BLUE):
 
         # COLORED SEPARATOR
         topBorder = self.createLabelSeparator(
@@ -607,7 +600,7 @@ class OOTO_Miner:
             if (isSuccessfulMM and isSuccessfulAM):
                 tkMessageBox.showinfo("Success: Upload Dataset",
                                        "Dataset successfully uploaded!")
-                self.Tabs.select(UI_support.TAB_TEST_INDEX)
+                self.Tabs.select(US.TAB_TEST_INDEX)
 
             elif not (isSuccessfulMM and isSuccessfulAM):
                 tkMessageBox.showerror("Error 1: Upload Dataset",

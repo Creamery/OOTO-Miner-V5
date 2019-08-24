@@ -27,25 +27,40 @@ except ImportError:
     py3 = 1
 
 
-import Color_support as CS
 import Icon_support
 import UI_support
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
-import Function_support as FS
 import KEYS_support as key
 
+import Color_support as CS
+import Function_support as FS
+import Widget_support as WS
 
 class SystematicFiltering_View:
 
-    def __init__(self, parentFrame):
-        self.initializeProperties()
-        FS.redraw(parentFrame)
+    def __init__(self, parentWindow):
+        self.parentFrame = LabelFrame(parentWindow, bd = 0)
+        self.parentFrame.configure(background = CS.WHITE)
+        self.parentFrame.place(x = 0, y = 0, relwidth = 1, relheight = 1)
 
+        self.initializeWidgets(self.parentFrame)
+        FS.redraw(self.parentFrame)
+
+
+    def initializeWidgets(self, parentFrame):
+        self.lfProgressBar = WS.createDefaultFrame(parentFrame,
+                                                   0, 0, 1, FS.headerHeight,
+                                                   [True, False])
+
+        WS.createDefaultHeader(self.lfProgressBar, 0, 0, 1, 1, "PROGRESS", [True, True])
 
     def initializeProperties(self):
         print "initializeProperties"
         # self.btnConfirmConfirmedFeatures = [None]
 
 
+    " GETTERS "
+    def getFrame(self):
+        return self.parentFrame
