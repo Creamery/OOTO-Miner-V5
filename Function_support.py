@@ -41,8 +41,11 @@ rootTabWidth = 50
 sfWidth = 600
 sfHeight = 180
 
-headerWidth = 100
+
+headerWidth = 100  # blue header
 headerHeight = 23
+stripeWidth = 0  # pink stripe
+stripeHeight = 0
 
 def checkKey(dict, key):
     if key in dict.keys():

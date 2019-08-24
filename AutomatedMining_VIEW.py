@@ -66,8 +66,8 @@ class AutomatedMining_View:
         # self.lfConsoleFrame.place(width = 0, height = 0)
 
         self.configureSeparators(parentFrame)
-        FS.headerWidth = self.lblHeaderFeatureSelect.winfo_width()
-        FS.headerHeight = self.lblHeaderFeatureSelect.winfo_height()
+        self.updateFS()
+
 
         # print "After HEIGHT: " + str(self.lfCommandsFeatureSelect.place_info())
         # print "After HEIGHT: " + str(self.lfCommandsFeatureSelect.winfo_height())
@@ -75,6 +75,13 @@ class AutomatedMining_View:
         # self.configureTestTabElements(parentFrame)
         # self.configureZTestElements(parentFrame)
         # self.configureTestTabConsoleElements(parentFrame)
+
+    def updateFS(self):
+        FS.headerWidth = self.lblHeaderFeatureSelect.winfo_width()
+        FS.headerHeight = self.lblHeaderFeatureSelect.winfo_height()
+
+        FS.stripeWidth = self.lblStripesQueryFeatureSelect.winfo_width()
+        FS.stripeHeight = self.lblStripesQueryFeatureSelect.winfo_height()
 
     def initializeProperties(self):
         self.btnConfirmConfirmedFeatures = [None]
