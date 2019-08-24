@@ -32,12 +32,17 @@ WS_EX_APPWINDOW = 0x00040000
 WS_EX_TOOLWINDOW = 0x00000080
 
 
+gripHeight = 25
+
 rootWidth = 1000
 rootHeight = 700
 rootTabWidth = 50
 
-gripHeight = 25
+sfWidth = 600
+sfHeight = 180
 
+headerWidth = 100
+headerHeight = 23
 
 def checkKey(dict, key):
     if key in dict.keys():
@@ -407,7 +412,7 @@ def alignStart(element, reference, offset = 0):
         relx = 0, x = newX + offset
     )
 
-def centerWindow(window, reference = None):
+def centerWindow(window, reference = None, offsetX = 0, offsetY = 0):
     window.update()
     winWidth = window.winfo_width()
     winHeight = window.winfo_height()
@@ -428,13 +433,15 @@ def centerWindow(window, reference = None):
         newX = parentX + ((parentWidth / 2) - (winWidth / 2))
         newY = parentY + ((parentHeight / 2) - (winHeight / 2))
 
-    return newX, newY
+    return (newX + offsetX), (newY + offsetY)
 
 
 def emborder(parentFrame, borderX, borderY, borderW, borderH,
              conditions = [True, True, True, True], colors = [None, None, None, None]):
     # use default color if not specified by the user
     colors = [CS.DISABLED_D_BLUE if color is None else color for color in colors]
+    borderW = borderW - 1  # done so that the end borders won't get cut off
+    borderH = borderH - 1  # done so that the end borders won't get cut off
 
     index = 0
     if conditions[index]:

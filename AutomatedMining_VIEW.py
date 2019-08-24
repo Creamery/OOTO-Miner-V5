@@ -66,6 +66,8 @@ class AutomatedMining_View:
         # self.lfConsoleFrame.place(width = 0, height = 0)
 
         self.configureSeparators(parentFrame)
+        FS.headerWidth = self.lblHeaderFeatureSelect.winfo_width()
+        FS.headerHeight = self.lblHeaderFeatureSelect.winfo_height()
 
         # print "After HEIGHT: " + str(self.lfCommandsFeatureSelect.place_info())
         # print "After HEIGHT: " + str(self.lfCommandsFeatureSelect.winfo_height())
@@ -243,7 +245,7 @@ class AutomatedMining_View:
 
             [isTracking, variableIndex] = self.checkTracking(item, trackedWidgets)
             if isTracking:
-                print "isTracking index " + str(variableIndex)
+                # print "isTracking index " + str(variableIndex)
                 trackedVariableList[variableIndex][0] = itemClone
 
 
@@ -301,7 +303,7 @@ class AutomatedMining_View:
         FS.redraw(parentFrame)
         borderX = self.lfListFeatureDetails.winfo_x()
         borderY = self.lfListFeatureSelect.winfo_y() + self.lfListFeatureSelect.winfo_height()
-        borderW = self.lfListFeatureDetails.winfo_width() - 1
+        borderW = self.lfListFeatureDetails.winfo_width()
         borderH = self.lfListFeatureDetails.winfo_height()
         FS.emborder(self.lfFeatureSelect,
                       borderX, borderY, borderW, borderH,
@@ -314,8 +316,8 @@ class AutomatedMining_View:
         FS.redraw(parentFrame)
         borderX = self.lfListFeatureDetails.winfo_x()
         borderY = self.lfListFeatureDetails.winfo_y() + self.lfListFeatureDetails.winfo_height()
-        borderW = self.lfListFeatureSelect.winfo_width() - 1
-        borderH = self.lfFeatureSelect.winfo_height() - borderY - 1
+        borderW = self.lfListFeatureSelect.winfo_width()
+        borderH = self.lfFeatureSelect.winfo_height() - borderY
         FS.emborder(self.lfFeatureSelect, borderX, borderY, borderW, borderH)
         # endregion emborder
 

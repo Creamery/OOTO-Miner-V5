@@ -91,14 +91,14 @@ class AutomatedMining_Controller:
 
         # TODO Entry Change
 
-    def confirmFeatureSelect(self, evt):
+    def confirmFeatureSelect(self, event):
         self.systematicFiltering = SF.SystematicFiltering(self.root)
         self.root.wait_window(self.systematicFiltering.winTop)
-        self.model.confirmFeatureSelect(evt)
+        self.model.confirmFeatureSelect(event)
 
         return "break"
 
-    def queryFeatureID(self, evt):
+    def queryFeatureID(self, event):
         print "queryFeatureID"
         # get featureID from entry widget
         featureID = self.view.getEntryQueryFeatureList().get()
@@ -107,8 +107,8 @@ class AutomatedMining_Controller:
 
         self.view.updateLbListFeatureSelect(queryFeatureList)
 
-    def selectFeature(self, evt):
-        listbox = evt.widget
+    def selectFeature(self, event):
+        listbox = event.widget
         selectedItems = listbox.curselection()
 
         lastSelectedItem = self.model.viewModel.updateSelectedFeatures(listbox, selectedItems)
@@ -378,20 +378,20 @@ class AutomatedMining_Controller:
 
     # region
 
-    def setFocusFeatureValues(self, evt):  ### TODO Add checker if listbox is not empty
-        listBox = evt.widget
+    def setFocusFeatureValues(self, event):  ### TODO Add checker if listbox is not empty
+        listBox = event.widget
         selectedItems = listBox.curselection()
         FS.setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
         FS.setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
 
     ''' Initial (SELECT) query for DATA A '''
 
-    def querySetDataA(self, evt):
+    def querySetDataA(self, event):
 
         # CLEAR sample count
-        self.queryResetDatasetA(evt)
+        self.queryResetDatasetA(event)
         # CLEAR filter feature box first
-        self.queryResetFilterDetails(evt)
+        self.queryResetFilterDetails(event)
 
         try:
             # findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, "Dataset_Feature")
@@ -511,12 +511,12 @@ class AutomatedMining_Controller:
 
     ''' Initial (SELECT) query for DATA B '''
 
-    def querySetDataB(self, evt):
+    def querySetDataB(self, event):
         # CLEAR sample count
-        self.queryResetDatasetB(evt)
+        self.queryResetDatasetB(event)
 
         # CLEAR filter feature box first
-        self.queryResetFilterDetails(evt)
+        self.queryResetFilterDetails(event)
         try:
             # findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, "Dataset_Feature")
             self.findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB,
@@ -527,7 +527,7 @@ class AutomatedMining_Controller:
                                    "Features not found. Please upload your variable description file.")
         return "break"
 
-    def queryResetDatasetA(self, evt):
+    def queryResetDatasetA(self, event):
         self.isReadyDatasetA = False  # When a dataset is reset, it is not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
@@ -553,12 +553,12 @@ class AutomatedMining_Controller:
         # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
 
         # Empty FILTER details of BOTH A and B
-        self.queryResetFilterDetails(evt)
+        self.queryResetFilterDetails(event)
         self.listQuerySetDataA.delete(0, END)
 
         return "break"
 
-    def queryResetDatasetB(self, evt):
+    def queryResetDatasetB(self, event):
         self.isReadyDatasetB = False  # When a dataset is reset, it is not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesB)
@@ -580,44 +580,44 @@ class AutomatedMining_Controller:
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
         # Empty FILTER details of BOTH A and B
-        self.queryResetFilterDetails(evt)
+        self.queryResetFilterDetails(event)
         self.listQuerySetDataB.delete(0, END)
 
         return "break"
 
-    def querySelectDataValuesA(self, evt):
+    def querySelectDataValuesA(self, event):
         self.isReadyDatasetA = False  # When a listbox element is de/selected, mark the dataset as not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
 
-        # self.datasetCountA = selectDatasetValues(evt, self.datasetA, self.populationDataset)
+        # self.datasetCountA = selectDatasetValues(event, self.datasetA, self.populationDataset)
 
         # Do search in populationDatasetOriginal, not filtered dataset A
-        # selectDatasetValues(evt, self.datasetA)
-        self.datasetCountA = FS.selectDatasetValues(evt, self.populationDatasetOriginalA)
+        # selectDatasetValues(event, self.datasetA)
+        self.datasetCountA = FS.selectDatasetValues(event, self.populationDatasetOriginalA)
 
         print ("Pop Dataset A" + str(len(self.populationDatasetOriginalA['Data'])))
         print ("Dataset A" + str(len(self.datasetA['Data'])))
 
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
 
-    def querySelectDataValuesB(self, evt):
+    def querySelectDataValuesB(self, event):
         self.isReadyDatasetB = False  # When a listbox element is de/selected, mark the dataset as not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesB)
 
-        # self.datasetCountB = selectDatasetValues(evt, self.datasetB, self.populationDataset)
+        # self.datasetCountB = selectDatasetValues(event, self.datasetB, self.populationDataset)
 
         # Do search in populationDatasetOriginal, not filtered dataset B
-        # self.datasetCountB = selectDatasetValues(evt, self.datasetB)
-        self.datasetCountB = FS.selectDatasetValues(evt, self.populationDatasetOriginalB)
+        # self.datasetCountB = selectDatasetValues(event, self.datasetB)
+        self.datasetCountB = FS.selectDatasetValues(event, self.populationDatasetOriginalB)
 
         print ("Pop Dataset B" + str(len(self.populationDatasetOriginalB['Data'])))
         print ("Dataset B" + str(len(self.datasetB['Data'])))
 
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
-    def queryResetFilterDetails(self, evt):
+    def queryResetFilterDetails(self, event):
         # Empty FILTER details of BOTH A and B
         self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
         self.listQueryDataA.delete(0, END)
@@ -636,14 +636,14 @@ class AutomatedMining_Controller:
 
     ''' Simultaneously scrolls the FILTER listbox A and B'''
 
-    def scrollFilterListBox(self, evt):  # To simultaneously scroll Filter listbox A and B
-        self.listQueryDataA.yview("scroll", evt.delta, "units")
-        self.listQueryDataB.yview("scroll", evt.delta, "units")
+    def scrollFilterListBox(self, event):  # To simultaneously scroll Filter listbox A and B
+        self.listQueryDataA.yview("scroll", event.delta, "units")
+        self.listQueryDataB.yview("scroll", event.delta, "units")
         # this prevents default bindings from firing, which
         # would end up scrolling the widget twice
         return "break"
 
-    def queryAddFilterA(self, evt):
+    def queryAddFilterA(self, event):
         self.isReadyDatasetA = False
         self.buttonQueryAddFilterA.configure(relief = FLAT)
         print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
@@ -654,14 +654,14 @@ class AutomatedMining_Controller:
             tkMessageBox.showerror("Error: Empty dataset",
                                    "Dataset is empty. Please check if you uploaded your population dataset")
             # CLEAR filter feature box
-            self.queryResetFilterDetails(evt)
+            self.queryResetFilterDetails(event)
 
         # If there are 0 samples in the selection, do not push through with filtering
         elif self.datasetCountA <= 0:
             tkMessageBox.showerror("Error: No samples selected for A",
                                    "You must have at least 1 sample in your selection.")
             # CLEAR filter feature box
-            self.queryResetFilterDetails(evt)
+            self.queryResetFilterDetails(event)
             self.labelQuerySetDataStatusA.configure(
                 text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
                 background = Color_support.SELECT_LISTBOX_STATUS_BG,
@@ -671,7 +671,7 @@ class AutomatedMining_Controller:
 
         else:
             # CLEAR filter feature box first
-            self.queryResetFilterDetails(evt)
+            self.queryResetFilterDetails(event)
             self.isReadyDatasetA = True
             self.checkIfDatasetReady()
             self.datasetA = copy.deepcopy(self.populationDatasetOriginalA)
@@ -726,7 +726,7 @@ class AutomatedMining_Controller:
         print ("")
         return "break"
 
-    def queryAddFilterB(self, evt):
+    def queryAddFilterB(self, event):
         self.isReadyDatasetB = False
 
         self.buttonQueryAddFilterB.configure(relief = FLAT)
@@ -738,7 +738,7 @@ class AutomatedMining_Controller:
             tkMessageBox.showerror("Error: Empty dataset",
                                    "Dataset is empty. Please check if you uploaded your population dataset")
             # CLEAR filter feature box
-            self.queryResetFilterDetails(evt)
+            self.queryResetFilterDetails(event)
 
 
         # If there are 0 samples in the selection, do not push through with filtering
@@ -746,7 +746,7 @@ class AutomatedMining_Controller:
             tkMessageBox.showerror("Error: No samples selected for B",
                                    "You must have at least 1 sample in your selection.")
             # CLEAR filter feature box
-            self.queryResetFilterDetails(evt)
+            self.queryResetFilterDetails(event)
 
             self.labelQuerySetDataStatusB.configure(
                 text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
@@ -757,7 +757,7 @@ class AutomatedMining_Controller:
 
         else:
             # CLEAR filter feature box first
-            self.queryResetFilterDetails(evt)
+            self.queryResetFilterDetails(event)
             self.isReadyDatasetB = True
             self.checkIfDatasetReady()
             self.datasetB = copy.deepcopy(self.populationDatasetOriginalB)
@@ -810,7 +810,7 @@ class AutomatedMining_Controller:
         print ("")
         return "break"
 
-    def querySetFeature(self, evt):
+    def querySetFeature(self, event):
         if self.buttonQueryFeature_state is not DISABLED:
             entryQuery = self.entryQueryFeature.get()
 
@@ -820,7 +820,7 @@ class AutomatedMining_Controller:
                                        "Dataset is empty. Please check if you uploaded your population dataset")
                 self.setFilterStripeReady(False, self.labelFilterStripes)
                 # CLEAR filter feature box
-                self.queryResetFilterDetails(evt)
+                self.queryResetFilterDetails(event)
 
             # If one of the sample groups is empty, do not continue finding the feature
             elif self.datasetCountA <= 0:
@@ -828,14 +828,14 @@ class AutomatedMining_Controller:
                                        "You must have at least 1 sample in your selection.")
                 self.setFilterStripeReady(False, self.labelFilterStripes)
                 # CLEAR filter feature box
-                self.queryResetFilterDetails(evt)
+                self.queryResetFilterDetails(event)
 
             elif self.datasetCountB <= 0:
                 tkMessageBox.showerror("Error: No samples selected for B",
                                        "You must have at least 1 sample in your selection.")
                 self.setFilterStripeReady(False, self.labelFilterStripes)
                 # CLEAR filter feature box
-                self.queryResetFilterDetails(evt)
+                self.queryResetFilterDetails(event)
 
             else:
                 try:
@@ -859,7 +859,7 @@ class AutomatedMining_Controller:
                                            "Features not found. Please upload your variable description file.")
                     self.setFilterStripeReady(False, self.labelFilterStripes)
                 except:
-                    print ("Exception in " + "def querySetFeature(self, evt)")
+                    print ("Exception in " + "def querySetFeature(self, event)")
         return "break"
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
@@ -868,17 +868,7 @@ class AutomatedMining_Controller:
         # findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
         self.findFeature(entryQuery, self.listQueryDataA, self.datasetA, self.populationDatasetOriginalA, False,
                          "Focus_Feature")
-        '''
-        # Get the feature description
-        featureDesc = self.datasetA['Focus Feature']['Description']
 
-        # If the description is too long
-        if len(featureDesc) > 70:
-            featureDesc = featureDesc[:71] + '...' #Shorten it
-
-        # Display the description
-        self.labelQueryDataFeatureName.config(text = featureDesc)
-        '''
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
 
@@ -893,7 +883,7 @@ class AutomatedMining_Controller:
 
     # region
 
-    def selectOptionChiSquare(self, evt):
+    def selectOptionChiSquare(self, event):
 
         # Change button appearance to selected
         self.buttonChooseChiSquare.configure(
@@ -912,7 +902,7 @@ class AutomatedMining_Controller:
         # Hide Chi-square options
         self.showWidget(self.labelFrameProcessChiSquare)
 
-    def selectOptionZTest(self, evt):
+    def selectOptionZTest(self, event):
         # Change button appearance to selected
         self.buttonChooseZTest.configure(
             background = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
@@ -928,299 +918,6 @@ class AutomatedMining_Controller:
         self.hideWidget(self.labelFrameProcessChiSquare)
         # Hide Chi-square options
         self.showWidget(self.labelFrameProcessZTest)
-
-    ''' Adds test to the queue '''
-
-    def addToQueue(self, testType, **params):
-        test = {'Type': testType}
-        for key in params:
-            if (key == 'popDirArg'):
-                test['Population Path'] = copy.copy(params[key])
-            elif (key == 'sampleFeatArg'):
-                test['Sample Feature'] = copy.copy(params[key])
-            elif (key == 'selectedFeatArg'):
-                test['Selected Feature'] = copy.copy(params[key])
-            elif (key == 'allValArg'):
-                test['SF All Values'] = copy.copy(params[key])
-            elif (key == 'selValArg'):
-                test['SF Selected Values'] = copy.copy(params[key])
-            elif (key == 'datasetArgs'):
-                test['Datasets'] = copy.deepcopy(params[key])
-            elif (key == 'zArg'):
-                test['Z Critical Value'] = copy.copy(params[key])
-        self.tests.append(test)
-        self.labelQueueCount.configure(text = str(len(self.tests)))
-        tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
-
-        '''
-        self.buttonInitialVarDesc.configure(
-            background=Color_support.DATASET_BTN_BG, foreground=Color_support.DATASET_BTN_FG,
-            text=UI_support.BTN_DATASET_UPLOAD,
-            bd=1, relief=GROOVE,
-            activebackground=Color_support.DATASET_BTN_BG_ACTIVE, activeforeground=Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground=Color_support.FG_DISABLED_COLOR)
-        '''
-
-    ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
-
-    def queue(self, evt):
-        self.buttonQueue.configure(relief = FLAT)
-        datasets = []
-        datasets.append(self.datasetA)
-        datasets.append(self.datasetB)
-        global queryType
-        if (queryType == 'Sample vs Sample'):
-            self.addToQueue(queryType, datasetArgs = datasets)
-        else:
-            tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
-        return "break"
-
-    ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
-
-    def testQueue(self, evt):
-        if len(tests) == 0:
-            tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
-            return "break"
-            # return -1
-        # self.listQueryDataB.delete(0, END)
-        i = 0
-
-        chiTest = ct.ChiTest.getInstance()  # Initialize singleton
-        for test in tests:
-            fileNames = []
-            if (test['Type'] == 'Sample vs Sample'):
-                i += 1
-                for dataset in test['Datasets']:  # For each sample pairs in queue
-                    FS.convertDatasetValuesToGroups(dataset, features)
-                    fileName = FS.makeFileName(
-                        dataset)  # TODO This makes the intermediate tables based on the selected features
-                    # print ("GENERATED FILENAME: " + str(fileName))
-                    FS.writeCSVDict(fileName, dataset['Data'])
-                    fileNames.append(fileName)
-                if not (os.path.isfile("Updated-Variables.csv")):
-                    FS.makeUpdatedVariables(features, "Updated-Variables.csv")
-
-                # saveFile = ct.chiTest(fileNames)
-                saveFile = chiTest.chiTest(fileNames)
-                print ("saveFile is " + str(saveFile))
-
-                # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
-                # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
-                # removeFiles(fileNames) # TODO This removes the intermediate tables
-        tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
-        return "break"
-
-    ''' Clears the tests in the queue. '''
-
-    def clearQueue(self, evt):
-        tests[:] = []
-        self.labelQueueCount.configure(text = str(len(tests)))
-        tkMessageBox.showinfo("Reset", "Queue cleared.")
-        self.buttonQueue.configure(relief = FLAT)
-        return "break"
-
-    ''' Conduct the Z-Test between the two samples. '''
-
-    def queryZTest(self, evt):
-        self.buttonQueryZTest.configure(relief = FLAT)
-        # Get selected confidence interval
-        # confidenceInterval = self.comboQueryCriticalValue.get()
-        confidenceInterval = self.spinBoxQueryZConfidence.get()
-
-        # Get corresponding Z Critical Value of the confidence interval
-        zCritical = self.arrQueryCriticalValueMapping[confidenceInterval]
-
-        if 'Focus Feature' in self.datasetA:
-            try:
-                # Check if the selected focus feature and selected values of it are the same for both samples
-                isSame = FS.isSameFocusFeat(self.datasetA, self.datasetB,
-                                            self.datasetA['Focus Feature']['Selected Values'],
-                                            self.datasetB['Focus Feature']['Selected Values'])
-                if (isSame == 1):
-                    # Calculate Z score between the two samples
-                    zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'],
-                                                   self.datasetB['Total'], self.datasetB['ProportionPercent'])
-                    # Get result if accept/reject compared to the zCritical value
-                    zResult = svs.compareZtoZCritical(zScore, zCritical)
-                    # Display Z score and whether accept/reject at inputted confidence interval
-                    # self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
-                    consoleText = str('' + 'Z-Score:\t' + str(round(zScore, 2)) + ', ' +
-                                      str(float(confidenceInterval)) +
-                                      '\n' +
-                                      '' + 'Confidence:\t' + zResult + '\n\n')
-                    self.addToConsole(consoleText, self.listConsoleZTestScreen)
-                    self.addToConsole(consoleText, self.listConsoleScreen)
-            except:
-                tkMessageBox.showinfo("Missing Input", "Please select a FILTER value.")
-        return "break"
-
-    ''' Conduct Z-Test between the population and all samples '''
-
-    def querySVP(self, evt):
-        confidenceInterval = self.comboQueryCriticalValueSvP.get()  # Get selected confidence interval
-        zCritical = self.arrQueryCriticalValueMapping[confidenceInterval]  # Get corresponding Z Critical Value
-        sampleFeature = self.datasetB['Feature']['Code']
-        self.listQueryDataB.delete(0, END)
-        # Iterate through every sample
-        for sampleResponse in self.datasetB['Feature']['Responses']:
-            resultsRows = []
-
-            sampleValue = sampleResponse['Code']  # Get sample code to get the samples by
-
-            # Header of the results file
-            header = ['Feature Code', 'N', 'F', 'P', 'Sample', 'n', 'f', 'p', 'SE', 'Z Score', 'Z Critical Value', 'LB',
-                      'UB', 'Accept/Reject']
-            resultsRows.append(header)
-
-            # Iterate through every feature
-            for feature in features:
-                featureValues = []  # Values that are not in group -1. This will be all values of the feature.
-                selectedFeatureValues = []  # Values within featureValues that are selected by the user. By default, it is just those with group 'b'
-
-                # Iterate through the values of the feature
-                for response in feature['Responses']:
-                    # If the group of that value is not -1
-                    if response['Group'] != '-1':
-                        featureValues.append(response['Code'])  # Add to the allValues that will determine n
-
-                        # If the group of the value is 'a'
-                        if (response['Group'] == 'a'):  # MODIFY THIS SUCH THAT IT CAN BE SELECTED BY THE USER
-                            selectedFeatureValues.append(
-                                response['Code'])  # Add to selectedValues that will determine p
-
-                # Convert allValues to string separated by ':'
-                allValString = FS.concatListToString(featureValues, ':')
-
-                # Convert selectedValues to string separated by ':'
-                selectedValString = FS.concatListToString(selectedFeatureValues, ':')
-
-                # Get results of that sample vs population based on a feature given its values that determine
-                # n and values that determine p
-                resultRow = svp.sampleVsPopulationSpecific(self.datasetA['Data'], sampleFeature, sampleValue,
-                                                           feature['Code'], allValString, selectedValString, zCritical,
-                                                           ':')
-
-                resultsRows.append(resultRow)
-            # Write all results of all Z-Tests on all features of that sample in to a .csv file
-            fileName = "SVP.csv"
-            try:
-                fileName = "Z-Test_Sample " + sampleFeature + "(" + sampleValue + ")" + "_vs_Pop" + \
-                           self.datasetA['Feature']['Code'] + ".csv"
-            except KeyError:
-                fileName = "Z-Test_Sample " + sampleFeature + "(" + sampleValue + ")" + "_vs_Pop.csv"
-            FS.writeOnCSV(resultsRows, fileName)
-            self.listQueryDataB.insert(END, "Z-Test complete. Saved as " + fileName)
-        # tkMessageBox.showinfo(testType, testType + " completed.")
-
-    ''' Sets test type: Sample vs Sample (Chi-Test, Z-Test) or Sample vs Population (Z-Test) '''
-
-    def querySetType(self, evt):
-        global queryType
-        queryType = self.comboQueryTest.get()
-        self.adjustQueryViews()
-
-    ''' Disables/enables views (buttons, entry fields etc.) based on test type selected '''
-
-    def adjustQueryViews(self):
-        self.buttonQueryFeature.configure(state = "normal")
-        # self.buttonQueryFeatureA.configure(state = "normal")
-        # self.buttonQueryFeatureB.configure(state = "normal")
-
-        # self.entryQueryFeatureA.configure(state = "normal")
-        # self.entryQueryFeatureB.configure(state = "normal")
-        self.buttonQueryZTest.configure(state = "normal")
-
-        self.spinBoxQueryZConfidence.configure(state = "normal")
-        # self.comboQueryCriticalValue.configure(state = "normal")
-
-        self.buttonQueue.configure(state = "normal")
-        self.buttonClearQueue.configure(state = "normal")
-        self.buttonTestQueue.configure(state = "normal")
-        # self.buttonTest.configure(state = "normal")
-        # self.labelQueryZTest.configure(state = "normal")
-        self.labelQueryDataA.configure(state = "normal")
-        self.labelQueryDataB.configure(state = "normal")
-        self.buttonQueryZTestSvP.configure(state = "normal")
-        self.comboQueryCriticalValueSvP.configure(state = "normal")
-        self.labelQueryZTestSvP.configure(state = "normal")
-        self.listQueryDataA.configure(state = "normal")
-        self.listQueryDataB.configure(state = "normal")
-
-        self.datasetA = self.resetDataset()
-        self.entryQuerySetDataA.configure(text = '')
-        # self.entryQueryFeatureA.configure(text = '')
-        if self.datasetA is not []:
-            self.datasetCountA = len(self.datasetA['Data'])
-            self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-        self.labelQueryDataA.configure(text = "")
-        self.listQueryDataA.delete(0, END)
-        self.listQuerySetDataA.delete(0, END)
-
-        self.datasetB = self.resetDataset()
-        self.entryQuerySetDataB.configure(text = '')
-        # self.entryQueryFeatureB.configure(text = '')
-        if self.datasetB is not []:
-            self.datasetCountB = len(self.datasetB['Data'])
-            self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
-        self.labelQueryDataB.configure(text = "")
-        self.listQueryDataB.delete(0, END)
-        self.listQuerySetDataB.delete(0, END)
-
-        if queryType == 'Sample vs Population':
-            self.buttonQueryFeature.configure(state = "disabled")
-            # self.buttonQueryFeatureA.configure(state = "disabled")
-            # self.buttonQueryFeatureB.configure(state = "disabled")
-            # self.entryQueryFeatureA.configure(state = "disabled")
-            # self.entryQueryFeatureB.configure(state = "disabled")
-            self.buttonQueryZTest.configure(state = "disabled")
-
-            self.spinBoxQueryZConfidence.configure(state = "disabled")
-            # self.comboQueryCriticalValue.configure(state = "disabled")
-
-            self.buttonQueue.configure(state = "disabled")
-            self.buttonClearQueue.configure(state = "disabled")
-            self.buttonTestQueue.configure(state = "disabled")
-            # self.buttonTest.configure(state = "disabled")
-            # self.labelQueryZTest.configure(state = "disabled")
-            self.labelQueryDataA.configure(state = "disabled")
-            self.labelQueryDataB.configure(state = "disabled")
-            self.listQueryDataA.configure(state = "disabled")
-            # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
-            # self.labelFrameQueryDataB.configure(text = "Samples")
-            self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
-            )
-            self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
-            )
-
-            # self.labelQueryDataBCount.configure(text = "")
-
-        else:
-            self.buttonQueryZTestSvP.configure(state = "disabled")
-
-            self.comboQueryCriticalValueSvP.configure(state = "disabled")
-
-            self.labelQueryZTestSvP.configure(state = "disabled")
-            # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
-            # self.labelFrameQueryDataB.configure(text = "Dataset B")
-            self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
-            )
-            self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
-            )
-
-    def querySetAllFeatures(self):
-        # Test items
-        global strarrAllFeatures
-        strarrAllFeatures = list(self.listQuerySetDataA.get(0, END))
-
-    # endregion
 
     '''CONSOLE HEADER'''
 
