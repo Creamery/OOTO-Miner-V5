@@ -389,34 +389,13 @@ def createDefaultToplevelWindow(root, placeInfo = [800, 600],
 
     return top
 
-def createDefaultToplevelWindow(root, placeInfo = [800, 600],
-                                isOverrideRedirect = True, isTaskbar = True):
-    top = Toplevel(root)
+def enterSplashscreen(root):
+    root.wm_attributes('-alpha', '0.0')
+    # TODO show the window with splash image
 
-    # remove title bar
-    top.overrideredirect(isOverrideRedirect)
-    if isTaskbar:
-        top.after(10, lambda: showInTaskBar(top))
+def exitSplashscreen(root):
+    root.wm_attributes('-alpha', '1.0')
+    # TODO hide the window with splash image
 
-    # top.transient(root)
-    top.grab_set()
-
-    # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
-    top.resizable(0, 0)
-
-    top.style = ttk.Style()
-    if sys.platform == "win32":
-        top.style.theme_use('winnative')
-
-    top.style.configure('.', font = "TkDefaultFont")
-
-    # center window
-    strDimensions = str(placeInfo[0]) + "x" + str(placeInfo[1])
-    top.geometry(strDimensions)
-    root.update()
-    newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
-    top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
-
-    return top
 # endregion utility functions
 

@@ -106,10 +106,12 @@ class OOTO_Miner:
 
     def __init__(self, root = None):
         self.root = root
-        # Configure style maps / themes
+        WS.enterSplashscreen(root)
+
+        # region configure widgets
+
+        # configure style maps / themes
         self.configureStyle(root)
-
-
 
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.INPUT = self.configureDataTabElements(self.Tabs_t2)
@@ -117,9 +119,6 @@ class OOTO_Miner:
 
         ''' TAB 2 - AM (Tabs_t3) '''
         self.MM = self.configureManualMiningTab(self.Tabs_t3)
-
-        # ''' TAB 2.2 TEST CONSOLE - (Tabs_t3)'''
-        # self.configureTestTabConsoleElements()
 
         ''' TAB 3 - AM (Tabs_t5) '''
         self.AM = self.configureAutomatedMiningTab(self.Tabs_t5, root)
@@ -133,6 +132,9 @@ class OOTO_Miner:
         # create frame borders
         self.configureBorders(root)
 
+        # endregion configure widgets
+
+        WS.exitSplashscreen(root)
 
 
         # Bind functionality to all UI elements
@@ -203,7 +205,6 @@ class OOTO_Miner:
         top.geometry(strRootWidth + "x" + strRootHeight + "+" + str(newX) + "+" + str(newY))
         top.title("OOTO Miner")
 
-        # root.wm_attributes('-transparentcolor', root['bg'])
         # root.wm_attributes('-transparentcolor', 'black')
 
         # top.configure(background = _top_bgcolor)
