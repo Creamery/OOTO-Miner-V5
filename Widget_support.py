@@ -231,6 +231,10 @@ def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
 
 # endregion creator functions
 
+""" SETTERS """
+# region setter functions
+
+# endregion setter functions
 
 """ UTILITIES """
 # region utility functions

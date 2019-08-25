@@ -17,7 +17,7 @@ from collections import OrderedDict
 import copy
 import Function_support as FS
 import KEYS_support as key
-from CrossProcessThread import CrossProcessThread
+import _MODULE_SystematicFiltering as SF
 
 class ViewModel:
 
@@ -64,7 +64,7 @@ class ViewModel:
         self.updatePrevSelectedFeatures()
         self.setSelectedFeatures(newSelectedFeatures)
 
-        # w = evt.widget
+        # w = event.widget
         if self.getPrevSelectedFeatures():  # if not empty
             # compare last selectionlist with new list and extract the difference
             changedSelection = set(self.getPrevSelectedFeatures()).symmetric_difference(set(newSelectedFeatures))
@@ -211,16 +211,20 @@ class AutomatedMining_Model:
         return response
 
     """BUTTON FUNCTIONS"""
-    def confirmFeatureSelect(self, evt):
+    def confirmFeatureSelect(self, event):
         print "confirmFeatureSelect"
-        # self.startThread(evt)  # TODO
         return "break"
 
-    def confirmConfirmedFeatures(self, evt):
+    def confirmConfirmedFeatures(self, root):
         print "confirmConfirmedFeatures"
+        self.runSystematicFiltering(root)
+        # self.startThread(event)  # TODO
         return "break"
 
-    def resetFeatureSelect(self, evt):
+    def runSystematicFiltering(self, root):
+        self.systematicFiltering = SF.SystematicFiltering(root)
+
+    def resetFeatureSelect(self, event):
         print "resetFeatureSelect"
         return "break"
 
@@ -298,40 +302,3 @@ class AutomatedMining_Model:
         print str(featureId)
         return featureId
 
-
-    # THREADING TEST FUNCTIONS
-    def startThread(self, evt):
-        if not self.isProcessing:
-            self.isProcessing = True
-            if not (self.winProgressBar is None):
-                self.onProgressBarClose()
-
-            self.winProgressBar = Toplevel()  # Tk() TODO add parent
-            self.winProgressBar.protocol("WM_DELETE_WINDOW", self.onProgressBarClose)
-            self.varProgressBar = 0
-            [self.pbProgressBar, self.lblProgressBar] = self.initProgressBar(self.winProgressBar)
-
-            crossProcess = CrossProcessThread(self.winProgressBar, self.pbProgressBar,
-                                              self.lblProgressBar, self.varProgressBar)
-            crossProcess.start()
-        else:
-            print ("isProcessing")
-
-    def initProgressBar(self, parentFrame):
-        progBar = ttk.Progressbar(
-            parentFrame, orient = "horizontal",
-            length = 300, variable = self.varProgressBar)
-
-        progBar.pack(side = TOP)
-        progText = Label(progBar)
-        progText.place(relx = 0, rely = 0, relh = 1)
-        return progBar, progText
-
-    def onProgressBarClose(self):
-        # if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
-        #     self.winProgressBar.destroy()
-        #     self.winProgressBar = None
-        #     self.isProcessing = False
-        self.winProgressBar.destroy()
-        self.winProgressBar = None
-        self.isProcessing = False

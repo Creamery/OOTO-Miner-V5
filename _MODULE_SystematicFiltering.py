@@ -19,36 +19,41 @@ import Function_support as FS
 import Grip_support as GS
 import Widget_support as WS
 import SystematicFiltering_VIEW as VIEW
+import SystematicFiltering_MODEL as MODEL
+import SystematicFiltering_CONTROLLER as CONTROLLER
+from CrossProcessThread import CrossProcessThread
 
 
 class SystematicFiltering:
     def __init__(self, root = None):
-        self.root = root
-        self.type = 0
-        self.maxType = 2
 
-        self.threadCrossProcess = None
-        self.lfProgressView = None
+        self.root = root
 
         # create overlay window
         self.winOverlay = WS.createOverlayWindow(root)
-        self.winTop = self.initializeWindow(root)  # WS.createDefaultToplevelWindow(
-            # root, [FS.sfWidth, FS.sfHeight], True, True)
+        self.winTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
 
         self.view = VIEW.SystematicFiltering_View(self.winTop)
+        self.model = MODEL.SystematicFiltering_Model()
+        self.controller = CONTROLLER.SystematicFiltering_Controller(self.model, self.view)
 
-        self.grip = self.configureGrip(self.winTop, self.winOverlay, self.root)
+        self.grip = self.__configureGrip(self.winTop, self.winOverlay, self.root)
         FS.placeBelow(self.view.getFrame(), self.grip)
 
-        self.configureBorders(self.winTop)
+        self.__configureBorders(self.winTop)
         self.winOverlay.lower(self.winTop)
 
 
-        self.configureBind()
+        self.__configureBind()
         WS.makeModal(self.winTop, self.root)  # make the window modal by setting root's wait_window
 
+    # region callable functions
+
+    # endregion callable functions
+
+    # region initialization functions
     # region overlay functions
-    def handleConfigure(self, event):
+    def __handleConfigure(self, event):
         # print self.root.tk.eval('wm stackorder '+str(self.winOverlay)+' isabove '+ str(self.root))
         # print "Stackorder: " + self.root.tk.eval('wm stackorder '+str(self.root))
         overlayBelowRoot = self.root.tk.eval('wm stackorder ' + str(self.winOverlay)+ ' isabove ' + str(self.root))
@@ -57,20 +62,19 @@ class SystematicFiltering:
             self.root.lower(self.winOverlay)
 
 
-        self.configureUnbind()
+        self.__configureUnbind()
         # set a short delay before re-binding to avoid infinite loops
-        self.root.after(1, lambda: self.configureBind())
+        self.root.after(1, lambda: self.__configureBind())
 
-    def configureBind(self):
-        self.root.bind("<Configure>", self.handleConfigure)
+    def __configureBind(self):
+        self.root.bind("<Configure>", self.__handleConfigure)
 
-    def configureUnbind(self):
+    def __configureUnbind(self):
         self.root.unbind("<Configure>")
     # endregion overlay functions
-
-    def initializeWindow(self, root):
+    def __initializeWindow(self, root):
         top = Toplevel(root)
-        
+
         # remove title bar
         top.overrideredirect(True)
         top.after(10, lambda: WS.showInTaskBar(top))
@@ -96,13 +100,13 @@ class SystematicFiltering:
         top.title("Systematic Filtering")
         return top
 
-    def configureGrip(self, parentWindow, winOverlay, root):
+    def __configureGrip(self, parentWindow, winOverlay, root):
         grip = GS.GripLabel(parentWindow, False)
         grip.assignOverlay(winOverlay, root)
 
         return grip.getGrip()
 
-    def configureBorders(self, parentFrame):
+    def __configureBorders(self, parentFrame):
         borderWidth = parentFrame.winfo_width()
         borderHeight = parentFrame.winfo_height()
         borderColor = CS.D_GRAY
@@ -110,3 +114,4 @@ class SystematicFiltering:
                     [0, 0, borderWidth, borderHeight],
                     [True, True, True, True],
                     [borderColor, borderColor, borderColor, borderColor])
+    # endregion initialization functions

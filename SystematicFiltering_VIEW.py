@@ -41,34 +41,34 @@ import UI_support as US
 class SystematicFiltering_View:
 
     def __init__(self, parentWindow):
-        self.parentFrame = WS.createDefaultFrame(parentWindow,
-                                                 [0, 0, 1, 1],
-                                                 [True, True])
+        self.__parentFrame = WS.createDefaultFrame(parentWindow,
+                                                   [0, 0, 1, 1],
+                                                   [True, True])
 
-        self.initializeWidgets(self.parentFrame)
-        WS.redraw(self.parentFrame)
+        self.initializeWidgets(self.__parentFrame)
+        WS.redraw(self.__parentFrame)
 
 
     def initializeWidgets(self, parentFrame):
-        self.lfProgressBar = WS.createDefaultFrame(parentFrame,
-                                                   [0, 0, 1, 1],
-                                                   [True, True])
+        self.__lfProgressBar = WS.createDefaultFrame(parentFrame,
+                                                     [0, 0, 1, 1],
+                                                     [True, True])
         # region create the progress header widgets
-        lblHeader = WS.createDefaultHeader(self.lfProgressBar, "PROGRESS",
+        lblHeader = WS.createDefaultHeader(self.__lfProgressBar, "PROGRESS",
                                            [0, 0, 1, FS.headerHeight], [True, False])
-        lblStripe = WS.createDefaultStripe(self.lfProgressBar,
+        lblStripe = WS.createDefaultStripe(self.__lfProgressBar,
                                            [0, 0, 1, FS.stripeHeight], [True, False])
         FS.placeBelow(lblStripe, lblHeader)
 
-        self.lblGreenStripe = WS.createDefaultStripe(lblStripe, [0, 0, 1, 1],
-                                                     [True, True], IS.TEXTURE_STRIPE_LIME)
-        self.lblGreenStripe.place(relwidth = 0)
+        self.__lblGreenStripe = WS.createDefaultStripe(lblStripe, [0, 0, 1, 1],
+                                                       [True, True], IS.TEXTURE_STRIPE_LIME)
+        self.__lblGreenStripe.place(relwidth = 0)
         # endregion create the progress header widgets
 
         # region create the current progress widgets
-        self.lfCurrentProgress = WS.createDefaultFrame(parentFrame,
-                                                       [0, 0, 1, FS.headerHeight],
-                                                       [True, False])
+        self.__lfCurrentProgress = WS.createDefaultFrame(parentFrame,
+                                                         [0, 0, 1, FS.headerHeight],
+                                                         [True, False])
 
         # lblTitle = WS.createDefaultHeader(self.lfCurrentProgress, 0, 0, 0.2, 1,
         #                                   "Details", [True, True],
@@ -80,37 +80,40 @@ class SystematicFiltering_View:
         #             colors = [borderColor, borderColor, borderColor, borderColor]
         #             )
 
-        self.lblCurrentDetails = WS.createDefaultHeader(
-            self.lfCurrentProgress,
+        self.__lblCurrentDetails = WS.createDefaultHeader(
+            self.__lfCurrentProgress,
             "Current Progress...",
             # lblTitle.winfo_width(), 0, self.lfCurrentProgress.winfo_width() - lblTitle.winfo_width(), 1,
             [0, 0, 1, 1], [True, True],
             CS.WHITE, CS.D_GRAY, US.FONT_DEFAULT)
         borderColor = CS.L_GRAY
-        WS.emborder(self.lblCurrentDetails,
+        WS.emborder(self.__lblCurrentDetails,
                     [0, 0, None, None],
                     [True, True, True, True],
                     [borderColor, borderColor, borderColor, borderColor]
                     )
-        FS.placeBelow(self.lfCurrentProgress, lblStripe)
+        FS.placeBelow(self.__lfCurrentProgress, lblStripe)
         # endregion create the current progress widgets
 
         # region create console listbox widgets
-        self.lfCurrentProgress.update()
-        wHeight = parentFrame.winfo_height() - (self.lfCurrentProgress.winfo_y() + self.lfCurrentProgress.winfo_height())
+        self.__lfCurrentProgress.update()
+        wHeight = parentFrame.winfo_height() - (self.__lfCurrentProgress.winfo_y() + self.__lfCurrentProgress.winfo_height())
         wHeight -= FS.commandsHeight
-        self.lfProgressConsole = WS.createDefaultFrame(parentFrame,
-                                                       [0, 0, 1, wHeight],
-                                                       [True, False])
-        self.lbProgressConsole = WS.createDefaultListbox(self.lfProgressConsole, SINGLE)
-        FS.placeBelow(self.lfProgressConsole, self.lfCurrentProgress)
+        self.__lfProgressConsole = WS.createDefaultFrame(parentFrame,
+                                                         [0, 0, 1, wHeight],
+                                                         [True, False])
+        self.lbProgressConsole = WS.createDefaultListbox(self.__lfProgressConsole, SINGLE)
+        FS.placeBelow(self.__lfProgressConsole, self.__lfCurrentProgress)
         # endregion create console listbox widgets
 
         # region create command widgets
-        self.lfConsoleCommands = WS.createDefaultFrame(self.lfProgressBar,
-                                                       [0, 0, 1, FS.commandsHeight], [True, False])
-        WS.emborder(self.lfConsoleCommands, [0, 0, None, None], [True, False, False, False])
-        FS.placeBelow(self.lfConsoleCommands, self.lfProgressConsole)
+        self.__lfConsoleCommands = WS.createDefaultFrame(self.__lfProgressBar,
+                                                         [0, 0, 1, FS.commandsHeight], [True, False])
+        WS.emborder(self.__lfConsoleCommands, [0, 0, None, None], [True, False, False, False])
+        FS.placeBelow(self.__lfConsoleCommands, self.__lfProgressConsole)
+
+        self.__btnStartCrossProcess = Button(self.__lfConsoleCommands)
+        self.__btnStartCrossProcess.place(x = 0, y = 0, width = 30, height = 30)
         # endregion create command widgets
 
 
@@ -121,7 +124,13 @@ class SystematicFiltering_View:
 
     " GETTERS "
     def getFrame(self):
-        return self.parentFrame
+        return self.__parentFrame
 
     def getLblCurrentDetails(self):
-        return self.lblCurrentDetails
+        return self.__lblCurrentDetails
+
+    def getLblCurrentProgress(self):
+        return self.__lblGreenStripe
+
+    def getBtnStartCrossProcess(self):
+        return self.__btnStartCrossProcess
