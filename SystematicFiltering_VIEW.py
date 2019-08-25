@@ -89,8 +89,8 @@ class SystematicFiltering_View:
         borderColor = CS.L_GRAY
         WS.emborder(self.lblCurrentDetails,
                     [0, 0, None, None],
-                    conditions = [True, True, True, True],
-                    colors = [borderColor, borderColor, borderColor, borderColor]
+                    [True, True, True, True],
+                    [borderColor, borderColor, borderColor, borderColor]
                     )
         FS.placeBelow(self.lfCurrentProgress, lblStripe)
         # endregion create the current progress widgets

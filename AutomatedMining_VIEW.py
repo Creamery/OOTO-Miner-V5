@@ -321,7 +321,7 @@ class AutomatedMining_View:
         WS.emborder(self.lfFeatureSelect,
                       [borderX, borderY, borderW, borderH],
                       [True, True, False, True],
-                      [None, CS.DEFAULT_LIGHT_BORDER, None, CS.DEFAULT_BORDER])
+                      [None, CS.L_GRAY, None, CS.D_GRAY])  # TODO option border
         # endregion emborder lfListFeatureDetails
 
 
@@ -366,15 +366,24 @@ class AutomatedMining_View:
 
         lblHeaderFeatureDetails = Label(lfListFeatureDetails)
         # region init lblHeaderFeatureDetails
+        self.lblHeaderFeatureSelect.update()
         lblHeaderFeatureDetails.place(
             x = 0, y = 1,
-            width = referenceFrame.winfo_width(), height = self.lblHeaderFeatureSelect.winfo_height())
+            width = referenceFrame.winfo_width(), height = self.lblHeaderFeatureSelect.winfo_height() + 2)
         lblHeaderFeatureDetails.configure(
             background = CS.SELECT_LISTBOX_STATUS_BG, foreground = CS.SELECT_LISTBOX_STATUS_FG,
-            bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
+            bd = 0, relief = FLAT,
             text = 'OPTIONS',
             font = UI_support.SELECT_STATUS_LABEL_FONT,
         )
+        # region emborder lblHeaderFeatureDetails
+        # borderColor = CS.D_BLUE
+        # lblHeaderFeatureDetails.update()
+        # WS.emborder(lblHeaderFeatureDetails,
+        #             [0, 0, None, None],
+        #             [True, True, True, True],
+        #             [borderColor, borderColor, borderColor, borderColor])
+        # endregion emborder lblHeaderFeatureDetails
         # endregion lblHeaderFeatureDetails
 
         lbListFeatureDetails = Listbox(lfListFeatureDetails)  # TODO getter
