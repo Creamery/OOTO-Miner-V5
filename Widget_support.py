@@ -276,7 +276,7 @@ def emborder(parentFrame, placeInfo = [0, 0, None, None],
     borderW = placeInfo[2]
     borderH = placeInfo[3]
     # use default color if not specified by the user
-    colors = [CS.DISABLED_D_BLUE if color is None else color for color in colors]
+    colors = [CS.L_GRAY if color is None else color for color in colors]
     # use parentFrame width and height if not specified by the user
     if borderW is None:
         borderW = parentFrame.winfo_width()

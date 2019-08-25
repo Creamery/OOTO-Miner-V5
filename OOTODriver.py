@@ -341,11 +341,15 @@ class OOTO_Miner:
             relx = US.TAB_REL_X, rely = US.TAB_REL_Y,
             relwidth = US.TAB_REL_W, relheight = US.TAB_REL_H)
         self.infoTabParentFrame.configure(background = CS.TAB_BG_COLOR, foreground = CS.FG_COLOR)
-        # Create the left separator
-        self.infoTabLeftSeparator = ttk.Separator(self.infoTabParentFrame, orient = VERTICAL)
-        self.infoTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
         self.configureAboutElements()
+
+        # region emborder for tab
+        self.infoTabParentFrame.update()
+        WS.emborder(self.infoTabParentFrame,
+                    [0, 0, 1, FS.rootHeight],
+                    [False, False, False, True])
+        # endregion emborder for tab
 
         '''
         BINDING FOR INFO TAB
@@ -454,7 +458,7 @@ class OOTO_Miner:
         # Affiliation label
         self.labelAffiliation = Label(self.labelFrameAboutElements)
         self.labelAffiliation.place(
-            relx = prevLblRelX, rely = newRelY,
+            relx = prevLblRelX, rely = newRelY + 0.005,
             relwidth = prevLblRelW, relheight = prevLblRelH)
         self.labelAffiliation.configure(
             background = CS.ABOUT_LBL_BG, foreground = CS.ABOUT_LBL_FG,

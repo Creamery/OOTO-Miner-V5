@@ -14,7 +14,7 @@ __version__ = "3.0"
 try:
     from Tkinter import *
 except ImportError:
-    from tkinter import *
+    from _tkinter import *
 
 try:
     import ttk

@@ -55,6 +55,7 @@ import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
 import Widget_support as WS
+import Color_support as CS
 
 
 class ManualMining_View:
@@ -76,11 +77,18 @@ class ManualMining_View:
     def configureSeparators(self, parentFrame):
         parentFrame.update()
 
+        # region emborder console
         borderX = (FS.rootWidth - FS.rootTabWidth) * (float(self.labelFrameConsoleElements.place_info()['relx']) - 0.015)
-
         WS.emborder(parentFrame,
                     [borderX, 0, 1, FS.rootHeight],
                     [False, False, False, True])
+        # endregion emborder console
+
+        # region emborder for tab
+        WS.emborder(parentFrame,
+                    [0, 0, 1, FS.rootHeight],
+                    [False, False, False, True])
+        # endregion emborder for tab
 
     """ >>> CONFIGURE MAIN TABS <<< """
     # region
@@ -173,8 +181,6 @@ class ManualMining_View:
 
         self.configureConsoleElements(self.labelFrameConsoleElements)  # Configures all sub elements under CONSOLE
 
-        self.testTabLeftSeparator = ttk.Separator(self.testTabParentFrame, orient = VERTICAL)
-        self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
 
     ''' --> Configure TEST ("TEST") TAB (2.2) <-- '''

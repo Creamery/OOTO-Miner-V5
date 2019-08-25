@@ -99,14 +99,18 @@ class AutomatedMining_View:
 
     def configureSeparators(self, parentFrame):
         parentFrame.update()
-
+        # region emborder console
         borderX = self.lfConsoleFrame.winfo_x()
-        borderHeight = self.lfConsoleFrame.winfo_height()
-
         WS.emborder(parentFrame,
-                    [borderX, 0, 1, borderHeight],
+                    [borderX, 0, 1, None],
                     [False, False, False, True])
+        # endregion emborder console
 
+        # region emborder for tab
+        WS.emborder(parentFrame,
+                    [0, 0, 1, None],
+                    [False, False, False, True])
+        # endregion emborder for tab
 
     def initTabFrame(self, parentFrame):
         tabFrame = LabelFrame(parentFrame, bd = 0)
@@ -819,8 +823,7 @@ class AutomatedMining_View:
         )
 
         self.configureConsoleElements(consoleFrame)  # Configures all sub elements under CONSOLE
-        self.testTabLeftSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
-        self.testTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
+
         return consoleFrame
 
 
