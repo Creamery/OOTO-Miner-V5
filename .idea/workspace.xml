@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Widget_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Widget_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.72410715">
+    <splitter split-orientation="horizontal" split-proportion="0.49876338">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
@@ -29,61 +30,19 @@
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/_MODULE_AutomatedMining.py">
+            <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="50">
-                  <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-                  <folding>
-                    <element signature="e#358#395#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="184">
+                  <caret line="94" column="52" selection-start-line="94" selection-start-column="52" selection-end-line="94" selection-end-column="52" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="334">
-                  <caret line="394" column="41" lean-forward="true" selection-start-line="394" selection-start-column="41" selection-end-line="394" selection-end-column="41" />
-                  <folding>
-                    <element signature="e#392#418#0" expanded="true" />
-                    <element signature="e#3282#3307#0" />
-                    <element signature="e#15013#15054#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/_MODULE_Input.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="197">
-                  <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
-                  <folding>
-                    <element signature="e#176#201#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/SystematicFiltering_VIEW.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="19">
-                  <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
-                  <folding>
-                    <element signature="e#396#412#0" expanded="true" />
-                    <element signature="e#2173#2246#0" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/_MODULE_SystematicFiltering.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="488">
-                  <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
+                <state relative-caret-position="165">
+                  <caret line="34" column="53" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="53" />
                   <folding>
                     <element signature="e#89#112#0" />
                     <element signature="e#137#175#0" />
@@ -93,20 +52,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Function_support.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="5586">
-                  <caret line="294" column="50" selection-start-line="294" selection-start-column="50" selection-end-line="294" selection-end-column="50" />
-                </state>
-              </provider>
-            </entry>
-          </file>
         </leaf>
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/OOTODriver.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="241">
@@ -119,13 +69,21 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Widget_support.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="338">
-                  <caret line="278" column="23" selection-start-line="278" selection-start-column="23" selection-end-line="278" selection-end-column="23" />
+                <state relative-caret-position="472">
+                  <caret line="61" column="40" selection-start-line="61" selection-start-column="40" selection-end-line="61" selection-end-column="40" />
                   <folding>
-                    <element signature="e#11136#11871#0" />
+                    <element signature="e#1432#1982#0" />
+                    <element signature="e#4691#5128#0" />
+                    <element signature="e#5166#5392#0" />
+                    <element signature="e#5446#7960#0" />
+                    <element signature="e#8112#9911#0" />
+                    <element signature="e#11432#11521#0" />
+                    <element signature="e#10022#10382#0" />
+                    <element signature="e#11906#11984#0" />
+                    <element signature="e#12018#12096#0" />
                   </folding>
                 </state>
               </provider>
@@ -165,7 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>'''</find>
       <find>FS.emborder</find>
       <find>GS.</find>
       <find>True, T</find>
@@ -195,6 +152,7 @@
       <find>'option</find>
       <find>'OPTION</find>
       <find>embord</find>
+      <find>confirmFeatureSelect</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -259,25 +217,25 @@
         <option value="$PROJECT_DIR$/_MODULE_ManualMining.py" />
         <option value="$PROJECT_DIR$/GripLabel.py" />
         <option value="$PROJECT_DIR$/UI_support.py" />
-        <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/Overlay_support.py" />
         <option value="$PROJECT_DIR$/Function_support.py" />
         <option value="$PROJECT_DIR$/Icon_support.py" />
-        <option value="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" />
         <option value="$PROJECT_DIR$/Grip_support.py" />
         <option value="$PROJECT_DIR$/_MODULE_AutomatedMining.py" />
-        <option value="$PROJECT_DIR$/Widget_support.py" />
         <option value="$PROJECT_DIR$/Input_VIEW.py" />
         <option value="$PROJECT_DIR$/ManualMining_VIEW.py" />
         <option value="$PROJECT_DIR$/OOTODriver.py" />
         <option value="$PROJECT_DIR$/SystematicFiltering_VIEW.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_VIEW.py" />
+        <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
+        <option value="$PROJECT_DIR$/Widget_support.py" />
+        <option value="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="8" />
-    <option name="width" value="1842" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-9" />
+    <option name="width" value="1860" />
     <option name="height" value="1088" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -402,21 +360,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1488" height="878" extended-state="6" />
+    <frame x="-7" y="0" width="1488" height="870" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" order="0" visible="true" weight="0.24016282" />
+      <window_info id="Project" order="0" visible="true" weight="0.1770692" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.48643148" weight="0.16644824" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.65535957" visible="true" weight="0.2699869" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.65535957" visible="true" weight="0.27284768" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49525103" weight="0.24377458" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32793522" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32793522" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.34464043" side_tool="true" visible="true" weight="0.2699869" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.34464043" side_tool="true" visible="true" weight="0.27284768" />
       <window_info anchor="bottom" id="Python Console" order="9" sideWeight="0.4986014" weight="0.32928476" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32793522" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -481,12 +439,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py</url>
-          <line>125</line>
+          <line>124</line>
           <option name="timeStamp" value="76" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/Widget_support.py</url>
-          <line>35</line>
+          <line>88</line>
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -496,7 +454,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/_MODULE_SystematicFiltering.py</url>
-          <line>36</line>
+          <line>37</line>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -745,13 +703,6 @@
     <entry file="file://$PROJECT_DIR$/_icons/ico_black.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="1161" lean-forward="true" selection-start-line="1161" selection-end-line="1161" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Grip_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
@@ -762,44 +713,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_MODULE_SystematicFiltering.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="100" lean-forward="true" selection-start-line="100" selection-end-line="100" />
-          <folding>
-            <element signature="e#89#112#0" />
-            <element signature="e#137#175#0" />
-            <element signature="e#199#225#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_MODULE_AutomatedMining.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-          <folding>
-            <element signature="e#358#395#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_MODULE_ManualMining.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="178">
           <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
           <folding>
             <element signature="e#175#207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Widget_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="278" column="23" selection-start-line="278" selection-start-column="23" selection-end-line="278" selection-end-column="23" />
-          <folding>
-            <element signature="e#11136#11871#0" />
           </folding>
         </state>
       </provider>
@@ -826,34 +745,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OOTODriver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="145" column="31" selection-start-line="145" selection-start-column="31" selection-end-line="145" selection-end-column="31" />
-          <folding>
-            <element signature="e#450#460#0" expanded="true" />
-            <element signature="e#2268#2294#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_MODULE_Input.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
           <folding>
             <element signature="e#176#201#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SystematicFiltering_VIEW.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
-          <folding>
-            <element signature="e#396#412#0" expanded="true" />
-            <element signature="e#2173#2246#0" />
           </folding>
         </state>
       </provider>
@@ -873,6 +770,75 @@
             <element signature="e#392#418#0" expanded="true" />
             <element signature="e#3282#3307#0" />
             <element signature="e#15013#15054#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_MODULE_AutomatedMining.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+          <folding>
+            <element signature="e#358#395#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SystematicFiltering_VIEW.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="92" column="20" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+          <folding>
+            <element signature="e#396#412#0" expanded="true" />
+            <element signature="e#2173#2246#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="94" column="52" selection-start-line="94" selection-start-column="52" selection-end-line="94" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/OOTODriver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="145" column="31" selection-start-line="145" selection-start-column="31" selection-end-line="145" selection-end-column="31" />
+          <folding>
+            <element signature="e#450#460#0" expanded="true" />
+            <element signature="e#2268#2294#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Widget_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="61" column="40" selection-start-line="61" selection-start-column="40" selection-end-line="61" selection-end-column="40" />
+          <folding>
+            <element signature="e#1432#1982#0" />
+            <element signature="e#4691#5128#0" />
+            <element signature="e#5166#5392#0" />
+            <element signature="e#5446#7960#0" />
+            <element signature="e#8112#9911#0" />
+            <element signature="e#11432#11521#0" />
+            <element signature="e#10022#10382#0" />
+            <element signature="e#11906#11984#0" />
+            <element signature="e#12018#12096#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_MODULE_SystematicFiltering.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="34" column="53" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="53" />
+          <folding>
+            <element signature="e#89#112#0" />
+            <element signature="e#137#175#0" />
+            <element signature="e#199#225#0" expanded="true" />
           </folding>
         </state>
       </provider>

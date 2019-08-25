@@ -32,8 +32,9 @@ class SystematicFiltering:
 
         # create overlay window
         self.winOverlay = WS.createOverlayWindow(root)
+        self.winTop = self.initializeWindow(root)  # WS.createDefaultToplevelWindow(
+            # root, [FS.sfWidth, FS.sfHeight], True, True)
 
-        self.winTop = self.initializeWindow(root)
         self.view = VIEW.SystematicFiltering_View(self.winTop)
 
         self.grip = self.configureGrip(self.winTop, self.winOverlay, self.root)
@@ -41,40 +42,35 @@ class SystematicFiltering:
 
         self.configureBorders(self.winTop)
         self.winOverlay.lower(self.winTop)
-        # self.winOverlay.lift(self.root)
 
-        # self.root.wm_attributes("-topmost", 1)
-        # self.winOverlay.wm_attributes("-topmost", 1)
-        # self.winTop.wm_attributes("-topmost", 1)
+
         self.configureBind()
+        WS.makeModal(self.winTop, self.root)  # make the window modal by setting root's wait_window
 
-    # overlay functions
+    # region overlay functions
     def handleConfigure(self, event):
         # print self.root.tk.eval('wm stackorder '+str(self.winOverlay)+' isabove '+ str(self.root))
         # print "Stackorder: " + self.root.tk.eval('wm stackorder '+str(self.root))
-
         overlayBelowRoot = self.root.tk.eval('wm stackorder ' + str(self.winOverlay)+ ' isabove ' + str(self.root))
         if overlayBelowRoot:
             self.winOverlay.lift(self.root)
             self.root.lower(self.winOverlay)
 
-        self.configureUnbind()
-        # self.winOverlay.lift(self.root)
-        # self.root.lower(self.winOverlay)
-        # self.winTop.lift(self.winOverlay)
-        self.root.after(1, lambda: self.configureBind())
 
+        self.configureUnbind()
+        # set a short delay before re-binding to avoid infinite loops
+        self.root.after(1, lambda: self.configureBind())
 
     def configureBind(self):
         self.root.bind("<Configure>", self.handleConfigure)
-        # self.winTop.bind("<Configure>", self.handleConfigure)
 
     def configureUnbind(self):
         self.root.unbind("<Configure>")
-        # self.winTop.unbind("<Configure>")
+    # endregion overlay functions
 
     def initializeWindow(self, root):
         top = Toplevel(root)
+        
         # remove title bar
         top.overrideredirect(True)
         top.after(10, lambda: WS.showInTaskBar(top))
@@ -98,8 +94,6 @@ class SystematicFiltering:
         top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
 
         top.title("Systematic Filtering")
-
-
         return top
 
     def configureGrip(self, parentWindow, winOverlay, root):

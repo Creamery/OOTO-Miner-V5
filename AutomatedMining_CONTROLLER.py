@@ -93,7 +93,6 @@ class AutomatedMining_Controller:
 
     def confirmFeatureSelect(self, event):
         self.systematicFiltering = SF.SystematicFiltering(self.root)
-        self.root.wait_window(self.systematicFiltering.winTop)
         self.model.confirmFeatureSelect(event)
 
         return "break"

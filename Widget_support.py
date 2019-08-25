@@ -32,6 +32,59 @@ WS_EX_TOOLWINDOW = 0x00000080
 
 """ CREATORS """
 # region creator functions
+
+def createDefaultToplevelWindow(root, placeInfo = [800, 600],
+                                isOverrideRedirect = True, isTaskbar = True):
+    top = Toplevel(root)
+
+    # remove title bar
+    top.overrideredirect(isOverrideRedirect)
+    if isTaskbar:
+        top.after(10, lambda: showInTaskBar(top))
+
+    top.transient(root)
+    top.grab_set()
+
+    # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
+    top.resizable(0, 0)
+
+    top.style = ttk.Style()
+    if sys.platform == "win32":
+        top.style.theme_use('winnative')
+
+    top.style.configure('.', font = "TkDefaultFont")
+
+    # center window
+    strDimensions = str(placeInfo[0]) + "x" + str(placeInfo[1])
+    top.geometry(strDimensions)
+    root.update()
+    newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
+    top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
+
+    return top
+
+
+def createOverlayWindow(root, bgColor = CS.BLACK):
+    wX = root.winfo_x()
+    wY = root.winfo_y()
+    wWidth = root.winfo_width()
+    wHeight = root.winfo_height()
+
+    print "x y is " + str(wX) + " and " + str(wY)
+    top = createDefaultToplevelWindow(root, [wWidth, wHeight], True, False)
+    top.wm_attributes('-alpha', 0.7)
+
+    label = Label(top)
+    label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
+    label.configure(background = bgColor)
+
+    strDimensions = str(wWidth) + "x" + str(wHeight)
+    root.update()
+    top.geometry(strDimensions + "+" + str(wX) + "+" + str(wY))
+
+    return top
+
+
 def createDefaultFrame(parentFrame, placeInfo = [0, 0, 1, 1],
                        isRelative = [True, True], bgColor = CS.WHITE, fgColor = CS.D_BLUE):
     wX = placeInfo[0]
@@ -181,7 +234,7 @@ def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
 
 """ UTILITIES """
 # region utility functions
-"""A recursive call that updates all Widgets and their Widget children"""
+""" A recursive call that updates all Widgets and their Widget children """
 def redraw(parentFrame):
     parentFrame.update()
 
@@ -327,6 +380,11 @@ def emborder(parentFrame, placeInfo = [0, 0, None, None],
             height = borderH)
         sepCommandRight.configure(background = colors[index])
 
+""" Make the root window wait until the modal window is closed """
+def makeModal(modalWindow, root):
+    root.wait_window(modalWindow)  # make the window modal by setting root's wait_window
+
+
 """ Allows windows to appear in taskbar when overideredirect is set to True """
 def showInTaskBar(root):
     hwnd = windll.user32.GetParent(root.winfo_id())
@@ -337,57 +395,6 @@ def showInTaskBar(root):
     # re-assert the new window style
     root.wm_withdraw()
     root.after(10, lambda: root.wm_deiconify())
-
-
-def createOverlayWindow(root, bgColor = CS.BLACK):
-    wX = root.winfo_x()
-    wY = root.winfo_y()
-    wWidth = root.winfo_width()
-    wHeight = root.winfo_height()
-
-    print "x y is " + str(wX) + " and " + str(wY)
-    top = createDefaultToplevelWindow(root, [wWidth, wHeight], True, False)
-    top.wm_attributes('-alpha', 0.7)
-
-    label = Label(top)
-    label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
-    label.configure(background = bgColor)
-
-    strDimensions = str(wWidth) + "x" + str(wHeight)
-    root.update()
-    top.geometry(strDimensions + "+" + str(wX) + "+" + str(wY))
-
-    return top
-
-def createDefaultToplevelWindow(root, placeInfo = [800, 600],
-                                isOverrideRedirect = True, isTaskbar = True):
-    top = Toplevel(root)
-
-    # remove title bar
-    top.overrideredirect(isOverrideRedirect)
-    if isTaskbar:
-        top.after(10, lambda: showInTaskBar(top))
-
-    top.transient(root)
-    top.grab_set()
-
-    # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
-    top.resizable(0, 0)
-
-    top.style = ttk.Style()
-    if sys.platform == "win32":
-        top.style.theme_use('winnative')
-
-    top.style.configure('.', font = "TkDefaultFont")
-
-    # center window
-    strDimensions = str(placeInfo[0]) + "x" + str(placeInfo[1])
-    top.geometry(strDimensions)
-    root.update()
-    newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
-    top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
-
-    return top
 
 def enterSplashscreen(root):
     root.wm_attributes('-alpha', '0.0')
