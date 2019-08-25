@@ -30,7 +30,7 @@ class SystematicFiltering:
         self.threadCrossProcess = None
         self.lfProgressView = None
 
-        # create overlay
+        # create overlay window
         self.winOverlay = WS.createOverlayWindow(root)
 
         self.winTop = self.initializeWindow(root)
@@ -48,27 +48,36 @@ class SystematicFiltering:
         # self.winTop.wm_attributes("-topmost", 1)
         self.configureBind()
 
+    # overlay functions
     def handleConfigure(self, event):
-        print "CONFIG"
+        # print self.root.tk.eval('wm stackorder '+str(self.winOverlay)+' isabove '+ str(self.root))
+        # print "Stackorder: " + self.root.tk.eval('wm stackorder '+str(self.root))
+
+        overlayBelowRoot = self.root.tk.eval('wm stackorder ' + str(self.winOverlay)+ ' isabove ' + str(self.root))
+        if overlayBelowRoot:
+            self.winOverlay.lift(self.root)
+            self.root.lower(self.winOverlay)
+
         self.configureUnbind()
-        self.winOverlay.lift(self.root)
-        self.root.lower(self.winOverlay)
-        self.winTop.lift(self.winOverlay)
+        # self.winOverlay.lift(self.root)
+        # self.root.lower(self.winOverlay)
+        # self.winTop.lift(self.winOverlay)
         self.root.after(1, lambda: self.configureBind())
+
 
     def configureBind(self):
         self.root.bind("<Configure>", self.handleConfigure)
-        self.winTop.bind("<Configure>", self.handleConfigure)
+        # self.winTop.bind("<Configure>", self.handleConfigure)
 
     def configureUnbind(self):
         self.root.unbind("<Configure>")
-        self.winTop.unbind("<Configure>")
+        # self.winTop.unbind("<Configure>")
 
     def initializeWindow(self, root):
         top = Toplevel(root)
         # remove title bar
         top.overrideredirect(True)
-        # top.after(10, lambda: WS.showInTaskBar(top))
+        top.after(10, lambda: WS.showInTaskBar(top))
 
         # top.transient(root)
         top.grab_set()

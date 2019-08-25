@@ -57,9 +57,9 @@ class GripLabel:
         # self.winOverlay.lower(self.top)
         # strDimensions = str(self.winOverlay.winfo_width()) + "x" + str(self.winOverlay.winfo_height())
         # self.winOverlay.geometry(strDimensions + "0+0")
+
     def unbindOverlay(self):
         self.root.unbind('<Configure>')
-        self.winOverlay.unbind('<Configure>')
 
     def createGrip(self, parentFrame):
 
