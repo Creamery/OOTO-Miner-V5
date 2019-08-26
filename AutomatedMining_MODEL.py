@@ -22,57 +22,80 @@ import _MODULE_SystematicFiltering as SF
 class ViewModel:
 
     def __init__(self):
+        # feature select
         self.__currentQueryFeatureList = ''
         self.__currentResponse = {}
-        self.__selectedFeatures = []
+        self.__selectedFeatureIndices = []
         self.__prevSelectedFeatures = []
+
+        # confirmed feature select
+        self.__confirmedFeatures = []
+        self.__confirmedCurrentResponse = {}
 
     """FUNCTIONS"""
     def resetFeature(self):
         self.setQueryFeatureList('')
-        self.setSelectedFeatures([])
+        self.setSelectedFeatureIndices([])
 
     """GETTERS"""
+    # region feature select getters
     def getCurrentFeature(self):
         return self.__currentQueryFeatureList
 
     def getCurrentResponse(self):
         return self.__currentResponse
 
-    def getSelectedFeatures(self):
-        return self.__selectedFeatures
+    def getSelectedFeatureIndices(self):
+        return self.__selectedFeatureIndices
 
     def getPrevSelectedFeatures(self):
         return self.__prevSelectedFeatures
+    # endregion feature select getters
+    # region confirmed features getters
+    def getConfirmedFeatures(self):
+        return self.__confirmedFeatures
+
+    def getConfirmedCurrentResponse(self):
+        return self.__confirmedCurrentResponse
+    # endregion confirmed feature getters
 
     """SETTERS"""
+    # region feature select setters
     def setQueryFeatureList(self, value):
         self.__currentQueryFeatureList = value
 
     def setCurrentResponse(self, value):
         self.__currentResponse = value
 
-    def setSelectedFeatures(self, value):
-        self.__selectedFeatures = value
+    def setSelectedFeatureIndices(self, value):
+        self.__selectedFeatureIndices = value
 
     def setPrevSelectedFeatures(self, value):
         self.__prevSelectedFeatures = value
+    # endregion feature select setters
+    # region confirmed features setters
+    def setConfirmedFeatures(self, value):
+        self.__confirmedFeatures = value
+
+    def setConfirmedCurrentResponse(self, value):
+        self.__confirmedCurrentResponse = value
+    # endregion confirmed features setters
 
     """UPDATERS"""
-
-    def updateSelectedFeatures(self, listbox, newSelectedFeatures):
+    # region feature select updaters
+    def updateSelectedFeatures(self, listbox, newSelectedFeatureIndices):
         self.updatePrevSelectedFeatures()
-        self.setSelectedFeatures(newSelectedFeatures)
+        self.setSelectedFeatureIndices(newSelectedFeatureIndices)
 
         # w = event.widget
         if self.getPrevSelectedFeatures():  # if not empty
             # compare last selectionlist with new list and extract the difference
-            changedSelection = set(self.getPrevSelectedFeatures()).symmetric_difference(set(newSelectedFeatures))
-            self.setPrevSelectedFeatures(newSelectedFeatures)
+            changedSelection = set(self.getPrevSelectedFeatures()).symmetric_difference(set(newSelectedFeatureIndices))
+            self.setPrevSelectedFeatures(newSelectedFeatureIndices)
         else:
             # if empty, assign current selection
-            self.setPrevSelectedFeatures(newSelectedFeatures)
-            changedSelection = newSelectedFeatures
+            self.setPrevSelectedFeatures(newSelectedFeatureIndices)
+            changedSelection = newSelectedFeatureIndices
 
         if len(changedSelection) > 0:
             index = int(list(changedSelection)[0])
@@ -82,10 +105,9 @@ class ViewModel:
         print('ls '+ str(lastSelectedIndex))
         return lastSelectedIndex
 
-
     def updatePrevSelectedFeatures(self):
-        self.__prevSelectedFeatures = self.getSelectedFeatures()
-
+        self.__prevSelectedFeatures = self.getSelectedFeatureIndices()
+    # endregion feature select updaters
 
 
 
@@ -97,6 +119,8 @@ class AutomatedMining_Model:
         self.isProcessing = False
         self.winProgressBar = None
         self.pbProgressBar = None
+
+        self.__systematicFiltering = None
 
         self.__resetFeatureDescription()
         self.__resetDatasets()
@@ -110,7 +134,7 @@ class AutomatedMining_Model:
             code = feature[KS.CODE]
             description = feature[KS.DESCRIPTION]
             responses = feature[KS.RESPONSES]
-            dictResponses = self.parseResponses(responses)
+            dictResponses = self.__parseResponses(responses)
 
 
             featureDescription = {}
@@ -123,7 +147,7 @@ class AutomatedMining_Model:
     Change the format of responses to a dictionary of the form :
     { 'a': { 'Code': [], 'Description': [] } }
     """
-    def parseResponses(self, responses):
+    def __parseResponses(self, responses):
         dictResponses = {}
 
         for response in responses:
@@ -155,9 +179,13 @@ class AutomatedMining_Model:
         self.getPopulationDataset()[KS.FEATURE_LIST] = self.getFeatureDescription()
         self.getDatasetA()[KS.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
         self.getDatasetB()[KS.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+        print "getPopulationDataset[key.FEATURE_LIST]"
+        print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b1'])
+        print ""
+        print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b4'])
         print "getPopulationDataset[key.SAMPLES]"
-        # print str(type(self.getPopulationDataset()[key.SAMPLES][0]))
-        # print str(self.getPopulationDataset()[key.SAMPLES])
+        print str(self.getPopulationDataset()[KS.SAMPLES][0:3])
+        # print str(self.getPopulationDataset()[KS.SAMPLES])
 
 
     def __resetFeatureDescription(self):
@@ -206,15 +234,21 @@ class AutomatedMining_Model:
             response = featureList[featureID][KS.RESPONSES]
             print "Key found"
         else:
-            responses = {}
+            response= {}
 
-        self.setCurrentResponse(response)
+        self.viewModel.setCurrentResponse(response)
         return response
 
     """BUTTON FUNCTIONS"""
-    def confirmFeatureSelect(self, event):
+    def confirmFeatureSelect(self):
         print "confirmFeatureSelect"
-        return "break"
+        selectedFeatureIndices = self.viewModel.getSelectedFeatureIndices()
+        confirmedFeatures = self.getFeatureDescription() # TODO use indices
+
+        # update viewModel's confirmed features with the currently selected features
+        self.viewModel.setConfirmedFeatures(confirmedFeatures)
+
+        return self.viewModel.getConfirmedFeatures()
 
     def confirmConfirmedFeatures(self, root):
         print "confirmConfirmedFeatures"
@@ -223,7 +257,9 @@ class AutomatedMining_Model:
         return "break"
 
     def runSystematicFiltering(self, root):
-        self.systematicFiltering = SF.SystematicFiltering(root)
+        self.__systematicFiltering = SF.SystematicFiltering(root,
+                                                            self.getPopulationDataset(),
+                                                            self.getFeatureDescriptionRaw())
 
     def resetFeatureSelect(self, event):
         print "resetFeatureSelect"
@@ -284,7 +320,7 @@ class AutomatedMining_Model:
         self.__featureDescription = OrderedDict(value)
 
     def __setFeatureDescriptionRaw(self, value):
-        self.__featureDescriptionRaw = OrderedDict(value)
+        self.__featureDescriptionRaw = value
 
     def __setPopulationDataset(self, value):
         self.__populationDataset = OrderedDict(value)

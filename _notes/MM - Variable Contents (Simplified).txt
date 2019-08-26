@@ -1,0 +1,25 @@
+
+
+test =
+	{
+		'Datasets':	[ datasetA, datasetB ],
+		'Type':		'Sample vs Sample'
+	}
+
+datasetA = 
+	{
+		'Filter Features':
+			{
+				'Selected Responses':
+				'Code':
+				'Description':
+				'Responses':
+			}
+
+		'Data': [																	# Array of responses (where a response is a dictionary of featureIDs)
+					{'a1': 'a', 'a2': 'b', <...>},
+					{'a1': 'a', 'a2': 'b', <...>},
+					<...>
+				 ]
+		'Feature':
+	}

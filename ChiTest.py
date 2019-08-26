@@ -563,7 +563,8 @@ class ChiTest:
 
     def chiTest(self, datasetPaths):
         reload(sys)
-        sys.setdefaultencoding('utf8')
+        # sys.setdefaultencoding('utf8')
+        # sys.stdin.encoding = 'utf8'
 
         # change to ur own.
         vList = self.getVariableList('Updated-Variables.csv',

@@ -337,7 +337,7 @@ class ManualMining_Controller:
     '''SELECT HEADER'''
 
     # region
-
+    # TODO NOTE THIS
     def setFocusFeatureValues(self, evt):  ### TODO Add checker if listbox is not empty
         listBox = evt.widget
         selectedItems = listBox.curselection()
@@ -347,7 +347,7 @@ class ManualMining_Controller:
     ''' Initial (SELECT) query for DATA A '''
 
     def querySetDataA(self, evt):
-
+        print "buttonQuerySetDataA"
         # CLEAR sample count
         self.queryResetDatasetA(evt)
         # CLEAR filter feature box first
@@ -355,8 +355,13 @@ class ManualMining_Controller:
 
         try:
             # findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, "Dataset_Feature")
-            self.findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA,
-                        self.populationDatasetOriginalA, True, "Dataset_Feature")
+            self.findFeature(
+                self.entryQuerySetDataA.get(),
+                self.listQuerySetDataA,
+                self.datasetA,
+                self.populationDatasetOriginalA,
+                True,
+                "Dataset_Feature")
         except NameError:
             tkMessageBox.showerror("Error: No features",
                                    "Features not found. Please upload your variable description file.")
@@ -386,6 +391,15 @@ class ManualMining_Controller:
                     if arg == "Dataset_Feature":
                         dataset['Feature'] = copy.deepcopy(feature)
                         populationDatasetOriginal['Feature'] = copy.deepcopy(feature)
+                        print ""
+                        print ""
+                        print "Dataset_Feature: "
+                        print ""
+                        print "dataset['Feature'] = "
+                        print str(dataset['Feature'])
+                        print ""
+                        print "populationDatasetOriginal['Feature'] = "
+                        print str(dataset['Feature'])
 
                     if arg == "Focus_Feature":
                         dataset['Focus Feature'] = copy.deepcopy(feature)
@@ -400,6 +414,7 @@ class ManualMining_Controller:
 
         # Getting the proportions and frequencies of each value (including invalid values) in the focus feature
         if hasFocusFeature == True:
+            print "HAS FOCUS FEATURE"
             arrTempItems = []
             dataset['ColumnData'] = []
             populationDatasetOriginal['ColumnData'] = []
@@ -603,10 +618,12 @@ class ManualMining_Controller:
         return "break"
 
     def queryAddFilterA(self, evt):
+        print "buttonQueryAddFilterA"
+
         self.isReadyDatasetA = False
         self.buttonQueryAddFilterA.configure(relief = FLAT)
-        print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
-        print ("Dataset A COUNT IS " + str(self.datasetCountA))
+        # print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
+        # print ("Dataset A COUNT IS " + str(self.datasetCountA))
 
         # If the dataset is empty, do not push through with filtering.
         if len(self.datasetA['Data']) <= 0:
@@ -680,17 +697,17 @@ class ManualMining_Controller:
                 foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
             )
             self.setDatasetStripeReady(True, self.labelQuerySetDataStripesA)
-        print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
-        print ("Dataset A COUNT IS " + str(self.datasetCountA))
-        print ("")
+        # print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
+        # print ("Dataset A COUNT IS " + str(self.datasetCountA))
+        # print ("")
         return "break"
 
     def queryAddFilterB(self, evt):
         self.isReadyDatasetB = False
 
         self.buttonQueryAddFilterB.configure(relief = FLAT)
-        print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
-        print ("Dataset B COUNT IS " + str(self.datasetCountB))
+        # print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
+        # print ("Dataset B COUNT IS " + str(self.datasetCountB))
 
         # If the dataset is empty, do not push through with filtering.
         if len(self.datasetB['Data']) <= 0:
@@ -764,9 +781,9 @@ class ManualMining_Controller:
             )
             self.setDatasetStripeReady(True, self.labelQuerySetDataStripesB)
 
-        print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
-        print ("Dataset B COUNT IS " + str(self.datasetCountB))
-        print ("")
+        # print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
+        # print ("Dataset B COUNT IS " + str(self.datasetCountB))
+        # print ("")
         return "break"
 
     def querySetFeature(self, evt):
@@ -966,8 +983,17 @@ class ManualMining_Controller:
                 # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
                 # removeFiles(fileNames) # TODO This removes the intermediate tables
 
-        print "Contents of Features are "
-        print str(features)
+                # print functions TODO remove
+                if i == 1:
+                    print "test type is "
+                    print str(type(test))
+                    # print "test = "
+                    # print str(tests)
+                    # print "test['Datasets'][0] = "
+                    # print str(test['Datasets'][0])
+
+        # print "Contents of Features are "
+        # print str(features)
 
         tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
         return "break"

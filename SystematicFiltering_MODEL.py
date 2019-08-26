@@ -40,13 +40,15 @@ import UI_support as US
 from _THREAD_CrossProcess import CrossProcessThread
 from _THREAD_CrossProcessProgress import CrossProcessProgressThread
 
-class SystematicFiltering_Model():
+class SystematicFiltering_Model:
 
-    def __init__(self):
+    def __init__(self, dataset, features):
 
         # initialize properties
-        self.type = 0
-        self.maxType = 2
+        self.__type = 0
+        self.__maxType = 2
+        self.__dataset = dataset
+        self.__features = features
 
         # thread that handles the actual processing
         self.__threadCrossProcess = CrossProcessThread()
@@ -61,6 +63,7 @@ class SystematicFiltering_Model():
 
         # set progressible view
         self.getThreadCrossProcessProgress().setProgressible(viewProgressible)
+        # self.getThreadCrossProcessProgress().setData(viewProgressible)
         self.getThreadCrossProcess().setProgressible(viewProgressible)
 
         self.setCrossProcessing(True)
@@ -81,5 +84,6 @@ class SystematicFiltering_Model():
         return self.__threadCrossProcessProgress
 
     " SETTERS "
+
     def setCrossProcessing(self, value):
         self.__isCrossProcessing = value

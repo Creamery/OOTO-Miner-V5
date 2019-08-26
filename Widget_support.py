@@ -231,13 +231,14 @@ def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
 
 # endregion creator functions
 
-""" SETTERS """
-# region setter functions
-
-# endregion setter functions
 
 """ UTILITIES """
 # region utility functions
+""" Returns the widget name """
+def getWidgetName(widget):
+    return str(widget).split(".")[-1]
+
+
 """ A recursive call that updates all Widgets and their Widget children """
 def redraw(parentFrame):
     parentFrame.update()

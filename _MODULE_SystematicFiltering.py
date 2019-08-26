@@ -25,7 +25,7 @@ from _THREAD_CrossProcess import CrossProcessThread
 
 
 class SystematicFiltering:
-    def __init__(self, root = None):
+    def __init__(self, root, dataset, features):
 
         self.root = root
 
@@ -34,7 +34,7 @@ class SystematicFiltering:
         self.winTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
 
         self.view = VIEW.SystematicFiltering_View(self.winTop)
-        self.model = MODEL.SystematicFiltering_Model()
+        self.model = MODEL.SystematicFiltering_Model(dataset, features)
         self.controller = CONTROLLER.SystematicFiltering_Controller(self.model, self.view)
 
         self.grip = self.__configureGrip(self.winTop, self.winOverlay, self.root)

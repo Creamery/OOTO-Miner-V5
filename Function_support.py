@@ -43,6 +43,9 @@ stripeHeight = 0
 
 commandsHeight = 60
 
+arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
+arrQueryCriticalValueMapping = {"0.80": 1.28, "0.90": 1.645, "0.95": 1.96, "0.98": 2.33, "0.99": 2.58}
+
 
 def checkKey(dictionary, key):
     if key in dictionary.keys():
