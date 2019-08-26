@@ -30,35 +30,45 @@ except ImportError:
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
-import KEYS_support as key
+import Keys_support as key
 
 import Color_support as CS
 import Function_support as FS
 import Widget_support as WS
 import Icon_support as IS
 import UI_support as US
-from CrossProcessThread import CrossProcessThread
-from _Progressible import _Progressible
+from _THREAD_CrossProcess import CrossProcessThread
+from _THREAD_CrossProcessProgress import CrossProcessProgressThread
 
-class SystematicFiltering_Model(_Progressible):
+class SystematicFiltering_Model():
 
     def __init__(self):
-        # call _Progressible constructor
-        # super(SystematicFiltering_Model, self).__init__()
-        _Progressible.__init__(self)
 
         # initialize properties
         self.type = 0
         self.maxType = 2
 
-        self.__threadCrossProcess = CrossProcessThread(self)
+        # thread that handles the actual processing
+        self.__threadCrossProcess = CrossProcessThread()
+        # thread that handles the UI progress updates
+        self.__threadCrossProcessProgress = CrossProcessProgressThread()
+
         self.__isCrossProcessing = False
 
     " FUNCTIONS "
-    def startSystematicFiltering(self, view):
+    def startSystematicFiltering(self, viewProgressible):
         print "startSystematicFiltering"
+
+        # set progressible view
+        self.getThreadCrossProcessProgress().setProgressible(viewProgressible)
+        self.getThreadCrossProcess().setProgressible(viewProgressible)
+
         self.setCrossProcessing(True)
-        self.getThreadCrossProcess().start()
+        # self.getThreadCrossProcess().start()
+        self.getThreadCrossProcessProgress().start()
+
+    def stopSystematicFiltering(self):
+        pass
 
     " GETTERS "
     def isCrossProcessing(self):
@@ -66,6 +76,9 @@ class SystematicFiltering_Model(_Progressible):
 
     def getThreadCrossProcess(self):
         return self.__threadCrossProcess
+
+    def getThreadCrossProcessProgress(self):
+        return self.__threadCrossProcessProgress
 
     " SETTERS "
     def setCrossProcessing(self, value):

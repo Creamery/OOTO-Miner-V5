@@ -35,7 +35,7 @@ import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
 import Widget_support as WS
-import KEYS_support as key
+import Keys_support as key
 
 
 class AutomatedMining_View:

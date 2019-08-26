@@ -30,7 +30,7 @@ except ImportError:
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
-import KEYS_support as key
+import Keys_support as key
 
 import Color_support as CS
 import Function_support as FS
@@ -38,9 +38,15 @@ import Widget_support as WS
 import Icon_support as IS
 import UI_support as US
 
-class SystematicFiltering_View:
+from _Progressible import _Progressible
+
+class SystematicFiltering_View(_Progressible):
 
     def __init__(self, parentWindow):
+        # call _Progressible constructor
+        _Progressible.__init__(self)
+        # super(SystematicFiltering_View, self).__init__()
+
         self.__parentFrame = WS.createDefaultFrame(parentWindow,
                                                    [0, 0, 1, 1],
                                                    [True, True])
@@ -48,7 +54,18 @@ class SystematicFiltering_View:
         self.initializeWidgets(self.__parentFrame)
         WS.redraw(self.__parentFrame)
 
+    " INHERITED "
+    def updateProgress(self, progress):
+        # call super class
+        _Progressible.updateProgress(self, progress)
+        print "dec is " + str(self.getCurrentDecimal())
+        self.getLblCurrentProgress().place(relwidth = self.getCurrentDecimal())
+        # self.getLblCurrentProgress().update()
+        self.getLblCurrentDetails().configure(text = str(self.getCurrentPercent()) + "%")
 
+
+
+    # region initialization functions
     def initializeWidgets(self, parentFrame):
         self.__lfProgressBar = WS.createDefaultFrame(parentFrame,
                                                      [0, 0, 1, 1],
@@ -122,7 +139,10 @@ class SystematicFiltering_View:
         # self.btnConfirmConfirmedFeatures = [None]
 
 
+    # endregion initialization functions
+
     " GETTERS "
+    # region getters
     def getFrame(self):
         return self.__parentFrame
 
@@ -134,3 +154,4 @@ class SystematicFiltering_View:
 
     def getBtnStartCrossProcess(self):
         return self.__btnStartCrossProcess
+    # endregion getters

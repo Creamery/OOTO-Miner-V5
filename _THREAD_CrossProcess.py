@@ -4,9 +4,13 @@ import time
 class CrossProcessThread(threading.Thread):
 
     # pass the widgets that the thread will update
-    def __init__(self, progressible):
+    def __init__(self):
         threading.Thread.__init__(self)
+        self.progressible = None
+
+    def setProgressible(self, progressible):
         self.progressible = progressible
+
 
     def run(self):
         try:

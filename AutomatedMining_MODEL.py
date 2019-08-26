@@ -16,16 +16,16 @@ except ImportError:
 from collections import OrderedDict
 import copy
 import Function_support as FS
-import KEYS_support as key
+import Keys_support as KS
 import _MODULE_SystematicFiltering as SF
 
 class ViewModel:
 
     def __init__(self):
-        self.setQueryFeatureList('')
-        self.setCurrentResponse({})
-        self.setSelectedFeatures([])
-        self.setPrevSelectedFeatures([])
+        self.__currentQueryFeatureList = ''
+        self.__currentResponse = {}
+        self.__selectedFeatures = []
+        self.__prevSelectedFeatures = []
 
     """FUNCTIONS"""
     def resetFeature(self):
@@ -105,17 +105,17 @@ class AutomatedMining_Model:
 
     def readFeatures(self, features):
         self.__resetFeatureDescription()
-
+        self.__setFeatureDescriptionRaw(features)
         for feature in features:
-            code = feature[key.CODE]
-            description = feature[key.DESCRIPTION]
-            responses = feature[key.RESPONSES]
+            code = feature[KS.CODE]
+            description = feature[KS.DESCRIPTION]
+            responses = feature[KS.RESPONSES]
             dictResponses = self.parseResponses(responses)
 
 
             featureDescription = {}
-            featureDescription[key.DESCRIPTION] = description
-            featureDescription[key.RESPONSES] = dictResponses
+            featureDescription[KS.DESCRIPTION] = description
+            featureDescription[KS.RESPONSES] = dictResponses
 
             self.getFeatureDescription()[code] = featureDescription
 
@@ -127,15 +127,15 @@ class AutomatedMining_Model:
         dictResponses = {}
 
         for response in responses:
-            group = response[key.GROUP]
+            group = response[KS.GROUP]
             if not(str(group).strip() == '-1'):
-                code = response[key.CODE]
-                description = response[key.DESCRIPTION]
+                code = response[KS.CODE]
+                description = response[KS.DESCRIPTION]
 
 
-                entry = dictResponses.setdefault(group, OrderedDict({key.CODE: [], key.DESCRIPTION: []}))
-                entry[key.CODE].append(code)
-                entry[key.DESCRIPTION].append(description)
+                entry = dictResponses.setdefault(group, OrderedDict({KS.CODE: [], KS.DESCRIPTION: []}))
+                entry[KS.CODE].append(code)
+                entry[KS.DESCRIPTION].append(description)
 
         dictResponses = OrderedDict(sorted(dictResponses.items()))  # sort keys alphabetically
         return dictResponses
@@ -147,14 +147,14 @@ class AutomatedMining_Model:
         # Append SAMPLES
         for record in dataset:
             orderedRecord = OrderedDict(sorted(record.items()))  # sort keys alphabetically
-            self.getPopulationDataset()[key.SAMPLES].append(orderedRecord)
-            self.getDatasetA()[key.SAMPLES].append(orderedRecord)
-            self.getDatasetB()[key.SAMPLES].append(orderedRecord)
+            self.getPopulationDataset()[KS.SAMPLES].append(orderedRecord)
+            self.getDatasetA()[KS.SAMPLES].append(orderedRecord)
+            self.getDatasetB()[KS.SAMPLES].append(orderedRecord)
 
         # Set FEATURE_LIST
-        self.getPopulationDataset()[key.FEATURE_LIST] = self.getFeatureDescription()
-        self.getDatasetA()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
-        self.getDatasetB()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+        self.getPopulationDataset()[KS.FEATURE_LIST] = self.getFeatureDescription()
+        self.getDatasetA()[KS.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+        self.getDatasetB()[KS.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
         print "getPopulationDataset[key.SAMPLES]"
         # print str(type(self.getPopulationDataset()[key.SAMPLES][0]))
         # print str(self.getPopulationDataset()[key.SAMPLES])
@@ -162,11 +162,12 @@ class AutomatedMining_Model:
 
     def __resetFeatureDescription(self):
         self.__setFeatureDescription({})
+        self.__setFeatureDescriptionRaw({})
 
     def __resetDatasets(self):
-        self.__setPopulationDataset({key.SAMPLES: [], key.FEATURE_LIST: {}})
-        self.__setDatasetA({key.SAMPLES: [], key.FEATURE_LIST: {}})
-        self.__setDatasetB({key.SAMPLES: [], key.FEATURE_LIST: {}})
+        self.__setPopulationDataset({KS.SAMPLES: [], KS.FEATURE_LIST: {}})
+        self.__setDatasetA({KS.SAMPLES: [], KS.FEATURE_LIST: {}})
+        self.__setDatasetB({KS.SAMPLES: [], KS.FEATURE_LIST: {}})
 
         # self.tests = []
         # self.datasetCountA = len(self.datasetA['Data'])
@@ -202,7 +203,7 @@ class AutomatedMining_Model:
         hasKey = FS.checkKey(featureList, featureID)
 
         if hasKey:
-            response = featureList[featureID][key.RESPONSES]
+            response = featureList[featureID][KS.RESPONSES]
             print "Key found"
         else:
             responses = {}
@@ -253,8 +254,13 @@ class AutomatedMining_Model:
         return response
 
     """GETTERS"""
+    # returns the formatted feature description used for UI data retrieval
     def getFeatureDescription(self):
         return self.__featureDescription
+
+    # returns the raw feature description, as directly read from the CSV
+    def getFeatureDescriptionRaw(self):
+        return self.__featureDescriptionRaw
 
     def getPopulationDataset(self):
         return self.__populationDataset
@@ -277,6 +283,9 @@ class AutomatedMining_Model:
     def __setFeatureDescription(self, value):
         self.__featureDescription = OrderedDict(value)
 
+    def __setFeatureDescriptionRaw(self, value):
+        self.__featureDescriptionRaw = OrderedDict(value)
+
     def __setPopulationDataset(self, value):
         self.__populationDataset = OrderedDict(value)
 
@@ -292,7 +301,7 @@ class AutomatedMining_Model:
         response = {}
         print "featureID is " + str(featureID)
         if not (featureID == '-1'):
-            response = self.getFeatureDescription()[featureID][key.RESPONSES]
+            response = self.getFeatureDescription()[featureID][KS.RESPONSES]
             self.viewModel.setCurrentResponse(response)
 
         return response

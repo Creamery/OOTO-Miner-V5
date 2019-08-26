@@ -944,7 +944,6 @@ class ManualMining_Controller:
             # return -1
         # self.listQueryDataB.delete(0, END)
         i = 0
-
         chiTest = ct.ChiTest.getInstance()  # Initialize singleton
         for test in tests:
             fileNames = []
@@ -966,6 +965,10 @@ class ManualMining_Controller:
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
                 # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
                 # removeFiles(fileNames) # TODO This removes the intermediate tables
+
+        print "Contents of Features are "
+        print str(features)
+
         tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
         return "break"
 

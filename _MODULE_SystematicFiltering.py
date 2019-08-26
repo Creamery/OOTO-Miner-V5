@@ -21,7 +21,7 @@ import Widget_support as WS
 import SystematicFiltering_VIEW as VIEW
 import SystematicFiltering_MODEL as MODEL
 import SystematicFiltering_CONTROLLER as CONTROLLER
-from CrossProcessThread import CrossProcessThread
+from _THREAD_CrossProcess import CrossProcessThread
 
 
 class SystematicFiltering:
@@ -45,7 +45,7 @@ class SystematicFiltering:
 
 
         self.__configureBind()
-        WS.makeModal(self.winTop, self.root)  # make the window modal by setting root's wait_window
+        # WS.makeModal(self.winTop, self.root)  # make the window modal by setting root's wait_window
 
     # region callable functions
 
