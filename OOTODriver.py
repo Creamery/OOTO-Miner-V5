@@ -56,6 +56,7 @@ import PIL.ImageTk
 
 import Grip_support as GS
 import Function_support as FS
+import Widget_support as WS
 import _MODULE_Input as INPUT
 import _MODULE_ManualMining as MM
 import _MODULE_AutomatedMining as AM
@@ -103,12 +104,14 @@ def vp_start_gui():
 
 class OOTO_Miner:
 
-    def __init__(self, top = None):
-        self.top = top
-        # Configure style maps / themes
-        self.configureStyle(top)
+    def __init__(self, root = None):
+        self.root = root
+        WS.enterSplashscreen(root)
 
+        # region configure widgets
 
+        # configure style maps / themes
+        self.configureStyle(root)
 
         ''' TAB 1 - DATA (Tabs_t2) '''
         self.INPUT = self.configureDataTabElements(self.Tabs_t2)
@@ -117,20 +120,21 @@ class OOTO_Miner:
         ''' TAB 2 - AM (Tabs_t3) '''
         self.MM = self.configureManualMiningTab(self.Tabs_t3)
 
-        # ''' TAB 2.2 TEST CONSOLE - (Tabs_t3)'''
-        # self.configureTestTabConsoleElements()
-
         ''' TAB 3 - AM (Tabs_t5) '''
-        self.AM = self.configureAutomatedMiningTab(self.Tabs_t5)
+        self.AM = self.configureAutomatedMiningTab(self.Tabs_t5, root)
 
         ''' TAB 4 - INFO (Tabs_t4) '''
         self.configureInfoTabElements()
 
         # create a draggable label
-        self.configureGrip(top)
-        # create frame borders
-        self.configureBorders(top)
+        self.configureGrip(root)
 
+        # create frame borders
+        self.configureBorders(root)
+
+        # endregion configure widgets
+
+        WS.exitSplashscreen(root)
 
 
         # Bind functionality to all UI elements
@@ -152,7 +156,8 @@ class OOTO_Miner:
         borderWidth = parentFrame.winfo_width()
         borderHeight = parentFrame.winfo_height()
         borderColor = CS.D_GRAY
-        FS.emborder(parentFrame, 0, 0, borderWidth, borderHeight,
+        WS.emborder(parentFrame,
+                    [0, 0, borderWidth, borderHeight],
                     [True, True, True, True],
                     [borderColor, borderColor, borderColor, borderColor])
 
@@ -181,7 +186,7 @@ class OOTO_Miner:
         # remove title bar
         top.overrideredirect(True)
         # show window in taskbar after titlebar is removed
-        top.after(10, lambda: FS.showInTaskBar(root))
+        top.after(10, lambda: WS.showInTaskBar(root))
 
         self.style = ttk.Style()
         if sys.platform == "win32":
@@ -200,7 +205,6 @@ class OOTO_Miner:
         top.geometry(strRootWidth + "x" + strRootHeight + "+" + str(newX) + "+" + str(newY))
         top.title("OOTO Miner")
 
-        # root.wm_attributes('-transparentcolor', root['bg'])
         # root.wm_attributes('-transparentcolor', 'black')
 
         # top.configure(background = _top_bgcolor)
@@ -315,8 +319,7 @@ class OOTO_Miner:
         )
 
     ''' --> Configure INFO ("INFO") TAB (3) <-- '''
-    def configureAutomatedMiningTab(self, parentFrame):
-        global root
+    def configureAutomatedMiningTab(self, parentFrame, root):
         self.Tabs.select(2)  # show the current tab to be able to retrieve height and
         automatedMining = AM.AutomatedMining(parentFrame, root)
         self.Tabs.select(0)  # return to first tab
@@ -338,11 +341,15 @@ class OOTO_Miner:
             relx = US.TAB_REL_X, rely = US.TAB_REL_Y,
             relwidth = US.TAB_REL_W, relheight = US.TAB_REL_H)
         self.infoTabParentFrame.configure(background = CS.TAB_BG_COLOR, foreground = CS.FG_COLOR)
-        # Create the left separator
-        self.infoTabLeftSeparator = ttk.Separator(self.infoTabParentFrame, orient = VERTICAL)
-        self.infoTabLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
         self.configureAboutElements()
+
+        # region emborder for tab
+        self.infoTabParentFrame.update()
+        WS.emborder(self.infoTabParentFrame,
+                    [0, 0, 1, FS.rootHeight],
+                    [False, False, False, True])
+        # endregion emborder for tab
 
         '''
         BINDING FOR INFO TAB
@@ -451,7 +458,7 @@ class OOTO_Miner:
         # Affiliation label
         self.labelAffiliation = Label(self.labelFrameAboutElements)
         self.labelAffiliation.place(
-            relx = prevLblRelX, rely = newRelY,
+            relx = prevLblRelX, rely = newRelY + 0.005,
             relwidth = prevLblRelW, relheight = prevLblRelH)
         self.labelAffiliation.configure(
             background = CS.ABOUT_LBL_BG, foreground = CS.ABOUT_LBL_FG,

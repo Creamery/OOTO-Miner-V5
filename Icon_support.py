@@ -63,6 +63,7 @@ TEXTURE_STRIPE_ORANGE = PATH+'\\_icons\\texture_stripe_orange.png'
 TEXTURE_STRIPE_PINK = PATH+'\\_icons\\texture_stripe_pink.png'
 TEXTURE_STRIPE_LIME = PATH+'\\_icons\\texture_stripe_lime.png'
 
+TEXTURE_BLACK = PATH+'\\_icons\\ico_black.png'
 
 CORNER_ROUND_NE = PATH+'\\_icons\\corner_curve_ne.png'
 CORNER_ROUND_NW = PATH+'\\_icons\\corner_curve_nw.png'

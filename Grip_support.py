@@ -16,6 +16,7 @@ import PIL.ImageTk
 import tkMessageBox
 
 import Function_support as FS
+import Widget_support as WS
 import Color_support as CS
 import UI_support as US
 import Icon_support as IS
@@ -26,6 +27,9 @@ class GripLabel:
     def __init__(self, parentFrame, hasPrompt = False):
         self.top = parentFrame
         self.hasPrompt = hasPrompt
+        self.hasOverlay = False
+        self.winOverlay = None
+        self.root = None
 
         parentWidth = parentFrame.winfo_width()
         parentHeight = parentFrame.winfo_height()
@@ -38,11 +42,24 @@ class GripLabel:
         self.grip = self.createGrip(parentFrame)
         self.btnClose = self.createGripButtons(self.grip)
 
-        FS.redraw(self.grip)
+        WS.redraw(self.grip)
         borderColor = CS.D_GRAY
-        FS.emborder(self.grip, 0, 0, self.grip.winfo_width(), self.grip.winfo_height(),
+        WS.emborder(self.grip,
+                    [0, 0, self.grip.winfo_width(), self.grip.winfo_height()],
                     [True, True, True, True],
                     [borderColor, borderColor, CS.L_GRAY, borderColor])
+
+
+    def assignOverlay(self, overlay, root):
+        self.hasOverlay = True
+        self.root = root
+        self.winOverlay = overlay
+        # self.winOverlay.lower(self.top)
+        # strDimensions = str(self.winOverlay.winfo_width()) + "x" + str(self.winOverlay.winfo_height())
+        # self.winOverlay.geometry(strDimensions + "0+0")
+
+    def unbindOverlay(self):
+        self.root.unbind('<Configure>')
 
     def createGrip(self, parentFrame):
 
@@ -82,8 +99,6 @@ class GripLabel:
         button.configure(image = icoClose)
         button.image = icoClose  # < ! > Required to make images appear
 
-
-
         # button.bind("<ButtonRelease-1>", self.onTopClose)
         button.bind("<Button-1>", lambda event: self.onTopClose())
         return button
@@ -91,12 +106,20 @@ class GripLabel:
     def onTopClose(self):
         if self.hasPrompt:
             if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
+                self.destroyOverlay()
                 self.top.destroy()
                 self.top = None
             return "break"
         else:
+            self.destroyOverlay()
             self.top.destroy()
             self.top = None
+
+    def destroyOverlay(self):
+        if self.hasOverlay:
+            self.unbindOverlay()
+            self.winOverlay.destroy()
+            self.winOverlay = None
 
     """ Functions for draggable window """
     def startWinMove(self, event):
