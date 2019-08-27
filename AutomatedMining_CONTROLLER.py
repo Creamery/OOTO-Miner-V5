@@ -81,7 +81,7 @@ class AutomatedMining_Controller:
         button.bind('<Button-1>', self.queryFeatureID)
 
         listbox = self.view.getLbListFeatureSelect()
-        listbox.bind('<<ListboxSelect>>', self.selectFeature)
+        listbox.bind('<<ListboxSelect>>', self.selectFeatureEvent)
 
         # TODO Entry Change
 
@@ -106,16 +106,25 @@ class AutomatedMining_Controller:
 
         self.view.updateLbListFeatureSelect(queryFeatureList)
 
-    def selectFeature(self, event):
-        listbox = event.widget
-        selectedIndices = listbox.curselection()
+        # update model with listbox contents
+        listbox = self.view.getLbListFeatureSelect()
+        self.selectFeature(listbox)
 
+    def selectFeatureEvent(self, event):
+        listbox = event.widget
+        self.selectFeature(listbox)
+
+    def selectFeature(self, listbox):
+        selectedIndices = listbox.curselection()
+        print "selected indices"
+        print str(selectedIndices)
         lastSelectedIndex = self.model.viewModel.updateSelectedFeatures(listbox, selectedIndices)
         # lastSelectedIndex = listbox.get(lastSelectedIndex)
 
         response = self.model.updateSelectedFeatureResponse(lastSelectedIndex)
+        print "response"
+        print str(response)
         self.view.updateLbListFeatureDetails(response)
-
 
     def readFeatures(self, variableDescription, itemMarker):
         features = FS.readFeatures(variableDescription, itemMarker)

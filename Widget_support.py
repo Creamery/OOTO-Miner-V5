@@ -24,6 +24,7 @@ import UI_support as US
 import Icon_support as IS
 import Function_support as FS
 
+from collections import OrderedDict
 
 
 GWL_EXSTYLE = -20
@@ -411,3 +412,13 @@ def exitSplashscreen(root):
 
 # endregion utility functions
 
+""" ALTERED CLASSES """
+# region altered class functions
+# return an alphabetically sorted ordered dictionary
+def AlphabeticalDict(dictionary):
+    if isinstance(dictionary, list):
+        dictionary = dict(dictionary)
+
+    return OrderedDict(sorted(dictionary.items()))
+
+# endregion altered class functions

@@ -1,115 +1,120 @@
-Contents of 'features' (ChiTest parameter)
+
+________________________________________________
+# contents of 'features' (ChiTest parameter)
 features = 
-[
-	{
-		'Code': 'b1',
-		'Description': 'Gender',
-		'Responses':
-			[
-				{
-					'Code': '1',
-					'Group': 'a',
-					'Description': ' Male'
-				},
-				{
-					'Code': '2',
-					'Group': 'b',
-					'Description': ' Female'
-				}
-			]
-	},
+	[
+		{
+			'Code': 'b1',
+			'Description': 'Gender',
+			'Responses':
+				[
+					{
+						'Code': '1',
+						'Group': 'a',
+						'Description': ' Male'
+					},
+					{
+						'Code': '2',
+						'Group': 'b',
+						'Description': ' Female'
+					}
+				]
+		},
 
-	{
-		'Code': 'b2',
-		'Description': 'Age',
-		'Responses':
-			[
-				{
-					'Code': '9',
-					'Group': 'a',
-					'Description': ' 9-11'
-				},
+		{
+			'Code': 'b2',
+			'Description': 'Age',
+			'Responses':
+				[
+					{
+						'Code': '9',
+						'Group': 'a',
+						'Description': ' 9-11'
+					},
 
-				{
-					'Code': '10',
-					'Group': 'a',
-					'Description': ' 9-11'
-				},
+					{
+						'Code': '10',
+						'Group': 'a',
+						'Description': ' 9-11'
+					},
 
-				{
-					'Code': '11',
-					'Group': 'a',
-					'Description': ' 9-11'
-				},
+					{
+						'Code': '11',
+						'Group': 'a',
+						'Description': ' 9-11'
+					},
 
-				{
-					'Code': '12',
-					'Group': 'b',
-					'Description': ' 12-14'
-				},
+					{
+						'Code': '12',
+						'Group': 'b',
+						'Description': ' 12-14'
+					},
 
-				{
-					'Code': '13',
-					'Group': 'b',
-					'Description': ' 12-14'
-				},
+					{
+						'Code': '13',
+						'Group': 'b',
+						'Description': ' 12-14'
+					},
 
-				{
-					'Code': '14',
-					'Group': 'b',
-					'Description': ' 12-14'
-				},
+					{
+						'Code': '14',
+						'Group': 'b',
+						'Description': ' 12-14'
+					},
 
-				{
-					'Code': '15',
-					'Group': 'c',
-					'Description': ' 15-17'
-				},
+					{
+						'Code': '15',
+						'Group': 'c',
+						'Description': ' 15-17'
+					},
 
-				{
-					'Code': '16',
-					'Group': 'c',
-					'Description': ' 15-17'
-				},
+					{
+						'Code': '16',
+						'Group': 'c',
+						'Description': ' 15-17'
+					},
 
-				{
-					'Code': '17',
-					'Group': 'c',
-					'Description': ' 15-17'
-				}
-			]
-	},
+					{
+						'Code': '17',
+						'Group': 'c',
+						'Description': ' 15-17'
+					}
+				]
+		},
 
-	{
-		'Code': 'b3',
-		'Description': 'Age Group',
-		'Responses':
-			[
-				{
-					'Code': '1',
-					'Group': 'a',
-					'Description': ' 9-11'
-				},
+		{
+			'Code': 'b3',
+			'Description': 'Age Group',
+			'Responses':
+				[
+					{
+						'Code': '1',
+						'Group': 'a',
+						'Description': ' 9-11'
+					},
 
-				{
-					'Code': '2',
-					'Group': 'b',
-					'Description': ' 12-14'
-				},
-				
-				{
-					'Code': '3',
-					'Group': 'c',
-					'Description': ' 15-17'
-				}
-			]
-	},
+					{
+						'Code': '2',
+						'Group': 'b',
+						'Description': ' 12-14'
+					},
+					
+					{
+						'Code': '3',
+						'Group': 'c',
+						'Description': ' 15-17'
+					}
+				]
+		},
 
-	{<...>}
-]
+		{<...>}
+	]
+
+________________________________________________
 
 tests = [test, test, <...>]
 
+________________________________________________
 
 test = 
 	[
@@ -211,6 +216,8 @@ test =
 		}
 	]
 
+________________________________________________
+
 test['Datasets'][0] = 
 	{
 		'Filter Features':
@@ -271,6 +278,34 @@ test['Datasets'][0] =
 			}
 	}
 
+________________________________________________
 
-
-
+# contents of confirmedFeatures from AutomatedMiningModel
+confirmedFeatures = 
+	[
+		('b2',
+			{
+				'Description': 'Age',
+				'Responses':
+					OrderedDict(
+						[
+							('a', OrderedDict([('Code', ['9', '10', '11']), ('Description', [' 9-11', ' 9-11', ' 9-11'])])),
+							('b', OrderedDict([('Code', ['12', '13', '14']), ('Description', [' 12-14', ' 12-14', ' 12-14'])])),
+							('c', OrderedDict([('Code', ['15', '16', '17']), ('Description', [' 15-17', ' 15-17', ' 15-17'])]))
+						]
+					)
+			}
+		), 
+		('b4',
+			{
+				'Description': 'Socio-Economic Status',
+				'Responses':
+					OrderedDict(
+						[
+							('a', OrderedDict([('Code', ['1']), ('Description', ['Low income'])])),
+							('b', OrderedDict([('Code', ['2', '3']), ('Description', ['Middle income', 'High income'])]))
+						]
+					)
+			}
+		)
+	]

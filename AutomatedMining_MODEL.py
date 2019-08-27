@@ -17,6 +17,7 @@ from collections import OrderedDict
 import copy
 import Function_support as FS
 import Keys_support as KS
+import Widget_support as WS
 import _MODULE_SystematicFiltering as SF
 
 class ViewModel:
@@ -89,6 +90,7 @@ class ViewModel:
 
         # w = event.widget
         if self.getPrevSelectedFeatures():  # if not empty
+            print "getPrevSelectedFeatures not empty"
             # compare last selectionlist with new list and extract the difference
             changedSelection = set(self.getPrevSelectedFeatures()).symmetric_difference(set(newSelectedFeatureIndices))
             self.setPrevSelectedFeatures(newSelectedFeatureIndices)
@@ -97,9 +99,14 @@ class ViewModel:
             self.setPrevSelectedFeatures(newSelectedFeatureIndices)
             changedSelection = newSelectedFeatureIndices
 
+        print "changedSelection = "
+        print str(changedSelection)
         if len(changedSelection) > 0:
             index = int(list(changedSelection)[0])
-            lastSelectedIndex = listbox.get(index)
+            if index in listbox.curselection():
+                lastSelectedIndex = listbox.get(index)
+            else:
+                lastSelectedIndex = -1
         else:
             lastSelectedIndex = -1
         print('ls '+ str(lastSelectedIndex))
@@ -137,12 +144,11 @@ class AutomatedMining_Model:
             dictResponses = self.__parseResponses(responses)
 
 
-            featureDescription = {}
-            featureDescription[KS.DESCRIPTION] = description
-            featureDescription[KS.RESPONSES] = dictResponses
-
+            featureDescription = {KS.DESCRIPTION: description, KS.RESPONSES: dictResponses}
             self.getFeatureDescription()[code] = featureDescription
 
+        # formally set feature description to sort alphabetically
+        self.__setFeatureDescription(self.getFeatureDescription())
     """
     Change the format of responses to a dictionary of the form :
     { 'a': { 'Code': [], 'Description': [] } }
@@ -161,7 +167,7 @@ class AutomatedMining_Model:
                 entry[KS.CODE].append(code)
                 entry[KS.DESCRIPTION].append(description)
 
-        dictResponses = OrderedDict(sorted(dictResponses.items()))  # sort keys alphabetically
+        dictResponses = WS.AlphabeticalDict(dictResponses)  # sort keys alphabetically
         return dictResponses
 
 
@@ -170,7 +176,7 @@ class AutomatedMining_Model:
 
         # Append SAMPLES
         for record in dataset:
-            orderedRecord = OrderedDict(sorted(record.items()))  # sort keys alphabetically
+            orderedRecord = WS.AlphabeticalDict(record)  # sort sample's answers (keys) alphabetically
             self.getPopulationDataset()[KS.SAMPLES].append(orderedRecord)
             self.getDatasetA()[KS.SAMPLES].append(orderedRecord)
             self.getDatasetB()[KS.SAMPLES].append(orderedRecord)
@@ -214,16 +220,16 @@ class AutomatedMining_Model:
 
         queryStringKeys = []
         for featureKey in featureList.keys():
-            print(str(featureKey) + " vs " + queryString)
-            print("find returns : " + str(str(featureKey).find(queryString)))
-            if str(featureKey).find(queryString) > -1: # if key contains string
+            # print(str(featureKey) + " vs " + queryString)
+            # print("find returns : " + str(str(featureKey).find(queryString)))
+            if str(featureKey).find(queryString) > -1:  # if key contains string
                 queryStringKeys.append(featureKey)
 
 
         # queryFeatureList = [featureList[x] for x in queryStringKeys]
         queryFeatureList = {key: value for key, value in featureList.items() if key in queryStringKeys}
-        queryFeatureList = OrderedDict(sorted(queryFeatureList.items()))
-        print(str(queryFeatureList))
+        queryFeatureList = WS.AlphabeticalDict(queryFeatureList)
+
         return queryFeatureList
 
     def __getFeatureResponses(self, featureID):
@@ -243,7 +249,10 @@ class AutomatedMining_Model:
     def confirmFeatureSelect(self):
         print "confirmFeatureSelect"
         selectedFeatureIndices = self.viewModel.getSelectedFeatureIndices()
-        confirmedFeatures = self.getFeatureDescription() # TODO use indices
+        print "indices"
+        print str(selectedFeatureIndices)
+        confirmedFeatures = [self.getFeatureDescription().items()[index] for index in selectedFeatureIndices]
+        confirmedFeatures = WS.AlphabeticalDict(confirmedFeatures)
 
         # update viewModel's confirmed features with the currently selected features
         self.viewModel.setConfirmedFeatures(confirmedFeatures)
@@ -317,7 +326,8 @@ class AutomatedMining_Model:
 
     """SETTERS"""
     def __setFeatureDescription(self, value):
-        self.__featureDescription = OrderedDict(value)
+        # sort alphabetically before setting feature description
+        self.__featureDescription = WS.AlphabeticalDict(value)
 
     def __setFeatureDescriptionRaw(self, value):
         self.__featureDescriptionRaw = value
@@ -335,10 +345,12 @@ class AutomatedMining_Model:
     def updateSelectedFeatureResponse(self, selectedItem):
         featureID = self.extractFeatureID(selectedItem)
         response = {}
+
         print "featureID is " + str(featureID)
         if not (featureID == '-1'):
             response = self.getFeatureDescription()[featureID][KS.RESPONSES]
-            self.viewModel.setCurrentResponse(response)
+
+        self.viewModel.setCurrentResponse(response)
 
         return response
 
@@ -346,4 +358,5 @@ class AutomatedMining_Model:
         featureId = str(selectedItem).strip()[0:2]
         print str(featureId)
         return featureId
+
 

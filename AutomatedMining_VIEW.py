@@ -1376,8 +1376,8 @@ class AutomatedMining_View:
 
     # region confirmed features updaters
     def updateLbListConfirmedFeatures(self, dictContents):
-        print "dictContents is "
-        print str(dictContents)
+        # print "dictContents is "
+        # print str(dictContents)
         if len(dictContents) > 0:
             self.getLbListConfirmedFeatures().delete(0, END)
 
