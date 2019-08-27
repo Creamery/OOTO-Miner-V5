@@ -16,76 +16,105 @@ except ImportError:
 from collections import OrderedDict
 import copy
 import Function_support as FS
-import KEYS_support as key
-from CrossProcessThread import CrossProcessThread
+import Keys_support as KS
+import Widget_support as WS
+import _MODULE_SystematicFiltering as SF
 
 class ViewModel:
 
     def __init__(self):
-        self.setQueryFeatureList('')
-        self.setCurrentResponse({})
-        self.setSelectedFeatures([])
-        self.setPrevSelectedFeatures([])
+        # feature select
+        self.__currentQueryFeatureList = ''
+        self.__currentResponse = {}
+        self.__selectedFeatureIndices = []
+        self.__prevSelectedFeatures = []
+
+        # confirmed feature select
+        self.__confirmedFeatures = []
+        self.__confirmedCurrentResponse = {}
 
     """FUNCTIONS"""
     def resetFeature(self):
         self.setQueryFeatureList('')
-        self.setSelectedFeatures([])
+        self.setSelectedFeatureIndices([])
 
     """GETTERS"""
+    # region feature select getters
     def getCurrentFeature(self):
         return self.__currentQueryFeatureList
 
     def getCurrentResponse(self):
         return self.__currentResponse
 
-    def getSelectedFeatures(self):
-        return self.__selectedFeatures
+    def getSelectedFeatureIndices(self):
+        return self.__selectedFeatureIndices
 
     def getPrevSelectedFeatures(self):
         return self.__prevSelectedFeatures
+    # endregion feature select getters
+    # region confirmed features getters
+    def getConfirmedFeatures(self):
+        return self.__confirmedFeatures
+
+    def getConfirmedCurrentResponse(self):
+        return self.__confirmedCurrentResponse
+    # endregion confirmed feature getters
 
     """SETTERS"""
+    # region feature select setters
     def setQueryFeatureList(self, value):
         self.__currentQueryFeatureList = value
 
     def setCurrentResponse(self, value):
         self.__currentResponse = value
 
-    def setSelectedFeatures(self, value):
-        self.__selectedFeatures = value
+    def setSelectedFeatureIndices(self, value):
+        self.__selectedFeatureIndices = value
 
     def setPrevSelectedFeatures(self, value):
         self.__prevSelectedFeatures = value
+    # endregion feature select setters
+    # region confirmed features setters
+    def setConfirmedFeatures(self, value):
+        self.__confirmedFeatures = value
+
+    def setConfirmedCurrentResponse(self, value):
+        self.__confirmedCurrentResponse = value
+    # endregion confirmed features setters
 
     """UPDATERS"""
-
-    def updateSelectedFeatures(self, listbox, newSelectedFeatures):
+    # region feature select updaters
+    def updateSelectedFeatures(self, listbox, newSelectedFeatureIndices):
         self.updatePrevSelectedFeatures()
-        self.setSelectedFeatures(newSelectedFeatures)
+        self.setSelectedFeatureIndices(newSelectedFeatureIndices)
 
-        # w = evt.widget
+        # w = event.widget
         if self.getPrevSelectedFeatures():  # if not empty
+            print "getPrevSelectedFeatures not empty"
             # compare last selectionlist with new list and extract the difference
-            changedSelection = set(self.getPrevSelectedFeatures()).symmetric_difference(set(newSelectedFeatures))
-            self.setPrevSelectedFeatures(newSelectedFeatures)
+            changedSelection = set(self.getPrevSelectedFeatures()).symmetric_difference(set(newSelectedFeatureIndices))
+            self.setPrevSelectedFeatures(newSelectedFeatureIndices)
         else:
             # if empty, assign current selection
-            self.setPrevSelectedFeatures(newSelectedFeatures)
-            changedSelection = newSelectedFeatures
+            self.setPrevSelectedFeatures(newSelectedFeatureIndices)
+            changedSelection = newSelectedFeatureIndices
 
+        print "changedSelection = "
+        print str(changedSelection)
         if len(changedSelection) > 0:
             index = int(list(changedSelection)[0])
-            lastSelectedIndex = listbox.get(index)
+            if index in listbox.curselection():
+                lastSelectedIndex = listbox.get(index)
+            else:
+                lastSelectedIndex = -1
         else:
             lastSelectedIndex = -1
         print('ls '+ str(lastSelectedIndex))
         return lastSelectedIndex
 
-
     def updatePrevSelectedFeatures(self):
-        self.__prevSelectedFeatures = self.getSelectedFeatures()
-
+        self.__prevSelectedFeatures = self.getSelectedFeatureIndices()
+    # endregion feature select updaters
 
 
 
@@ -98,6 +127,8 @@ class AutomatedMining_Model:
         self.winProgressBar = None
         self.pbProgressBar = None
 
+        self.__systematicFiltering = None
+
         self.__resetFeatureDescription()
         self.__resetDatasets()
 
@@ -105,39 +136,38 @@ class AutomatedMining_Model:
 
     def readFeatures(self, features):
         self.__resetFeatureDescription()
-
+        self.__setFeatureDescriptionRaw(features)
         for feature in features:
-            code = feature[key.CODE]
-            description = feature[key.DESCRIPTION]
-            responses = feature[key.RESPONSES]
-            dictResponses = self.parseResponses(responses)
+            code = feature[KS.CODE]
+            description = feature[KS.DESCRIPTION]
+            responses = feature[KS.RESPONSES]
+            dictResponses = self.__parseResponses(responses)
 
 
-            featureDescription = {}
-            featureDescription[key.DESCRIPTION] = description
-            featureDescription[key.RESPONSES] = dictResponses
-
+            featureDescription = {KS.DESCRIPTION: description, KS.RESPONSES: dictResponses}
             self.getFeatureDescription()[code] = featureDescription
 
+        # formally set feature description to sort alphabetically
+        self.__setFeatureDescription(self.getFeatureDescription())
     """
     Change the format of responses to a dictionary of the form :
     { 'a': { 'Code': [], 'Description': [] } }
     """
-    def parseResponses(self, responses):
+    def __parseResponses(self, responses):
         dictResponses = {}
 
         for response in responses:
-            group = response[key.GROUP]
+            group = response[KS.GROUP]
             if not(str(group).strip() == '-1'):
-                code = response[key.CODE]
-                description = response[key.DESCRIPTION]
+                code = response[KS.CODE]
+                description = response[KS.DESCRIPTION]
 
 
-                entry = dictResponses.setdefault(group, OrderedDict({key.CODE: [], key.DESCRIPTION: []}))
-                entry[key.CODE].append(code)
-                entry[key.DESCRIPTION].append(description)
+                entry = dictResponses.setdefault(group, OrderedDict({KS.CODE: [], KS.DESCRIPTION: []}))
+                entry[KS.CODE].append(code)
+                entry[KS.DESCRIPTION].append(description)
 
-        dictResponses = OrderedDict(sorted(dictResponses.items()))  # sort keys alphabetically
+        dictResponses = WS.AlphabeticalDict(dictResponses)  # sort keys alphabetically
         return dictResponses
 
 
@@ -146,27 +176,32 @@ class AutomatedMining_Model:
 
         # Append SAMPLES
         for record in dataset:
-            orderedRecord = OrderedDict(sorted(record.items()))  # sort keys alphabetically
-            self.getPopulationDataset()[key.SAMPLES].append(orderedRecord)
-            self.getDatasetA()[key.SAMPLES].append(orderedRecord)
-            self.getDatasetB()[key.SAMPLES].append(orderedRecord)
+            orderedRecord = WS.AlphabeticalDict(record)  # sort sample's answers (keys) alphabetically
+            self.getPopulationDataset()[KS.SAMPLES].append(orderedRecord)
+            self.getDatasetA()[KS.SAMPLES].append(orderedRecord)
+            self.getDatasetB()[KS.SAMPLES].append(orderedRecord)
 
         # Set FEATURE_LIST
-        self.getPopulationDataset()[key.FEATURE_LIST] = self.getFeatureDescription()
-        self.getDatasetA()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
-        self.getDatasetB()[key.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+        self.getPopulationDataset()[KS.FEATURE_LIST] = self.getFeatureDescription()
+        self.getDatasetA()[KS.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+        self.getDatasetB()[KS.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+        print "getPopulationDataset[key.FEATURE_LIST]"
+        print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b1'])
+        print ""
+        print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b4'])
         print "getPopulationDataset[key.SAMPLES]"
-        # print str(type(self.getPopulationDataset()[key.SAMPLES][0]))
-        # print str(self.getPopulationDataset()[key.SAMPLES])
+        print str(self.getPopulationDataset()[KS.SAMPLES][0:3])
+        # print str(self.getPopulationDataset()[KS.SAMPLES])
 
 
     def __resetFeatureDescription(self):
         self.__setFeatureDescription({})
+        self.__setFeatureDescriptionRaw({})
 
     def __resetDatasets(self):
-        self.__setPopulationDataset({key.SAMPLES: [], key.FEATURE_LIST: {}})
-        self.__setDatasetA({key.SAMPLES: [], key.FEATURE_LIST: {}})
-        self.__setDatasetB({key.SAMPLES: [], key.FEATURE_LIST: {}})
+        self.__setPopulationDataset({KS.SAMPLES: [], KS.FEATURE_LIST: {}})
+        self.__setDatasetA({KS.SAMPLES: [], KS.FEATURE_LIST: {}})
+        self.__setDatasetB({KS.SAMPLES: [], KS.FEATURE_LIST: {}})
 
         # self.tests = []
         # self.datasetCountA = len(self.datasetA['Data'])
@@ -185,16 +220,16 @@ class AutomatedMining_Model:
 
         queryStringKeys = []
         for featureKey in featureList.keys():
-            print(str(featureKey) + " vs " + queryString)
-            print("find returns : " + str(str(featureKey).find(queryString)))
-            if str(featureKey).find(queryString) > -1: # if key contains string
+            # print(str(featureKey) + " vs " + queryString)
+            # print("find returns : " + str(str(featureKey).find(queryString)))
+            if str(featureKey).find(queryString) > -1:  # if key contains string
                 queryStringKeys.append(featureKey)
 
 
         # queryFeatureList = [featureList[x] for x in queryStringKeys]
         queryFeatureList = {key: value for key, value in featureList.items() if key in queryStringKeys}
-        queryFeatureList = OrderedDict(sorted(queryFeatureList.items()))
-        print(str(queryFeatureList))
+        queryFeatureList = WS.AlphabeticalDict(queryFeatureList)
+
         return queryFeatureList
 
     def __getFeatureResponses(self, featureID):
@@ -202,25 +237,40 @@ class AutomatedMining_Model:
         hasKey = FS.checkKey(featureList, featureID)
 
         if hasKey:
-            response = featureList[featureID][key.RESPONSES]
+            response = featureList[featureID][KS.RESPONSES]
             print "Key found"
         else:
-            responses = {}
+            response= {}
 
-        self.setCurrentResponse(response)
+        self.viewModel.setCurrentResponse(response)
         return response
 
     """BUTTON FUNCTIONS"""
-    def confirmFeatureSelect(self, evt):
+    def confirmFeatureSelect(self):
         print "confirmFeatureSelect"
-        # self.startThread(evt)  # TODO
-        return "break"
+        selectedFeatureIndices = self.viewModel.getSelectedFeatureIndices()
+        print "indices"
+        print str(selectedFeatureIndices)
+        confirmedFeatures = [self.getFeatureDescription().items()[index] for index in selectedFeatureIndices]
+        confirmedFeatures = WS.AlphabeticalDict(confirmedFeatures)
 
-    def confirmConfirmedFeatures(self, evt):
+        # update viewModel's confirmed features with the currently selected features
+        self.viewModel.setConfirmedFeatures(confirmedFeatures)
+
+        return self.viewModel.getConfirmedFeatures()
+
+    def confirmConfirmedFeatures(self, root):
         print "confirmConfirmedFeatures"
+        self.runSystematicFiltering(root)
+        # self.startThread(event)  # TODO
         return "break"
 
-    def resetFeatureSelect(self, evt):
+    def runSystematicFiltering(self, root):
+        self.__systematicFiltering = SF.SystematicFiltering(root,
+                                                            self.getPopulationDataset(),
+                                                            self.getFeatureDescriptionRaw())
+
+    def resetFeatureSelect(self, event):
         print "resetFeatureSelect"
         return "break"
 
@@ -249,8 +299,13 @@ class AutomatedMining_Model:
         return response
 
     """GETTERS"""
+    # returns the formatted feature description used for UI data retrieval
     def getFeatureDescription(self):
         return self.__featureDescription
+
+    # returns the raw feature description, as directly read from the CSV
+    def getFeatureDescriptionRaw(self):
+        return self.__featureDescriptionRaw
 
     def getPopulationDataset(self):
         return self.__populationDataset
@@ -271,7 +326,11 @@ class AutomatedMining_Model:
 
     """SETTERS"""
     def __setFeatureDescription(self, value):
-        self.__featureDescription = OrderedDict(value)
+        # sort alphabetically before setting feature description
+        self.__featureDescription = WS.AlphabeticalDict(value)
+
+    def __setFeatureDescriptionRaw(self, value):
+        self.__featureDescriptionRaw = value
 
     def __setPopulationDataset(self, value):
         self.__populationDataset = OrderedDict(value)
@@ -286,10 +345,12 @@ class AutomatedMining_Model:
     def updateSelectedFeatureResponse(self, selectedItem):
         featureID = self.extractFeatureID(selectedItem)
         response = {}
+
         print "featureID is " + str(featureID)
         if not (featureID == '-1'):
-            response = self.getFeatureDescription()[featureID][key.RESPONSES]
-            self.viewModel.setCurrentResponse(response)
+            response = self.getFeatureDescription()[featureID][KS.RESPONSES]
+
+        self.viewModel.setCurrentResponse(response)
 
         return response
 
@@ -299,39 +360,3 @@ class AutomatedMining_Model:
         return featureId
 
 
-    # THREADING TEST FUNCTIONS
-    def startThread(self, evt):
-        if not self.isProcessing:
-            self.isProcessing = True
-            if not (self.winProgressBar is None):
-                self.onProgressBarClose()
-
-            self.winProgressBar = Toplevel()  # Tk() TODO add parent
-            self.winProgressBar.protocol("WM_DELETE_WINDOW", self.onProgressBarClose)
-            self.varProgressBar = 0
-            [self.pbProgressBar, self.lblProgressBar] = self.initProgressBar(self.winProgressBar)
-
-            crossProcess = CrossProcessThread(self.winProgressBar, self.pbProgressBar,
-                                              self.lblProgressBar, self.varProgressBar)
-            crossProcess.start()
-        else:
-            print ("isProcessing")
-
-    def initProgressBar(self, parentFrame):
-        progBar = ttk.Progressbar(
-            parentFrame, orient = "horizontal",
-            length = 300, variable = self.varProgressBar)
-
-        progBar.pack(side = TOP)
-        progText = Label(progBar)
-        progText.place(relx = 0, rely = 0, relh = 1)
-        return progBar, progText
-
-    def onProgressBarClose(self):
-        # if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
-        #     self.winProgressBar.destroy()
-        #     self.winProgressBar = None
-        #     self.isProcessing = False
-        self.winProgressBar.destroy()
-        self.winProgressBar = None
-        self.isProcessing = False

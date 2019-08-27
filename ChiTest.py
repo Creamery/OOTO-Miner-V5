@@ -563,25 +563,26 @@ class ChiTest:
 
     def chiTest(self, datasetPaths):
         reload(sys)
-        sys.setdefaultencoding('utf8')
+        # sys.setdefaultencoding('utf8')
+        # sys.stdin.encoding = 'utf8'
 
         # change to ur own.
         vList = self.getVariableList('Updated-Variables.csv',
                                 '^')  # Get Variable Description # TODO This should always match the output in OOTO.py
         header = self.readHeader(datasetPaths[0])  # Read the header from one of the datasets which include the question codes
-        print("ex_header: " + str(header))
+        # print("ex_header: " + str(header))
         results = []
         converter = ColConverter(header)
 
         # print header
         clusternames = datasetPaths  # Read the filepaths of the datasets
-        print ("CLUSTER NAMES: " + str(clusternames))
+        # print ("CLUSTER NAMES: " + str(clusternames))
 
         clusters = []  # clusters contains all of the respondents and their answer in per dataset
 
         # For each data set
         for clustername in clusternames:
-            print ("~CLUSTER NAME: " + str(clustername))
+            # print ("~CLUSTER NAME: " + str(clustername))
             clusterRow = self.readCSV(clustername)  # Get all of the respondent's IDs and answers in the dataset
             # print clusterRow
             clusters.append(clusterRow)  # Add to the clusters
@@ -626,21 +627,21 @@ class ChiTest:
 
             for i in range(0, len(header)):  # Iterate over each question
                 if header[i] not in vList.keys():  # If the question code is not found in Variable Description
-                    print "Warning " + header[
-                        i] + " " + " question name not in Variable description will be assigned to null"
+                    # print "Warning " + header[
+                    #     i] + " " + " question name not in Variable description will be assigned to null"
                     H = "null"
                 else:
                     H = vList[header[i]][0]  # H is the question itself
-                print "col " + str(i) + " " + header[i]
+                # print "col " + str(i) + " " + header[i]
 
                 # TODO check if 3-choice values are correct ( a and c seem reversed )
                 theTable = self.getTable(i, clusters, vList, header[i])  # Generates a table matrix for all datasets to do the chi-test for the question
 
-                print "~Table 0 (pre-doFile)"
-                print theTable.rows
+                # print "~Table 0 (pre-doFile)"
+                # print theTable.rows
 
-                print "~Table 0 (pre-doFile) HEADERS",
-                print header
+                # print "~Table 0 (pre-doFile) HEADERS",
+                # print header
                 self.doFile(theTable, i, results, converter, z[y], H)  # Chi test on the question and then writing it in the file
 
                 # Remove the column with -1 in the table.
@@ -649,8 +650,8 @@ class ChiTest:
                     for row in theTable.rows:  # Delete the entire -1 column.
                         del row[position]
 
-                print "~Table 1",
-                print theTable.rows
+                # print "~Table 1",
+                # print theTable.rows
 
                 theTable.getPrintable(tableList)
 
