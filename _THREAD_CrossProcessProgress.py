@@ -23,7 +23,7 @@ class CrossProcessProgressThread(threading.Thread):
             self.progress = 0
 
             # while not self.progressible.isComplete():
-
+            # TODO
             self.prepareData(tests)
 
 
