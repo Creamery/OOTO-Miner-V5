@@ -24,13 +24,13 @@ class ViewModel:
 
     def __init__(self):
         # feature select
-        self.__currentQueryFeatureList = ''
+        self.__currentQueryFeatureList = {}
         self.__currentResponse = {}
         self.__selectedFeatureIndices = []
         self.__prevSelectedFeatures = []
 
         # confirmed feature select
-        self.__confirmedFeatures = []
+        self.__confirmedFeatures = {}
         self.__confirmedCurrentResponse = {}
 
     """FUNCTIONS"""
@@ -40,7 +40,7 @@ class ViewModel:
 
     """GETTERS"""
     # region feature select getters
-    def getCurrentFeature(self):
+    def getCurrentQueryFeatureList(self):
         return self.__currentQueryFeatureList
 
     def getCurrentResponse(self):
@@ -52,6 +52,7 @@ class ViewModel:
     def getPrevSelectedFeatures(self):
         return self.__prevSelectedFeatures
     # endregion feature select getters
+
     # region confirmed features getters
     def getConfirmedFeatures(self):
         return self.__confirmedFeatures
@@ -249,13 +250,19 @@ class AutomatedMining_Model:
     def confirmFeatureSelect(self):
         print "confirmFeatureSelect"
         selectedFeatureIndices = self.viewModel.getSelectedFeatureIndices()
-        print "indices"
-        print str(selectedFeatureIndices)
-        confirmedFeatures = [self.getFeatureDescription().items()[index] for index in selectedFeatureIndices]
+        # print "getLbListFeatureSelect"
+        # print str(self.viewModel.getCurrentQueryFeatureList())
+
+
+        # confirmedFeatures = [self.getFeatureDescription().items()[index] for index in selectedFeatureIndices]
+        confirmedFeatures = [self.viewModel.getCurrentQueryFeatureList().items()[index] for index in selectedFeatureIndices]
         confirmedFeatures = WS.AlphabeticalDict(confirmedFeatures)
 
+        updatedFeatures = WS.MergedDict(self.viewModel.getConfirmedFeatures(), confirmedFeatures)
+
         # update viewModel's confirmed features with the currently selected features
-        self.viewModel.setConfirmedFeatures(confirmedFeatures)
+        # self.viewModel.setConfirmedFeatures(confirmedFeatures)
+        self.viewModel.setConfirmedFeatures(updatedFeatures)
 
         return self.viewModel.getConfirmedFeatures()
 
@@ -351,6 +358,18 @@ class AutomatedMining_Model:
             response = self.getFeatureDescription()[featureID][KS.RESPONSES]
 
         self.viewModel.setCurrentResponse(response)
+
+        return response
+
+    def updateConfirmedFeatureResponse(self, selectedItem):
+        featureID = self.extractFeatureID(selectedItem)
+        response = {}
+
+        print "featureID is " + str(featureID)
+        if not (featureID == '-1'):
+            response = self.getFeatureDescription()[featureID][KS.RESPONSES]
+
+        self.viewModel.setConfirmedCurrentResponse(response)
 
         return response
 

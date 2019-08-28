@@ -79,11 +79,11 @@ class AutomatedMining_View:
 
 
     def initializeProperties(self):
-        self.btnConfirmConfirmedFeatures = [None]
+        self.__btnConfirmConfirmedFeatures = [None]
         self.btnResetConfirmedFeatures = [None]
         self.btnQueryConfirmedFeatures = [None]
-        self.lbListConfirmedFeatures = [None]
-        self.lbListConfirmedDetails = [None]
+        self.__lbListConfirmedFeatures = [None]
+        self.__lbListConfirmedResponses = [None]
         self.lblCountConfirmedFeaturesText = [None]
         self.entryQueryConfirmedFeatures = [None]
         self.lblHeaderConfirmedFeatures = [None]
@@ -205,22 +205,22 @@ class AutomatedMining_View:
     """
     def getTrackedConfirmedFeaturesWidgets(self):
         trackedWidgets = {
-            repr(self.btnConfirmFeatureSelect): 0,
-            repr(self.btnResetFeatureSelect): 1,
-            repr(self.btnQueryFeatureList): 2,
-            repr(self.lbListFeatureSelect): 3,
-            repr(self.lbListFeatureDetails): 4,
+            repr(self.__btnConfirmFeatureSelect): 0,
+            repr(self.__btnResetFeatureSelect): 1,
+            repr(self.__btnQueryFeatureList): 2,
+            repr(self.__lbListFeatureSelect): 3,
+            repr(self.__lbListFeatureResponses): 4,
             repr(self.lblCountFeatureSelectText): 5,
-            repr(self.entryQueryFeatureList): 6,
+            repr(self.__entryQueryFeatureList): 6,
             repr(self.lblHeaderFeatureSelect): 7,
             repr(self.lblCountFeatureSelectTitle): 8
         }
         trackedVariableList = [
-            self.btnConfirmConfirmedFeatures,
+            self.__btnConfirmConfirmedFeatures,
             self.btnResetConfirmedFeatures,
             self.btnQueryConfirmedFeatures,
-            self.lbListConfirmedFeatures,
-            self.lbListConfirmedDetails,
+            self.__lbListConfirmedFeatures,
+            self.__lbListConfirmedResponses,
             self.lblCountConfirmedFeaturesText,
             self.entryQueryConfirmedFeatures,
             self.lblHeaderConfirmedFeatures,
@@ -233,11 +233,11 @@ class AutomatedMining_View:
     (Since the widgets are placed in a list in order to be updated).
     """
     def applyTrackedConfirmedFeaturesWidgets(self):
-        self.btnConfirmConfirmedFeatures = self.btnConfirmConfirmedFeatures[0]
+        self.__btnConfirmConfirmedFeatures = self.__btnConfirmConfirmedFeatures[0]
         self.btnResetConfirmedFeatures = self.btnResetConfirmedFeatures[0]
         self.btnQueryConfirmedFeatures = self.btnQueryConfirmedFeatures[0]
-        self.lbListConfirmedFeatures = self.lbListConfirmedFeatures[0]
-        self.lbListConfirmedDetails = self.lbListConfirmedDetails[0]
+        self.__lbListConfirmedFeatures = self.__lbListConfirmedFeatures[0]
+        self.__lbListConfirmedResponses = self.__lbListConfirmedResponses[0]
         self.lblCountConfirmedFeaturesText = self.lblCountConfirmedFeaturesText[0]
         self.entryQueryConfirmedFeatures = self.entryQueryConfirmedFeatures[0]
         self.lblHeaderConfirmedFeatures = self.lblHeaderConfirmedFeatures[0]
@@ -285,8 +285,8 @@ class AutomatedMining_View:
         self.lfListFeatureSelect.place(
             height = self.lfListFeatureSelect.winfo_height() + partialTopHeight)
 
-        self.lbListFeatureSelect.place(y = self.lbListFeatureSelect.winfo_y(),
-                                       height = self.lbListFeatureSelect.winfo_height() + partialTopHeight)
+        self.__lbListFeatureSelect.place(y = self.__lbListFeatureSelect.winfo_y(),
+                                         height = self.__lbListFeatureSelect.winfo_height() + partialTopHeight)
 
         self.lfCommandsFeatureSelect.place(y = self.lfCommandsFeatureSelect.winfo_y() + height)
 
@@ -295,9 +295,9 @@ class AutomatedMining_View:
 
         # region create lfListFeatureDetails
         WS.redraw(parentFrame)
-        self.lfListFeatureDetails, self.lbListFeatureDetails, self.lblHeaderFeatureDetails = self.createFeatureDetails(self.lfFeatureSelect,
-                                                                                         self.lfListFeatureSelect,
-                                                                                         partialBottomHeight)
+        self.lfListFeatureDetails, self.__lbListFeatureResponses, self.lblHeaderFeatureDetails = self.createFeatureDetails(self.lfFeatureSelect,
+                                                                                                                           self.lfListFeatureSelect,
+                                                                                                                           partialBottomHeight)
         WS.redraw(parentFrame)
         self.lfListFeatureSelect.place(
             y = self.lfListFeatureSelect.winfo_y(),
@@ -589,12 +589,12 @@ class AutomatedMining_View:
             lfBorderQueryFeatureList)
         # endregion init lblQueryFeatureList
 
-        self.entryQueryFeatureList = Entry(self.lfQueryFeatureSelect)  # TODO getter
+        self.__entryQueryFeatureList = Entry(self.lfQueryFeatureSelect)  # TODO getter
         # region init entryQueryFeatureList
-        self.entryQueryFeatureList.place(
+        self.__entryQueryFeatureList.place(
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
-        self.entryQueryFeatureList.configure(
+        self.__entryQueryFeatureList.configure(
             background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
@@ -603,25 +603,25 @@ class AutomatedMining_View:
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
         )  # TODO Constant font definiton
 
-        newRelX = FS.getRelX(self.entryQueryFeatureList) + FS.getRelW(
-            self.entryQueryFeatureList)  # + UI_support.TAB_3CHILD_LBL_REL_X
+        newRelX = FS.getRelX(self.__entryQueryFeatureList) + FS.getRelW(
+            self.__entryQueryFeatureList)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # endregion init entryQueryFeatureList
 
-        self.btnQueryFeatureList = Button(self.lfQueryFeatureSelect)  # TODO getter
+        self.__btnQueryFeatureList = Button(self.lfQueryFeatureSelect)  # TODO getter
         # region init btnQueryFeatureList
-        self.btnQueryFeatureList.place(
+        self.__btnQueryFeatureList.place(
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnQueryFeatureList.configure(
+        self.__btnQueryFeatureList.configure(
             image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnQueryFeatureList.image = btn_query_set_icon  # < ! > Required to make images appear
+        self.__btnQueryFeatureList.image = btn_query_set_icon  # < ! > Required to make images appear
 
-        self.btnQueryFeatureList.configure(
+        self.__btnQueryFeatureList.configure(
             background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
             activebackground = CS.SELECT_BG,
             highlightthickness = 0, padx = 0, pady = 0,
@@ -629,9 +629,9 @@ class AutomatedMining_View:
         )
         # endregion init btnQueryFeatureList
 
-        self.lbListFeatureSelect = Listbox(self.lfListFeatureSelect)  # TODO getter
+        self.__lbListFeatureSelect = Listbox(self.lfListFeatureSelect)  # TODO getter
         # region init lbListFeatureSelect
-        self.lbListFeatureSelect.configure(
+        self.__lbListFeatureSelect.configure(
             background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
@@ -643,7 +643,7 @@ class AutomatedMining_View:
         )
         newRelY = FS.getRelY(self.lfQueryFeatureSelect) + FS.getRelH(self.lfQueryFeatureSelect)
         newRelH = 1 - (FS.getRelH(self.lfQueryFeatureSelect) + FS.getRelH(self.lblStripesQueryFeatureSelect))
-        self.lbListFeatureSelect.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+        self.__lbListFeatureSelect.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
 
         newRelY = UI_support.TAB_TEST_COMMANDS_QUERY_REL_Y + FS.getRelY(self.lfListFeatureSelect) + FS.getRelH(
             self.lfListFeatureSelect)
@@ -663,22 +663,22 @@ class AutomatedMining_View:
         )
         # endregion init lfCommandsFeatureSelect
 
-        self.btnResetFeatureSelect = Button(self.lfCommandsFeatureSelect)  # TODO getter
+        self.__btnResetFeatureSelect = Button(self.lfCommandsFeatureSelect)  # TODO getter
         # region init btnResetFeatureSelect
-        self.btnResetFeatureSelect.place(
+        self.__btnResetFeatureSelect.place(
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
-        self.btnResetFeatureSelect.configure(
+        self.__btnResetFeatureSelect.configure(
             background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnResetFeatureSelect.configure(
+        self.__btnResetFeatureSelect.configure(
             image = btn_query_reset_icon)
-        self.btnResetFeatureSelect.image = btn_query_reset_icon  # < ! > Required to make images appear
+        self.__btnResetFeatureSelect.image = btn_query_reset_icon  # < ! > Required to make images appear
 
-        newRelX = FS.getRelX(self.btnResetFeatureSelect) + FS.getRelW(self.btnResetFeatureSelect)
+        newRelX = FS.getRelX(self.__btnResetFeatureSelect) + FS.getRelW(self.__btnResetFeatureSelect)
 
         # endregion init btnResetFeatureSelect
 
@@ -722,24 +722,24 @@ class AutomatedMining_View:
         # endregion init self.lblCountFeatureSelectTitle
 
 
-        self.btnConfirmFeatureSelect = Button(self.lfCommandsFeatureSelect, compound = CENTER)  # TODO getter
+        self.__btnConfirmFeatureSelect = Button(self.lfCommandsFeatureSelect, compound = CENTER)  # TODO getter
         # region init btnConfirmFeatureSelect
-        self.btnConfirmFeatureSelect.place(
+        self.__btnConfirmFeatureSelect.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.25 - 0.005, relheight = 1
         )
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnConfirmFeatureSelect.configure(
+        self.__btnConfirmFeatureSelect.configure(
             image = btn_query_filter_icon)
-        self.btnConfirmFeatureSelect.image = btn_query_filter_icon  # < ! > Required to make images appear
+        self.__btnConfirmFeatureSelect.image = btn_query_filter_icon  # < ! > Required to make images appear
 
-        self.btnConfirmFeatureSelect.configure(
+        self.__btnConfirmFeatureSelect.configure(
             background = CS.SELECT_BG, foreground = CS.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
-        self.btnConfirmFeatureSelect.pack(side = RIGHT)
-        self.btnResetFeatureSelect.pack(side = LEFT)
+        self.__btnConfirmFeatureSelect.pack(side = RIGHT)
+        self.__btnResetFeatureSelect.pack(side = LEFT)
 
         """
         newRelX = FS.getRelX(self.lfCountConfirmedFeatures) + FS.getRelW(self.lfCountConfirmedFeatures)
@@ -1263,14 +1263,14 @@ class AutomatedMining_View:
 
 
     def getButtonQuerySetDataA(self):
-        return self.btnQueryFeatureList
+        return self.__btnQueryFeatureList
     def getButtonQuerySetDataB(self):
         return self.btnQueryConfirmedFeatures
 
     def getButtonQueryAddFilterA(self): # TODO remove getter
-        return self.btnConfirmFeatureSelect
+        return self.__btnConfirmFeatureSelect
     def getButtonQueryAddFilterB(self):
-        return self.btnConfirmConfirmedFeatures
+        return self.__btnConfirmConfirmedFeatures
 
     def getButtonQueryFeature(self):
         return self.buttonQueryFeature
@@ -1286,7 +1286,7 @@ class AutomatedMining_View:
         return self.buttonTestQueue
 
     def getButtonQueryResetFilterA(self): # TODO remove getter
-        return self.btnResetFeatureSelect
+        return self.__btnResetFeatureSelect
     def getButtonQueryResetFilterB(self):
         return self.btnResetConfirmedFeatures
 
@@ -1328,29 +1328,33 @@ class AutomatedMining_View:
 
     # NEW GETTERS
     def getBtnConfirmFeatureSelect(self):
-        return self.btnConfirmFeatureSelect
+        return self.__btnConfirmFeatureSelect
 
     def getBtnResetFeatureSelect(self):
-        return self.btnResetFeatureSelect
+        return self.__btnResetFeatureSelect
 
     def getBtnQueryFeatureList(self):
-        return self.btnQueryFeatureList
+        return self.__btnQueryFeatureList
 
     def getLbListFeatureSelect(self):
-        return self.lbListFeatureSelect
+        return self.__lbListFeatureSelect
 
-    def getLbListFeatureDetails(self):
-        return self.lbListFeatureDetails
+    def getLbListFeatureResponses(self):
+        return self.__lbListFeatureResponses
+
+
+    def getLbListConfirmedFeatures(self):
+        return self.__lbListConfirmedFeatures
+
+    def getLbListConfirmedResponses(self):
+        return self.__lbListConfirmedResponses
 
     def getEntryQueryFeatureList(self):
-        return self.entryQueryFeatureList
+        return self.__entryQueryFeatureList
 
 
     def getBtnConfirmConfirmedFeatures(self):
-        return self.btnConfirmConfirmedFeatures
-
-    def getLbListConfirmedFeatures(self):
-        return self.lbListConfirmedFeatures
+        return self.__btnConfirmConfirmedFeatures
 
     # endregion GETTERS
 
@@ -1365,19 +1369,17 @@ class AutomatedMining_View:
             entry = "  " + str(featureID) + "  -  " + str(dictContents[featureID][key.DESCRIPTION])
             self.getLbListFeatureSelect().insert(END, str(entry))
 
-    def updateLbListFeatureDetails(self, dictResponses):
-        self.getLbListFeatureDetails().delete(0, END)
+    def updateLbListFeatureResponses(self, dictResponses):
+        self.getLbListFeatureResponses().delete(0, END)
 
         responseIDs = dictResponses.keys()
         for responseID in responseIDs:
             entry = "  " + str(responseID) + "  -  " + str(dictResponses[responseID][key.DESCRIPTION])
-            self.getLbListFeatureDetails().insert(END, str(entry))
+            self.getLbListFeatureResponses().insert(END, str(entry))
     # endregion feature select updaters
 
     # region confirmed features updaters
     def updateLbListConfirmedFeatures(self, dictContents):
-        # print "dictContents is "
-        # print str(dictContents)
         if len(dictContents) > 0:
             self.getLbListConfirmedFeatures().delete(0, END)
 
@@ -1385,4 +1387,14 @@ class AutomatedMining_View:
             for featureID in featureIDs:
                 entry = "  " + str(featureID) + "  -  " + str(dictContents[featureID][key.DESCRIPTION])
                 self.getLbListConfirmedFeatures().insert(END, str(entry))
+
+
+    def updateLbListConfirmedFeatureResponses(self, dictResponses):
+        self.getLbListConfirmedResponses().delete(0, END)
+
+        responseIDs = dictResponses.keys()
+        for responseID in responseIDs:
+            entry = "  " + str(responseID) + "  -  " + str(dictResponses[responseID][key.DESCRIPTION])
+            self.getLbListConfirmedResponses().insert(END, str(entry))
+
     # endregion confirmed features updaters

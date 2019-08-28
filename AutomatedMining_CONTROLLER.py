@@ -83,12 +83,14 @@ class AutomatedMining_Controller:
         listbox = self.view.getLbListFeatureSelect()
         listbox.bind('<<ListboxSelect>>', self.selectFeatureEvent)
 
+        listbox = self.view.getLbListConfirmedFeatures()
+        listbox.bind('<<ListboxSelect>>', self.selectConfirmedFeatureEvent)
+
         # TODO Entry Change
 
     def confirmFeatureSelect(self, event):
         # set model's confirmed features
         confirmedFeatures = self.model.confirmFeatureSelect()
-
         # update view's confirmed features listbox
         self.view.updateLbListConfirmedFeatures(confirmedFeatures)
         return "break"
@@ -108,23 +110,36 @@ class AutomatedMining_Controller:
 
         # update model with listbox contents
         listbox = self.view.getLbListFeatureSelect()
-        self.selectFeature(listbox)
+        responseListbox = self.view.getLbListFeatureResponses()
+        self.selectFeature(listbox, responseListbox)
+        # update model's confirmed features
+        self.confirmFeatureSelect(event)
 
     def selectFeatureEvent(self, event):
         listbox = event.widget
-        self.selectFeature(listbox)
+        self.selectFeature(listbox, self.view.getLbListFeatureSelect())
 
-    def selectFeature(self, listbox):
+    def selectConfirmedFeatureEvent(self, event):
+        listbox = event.widget
+        self.selectFeature(listbox, self.view.getLbListConfirmedFeatures())
+
+    def selectFeature(self, listbox, responseListbox):
         selectedIndices = listbox.curselection()
         print "selected indices"
         print str(selectedIndices)
         lastSelectedIndex = self.model.viewModel.updateSelectedFeatures(listbox, selectedIndices)
         # lastSelectedIndex = listbox.get(lastSelectedIndex)
 
-        response = self.model.updateSelectedFeatureResponse(lastSelectedIndex)
+        # update the model for the given response listbox
+        if responseListbox is self.view.getLbListFeatureSelect():
+            response = self.model.updateSelectedFeatureResponse(lastSelectedIndex)
+            self.view.updateLbListFeatureResponses(response)
+        else:
+            response = self.model.updateConfirmedFeatureResponse(lastSelectedIndex)
+            self.view.updateLbListConfirmedFeatureResponses(response)
+
         print "response"
         print str(response)
-        self.view.updateLbListFeatureDetails(response)
 
     def readFeatures(self, variableDescription, itemMarker):
         features = FS.readFeatures(variableDescription, itemMarker)

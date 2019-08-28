@@ -421,4 +421,10 @@ def AlphabeticalDict(dictionary):
 
     return OrderedDict(sorted(dictionary.items()))
 
+# returns a merged then alphabetically sorted dictionary
+def MergedDict(dictionary1, dictionary2):
+    mergedDictionary = dictionary1.copy()
+    mergedDictionary.update(dictionary2)
+
+    return AlphabeticalDict(mergedDictionary)
 # endregion altered class functions
