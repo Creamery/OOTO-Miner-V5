@@ -32,6 +32,8 @@ class ViewModel:
         # confirmed feature select
         self.__confirmedFeatures = {}
         self.__confirmedCurrentResponse = {}
+        self.__selectedConfirmedFeatureIndices = []
+        self.__prevSelectedConfirmedFeatures = []
 
     """FUNCTIONS"""
     def resetFeature(self):
@@ -59,6 +61,12 @@ class ViewModel:
 
     def getConfirmedCurrentResponse(self):
         return self.__confirmedCurrentResponse
+
+    def getSelectedConfirmedFeatureIndices(self):
+        return self.__selectedConfirmedFeatureIndices
+
+    def getPrevSelectedConfirmedFeatures(self):
+        return self.__prevSelectedConfirmedFeatures
     # endregion confirmed feature getters
 
     """SETTERS"""
@@ -75,12 +83,19 @@ class ViewModel:
     def setPrevSelectedFeatures(self, value):
         self.__prevSelectedFeatures = value
     # endregion feature select setters
+
     # region confirmed features setters
     def setConfirmedFeatures(self, value):
         self.__confirmedFeatures = value
 
     def setConfirmedCurrentResponse(self, value):
         self.__confirmedCurrentResponse = value
+
+    def setSelectedConfirmedFeatureIndices(self, value):
+        self.__selectedConfirmedFeatureIndices = value
+
+    def setPrevSelectedConfirmedFeatures(self, value):
+        self.__prevSelectedConfirmedFeatures = value
     # endregion confirmed features setters
 
     """UPDATERS"""
@@ -117,7 +132,36 @@ class ViewModel:
         self.__prevSelectedFeatures = self.getSelectedFeatureIndices()
     # endregion feature select updaters
 
+    def updateConfirmedSelectedFeatures(self, listbox, newSelectedFeatureIndices):
+        # self.updatePrevSelectedConfirmedFeatures()
+        self.setSelectedConfirmedFeatureIndices(newSelectedFeatureIndices)
 
+        if self.getPrevSelectedConfirmedFeatures():  # if not empty
+            print "getPrevSelectedConfirmedFeatures not empty"
+            # compare last selectionlist with new list and extract the difference
+            changedSelection = set(self.getPrevSelectedConfirmedFeatures()).symmetric_difference(set(newSelectedFeatureIndices))
+            self.setPrevSelectedConfirmedFeatures(newSelectedFeatureIndices)
+        else:
+            # if empty, assign current selection
+            self.setPrevSelectedConfirmedFeatures(newSelectedFeatureIndices)
+            changedSelection = newSelectedFeatureIndices
+
+        print "changedSelection = "
+        print str(changedSelection)
+        if len(changedSelection) > 0:
+            index = int(list(changedSelection)[0])
+            if index in listbox.curselection():
+                lastSelectedIndex = listbox.get(index)
+            else:
+                lastSelectedIndex = -1
+        else:
+            lastSelectedIndex = -1
+        print('ls '+ str(lastSelectedIndex))
+
+        return lastSelectedIndex
+
+    def updatePrevSelectedConfirmedFeatures(self):
+        self.__prevSelectedConfirmedFeatures = self.getSelectedConfirmedFeatureIndices()
 
 class AutomatedMining_Model:
 
@@ -250,9 +294,6 @@ class AutomatedMining_Model:
     def confirmFeatureSelect(self):
         print "confirmFeatureSelect"
         selectedFeatureIndices = self.viewModel.getSelectedFeatureIndices()
-        # print "getLbListFeatureSelect"
-        # print str(self.viewModel.getCurrentQueryFeatureList())
-
 
         # confirmedFeatures = [self.getFeatureDescription().items()[index] for index in selectedFeatureIndices]
         confirmedFeatures = [self.viewModel.getCurrentQueryFeatureList().items()[index] for index in selectedFeatureIndices]
@@ -277,10 +318,6 @@ class AutomatedMining_Model:
                                                             self.getPopulationDataset(),
                                                             self.getFeatureDescriptionRaw())
 
-    def resetFeatureSelect(self, event):
-        print "resetFeatureSelect"
-        return "break"
-
     def queryFeature(self, featureID):
         # featureID = self.viewModel.getCurrentFeature()
         print "featureID " + str(featureID)
@@ -304,6 +341,34 @@ class AutomatedMining_Model:
         # Update contents of listbox
         self.viewModel.setCurrentResponse(response)
         return response
+
+    def resetFeatureSelect(self):
+        print "resetFeatureSelect"
+        return "break"
+
+    def resetConfirmedFeatures(self):
+        print "resetConfirmedFeatures"
+        confirmedFeatureList = self.viewModel.getConfirmedFeatures()
+        selectedIndices = self.viewModel.getSelectedConfirmedFeatureIndices()
+
+        print "confirmed selected indices"
+        print str(selectedIndices)
+
+        # selectedFeatures = [self.viewModel.getCurrentQueryFeatureList().items()[index] for index in
+        #                      selectedFeatureIndices]
+        selectedFeatures = [self.viewModel.getConfirmedFeatures().items()[index] for index in selectedIndices]
+        selectedFeatures = WS.AlphabeticalDict(selectedFeatures)
+
+        updatedFeatureList = WS.SubtractedDict(confirmedFeatureList, selectedFeatures)
+
+        self.viewModel.setConfirmedFeatures(updatedFeatureList)
+        self.viewModel.setSelectedConfirmedFeatureIndices([])
+
+        return self.viewModel.getConfirmedFeatures()
+
+        # emptySet = {}
+        # self.viewModel.setConfirmedFeatures(emptySet)
+        # return emptySet
 
     """GETTERS"""
     # returns the formatted feature description used for UI data retrieval

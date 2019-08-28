@@ -427,4 +427,10 @@ def MergedDict(dictionary1, dictionary2):
     mergedDictionary.update(dictionary2)
 
     return AlphabeticalDict(mergedDictionary)
+
+# subtracts dictionary2 from dictionary1 and returns the alphabetically
+# sorted difference
+def SubtractedDict(dictionary1, dictionary2):
+    subtractedDictionary = {k: v for k, v in dictionary1.items() if k not in dictionary2}
+    return AlphabeticalDict(subtractedDictionary)
 # endregion altered class functions
