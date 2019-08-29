@@ -1,9 +1,11 @@
 import threading
 import tkMessageBox
-from ChiTest import ChiTest
-import Function_support as FS
 import os
 import time
+
+from ChiTest import ChiTest
+from _CrossProcess import CrossProcess
+import Function_support as FS
 
 class CrossProcessProgressThread(threading.Thread):
 
@@ -12,6 +14,8 @@ class CrossProcessProgressThread(threading.Thread):
         threading.Thread.__init__(self)
         self.progressible = None
         self.progress = 0
+
+        self.CROSS = []  # array of cross processes
 
     def setProgressible(self, progressible):
         self.progressible = progressible
@@ -22,18 +26,16 @@ class CrossProcessProgressThread(threading.Thread):
             self.progressible.resetProgress(50)
             self.progress = 0
 
-            # while not self.progressible.isComplete():
+            while not self.progressible.isComplete():
             # TODO
-            self.prepareData(tests)
+            # self.prepareData(tests)
+            # self.performCrossProcess(dataset, features)
 
 
-            self.performCrossProcess(dataset, features)
-
-
-            self.progress += 1
-            self.updateProgressible(self.progress)
-            print "progress " + str(self.progressible.getCurrentPercent())
-            # time.sleep(0.01)
+                self.progress += 1
+                self.updateProgressible(self.progress)
+                print "progress " + str(self.progressible.getCurrentPercent())
+                # time.sleep(0.01)
 
 
         finally:
@@ -41,7 +43,10 @@ class CrossProcessProgressThread(threading.Thread):
             # self.lblProgressText["text"] = "COMPLETE"
 
     def updateProgressible(self, progress):
-        self.progressible.updateProgress(progress)
+        strProgress = str(progress) + "% completed."
+        arrInfo = [strProgress]
+        self.progressible.updateProgress(progress, arrInfo)
+
     def prepareData(self, tests):
 
         if len(tests) == 0:
