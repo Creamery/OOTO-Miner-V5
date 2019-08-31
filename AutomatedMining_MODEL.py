@@ -167,14 +167,18 @@ class AutomatedMining_Model:
 
     def confirmConfirmedFeatures(self, root):
         print "confirmConfirmedFeatures"
-        self.runSystematicFiltering(root)
+        self.runSystematicFiltering(root, self.viewModel.getConfirmedFeatures())
         # self.startThread(event)  # TODO
         return "break"
 
-    def runSystematicFiltering(self, root):
+    def runSystematicFiltering(self, root, salientFeatures):
         self.__systematicFiltering = SF.SystematicFiltering(root,
                                                             self.getPopulationDataset(),
                                                             self.getFeatureDescriptionRaw())
+
+        print "SSF 0 = "
+        for feature in salientFeatures.items():
+            print str(feature)
 
     def queryFeature(self, featureID):
         # featureID = self.viewModel.getCurrentFeature()
@@ -397,8 +401,7 @@ class ViewModel:
             self.setPrevSelectedFeatures(newSelectedFeatureIndices)
             changedSelection = newSelectedFeatureIndices
 
-        print "changedSelection = "
-        print str(changedSelection)
+
         if len(changedSelection) > 0:
             index = int(list(changedSelection)[0])
             if index in listbox.curselection():
@@ -407,7 +410,7 @@ class ViewModel:
                 lastSelectedIndex = -1
         else:
             lastSelectedIndex = -1
-        print('ls '+ str(lastSelectedIndex))
+
         return lastSelectedIndex
 
     def updatePrevSelectedFeatures(self):

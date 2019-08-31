@@ -142,9 +142,6 @@ class AutomatedMining_Controller:
             response = self.model.updateConfirmedFeatureResponse(lastSelectedIndex)
             self.view.updateLbListConfirmedFeatureResponses(response)
 
-        print "response"
-        print str(response)
-
         return "break"
 
     def resetListboxEvent(self, event):

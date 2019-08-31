@@ -72,6 +72,7 @@ class SystematicFiltering:
     def __configureUnbind(self):
         self.root.unbind("<Configure>")
     # endregion overlay functions
+
     def __initializeWindow(self, root):
         top = Toplevel(root)
 
@@ -103,6 +104,7 @@ class SystematicFiltering:
     def __configureGrip(self, parentWindow, winOverlay, root):
         grip = GS.GripLabel(parentWindow, False)
         grip.assignOverlay(winOverlay, root)
+
 
         return grip.getGrip()
 
