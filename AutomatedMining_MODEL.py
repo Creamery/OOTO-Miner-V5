@@ -16,7 +16,7 @@ except ImportError:
 from collections import OrderedDict
 import copy
 import Function_support as FS
-import Keys_support as KS
+from Keys_support import Dataset as KSD
 import Widget_support as WS
 import _MODULE_SystematicFiltering as SF
 
@@ -39,13 +39,13 @@ class AutomatedMining_Model:
         self.__resetFeatureDescription()
         self.__setFeatureDescriptionRaw(features)
         for feature in features:
-            code = feature[KS.CODE]
-            description = feature[KS.DESCRIPTION]
-            responses = feature[KS.RESPONSES]
+            code = feature[KSD.CODE]
+            description = feature[KSD.DESCRIPTION]
+            responses = feature[KSD.RESPONSES]
             dictResponses = self.__parseResponses(responses)
 
 
-            featureDescription = {KS.DESCRIPTION: description, KS.RESPONSES: dictResponses}
+            featureDescription = {KSD.DESCRIPTION: description, KSD.RESPONSES: dictResponses}
             self.getFeatureDescription()[code] = featureDescription
 
         # formally set feature description to sort alphabetically
@@ -60,15 +60,15 @@ class AutomatedMining_Model:
         dictResponses = {}
 
         for response in responses:
-            group = response[KS.GROUP]
+            group = response[KSD.GROUP]
             if not(str(group).strip() == '-1'):
-                code = response[KS.CODE]
-                description = response[KS.DESCRIPTION]
+                code = response[KSD.CODE]
+                description = response[KSD.DESCRIPTION]
 
 
-                entry = dictResponses.setdefault(group, OrderedDict({KS.CODE: [], KS.DESCRIPTION: []}))
-                entry[KS.CODE].append(code)
-                entry[KS.DESCRIPTION].append(description)
+                entry = dictResponses.setdefault(group, OrderedDict({KSD.CODE: [], KSD.DESCRIPTION: []}))
+                entry[KSD.CODE].append(code)
+                entry[KSD.DESCRIPTION].append(description)
 
         dictResponses = WS.AlphabeticalDict(dictResponses)  # sort keys alphabetically
         return dictResponses
@@ -80,14 +80,14 @@ class AutomatedMining_Model:
         # Append SAMPLES
         for record in dataset:
             orderedRecord = WS.AlphabeticalDict(record)  # sort sample's answers (keys) alphabetically
-            self.getPopulationDataset()[KS.SAMPLES].append(orderedRecord)
-            self.getDatasetA()[KS.SAMPLES].append(orderedRecord)
-            self.getDatasetB()[KS.SAMPLES].append(orderedRecord)
+            self.getPopulationDataset()[KSD.SAMPLES].append(orderedRecord)
+            self.getDatasetA()[KSD.SAMPLES].append(orderedRecord)
+            self.getDatasetB()[KSD.SAMPLES].append(orderedRecord)
 
         # Set FEATURE_LIST
-        self.getPopulationDataset()[KS.FEATURE_LIST] = self.getFeatureDescription()
-        self.getDatasetA()[KS.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
-        self.getDatasetB()[KS.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+        self.getPopulationDataset()[KSD.FEATURE_LIST] = self.getFeatureDescription()
+        self.getDatasetA()[KSD.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+        self.getDatasetB()[KSD.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
         # print "getPopulationDataset[key.FEATURE_LIST]"
         # print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b1'])
         # print ""
@@ -102,9 +102,9 @@ class AutomatedMining_Model:
         self.__setFeatureDescriptionRaw({})
 
     def __resetDatasets(self):
-        self.__setPopulationDataset({KS.SAMPLES: [], KS.FEATURE_LIST: {}})
-        self.__setDatasetA({KS.SAMPLES: [], KS.FEATURE_LIST: {}})
-        self.__setDatasetB({KS.SAMPLES: [], KS.FEATURE_LIST: {}})
+        self.__setPopulationDataset({KSD.SAMPLES: [], KSD.FEATURE_LIST: {}})
+        self.__setDatasetA({KSD.SAMPLES: [], KSD.FEATURE_LIST: {}})
+        self.__setDatasetB({KSD.SAMPLES: [], KSD.FEATURE_LIST: {}})
 
         # self.tests = []
         # self.datasetCountA = len(self.datasetA['Data'])
@@ -140,7 +140,7 @@ class AutomatedMining_Model:
         hasKey = FS.checkKey(featureList, featureID)
 
         if hasKey:
-            response = featureList[featureID][KS.RESPONSES]
+            response = featureList[featureID][KSD.RESPONSES]
             print "Key found"
         else:
             response= {}
@@ -174,11 +174,8 @@ class AutomatedMining_Model:
     def runSystematicFiltering(self, root, salientFeatures):
         self.__systematicFiltering = SF.SystematicFiltering(root,
                                                             self.getPopulationDataset(),
-                                                            self.getFeatureDescriptionRaw())
-
-        print "SSF 0 = "
-        for feature in salientFeatures.items():
-            print str(feature)
+                                                            self.getFeatureDescription(),
+                                                            salientFeatures)
 
     def queryFeature(self, featureID):
         # featureID = self.viewModel.getCurrentFeature()
@@ -282,7 +279,7 @@ class AutomatedMining_Model:
 
         print "featureID is " + str(featureID)
         if not (featureID == '-1'):
-            response = self.getFeatureDescription()[featureID][KS.RESPONSES]
+            response = self.getFeatureDescription()[featureID][KSD.RESPONSES]
 
         self.viewModel.setCurrentResponse(response)
 
@@ -294,7 +291,7 @@ class AutomatedMining_Model:
 
         print "featureID is " + str(featureID)
         if not (featureID == '-1'):
-            response = self.getFeatureDescription()[featureID][KS.RESPONSES]
+            response = self.getFeatureDescription()[featureID][KSD.RESPONSES]
 
         self.viewModel.setConfirmedCurrentResponse(response)
 

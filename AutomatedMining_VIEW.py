@@ -35,7 +35,7 @@ import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
 import Widget_support as WS
-import Keys_support as key
+from Keys_support import Dataset as KSD
 
 
 class AutomatedMining_View:
@@ -1321,7 +1321,7 @@ class AutomatedMining_View:
 
         featureIDs = dictContents.keys()
         for featureID in featureIDs:
-            entry = "  " + str(featureID) + "  -  " + str(dictContents[featureID][key.DESCRIPTION])
+            entry = "  " + str(featureID) + "  -  " + str(dictContents[featureID][KSD.DESCRIPTION])
             self.getLbListFeatureSelect().insert(END, str(entry))
 
     def updateLbListFeatureResponses(self, dictResponses):
@@ -1329,7 +1329,7 @@ class AutomatedMining_View:
 
         responseIDs = dictResponses.keys()
         for responseID in responseIDs:
-            entry = "  " + str(responseID) + "  -  " + str(dictResponses[responseID][key.DESCRIPTION])
+            entry = "  " + str(responseID) + "  -  " + str(dictResponses[responseID][KSD.DESCRIPTION])
             self.getLbListFeatureResponses().insert(END, str(entry))
     # endregion feature select updaters
 
@@ -1345,7 +1345,7 @@ class AutomatedMining_View:
         if len(dictContents) > 0:
             featureIDs = dictContents.keys()
             for featureID in featureIDs:
-                entry = "  " + str(featureID) + "  -  " + str(dictContents[featureID][key.DESCRIPTION])
+                entry = "  " + str(featureID) + "  -  " + str(dictContents[featureID][KSD.DESCRIPTION])
                 self.getLbListConfirmedFeatures().insert(END, str(entry))
 
     def updateLbListConfirmedFeatureResponses(self, dictResponses):
@@ -1353,7 +1353,7 @@ class AutomatedMining_View:
 
         responseIDs = dictResponses.keys()
         for responseID in responseIDs:
-            entry = "  " + str(responseID) + "  -  " + str(dictResponses[responseID][key.DESCRIPTION])
+            entry = "  " + str(responseID) + "  -  " + str(dictResponses[responseID][KSD.DESCRIPTION])
             self.getLbListConfirmedResponses().insert(END, str(entry))
 
     # endregion confirmed features updaters

@@ -30,7 +30,7 @@ except ImportError:
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
-import Keys_support as key
+from Keys_support import Dataset as KSD
 
 import Color_support as CS
 import Function_support as FS

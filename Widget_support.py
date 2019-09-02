@@ -24,8 +24,11 @@ import UI_support as US
 import Icon_support as IS
 import Function_support as FS
 
-from collections import OrderedDict
+from Keys_support import Dataset as KSD
+from Keys_support import SSF as KSS
 
+from collections import OrderedDict
+import itertools
 
 GWL_EXSTYLE = -20
 WS_EX_APPWINDOW = 0x00040000
@@ -232,7 +235,6 @@ def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
 
 # endregion creator functions
 
-
 """ UTILITIES """
 # region utility functions
 """ Returns the widget name """
@@ -412,8 +414,8 @@ def exitSplashscreen(root):
 
 # endregion utility functions
 
-""" ALTERED CLASSES """
-# region altered class functions
+""" DICTIONARY FUNCTIONS """
+# region dictionary functions
 # return an alphabetically sorted ordered dictionary
 def AlphabeticalDict(dictionary):
     if isinstance(dictionary, list):
@@ -428,9 +430,42 @@ def MergedDict(dictionary1, dictionary2):
 
     return AlphabeticalDict(mergedDictionary)
 
-# subtracts dictionary2 from dictionary1 and returns the alphabetically
-# sorted difference
+# subtracts dictionary2 from dictionary1 and returns the alphabetically sorted difference
 def SubtractedDict(dictionary1, dictionary2):
     subtractedDictionary = {k: v for k, v in dictionary1.items() if k not in dictionary2}
     return AlphabeticalDict(subtractedDictionary)
-# endregion altered class functions
+# endregion dictionary functions
+
+""" SYSTEMATIC FILTERING FUNCTIONS """
+# region systematic filtering functions
+# returns a dictionary of dictionaries, where each dictionary is an altered key-value pair
+# of featureIDs ('s17'), groups ('a'), and codes ([1, 3])
+def initializeSSF(salientFeatures):
+    SSF = {}
+    ssfItems = salientFeatures.items()  # [0] - key, [1] - value
+
+    SSF[KSS.FEAT_CODE] = OrderedDict()
+    SSF[KSS.GROUP_CODE] = OrderedDict()
+    SSF[KSS.FEAT_GROUP] = OrderedDict()
+
+    GROUP_CODE = SSF[KSS.GROUP_CODE]
+
+    print "items are"
+    for item in ssfItems:
+        featureID = item[0]
+        featureDetails = item[1]  # Description, Responses
+
+        responseDetails = featureDetails[KSD.RESPONSES].items()  # returns a tuple of response
+        responseGroups = [response[0] for response in responseDetails]  # list of possible responses ('a', 'b', 'c')
+
+        print "responses " + str(responseGroups)
+
+        for response, group in itertools.izip(responseDetails, responseGroups):
+            code = response[1][KSD.CODE]
+            GROUP_CODE[group] = code
+
+        print "GC items:"
+        print str(SSF[KSS.GROUP_CODE])
+    return SSF
+
+# endregion systematic filtering functions
