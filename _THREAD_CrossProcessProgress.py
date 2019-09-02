@@ -4,16 +4,22 @@ import os
 import time
 
 from ChiTest import ChiTest
-from _CrossProcess import CrossProcess
 import Function_support as FS
+import Widget_support as WS
+from Keys_support import SSF as KSS
+
+from collections import OrderedDict
 
 class CrossProcessProgressThread(threading.Thread):
 
     # pass the widgets that the thread will update
-    def __init__(self):
+    def __init__(self, SSF):
         threading.Thread.__init__(self)
         self.progressible = None
         self.progress = 0
+        self.__SSF = SSF
+
+        self.__LVL0 = [OrderedDict()] * len(SSF)
 
         self.CROSS = []  # array of cross processes
 
@@ -21,6 +27,8 @@ class CrossProcessProgressThread(threading.Thread):
         self.progressible = progressible
 
     def run(self):
+        WS.createFilters(self.__LVL0, self.__SSF[KSS.FEATURES])
+        """
         try:
             # self.prog_bar.start()
             self.progressible.resetProgress(50)
@@ -41,7 +49,7 @@ class CrossProcessProgressThread(threading.Thread):
         finally:
             print "ThreadCrossProcessProgress DONE"
             # self.lblProgressText["text"] = "COMPLETE"
-
+        """
     def updateProgressible(self, progress):
         strProgress = str(progress) + "% completed."
         arrInfo = [strProgress]

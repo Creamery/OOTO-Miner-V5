@@ -115,6 +115,7 @@ class AutomatedMining_Controller:
         listbox = self.view.getLbListFeatureSelect()
         responseListbox = self.view.getLbListFeatureResponses()
         self.selectFeature(listbox)
+
         # update model's confirmed features
         self.confirmFeatureSelect(event)
 

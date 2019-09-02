@@ -26,6 +26,7 @@ import Function_support as FS
 
 from Keys_support import Dataset as KSD
 from Keys_support import SSF as KSS
+from CONSTANTS import SYSTEMATIC_FILTERING as CSF
 
 from collections import OrderedDict
 import itertools
@@ -452,14 +453,12 @@ def initializeSSF(salientFeatures):
     FEAT_CODE = SSF[KSS.FEAT_CODE]
     GROUP_CODE = SSF[KSS.GROUP_CODE]
 
-    print "items are"
     for item in ssfItems:
         featureID = item[0]
         featureDetails = item[1]  # Description, Responses
         responseDetails = featureDetails[KSD.RESPONSES].items()  # returns a tuple of response
         responseGroups = [response[0] for response in responseDetails]  # list of possible responses ('a', 'b', 'c')
 
-        print "featDetails: " + str(featureDetails)
 
         # assign FEAT-GROUP dictionary
         FEAT_GROUP[featureID] = responseGroups
@@ -474,9 +473,60 @@ def initializeSSF(salientFeatures):
             FEAT_CODE[featureID].append(code)
             GROUP_CODE[featureID].append(code)
 
-    print "SSF contents:"
-    print str(SSF)
+    # print "SSF contents:"
+    # print str(SSF)
 
     return SSF
 
+def createFilters(LVL, SSF, maxLevel = CSF.MAX_LVL):
+    level = 1
+    LVLS = OrderedDict()
+    LVLS[0] = LVL
+
+    print "LVL[0] = "
+    print str(LVL)
+    print str(type(LVL))
+
+    while level <= maxLevel:
+        prevLVL = LVLS[level-1]
+        LVLS[level] = createFilter(level, prevLVL, SSF)
+        level += 1
+
+    print "LVLS = "
+    print str(LVLS)
+    print str(type(LVLS))
+    return LVLS
+
+def createFilter(level, prevLVL, SSF):
+    LVL = OrderedDict()
+    prevLevel = level - 1
+
+    # create current level based on prevLVL and SSF
+    nPrevLVL = len(prevLVL)
+    nSFF = len(SSF)
+
+    startPrevLVL = 1
+    iPrevLVL = startPrevLVL
+    endPrevLVL = nPrevLVL - prevLevel
+
+    startSFF = iPrevLVL + prevLevel
+    iSFF = startSFF
+    endSFF = nSFF
+
+    index = 1
+
+    print "itemPrevLVL = "
+    for itemPrevLVL in prevLVL:
+        print str(itemPrevLVL)
+
+    # for iPrevLVL in range(1, endPrevLVL):
+        # for iSFF in range(1, endSFF):
+        #     itemPrevLVL = prevLVL[iPrevLVL][iSFF]
+        #     itemSSF = SSF[iSFF]
+        #     LVL[index] = MergedDict()
+        #     index += 1
+
+
+
+    return LVL
 # endregion systematic filtering functions
