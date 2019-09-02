@@ -444,28 +444,39 @@ def initializeSSF(salientFeatures):
     SSF = {}
     ssfItems = salientFeatures.items()  # [0] - key, [1] - value
 
+    SSF[KSS.FEAT_GROUP] = OrderedDict()
     SSF[KSS.FEAT_CODE] = OrderedDict()
     SSF[KSS.GROUP_CODE] = OrderedDict()
-    SSF[KSS.FEAT_GROUP] = OrderedDict()
 
+    FEAT_GROUP = SSF[KSS.FEAT_GROUP]
+    FEAT_CODE = SSF[KSS.FEAT_CODE]
     GROUP_CODE = SSF[KSS.GROUP_CODE]
 
     print "items are"
     for item in ssfItems:
         featureID = item[0]
         featureDetails = item[1]  # Description, Responses
-
         responseDetails = featureDetails[KSD.RESPONSES].items()  # returns a tuple of response
         responseGroups = [response[0] for response in responseDetails]  # list of possible responses ('a', 'b', 'c')
 
-        print "responses " + str(responseGroups)
+        print "featDetails: " + str(featureDetails)
 
+        # assign FEAT-GROUP dictionary
+        FEAT_GROUP[featureID] = responseGroups
+
+        # prepare GROUP-CODE and FEAT-CODE dictionaries
+        FEAT_CODE[featureID] = []
+        GROUP_CODE[featureID] = []
+
+        # assign GROUP-CODE and FEAT-CODE dictionaries
         for response, group in itertools.izip(responseDetails, responseGroups):
             code = response[1][KSD.CODE]
-            GROUP_CODE[group] = code
+            FEAT_CODE[featureID].append(code)
+            GROUP_CODE[featureID].append(code)
 
-        print "GC items:"
-        print str(SSF[KSS.GROUP_CODE])
+    print "SSF contents:"
+    print str(SSF)
+
     return SSF
 
 # endregion systematic filtering functions
