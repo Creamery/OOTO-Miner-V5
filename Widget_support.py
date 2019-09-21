@@ -445,12 +445,14 @@ def initializeSSF(salientFeatures):
     SSF = {}
     ssfItems = salientFeatures.items()  # [0] - key, [1] - value
 
-    SSF[KSS.FEAT_GROUP] = OrderedDict()  # key : featureID, value : group-code dictionary
+    SSF[KSS.FEAT_GROUP_CODE] = OrderedDict()  # key : featureID, value : group-code dictionary
     SSF[KSS.FEAT_CODE] = OrderedDict()  # key : featureID, value : array of code arrays (by group)
+    SSF[KSS.FEAT_GROUP] = OrderedDict()  # key : featureID, value : array of code arrays (by group)
     # SSF[KSS.GROUP_CODE] = OrderedDict()
 
-    FEAT_GROUP = SSF[KSS.FEAT_GROUP]
+    FEAT_GROUP_CODE = SSF[KSS.FEAT_GROUP_CODE]
     FEAT_CODE = SSF[KSS.FEAT_CODE]
+    FEAT_GROUP = SSF[KSS.FEAT_GROUP]
     # GROUP_CODE = SSF[KSS.GROUP_CODE]
 
     for item in ssfItems:
@@ -458,6 +460,8 @@ def initializeSSF(salientFeatures):
         featureDetails = item[1]  # Description, Responses
         responseDetails = featureDetails[KSD.RESPONSES].items()  # returns a tuple of response (code)
         responseGroups = [response[0] for response in responseDetails]  # list of possible responses ('a', 'b', 'c')
+        FEAT_GROUP[featureID] = responseGroups
+
         # print ('responseGroups : ')
         # print str(responseGroups)
 
@@ -469,15 +473,15 @@ def initializeSSF(salientFeatures):
             FEAT_CODE[featureID].append(code)
 
 
-        # assign FEAT-GROUP dictionary where GROUP is a dictionary of group-code pairs
-        FEAT_GROUP[featureID] = dict((group, []) for group in responseGroups)
+        # assign FEAT_GROUP_CODE dictionary where GROUP is a dictionary of group-code pairs
+        FEAT_GROUP_CODE[featureID] = dict((group, []) for group in responseGroups)
 
         # for group in responseGroups:
         for response, group in itertools.izip(responseDetails, responseGroups):
             code = response[1][KSD.CODE]
-            FEAT_GROUP[featureID][group].append(code)
+            FEAT_GROUP_CODE[featureID][group] = code
 
-        FEAT_GROUP[featureID] = AlphabeticalDict(FEAT_GROUP[featureID])
+        FEAT_GROUP_CODE[featureID] = AlphabeticalDict(FEAT_GROUP_CODE[featureID])
 # prepare GROUP-CODE dictionaries
         # GROUP_CODE[featureID] = []
 
@@ -501,8 +505,16 @@ def createFilters(LVL, SSF, maxLevel = CSF.MAX_LVL):
 
     print "LVL[0] = "
     print str(LVL)
-    print str(type(LVL))
 
+    print "SSF[KSS.FEAT_GROUP] = "
+    print str(SSF[KSS.FEAT_GROUP])
+
+    print "SSF[KSS.FEAT_GROUP_CODE] = "
+    print str(SSF[KSS.FEAT_GROUP_CODE])
+
+    print "SSF[KSS.FEAT_CODE] = "
+    print str(SSF[KSS.FEAT_CODE])
+    
     while level <= maxLevel:
         prevLVL = LVLS[level-1]
         LVLS[level] = createFilter(level, prevLVL, SSF)
@@ -514,6 +526,8 @@ def createFilters(LVL, SSF, maxLevel = CSF.MAX_LVL):
     return LVLS
 
 def createFilter(level, prevLVL, SSF):
+    print "level = " + str(level)
+
     LVL = OrderedDict()
     prevLevel = level - 1
 

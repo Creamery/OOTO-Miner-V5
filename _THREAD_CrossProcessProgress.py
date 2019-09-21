@@ -28,7 +28,7 @@ class CrossProcessProgressThread(threading.Thread):
 
     def run(self):
         print str(self.__SSF)
-        # WS.createFilters(self.__LVL0, self.__SSF)
+        WS.createFilters(self.__LVL0, self.__SSF)
         """
         try:
             # self.prog_bar.start()
