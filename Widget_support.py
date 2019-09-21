@@ -445,33 +445,49 @@ def initializeSSF(salientFeatures):
     SSF = {}
     ssfItems = salientFeatures.items()  # [0] - key, [1] - value
 
-    SSF[KSS.FEAT_GROUP] = OrderedDict()
-    SSF[KSS.FEAT_CODE] = OrderedDict()
-    SSF[KSS.GROUP_CODE] = OrderedDict()
+    SSF[KSS.FEAT_GROUP] = OrderedDict()  # key : featureID, value : group-code dictionary
+    SSF[KSS.FEAT_CODE] = OrderedDict()  # key : featureID, value : array of code arrays (by group)
+    # SSF[KSS.GROUP_CODE] = OrderedDict()
 
     FEAT_GROUP = SSF[KSS.FEAT_GROUP]
     FEAT_CODE = SSF[KSS.FEAT_CODE]
-    GROUP_CODE = SSF[KSS.GROUP_CODE]
+    # GROUP_CODE = SSF[KSS.GROUP_CODE]
 
     for item in ssfItems:
         featureID = item[0]
         featureDetails = item[1]  # Description, Responses
-        responseDetails = featureDetails[KSD.RESPONSES].items()  # returns a tuple of response
+        responseDetails = featureDetails[KSD.RESPONSES].items()  # returns a tuple of response (code)
         responseGroups = [response[0] for response in responseDetails]  # list of possible responses ('a', 'b', 'c')
+        # print ('responseGroups : ')
+        # print str(responseGroups)
 
-
-        # assign FEAT-GROUP dictionary
-        FEAT_GROUP[featureID] = responseGroups
-
-        # prepare GROUP-CODE and FEAT-CODE dictionaries
+        # prepare FEAT_CODE dictionary
         FEAT_CODE[featureID] = []
-        GROUP_CODE[featureID] = []
-
-        # assign GROUP-CODE and FEAT-CODE dictionaries
-        for response, group in itertools.izip(responseDetails, responseGroups):
+        # assign FEAT_CODE dictionary
+        for response in responseDetails:
             code = response[1][KSD.CODE]
             FEAT_CODE[featureID].append(code)
-            GROUP_CODE[featureID].append(code)
+
+
+        # assign FEAT-GROUP dictionary where GROUP is a dictionary of group-code pairs
+        FEAT_GROUP[featureID] = dict((group, []) for group in responseGroups)
+
+        # for group in responseGroups:
+        for response, group in itertools.izip(responseDetails, responseGroups):
+            code = response[1][KSD.CODE]
+            FEAT_GROUP[featureID][group].append(code)
+
+        FEAT_GROUP[featureID] = AlphabeticalDict(FEAT_GROUP[featureID])
+# prepare GROUP-CODE dictionaries
+        # GROUP_CODE[featureID] = []
+
+
+        # assign GROUP-CODE and FEAT-CODE dictionaries
+        # for response, group in itertools.izip(responseDetails, responseGroups):
+        # for response in responseDetails:
+        #     code = response[1][KSD.CODE]
+        #     FEAT_CODE[featureID].append(code)
+            # GROUP_CODE[featureID].append(group)
 
     # print "SSF contents:"
     # print str(SSF)

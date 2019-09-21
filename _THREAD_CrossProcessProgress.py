@@ -27,7 +27,8 @@ class CrossProcessProgressThread(threading.Thread):
         self.progressible = progressible
 
     def run(self):
-        WS.createFilters(self.__LVL0, self.__SSF[KSS.FEATURES])
+        print str(self.__SSF)
+        # WS.createFilters(self.__LVL0, self.__SSF)
         """
         try:
             # self.prog_bar.start()
