@@ -19,7 +19,7 @@ class CrossProcessProgressThread(threading.Thread):
         self.progress = 0
         self.__SSF = SSF
 
-        self.__LVL0 = [OrderedDict()] * len(SSF)
+        # self.__LVL0 = [OrderedDict()] * len(SSF)
 
         self.CROSS = []  # array of cross processes
 
@@ -28,7 +28,9 @@ class CrossProcessProgressThread(threading.Thread):
 
     def run(self):
         print str(self.__SSF)
-        WS.createFilters(self.__LVL0, self.__SSF)
+        # WS.createFilters(self.__LVL0, self.__SSF)
+        WS.createFilters(self.__SSF)
+
         """
         try:
             # self.prog_bar.start()

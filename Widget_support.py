@@ -30,6 +30,7 @@ from CONSTANTS import SYSTEMATIC_FILTERING as CSF
 
 from collections import OrderedDict
 import itertools
+import pandas as pd
 
 GWL_EXSTYLE = -20
 WS_EX_APPWINDOW = 0x00040000
@@ -437,6 +438,16 @@ def SubtractedDict(dictionary1, dictionary2):
     return AlphabeticalDict(subtractedDictionary)
 # endregion dictionary functions
 
+
+""" LIST FUNCTIONS """
+# region list functions
+# keep unique values in a list while preserving order
+def unique(inputList):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in inputList if not (x in seen or seen_add(x))]
+# endregion list functions
+
 """ SYSTEMATIC FILTERING FUNCTIONS """
 # region systematic filtering functions
 # returns a dictionary of dictionaries, where each dictionary is an altered key-value pair
@@ -445,11 +456,13 @@ def initializeSSF(salientFeatures):
     SSF = {}
     ssfItems = salientFeatures.items()  # [0] - key, [1] - value
 
+    SSF[KSS.FEATURES] = []
     SSF[KSS.FEAT_GROUP_CODE] = OrderedDict()  # key : featureID, value : group-code dictionary
     SSF[KSS.FEAT_CODE] = OrderedDict()  # key : featureID, value : array of code arrays (by group)
     SSF[KSS.FEAT_GROUP] = OrderedDict()  # key : featureID, value : array of code arrays (by group)
     # SSF[KSS.GROUP_CODE] = OrderedDict()
 
+    FEAT_LIST = SSF[KSS.FEATURES]
     FEAT_GROUP_CODE = SSF[KSS.FEAT_GROUP_CODE]
     FEAT_CODE = SSF[KSS.FEAT_CODE]
     FEAT_GROUP = SSF[KSS.FEAT_GROUP]
@@ -460,6 +473,8 @@ def initializeSSF(salientFeatures):
         featureDetails = item[1]  # Description, Responses
         responseDetails = featureDetails[KSD.RESPONSES].items()  # returns a tuple of response (code)
         responseGroups = [response[0] for response in responseDetails]  # list of possible responses ('a', 'b', 'c')
+
+        FEAT_LIST.append(featureID)
         FEAT_GROUP[featureID] = responseGroups
 
         # print ('responseGroups : ')
@@ -482,29 +497,23 @@ def initializeSSF(salientFeatures):
             FEAT_GROUP_CODE[featureID][group] = code
 
         FEAT_GROUP_CODE[featureID] = AlphabeticalDict(FEAT_GROUP_CODE[featureID])
-# prepare GROUP-CODE dictionaries
-        # GROUP_CODE[featureID] = []
-
-
-        # assign GROUP-CODE and FEAT-CODE dictionaries
-        # for response, group in itertools.izip(responseDetails, responseGroups):
-        # for response in responseDetails:
-        #     code = response[1][KSD.CODE]
-        #     FEAT_CODE[featureID].append(code)
-            # GROUP_CODE[featureID].append(group)
 
     # print "SSF contents:"
     # print str(SSF)
 
     return SSF
 
-def createFilters(LVL, SSF, maxLevel = CSF.MAX_LVL):
+def createFilters(SSF, maxLevel = CSF.MAX_LVL):
     level = 1
     LVLS = OrderedDict()
-    LVLS[0] = LVL
+
+    LVLS[0] = [[]] * len(SSF)  # an empty level
 
     print "LVL[0] = "
-    print str(LVL)
+    print str(LVLS[0])
+
+    print "SSF[KSS.FEATURES] = "
+    print str(SSF[KSS.FEATURES])
 
     print "SSF[KSS.FEAT_GROUP] = "
     print str(SSF[KSS.FEAT_GROUP])
@@ -514,10 +523,11 @@ def createFilters(LVL, SSF, maxLevel = CSF.MAX_LVL):
 
     print "SSF[KSS.FEAT_CODE] = "
     print str(SSF[KSS.FEAT_CODE])
-    
+
+    BagOfFeatures = SSF[KSS.FEATURES]
     while level <= maxLevel:
-        prevLVL = LVLS[level-1]
-        LVLS[level] = createFilter(level, prevLVL, SSF)
+        LVLprev = LVLS[level-1]
+        LVLS[level] = createFilter(level, LVLprev, BagOfFeatures)
         level += 1
 
     print "LVLS = "
@@ -525,38 +535,37 @@ def createFilters(LVL, SSF, maxLevel = CSF.MAX_LVL):
     print str(type(LVLS))
     return LVLS
 
-def createFilter(level, prevLVL, SSF):
+def createFilter(level, LVLprev, BagOfFeatures):
     print "level = " + str(level)
+    print "BagOfFeatures = " + str(BagOfFeatures)
 
-    LVL = OrderedDict()
+    LVL = []
+    lenBOF = len(BagOfFeatures)
+    lenLVLprev = len(LVLprev)
     prevLevel = level - 1
+    # firstIndex = prevLevel
+    # lastIndex = lenBOF - (prevLevel)
 
-    # create current level based on prevLVL and SSF
-    nPrevLVL = len(prevLVL)
-    nSFF = len(SSF)
+    # range is (inclusive, exclusive)
+    # for i in range(firstIndex, lastIndex):
+    # for each item in the previous LVL
+    for i in range(lenLVLprev):
+        prevItem = list(LVLprev[i])
+        print "prevItem " + str(prevItem)
 
-    startPrevLVL = 1
-    iPrevLVL = startPrevLVL
-    endPrevLVL = nPrevLVL - prevLevel
+        firstIndex = i + prevLevel
+        # go over each BOF item
+        for j in range(firstIndex, lenBOF):
+            item = list(prevItem)
+            item.append(BagOfFeatures[j])
+            LVL.append(tuple(item))
 
-    startSFF = iPrevLVL + prevLevel
-    iSFF = startSFF
-    endSFF = nSFF
-
-    index = 1
-
-    print "itemPrevLVL = "
-    for itemPrevLVL in prevLVL:
-        print str(itemPrevLVL)
-
-    # for iPrevLVL in range(1, endPrevLVL):
-        # for iSFF in range(1, endSFF):
-        #     itemPrevLVL = prevLVL[iPrevLVL][iSFF]
-        #     itemSSF = SSF[iSFF]
-        #     LVL[index] = MergedDict()
-        #     index += 1
-
-
+    # LVL = unique(LVL)  # only maintain unique values (pandas should preserve order)
+    tupleLVL = tuple(LVL)  # convert list to tuples to be compatible with pd.unique
+    print "type " + str(type(tupleLVL))
+    LVL = pd.unique(tupleLVL)  # only maintain unique values (pandas should preserve order)
+    LVL = [list(x) for x in LVL]  # convert LVL to list
 
     return LVL
+
 # endregion systematic filtering functions
