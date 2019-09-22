@@ -527,7 +527,7 @@ def createFilters(SSF, maxLevel = CSF.MAX_LVL):
     BagOfFeatures = SSF[KSS.FEATURES]
     while level <= maxLevel:
         LVLprev = LVLS[level-1]
-        LVLS[level] = createFilter(level, LVLprev, BagOfFeatures)
+        LVLS[level] = createFeatureSet(level, LVLprev, BagOfFeatures)
         level += 1
 
     print "LVLS = "
@@ -535,7 +535,12 @@ def createFilters(SSF, maxLevel = CSF.MAX_LVL):
     print str(type(LVLS))
     return LVLS
 
-def createFilter(level, LVLprev, BagOfFeatures):
+
+""" Create the current Feature Set for the given level based on the BagOfFeatures.
+    A level = 2 with BagOfFeatures = [a1, a2, a3] will return :
+        LVL = [[a1, a2], [a1, a3], [a2, a3]]
+"""
+def createFeatureSet(level, LVLprev, BagOfFeatures):
     print "level = " + str(level)
     print "BagOfFeatures = " + str(BagOfFeatures)
 
@@ -568,4 +573,14 @@ def createFilter(level, LVLprev, BagOfFeatures):
 
     return LVL
 
+
+""" Creates the filterSet from a given featureSet.
+    A 'featureSet' is one item from the LVLS list (e.g. LVLS[2]).
+    A sample featureSet is:
+        [[a1, a2], [a1, a3], [a2, a3]]
+    which is a sample content of LVLS[2].
+"""
+def createFilterSet(featureSet):
+
+    pass
 # endregion systematic filtering functions

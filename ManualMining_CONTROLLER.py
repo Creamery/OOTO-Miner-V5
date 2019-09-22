@@ -968,6 +968,13 @@ class ManualMining_Controller:
                 i += 1
                 for dataset in test['Datasets']:  # For each sample pairs in queue
                     FS.convertDatasetValuesToGroups(dataset, features)
+
+                    print "convertDatasetValuesToGroups : "
+                    print "---- dataset : "
+                    print str(dataset)
+                    print "---- features : "
+                    print str(features)
+
                     fileName = FS.makeFileName(dataset)  # TODO This makes the intermediate tables based on the selected features
                     # print ("GENERATED FILENAME: " + str(fileName))
                     FS.writeCSVDict(fileName, dataset['Data'])
