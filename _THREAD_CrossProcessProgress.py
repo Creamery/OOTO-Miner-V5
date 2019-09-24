@@ -29,8 +29,24 @@ class CrossProcessProgressThread(threading.Thread):
     def run(self):
         print str(self.__SSF)
         # WS.createFilters(self.__LVL0, self.__SSF)
-        WS.createFilters(self.__SSF)
 
+        # create filters, where FILTERS[level] is an array of dict filters for that level
+        FILTERS = WS.createFilters(self.__SSF)
+
+        # create FILTER_PAIRS within each level, which is a comparison of 2 elements from FILTERS[level]
+        FILTER_PAIRS = WS.createFilterPairs(FILTERS)
+        print ""
+        print "FILTER_PAIRS[1]: "
+        print str(FILTER_PAIRS[1])
+        print ""
+        print "FILTER_PAIRS[3]: "
+        print str(FILTER_PAIRS[3][0])
+    
+        # print "FILTERS[3] type : "
+        # print str(type(FILTERS[3][0]))
+        # print str(FILTERS[3][0].keys())
+
+        # for each FILTERS level, and each FILTER per level, create a CSV
         """
         try:
             # self.prog_bar.start()

@@ -31,6 +31,7 @@ from CONSTANTS import SYSTEMATIC_FILTERING as CSF
 from collections import OrderedDict
 import itertools
 import pandas as pd
+from itertools import combinations
 
 GWL_EXSTYLE = -20
 WS_EX_APPWINDOW = 0x00040000
@@ -503,37 +504,56 @@ def initializeSSF(salientFeatures):
 
     return SSF
 
+
+def createFilterPairs(FILTERS, maxLevel = CSF.MAX_LVL):
+    FILTER_PAIRS = [[]] * (maxLevel + 1)
+
+    for level in range(1, (maxLevel + 1)):
+        FILTER = FILTERS[level]
+        FILTER_PAIRS[level] = list(combinations(FILTER, 2))
+    return FILTER_PAIRS
+
+""" 1. Initialize SSF - prepares a dictionary with various featID, CODE, and GROUP pairs
+    2. Create featureSet (LVLS) for levels 1, 2, and 3 - where a featureSet is the grouping of features acc. to level
+    3. Map each feature in LVLS[level] with its corresponding GROUP (e.g. ['a', 'b', 'c'])
+    4. Create filterSet for levels 1, 2, and 3 from featureSet
+    5. Return FILTERS
+"""
 def createFilters(SSF, maxLevel = CSF.MAX_LVL):
     level = 1
     LVLS = OrderedDict()
 
     LVLS[0] = [[]] * len(SSF)  # an empty level
 
-    print "LVL[0] = "
-    print str(LVLS[0])
+    # print "LVL[0] = "
+    # print str(LVLS[0])
+    # print "SSF[KSS.FEATURES] = "
+    # print str(SSF[KSS.FEATURES])
+    # print "SSF[KSS.FEAT_GROUP] = "
+    # print str(SSF[KSS.FEAT_GROUP])
+    # print "SSF[KSS.FEAT_GROUP_CODE] = "
+    # print str(SSF[KSS.FEAT_GROUP_CODE])
+    # print "SSF[KSS.FEAT_CODE] = "
+    # print str(SSF[KSS.FEAT_CODE])
 
-    print "SSF[KSS.FEATURES] = "
-    print str(SSF[KSS.FEATURES])
-
-    print "SSF[KSS.FEAT_GROUP] = "
-    print str(SSF[KSS.FEAT_GROUP])
-
-    print "SSF[KSS.FEAT_GROUP_CODE] = "
-    print str(SSF[KSS.FEAT_GROUP_CODE])
-
-    print "SSF[KSS.FEAT_CODE] = "
-    print str(SSF[KSS.FEAT_CODE])
-
+    # create feature set
     BagOfFeatures = SSF[KSS.FEATURES]
     while level <= maxLevel:
         LVLprev = LVLS[level-1]
         LVLS[level] = createFeatureSet(level, LVLprev, BagOfFeatures)
         level += 1
 
-    print "LVLS = "
-    print str(LVLS)
-    print str(type(LVLS))
-    return LVLS
+    # create filter set
+    FILTERS = [[]] * (maxLevel + 1)
+
+    for level in range(1, maxLevel + 1):
+        print "level " + str(level)
+        LVL = LVLS[level]
+        FILTERS[level] = createFilterSet(LVL, SSF[KSS.FEAT_GROUP])  # dict of array of dict, ex: {'level': }
+
+        # print "FILTERS : "
+        # print str(FILTERS[level])
+    return FILTERS
 
 
 """ Create the current Feature Set for the given level based on the BagOfFeatures.
@@ -574,13 +594,38 @@ def createFeatureSet(level, LVLprev, BagOfFeatures):
     return LVL
 
 
-""" Creates the filterSet from a given featureSet.
-    A 'featureSet' is one item from the LVLS list (e.g. LVLS[2]).
-    A sample featureSet is:
+""" Creates the filterSet from a given LVL.
+    A 'LVL' is one item from the LVLS list (e.g. LVLS[2]).
+    A sample LVL is:
         [[a1, a2], [a1, a3], [a2, a3]]
     which is a sample content of LVLS[2].
 """
-def createFilterSet(featureSet):
+def createFilterSet(LVL, featureGroupMap):
+    filterSet = []  # an array of filters (dict)
+    for featureSet in LVL:
+        filterSet.extend(createFilter(featureSet, featureGroupMap))
 
-    pass
+    return filterSet
+
+""" Returns the list of filters from the given featureSet and featureGroupMap.
+    Ex: [a1, a2] or [a1, a3]
+"""
+def createFilter(featureSet, featureGroupMap):
+
+    filters = []
+    groupSet = []
+
+    # initialize groupSet array
+    for feature in featureSet:
+        groupSet.append(featureGroupMap[feature])  # an array of groups, ex: [ [a, b, c], [a, b] ]
+
+    groupSet = list(itertools.product(*groupSet))  # store all the combinations of a list of lists via itertools
+
+    keys = featureSet
+    for group in groupSet:
+        filter = OrderedDict(zip(keys, group))
+        filters.append(filter)
+
+    return filters
+
 # endregion systematic filtering functions
