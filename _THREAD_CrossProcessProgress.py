@@ -1,47 +1,79 @@
 import threading
 import tkMessageBox
-from ChiTest import ChiTest
-import Function_support as FS
 import os
 import time
+
+from ChiTest import ChiTest
+import Function_support as FS
+import Widget_support as WS
+from Keys_support import SSF as KSS
+
+from collections import OrderedDict
 
 class CrossProcessProgressThread(threading.Thread):
 
     # pass the widgets that the thread will update
-    def __init__(self):
+    def __init__(self, SSF):
         threading.Thread.__init__(self)
         self.progressible = None
         self.progress = 0
+        self.__SSF = SSF
+
+        # self.__LVL0 = [OrderedDict()] * len(SSF)
+
+        self.CROSS = []  # array of cross processes
 
     def setProgressible(self, progressible):
         self.progressible = progressible
 
     def run(self):
+        print str(self.__SSF)
+        # WS.createFilters(self.__LVL0, self.__SSF)
+
+        # create filters, where FILTERS[level] is an array of dict filters for that level
+        FILTERS = WS.createFilters(self.__SSF)
+
+        # create FILTER_PAIRS within each level, which is a comparison of 2 elements from FILTERS[level]
+        FILTER_PAIRS = WS.createFilterPairs(FILTERS)
+        print ""
+        print "FILTER_PAIRS[1]: "
+        print str(FILTER_PAIRS[1])
+        print ""
+        print "FILTER_PAIRS[3]: "
+        print str(FILTER_PAIRS[3][0])
+    
+        # print "FILTERS[3] type : "
+        # print str(type(FILTERS[3][0]))
+        # print str(FILTERS[3][0].keys())
+
+        # for each FILTERS level, and each FILTER per level, create a CSV
+        """
         try:
             # self.prog_bar.start()
             self.progressible.resetProgress(50)
             self.progress = 0
 
-            # while not self.progressible.isComplete():
-
-            self.prepareData(tests)
-
-
-            self.performCrossProcess(dataset, features)
+            while not self.progressible.isComplete():
+            # TODO
+            # self.prepareData(tests)
+            # self.performCrossProcess(dataset, features)
 
 
-            self.progress += 1
-            self.updateProgressible(self.progress)
-            print "progress " + str(self.progressible.getCurrentPercent())
-            # time.sleep(0.01)
+                self.progress += 1
+                self.updateProgressible(self.progress)
+                print "progress " + str(self.progressible.getCurrentPercent())
+                # time.sleep(0.01)
 
 
         finally:
             print "ThreadCrossProcessProgress DONE"
             # self.lblProgressText["text"] = "COMPLETE"
-
+        """
     def updateProgressible(self, progress):
-        self.progressible.updateProgress(progress)
+        strProgress = str(progress) + "% completed."
+        arrInfo = [strProgress]
+        self.progressible.updateProgress(progress, arrInfo)
+
     def prepareData(self, tests):
 
         if len(tests) == 0:

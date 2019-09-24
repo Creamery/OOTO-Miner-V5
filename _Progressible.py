@@ -14,7 +14,7 @@ class _Progressible:
         self.__isComplete = False
         self.setMaxProgress(maxProgress)
 
-    def updateProgress(self, progress):
+    def updateProgress(self, progress, args = [""]):
         # self.setCurrentProgress(self.getCurrentProgress() + progress)
         self.setCurrentProgress(progress)
         self.setCurrentPercent(self.getCurrentProgress() / self.getMaxProgress())

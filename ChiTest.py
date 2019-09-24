@@ -492,17 +492,17 @@ class ChiTest:
             for i in range(1, len(V[header])):
                 entry = V[header][i][0]
                 groups[V[header][i][0]] = []
-                print ("b3 " + str(i) + " groups | header " + str(V[header][i][0]))
+                # print ("b3 " + str(i) + " groups | header " + str(V[header][i][0]))
 
-        if (header == "b3"):
-            print ("b3 groups INIT " + str(groups))
+        # if (header == "b3"):
+        #     print ("b3 groups INIT " + str(groups))
 
         for i in range(0, len(rows)):
 
             entry = rows[i][index]
-            if (header == "b3"):
-                print ("b3 i " + str(i))
-                print ("b3 entry " + str(entry))
+            # if (header == "b3"):
+            #     print ("b3 i " + str(i))
+            #     print ("b3 entry " + str(entry))
 
             if (entry != '-1' and entry != '' and entry != '-1.0'):
 
@@ -513,8 +513,8 @@ class ChiTest:
                     groups[entry] = []
                     groups[entry].append(i)
 
-            if (header == "b3"):
-                print ("b3 groups " + str(groups))
+            # if (header == "b3"):
+            #     print ("b3 groups " + str(groups))
         return groups
 
 

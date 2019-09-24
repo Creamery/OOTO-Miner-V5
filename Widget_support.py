@@ -24,8 +24,14 @@ import UI_support as US
 import Icon_support as IS
 import Function_support as FS
 
-from collections import OrderedDict
+from Keys_support import Dataset as KSD
+from Keys_support import SSF as KSS
+from CONSTANTS import SYSTEMATIC_FILTERING as CSF
 
+from collections import OrderedDict
+import itertools
+import pandas as pd
+from itertools import combinations
 
 GWL_EXSTYLE = -20
 WS_EX_APPWINDOW = 0x00040000
@@ -232,7 +238,6 @@ def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
 
 # endregion creator functions
 
-
 """ UTILITIES """
 # region utility functions
 """ Returns the widget name """
@@ -412,8 +417,8 @@ def exitSplashscreen(root):
 
 # endregion utility functions
 
-""" ALTERED CLASSES """
-# region altered class functions
+""" DICTIONARY FUNCTIONS """
+# region dictionary functions
 # return an alphabetically sorted ordered dictionary
 def AlphabeticalDict(dictionary):
     if isinstance(dictionary, list):
@@ -421,4 +426,206 @@ def AlphabeticalDict(dictionary):
 
     return OrderedDict(sorted(dictionary.items()))
 
-# endregion altered class functions
+# returns a merged then alphabetically sorted dictionary
+def MergedDict(dictionary1, dictionary2):
+    mergedDictionary = dictionary1.copy()
+    mergedDictionary.update(dictionary2)
+
+    return AlphabeticalDict(mergedDictionary)
+
+# subtracts dictionary2 from dictionary1 and returns the alphabetically sorted difference
+def SubtractedDict(dictionary1, dictionary2):
+    subtractedDictionary = {k: v for k, v in dictionary1.items() if k not in dictionary2}
+    return AlphabeticalDict(subtractedDictionary)
+# endregion dictionary functions
+
+
+""" LIST FUNCTIONS """
+# region list functions
+# keep unique values in a list while preserving order
+def unique(inputList):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in inputList if not (x in seen or seen_add(x))]
+# endregion list functions
+
+""" SYSTEMATIC FILTERING FUNCTIONS """
+# region systematic filtering functions
+# returns a dictionary of dictionaries, where each dictionary is an altered key-value pair
+# of featureIDs ('s17'), groups ('a'), and codes ([1, 3])
+def initializeSSF(salientFeatures):
+    SSF = {}
+    ssfItems = salientFeatures.items()  # [0] - key, [1] - value
+
+    SSF[KSS.FEATURES] = []
+    SSF[KSS.FEAT_GROUP_CODE] = OrderedDict()  # key : featureID, value : group-code dictionary
+    SSF[KSS.FEAT_CODE] = OrderedDict()  # key : featureID, value : array of code arrays (by group)
+    SSF[KSS.FEAT_GROUP] = OrderedDict()  # key : featureID, value : array of code arrays (by group)
+    # SSF[KSS.GROUP_CODE] = OrderedDict()
+
+    FEAT_LIST = SSF[KSS.FEATURES]
+    FEAT_GROUP_CODE = SSF[KSS.FEAT_GROUP_CODE]
+    FEAT_CODE = SSF[KSS.FEAT_CODE]
+    FEAT_GROUP = SSF[KSS.FEAT_GROUP]
+    # GROUP_CODE = SSF[KSS.GROUP_CODE]
+
+    for item in ssfItems:
+        featureID = item[0]
+        featureDetails = item[1]  # Description, Responses
+        responseDetails = featureDetails[KSD.RESPONSES].items()  # returns a tuple of response (code)
+        responseGroups = [response[0] for response in responseDetails]  # list of possible responses ('a', 'b', 'c')
+
+        FEAT_LIST.append(featureID)
+        FEAT_GROUP[featureID] = responseGroups
+
+        # print ('responseGroups : ')
+        # print str(responseGroups)
+
+        # prepare FEAT_CODE dictionary
+        FEAT_CODE[featureID] = []
+        # assign FEAT_CODE dictionary
+        for response in responseDetails:
+            code = response[1][KSD.CODE]
+            FEAT_CODE[featureID].append(code)
+
+
+        # assign FEAT_GROUP_CODE dictionary where GROUP is a dictionary of group-code pairs
+        FEAT_GROUP_CODE[featureID] = dict((group, []) for group in responseGroups)
+
+        # for group in responseGroups:
+        for response, group in itertools.izip(responseDetails, responseGroups):
+            code = response[1][KSD.CODE]
+            FEAT_GROUP_CODE[featureID][group] = code
+
+        FEAT_GROUP_CODE[featureID] = AlphabeticalDict(FEAT_GROUP_CODE[featureID])
+
+    # print "SSF contents:"
+    # print str(SSF)
+
+    return SSF
+
+
+def createFilterPairs(FILTERS, maxLevel = CSF.MAX_LVL):
+    FILTER_PAIRS = [[]] * (maxLevel + 1)
+
+    for level in range(1, (maxLevel + 1)):
+        FILTER = FILTERS[level]
+        FILTER_PAIRS[level] = list(combinations(FILTER, 2))
+    return FILTER_PAIRS
+
+""" 1. Initialize SSF - prepares a dictionary with various featID, CODE, and GROUP pairs
+    2. Create featureSet (LVLS) for levels 1, 2, and 3 - where a featureSet is the grouping of features acc. to level
+    3. Map each feature in LVLS[level] with its corresponding GROUP (e.g. ['a', 'b', 'c'])
+    4. Create filterSet for levels 1, 2, and 3 from featureSet
+    5. Return FILTERS
+"""
+def createFilters(SSF, maxLevel = CSF.MAX_LVL):
+    level = 1
+    LVLS = OrderedDict()
+
+    LVLS[0] = [[]] * len(SSF)  # an empty level
+
+    # print "LVL[0] = "
+    # print str(LVLS[0])
+    # print "SSF[KSS.FEATURES] = "
+    # print str(SSF[KSS.FEATURES])
+    # print "SSF[KSS.FEAT_GROUP] = "
+    # print str(SSF[KSS.FEAT_GROUP])
+    # print "SSF[KSS.FEAT_GROUP_CODE] = "
+    # print str(SSF[KSS.FEAT_GROUP_CODE])
+    # print "SSF[KSS.FEAT_CODE] = "
+    # print str(SSF[KSS.FEAT_CODE])
+
+    # create feature set
+    BagOfFeatures = SSF[KSS.FEATURES]
+    while level <= maxLevel:
+        LVLprev = LVLS[level-1]
+        LVLS[level] = createFeatureSet(level, LVLprev, BagOfFeatures)
+        level += 1
+
+    # create filter set
+    FILTERS = [[]] * (maxLevel + 1)
+
+    for level in range(1, maxLevel + 1):
+        print "level " + str(level)
+        LVL = LVLS[level]
+        FILTERS[level] = createFilterSet(LVL, SSF[KSS.FEAT_GROUP])  # dict of array of dict, ex: {'level': }
+
+        # print "FILTERS : "
+        # print str(FILTERS[level])
+    return FILTERS
+
+
+""" Create the current Feature Set for the given level based on the BagOfFeatures.
+    A level = 2 with BagOfFeatures = [a1, a2, a3] will return :
+        LVL = [[a1, a2], [a1, a3], [a2, a3]]
+"""
+def createFeatureSet(level, LVLprev, BagOfFeatures):
+    print "level = " + str(level)
+    print "BagOfFeatures = " + str(BagOfFeatures)
+
+    LVL = []
+    lenBOF = len(BagOfFeatures)
+    lenLVLprev = len(LVLprev)
+    prevLevel = level - 1
+    # firstIndex = prevLevel
+    # lastIndex = lenBOF - (prevLevel)
+
+    # range is (inclusive, exclusive)
+    # for i in range(firstIndex, lastIndex):
+    # for each item in the previous LVL
+    for i in range(lenLVLprev):
+        prevItem = list(LVLprev[i])
+        print "prevItem " + str(prevItem)
+
+        firstIndex = i + prevLevel
+        # go over each BOF item
+        for j in range(firstIndex, lenBOF):
+            item = list(prevItem)
+            item.append(BagOfFeatures[j])
+            LVL.append(tuple(item))
+
+    # LVL = unique(LVL)  # only maintain unique values (pandas should preserve order)
+    tupleLVL = tuple(LVL)  # convert list to tuples to be compatible with pd.unique
+    print "type " + str(type(tupleLVL))
+    LVL = pd.unique(tupleLVL)  # only maintain unique values (pandas should preserve order)
+    LVL = [list(x) for x in LVL]  # convert LVL to list
+
+    return LVL
+
+
+""" Creates the filterSet from a given LVL.
+    A 'LVL' is one item from the LVLS list (e.g. LVLS[2]).
+    A sample LVL is:
+        [[a1, a2], [a1, a3], [a2, a3]]
+    which is a sample content of LVLS[2].
+"""
+def createFilterSet(LVL, featureGroupMap):
+    filterSet = []  # an array of filters (dict)
+    for featureSet in LVL:
+        filterSet.extend(createFilter(featureSet, featureGroupMap))
+
+    return filterSet
+
+""" Returns the list of filters from the given featureSet and featureGroupMap.
+    Ex: [a1, a2] or [a1, a3]
+"""
+def createFilter(featureSet, featureGroupMap):
+
+    filters = []
+    groupSet = []
+
+    # initialize groupSet array
+    for feature in featureSet:
+        groupSet.append(featureGroupMap[feature])  # an array of groups, ex: [ [a, b, c], [a, b] ]
+
+    groupSet = list(itertools.product(*groupSet))  # store all the combinations of a list of lists via itertools
+
+    keys = featureSet
+    for group in groupSet:
+        filter = OrderedDict(zip(keys, group))
+        filters.append(filter)
+
+    return filters
+
+# endregion systematic filtering functions

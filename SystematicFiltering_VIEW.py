@@ -30,7 +30,7 @@ except ImportError:
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
-import Keys_support as key
+from Keys_support import Dataset as KSD
 
 import Color_support as CS
 import Function_support as FS
@@ -55,7 +55,7 @@ class SystematicFiltering_View(_Progressible):
         WS.redraw(self.__parentFrame)
 
     " INHERITED "
-    def updateProgress(self, progress):
+    def updateProgress(self, progress, args = [""]):
         # call super class
         _Progressible.updateProgress(self, progress)
         print "dec is " + str(self.getCurrentDecimal())
@@ -63,7 +63,8 @@ class SystematicFiltering_View(_Progressible):
         # self.getLblCurrentProgress().update()
         self.getLblCurrentDetails().configure(text = str(self.getCurrentPercent()) + "%")
 
-
+        strProgressInfo = str(args[0])
+        self.getLbProgressConsole().insert(0, strProgressInfo)
 
     # region initialization functions
     def initializeWidgets(self, parentFrame):
@@ -154,4 +155,7 @@ class SystematicFiltering_View(_Progressible):
 
     def getBtnStartCrossProcess(self):
         return self.__btnStartCrossProcess
+
+    def getLbProgressConsole(self):
+        return self.lbProgressConsole
     # endregion getters

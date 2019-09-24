@@ -30,7 +30,8 @@ except ImportError:
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
-import Keys_support as key
+from Keys_support import Dataset as KSD
+from Keys_support import SSF as KSS
 
 import Color_support as CS
 import Function_support as FS
@@ -42,18 +43,19 @@ from _THREAD_CrossProcessProgress import CrossProcessProgressThread
 
 class SystematicFiltering_Model:
 
-    def __init__(self, dataset, features):
+    def __init__(self, dataset, featureDescription, salientFeatures):
 
         # initialize properties
-        self.__type = 0
-        self.__maxType = 2
         self.__dataset = dataset
-        self.__features = features
+        self.__featureDescription = featureDescription
+        self.__salientFeatures = salientFeatures
+        self.__SSF = WS.initializeSSF(salientFeatures)
+
 
         # thread that handles the actual processing
-        self.__threadCrossProcess = CrossProcessThread()
+        self.__threadCrossProcess = CrossProcessThread()  # TODO Remove
         # thread that handles the UI progress updates
-        self.__threadCrossProcessProgress = CrossProcessProgressThread()
+        self.__threadCrossProcessProgress = CrossProcessProgressThread(self.__SSF)
 
         self.__isCrossProcessing = False
 
@@ -83,7 +85,9 @@ class SystematicFiltering_Model:
     def getThreadCrossProcessProgress(self):
         return self.__threadCrossProcessProgress
 
-    " SETTERS "
+    def getSSF(self):
+        return self.__SSF
 
+    " SETTERS "
     def setCrossProcessing(self, value):
         self.__isCrossProcessing = value
