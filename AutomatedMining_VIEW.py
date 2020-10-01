@@ -1048,6 +1048,7 @@ class AutomatedMining_View:
                                    justify = LEFT)
         # endregion QUEUE SCREEN listConsoleQueueScreen
 
+        # TODO Remove?
         # region Z-TEST CONSOLE SCREEN listConsoleZTestScreen
         self.listConsoleZTestScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleZTestScreen')
         screenWidget = self.listConsoleZTestScreen

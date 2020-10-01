@@ -281,11 +281,11 @@ class ChiTest:
         header, rows = self.sortTableColumns(header, rows)
 
         ## TODO Remove lol
-        print "Header after i killed it " + str(header)
-        print "diz are da header"
-        print header
-        print "diz are the rows"
-        print rows
+        # print "Header after i killed it " + str(header)
+        # print "diz are da header"
+        # print header
+        # print "diz are the rows"
+        # print rows
 
         numpiRows = np.asarray(rows)
         labelCols = numpiRows[:, 0]
@@ -330,14 +330,14 @@ class ChiTest:
 
         expected = np.copy(numpiRows)
         grandTotal = np.sum(colSum)
-        print ("grandTotal: " + str(grandTotal))
+        # print ("grandTotal: " + str(grandTotal))
 
-        print "totals"
-        # print totals
-        lenrow = len(totals)
+        # print "totals"
+        # # print totals
+        # lenrow = len(totals)
 
-        print ("colsum: " + str(colSum))
-        lencol = len(colSum)
+        # print ("colsum: " + str(colSum))
+        # lencol = len(colSum)
 
         # print "expected"
         # print expected
@@ -420,8 +420,8 @@ class ChiTest:
         if (np.isnan(chistat)):
             chistat = ""
 
-        print colSum.size
-        print totals.size
+        # print colSum.size
+        # print totals.size
 
         self.degreeFreedom = (colSum.size - 1) * (totals.size - 1)
 

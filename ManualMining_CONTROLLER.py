@@ -21,7 +21,8 @@ import tkMessageBox
 import copy
 import SampleVsPopulation as svp
 import SampleVsSample as svs
-import ChiTest as ct
+import ChiTest as CHI
+import Widget_support as WS
 import os
 from collections import Counter
 
@@ -961,7 +962,7 @@ class ManualMining_Controller:
             # return -1
         # self.listQueryDataB.delete(0, END)
         i = 0
-        chiTest = ct.ChiTest.getInstance()  # Initialize singleton
+        chiTest = CHI.ChiTest.getInstance()  # Initialize singleton
         for test in tests:
             fileNames = []
             if (test['Type'] == 'Sample vs Sample'):
@@ -971,9 +972,15 @@ class ManualMining_Controller:
 
                     print "convertDatasetValuesToGroups : "
                     print "---- dataset : "
-                    print str(dataset)
-                    print "---- features : "
-                    print str(features)
+                    n = 3
+                    print str(dataset.keys())
+                    print str(dataset['Filter Features'][:n])
+                    print str(WS.PrintDictItems(n, dataset['Feature']))
+                    # print str(dataset['Data'][:n])
+                    # print str(dataset['Feature'])
+                    # print str(dataset['Data'])
+                    # print "---- features : "
+                    # print str(features)
 
                     fileName = FS.makeFileName(dataset)  # TODO This makes the intermediate tables based on the selected features
                     # print ("GENERATED FILENAME: " + str(fileName))

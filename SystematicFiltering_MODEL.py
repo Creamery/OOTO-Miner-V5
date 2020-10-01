@@ -46,6 +46,15 @@ class SystematicFiltering_Model:
     def __init__(self, dataset, featureDescription, salientFeatures):
 
         # initialize properties
+        self.__rawDataset = dataset
+        print "convertDatasetValuesToGroups : "
+
+        print "---- dataset : "
+        print str(dataset.keys())
+        print str(dataset['FeatureList'])
+        print str(dataset['Samples'])
+
+        # self.__dataset = FS.convertDatasetValuesToGroups(dataset, featureDescription)
         self.__dataset = dataset
         self.__featureDescription = featureDescription
         self.__salientFeatures = salientFeatures
@@ -53,9 +62,9 @@ class SystematicFiltering_Model:
 
 
         # thread that handles the actual processing
-        self.__threadCrossProcess = CrossProcessThread()  # TODO Remove
+        # self.__threadCrossProcess = CrossProcessThread()  # TODO Remove
         # thread that handles the UI progress updates
-        self.__threadCrossProcessProgress = CrossProcessProgressThread(self.__SSF)
+        self.__threadCrossProcessProgress = CrossProcessProgressThread(self.__dataset, self.__SSF)
 
         self.__isCrossProcessing = False
 
@@ -66,7 +75,7 @@ class SystematicFiltering_Model:
         # set progressible view
         self.getThreadCrossProcessProgress().setProgressible(viewProgressible)
         # self.getThreadCrossProcessProgress().setData(viewProgressible)
-        self.getThreadCrossProcess().setProgressible(viewProgressible)
+        # self.getThreadCrossProcess().setProgressible(viewProgressible)
 
         self.setCrossProcessing(True)
         # self.getThreadCrossProcess().start()
@@ -76,11 +85,13 @@ class SystematicFiltering_Model:
         pass
 
     " GETTERS "
+    def getDataset(self):
+        return self.__dataset
+
     def isCrossProcessing(self):
         return self.__isCrossProcessing
 
-    def getThreadCrossProcess(self):
-        return self.__threadCrossProcess
+    # def getThreadCrossProcess(self):__threadCrossProcess
 
     def getThreadCrossProcessProgress(self):
         return self.__threadCrossProcessProgress
