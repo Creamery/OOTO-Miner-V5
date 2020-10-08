@@ -73,7 +73,7 @@ class ManualMining_Controller:
 
     def initializeVariables(self):
         # Selected UI for MM
-        self.selectOptionZTest(None)
+        self.selectOptionChiSquare(None)  # This selects the default algorithm in MM
         self.showConsoleScreen(None, self.listConsoleScreen)  # Click ALL type
 
         global queryType
@@ -991,6 +991,7 @@ class ManualMining_Controller:
                     # print str(features)
 
                     fileName = FS.makeFileName(dataset)  # TODO This makes the intermediate tables based on the selected features
+                    fileName = str("Q" + str(i) + " - " + fileName)
                     # print ("GENERATED FILENAME: " + str(fileName))
                     FS.writeCSVDict(fileName, dataset['Data'])
                     fileNames.append(fileName)
@@ -999,7 +1000,7 @@ class ManualMining_Controller:
 
                 # saveFile = ct.chiTest(fileNames)
                 saveFile = chiTest.chiTest(fileNames)
-                print ("saveFile is " + str(saveFile))
+                print ("saveFile is " + str("Q" + str(i) + " - " + saveFile))
 
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
                 # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
