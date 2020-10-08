@@ -9,9 +9,12 @@
 Manual Mining Functions
 """
 
-__author__ = ["Arren Antioquia", "Arces Talavera", "Jet Virtusio",
-              "Edmund Gerald Cruz", "Rgee Gallega",
-              "Candy Espulgar"]
+__author__ = ["Candy Espulgar (Version 3 - Current)",
+              "Arren Antioquia (Version 1)",
+              "Arces Talavera (Version 1)",
+              "Jet Virtusio (Version 1)",
+              "Edmund Gerald Cruz (Version 2)",
+              "Rgee Gallega (Version 2)"]
 
 __copyright__ = "Copyright 2019, TE3D House"
 __credits__ = ["Arnulfo Azcarraga"]
@@ -116,6 +119,11 @@ class ManualMining_Controller:
         else:
             return True
 
+
+    '''
+    Upload the dataset specified by the given path.
+    
+    '''
     def uploadDataset(self, directory, newDataset):
         global populationDir
         populationDir = directory
