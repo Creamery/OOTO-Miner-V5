@@ -76,11 +76,11 @@ class ManualMining_Controller:
         self.selectOptionChiSquare(None)  # This selects the default algorithm in MM
         self.showConsoleScreen(None, self.listConsoleScreen)  # Click ALL type
 
-        global queryType
-        queryType = self.comboQueryTest.get()
+        global queryType_gl
+        queryType_gl = self.comboQueryTest.get()
 
-        global populationDir
-        populationDir = ""
+        global populationDir_gl
+        populationDir_gl = ""
 
         # Button state variables (This is used instead of directly disabling buttons to keep their appearance)
         self.buttonQueryFeature_state = DISABLED
@@ -101,8 +101,8 @@ class ManualMining_Controller:
         self.datasetA = {'Data': [], 'Filter Features': []}
         self.datasetB = {'Data': [], 'Filter Features': []}
 
-        global tests
-        tests = []
+        global tests_gl
+        tests_gl = []
         self.datasetCountA = len(self.datasetA['Data'])
         self.datasetCountB = len(self.datasetB['Data'])
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
@@ -112,9 +112,9 @@ class ManualMining_Controller:
         self.queryResetDatasetB(None)
 
     def readFeatures(self, variableDescription, itemMarker):
-        global features
-        features = FS.readFeatures(variableDescription, itemMarker)
-        if (len(features)) <= 0: # Invalid variable description file
+        global features_gl
+        features_gl = FS.readFeatures(variableDescription, itemMarker)
+        if (len(features_gl)) <= 0: # Invalid variable description file
             return False
         else:
             return True
@@ -125,8 +125,8 @@ class ManualMining_Controller:
     
     '''
     def uploadDataset(self, directory, newDataset):
-        global populationDir
-        populationDir = directory
+        global populationDir_gl
+        populationDir_gl = directory
 
         self.populationDataset = newDataset
 
@@ -385,7 +385,7 @@ class ManualMining_Controller:
     '''
     # def findFeature(entryFeat, listFeat, dataset, *args):
     def findFeature(self, entryFeat, listFeat, dataset, populationDatasetOriginal, isPrintingError = False, *args):
-        global features
+        global features_gl
         # Here is how to get the value from entryFeatA
         featCode = entryFeat
         print "Entered feature code: " + featCode
@@ -393,7 +393,7 @@ class ManualMining_Controller:
         found = False
         hasFocusFeature = False
         # Get proper list of features from initial variable description
-        for feature in features:
+        for feature in features_gl:
             if feature['Code'] == featCode:
                 found = True
                 for arg in args:
@@ -680,7 +680,7 @@ class ManualMining_Controller:
             self.datasetA['Data'] = new_data
             # self.populationDatasetOriginalA['Data'] = new_data
 
-            if (queryType == 'Sample vs Sample'):
+            if (queryType_gl == 'Sample vs Sample'):
                 queryStrFilterA = ''
                 # queryStrFilterA = 'Dataset A'
             else:
@@ -764,7 +764,7 @@ class ManualMining_Controller:
             # Assign the new set of filtered data
             self.datasetB['Data'] = new_data
 
-            if (queryType == 'Sample vs Sample'):  ### TODO
+            if (queryType_gl == 'Sample vs Sample'):  ### TODO
                 queryStrFilterB = ''
             else:
                 queryStrFilterB = ''
@@ -917,7 +917,7 @@ class ManualMining_Controller:
     ''' Adds test to the queue '''
 
     def addToQueue(self, testType, **params):
-        global tests
+        global tests_gl
         test = {'Type': testType}
         for key in params:
             if (key == 'popDirArg'):
@@ -934,8 +934,8 @@ class ManualMining_Controller:
                 test['Datasets'] = copy.deepcopy(params[key])
             elif (key == 'zArg'):
                 test['Z Critical Value'] = copy.copy(params[key])
-        tests.append(test)
-        self.labelQueueCount.configure(text = str(len(tests)))
+        tests_gl.append(test)
+        self.labelQueueCount.configure(text = str(len(tests_gl)))
         tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
 
         '''
@@ -950,13 +950,15 @@ class ManualMining_Controller:
     ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
 
     def queue(self, evt):
+        global queryType_gl
+
         self.buttonQueue.configure(relief = FLAT)
         datasets = []
         datasets.append(self.datasetA)
         datasets.append(self.datasetB)
-        global queryType
-        if (queryType == 'Sample vs Sample'):
-            self.addToQueue(queryType, datasetArgs = datasets)
+
+        if (queryType_gl == 'Sample vs Sample'):  # TODO Remove this condition?
+            self.addToQueue(queryType_gl, datasetArgs = datasets)
         else:
             tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
         return "break"
@@ -964,19 +966,19 @@ class ManualMining_Controller:
     ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
 
     def testQueue(self, evt):
-        if len(tests) == 0:
+        if len(tests_gl) == 0:
             tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
             return "break"
             # return -1
         # self.listQueryDataB.delete(0, END)
         queueNum = 0
         chiTest = CHI.ChiTest.getInstance()  # Initialize singleton
-        for test in tests:
+        for test in tests_gl:
             fileNames = []
             if test['Type'] == 'Sample vs Sample':
                 queueNum += 1
                 for dataset in test['Datasets']:  # For each sample pairs in queue
-                    FS.convertDatasetValuesToGroups(dataset, features)
+                    FS.convertDatasetValuesToGroups(dataset, features_gl)
 
                     print "convertDatasetValuesToGroups : "
                     print "---- dataset : "
@@ -1009,7 +1011,7 @@ class ManualMining_Controller:
 
                 # TODO Check if you need this removed
                 if not (os.path.isfile("Updated-Variables.csv")):
-                    FS.makeUpdatedVariables(features, "Updated-Variables.csv")
+                    FS.makeUpdatedVariables(features_gl, "Updated-Variables.csv")
 
                 # saveFile = ct.chiTest(fileNames)
                 saveFile = chiTest.chiTest(fileNames, queueNum)
@@ -1037,8 +1039,8 @@ class ManualMining_Controller:
     ''' Clears the tests in the queue. '''
 
     def clearQueue(self, evt):
-        tests[:] = []
-        self.labelQueueCount.configure(text = str(len(tests)))
+        tests_gl[:] = []
+        self.labelQueueCount.configure(text = str(len(tests_gl)))
         tkMessageBox.showinfo("Reset", "Queue cleared.")
         self.buttonQueue.configure(relief = FLAT)
         return "break"
@@ -1097,7 +1099,7 @@ class ManualMining_Controller:
             resultsRows.append(header)
 
             # Iterate through every feature
-            for feature in features:
+            for feature in features_gl:
                 featureValues = []  # Values that are not in group -1. This will be all values of the feature.
                 selectedFeatureValues = []  # Values within featureValues that are selected by the user. By default, it is just those with group 'b'
 
@@ -1139,8 +1141,8 @@ class ManualMining_Controller:
     ''' Sets test type: Sample vs Sample (Chi-Test, Z-Test) or Sample vs Population (Z-Test) '''
 
     def querySetType(self, evt):
-        global queryType
-        queryType = self.comboQueryTest.get()
+        global queryType_gl
+        queryType_gl = self.comboQueryTest.get()
         self.adjustQueryViews()
 
     ''' Disables/enables views (buttons, entry fields etc.) based on test type selected '''
@@ -1190,7 +1192,7 @@ class ManualMining_Controller:
         self.listQueryDataB.delete(0, END)
         self.listQuerySetDataB.delete(0, END)
 
-        if queryType == 'Sample vs Population':
+        if queryType_gl == 'Sample vs Population':
             self.buttonQueryFeature.configure(state = "disabled")
             # self.buttonQueryFeatureA.configure(state = "disabled")
             # self.buttonQueryFeatureB.configure(state = "disabled")
@@ -1241,8 +1243,8 @@ class ManualMining_Controller:
 
     def querySetAllFeatures(self):
         # Test items
-        global strarrAllFeatures
-        strarrAllFeatures = list(self.listQuerySetDataA.get(0, END))
+        global strarAllFeatures_gl
+        strarAllFeatures_gl = list(self.listQuerySetDataA.get(0, END))
 
     # endregion
 
@@ -1664,10 +1666,10 @@ class ManualMining_Controller:
     '''
 
     def resetDataset(self):
-        global populationDir
+        global populationDir_gl
         new_dataset = {'Data': [], 'Filter Features': []}
         try:
-            populationDataset = FS.readCSVDict(populationDir)
+            populationDataset = FS.readCSVDict(populationDir_gl)
             for record in populationDataset:
                 new_dataset['Data'].append(record)
             return new_dataset

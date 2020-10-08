@@ -55,12 +55,12 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 
-w = None
+w_gl = None
 
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
+    global val, w_gl, root
     root = Tk()
     root.resizable(0, 0)
     Mother_support.set_Tk_var()
@@ -72,7 +72,7 @@ def vp_start_gui():
 
 def create_OOTO_Miner(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
-    global w, w_win, rt
+    global w_gl, w_win, rt
     rt = root
     w = Toplevel(root)
     Mother_support.set_Tk_var()
@@ -82,7 +82,7 @@ def create_OOTO_Miner(root, *args, **kwargs):
 
 
 def destroy_OOTO_Miner():
-    global w
+    global w_gl
     w.destroy()
     w = None
 

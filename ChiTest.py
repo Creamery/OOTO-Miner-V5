@@ -592,7 +592,7 @@ class ChiTest:
         tableList = []  # list of contingency tables
 
         # z = [6.64]
-        z = [0.0]
+        z = [0.0]  # TODO Clean this function
         # zstr = ['1960']
 
         fileName = ""
@@ -625,8 +625,8 @@ class ChiTest:
 
             results_headers = out.ChiTest.getInstance().COLUMN_HEADERS  # Results headers TODO Constant
 
-            results_headers.extend(
-                population_and_proportionHeaders)  # Append the population and proportion headers for each cluster to results headers
+            # Append the population and proportion headers for each cluster to results headers
+            results_headers.extend(population_and_proportionHeaders)
             results.append(results_headers)  # Append these as header names to the results
             # print results
 

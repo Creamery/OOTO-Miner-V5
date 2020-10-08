@@ -1,5 +1,5 @@
 Contents of 'features' (ChiTest parameter)
-features = 
+features_gl =
 [
 	{
 		'Code': 'b1',
@@ -108,7 +108,7 @@ features =
 	{<...>}
 ]
 
-tests = [test, test, <...>]
+tests_gl = [test, test, < ... >]
 
 
 test = 
