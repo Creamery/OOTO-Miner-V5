@@ -168,11 +168,13 @@ class AutomatedMining_Controller:
             return False
         else:
             self.model.readFeatures(features)
-            # print "FEATURES " + str(features)
+            self.model.readFeatureNames(features)
+            # print "FEATURES " + str(type(features[0]))
             return True
 
-    def uploadDataset(self, dataset):
-        self.model.readDataset(dataset)
+    def uploadDataset(self, dirPopulation):
+
+        self.model.readDataset(dirPopulation)
 
         print "UPLOADED"
         return True

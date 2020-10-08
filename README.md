@@ -5,3 +5,4 @@ The Out of the Ordinary (OOTO) Miner is a data mining application that analyses 
 
 # Requirements
 - Install XlsxWriter (run 'pip install XlsxWriter' in terminal)
+- Install sklearn

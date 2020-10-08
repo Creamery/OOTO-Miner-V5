@@ -19,6 +19,7 @@ import Function_support as FS
 from Keys_support import Dataset as KSD
 import Widget_support as WS
 import _MODULE_SystematicFiltering as SF
+import Pandas_support as PS
 
 # AM MODEL - the class referenced by the AM VIEW to know what data to show
 class AutomatedMining_Model:
@@ -52,6 +53,16 @@ class AutomatedMining_Model:
         self.__setFeatureDescription(self.getFeatureDescription())
 
     """
+    Feature names for pandas data frame
+    """
+    def readFeatureNames(self, features):
+        featureNames = [dItem[KSD.CODE] for dItem in features]
+        self.__setFeatureNames(featureNames)
+        print("FEATURE Names----")
+        print(self.getFeatureNames())
+        print(type(self.getFeatureNames()))
+
+    """
     Change the format of responses to a dictionary of the form :
     { 'a': { 'Code': [], 'Description': [] } }
     """
@@ -74,27 +85,32 @@ class AutomatedMining_Model:
         return dictResponses
 
 
-    def readDataset(self, dataset):
-        self.__resetDatasets()
+    def readDataset(self, dirPopulation):
+        PS.loadDataset(dirPopulation, self.getFeatureNames())
 
-        # Append SAMPLES
-        for record in dataset:
-            orderedRecord = WS.AlphabeticalDict(record)  # sort sample's answers (keys) alphabetically
-            self.getPopulationDataset()[KSD.SAMPLES].append(orderedRecord)
-            self.getDatasetA()[KSD.SAMPLES].append(orderedRecord)
-            self.getDatasetB()[KSD.SAMPLES].append(orderedRecord)
 
-        # Set FEATURE_LIST
-        self.getPopulationDataset()[KSD.FEATURE_LIST] = self.getFeatureDescription()
-        self.getDatasetA()[KSD.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
-        self.getDatasetB()[KSD.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
-        # print "getPopulationDataset[key.FEATURE_LIST]"
-        # print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b1'])
-        # print ""
-        # print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b4'])
-        # print "getPopulationDataset[key.SAMPLES]"
-        # print str(self.getPopulationDataset()[KS.SAMPLES][0:3])
-        # print str(self.getPopulationDataset()[KS.SAMPLES])
+    # TODO Delete?
+    # def readDataset(self, dataset):
+    #     self.__resetDatasets()
+    #
+    #     # Append SAMPLES
+    #     for record in dataset:
+    #         orderedRecord = WS.AlphabeticalDict(record)  # sort sample's answers (keys) alphabetically
+    #         self.getPopulationDataset()[KSD.SAMPLES].append(orderedRecord)
+    #         self.getDatasetA()[KSD.SAMPLES].append(orderedRecord)
+    #         self.getDatasetB()[KSD.SAMPLES].append(orderedRecord)
+    #
+    #     # Set FEATURE_LIST
+    #     self.getPopulationDataset()[KSD.FEATURE_LIST] = self.getFeatureDescription()
+    #     self.getDatasetA()[KSD.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+    #     self.getDatasetB()[KSD.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
+    #     # print "getPopulationDataset[key.FEATURE_LIST]"
+    #     # print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b1'])
+    #     # print ""
+    #     # print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b4'])
+    #     # print "getPopulationDataset[key.SAMPLES]"
+    #     # print str(self.getPopulationDataset()[KS.SAMPLES][0:3])
+    #     # print str(self.getPopulationDataset()[KS.SAMPLES])
 
 
     def __resetFeatureDescription(self):
@@ -245,7 +261,7 @@ class AutomatedMining_Model:
         return self.__datasetA
 
     def getDatasetB(self):
-        return self.__datasetA
+        return self.__datasetB
 
     def getCountDatasetA(self):
         count = len(self.getDatasetA()['Data'])
@@ -254,6 +270,9 @@ class AutomatedMining_Model:
     def getCountDatasetB(self):
         count = len(self.getDatasetB()['Data'])
         return count
+
+    def getFeatureNames(self):
+        return self.__featureNames
 
     """SETTERS"""
     def __setFeatureDescription(self, value):
@@ -271,6 +290,10 @@ class AutomatedMining_Model:
 
     def __setDatasetB(self, value):
         self.__datasetB = OrderedDict(value)
+
+    def __setFeatureNames(self, value):
+        self.__featureNames = value
+
 
     """UPDATERS"""
     def updateSelectedFeatureResponse(self, selectedItem):

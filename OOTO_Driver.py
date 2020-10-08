@@ -588,24 +588,24 @@ class OOTO_Miner:
             # tkMessageBox.showinfo("Variable description set", "Variable description uploaded")
             # # getCommonGroups(features)
 
-        # Upload populationDir (Population Dataset)
+        # Upload dirPopulation (Population Dataset)
         if not self.INPUT.getHasUploadedPopulation():  # Check if population dataset was uploaded
             tkMessageBox.showerror("Error 1: Upload Population Dataset",
                                    "Please select a population dataset file.")
             return "break"
 
         else:
-            populationDir = self.INPUT.getPopulationDir()
+            dirPopulation = self.INPUT.getPopulationDir()
 
-            populationDataset = FS.readCSVDict(populationDir)
-            isSuccessfulAM = self.AM.uploadDataset(populationDataset)
-            print("AM Pop Dataset, DatasetA, DatasetB")
-            print(self.AM.model.getPopulationDataset())
-            print(self.AM.model.getDatasetA())
-            print(self.AM.model.getDatasetB())
+            # populationDataset = FS.readCSVDict(populationDir)
+            isSuccessfulAM = self.AM.uploadDataset(dirPopulation)
+            # print("AM Pop Dataset, DatasetA, DatasetB")
+            # print(self.AM.model.getPopulationDataset())
+            # print(self.AM.model.getDatasetA())
+            # print(self.AM.model.getDatasetB())
 
-            populationDataset = FS.readCSVDict(populationDir)
-            isSuccessfulMM = self.MM.uploadDataset(populationDir, populationDataset)
+            populationDataset = FS.readCSVDict(dirPopulation)
+            isSuccessfulMM = self.MM.uploadDataset(dirPopulation, populationDataset)
 
             if (isSuccessfulMM and isSuccessfulAM):
                 tkMessageBox.showinfo("Success: Upload Dataset",

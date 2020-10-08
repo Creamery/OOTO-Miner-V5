@@ -88,16 +88,16 @@ class Input_Controller:
     def selectSetPopulation(self, evt):
         self.hasUploadedPopulation = False
 
-        global populationDir
-        populationDir = askopenfilename(title = "Select file",
+        global dirPopulation
+        dirPopulation = askopenfilename(title = "Select file",
                                         filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
 
-        if len(populationDir) == 0:
+        if len(dirPopulation) == 0:
             tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
         else:
             self.hasUploadedPopulation = True
             self.entryQueryPopulation.delete(0, END)
-            self.entryQueryPopulation.insert(0, populationDir)
+            self.entryQueryPopulation.insert(0, dirPopulation)
         return "break"
 
     # endregion
@@ -161,5 +161,5 @@ class Input_Controller:
         return self.buttonStartDatasetUpload
 
     def getPopulationDir(self):
-        global populationDir
-        return populationDir
+        global dirPopulation
+        return dirPopulation
