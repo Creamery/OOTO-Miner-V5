@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/(Q1) - Chi-Test - (Q1) b1 (2) (Q1) b5 (0) (Tables).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/(Q1) - Chi-Test - (Q1) b1 (2) (Q1) b5 (0) .xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/(Q1) b1 (2).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/(Q1) b5 (0).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Function_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Function_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" afterDir="false" />
-    </list>
+    <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,8 +15,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="354">
-                  <caret line="992" column="41" lean-forward="true" selection-start-line="992" selection-start-column="41" selection-end-line="992" selection-end-column="41" />
+                <state relative-caret-position="145">
+                  <caret line="981" column="43" selection-start-line="981" selection-start-column="43" selection-end-line="981" selection-end-column="43" />
                   <folding>
                     <element signature="e#38823#39420#0" />
                     <element signature="e#39581#39808#0" />
@@ -304,7 +296,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="182" />
     <option name="y" value="12" />
     <option name="width" value="1715" />
@@ -1000,8 +992,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="992" column="41" lean-forward="true" selection-start-line="992" selection-start-column="41" selection-end-line="992" selection-end-column="41" />
+        <state relative-caret-position="145">
+          <caret line="981" column="43" selection-start-line="981" selection-start-column="43" selection-end-line="981" selection-end-column="43" />
           <folding>
             <element signature="e#38823#39420#0" />
             <element signature="e#39581#39808#0" />
