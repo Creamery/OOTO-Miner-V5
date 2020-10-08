@@ -969,12 +969,12 @@ class ManualMining_Controller:
             return "break"
             # return -1
         # self.listQueryDataB.delete(0, END)
-        i = 0
+        queueNum = 0
         chiTest = CHI.ChiTest.getInstance()  # Initialize singleton
         for test in tests:
             fileNames = []
-            if (test['Type'] == 'Sample vs Sample'):
-                i += 1
+            if test['Type'] == 'Sample vs Sample':
+                queueNum += 1
                 for dataset in test['Datasets']:  # For each sample pairs in queue
                     FS.convertDatasetValuesToGroups(dataset, features)
 
@@ -994,8 +994,8 @@ class ManualMining_Controller:
 
                     fileName = FS.makeFileName(dataset)  # TODO This makes the intermediate tables based on the selected features
 
-                    queueNumber = str("(Q" + str(i) + ") ")
-                    fileName = str(queueNumber + fileName)
+                    queueStr = str("(Q" + str(queueNum) + ") ")
+                    fileName = str(queueStr + fileName)
                     fileName = str(fileName + ".csv")
                     fileNames.append(fileName)
 
@@ -1012,7 +1012,7 @@ class ManualMining_Controller:
                     FS.makeUpdatedVariables(features, "Updated-Variables.csv")
 
                 # saveFile = ct.chiTest(fileNames)
-                saveFile = chiTest.chiTest(fileNames)
+                saveFile = chiTest.chiTest(fileNames, queueNum)
                 print ("saveFile is " + saveFile)
 
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."

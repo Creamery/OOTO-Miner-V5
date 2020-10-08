@@ -164,21 +164,18 @@ each feature
 """
 def makeFileName(dataset):
     fileName = ""
-    # Tables Chi-Test_Q0 - _b1(2 ).csv_Q0 - _b5(1 ).csv_
-    # Chi-Test_Q1  b1 (2).csv_Q1  b5 (1).csv_
-    # Chi-Test_Q1 asd  b1 (2).csv_Q1 asd  b5 (1).csv_
 
     for filterFeature in dataset['Filter Features']:
         featureCode = copy.deepcopy(filterFeature['Code'])
         for i in range(0, len(filterFeature['Selected Responses'])):
             if i == 0:
                 fileName = str(fileName + str(featureCode) + " ")
-                fileName = fileName + "("
+                fileName = fileName + "["
 
             fileName = fileName + filterFeature['Selected Responses'][i]['Code']
 
             if i == (len(filterFeature['Selected Responses']) - 1):
-                fileName = fileName + ")"
+                fileName = fileName + "]"
             else:
                 fileName = fileName + " "
 

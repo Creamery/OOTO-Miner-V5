@@ -561,7 +561,7 @@ class ChiTest:
         return variables
 
 
-    def chiTest(self, datasetPaths):
+    def chiTest(self, datasetPaths, queueNum):
         reload(sys)
         # sys.setdefaultencoding('utf8')
         # sys.stdin.encoding = 'utf8'
@@ -595,14 +595,12 @@ class ChiTest:
         z = [0.0]
         # zstr = ['1960']
 
-        queueNum = 0
-        fileName = ''
+        fileName = ""
 
         for y in range(0, len(z)):
             results = []  # The resulting content that will be written in save.csv
             dataset_headers = []
             dataset_names = []
-            queueNum = queueNum + 1
 
             for x in range(0, len(clusternames)):
                 clustername_arr = clusternames[x].split('\\')
@@ -652,7 +650,7 @@ class ChiTest:
                 self.doFile(theTable, i, results, converter, z[y], H)  # Chi test on the question and then writing it in the file
 
                 # Remove the column with -1 in the table.
-                if ('-1' in theTable.rows[0]):
+                if '-1' in theTable.rows[0]:
                     position = theTable.rows[0].index('-1')  # Get index of the -1 column.
                     for row in theTable.rows:  # Delete the entire -1 column.
                         del row[position]
@@ -662,6 +660,7 @@ class ChiTest:
 
                 theTable.getPrintable(tableList)
 
+
             # Print results
 
             # fileName = str("(Q" + str(queueNum) + ") ")
@@ -669,10 +668,6 @@ class ChiTest:
             for name in dataset_names:
                 fileName = fileName + name + " "
 
-            print("!-!---- File Name")
-            print(fileName)
-            fileName = fileName.replace(".csv", "")
-            print(fileName)
             # print("results contain: " + str(results))
 
             # Sort results by Chi-value column
@@ -693,7 +688,12 @@ class ChiTest:
             # print("sortColumn: " + str(sortColumn))
             # print("results now contain: " + str(results))
 
-            fileName = str("(Q" + str(queueNum) + ") - Chi-Test - " + fileName)
+
+            fileName = fileName.replace(".csv", "")
+            queueStr = "(Q" + str(queueNum) + ")"
+            fileName = fileName.replace(queueStr, "")
+
+            fileName = str(queueStr + " - Chi-Test -" + fileName)
             self.writeonXLSX(results, fileName + '.xlsx', results_headers)
 
             # Print interim chi-square tables

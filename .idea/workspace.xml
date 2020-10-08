@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Chi-Test_Q1 - _b1(1 2 ).csv_Q1 - _b5(0 ).csv_.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/(Q1) - Chi-Test - (Q1) b1 (2) (Q1) b5 (0) (Tables).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/(Q1) - Chi-Test - (Q1) b1 (2) (Q1) b5 (0) .xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/(Q1) b1 (2).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/(Q1) b5 (0).csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Function_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Function_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" afterDir="false" />
@@ -17,11 +20,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.7145123">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-722">
-                  <caret line="965" column="8" selection-start-line="965" selection-start-column="8" selection-end-line="965" selection-end-column="8" />
+                <state relative-caret-position="354">
+                  <caret line="992" column="41" lean-forward="true" selection-start-line="992" selection-start-column="41" selection-end-line="992" selection-end-column="41" />
                   <folding>
                     <element signature="e#38823#39420#0" />
                     <element signature="e#39581#39808#0" />
@@ -34,11 +37,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ChiTest.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="266">
-                  <caret line="695" column="66" selection-start-line="695" selection-start-column="66" selection-end-line="695" selection-end-column="66" />
+                <state relative-caret-position="143">
+                  <caret line="563" column="36" selection-start-line="563" selection-start-column="36" selection-end-line="563" selection-end-column="36" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                   </folding>
@@ -58,8 +61,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Function_support.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="143">
-                  <caret line="97" column="12" selection-start-line="97" selection-start-column="12" selection-end-line="97" selection-end-column="12" />
+                <state relative-caret-position="276">
+                  <caret line="177" column="40" selection-start-line="177" selection-start-column="40" selection-end-line="177" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
@@ -182,8 +185,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>populationDir</find>
-      <find>getPopulationDir</find>
       <find>buttonStartDatasetUpload</find>
       <find>start</find>
       <find>savefile is</find>
@@ -197,7 +198,6 @@
       <find>N1</find>
       <find>csv</find>
       <find>appen</find>
-      <find>savefile</find>
       <find>chi tes</find>
       <find>chit</find>
       <find>_</find>
@@ -209,9 +209,12 @@
       <find>tables</find>
       <find>Q</find>
       <find>!--</find>
-      <find>.csv</find>
       <find>dataset_names</find>
       <find>fileNam</find>
+      <find>replac</find>
+      <find>.csv</find>
+      <find>savefile</find>
+      <find>queuestr</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -296,8 +299,8 @@
         <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/OOTO_Driver.py" />
         <option value="$PROJECT_DIR$/Function_support.py" />
-        <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/ChiTest.py" />
+        <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
       </list>
     </option>
   </component>
@@ -596,6 +599,11 @@
           <url>file://$PROJECT_DIR$/_THREAD_CrossProcessProgress.py</url>
           <line>78</line>
           <option name="timeStamp" value="99" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ManualMining_CONTROLLER.py</url>
+          <line>975</line>
+          <option name="timeStamp" value="101" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -948,13 +956,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="1546" selection-start-line="1546" selection-end-line="1546" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Widget_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
@@ -975,15 +976,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Function_support.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="177" column="40" selection-start-line="177" selection-start-column="40" selection-end-line="177" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="1546" selection-start-line="1546" selection-end-line="1546" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChiTest.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
-          <caret line="97" column="12" selection-start-line="97" selection-start-column="12" selection-end-line="97" selection-end-column="12" />
+          <caret line="563" column="36" selection-start-line="563" selection-start-column="36" selection-end-line="563" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-722">
-          <caret line="965" column="8" selection-start-line="965" selection-start-column="8" selection-end-line="965" selection-end-column="8" />
+        <state relative-caret-position="354">
+          <caret line="992" column="41" lean-forward="true" selection-start-line="992" selection-start-column="41" selection-end-line="992" selection-end-column="41" />
           <folding>
             <element signature="e#38823#39420#0" />
             <element signature="e#39581#39808#0" />
@@ -991,16 +1009,6 @@
             <element signature="e#46365#48467#0" />
             <element signature="e#52167#56658#0" />
             <element signature="e#56703#56817#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChiTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="695" column="66" selection-start-line="695" selection-start-column="66" selection-end-line="695" selection-end-column="66" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
