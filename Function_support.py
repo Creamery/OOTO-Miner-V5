@@ -163,17 +163,28 @@ Returns filename of the dataset based on the features it was filtered by and sel
 each feature
 """
 def makeFileName(dataset):
-    fileName = ''
+    fileName = ""
+    # Tables Chi-Test_Q0 - _b1(2 ).csv_Q0 - _b5(1 ).csv_
+    # Chi-Test_Q1  b1 (2).csv_Q1  b5 (1).csv_
+    # Chi-Test_Q1 asd  b1 (2).csv_Q1 asd  b5 (1).csv_
+
     for filterFeature in dataset['Filter Features']:
         featureCode = copy.deepcopy(filterFeature['Code'])
-        fileName = fileName + "_" + str(featureCode)
         for i in range(0, len(filterFeature['Selected Responses'])):
             if i == 0:
+                fileName = str(fileName + str(featureCode) + " ")
                 fileName = fileName + "("
-            fileName = fileName + filterFeature['Selected Responses'][i]['Code'] + " "
+
+            fileName = fileName + filterFeature['Selected Responses'][i]['Code']
+
             if i == (len(filterFeature['Selected Responses']) - 1):
                 fileName = fileName + ")"
-    fileName = fileName + ".csv"
+            else:
+                fileName = fileName + " "
+
+        # fileName = str(fileName + ".csv")
+    # fileName = str(fileName + ".csv")
+
     return fileName
 
 
@@ -286,10 +297,11 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
         label.configure(text = "Frequency: " + str(datasets[0]['Proportion']) + " , Proportion: " + str(
             round(datasets[0]['ProportionPercent'] * 100, 2)) + "%" + ", Total: " + str(datasets[0]['Total']))
 
-        if (isWarn is True and set(allValues) == set(selectedValues)):
-            tkMessageBox.showwarning("Z-Test Warning",
-                                     "WARNING: You selected all of the valid values of " + dataset['Focus Feature'][
-                                         'Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
+        # TODO Remove the commented code below, eventually
+        # if (isWarn is True and set(allValues) == set(selectedValues)):
+        #     tkMessageBox.showwarning("Z-Test Warning",
+        #                              "WARNING: You selected all of the valid values of " + dataset['Focus Feature'][
+        #                                  'Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
 
 
 """

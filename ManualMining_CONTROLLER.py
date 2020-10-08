@@ -980,7 +980,9 @@ class ManualMining_Controller:
 
                     print "convertDatasetValuesToGroups : "
                     print "---- dataset : "
-                    n = 3
+
+                    n = 3  # TODO Define this
+
                     print str(dataset.keys())
                     print str(dataset['Filter Features'][:n])
                     print str(WS.PrintDictItems(n, dataset['Feature']))
@@ -991,29 +993,40 @@ class ManualMining_Controller:
                     # print str(features)
 
                     fileName = FS.makeFileName(dataset)  # TODO This makes the intermediate tables based on the selected features
-                    fileName = str("Q" + str(i) + " - " + fileName)
+
+                    queueNumber = str("(Q" + str(i) + ") ")
+                    fileName = str(queueNumber + fileName)
+                    fileName = str(fileName + ".csv")
+                    fileNames.append(fileName)
+
                     # print ("GENERATED FILENAME: " + str(fileName))
                     FS.writeCSVDict(fileName, dataset['Data'])
-                    fileNames.append(fileName)
+
+
+
+                print("!---- File NAMES")
+                print(fileNames)
+
+                # TODO Check if you need this removed
                 if not (os.path.isfile("Updated-Variables.csv")):
                     FS.makeUpdatedVariables(features, "Updated-Variables.csv")
 
                 # saveFile = ct.chiTest(fileNames)
                 saveFile = chiTest.chiTest(fileNames)
-                print ("saveFile is " + str("Q" + str(i) + " - " + saveFile))
+                print ("saveFile is " + saveFile)
 
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
                 # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
                 # removeFiles(fileNames) # TODO This removes the intermediate tables
 
                 # print functions TODO remove
-                if i == 1:
-                    print "test type is "
-                    print str(type(test))
-                    # print "test = "
-                    # print str(tests)
-                    # print "test['Datasets'][0] = "
-                    # print str(test['Datasets'][0])
+                # if i == 1:
+                #     print "test type is "
+                #     print str(type(test))
+                #     # print "test = "
+                #     # print str(tests)
+                #     # print "test['Datasets'][0] = "
+                #     # print str(test['Datasets'][0])
 
         # print "Contents of Features are "
         # print str(features)
