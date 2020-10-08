@@ -281,11 +281,11 @@ class ChiTest:
         header, rows = self.sortTableColumns(header, rows)
 
         ## TODO Remove lol
-        print "Header after i killed it " + str(header)
-        print "diz are da header"
-        print header
-        print "diz are the rows"
-        print rows
+        # print "Header after i killed it " + str(header)
+        # print "diz are da header"
+        # print header
+        # print "diz are the rows"
+        # print rows
 
         numpiRows = np.asarray(rows)
         labelCols = numpiRows[:, 0]
@@ -330,14 +330,14 @@ class ChiTest:
 
         expected = np.copy(numpiRows)
         grandTotal = np.sum(colSum)
-        print ("grandTotal: " + str(grandTotal))
+        # print ("grandTotal: " + str(grandTotal))
 
-        print "totals"
-        # print totals
-        lenrow = len(totals)
+        # print "totals"
+        # # print totals
+        # lenrow = len(totals)
 
-        print ("colsum: " + str(colSum))
-        lencol = len(colSum)
+        # print ("colsum: " + str(colSum))
+        # lencol = len(colSum)
 
         # print "expected"
         # print expected
@@ -420,8 +420,8 @@ class ChiTest:
         if (np.isnan(chistat)):
             chistat = ""
 
-        print colSum.size
-        print totals.size
+        # print colSum.size
+        # print totals.size
 
         self.degreeFreedom = (colSum.size - 1) * (totals.size - 1)
 
@@ -561,7 +561,7 @@ class ChiTest:
         return variables
 
 
-    def chiTest(self, datasetPaths):
+    def chiTest(self, datasetPaths, queueNum):
         reload(sys)
         # sys.setdefaultencoding('utf8')
         # sys.stdin.encoding = 'utf8'
@@ -569,6 +569,8 @@ class ChiTest:
         # change to ur own.
         vList = self.getVariableList('Updated-Variables.csv',
                                 '^')  # Get Variable Description # TODO This should always match the output in OOTO.py
+        print("!------ readHeader")
+        print(datasetPaths[0])
         header = self.readHeader(datasetPaths[0])  # Read the header from one of the datasets which include the question codes
         # print("ex_header: " + str(header))
         results = []
@@ -593,6 +595,8 @@ class ChiTest:
         z = [0.0]
         # zstr = ['1960']
 
+        fileName = ""
+
         for y in range(0, len(z)):
             results = []  # The resulting content that will be written in save.csv
             dataset_headers = []
@@ -608,11 +612,12 @@ class ChiTest:
             results.append(dataset_names)  # Append dataset names
 
             population_and_proportionHeaders = []  # Headers Ni and Pi for each cluster i
+            print("Cluster NAMES : " + str(len(clusternames)))
 
             for x in range(0, len(clusternames)):
                 population_and_proportionHeaders.append("N" + str(x + 1))  # Add Header "Nx" for each cluster x. Total of x
 
-            for x in range(0, len(clusternames)):
+            # for x in range(0, len(clusternames)):
                 population_and_proportionHeaders.append(
                     "P" + str(x + 1) + "(a)")  # Add Header "Px" for each cluster x. Proportion of x
                 population_and_proportionHeaders.append("P" + str(x + 1) + "(b)")
@@ -645,7 +650,7 @@ class ChiTest:
                 self.doFile(theTable, i, results, converter, z[y], H)  # Chi test on the question and then writing it in the file
 
                 # Remove the column with -1 in the table.
-                if ('-1' in theTable.rows[0]):
+                if '-1' in theTable.rows[0]:
                     position = theTable.rows[0].index('-1')  # Get index of the -1 column.
                     for row in theTable.rows:  # Delete the entire -1 column.
                         del row[position]
@@ -655,10 +660,13 @@ class ChiTest:
 
                 theTable.getPrintable(tableList)
 
+
             # Print results
-            fileName = 'Chi-Test_'  # Get filename of save file
+
+            # fileName = str("(Q" + str(queueNum) + ") ")
+            # fileName = str(fileName + "- Chi-Test -")  # Get filename of save file TODO
             for name in dataset_names:
-                fileName = fileName + name + '_'
+                fileName = fileName + name + " "
 
             # print("results contain: " + str(results))
 
@@ -679,10 +687,17 @@ class ChiTest:
             # print("rowStart: " + str(rowStart))
             # print("sortColumn: " + str(sortColumn))
             # print("results now contain: " + str(results))
+
+
+            fileName = fileName.replace(".csv", "")
+            queueStr = "(Q" + str(queueNum) + ")"
+            fileName = fileName.replace(queueStr, "")
+
+            fileName = str(queueStr + " - Chi-Test -" + fileName)
             self.writeonXLSX(results, fileName + '.xlsx', results_headers)
 
             # Print interim chi-square tables
-            self.writeOnCSV(tableList, "Tables " + fileName + '.csv')  # TODO: Comment out
+            self.writeOnCSV(tableList, fileName + "(Tables)" + ".csv")  # TODO: Comment out
             return fileName
 
         # print "results"

@@ -63,9 +63,11 @@ class AutomatedMining_Controller:
 
 
         self.configureViewBindings()
+        self.configureConsoleViewBindings()
+        self.initializeVariables()
 
-        # self.configureTestTabBindings()
-        # self.initializeVariables()
+    def initializeVariables(self):
+        self.showConsoleScreen(None, self.listConsoleScreen)
 
     def configureViewBindings(self):
         button = self.view.getBtnConfirmFeatureSelect()
@@ -175,6 +177,119 @@ class AutomatedMining_Controller:
         print "UPLOADED"
         return True
 
+
+    def configureConsoleViewBindings(self):
+
+        # GENERAL
+        self.dictConsoleScreens = self.view.getDictConsoleScreens()
+
+        # LABELS
+        self.labelConsoleScreenTaskBar = self.view.getLabelConsoleScreenTaskBar()
+
+
+        # Console buttons
+        self.buttonConsoleAll = self.view.getButtonConsoleAll()
+        self.buttonConsoleAll.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleScreen))
+
+
+        self.buttonConsoleZTest = self.view.getButtonConsoleZTest()
+        self.buttonConsoleZTest.bind("<Button-1>",
+                                     lambda event: self.showConsoleScreen(event, self.listConsoleZTestScreen))
+
+        self.buttonConsoleChiSquare = self.view.getButtonConsoleChiSquare()
+        self.buttonConsoleChiSquare.bind("<Button-1>",
+                                         lambda event: self.showConsoleScreen(event, self.listConsoleChiSquareScreen))
+
+        self.buttonConsoleQueue = self.view.getButtonConsoleQueue()
+        self.buttonConsoleQueue.bind("<Button-1>",
+                                     lambda event: self.showConsoleScreen(event, self.listConsoleQueueScreen))
+        # self.buttonConsoleAll.bind('<Button-1>', self.showConsoleScreen(self.listConsoleScreen))
+        # self.buttonConsoleZTest.bind('<Button-1>', self.showConsoleScreen(self.listConsoleZTestScreen))
+        # self.buttonConsoleChiSquare.bind('<Button-1>', self.showConsoleScreen(self.listConsoleChiSquareScreen))
+        # self.buttonConsoleQueue.bind('<Button-1>', self.showConsoleScreen(self.listConsoleQueueScreen))
+
+
+        # FOCUS IN / OUT
+
+        self.listConsoleScreen = self.view.getListConsoleScreen()
+        self.listConsoleScreen.bind("<ButtonRelease>",
+                                    lambda event: self.selectConsoleEntry(event, self.listConsoleScreen))
+
+        self.listConsoleZTestScreen = self.view.getListConsoleZTestScreen()
+        self.listConsoleZTestScreen.bind("<ButtonRelease>",
+                                         lambda event: self.selectConsoleEntry(event, self.listConsoleZTestScreen))
+
+        self.listConsoleChiSquareScreen = self.view.getListConsoleChiSquareScreen()
+        self.listConsoleChiSquareScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event,
+                                                                                                      self.listConsoleChiSquareScreen))
+
+        self.listConsoleQueueScreen = self.view.getListConsoleQueueScreen()
+        self.listConsoleQueueScreen.bind("<ButtonRelease>",
+                                         lambda event: self.selectConsoleEntry(event, self.listConsoleQueueScreen))
+
+        # ENTER / LEAVE
+        # self.buttonQuerySetDataA.bind("<Enter>", self.enterRightArrowPlainIcon)
+        # self.buttonQuerySetDataA.bind("<Leave>", self.leaveRightArrowPlainIcon)
+
+        # self.buttonQuerySetDataB.bind("<Enter>", self.enterRightArrowPlainIcon)
+        # self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowPlainIcon)
+        # self.buttonQuerySetDataB.bind("<Enter>", lambda event, iconSize =  Icon_support.SELECT_ICO_SIZE_BUTTONS: self.enterRightArrowIcon(event, Icon_support.SELECT_ICO_SIZE_BUTTONS))
+        # self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowIcon(Icon_support.SELECT_ICO_SIZE_BUTTONS))
+
+        # self.buttonQueryAddFilterA.bind("<Enter>", self.enterCheckIcon)
+        # self.buttonQueryAddFilterA.bind("<Leave>", self.leaveCheckIcon)
+
+        # self.buttonQueryAddFilterB.bind("<Enter>", self.enterCheckIcon)
+        # self.buttonQueryAddFilterB.bind("<Leave>", self.leaveCheckIcon)
+
+        # self.buttonQueryFeature.bind("<Enter>", self.enterRightArrowPlainIcon)
+        # self.buttonQueryFeature.bind("<Leave>", self.leaveRightArrowPlainIcon)
+        # self.buttonQueryFeature.bind("<Enter>",
+        #                              lambda event: self.enterRightArrowPlainIcon(event, self.buttonQueryFeature_state))
+        # self.buttonQueryFeature.bind("<Leave>",
+        #                              lambda event: self.leaveRightArrowPlainIcon(event, self.buttonQueryFeature_state))
+
+        # self.buttonQueryZTest.bind("<Enter>", self.enterCheckIcon)
+        # self.buttonQueryZTest.bind("<Leave>", self.leaveCheckIcon)
+
+        # self.buttonQueue.bind("<Enter>", self.enterAddIcon)
+        # self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
+        # self.buttonQueue.bind("<Enter>", self.enterDownArrowIcon)
+        # self.buttonQueue.bind("<Leave>", self.leaveDownArrowIcon)
+
+        # self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
+        # self.buttonClearQueue.bind("<Leave>", self.leaveCrossIcon)
+
+        # self.buttonTestQueue.bind("<Enter>", self.enterRightArrowIcon)
+        # self.buttonTestQueue.bind("<Leave>", self.leaveRightArrowIcon)
+
+        # self.buttonQueryResetFilterA.bind("<Enter>", self.enterCrossIcon)
+        # self.buttonQueryResetFilterA.bind("<Leave>", self.leaveCrossIcon)
+
+        # self.buttonQueryResetFilterB.bind("<Enter>", self.enterCrossIcon)
+        # self.buttonQueryResetFilterB.bind("<Leave>", self.leaveCrossIcon)
+
+        # LISTBOX
+        # self.listQuerySetDataA = self.view.getListQuerySetDataA()
+        # self.listQuerySetDataA.bind('<<ListboxSelect>>', self.querySelectDataValuesA)
+        # self.listQuerySetDataB = self.view.getListQuerySetDataB()
+        # self.listQuerySetDataB.bind('<<ListboxSelect>>', self.querySelectDataValuesB)
+
+        # self.listQueryDataA = self.view.getListQueryDataA()
+        # self.listQueryDataA.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
+        # self.listQueryDataB = self.view.getListQueryDataB()
+        # self.listQueryDataB.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
+
+
+        # MOUSEWHEEL
+        # self.listQueryDataA.bind("<MouseWheel>", self.scrollFilterListBox)
+        # self.listQueryDataB.bind("<MouseWheel>", self.scrollFilterListBox)
+
+        # COMBOBOX
+        # self.comboQueryTest = self.view.getComboQueryTest()
+        # self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
+
+
     '''CONSOLE HEADER'''
     # region console functions
     def clearConsole(self):
@@ -238,6 +353,45 @@ class AutomatedMining_Controller:
     def highlightEntry(self, consoleScreen):
         consoleScreen.text.tag_remove("current_line", 1.0, "end")
         consoleScreen.text.tag_add("current_line", "insert linestart", "insert lineend+1c")
+
+    """
+    Hides the widget by setting its relative width and height to 0.
+    Use showWidget() to make the widget re-appear.
+    Always set the widget's 'name' first.
+    """
+    def hideWidget(self, widget):
+        widget.update()
+
+        # Store widget width and height if it's not in the dictionary
+        widgetName = self.getWidgetName(widget)
+        if not (widgetName + '_W' in self.dictWidgetPlace):
+            self.dictWidgetPlace[widgetName + '_W'] = UI_support.getRelW(widget)
+            self.dictWidgetPlace[widgetName + '_H'] = UI_support.getRelH(widget)
+
+        # Set widget width and height to 0
+        widget.place(relwidth = 0, relheight = 0)
+
+    def showWidget(self, widget):
+
+        widgetName = self.getWidgetName(widget)
+
+        # Retrieve widget width and height if it's in the dictionary
+        if (widgetName + '_W' in self.dictWidgetPlace):
+            widgetWidth = self.dictWidgetPlace[widgetName + '_W']
+            widgetHeight = self.dictWidgetPlace[widgetName + '_H']
+
+            # Set widget width and height
+            widget.place(relwidth = widgetWidth, relheight = widgetHeight)
+
+            # Remove keys from dictionary
+            self.dictWidgetPlace.pop(widgetName + '_W', None)
+            self.dictWidgetPlace.pop(widgetName + '_H', None)
+
+        widget.update()
+
+    def getWidgetName(self, widget):
+        # print("widget name:", str(widget).split(".")[-1])
+        return str(widget).split(".")[-1]
 
     def showConsoleScreen(self, event, consoleScreen):
 

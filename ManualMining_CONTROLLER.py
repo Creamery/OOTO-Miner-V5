@@ -9,9 +9,12 @@
 Manual Mining Functions
 """
 
-__author__ = ["Arren Antioquia", "Arces Talavera", "Jet Virtusio",
-              "Edmund Gerald Cruz", "Rgee Gallega",
-              "Candy Espulgar"]
+__author__ = ["Candy Espulgar (Version 3 - Current)",
+              "Arren Antioquia (Version 1)",
+              "Arces Talavera (Version 1)",
+              "Jet Virtusio (Version 1)",
+              "Edmund Gerald Cruz (Version 2)",
+              "Rgee Gallega (Version 2)"]
 
 __copyright__ = "Copyright 2019, TE3D House"
 __credits__ = ["Arnulfo Azcarraga"]
@@ -21,7 +24,8 @@ import tkMessageBox
 import copy
 import SampleVsPopulation as svp
 import SampleVsSample as svs
-import ChiTest as ct
+import ChiTest as CHI
+import Widget_support as WS
 import os
 from collections import Counter
 
@@ -69,7 +73,7 @@ class ManualMining_Controller:
 
     def initializeVariables(self):
         # Selected UI for MM
-        self.selectOptionZTest(None)
+        self.selectOptionChiSquare(None)  # This selects the default algorithm in MM
         self.showConsoleScreen(None, self.listConsoleScreen)  # Click ALL type
 
         global queryType
@@ -115,6 +119,11 @@ class ManualMining_Controller:
         else:
             return True
 
+
+    '''
+    Upload the dataset specified by the given path.
+    
+    '''
     def uploadDataset(self, directory, newDataset):
         global populationDir
         populationDir = directory
@@ -960,44 +969,64 @@ class ManualMining_Controller:
             return "break"
             # return -1
         # self.listQueryDataB.delete(0, END)
-        i = 0
-        chiTest = ct.ChiTest.getInstance()  # Initialize singleton
+        queueNum = 0
+        chiTest = CHI.ChiTest.getInstance()  # Initialize singleton
         for test in tests:
             fileNames = []
-            if (test['Type'] == 'Sample vs Sample'):
-                i += 1
+            if test['Type'] == 'Sample vs Sample':
+                queueNum += 1
                 for dataset in test['Datasets']:  # For each sample pairs in queue
                     FS.convertDatasetValuesToGroups(dataset, features)
 
                     print "convertDatasetValuesToGroups : "
                     print "---- dataset : "
-                    print str(dataset)
-                    print "---- features : "
-                    print str(features)
+
+                    n = 3  # TODO Define this
+
+                    print str(dataset.keys())
+                    print str(dataset['Filter Features'][:n])
+                    print str(WS.PrintDictItems(n, dataset['Feature']))
+                    # print str(dataset['Data'][:n])
+                    # print str(dataset['Feature'])
+                    # print str(dataset['Data'])
+                    # print "---- features : "
+                    # print str(features)
 
                     fileName = FS.makeFileName(dataset)  # TODO This makes the intermediate tables based on the selected features
+
+                    queueStr = str("(Q" + str(queueNum) + ") ")
+                    fileName = str(queueStr + fileName)
+                    fileName = str(fileName + ".csv")
+                    fileNames.append(fileName)
+
                     # print ("GENERATED FILENAME: " + str(fileName))
                     FS.writeCSVDict(fileName, dataset['Data'])
-                    fileNames.append(fileName)
+
+
+
+                print("!---- File NAMES")
+                print(fileNames)
+
+                # TODO Check if you need this removed
                 if not (os.path.isfile("Updated-Variables.csv")):
                     FS.makeUpdatedVariables(features, "Updated-Variables.csv")
 
                 # saveFile = ct.chiTest(fileNames)
-                saveFile = chiTest.chiTest(fileNames)
-                print ("saveFile is " + str(saveFile))
+                saveFile = chiTest.chiTest(fileNames, queueNum)
+                print ("saveFile is " + saveFile)
 
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
                 # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
                 # removeFiles(fileNames) # TODO This removes the intermediate tables
 
                 # print functions TODO remove
-                if i == 1:
-                    print "test type is "
-                    print str(type(test))
-                    # print "test = "
-                    # print str(tests)
-                    # print "test['Datasets'][0] = "
-                    # print str(test['Datasets'][0])
+                # if i == 1:
+                #     print "test type is "
+                #     print str(type(test))
+                #     # print "test = "
+                #     # print str(tests)
+                #     # print "test['Datasets'][0] = "
+                #     # print str(test['Datasets'][0])
 
         # print "Contents of Features are "
         # print str(features)

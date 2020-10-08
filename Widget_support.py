@@ -15,6 +15,7 @@ except ImportError:
     py3 = 1
 
 from ctypes import windll
+import os
 
 import PIL.Image
 import PIL.ImageTk
@@ -28,10 +29,13 @@ from Keys_support import Dataset as KSD
 from Keys_support import SSF as KSS
 from CONSTANTS import SYSTEMATIC_FILTERING as CSF
 
+import ChiTest as CHI
+
 from collections import OrderedDict
 import itertools
 import pandas as pd
 from itertools import combinations
+from itertools import islice
 
 GWL_EXSTYLE = -20
 WS_EX_APPWINDOW = 0x00040000
@@ -437,6 +441,14 @@ def MergedDict(dictionary1, dictionary2):
 def SubtractedDict(dictionary1, dictionary2):
     subtractedDictionary = {k: v for k, v in dictionary1.items() if k not in dictionary2}
     return AlphabeticalDict(subtractedDictionary)
+
+
+# return the first n dictionary items
+
+def PrintDictItems(n, dictionary):
+    iterable = dictionary.iteritems()
+    return list(islice(iterable, n))
+
 # endregion dictionary functions
 
 
@@ -628,4 +640,51 @@ def createFilter(featureSet, featureGroupMap):
 
     return filters
 
+
+def convertDatasetValuesToGroups(dataset, featureDescription):
+    print "DATASET IS "
+    print str(dataset)
+    print ""
+    print "featureDescription IS "
+    print str(featureDescription)
+
+
+
 # endregion systematic filtering functions
+
+
+# region chi-test functions
+def runChiTest(FILTER_PAIRS, DATASET):
+    chiTest = CHI.ChiTest.getInstance()  # Initialize singleton
+
+
+    # i = 0
+    # for FILTER_PAIR in FILTER_PAIRS:
+    #     fileNames = []
+    #     i += 1
+    #     for dataset in test['Datasets']:  # For each sample pairs in queue
+    #         FS.convertDatasetValuesToGroups(dataset, features)
+    #
+    #         print "convertDatasetValuesToGroups : "
+    #         print "---- dataset : "
+    #         print str(dataset)
+    #         print "---- features : "
+    #         print str(features)
+    #
+    #         fileName = FS.makeFileName(
+    #             dataset)  # TODO This makes the intermediate tables based on the selected features
+    #         # print ("GENERATED FILENAME: " + str(fileName))
+    #         FS.writeCSVDict(fileName, dataset['Data'])
+    #         fileNames.append(fileName)
+    #     if not (os.path.isfile("Updated-Variables.csv")):
+    #         FS.makeUpdatedVariables(features, "Updated-Variables.csv")
+    #
+    #     # saveFile = ct.chiTest(fileNames)
+    #     saveFile = chiTest.chiTest(fileNames)
+    #     print ("saveFile is " + str(saveFile))
+    #
+    #     # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
+    #     # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
+    #     # removeFiles(fileNames) # TODO This removes the intermediate tables
+
+# endregion chi-test functions

@@ -163,17 +163,25 @@ Returns filename of the dataset based on the features it was filtered by and sel
 each feature
 """
 def makeFileName(dataset):
-    fileName = ''
+    fileName = ""
+
     for filterFeature in dataset['Filter Features']:
         featureCode = copy.deepcopy(filterFeature['Code'])
-        fileName = fileName + "_" + str(featureCode)
         for i in range(0, len(filterFeature['Selected Responses'])):
             if i == 0:
-                fileName = fileName + "("
-            fileName = fileName + filterFeature['Selected Responses'][i]['Code'] + " "
+                fileName = str(fileName + str(featureCode) + " ")
+                fileName = fileName + "["
+
+            fileName = fileName + filterFeature['Selected Responses'][i]['Code']
+
             if i == (len(filterFeature['Selected Responses']) - 1):
-                fileName = fileName + ")"
-    fileName = fileName + ".csv"
+                fileName = fileName + "]"
+            else:
+                fileName = fileName + " "
+
+        # fileName = str(fileName + ".csv")
+    # fileName = str(fileName + ".csv")
+
     return fileName
 
 
@@ -286,10 +294,11 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
         label.configure(text = "Frequency: " + str(datasets[0]['Proportion']) + " , Proportion: " + str(
             round(datasets[0]['ProportionPercent'] * 100, 2)) + "%" + ", Total: " + str(datasets[0]['Total']))
 
-        if (isWarn is True and set(allValues) == set(selectedValues)):
-            tkMessageBox.showwarning("Z-Test Warning",
-                                     "WARNING: You selected all of the valid values of " + dataset['Focus Feature'][
-                                         'Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
+        # TODO Remove the commented code below, eventually
+        # if (isWarn is True and set(allValues) == set(selectedValues)):
+        #     tkMessageBox.showwarning("Z-Test Warning",
+        #                              "WARNING: You selected all of the valid values of " + dataset['Focus Feature'][
+        #                                  'Code'] + " (those that are not in group -1). Z-Test will not work if all valid values are selected.")
 
 
 """
