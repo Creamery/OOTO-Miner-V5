@@ -21,6 +21,7 @@ def loadDataset(pathDataset, featureNames):
     dataframe.columns = featureNames
     print(dataframe.head())
 
+
     # TODO Split the RFS parts of this function
     topFeatureCount = 3  # This is how many will be chosen
     # Convert DataFrame object to NumPy array for faster computation
