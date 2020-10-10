@@ -11,19 +11,20 @@ import Loader_support as LS
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 dir_input = str(dir_path + "\\_input\\")
+dir_output = str(dir_path + "\\_output\\")
 
 
 # Load Variable Description
 fln_varDesc = "Uniandes_VariableDescription.csv"
-dict_varDesc = path_varDesc = str(dir_input + fln_varDesc)
-LS.loadVarDesc(path_varDesc)
+path_varDesc = str(dir_input + fln_varDesc)
+dict_varDesc = LS.loadVarDesc(path_varDesc)
 
 
 # Load Dataset
 fln_dataset = "Uniandes_Dataset.csv"
 path_dataset = str(dir_input + fln_dataset)
-LS.loadDataset(path_dataset, dict_varDesc)
-
+df_dataset = LS.loadDataset(path_dataset, dict_varDesc)
+LS.exportDataset(df_dataset, "Output.csv", dir_output)
 
 
 

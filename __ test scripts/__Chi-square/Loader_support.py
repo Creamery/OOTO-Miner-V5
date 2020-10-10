@@ -7,9 +7,6 @@ from csv import reader
 
 # For loadDataset()
 import pandas as pd
-import tabulate
-from tabulate import tabulate
-
 
 # For loadVarDesc()
 ITEM_MARKER = "^"
@@ -61,8 +58,13 @@ def loadDataset(path_dataset, dict_varDesc):
     df_dataset = pd.read_csv(path_dataset)
     key = "b1"
     df_dataset[key] = df_dataset[key].replace([1, 2], ["a", "b"])
-    print(df_dataset[key])
-    # print(tabulate(df_dataset, headers = 'keys', tablefmt = 'psql'))
+    # print(df_dataset[key])
+    return df_dataset
+
+
+def exportDataset(df_dataset, filename, path):
+    path_export = str(path + filename)
+    df_dataset.to_csv(path_export, index = False, sep = ",")
 
 def printDictionary(oDict):
     print(json.dumps(oDict, indent = 4))
