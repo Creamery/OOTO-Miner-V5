@@ -15,11 +15,14 @@ dir_input = str(dir_path + "\\_input\\")
 
 # Load Variable Description
 fln_varDesc = "Uniandes_VariableDescription.csv"
-path_varDesc = str(dir_input + fln_varDesc)
-LS.load(LS.TYPE_VARDESC, path_varDesc)
+dict_varDesc = path_varDesc = str(dir_input + fln_varDesc)
+LS.loadVarDesc(path_varDesc)
 
 
-dataset_input = "Uniandes_Dataset.csv"
+# Load Dataset
+fln_dataset = "Uniandes_Dataset.csv"
+path_dataset = str(dir_input + fln_dataset)
+LS.loadDataset(path_dataset, dict_varDesc)
 
 
 

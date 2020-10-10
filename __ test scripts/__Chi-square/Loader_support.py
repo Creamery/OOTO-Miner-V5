@@ -1,25 +1,20 @@
-import pandas as pd
+
 
 # For loadVarDesc()
 import json  # For pretty print
 import collections
 from csv import reader
 
+# For loadDataset()
+import pandas as pd
+import tabulate
+from tabulate import tabulate
 
-# For load() types
-TYPE_VARDESC = 1
-TYPE_DATASET = 2
 
 # For loadVarDesc()
 ITEM_MARKER = "^"
 FEAT_NAME = "Name"
 
-
-def load(load_type, path):
-    if(load_type == TYPE_VARDESC):
-        loadVarDesc(path)
-    else:
-        print("ERROR: TYPE_VARDESC Not Found")
 
 
 # NOTE: Arrays start at 0
@@ -57,22 +52,33 @@ def loadVarDesc(path_variableDesc):
 
 
                 
-        printDictionary(dict_varDesc)
+        # printDictionary(dict_varDesc)
     return dict_varDesc
 
+
+def loadDataset(path_dataset, dict_varDesc):
+    # Load file as dataframe
+    df_dataset = pd.read_csv(path_dataset)
+    key = "b1"
+    df_dataset[key] = df_dataset[key].replace([1, 2], ["a", "b"])
+    print(df_dataset[key])
+    # print(tabulate(df_dataset, headers = 'keys', tablefmt = 'psql'))
 
 def printDictionary(oDict):
     print(json.dumps(oDict, indent = 4))
 
 
-# REMOVE    
-def readFeatures(variableDescription, itemMarker):
-        
-    global features_gl
-    features_gl = FS.readFeatures(variableDescription, itemMarker)
-    if (len(features_gl)) <= 0: # Invalid variable description file
-        return False
-    else:
-        return True
+
+
+
+
+
+
+
+
+
+
+
+
 
         

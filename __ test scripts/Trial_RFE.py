@@ -68,7 +68,7 @@ print(filters)
 for key, value in filter1.items():
     print(str(key))
     print(value)
-    dataframe1 = dataframe1[ dataframe1[str(key)] == value ] 
+    dataframe1 = dataframe1[dataframe1[str(key)] == value]
 
 
 # Output to CSV
