@@ -54,7 +54,10 @@ def loadVarDesc(path_variableDesc):
         # printDictionary(dict_option_names)
     return dict_varDesc
 
-
+'''
+Loads the dataset and makes necessary replacements according
+to the Variable Description File.
+'''
 def loadDataset(path_dataset, dict_varDesc):
     # Load file as dataframe
     df_dataset = pd.read_csv(path_dataset)
@@ -71,11 +74,9 @@ def loadDataset(path_dataset, dict_varDesc):
                 option_new_values.append(item[item_code])  # The value that the option should be. i.e "a"
 
         df_dataset[feat_code] = df_dataset[feat_code].replace(option_values, option_new_values)
-
         # df_dataset[key] = df_dataset[key].replace([1, 2], ["a", "b"])
 
     # print(df_dataset[key])
-
 
     return df_dataset
 
@@ -83,6 +84,9 @@ def loadDataset(path_dataset, dict_varDesc):
 def exportDataset(df_dataset, filename, path):
     path_export = str(path + filename)
     df_dataset.to_csv(path_export, index = False, sep = ",")
+
+def exportResultTable(df_results):
+    print("Export Result Table")
 
 def printDictionary(oDict):
     print(json.dumps(oDict, indent = 4))

@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Filter_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py" beforeDir="false" afterPath="$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_input/Uniandes_VariableDescription - Copy.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_output/Output.csv" beforeDir="false" afterPath="$PROJECT_DIR$/__ test scripts/__Chi-square/_output/Output.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,8 +38,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="133">
-                    <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+                  <state relative-caret-position="190">
+                    <caret line="70" column="27" selection-start-line="70" selection-start-column="27" selection-end-line="70" selection-end-column="27" />
                     <folding>
                       <element signature="e#25#43#0" expanded="true" />
                     </folding>
@@ -51,8 +50,8 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="137">
-                    <caret line="60" column="32" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
+                  <state relative-caret-position="194">
+                    <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
                     <folding>
                       <element signature="e#22#53#0" expanded="true" />
                     </folding>
@@ -117,8 +116,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Function_support.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="383">
-                  <caret line="75" selection-start-line="75" selection-end-line="75" />
+                <state relative-caret-position="117">
+                  <caret line="25" column="11" lean-forward="true" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
                 </state>
               </provider>
             </entry>
@@ -127,7 +126,7 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/AutomatedMining_MODEL.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="162">
@@ -135,6 +134,15 @@
                   <folding>
                     <element signature="e#177#212#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Filter_support.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="95">
+                  <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
                 </state>
               </provider>
             </entry>
@@ -269,7 +277,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/VariableDescriptorMaker.py" />
         <option value="$PROJECT_DIR$/Output_support.py" />
         <option value="$PROJECT_DIR$/SampleVsPopulation.py" />
         <option value="$PROJECT_DIR$/SampleVsSample.py" />
@@ -307,7 +314,6 @@
         <option value="$PROJECT_DIR$/SystematicFiltering_MODEL.py" />
         <option value="$PROJECT_DIR$/Trial.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_VIEW.py" />
-        <option value="$PROJECT_DIR$/Function_support.py" />
         <option value="$PROJECT_DIR$/ChiTest.py" />
         <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/_MODULE_AutomatedMining.py" />
@@ -317,6 +323,9 @@
         <option value="$PROJECT_DIR$/AutomatedMining_MODEL.py" />
         <option value="$PROJECT_DIR$/Pandas_support.py" />
         <option value="$PROJECT_DIR$/__ test scripts/Trial_RFE.py" />
+        <option value="$PROJECT_DIR$/FeatureFilter_support.py" />
+        <option value="$PROJECT_DIR$/Function_support.py" />
+        <option value="$PROJECT_DIR$/Filter_support.py" />
         <option value="$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py" />
         <option value="$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py" />
       </list>
@@ -340,17 +349,6 @@
             <path>
               <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
               <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
-              <item name="__ test scripts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
-              <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
-              <item name="__ test scripts" type="462c0819:PsiDirectoryNode" />
-              <item name="__Chi-square" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -492,7 +490,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" weight="0.3066104" />
-      <window_info active="true" anchor="bottom" x="1" y="60" width="504" height="803" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
+      <window_info anchor="bottom" x="157" y="75" width="701" height="803" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" weight="0.29113925" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.508519" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -660,9 +658,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_icons/ico_black.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Icon_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-25">
@@ -984,13 +979,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Function_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="75" selection-start-line="75" selection-end-line="75" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3078">
@@ -1040,6 +1028,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Function_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="25" column="11" lean-forward="true" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Filter_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/__ test scripts/Trial_RFE.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="123">
@@ -1049,8 +1051,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="60" column="32" selection-start-line="60" selection-start-column="32" selection-end-line="60" selection-end-column="32" />
+        <state relative-caret-position="194">
+          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
           <folding>
             <element signature="e#22#53#0" expanded="true" />
           </folding>
@@ -1059,8 +1061,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="23" column="37" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+        <state relative-caret-position="190">
+          <caret line="70" column="27" selection-start-line="70" selection-start-column="27" selection-end-line="70" selection-end-column="27" />
           <folding>
             <element signature="e#25#43#0" expanded="true" />
           </folding>
