@@ -11,6 +11,7 @@ import pandas as pd
 # For loadVarDesc()
 ITEM_MARKER = "^"
 FEAT_NAME = "Name"
+OPTION_NAME = "OptionName"
 
 
 
@@ -24,6 +25,7 @@ def loadVarDesc(path_variableDesc):
         
         for row in read_varDesc:
             row_id = row[0].strip()
+
         
             # Create a new dict entry if you see the Item Marker (^)
             if row_id == ITEM_MARKER:
@@ -31,9 +33,12 @@ def loadVarDesc(path_variableDesc):
                 feat_code = row[1].strip()
                 feat_name = row[2].strip()
                 
-                item = collections.OrderedDict()
+                item = collections.OrderedDict()  # The item values/options, i.e. 1, 2
+                dict_option_names = collections.OrderedDict()  # The option names, i.e. "Mostly True"
+
                 item[FEAT_NAME] = feat_name
-                
+                item[OPTION_NAME] = dict_option_names
+
                 dict_varDesc[feat_code] = item
 
                 # print(feat_code + " - " + feat_name)
@@ -44,21 +49,34 @@ def loadVarDesc(path_variableDesc):
                 feat_eval = row[0].strip()  # Equivalent value (i.e. "a" or "b")
                 item[feat_val] = feat_eval
 
-                item_name = str(FEAT_NAME + feat_val)
-                item[item_name] = row[2].strip()
+                dict_option_names[feat_val] = row[2].strip()
 
-
-                
-        # printDictionary(dict_varDesc)
+        # printDictionary(dict_option_names)
     return dict_varDesc
 
 
 def loadDataset(path_dataset, dict_varDesc):
     # Load file as dataframe
     df_dataset = pd.read_csv(path_dataset)
-    key = "b1"
-    df_dataset[key] = df_dataset[key].replace([1, 2], ["a", "b"])
+    printDictionary(dict_varDesc)
+    # Replace each column value with their equivalent letter based on dict_varDesc (Variable Description File)
+    for feat_code, feat_dict in dict_varDesc.items():
+        item = dict_varDesc[feat_code]  # For each entry in dict_varDesc
+        option_values = []  # Will hold the original option values in the dataset
+        option_new_values = []  # Will hold the values to replace the options
+
+        for item_code, item_value in item.items():  # Parse each key and value in that item
+            if item_code != FEAT_NAME and item_code != OPTION_NAME:  # If the key does not contain "Name", replace the dataset values
+                option_values.append(int(item_code))
+                option_new_values.append(item[item_code])  # The value that the option should be. i.e "a"
+
+        df_dataset[feat_code] = df_dataset[feat_code].replace(option_values, option_new_values)
+
+        # df_dataset[key] = df_dataset[key].replace([1, 2], ["a", "b"])
+
     # print(df_dataset[key])
+
+
     return df_dataset
 
 
