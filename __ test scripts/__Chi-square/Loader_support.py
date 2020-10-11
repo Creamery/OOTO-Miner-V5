@@ -1,5 +1,5 @@
 
-
+import os
 # For loadVarDesc()
 import json  # For pretty print
 import collections
@@ -13,7 +13,8 @@ ITEM_MARKER = "^"
 FEAT_NAME = "Name"
 OPTION_NAME = "OptionName"
 
-
+# Paths
+GL_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\")
 
 # NOTE: Arrays start at 0
 def loadVarDesc(path_variableDesc):

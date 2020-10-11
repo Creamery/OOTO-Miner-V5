@@ -1,6 +1,7 @@
 
 import json  # For pretty print
 import collections
+import Loader_support as LS
 
 def createFilter(feat_key, option):
     dict_filter = collections.OrderedDict()
@@ -19,9 +20,15 @@ def appendFilter(dict_filter, feat_key, option):
     return dict_filter
 
 def applyFilter(df_dataset, dict_filter):
-    filteredDataset = df_dataset
+    filteredDatasets = []
+
+    for key, options in dict_filter.items():
+        filteredDataset = df_dataset.copy(deep = True)
+        filteredDataset = filteredDataset[filteredDataset[key].isin(options)]
+        # print(LS.GL_OUTPUT_PATH)
+        LS.exportDataset(filteredDataset, str(key + ".csv"), LS.GL_OUTPUT_PATH)
     print("Apply Filter")
-    return filteredDataset
+    return filteredDatasets
 
 
 

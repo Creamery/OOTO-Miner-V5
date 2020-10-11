@@ -15,6 +15,7 @@ dir_input = str(dir_path + "\\_input\\")
 dir_output = str(dir_path + "\\_output\\")
 
 
+
 # Load Variable Description
 fln_varDesc = "Uniandes_VariableDescription (New).csv"
 path_varDesc = str(dir_input + fln_varDesc)
@@ -90,10 +91,11 @@ print(out)
 
 dict_filter1 = FILS.createFilter("b1", "a")
 dict_filter1 = FILS.appendFilter(dict_filter1, "b5", "b")
-FILS.printFilter(dict_filter1)
+# FILS.printFilter(dict_filter1)
 
-dict_filter1 = FILS.appendFilter(dict_filter1, "b5", "a")
-FILS.printFilter(dict_filter1)
+# dict_filter1 = FILS.appendFilter(dict_filter1, "b5", "a")
+# FILS.printFilter(dict_filter1)
 
-
+dataset3 = df_dataset.copy(deep = True)
+FILS.applyFilter(dataset3, dict_filter1)
 
