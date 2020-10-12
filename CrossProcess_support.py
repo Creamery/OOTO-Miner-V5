@@ -1,12 +1,13 @@
 import pprint
 import itertools
 import numpy as np
-
+import copy
 import RFE_support as RFES
 
 CHECKLIST = []
 PP = pprint.PrettyPrinter(indent = 4)
 OPTION_CODES = [":a", ":b"]  # TODO (Future) confirm this
+MAX_LEVEL = 3  # The maximum level to process
 
 '''
 Updates the list of finished feature pairs.
@@ -93,15 +94,43 @@ def crossFilters(filters, level):
 '''
 Returns N SSFs, which is decided by RFES.MAX_RANK. In the current program, MAX_RANK = 3.
 '''
-def extractSSF(dict_rfe):
+def extractCROSS(dict_rfe):
     # print(dict_rfe)
     list_feat_codes = []
     for key, value in dict_rfe.items():
         list_feat_codes.append(value)
 
-    SSFs = convertToCrossFilter(list_feat_codes)
-    return SSFs
+    CROSS = convertToCrossFilter(list_feat_codes)
+    return CROSS
+'''
+Processes an array of SSFs. The length must be equal to MAX_LEVEL defined at the top of this script.
+'''
+def processLVLs(CROSS):
+    len_CROSS = len(CROSS)
+    # LVLs = []
+    LVL = [[0 for x in range(len_CROSS)] for y in range(MAX_LEVEL)]  # Initialize matrix (2D Array)
 
+    for i_type in range(len_CROSS):  # SSFs 0, 1, 2
+        if i_type > 0:  # Process the union of the current SSF and the previous SSF
+            SSF = unionSSF(CROSS[i_type-1], CROSS[i_type])
+        else:
+            SSF = CROSS[i_type]
+
+        for i_level in range(MAX_LEVEL):  # For each SSF, process level 3x (or MAX_LEVEL times)
+            level = i_level + 1
+            # print(level)
+            LVL[i_type][i_level] = crossFilters(SSF, level)
+        # LVLs.append(LVL)
+    PP.pprint(LVL)  # TODO Lessen dimensions
+
+'''
+Creates and returns a list that is a union of the 2 parameters.
+'''
+def unionSSF(SSF_1, SSF_2):
+    SSF_1_copy = copy.deepcopy(SSF_1)
+    SSF_2_copy = copy.deepcopy(SSF_2)
+    SSF_union = SSF_1_copy + SSF_2_copy
+    return SSF_union
 '''
 Convert array of feature codes (i.e. ['b1', 'u3']) to cross filter input
 (i.e. ["b1:a", "b1:b",

@@ -40,15 +40,15 @@ def rfeModule(df_raw_dataset, ftr_names):
 
 def crossFilterModule(dict_rfe):
 
-    SSFs = CPS.extractSSF(dict_rfe)
+    CROSS = CPS.extractCROSS(dict_rfe)  # NOTE: CROSS is the collection of SSFs
+    CPS.processLVLs(CROSS)
+    # SSF_0 = SSFs[0]
+    # cross_filters = CPS.crossFilters(SSF_0, 1)
 
-    SSF_0 = SSFs[0]
-    cross_filters = CPS.crossFilters(SSF_0, 1)
 
-
-    for item in cross_filters:
-        CPS.updateChecklist(item)
-    CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
+    # for item in cross_filters:
+    #     CPS.updateChecklist(item)
+    # CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
     # print(CPS.CHECKLIST)
 
 
