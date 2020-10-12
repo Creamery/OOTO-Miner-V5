@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CrossProcess_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ChiSquare_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiSquare_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/Trial_RFE.py" beforeDir="false" afterPath="$PROJECT_DIR$/__ test scripts/Trial_RFE.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/___TestRuns.py" beforeDir="false" afterPath="$PROJECT_DIR$/___TestRuns.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/CrossProcess_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +19,7 @@
               <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
                 <provider selected="true" editor-type-id="text-editor">
                   <state relative-caret-position="93">
-                    <caret line="148" column="34" lean-forward="true" selection-start-line="148" selection-start-column="34" selection-end-line="148" selection-end-column="34" />
+                    <caret line="148" column="34" selection-start-line="148" selection-start-column="34" selection-end-line="148" selection-end-column="34" />
                     <folding>
                       <element signature="e#1#19#0" expanded="true" />
                     </folding>
@@ -42,8 +38,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="273">
-                    <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+                  <state relative-caret-position="254">
+                    <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
                   </state>
                 </provider>
               </entry>
@@ -80,7 +76,7 @@
               <entry file="file://$PROJECT_DIR$/Loader_support.py">
                 <provider selected="true" editor-type-id="text-editor">
                   <state relative-caret-position="190">
-                    <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
+                    <caret line="97" selection-start-line="97" selection-end-line="97" />
                     <folding>
                       <element signature="e#184#193#0" expanded="true" />
                     </folding>
@@ -120,7 +116,7 @@
               <entry file="file://$PROJECT_DIR$/__ test scripts/Trial_RFE.py">
                 <provider selected="true" editor-type-id="text-editor">
                   <state relative-caret-position="389">
-                    <caret line="102" column="47" lean-forward="true" selection-start-line="102" selection-start-column="47" selection-end-line="102" selection-end-column="47" />
+                    <caret line="102" column="47" selection-start-line="102" selection-start-column="47" selection-end-line="102" selection-end-column="47" />
                   </state>
                 </provider>
               </entry>
@@ -467,11 +463,11 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2\_icons" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2\_icons" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1116,7 +1112,7 @@
     <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="93">
-          <caret line="148" column="34" lean-forward="true" selection-start-line="148" selection-start-column="34" selection-end-line="148" selection-end-column="34" />
+          <caret line="148" column="34" selection-start-line="148" selection-start-column="34" selection-end-line="148" selection-end-column="34" />
           <folding>
             <element signature="e#1#19#0" expanded="true" />
           </folding>
@@ -1136,14 +1132,14 @@
     <entry file="file://$PROJECT_DIR$/__ test scripts/Trial_RFE.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="389">
-          <caret line="102" column="47" lean-forward="true" selection-start-line="102" selection-start-column="47" selection-end-line="102" selection-end-column="47" />
+          <caret line="102" column="47" selection-start-line="102" selection-start-column="47" selection-end-line="102" selection-end-column="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
+          <caret line="97" selection-start-line="97" selection-end-line="97" />
           <folding>
             <element signature="e#184#193#0" expanded="true" />
           </folding>
@@ -1172,8 +1168,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="254">
+          <caret line="19" column="31" selection-start-line="19" selection-start-column="31" selection-end-line="19" selection-end-column="31" />
         </state>
       </provider>
     </entry>

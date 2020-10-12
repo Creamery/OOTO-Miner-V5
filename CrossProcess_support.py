@@ -18,7 +18,6 @@ def updateChecklist(list_cross):
     if checkChecklist(list_cross) is False:  # If not, append to checklist
         CHECKLIST.append(list_cross)
     # printChecklist(CHECKLIST)
-
 '''
  Parameter list_cross contains something of the form of:
  [[filters], [filters]]
@@ -41,8 +40,6 @@ def checkChecklist(list_cross):
         # print("Match COUNT: " + str(count_match))
         if count_match == len_checklist_item:
             isIn = True
-            print("")
-            print("MATCH")
 
     return isIn
 
