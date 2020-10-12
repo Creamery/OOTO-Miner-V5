@@ -9,6 +9,8 @@ def createFilter(feat_key, option):
     dict_filter[feat_key].append(option)
     return dict_filter
 
+
+
 def appendFilter(dict_filter, feat_key, option):
     if feat_key in dict_filter:  # If key in filter, append to that entry's array
         (dict_filter[feat_key]).append(option)
@@ -19,6 +21,11 @@ def appendFilter(dict_filter, feat_key, option):
 
     return dict_filter
 
+
+'''
+Change this so that each filter is applied to the same dataset.
+Have 2 sets for the Chi-square comparison.
+'''
 def applyFilter(df_dataset, dict_filter):
     filteredDatasets = []
 

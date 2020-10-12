@@ -5,12 +5,15 @@ from sklearn.linear_model import LogisticRegression
 
 MAX_RANK = 3
 
-
+'''
+Returns a dictionary containing the Rankings as keys (1-3) and
+an array of the feature codes under that ranking.
+'''
 def performRFE(df_raw_dataset, ftr_names):
     # Convert DataFrame object to NumPy array for faster computation
 
     array = df_raw_dataset.values
-    print(array)
+    # print(array)
     ftrCount = len(ftr_names)
     ftrEndIndex = ftrCount - 1
 
@@ -31,7 +34,7 @@ def performRFE(df_raw_dataset, ftr_names):
     # print("Feature Names: ")
 
     dict_rfe = prepareDictResult(ftr_names, fit.ranking_)
-    print(dict_rfe)
+    # print(dict_rfe)
     return dict_rfe
 
 
@@ -39,18 +42,18 @@ def prepareDictResult(ftr_names, feat_rank):
     dict_rfe = collections.OrderedDict()
     for i_rank in range(MAX_RANK):
         rank = i_rank + 1
-        print("Rank " + str(rank))
+        # print("Rank " + str(rank))
 
         indices = [i for i, x in enumerate(feat_rank) if x == rank]
-        print(indices)
+        # print(indices)
         list_rank = []
         for index in indices:
             feat_code = ftr_names[index]
             list_rank.append(feat_code)
         dict_rfe[rank] = list_rank
 
-        print(str(len(ftr_names)))
-        print(str(len(feat_rank)))
+        # print(str(len(ftr_names)))
+        # print(str(len(feat_rank)))
 
     return dict_rfe
 

@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/___FullProcess.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/CrossProcess_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filter_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Filter_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/RFE_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/RFE_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/___TestRuns.py" beforeDir="false" afterPath="$PROJECT_DIR$/___TestRuns.py" afterDir="false" />
     </list>
@@ -19,8 +23,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="188">
-                    <caret line="153" column="38" lean-forward="true" selection-start-line="153" selection-start-column="38" selection-end-line="153" selection-end-column="38" />
+                  <state relative-caret-position="36">
+                    <caret line="145" column="38" lean-forward="true" selection-start-line="145" selection-start-column="38" selection-end-line="145" selection-end-column="38" />
                     <folding>
                       <element signature="e#1#19#0" expanded="true" />
                     </folding>
@@ -39,8 +43,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/Filter_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="358">
-                    <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
+                  <state relative-caret-position="209">
+                    <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
                     <folding>
                       <element signature="e#1#32#0" expanded="true" />
                     </folding>
@@ -63,6 +67,46 @@
                     <caret line="95" column="4" selection-start-line="95" selection-start-column="4" selection-end-line="95" selection-end-column="4" />
                     <folding>
                       <element signature="e#184#193#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+    <window id="9">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/___FullProcess.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="395">
+                    <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+                    <folding>
+                      <element signature="e#3#12#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+    <window id="10">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="380">
+                    <caret line="95" column="10" selection-start-line="95" selection-start-column="10" selection-end-line="95" selection-end-column="10" />
+                    <folding>
+                      <element signature="e#0#13#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -99,30 +143,10 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/___TestRuns.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="584">
-                    <caret line="68" column="51" lean-forward="true" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
+                  <state relative-caret-position="114">
+                    <caret line="72" selection-start-line="72" selection-end-line="86" selection-end-column="20" />
                     <folding>
                       <element signature="e#25#43#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-    <window id="7">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="76">
-                    <caret line="4" selection-start-line="4" selection-end-line="4" />
-                    <folding>
-                      <element signature="e#0#13#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -139,8 +163,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/RFE_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="190">
-                    <caret line="28" column="53" lean-forward="true" selection-start-line="28" selection-start-column="53" selection-end-line="29" selection-end-column="51" />
+                  <state relative-caret-position="-38">
+                    <caret line="10" column="3" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
                     <folding>
                       <element signature="e#0#18#0" expanded="true" />
                     </folding>
@@ -157,7 +181,7 @@
     <splitter split-orientation="horizontal" split-proportion="0.49115756">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/OOTO_Driver.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="-6028">
@@ -169,7 +193,7 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/_MODULE_ManualMining.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="171">
@@ -345,7 +369,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/ManualMining.py" />
         <option value="$PROJECT_DIR$/MODULE_Input.py" />
         <option value="$PROJECT_DIR$/MODULE_ManualMining.py" />
         <option value="$PROJECT_DIR$/MODULE_AutomatedMining.py" />
@@ -387,21 +410,22 @@
         <option value="$PROJECT_DIR$/Function_support.py" />
         <option value="$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py" />
         <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
-        <option value="$PROJECT_DIR$/Filter_support.py" />
         <option value="$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py" />
         <option value="$PROJECT_DIR$/ChiSquare_support.py" />
         <option value="$PROJECT_DIR$/__ test scripts/Trial_RFE.py" />
         <option value="$PROJECT_DIR$/_MODULE_CrossProcess.py" />
-        <option value="$PROJECT_DIR$/CrossProcess_support.py" />
         <option value="$PROJECT_DIR$/Loader_support.py" />
         <option value="$PROJECT_DIR$/___TestRuns.py" />
+        <option value="$PROJECT_DIR$/Filter_support.py" />
         <option value="$PROJECT_DIR$/RFE_support.py" />
+        <option value="$PROJECT_DIR$/CrossProcess_support.py" />
+        <option value="$PROJECT_DIR$/___FullProcess.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-22" />
-    <option name="y" value="175" />
+    <option name="x" value="-8" />
+    <option name="y" value="142" />
     <option name="width" value="1888" />
     <option name="height" value="945" />
   </component>
@@ -477,7 +501,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.___TestRuns">
+  <component name="RunManager" selected="Python.___FullProcess">
     <configuration name="OOTO" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="OOTO Miner Python v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -520,6 +544,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="___FullProcess" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OOTO Miner Python v2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/___FullProcess.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="___TestRuns" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="OOTO Miner Python v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -543,6 +588,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.___FullProcess" />
         <item itemvalue="Python.___TestRuns" />
         <item itemvalue="Python.Trial_Chi-square" />
         <item itemvalue="Python.OOTO" />
@@ -572,7 +618,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-17" y="140" width="1510" height="756" extended-state="1" />
+    <frame x="-6" y="114" width="1510" height="756" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" order="0" visible="true" weight="0.14325069" />
@@ -748,9 +794,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.groovy">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/Overlay_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
@@ -1067,26 +1110,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Filter_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
-          <folding>
-            <element signature="e#1#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_MODULE_ManualMining.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#175#207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChiTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
@@ -1117,16 +1140,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/OOTO_Driver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6028">
-          <caret line="117" column="73" selection-start-line="117" selection-start-column="73" selection-end-line="117" selection-end-column="73" />
-          <folding>
-            <element signature="e#450#460#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -1137,42 +1150,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+    <entry file="file://$PROJECT_DIR$/OOTO_Driver.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="-6028">
+          <caret line="117" column="73" selection-start-line="117" selection-start-column="73" selection-end-line="117" selection-end-column="73" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="153" column="38" lean-forward="true" selection-start-line="153" selection-start-column="38" selection-end-line="153" selection-end-column="38" />
-          <folding>
-            <element signature="e#1#19#0" expanded="true" />
+            <element signature="e#450#460#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/___TestRuns.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="68" column="51" lean-forward="true" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
+        <state relative-caret-position="114">
+          <caret line="72" selection-start-line="72" selection-end-line="86" selection-end-column="20" />
           <folding>
             <element signature="e#25#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="145" column="38" lean-forward="true" selection-start-line="145" selection-start-column="38" selection-end-line="145" selection-end-column="38" />
+          <folding>
+            <element signature="e#1#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_MODULE_ManualMining.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#175#207#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RFE_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="28" column="53" lean-forward="true" selection-start-line="28" selection-start-column="53" selection-end-line="29" selection-end-column="51" />
+        <state relative-caret-position="-38">
+          <caret line="10" column="3" lean-forward="true" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="95" column="10" selection-start-line="95" selection-start-column="10" selection-end-line="95" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/___FullProcess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="395">
+          <caret line="53" lean-forward="true" selection-start-line="53" selection-end-line="53" />
+          <folding>
+            <element signature="e#3#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Filter_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#1#32#0" expanded="true" />
           </folding>
         </state>
       </provider>

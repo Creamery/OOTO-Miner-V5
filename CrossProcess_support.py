@@ -2,8 +2,11 @@ import pprint
 import itertools
 import numpy as np
 
+import RFE_support as RFES
+
 CHECKLIST = []
 PP = pprint.PrettyPrinter(indent = 4)
+OPTION_CODES = [":a", ":b"]  # TODO (Future) confirm this
 
 '''
 Updates the list of finished feature pairs.
@@ -87,9 +90,33 @@ def crossFilters(filters, level):
         list_cross_filters.append(item)
     return list_cross_filters
 
+'''
+Returns N SSFs, which is decided by RFES.MAX_RANK. In the current program, MAX_RANK = 3.
+'''
+def extractSSF(dict_rfe):
+    # print(dict_rfe)
+    list_feat_codes = []
+    for key, value in dict_rfe.items():
+        list_feat_codes.append(value)
 
+    SSFs = convertToCrossFilter(list_feat_codes)
+    return SSFs
 
+'''
+Convert array of feature codes (i.e. ['b1', 'u3']) to cross filter input
+(i.e. ["b1:a", "b1:b",
+       "u3:a", "u3:b"])
+'''
+def convertToCrossFilter(list_feat_codes):
+    SSFs = []
 
-
-
+    for feature_codes in list_feat_codes:
+        SSF = []
+        for feature_code in feature_codes:
+            for option_code in OPTION_CODES:
+                str_feature_code = str(feature_code + option_code)
+                SSF.append(str_feature_code)
+        # print(SSF)
+        SSFs.append(SSF)
+    return SSFs
 
