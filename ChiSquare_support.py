@@ -43,8 +43,8 @@ def chiSquare(df_dataset, filter):
     dict_chi_square = collections.OrderedDict()
     i_feat_code = 0
     for item in list_table_values:
-        print("item")
-        print(item)
+        # print("item")
+        # print(item)
         observed = np.array(item)
         chi_stat, p, dof, expected = chi2_contingency(observed)
 
@@ -63,7 +63,7 @@ def chiSquare(df_dataset, filter):
 
 
         i_feat_code = i_feat_code + 1
-    print(dict_chi_square)
+    # print(dict_chi_square)
 
     return dict_chi_square
 

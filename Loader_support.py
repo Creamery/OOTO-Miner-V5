@@ -72,7 +72,7 @@ to the Variable Description File.
 def loadDataset(path_dataset, dict_varDesc):
     # Load file as dataframe
     df_dataset = pd.read_csv(path_dataset)
-    printDictionary(dict_varDesc)
+    # printDictionary(dict_varDesc)
     # Replace each column value with their equivalent letter based on dict_varDesc (Variable Description File)
     for feat_code, feat_dict in dict_varDesc.items():
         item = dict_varDesc[feat_code]  # For each entry in dict_varDesc
@@ -107,24 +107,35 @@ adjustments so that it will properly display in CSV.
 '''
 def exportChiSquareTable(dict_chi_square, filename, path = GL_OUTPUT_PATH):
 
+
     list_output = []  # Will contain the properly formatted data for the dataframe
     # The order will be: [feat_code, dof, p_value, chi_square]
     list_headers = ["Feature", "DoF", "P Value", "Chi Square"]
     for feat_code, value in dict_chi_square.items():
-        
+
         row = []
-        chi_square = value[CHIS.CHI_SQUARE]
-        p_value = value[CHIS.P_VALUE]
+        chi_square = round(value[CHIS.CHI_SQUARE], 6)
+        p_value = round(value[CHIS.P_VALUE], 6)
         dof = value[CHIS.DOF]
 
         row.append(feat_code)
         row.append(dof)
-        row.append(p_value)
+        row.append(round(float(p_value), 6))
         row.append(chi_square)
 
         list_output.append(row)
 
     df_output = pd.DataFrame(np.array(list_output), columns = list_headers)
+    pd.Index(list_headers)  # Set index as headers
+
+    # Set the dataframe columns as correct
+    df_output["DoF"] = df_output["DoF"].astype(int)
+    df_output["P Value"] = df_output["P Value"].astype(float)
+    df_output["Chi Square"] = df_output["Chi Square"].astype(float)
+
+    df_output = df_output.sort_values(by = "Chi Square", ascending = False)
+    # d_descending = collections.OrderedDict(sorted(dict_chi_square.items(),
+    #                                               key = lambda kv: kv[1][CHIS.CHI_SQUARE], reverse = True))
 
     exportDataFrame(df_output, filename, path)
 
