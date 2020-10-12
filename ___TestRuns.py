@@ -80,8 +80,8 @@ SSF_2 = ["t2:a", "t2:b"]
 
 
 cross_filters = CPS.crossFilters(SSF_0, 3)
-# for item in cross_filters:
-#     print(item)
+for item in cross_filters:
+    CPS.printChecklist(item)
 
 
 
