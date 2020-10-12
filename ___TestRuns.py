@@ -71,16 +71,17 @@ CPS.updateChecklist([["b5:a"], ["b1:a", "b1:b"]])
 CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
 
 
+SSF_0 = ["b1:a", "b1:b",
+         "u3:a", "u3:b"]
+
+SSF_1 = ["b4:a", "b4:b"]
+
+SSF_2 = ["t2:a", "t2:b"]
 
 
-
-
-
-
-
-
-
-
+cross_filters = CPS.crossFilters(SSF_0, 3)
+# for item in cross_filters:
+#     print(item)
 
 
 
