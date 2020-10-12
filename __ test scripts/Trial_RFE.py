@@ -82,7 +82,6 @@ dataframe1.to_csv(dir_output + '\\dataframe1.csv', index = False)
 
 
 
-'''
 # Convert DataFrame object to NumPy array for faster computation
 array = dataframe.values
 print(array)
@@ -103,7 +102,6 @@ for i in range(X.shape[1]):
 print("Num Features: %s" % (fit.n_features_))
 print("Selected Features: %s" % (fit.support_))
 print("Feature Ranking: %s" % (fit.ranking_))
-'''
 
 
 

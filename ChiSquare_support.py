@@ -131,7 +131,7 @@ def extractTables(df_dataset, filter):
     for filteredDataset in filteredDatasets:  # Iterate through each filtered dataset
         dict_table = extractTable(filteredDataset)  # Then extract the values needed for Chi-square
         list_tables.append(dict_table)
-        printTable(dict_table)
+        # printTable(dict_table)
     return list_tables
 
 

@@ -10,6 +10,7 @@ import numpy as np
 import Loader_support as LS
 import Filter_support as FILS
 import ChiSquare_support as CHIS
+import CrossProcess_support as CPS
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 dir_input = str(dir_path + "\\_input\\")
@@ -48,7 +49,26 @@ df_chi_square_output = CHIS.processChiSquareTable(dict_chi_square)
 LS.exportChiSquareTable(df_chi_square_output, "Dictionary Chi Square Values.csv", LS.GL_OUTPUT_PATH)
 
 
+# CPS
 
+# items = [
+#     [["b1:a", "b1:b"], ["b5:a"]],
+#     [["b1:a", "b5:b", "u3:a"], ["b2:b"]],
+#     [["b5:a"], ["b1:a"]]
+# ]
+#
+# for item in items:
+#     print("Item")
+#     print(item)
+#     print("")
+#     CPS.updateChecklist(item)
+
+CPS.updateChecklist([["b1:b", "b1:a"], ["b5:a"]])
+CPS.updateChecklist([["b1:b"], ["b5:a"]])
+CPS.updateChecklist([["b1:b"], ["b5:a"]])
+CPS.updateChecklist([["b1:a", "b1:b"], ["b5:a"]])
+CPS.updateChecklist([["b5:a"], ["b1:a", "b1:b"]])
+CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
 
 
 
