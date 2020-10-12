@@ -61,22 +61,22 @@ import _MODULE_Input as INPUT
 import _MODULE_ManualMining as MM
 import _MODULE_AutomatedMining as AM
 
-w = None
+w_gl = None
 
 
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
-    global val, w, root
+    global val_gl, w_gl, root_gl
 
-    root = Tk()
+    root_gl = Tk()
     # root.protocol("WM_DELETE_WINDOW", onRootClose)
-    root.resizable(0, 0)
+    root_gl.resizable(0, 0)
     # Mother_support.set_Tk_var()
     # top = OOTO_Miner(root)
-    OOTO_Miner(root)
+    OOTO_Miner(root_gl)
     # root.update()
     # Mother_support.init(root, top)
-    root.mainloop()
+    root_gl.mainloop()
 
 # def onRootClose():
 #     if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
@@ -186,7 +186,7 @@ class OOTO_Miner:
         # remove title bar
         top.overrideredirect(True)
         # show window in taskbar after titlebar is removed
-        top.after(10, lambda: WS.showInTaskBar(root))
+        top.after(10, lambda: WS.showInTaskBar(root_gl))
 
         self.style = ttk.Style()
         if sys.platform == "win32":
@@ -225,13 +225,13 @@ class OOTO_Miner:
                                              })]
                           )
 
-        self.Tabs = ttk.Notebook(root, style = 'Tab')  # top)
+        self.Tabs = ttk.Notebook(root_gl, style = 'Tab')  # top)
         self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
         # self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
         # self.Tabs.configure(takefocus = "")
 
         # Top horizontal separator # TODO
-        self.rootTopSeparator = ttk.Separator(root, orient = HORIZONTAL)
+        self.rootTopSeparator = ttk.Separator(root_gl, orient = HORIZONTAL)
         self.rootTopSeparator.place(relx = 0, rely = 0, relwidth = 1)
 
         # > START TAB (0)
@@ -588,21 +588,24 @@ class OOTO_Miner:
             # tkMessageBox.showinfo("Variable description set", "Variable description uploaded")
             # # getCommonGroups(features)
 
-        # Upload populationDir (Population Dataset)
+        # Upload dirPopulation (Population Dataset)
         if not self.INPUT.getHasUploadedPopulation():  # Check if population dataset was uploaded
             tkMessageBox.showerror("Error 1: Upload Population Dataset",
                                    "Please select a population dataset file.")
             return "break"
 
         else:
-            populationDir = self.INPUT.getPopulationDir()
+            dirPopulation = self.INPUT.getPopulationDir()
 
-            populationDataset = FS.readCSVDict(populationDir)
-            isSuccessfulAM = self.AM.uploadDataset(populationDataset)
+            # populationDataset = FS.readCSVDict(populationDir)
+            isSuccessfulAM = self.AM.uploadDataset(dirPopulation)
+            # print("AM Pop Dataset, DatasetA, DatasetB")
+            # print(self.AM.model.getPopulationDataset())
+            # print(self.AM.model.getDatasetA())
+            # print(self.AM.model.getDatasetB())
 
-
-            populationDataset = FS.readCSVDict(populationDir)
-            isSuccessfulMM = self.MM.uploadDataset(populationDir, populationDataset)
+            populationDataset = FS.readCSVDict(dirPopulation)
+            isSuccessfulMM = self.MM.uploadDataset(dirPopulation, populationDataset)
 
             if (isSuccessfulMM and isSuccessfulAM):
                 tkMessageBox.showinfo("Success: Upload Dataset",

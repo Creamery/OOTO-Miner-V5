@@ -322,7 +322,7 @@ def isSameFocusFeat(dataset1, dataset2, selectedValD1, selectedValD2):
 Set selected dataset values for that dataset. 
 """
 def selectDatasetValues(evt, dataset):
-    global populationDir
+    global populationDir_gl
 
     listbox = evt.widget
     selectedValues = [listbox.get(i) for i in listbox.curselection()]
