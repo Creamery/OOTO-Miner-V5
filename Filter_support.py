@@ -25,9 +25,10 @@ def applyFilter(df_dataset, dict_filter):
     for key, options in dict_filter.items():
         filteredDataset = df_dataset.copy(deep = True)
         filteredDataset = filteredDataset[filteredDataset[key].isin(options)]
-        # print(LS.GL_OUTPUT_PATH)
-        LS.exportDataset(filteredDataset, str(key + ".csv"), LS.GL_OUTPUT_PATH)
-    print("Apply Filter")
+
+        # LS.exportDataset(filteredDataset, str(key + ".csv"), LS.GL_OUTPUT_PATH)
+        filteredDatasets.append(filteredDataset)
+
     return filteredDatasets
 
 

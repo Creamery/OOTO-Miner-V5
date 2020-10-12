@@ -9,6 +9,7 @@ import numpy as np
 # Uploader support for converting read dataset
 import Loader_support as LS
 import Filter_support as FILS
+import ChiSquare_support as CHIS
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 dir_input = str(dir_path + "\\_input\\")
@@ -96,6 +97,7 @@ dict_filter1 = FILS.appendFilter(dict_filter1, "b5", "b")
 # dict_filter1 = FILS.appendFilter(dict_filter1, "b5", "a")
 # FILS.printFilter(dict_filter1)
 
-dataset3 = df_dataset.copy(deep = True)
-FILS.applyFilter(dataset3, dict_filter1)
+df_dataset3 = df_dataset.copy(deep = True)
 
+# filteredDatasets = FILS.applyFilter(dataset3, dict_filter1)
+CHIS.chiSquare(df_dataset3, dict_filter1)
