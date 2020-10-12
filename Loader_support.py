@@ -105,40 +105,9 @@ def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
 Prints the Chi-square dictionary results. Makes the necessary
 adjustments so that it will properly display in CSV.
 '''
-def exportChiSquareTable(dict_chi_square, filename, path = GL_OUTPUT_PATH):
-
-
-    list_output = []  # Will contain the properly formatted data for the dataframe
-    # The order will be: [feat_code, dof, p_value, chi_square]
-    list_headers = ["Feature", "DoF", "P Value", "Chi Square"]
-    for feat_code, value in dict_chi_square.items():
-
-        row = []
-        chi_square = round(value[CHIS.CHI_SQUARE], 6)
-        p_value = round(value[CHIS.P_VALUE], 6)
-        dof = value[CHIS.DOF]
-
-        row.append(feat_code)
-        row.append(dof)
-        row.append(round(float(p_value), 6))
-        row.append(chi_square)
-
-        list_output.append(row)
-
-    df_output = pd.DataFrame(np.array(list_output), columns = list_headers)
-    pd.Index(list_headers)  # Set index as headers
-
-    # Set the dataframe columns as correct
-    df_output["DoF"] = df_output["DoF"].astype(int)
-    df_output["P Value"] = df_output["P Value"].astype(float)
-    df_output["Chi Square"] = df_output["Chi Square"].astype(float)
-
-    df_output = df_output.sort_values(by = "Chi Square", ascending = False)
-    # d_descending = collections.OrderedDict(sorted(dict_chi_square.items(),
-    #                                               key = lambda kv: kv[1][CHIS.CHI_SQUARE], reverse = True))
-
+def exportChiSquareTable(df_output, filename, path = GL_OUTPUT_PATH):
     exportDataFrame(df_output, filename, path)
-
+    return df_output
 
 def exportResultTable(df_results):
     print("Export Result Table")

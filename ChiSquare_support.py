@@ -3,6 +3,7 @@ import collections
 import json  # For pretty print
 import numpy as np
 from scipy.stats import chi2_contingency
+import pandas as pd
 
 import Filter_support as FILS
 import Loader_support as LS
@@ -13,7 +14,12 @@ P_VALUE = "PValue"
 DOF = "DoF"
 EXPECTED = "Expected"
 
+P_CUTOFF = 0.01
 
+'''
+Performs Chi-square on the selected dataset based on the filter.
+Filters are at most 2 datasets.
+'''
 def chiSquare(df_dataset, filter):
     # print(filteredDatasets[0].columns)
     # for df_dataset in filteredDatasets:  # For each dataset in filteredDatasets
@@ -66,6 +72,53 @@ def chiSquare(df_dataset, filter):
     # print(dict_chi_square)
 
     return dict_chi_square
+
+
+
+'''
+Processes the Chi-square dictionary results into a table-like dataframe.
+Makes the necessary adjustments so that it will properly display in CSV.
+The headers are: ["Feature", "DoF", "P Value", "Chi Square", "Is Significant"]
+'''
+def processChiSquareTable(dict_chi_square):
+
+
+    list_output = []  # Will contain the properly formatted data for the dataframe
+    # The order will be: [feat_code, dof, p_value, chi_square]
+    list_headers = ["Feature", "DoF", "P Value", "Chi Square", "Is Significant"]
+    for feat_code, value in dict_chi_square.items():
+
+        row = []
+        chi_square = round(value[CHI_SQUARE], 6)
+        p_value = round(value[P_VALUE], 6)
+        dof = value[DOF]
+        isSignificant = 0
+        if p_value < P_CUTOFF:
+            isSignificant = 1
+
+        row.append(feat_code)
+        row.append(dof)
+        row.append(p_value)
+        row.append(chi_square)
+        row.append(isSignificant)
+
+        list_output.append(row)
+
+    df_output = pd.DataFrame(np.array(list_output), columns = list_headers)
+    pd.Index(list_headers)  # Set index as headers
+
+    # Set the dataframe columns as correct
+    df_output["DoF"] = df_output["DoF"].astype(int)
+    df_output["P Value"] = df_output["P Value"].astype(float)
+    df_output["Chi Square"] = df_output["Chi Square"].astype(float)
+    df_output["Is Significant"] = df_output["Is Significant"].astype(int)
+    df_output = df_output.sort_values(by = "Chi Square", ascending = False)
+
+    # d_descending = collections.OrderedDict(sorted(dict_chi_square.items(),
+    #                                               key = lambda kv: kv[1][CHIS.CHI_SQUARE], reverse = True))
+
+    return df_output
+
 
 '''
 Goes through each filtered dataset (usually 2, e.g. [ b1 - Male | b5 - Urban])

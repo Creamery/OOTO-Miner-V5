@@ -44,7 +44,8 @@ df_dataset3 = df_dataset.copy(deep = True)
 
 # filteredDatasets = FILS.applyFilter(dataset3, dict_filter1)
 dict_chi_square = CHIS.chiSquare(df_dataset3, dict_filter1)
-LS.exportChiSquareTable(dict_chi_square, "Dictionary Chi Square Values.csv", LS.GL_OUTPUT_PATH)
+df_chi_square_output = CHIS.processChiSquareTable(dict_chi_square)
+LS.exportChiSquareTable(df_chi_square_output, "Dictionary Chi Square Values.csv", LS.GL_OUTPUT_PATH)
 
 
 
