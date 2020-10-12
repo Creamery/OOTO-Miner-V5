@@ -1,8 +1,14 @@
+__author__ = ["Candy Espulgar"]
+
+__copyright__ = "Copyright 2020, TE3D House | 2020, Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga | Neil Buckley"]
+__version__ = "3.0"
 
 import os
 # For loadVarDesc()
 import json  # For pretty print
 import collections
+import csv
 from csv import reader
 
 # For loadDataset()
@@ -85,6 +91,18 @@ def loadDataset(path_dataset, dict_varDesc):
 def exportDataset(df_dataset, filename, path):
     path_export = str(path + filename)
     df_dataset.to_csv(path_export, index = False, sep = ",")
+
+def exportDictionary(dict_data, filename, path):
+    print("Exported Dictionary")
+    path_export = str(path + filename)
+    with open(path_export, 'wb') as file:  # Just use 'w' mode in 3.x
+        w = csv.DictWriter(file, dict_data.keys())
+        w.writeheader()
+        w.writerow(dict_data)
+
+def exportChiSquareTable(dict_table):
+    print("Export Chi-square table")
+
 
 def exportResultTable(df_results):
     print("Export Result Table")

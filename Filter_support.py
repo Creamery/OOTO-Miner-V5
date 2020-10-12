@@ -1,7 +1,7 @@
 
 import json  # For pretty print
 import collections
-import Loader_support as LS
+# import Loader_support as LS
 
 def createFilter(feat_key, option):
     dict_filter = collections.OrderedDict()

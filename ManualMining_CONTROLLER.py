@@ -16,8 +16,8 @@ __author__ = ["Candy Espulgar (Version 3 - Current)",
               "Edmund Gerald Cruz (Version 2)",
               "Rgee Gallega (Version 2)"]
 
-__copyright__ = "Copyright 2019, TE3D House"
-__credits__ = ["Arnulfo Azcarraga"]
+__copyright__ = "Copyright 2020, TE3D House | 2020, Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga | Neil Buckley"]
 __version__ = "3.0"
 
 import tkMessageBox

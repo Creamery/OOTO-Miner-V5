@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Loader_support.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/___TestRuns.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiSquare_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiSquare_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Filter_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Filter_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py" beforeDir="false" afterPath="$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,10 +24,10 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="247">
-                    <caret line="22" column="59" lean-forward="true" selection-start-line="22" selection-start-column="59" selection-end-line="22" selection-end-column="59" />
+                  <state relative-caret-position="124">
+                    <caret line="95" column="16" lean-forward="true" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
                     <folding>
-                      <element signature="e#1#7#0" expanded="true" />
+                      <element signature="e#1#19#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -40,10 +44,30 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/Filter_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="114">
-                    <caret line="15" column="77" selection-start-line="15" selection-start-column="77" selection-end-line="15" selection-end-column="77" />
+                  <state relative-caret-position="57">
+                    <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
                     <folding>
                       <element signature="e#1#32#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
+    <window id="4">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/Loader_support.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="148">
+                    <caret line="113" column="8" selection-start-line="113" selection-start-column="8" selection-end-line="113" selection-end-column="8" />
+                    <folding>
+                      <element signature="e#184#193#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -60,8 +84,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-6">
-                    <caret line="66" column="10" lean-forward="true" selection-start-line="66" selection-start-column="10" selection-end-line="66" selection-end-column="10" />
+                  <state relative-caret-position="121">
+                    <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
                     <folding>
                       <element signature="e#25#43#0" expanded="true" />
                     </folding>
@@ -69,13 +93,21 @@
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py">
+          </leaf>
+        </state>
+      </content>
+    </window>
+    <window id="3">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/___TestRuns.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="437">
-                    <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+                  <state relative-caret-position="224">
+                    <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
                     <folding>
-                      <element signature="e#1#7#0" expanded="true" />
+                      <element signature="e#25#43#0" expanded="true" />
                     </folding>
                   </state>
                 </provider>
@@ -114,11 +146,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/_MODULE_ManualMining.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="665">
-                  <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
+                <state relative-caret-position="171">
+                  <caret line="9" selection-start-line="9" selection-end-line="9" />
                   <folding>
                     <element signature="e#175#207#0" expanded="true" />
                   </folding>
@@ -126,11 +158,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="231">
-                  <caret line="118" column="13" lean-forward="true" selection-start-line="118" selection-start-column="13" selection-end-line="118" selection-end-column="13" />
+                <state relative-caret-position="323">
+                  <caret line="32" selection-start-line="32" selection-end-line="32" />
                 </state>
               </provider>
             </entry>
@@ -290,8 +322,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/SampleVsPopulation.py" />
-        <option value="$PROJECT_DIR$/SampleVsSample.py" />
         <option value="$PROJECT_DIR$/UI_TestFrame.py" />
         <option value="$PROJECT_DIR$/UI_ManualMining.py" />
         <option value="$PROJECT_DIR$/OOTO.py" />
@@ -327,7 +357,6 @@
         <option value="$PROJECT_DIR$/Trial.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_VIEW.py" />
         <option value="$PROJECT_DIR$/ChiTest.py" />
-        <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/_MODULE_AutomatedMining.py" />
         <option value="$PROJECT_DIR$/Input_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/OOTO_Driver.py" />
@@ -337,10 +366,13 @@
         <option value="$PROJECT_DIR$/__ test scripts/Trial_RFE.py" />
         <option value="$PROJECT_DIR$/FeatureFilter_support.py" />
         <option value="$PROJECT_DIR$/Function_support.py" />
-        <option value="$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py" />
         <option value="$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py" />
+        <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/Filter_support.py" />
+        <option value="$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py" />
         <option value="$PROJECT_DIR$/ChiSquare_support.py" />
+        <option value="$PROJECT_DIR$/___TestRuns.py" />
+        <option value="$PROJECT_DIR$/Loader_support.py" />
       </list>
     </option>
   </component>
@@ -362,6 +394,17 @@
             <path>
               <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
               <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
+              <item name="__ test scripts" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="OOTO Miner Python v2" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OOTO Miner Python v2" type="462c0819:PsiDirectoryNode" />
+              <item name="__ test scripts" type="462c0819:PsiDirectoryNode" />
+              <item name="__Chi-square" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -403,11 +446,11 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2\_icons" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Candy\Documents\GitHub\OOTO Miner Python v2" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -422,7 +465,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Trial_Chi-square">
+  <component name="RunManager" selected="Python.___TestRuns">
     <configuration name="OOTO" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="OOTO Miner Python v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -465,8 +508,30 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="___TestRuns" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OOTO Miner Python v2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/___TestRuns.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.___TestRuns" />
         <item itemvalue="Python.Trial_Chi-square" />
         <item itemvalue="Python.OOTO" />
       </list>
@@ -503,7 +568,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" weight="0.3066104" />
-      <window_info anchor="bottom" x="34" y="329" width="701" height="481" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" weight="0.29113925" />
+      <window_info active="true" anchor="bottom" x="34" y="329" width="701" height="481" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.508519" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -671,30 +736,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_THREAD_CrossProcess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="20" column="44" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/1482717180/__builtin__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="2207" column="8" selection-start-line="2207" selection-start-column="8" selection-end-line="2207" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/_abcoll.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="570" selection-start-line="570" selection-end-line="570" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21774">
@@ -968,16 +1009,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_MODULE_ManualMining.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
-          <folding>
-            <element signature="e#175#207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3078">
@@ -1043,15 +1074,42 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="118" column="13" lean-forward="true" selection-start-line="118" selection-start-column="13" selection-end-line="118" selection-end-column="13" />
+        <state relative-caret-position="323">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Filter_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="2" />
+          <folding>
+            <element signature="e#1#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pandas/io/parsers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="894" selection-start-line="894" selection-end-line="894" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_MODULE_ManualMining.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#175#207#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
+        <state relative-caret-position="228">
+          <caret line="93" selection-start-line="93" selection-end-line="101" />
           <folding>
             <element signature="e#1#7#0" expanded="true" />
           </folding>
@@ -1060,30 +1118,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6">
-          <caret line="66" column="10" lean-forward="true" selection-start-line="66" selection-start-column="10" selection-end-line="66" selection-end-column="10" />
+        <state relative-caret-position="121">
+          <caret line="66" column="35" selection-start-line="66" selection-start-column="35" selection-end-line="66" selection-end-column="35" />
           <folding>
             <element signature="e#25#43#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Filter_support.py">
+    <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="15" column="77" selection-start-line="15" selection-start-column="77" selection-end-line="15" selection-end-column="77" />
+        <state relative-caret-position="124">
+          <caret line="95" column="16" lean-forward="true" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
           <folding>
-            <element signature="e#1#32#0" expanded="true" />
+            <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
+    <entry file="file://$PROJECT_DIR$/___TestRuns.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="22" column="59" lean-forward="true" selection-start-line="22" selection-start-column="59" selection-end-line="22" selection-end-column="59" />
+        <state relative-caret-position="224">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
           <folding>
-            <element signature="e#1#7#0" expanded="true" />
+            <element signature="e#25#43#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Loader_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="113" column="8" selection-start-line="113" selection-start-column="8" selection-end-line="113" selection-end-column="8" />
+          <folding>
+            <element signature="e#184#193#0" expanded="true" />
           </folding>
         </state>
       </provider>
