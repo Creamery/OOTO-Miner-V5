@@ -92,9 +92,9 @@ print(CPS.CHECKLIST)
 
 fln_ftrNames = "Uniandes_FeatureNames.csv"
 path_ftrNames = str(dir_input + fln_ftrNames)
-LS.loadFeatureNames(path_ftrNames)
+ftr_names = LS.loadFeatureNames(path_ftrNames)
 
-RFES.performRFE(df_raw_dataset, fln_ftrNames)
+RFES.performRFE(df_raw_dataset, ftr_names)
 
 
 
