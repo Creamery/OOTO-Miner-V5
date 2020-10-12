@@ -63,12 +63,12 @@ LS.exportChiSquareTable(df_chi_square_output, "Dictionary Chi Square Values.csv"
 #     print("")
 #     CPS.updateChecklist(item)
 
-CPS.updateChecklist([["b1:b", "b1:a"], ["b5:a"]])
-CPS.updateChecklist([["b1:b"], ["b5:a"]])
-CPS.updateChecklist([["b1:b"], ["b5:a"]])
-CPS.updateChecklist([["b1:a", "b1:b"], ["b5:a"]])
-CPS.updateChecklist([["b5:a"], ["b1:a", "b1:b"]])
-CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
+# CPS.updateChecklist([["b1:b", "b1:a"], ["b5:a"]])
+# CPS.updateChecklist([["b1:b"], ["b5:a"]])
+# CPS.updateChecklist([["b1:b"], ["b5:a"]])
+# CPS.updateChecklist([["b1:a", "b1:b"], ["b5:a"]])
+# CPS.updateChecklist([["b5:a"], ["b1:a", "b1:b"]])
+# CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
 
 
 SSF_0 = ["b1:a", "b1:b",
@@ -81,7 +81,14 @@ SSF_2 = ["t2:a", "t2:b"]
 
 cross_filters = CPS.crossFilters(SSF_0, 3)
 for item in cross_filters:
-    CPS.printChecklist(item)
+    CPS.updateChecklist(item)
+CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
+# CPS.printChecklist(cross_filters)  # Some entries don't show in pretty print
+print(CPS.CHECKLIST)
+
+# for list_item in cross_filters:
+#     CPS.updateChecklist(list_item)
+# CPS.printChecklist(CPS.CHECKLIST)
 
 
 

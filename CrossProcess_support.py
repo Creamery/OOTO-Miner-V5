@@ -61,6 +61,7 @@ def crossFilters(filters, level):
         list_item = np.asarray(item)
         list_combination.append(list_item)
 
+    # list_combination = [val for sublist in list_combination for val in sublist]
 
     len_list_combination = len(list_combination)
     cross_filters = []
@@ -79,7 +80,12 @@ def crossFilters(filters, level):
                 cross.append(item_2)
                 cross_filters.append(cross)
 
-    return cross_filters
+    # Remove the extra details from the array, i.e. "dtype"
+    list_cross_filters = []
+    for item in cross_filters:
+        item = [list(i) for i in item]
+        list_cross_filters.append(item)
+    return list_cross_filters
 
 
 
