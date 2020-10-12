@@ -11,6 +11,7 @@ import Loader_support as LS
 import Filter_support as FILS
 import ChiSquare_support as CHIS
 import CrossProcess_support as CPS
+import RFE_support as RFES
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 dir_input = str(dir_path + "\\_input\\")
@@ -27,9 +28,8 @@ dict_varDesc = LS.loadVarDesc(path_varDesc)
 # Load Dataset
 fln_dataset = "Uniandes_Dataset (New).csv"
 path_dataset = str(dir_input + fln_dataset)
-df_dataset = LS.loadDataset(path_dataset, dict_varDesc)
+df_raw_dataset, df_dataset = LS.loadDataset(path_dataset, dict_varDesc)
 LS.exportDataset(df_dataset, "Output.csv", dir_output)
-
 
 
 filters = []
@@ -89,6 +89,12 @@ print(CPS.CHECKLIST)
 # for list_item in cross_filters:
 #     CPS.updateChecklist(list_item)
 # CPS.printChecklist(CPS.CHECKLIST)
+
+fln_ftrNames = "Uniandes_FeatureNames.csv"
+path_ftrNames = str(dir_input + fln_ftrNames)
+LS.loadFeatureNames(path_ftrNames)
+
+RFES.performRFE(df_raw_dataset, fln_ftrNames)
 
 
 
