@@ -246,15 +246,20 @@ FUNCTIONS FOR APPLYING FILTERS
     It then returns the filtered dataset.
     A filter should be in the following format:
     [["b1:a", "b5:b"], ["b3:a", "u3:b]]
-
+    
+    The function returns the 2 datasets (dataset A and B) to be compared.
 '''
-def applyFilter(df_dataset, filter):
+def applyFilter(df_dataset, list_filter):
     df_filtered_dataset = df_dataset.copy(deep = True)
-    np_filter_dicts = extractFilter(filter)
+    filtered_datasets = []
+    np_filter_dicts = extractFilter(list_filter)
 
+    for dict_filter in np_filter_dicts:
+        df_result = filterDataset(df_filtered_dataset, dict_filter)
+        filtered_datasets.append(df_result)
 
-    np_filtered_dataset = np.array(df_filtered_dataset)
-    return np_filtered_dataset
+    np_filtered_datasets = np.array(df_filtered_dataset)
+    return np_filtered_datasets
 
 
 '''
@@ -268,8 +273,8 @@ def extractFilter(filter):
         dict_filter = collections.OrderedDict()
         for element in filter_element:
             split_item = element.split(SPLIT_SYMBOL)
-            feat_key = split_item(0)
-            option = split_item(1)
+            feat_key = split_item[0]
+            option = split_item[1]
 
             # Check if the key has already been added. If not, add the key first
             if feat_key not in dict_filter:
@@ -286,9 +291,9 @@ def extractFilter(filter):
 
 '''
     Applies a a dict_filter on a dataset and returns the filtered dataset.
-    To be used on only 1 filter
+    To be used on only 1 filter.
 '''
-def applyFilter(df_dataset, dict_filter):
+def filterDataset(df_dataset, dict_filter):
     df_filtered_dataset = df_dataset.copy(deep = True)
 
     for key, options in dict_filter.items():

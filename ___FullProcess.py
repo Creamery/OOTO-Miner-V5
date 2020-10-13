@@ -70,9 +70,11 @@ df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
 dict_rfe = rfeModule(df_raw_dataset, ftr_names)
 
-np_CROSS = filterModule(dict_rfe)
+# Returns the filter list for each level (np_cross[type][level]
+# where level starts from 1 (subtracted when retrieved)
+np_cross = filterModule(dict_rfe)
 
-crossProcessModule(df_dataset, np_CROSS)
+crossProcessModule(df_dataset, np_cross)
 
 
 
