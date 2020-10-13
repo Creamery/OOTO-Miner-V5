@@ -18,12 +18,15 @@ checklist[
     [["b1:a"], [b5:a"]],
     [["b1:a"], [b5:b"]],
 ]
+Returns TRUE if the output is accepted, and False otherwise.
 '''
 def updateChecklist(list_cross):
     # When updating, check if list_cross is already in checklist
     if checkChecklist(list_cross) is False:  # If not, append to checklist
         CHECKLIST.append(list_cross)
-    # printChecklist(CHECKLIST)
+        return True
+    else:
+        return False
 '''
  Parameter list_cross contains something of the form of:
  [[filters], [filters]]

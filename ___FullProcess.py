@@ -4,8 +4,6 @@
 import os
 # Uploader support for converting read dataset
 import Loader_support as LS
-import Filter_support as FILS
-import ChiSquare_support as CHIS
 import CrossProcess_support as CPS
 import RFE_support as RFES
 
