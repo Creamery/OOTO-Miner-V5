@@ -116,6 +116,7 @@ def exportChiSquareTable(df_output, filename, path = GL_OUTPUT_PATH):
     exportDataFrame(df_output, filename, path)
     return df_output
 
+# TODO Implement
 def exportResultTable(df_results):
     print("Export Result Table")
 
@@ -130,7 +131,11 @@ def exportDictionary(dict_data, filename, path = GL_OUTPUT_PATH):
         w.writeheader()
         w.writerow(dict_data)
 
-
+def exportList(list_data, filename, path = GL_OUTPUT_PATH):
+    path_export = str(path + filename)
+    with open(path_export, 'wb') as file:
+        wr = csv.writer(file, quoting = csv.QUOTE_ALL)
+        wr.writerow(list_data)
 
 
 

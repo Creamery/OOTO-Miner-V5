@@ -251,25 +251,35 @@ FUNCTIONS FOR APPLYING FILTERS
 '''
 def applyFilter(df_dataset, list_filter):
     df_filtered_dataset = df_dataset.copy(deep = True)
-    filtered_datasets = []
-    np_filter_dicts = extractFilter(list_filter)
+    list_results = []
+    np_filter_dict = extractFilter(list_filter)  # An np dictionary filter has 2 dictionaries
 
-    for dict_filter in np_filter_dicts:
+    # print("DICT FILTER")
+    # print(np_filter_dicts[0])
+    for dict_filter in np_filter_dict:  # For each part of the filter (i.e. 1 dictionary)
         df_result = filterDataset(df_filtered_dataset, dict_filter)
-        filtered_datasets.append(df_result)
+        list_results.append(df_result)
 
-    np_filtered_datasets = np.array(df_filtered_dataset)
-    return np_filtered_datasets
+
+    # This approach fixes the value error as opposed to the commented approach
+    np_filtered_dataset_pair = np.empty(MAX_FILTER_ELEMENTS, dtype = object)
+    np_filtered_dataset_pair[:] = [list_results]
+    # np_filtered_dataset_pair = np.array(list_results)
+    return np_filtered_dataset_pair
 
 
 '''
 Extracts the filter, where a filter is of the format [["b1:a", "b5:b"], ["b3:a", "u3:b]].
 Filters are assumed to have 2 sets of conditions.
+
+This function returns a list (np_filters) of dictionaries that contain the dictionary form
+of the filters. For a 2-element filter, it will return a 2-element list (where an element
+is a dictionary).
 '''
 def extractFilter(filter):
     list_filters = []
 
-    for filter_element in filter:
+    for filter_element in filter:  # A single filter part, e.g. ["b1:a", "u3:b" ]
         dict_filter = collections.OrderedDict()
         for element in filter_element:
             split_item = element.split(SPLIT_SYMBOL)
