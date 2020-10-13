@@ -42,6 +42,9 @@ def FilterModule(dict_rfe):
     CROSS = FILS.extractFilters(dict_rfe)  # NOTE: CROSS is the collection of SSFs
 
     LVL = FILS.processLVLs(CROSS)  # LVL is
+    print(LVL[0])
+    print("")
+    print(LVL[0][0])
     # SSF_0 = SSFs[0]
     # cross_filters = CPS.crossFilters(SSF_0, 1)
 

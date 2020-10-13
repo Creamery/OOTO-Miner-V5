@@ -2,12 +2,13 @@ import pprint
 import itertools
 import numpy as np
 import copy
-
+import collections
 
 CHECKLIST = []
 PP = pprint.PrettyPrinter(indent = 4)
 OPTION_CODES = [":a", ":b"]  # TODO (Future) confirm this
 MAX_LEVEL = 3  # The maximum level to process
+MAX_FILTER_ELEMENTS = 2  # TODO (Future) Check if this needs to be increased (this is the number of group comparisons in a filter)
 
 
 '''
@@ -40,7 +41,7 @@ def crossFilters(filters, level):
         item_1 = list_combination[i]
         for j in range(end_index):
             counter = i + (j + 1)
-            if counter <= (end_index):
+            if counter <= end_index:
                 # print("J IS " + str(counter))
                 item_2 = list_combination[counter]
                 cross = []
@@ -49,6 +50,9 @@ def crossFilters(filters, level):
                 if updateChecklist(cross):
                     cross_filters.append(cross)
                     ctr_Filtered = ctr_Filtered + 1
+                else:
+                    print("REMOVED")
+                    print(cross)
 
                 ctr_Raw = ctr_Raw + 1
 
@@ -59,8 +63,7 @@ def crossFilters(filters, level):
         list_cross_filters.append(item)
 
     print("RAW " + str(ctr_Raw))
-    print("FILTERED " + str(ctr_Filtered))
-    # printChecklist(cross_filters)
+    print("ACCEPTED " + str(ctr_Filtered))
     return list_cross_filters
 
 
@@ -158,25 +161,42 @@ def updateChecklist(list_cross):
 '''
  Parameter list_cross contains something of the form of:
  [[filters], [filters]]
+ Returns True if list_cross is already in the finished list (CHECKLIST) and False otherwise
 '''
 def checkChecklist(list_cross):
     isIn = False
     for checklist_items in CHECKLIST:
-        len_checklist_item = len(checklist_items)
 
+        # match_1_ci = []
+        # match_2 = []
         count_match = 0
         for cross_item in list_cross:
             for checklist_item in checklist_items:
-                if all(x in cross_item for x in checklist_item):
+
+                # If all items in the array matches the other, return True
+                if collections.Counter(cross_item) == collections.Counter(checklist_item):
                     count_match = count_match + 1
-                    # print("cross: ")
-                    # print(cross_item)
-                    # print("check: ")
-                    # print(checklist_item)
-                    # print("")
-        # print("Match COUNT: " + str(count_match))
-        if count_match == len_checklist_item:
-            isIn = True
+                    if count_match == 1:
+                        match_1_ci = cross_item
+                        match_1_chi = checklist_item
+                    elif count_match == 2:
+                        match_2_ci = cross_item
+                        match_2_chi = checklist_item
+
+
+                    # If all entries in a group match, return True
+                    if count_match == MAX_FILTER_ELEMENTS:
+                        isIn = True
+
+                        # print("CHECK CHECKLIST")
+                        # print(match_1_ci)
+                        # print(match_1_chi)
+                        # print("")
+                        # print(match_2_ci)
+                        # print(match_2_chi)
+                        # print("")
+
+                        return isIn
 
     return isIn
 
