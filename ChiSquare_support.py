@@ -6,7 +6,6 @@ from scipy.stats import chi2_contingency
 import pandas as pd
 
 import Filter_support as FILS
-import Loader_support as LS
 
 # Chi-square Dictionary Keys
 CHI_SQUARE = "ChiSquare"

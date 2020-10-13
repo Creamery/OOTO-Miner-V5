@@ -1,10 +1,6 @@
 # For Ordered Dictionary
-import collections
 
 import os
-import pandas as pd
-import numpy as np
-
 
 # Uploader support for converting read dataset
 import Loader_support as LS
@@ -34,19 +30,19 @@ LS.exportDataset(df_dataset, "Output.csv", dir_output)
 
 filters = []
 
-# Sample Filters
-dict_filter1 = FILS.createFilter("b1", "a")
-dict_filter1 = FILS.appendFilter(dict_filter1, "b5", "b")
-# FILS.printFilter(dict_filter1)
-# dict_filter1 = FILS.appendFilter(dict_filter1, "b5", "a")
-# FILS.printFilter(dict_filter1)
-
-df_dataset3 = df_dataset.copy(deep = True)
-
-# filteredDatasets = FILS.applyFilter(dataset3, dict_filter1)
-dict_chi_square = CHIS.chiSquare(df_dataset3, dict_filter1)
-df_chi_square_output = CHIS.processChiSquareTable(dict_chi_square)
-LS.exportChiSquareTable(df_chi_square_output, "Dictionary Chi Square Values.csv", LS.GL_OUTPUT_PATH)
+# # Sample Filters
+# dict_filter1 = FILS.createFilter("b1", "a")
+# dict_filter1 = FILS.appendFilter(dict_filter1, "b5", "b")
+# # FILS.printFilter(dict_filter1)
+# # dict_filter1 = FILS.appendFilter(dict_filter1, "b5", "a")
+# # FILS.printFilter(dict_filter1)
+#
+# df_dataset3 = df_dataset.copy(deep = True)
+#
+# # filteredDatasets = FILS.applyFilter(dataset3, dict_filter1)
+# dict_chi_square = CHIS.chiSquare(df_dataset3, dict_filter1)
+# df_chi_square_output = CHIS.processChiSquareTable(dict_chi_square)
+# LS.exportChiSquareTable(df_chi_square_output, "Dictionary Chi Square Values.csv", LS.GL_OUTPUT_PATH)
 
 
 # CPS
@@ -79,12 +75,12 @@ SSF_1 = ["b4:a", "b4:b"]
 SSF_2 = ["t2:a", "t2:b"]
 
 
-cross_filters = CPS.crossFilters(SSF_0, 3)
-for item in cross_filters:
-    CPS.updateChecklist(item)
-CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
+# cross_filters = CPS.crossFilters(SSF_0, 3)
+# for item in cross_filters:
+#     CPS.updateChecklist(item)
+# CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
 # CPS.printChecklist(cross_filters)  # Some entries don't show in pretty print
-print(CPS.CHECKLIST)
+# print(CPS.CHECKLIST)
 
 # for list_item in cross_filters:
 #     CPS.updateChecklist(list_item)

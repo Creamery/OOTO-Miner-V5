@@ -73,7 +73,7 @@ filter2 = collections.OrderedDict()
 
 # This is Chi Square -- K?!
 from scipy.stats import chi2_contingency
-from scipy.stats import chisquare
+
 # val = chisquare([[266, 132], [309, 93]])
 # print(val)
 

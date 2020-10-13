@@ -4,8 +4,9 @@
 import os
 # Uploader support for converting read dataset
 import Loader_support as LS
-import CrossProcess_support as CPS
 import RFE_support as RFES
+import Filter_support as FILS
+import CrossProcess_support as CPS
 
 def loaderModule():
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -36,10 +37,11 @@ def rfeModule(df_raw_dataset, ftr_names):
     dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names)
     return dict_rfe
 
-def crossFilterModule(dict_rfe):
+def FilterModule(dict_rfe):
 
-    CROSS = CPS.extractCROSS(dict_rfe)  # NOTE: CROSS is the collection of SSFs
-    CPS.processLVLs(CROSS)
+    CROSS = FILS.extractFilters(dict_rfe)  # NOTE: CROSS is the collection of SSFs
+
+    LVL = FILS.processLVLs(CROSS)  # LVL is
     # SSF_0 = SSFs[0]
     # cross_filters = CPS.crossFilters(SSF_0, 1)
 
@@ -55,6 +57,6 @@ df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
 dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names)
 
-crossFilterModule(dict_rfe)
+FilterModule(dict_rfe)
 
 
