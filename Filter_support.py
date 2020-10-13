@@ -4,13 +4,13 @@ import numpy as np
 import copy
 import collections
 
-CHECKLIST = []
 PP = pprint.PrettyPrinter(indent = 4)
 OPTION_CODES = [":a", ":b"]  # TODO (Future) confirm this
 MAX_LEVEL = 3  # The maximum level to process
 MAX_FILTER_ELEMENTS = 2  # TODO (Future) Check if this needs to be increased (this is the number of group comparisons in a filter)
 
-
+# CHECKLISTS = np.fromiter(Checklist, list)
+CHECKLISTS = [None] * MAX_LEVEL
 '''
  Level is from 1 to 3. It is also the number of groups the function produces.
  It then groups each resulting cross_options into pairs, which results in cross_filters.
@@ -47,7 +47,7 @@ def crossFilters(filters, level):
                 cross = []
                 cross.append(item_1)
                 cross.append(item_2)
-                if updateChecklist(cross):
+                if updateChecklist(cross, level):
                     cross_filters.append(cross)
                     ctr_Filtered = ctr_Filtered + 1
 
@@ -58,10 +58,10 @@ def crossFilters(filters, level):
     for item in cross_filters:
         item = [list(i) for i in item]
         list_cross_filters.append(item)
-
+    np_list_cross_filters = np.array(list_cross_filters)
     print("RAW " + str(ctr_Raw))
     print("ACCEPTED " + str(ctr_Filtered))
-    return list_cross_filters
+    return np_list_cross_filters
 
 
 '''
@@ -106,6 +106,7 @@ def convertToCrossFilters(list_feat_codes):
  Returns LVL[types][levels] where types = 0-2 and levels = 1-3
 '''
 def processLVLs(CROSS):
+
     len_CROSS = len(CROSS)
     # LVLs = []
     LVL = [[0 for x in range(len_CROSS)] for y in range(MAX_LEVEL)]  # Initialize matrix (2D Array)
@@ -120,13 +121,15 @@ def processLVLs(CROSS):
             level = i_level + 1
             print "TYPE {0} LVL {1}".format(i_type, level)
 
-            filter = crossFilters(SSF, level)
-            LVL[i_type][i_level] = filter  # TODO Lessen dimensions
+            np_filter = crossFilters(SSF, level)
+            # np_filter = np.array(filter)
+            LVL[i_type][i_level] = np_filter  # TODO Lessen dimensions
             print("")  # TODO Remove if you are not gonna print here anymore
 
     LVL = np.array(LVL)
-        # LVLs.append(LVL)
-    PP.pprint(LVL)
+
+    # LVLs.append(LVL)
+    # PP.pprint(LVL)
     return LVL
 
 '''
@@ -137,6 +140,7 @@ def unionSSF(SSF_1, SSF_2):
     SSF_2_copy = copy.deepcopy(SSF_2)
     # SSF_union = SSF_1_copy + SSF_2_copy
     SSF_union = np.concatenate((SSF_1_copy, SSF_2_copy))
+    SSF_union = np.array(SSF_union)
     return SSF_union
 
 
@@ -152,13 +156,28 @@ def unionSSF(SSF_1, SSF_2):
  ]
  Returns TRUE if the output is accepted, and False otherwise.
 '''
-def updateChecklist(list_cross):
+def updateChecklist(list_cross, level):
     # When updating, check if list_cross is already in checklist
-    if checkChecklist(list_cross) is False:  # If not, append to checklist
-        CHECKLIST.append(list_cross)
+    if checkChecklist(list_cross, level) is False:  # If not, append to checklist
+        appendChecklist(list_cross, level)
         return True
     else:
         return False
+
+'''
+Algorithm requires level to be from 1-3, hence the index subtraction
+'''
+def getChecklist(level):
+    i_level = level - 1
+    if CHECKLISTS[i_level]:
+        np_checklist = np.array(CHECKLISTS[i_level])
+        return np_checklist
+    else:
+        CHECKLISTS[i_level] = []
+    return CHECKLISTS[i_level]
+
+def appendChecklist(list_cross, level):
+    np.append(CHECKLISTS[level - 1], list_cross)
 
 
 '''
@@ -166,26 +185,29 @@ def updateChecklist(list_cross):
  [[filters], [filters]]
  Returns True if list_cross is already in the finished list (CHECKLIST) and False otherwise
 '''
-def checkChecklist(list_cross):
+def checkChecklist(list_cross, level):
     isIn = False
-    for checklist_items in CHECKLIST:
-
+    np_list_cross = np.array(list_cross)
+    # if len(getChecklist(level)) < 0:
+    for checklist_items in getChecklist(level):
         # match_1_ci = []
         # match_2 = []
         count_match = 0
-        for cross_item in list_cross:
-            for checklist_item in checklist_items:
+        np_checklist_items = checklist_items
 
+        for cross_item in np_list_cross:
+            np_cross_item = np.array(cross_item)
+            for checklist_item in np_checklist_items:
+                np_checklist_item = np.array(checklist_item)
                 # If all items in the array matches the other, return True
-                if collections.Counter(cross_item) == collections.Counter(checklist_item):
+                if collections.Counter(np_cross_item) == collections.Counter(np_checklist_item):
                     count_match = count_match + 1
-                    if count_match == 1:
-                        match_1_ci = cross_item
-                        match_1_chi = checklist_item
-                    elif count_match == 2:
-                        match_2_ci = cross_item
-                        match_2_chi = checklist_item
-
+                    # if count_match == 1:
+                    #     match_1_ci = cross_item
+                    #     match_1_chi = checklist_item
+                    # elif count_match == 2:
+                    #     match_2_ci = cross_item
+                    #     match_2_chi = checklist_item
 
                     # If all entries in a group match, return True
                     if count_match == MAX_FILTER_ELEMENTS:

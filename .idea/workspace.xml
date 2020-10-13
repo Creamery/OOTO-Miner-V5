@@ -82,8 +82,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/Filter_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="76">
-                    <caret line="129" column="14" lean-forward="true" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
+                  <state relative-caret-position="122">
+                    <caret line="124" column="40" selection-start-line="124" selection-start-column="40" selection-end-line="124" selection-end-column="40" />
                     <folding>
                       <element signature="e#0#13#0" expanded="true" />
                     </folding>
@@ -102,8 +102,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/___FullProcess.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="269">
-                    <caret line="62" selection-start-line="62" selection-end-line="62" />
+                  <state relative-caret-position="298">
+                    <caret line="51" column="32" lean-forward="true" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
                     <folding>
                       <element signature="e#3#12#0" expanded="true" />
                     </folding>
@@ -278,12 +278,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>population_and_proportionHeaders</find>
-      <find>tests</find>
-      <find>strarAllFeatures_gl</find>
-      <find>P(</find>
-      <find>cluster names</find>
-      <find>cluster name</find>
       <find>queue</find>
       <find>global</find>
       <find>datase</find>
@@ -308,6 +302,12 @@
       <find>remov</find>
       <find>print</find>
       <find>Removed</find>
+      <find>LVL</find>
+      <find>&quot;TY</find>
+      <find>remove</find>
+      <find>append</find>
+      <find>getc</find>
+      <find>dty</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -405,7 +405,7 @@
   <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="-8" />
     <option name="y" value="142" />
-    <option name="width" value="1888" />
+    <option name="width" value="1765" />
     <option name="height" value="945" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -620,15 +620,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="114" width="1510" height="756" extended-state="1" />
+    <frame x="-6" y="114" width="1412" height="756" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" order="0" visible="true" weight="0.14325069" />
+      <window_info id="Project" order="0" visible="true" weight="0.1536189" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.30533117" />
-      <window_info active="true" anchor="bottom" x="665" y="109" width="1058" height="636" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.50080776" />
+      <window_info active="true" anchor="bottom" x="473" y="78" width="993" height="628" id="Run" maximized="true" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.508519" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1178,16 +1178,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_MODULE_ManualMining.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-          <folding>
-            <element signature="e#175#207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/1482717180/__builtin__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="235">
@@ -1215,10 +1205,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_MODULE_ManualMining.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#175#207#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/___FullProcess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        <state relative-caret-position="298">
+          <caret line="51" column="32" lean-forward="true" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
           <folding>
             <element signature="e#3#12#0" expanded="true" />
           </folding>
@@ -1227,8 +1227,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Filter_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="129" column="14" lean-forward="true" selection-start-line="129" selection-start-column="14" selection-end-line="129" selection-end-column="14" />
+        <state relative-caret-position="122">
+          <caret line="124" column="40" selection-start-line="124" selection-start-column="40" selection-end-line="124" selection-end-column="40" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
