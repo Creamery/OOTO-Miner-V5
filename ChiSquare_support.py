@@ -6,7 +6,6 @@ from scipy.stats import chi2_contingency
 import pandas as pd
 
 import Filter_support as FILS
-import Loader_support as LS
 
 # Chi-square Dictionary Keys
 CHI_SQUARE = "ChiSquare"
@@ -20,6 +19,7 @@ P_CUTOFF = 0.01
 Performs Chi-square on the selected dataset based on the filter.
 Filters are at most 2 datasets.
 '''
+# TODO Update this (currently applies 1 filter to 1 dataset
 def chiSquare(df_dataset, filter):
     # print(filteredDatasets[0].columns)
     # for df_dataset in filteredDatasets:  # For each dataset in filteredDatasets

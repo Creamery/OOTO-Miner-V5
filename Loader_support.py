@@ -72,7 +72,9 @@ to the Variable Description File.
 def loadDataset(path_dataset, dict_varDesc):
     # Load file as dataframe
     df_dataset = pd.read_csv(path_dataset)
+    df_raw_dataset = df_dataset.copy(deep = True)
     # printDictionary(dict_varDesc)
+
     # Replace each column value with their equivalent letter based on dict_varDesc (Variable Description File)
     for feat_code, feat_dict in dict_varDesc.items():
         item = dict_varDesc[feat_code]  # For each entry in dict_varDesc
@@ -89,8 +91,13 @@ def loadDataset(path_dataset, dict_varDesc):
 
     # print(df_dataset[key])
 
-    return df_dataset
+    return df_raw_dataset, df_dataset
 
+def loadFeatureNames(path_FeatureNames):
+    file = open(path_FeatureNames, 'rt')
+    ftr_names = file.read()
+    ftr_names = ftr_names.strip().split(',')
+    return ftr_names
 
 def exportDataset(df_dataset, filename, path = GL_OUTPUT_PATH):
     path_export = str(path + filename)
