@@ -75,8 +75,9 @@ def extractFilters(dict_rfe):
     for key, value in dict_rfe.items():
         list_feat_codes.append(value)  # Sample Contents: [[b1, u4, p10],[p11],[s6]]
     list_feat_codes = np.array(list_feat_codes)
-    CROSS = convertToCrossFilters(list_feat_codes)
-    return CROSS
+    extracted_filters = convertToCrossFilters(list_feat_codes)
+
+    return extracted_filters
 
 
 '''

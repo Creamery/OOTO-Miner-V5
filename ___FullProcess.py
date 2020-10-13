@@ -38,14 +38,21 @@ def rfeModule(df_raw_dataset, ftr_names):
     return dict_rfe
 
 def FilterModule(dict_rfe):
+    print(dict_rfe)
+    # Takes the dictionary and converts it to the correct format for Crossing (e.g. ["b5:a", "b5:b"])
+    extracted_filters = FILS.extractFilters(dict_rfe)
 
-    CROSS = FILS.extractFilters(dict_rfe)  # NOTE: CROSS is the collection of SSFs
+    # NOTE: CROSS is the collection of SSFs
+    CROSS = FILS.processLVLs(extracted_filters)  # Returns the filter list for each level
 
-    LVL = FILS.processLVLs(CROSS)  # LVL is
-    print(LVL[0])
+    # print(LVL)
     print("")
-    print(LVL[0][0])
-    # SSF_0 = SSFs[0]
+    print(CROSS[0][0])
+    print("")
+    print(CROSS[0][1])
+    print("")
+    print(CROSS[0][2])
+
     # cross_filters = CPS.crossFilters(SSF_0, 1)
 
 
@@ -53,6 +60,7 @@ def FilterModule(dict_rfe):
     #     CPS.updateChecklist(item)
     # CPS.updateChecklist([["b5:a"], ["b1:b", "b1:a"]])
     # print(CPS.CHECKLIST)
+    return CROSS
 
 
 
