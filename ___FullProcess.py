@@ -37,21 +37,21 @@ def rfeModule(df_raw_dataset, ftr_names):
     dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names)
     return dict_rfe
 
-def FilterModule(dict_rfe):
+def filterModule(dict_rfe):
     print(dict_rfe)
     # Takes the dictionary and converts it to the correct format for Crossing (e.g. ["b5:a", "b5:b"])
-    extracted_filters = FILS.extractFilters(dict_rfe)
+    extracted_cross_filters = FILS.extractCrossFilters(dict_rfe)
 
     # NOTE: CROSS is the collection of SSFs
-    CROSS = FILS.processLVLs(extracted_filters)  # Returns the filter list for each level
+    CROSS = FILS.processLVLs(extracted_cross_filters)  # Returns the filter list for each level
 
     # print(LVL)
-    print("")
-    print(CROSS[0][0])
-    print("")
-    print(CROSS[0][1])
-    print("")
-    print(CROSS[0][2])
+    # print("")
+    # print(CROSS[0][0])
+    # print("")
+    # print(CROSS[0][1])
+    # print("")
+    # print(CROSS[0][2])
 
     # cross_filters = CPS.crossFilters(SSF_0, 1)
 
@@ -62,12 +62,17 @@ def FilterModule(dict_rfe):
     # print(CPS.CHECKLIST)
     return CROSS
 
+def crossProcessModule(df_dataset, np_CROSS):
+    CPS.crossProcess(df_dataset, np_CROSS)
 
 
 df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
-dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names)
+dict_rfe = rfeModule(df_raw_dataset, ftr_names)
 
-FilterModule(dict_rfe)
+np_CROSS = filterModule(dict_rfe)
+
+crossProcessModule(df_dataset, np_CROSS)
+
 
 

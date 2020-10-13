@@ -8,12 +8,15 @@ PP = pprint.PrettyPrinter(indent = 4)
 OPTION_CODES = [":a", ":b"]  # TODO (Future) confirm this
 MAX_LEVEL = 3  # The maximum level to process
 MAX_FILTER_ELEMENTS = 2  # TODO (Future) Check if this needs to be increased (this is the number of group comparisons in a filter)
+SPLIT_SYMBOL = ":"
+
+
 
 # CHECKLISTS = np.fromiter(Checklist, list)
 CHECKLISTS = [None] * MAX_LEVEL
 '''
- Level is from 1 to 3. It is also the number of groups the function produces.
- It then groups each resulting cross_options into pairs, which results in cross_filters.
+    Level is from 1 to 3. It is also the number of groups the function produces.
+    It then groups each resulting cross_options into pairs, which results in cross_filters.
 '''
 def crossFilters(filters, level):
     # Get possible combinations of options (in filters parameter)
@@ -65,11 +68,11 @@ def crossFilters(filters, level):
 
 
 '''
- Returns N SSFs, which is decided by RFES.MAX_RANK. In the current program, MAX_RANK = 3.
- The input dict_rfe contains:
- OrderedDict([(1, ['b1', 'u4', 'p10']), (2, ['p11']), (3, ['s6'])])
+    Returns N SSFs, which is decided by RFES.MAX_RANK. In the current program, MAX_RANK = 3.
+    The input dict_rfe contains:
+    OrderedDict([(1, ['b1', 'u4', 'p10']), (2, ['p11']), (3, ['s6'])])
 '''
-def extractFilters(dict_rfe):
+def extractCrossFilters(dict_rfe):
     # print(dict_rfe)
     list_feat_codes = []
     for key, value in dict_rfe.items():
@@ -81,9 +84,9 @@ def extractFilters(dict_rfe):
 
 
 '''
- Convert array of feature codes (i.e. ['b1', 'u3']) to cross filter input
- (i.e. ["b1:a", "b1:b",
-        "u3:a", "u3:b"])
+    Convert array of feature codes (i.e. ['b1', 'u3']) to cross filter input
+    (i.e. ["b1:a", "b1:b",
+           "u3:a", "u3:b"])
 '''
 def convertToCrossFilters(list_feat_codes):
     CROSS = []
@@ -103,8 +106,8 @@ def convertToCrossFilters(list_feat_codes):
 
 # TODO PRINT [Log values for paper]
 '''
- Processes an array of SSFs. The length must be equal to MAX_LEVEL defined at the top of this script.
- Returns LVL[types][levels] where types = 0-2 and levels = 1-3
+    Processes an array of SSFs. The length must be equal to MAX_LEVEL defined at the top of this script.
+    Returns LVL[types][levels] where types = 0-2 and levels = 1-3
 '''
 def processLVLs(CROSS):
 
@@ -133,8 +136,9 @@ def processLVLs(CROSS):
     # PP.pprint(LVL)
     return LVL
 
+
 '''
- Creates and returns a list that is a union of the 2 (Numpy array) parameters.
+    Creates and returns a list that is a union of the 2 (Numpy array) parameters.
 '''
 def unionSSF(SSF_1, SSF_2):
     SSF_1_copy = copy.deepcopy(SSF_1)
@@ -147,15 +151,15 @@ def unionSSF(SSF_1, SSF_2):
 
 
 '''
- Updates the list of finished feature pairs.
- The list follows the form of [[filters], [filters]].
- An example is shown below:
- checklist[
-     [["b1:a", "b1:b"], ["b5:a"]],
-     [["b1:a"], [b5:a"]],
-     [["b1:a"], [b5:b"]],
- ]
- Returns TRUE if the output is accepted, and False otherwise.
+    Updates the list of finished feature pairs.
+    The list follows the form of [[filters], [filters]].
+    An example is shown below:
+    checklist[
+        [["b1:a", "b1:b"], ["b5:a"]],
+        [["b1:a"], [b5:a"]],
+        [["b1:a"], [b5:b"]],
+    ]
+    Returns TRUE if the output is accepted, and False otherwise.
 '''
 def updateChecklist(list_cross, level):
     # When updating, check if list_cross is already in checklist
@@ -165,8 +169,9 @@ def updateChecklist(list_cross, level):
     else:
         return False
 
+
 '''
-Algorithm requires level to be from 1-3, hence the index subtraction
+    Algorithm requires level to be from 1-3, hence the index subtraction
 '''
 def getChecklist(level):
     i_level = level - 1
@@ -182,9 +187,10 @@ def appendChecklist(list_cross, level):
 
 
 '''
- Parameter list_cross contains something of the form of:
- [[filters], [filters]]
- Returns True if list_cross is already in the finished list (CHECKLIST) and False otherwise
+    Parameter list_cross contains something of the form of:
+    [[filters], [filters]]
+    Returns True if list_cross is already in the finished list
+    (CHECKLIST) and False otherwise
 '''
 def checkChecklist(list_cross, level):
     isIn = False
@@ -229,3 +235,71 @@ def checkChecklist(list_cross, level):
 
 def printChecklist(Checklist):
     PP.pprint(Checklist)
+
+
+'''
+FUNCTIONS FOR APPLYING FILTERS
+'''
+
+'''
+    This function accepts a single filter and applies it to the dataset.
+    It then returns the filtered dataset.
+    A filter should be in the following format:
+    [["b1:a", "b5:b"], ["b3:a", "u3:b]]
+
+'''
+def applyFilter(df_dataset, filter):
+    df_filtered_dataset = df_dataset.copy(deep = True)
+    np_filter_dicts = extractFilter(filter)
+
+
+    np_filtered_dataset = np.array(df_filtered_dataset)
+    return np_filtered_dataset
+
+
+'''
+Extracts the filter, where a filter is of the format [["b1:a", "b5:b"], ["b3:a", "u3:b]].
+Filters are assumed to have 2 sets of conditions.
+'''
+def extractFilter(filter):
+    list_filters = []
+
+    for filter_element in filter:
+        dict_filter = collections.OrderedDict()
+        for element in filter_element:
+            split_item = element.split(SPLIT_SYMBOL)
+            feat_key = split_item(0)
+            option = split_item(1)
+
+            # Check if the key has already been added. If not, add the key first
+            if feat_key not in dict_filter:
+                dict_filter[feat_key] = []
+
+            dict_filter[feat_key].append(option)
+
+        list_filters.append(dict_filter)
+
+    np_filters = np.array(list_filters)
+
+    return np_filters
+
+
+'''
+    Applies a a dict_filter on a dataset and returns the filtered dataset.
+    To be used on only 1 filter
+'''
+def applyFilter(df_dataset, dict_filter):
+    df_filtered_dataset = df_dataset.copy(deep = True)
+
+    for key, options in dict_filter.items():
+        # Returns all rows that satisfy the array of conditions
+        df_filtered_dataset = df_filtered_dataset[df_filtered_dataset[key].isin(options)]
+
+    return df_filtered_dataset
+
+
+
+
+
+
+
