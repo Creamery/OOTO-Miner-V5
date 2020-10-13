@@ -50,9 +50,6 @@ def crossFilters(filters, level):
                 if updateChecklist(cross):
                     cross_filters.append(cross)
                     ctr_Filtered = ctr_Filtered + 1
-                else:
-                    print("REMOVED")
-                    print(cross)
 
                 ctr_Raw = ctr_Raw + 1
 
@@ -77,6 +74,7 @@ def extractFilters(dict_rfe):
     list_feat_codes = []
     for key, value in dict_rfe.items():
         list_feat_codes.append(value)  # Sample Contents: [[b1, u4, p10],[p11],[s6]]
+    list_feat_codes = np.array(list_feat_codes)
     CROSS = convertToCrossFilters(list_feat_codes)
     return CROSS
 
@@ -96,7 +94,10 @@ def convertToCrossFilters(list_feat_codes):
                 str_feature_code = str(feature_code + option_code)
                 SSF.append(str_feature_code)
         # print(SSF)
+        SSF = np.array(SSF)
         CROSS.append(SSF)
+
+    CROSS = np.array(CROSS)
     return CROSS
 
 # TODO PRINT [Log values for paper]
@@ -123,17 +124,19 @@ def processLVLs(CROSS):
             LVL[i_type][i_level] = filter  # TODO Lessen dimensions
             print("")  # TODO Remove if you are not gonna print here anymore
 
+    LVL = np.array(LVL)
         # LVLs.append(LVL)
-    # PP.pprint(LVL)
+    PP.pprint(LVL)
     return LVL
 
 '''
- Creates and returns a list that is a union of the 2 parameters.
+ Creates and returns a list that is a union of the 2 (Numpy array) parameters.
 '''
 def unionSSF(SSF_1, SSF_2):
     SSF_1_copy = copy.deepcopy(SSF_1)
     SSF_2_copy = copy.deepcopy(SSF_2)
-    SSF_union = SSF_1_copy + SSF_2_copy
+    # SSF_union = SSF_1_copy + SSF_2_copy
+    SSF_union = np.concatenate((SSF_1_copy, SSF_2_copy))
     return SSF_union
 
 
