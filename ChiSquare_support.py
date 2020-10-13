@@ -5,6 +5,7 @@ import numpy as np
 from scipy.stats import chi2_contingency
 import pandas as pd
 
+import time
 import Filter_support as FILS
 import Loader_support as LS
 
@@ -23,6 +24,8 @@ P_CUTOFF = 0.01
     The parameter is a list of dataset pairs (filtered datasets).
 '''
 def chiSquare(np_dataset_pairs):
+    # start_time = time.time()
+
     # print(filteredDatasets[0].columns)
     # for df_dataset in filteredDatasets:  # For each dataset in filteredDatasets
     #     print(df_dataset.columns())
@@ -86,6 +89,7 @@ def chiSquare(np_dataset_pairs):
             i_feat_code = i_feat_code + 1
         # print(dict_chi_square)
 
+    # print("--- %s seconds ---" % (time.time() - start_time))
     return dict_chi_square
 
 

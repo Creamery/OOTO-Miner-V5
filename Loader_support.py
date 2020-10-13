@@ -104,6 +104,7 @@ def exportDataset(df_dataset, filename, path = GL_OUTPUT_PATH):
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
 def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
+    print("Export Dataframe")
     path_export = str(path + filename)
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
@@ -113,6 +114,7 @@ Prints the Chi-square dictionary results. Makes the necessary
 adjustments so that it will properly display in CSV.
 '''
 def exportChiSquareTable(df_output, filename, path = GL_OUTPUT_PATH):
+    print("Export Chi-square Table")
     exportDataFrame(df_output, filename, path)
     return df_output
 

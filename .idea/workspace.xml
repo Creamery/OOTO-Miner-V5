@@ -8,8 +8,11 @@
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/ChiSquare_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiSquare_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/CrossProcess_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Filter_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Filter_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Loader_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/Dictionary Chi Square Values.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/dict_table 1.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/dict_table 2.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/res.csv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +28,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/Loader_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="357">
-                    <caret line="134" column="38" selection-start-line="134" selection-start-column="38" selection-end-line="134" selection-end-column="38" />
+                  <state relative-caret-position="205">
+                    <caret line="106" column="27" selection-start-line="106" selection-start-column="27" selection-end-line="106" selection-end-column="27" />
                     <folding>
                       <element signature="e#184#193#0" expanded="true" />
                     </folding>
@@ -45,8 +48,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="173">
-                    <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
+                  <state relative-caret-position="306">
+                    <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
                     <folding>
                       <element signature="e#0#13#0" expanded="true" />
                     </folding>
@@ -65,8 +68,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/___FullProcess.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="109">
-                    <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
+                  <state relative-caret-position="204">
+                    <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
                     <folding>
                       <element signature="e#3#12#0" expanded="true" />
                     </folding>
@@ -105,8 +108,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="331">
-                    <caret line="67" column="35" lean-forward="true" selection-start-line="67" selection-start-column="35" selection-end-line="68" selection-end-column="29" />
+                  <state relative-caret-position="-114">
+                    <caret line="113" column="25" selection-start-line="113" selection-start-column="25" selection-end-line="113" selection-end-column="25" />
                     <folding>
                       <element signature="e#1#19#0" expanded="true" />
                     </folding>
@@ -250,7 +253,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setdatasetA</find>
       <find>__datasetA</find>
       <find>get</find>
       <find>featurenames</find>
@@ -280,6 +282,7 @@
       <find>print(</find>
       <find>appl</find>
       <find>type(</find>
+      <find>LS.</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -368,9 +371,9 @@
         <option value="$PROJECT_DIR$/___TestRuns.py" />
         <option value="$PROJECT_DIR$/___FullProcess.py" />
         <option value="$PROJECT_DIR$/Filter_support.py" />
+        <option value="$PROJECT_DIR$/ChiSquare_support.py" />
         <option value="$PROJECT_DIR$/CrossProcess_support.py" />
         <option value="$PROJECT_DIR$/Loader_support.py" />
-        <option value="$PROJECT_DIR$/ChiSquare_support.py" />
       </list>
     </option>
   </component>
@@ -611,7 +614,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.50080776" />
-      <window_info active="true" anchor="bottom" x="491" y="124" width="959" height="628" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
+      <window_info active="true" anchor="bottom" x="41" y="116" width="959" height="485" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.508519" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1175,30 +1178,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="30" column="43" selection-start-line="30" selection-start-column="43" selection-end-line="30" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Loader_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="134" column="38" selection-start-line="134" selection-start-column="38" selection-end-line="134" selection-end-column="38" />
-          <folding>
-            <element signature="e#184#193#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/___FullProcess.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="25" column="58" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
+        <state relative-caret-position="204">
+          <caret line="70" column="31" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
           <folding>
             <element signature="e#3#12#0" expanded="true" />
           </folding>
@@ -1207,10 +1190,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="67" column="35" lean-forward="true" selection-start-line="67" selection-start-column="35" selection-end-line="68" selection-end-column="29" />
+        <state relative-caret-position="-114">
+          <caret line="113" column="25" selection-start-line="113" selection-start-column="25" selection-end-line="113" selection-end-column="25" />
           <folding>
             <element signature="e#1#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Loader_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="106" column="27" selection-start-line="106" selection-start-column="27" selection-end-line="106" selection-end-column="27" />
+          <folding>
+            <element signature="e#184#193#0" expanded="true" />
           </folding>
         </state>
       </provider>
