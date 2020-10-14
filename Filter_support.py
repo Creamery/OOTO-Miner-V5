@@ -51,10 +51,23 @@ def crossFilters(filters, level):
                 cross.append(item_1)
                 cross.append(item_2)
                 if updateChecklist(cross, level):
-                    cross_filters.append(cross)
-                    ctr_Filtered = ctr_Filtered + 1
+                    if not purgedCross(cross):
+                        cross_filters.append(cross)  # Append a filter to cross_filters
+                        ctr_Filtered = ctr_Filtered + 1
 
                 ctr_Raw = ctr_Raw + 1
+
+
+    # seen = set()
+    # newlist = []
+    # for item in cross_filters:
+    #     t = tuple(item)
+    #     if t not in seen:
+    #         newlist.append(item)
+    #         seen.add(t)
+    # print("NewList")
+    # print(newlist)
+
 
     # Remove the extra details from the array, i.e. "dtype"
     list_cross_filters = []
@@ -62,10 +75,31 @@ def crossFilters(filters, level):
         item = [list(i) for i in item]
         list_cross_filters.append(item)
     np_list_cross_filters = np.array(list_cross_filters)
+
+    # print(np_list_cross_filters)
     print("RAW " + str(ctr_Raw))
     print("ACCEPTED " + str(ctr_Filtered))
     return np_list_cross_filters
 
+
+'''
+    Checks if there is a filter element that contains ['feat_code:a', 'feat_code:b']
+    and removes it (a and b under the same feature code is the same as sampling the
+    entire dataset.
+'''
+def purgedCross(cross):
+    isPurged = False
+    # st = st[:-1]
+    for filter_element in cross:
+        # Remove last letter of each entry inside filter_element (i.e. 'a' and 'b')
+        clean_filter_element = [x[:-1] for x in filter_element]
+
+        # Statement returns true of there is a duplicate in clean_filter_element
+        if len(clean_filter_element) != len(set(clean_filter_element)):
+            # if duplicate exists, set isPurged to True and return
+            isPurged = True
+            return isPurged
+    return isPurged
 
 '''
     Returns N SSFs, which is decided by RFES.MAX_RANK. In the current program, MAX_RANK = 3.
@@ -128,8 +162,9 @@ def processLVLs(CROSS):
             np_filter = crossFilters(SSF, level)
             # np_filter = np.array(filter)
             LVL[i_type][i_level] = np_filter  # TODO Lessen dimensions
+            print(np_filter)
             print("")  # TODO Remove if you are not gonna print here anymore
-
+        print("")
     LVL = np.array(LVL)
 
     # LVLs.append(LVL)

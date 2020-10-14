@@ -34,11 +34,12 @@ def crossProcess(df_dataset, np_CROSS):
     len_cross_datasets = len(np_cross_datasets)
     len_cross_types = 1  # len(cross_type)
     len_cross_level = 1  # len(cross_level)
+    list_chi_square_table = []
+    list_chi_square_output = []
 
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
     for i_cross_type in range(len_cross_datasets):  # TODO Find a good way to partition this
         cross_type = np_cross_datasets[i_cross_type]
-
         for i_cross_level in range(len_cross_types):  # The variable cross_level is the list of dataframes
             cross_level = cross_type[i_cross_level]
             for i_dataset_pair in range(len_cross_level):
@@ -47,10 +48,14 @@ def crossProcess(df_dataset, np_CROSS):
                 df_output = CHIS.processChiSquareTable(dict_chi_square)  # TODO Printing
 
                 dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level]
-                dataset_pair_filter = np.array(dataset_pair_filter)
+                np_dataset_pair_filter = np.array(dataset_pair_filter)
+
+                # list_chi_square_output.append([df_output, np_dataset_pair_filter])
                 LS.exportChiSquareTable(df_output, dataset_pair_filter)  # TODO Printing
 
                 file_counter = file_counter + 1
+
+
 
     # np_cross_datasets = np_cross_datasets[0:]  # TODO Find a good way to partition this
     # # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
