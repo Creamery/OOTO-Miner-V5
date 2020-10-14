@@ -105,7 +105,7 @@ def exportDataset(df_dataset, filename, path = GL_OUTPUT_PATH):
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
 def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
-    print("Export Dataframe")
+    # print("Export Dataframe")
     path_export = str(path + filename)
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
@@ -121,12 +121,9 @@ def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
     This function exports the Chi-square Result Table.
 '''
 def exportChiSquareTable(df_output, filter, path = GL_OUTPUT_PATH):
-    print("Export Chi-square Table")
-
+    # print("Export Chi-square Table")
 
     np_filters = FILS.extractFilter(filter)  # Returns an Numpy array of dictionaries per filter element
-    print("EX FILTER")
-    print(filter)
 
     # Result Table - b1[b] VS u4[b].csvb1[b] VS u4[a].csv
 
@@ -175,7 +172,7 @@ def exportChiSquareTable(df_output, filter, path = GL_OUTPUT_PATH):
         #     str_filename = str_filename + " VS "
 
 
-    print(str_filename)
+    print("Export: " + str_filename)
     print("")
 
 
