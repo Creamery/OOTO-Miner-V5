@@ -16,16 +16,37 @@ Applies necessary functions to output a printable chi-square comparison table.
 def crossProcess(df_dataset, np_CROSS):
     # Generate datasets as dictated by filters
     # NOTE:
-    #   np_dataset_pairs[0]             - A list of cross types
-    #   np_dataset_pairs[0][0]          - A list of levels within the list of cross types
-    #   np_dataset_pairs[0][0][0]       - A list of dataset pairs (list) within the list of levels
-    #   np_dataset_pairs[0][0][0][0]    - The contents of the list containing the dataset pairs
+    #   np_dataset_pairs[type]                      - A list of cross types
+    #   np_dataset_pairs[type][level]               - A list of levels within the list of cross types
+    #   np_dataset_pairs[type][level][0]            - A list of dataset pairs (list) within the list of levels
+    #   np_dataset_pairs[0][0][0][0]                - The contents of the list containing the dataset pairs
     np_cross_datasets, np_cross_filters = extractDatasets(df_dataset, np_CROSS)  # TODO (Future) Try to optimize
-    print("TOTAL FILTERS TO PROCESS: " + str(len(np_cross_filters)))
-    # print("NP CROSS FILTERS")
-    # print(type(np_cross_filters[2][2]))
-    # print(np_cross_filters[2][2])
-    # print(len(np_dataset_pairs))
+
+    print("")
+    print("")
+    print("")
+
+    print(len(np_cross_datasets))  # Number of accepted features
+    print(type(np_cross_datasets))  # Number of accepted features
+    print("")
+
+    print(len(np_cross_datasets[0]))  # Number of accepted features
+    print(type(np_cross_datasets[0]))  # Number of accepted features
+    print("")
+
+    print(len(np_cross_datasets[0][0]))
+    print(type(np_cross_datasets[0][0]))
+    print("")
+
+    print(len(np_cross_datasets[0][0][0]))
+    print(type(np_cross_datasets[0][0][0]))
+    print("")
+
+    print(len(np_cross_datasets[0][0][0][0]))
+    print(type(np_cross_datasets[0][0][0][0]))
+    print("")
+
+
 
 
     start_time = time.time()
@@ -41,32 +62,42 @@ def crossProcess(df_dataset, np_CROSS):
     i_cross_type = 0
     i_cross_level = 0
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
-    for cross_type in np_cross_datasets:  # TODO Find a good way to partition this
-        # cross_type = np_cross_datasets[i_cross_type]
+    for i_cross_type in range(len_cross_datasets):  # TODO Find a good way to partition this
+        cross_type = np_cross_datasets[i_cross_type]
         len_cross_types = len(cross_type)
-
-        for cross_level in cross_type:  # The variable cross_level is the list of dataframes
-            # cross_level = cross_type[i_cross_level]
+        for cross_level in range(len_cross_types):  # The variable cross_level is the list of dataframes
+            cross_level = cross_type[i_cross_level]
             len_cross_level = len(cross_level)
-
-            for dataset_pair in cross_level:
-                # dataset_pair = cross_level[i_dataset_pair]
+            print("CROSS LEVEL")
+            print(type(cross_level))
+            print(len(cross_level))
+            print("")
+            for i_dataset_pair in range(len_cross_level):
+                dataset_pair = cross_level[i_dataset_pair]
+                print("DATASET PAIR")
+                print(type(dataset_pair))
+                print("")
+                print("DATASET PAIR CONT")
+                print(type(dataset_pair[0]))
+                print(len(dataset_pair[0]))
+                print("")
                 dict_chi_square = CHIS.chiSquare(dataset_pair)
                 df_output = CHIS.processChiSquareTable(dict_chi_square)  # TODO Printing
+                if df_output is not None:
+                    dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level]
+                    # print("type " + str(i_cross_type))
+                    # print("level " + str(i_cross_level))
+                    # print(dataset_pair_filter)
+                    # print("")
+                    np_dataset_pair_filter = np.array(dataset_pair_filter)
 
-                dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level]
-                print("type " + str(i_cross_type))
-                print("level " + str(i_cross_level))
-                print(dataset_pair_filter)
-                print("")
-                np_dataset_pair_filter = np.array(dataset_pair_filter)
+                    # list_chi_square_output.append([df_output, np_dataset_pair_filter])
+                    LS.exportChiSquareTable(df_output, dataset_pair_filter)  # TODO Printing
 
-                # list_chi_square_output.append([df_output, np_dataset_pair_filter])
-                LS.exportChiSquareTable(df_output, dataset_pair_filter)  # TODO Printing
-
-                file_counter = file_counter + 1
+                    file_counter = file_counter + 1
             i_cross_level = i_cross_level + 1
         i_cross_type = i_cross_type + 1
+
 
     print("--- %s seconds ---" % (time.time() - start_time))
 
@@ -75,30 +106,43 @@ def crossProcess(df_dataset, np_CROSS):
 
 
 def extractDatasets(df_dataset, np_CROSS):
-    list_cross_type = []
-    list_level = []
 
+    list_cross_type = []
     list_cross_type_filter = []
-    list_level_filter = []
 
     # Filter datasets according to filters
-    for np_cross_type in np_CROSS:  # np_cross_type[type]
-        for np_level in np_cross_type:  # np_cross_type[type][level]
-            for list_filter in np_level:  # [["b1:a", "b2:b"], ["u3:b", "b5:b]]
+    for np_cross_type in np_CROSS:  # np_cross_type[type] | Runs: 3; Per run length: 3
+
+        list_level = []
+        list_level_filter = []
+        # np_cross_type[type][level] | Runs: 3; Per run length:
+        # 1-[15, 66, 28] 2-[58, 276, 496] 3-[6, 6, 0]
+        # Run length is the number of dataset pairs per level
+        for np_level in np_cross_type:  # Runs: 3 per Cross Type
+
+            list_pairs = []
+            list_pairs_filter = []
+            # [["b1:a", "b2:b"], ["u3:b", "b5:b]]
+            # Runs: 1-[15, 66, 28] 2-[58, 276, 496] 3-[6, 6, 0];
+            # Per run length: 2 (which is [filterA, filterB]
+            for list_filter in np_level:
                 df_filtered_dataset = df_dataset.copy(deep = True)  # TODO OPTIMIZE to proceed
-                np_dataset_pair = FILS.applyFilter(df_filtered_dataset, list_filter)  # Dataset A & B
+                np_dataset_pair = FILS.applyFilter(df_filtered_dataset, list_filter)  # [datasetA, datasetB] | Length: 2
+
                 # list_dataset_pairs.append(np_dataset_pair)
-                list_level.append(np_dataset_pair)  # List of dataset pairs (list) in a level
-                list_level_filter.append(list_filter)
-            list_cross_type.append(list_level)  # List of levels (list) of dataset pairs
+                list_pairs.append(np_dataset_pair)  # List of dataset pairs (list) in a level [ [datasetA, datasetB], [<...>] ]
+                list_pairs_filter.append(list_filter)
+            list_level.append(list_pairs)
+            list_level_filter.append(list_pairs_filter)
+        list_cross_type.append(list_level)  # List of levels (list) of dataset pairs
         list_cross_type_filter.append(list_level_filter)  # List of levels filters equivalent to list_cross_type
 
 
-    list_cross_type = np.array(list_cross_type)
+    np_list_cross_type = np.array(list_cross_type)
     # list_cross_type_filter = np.array(list_cross_type_filter)
 
 
-    return list_cross_type, list_cross_type_filter
+    return np_list_cross_type, list_cross_type_filter
 
 
 

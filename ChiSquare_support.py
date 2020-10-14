@@ -122,20 +122,21 @@ def processChiSquareTable(dict_chi_square):
         row.append(isSignificant)
 
         list_output.append(row)
+    if len(list_output) > 0:
+        df_output = pd.DataFrame(np.array(list_output), columns = list_headers)
+        pd.Index(list_headers)  # Set index as headers
 
-    df_output = pd.DataFrame(np.array(list_output), columns = list_headers)
-    pd.Index(list_headers)  # Set index as headers
+        # Set the dataframe columns as correct
+        df_output["DoF"] = df_output["DoF"].astype(int)
+        df_output["P Value"] = df_output["P Value"].astype(float)
+        df_output["Chi Square"] = df_output["Chi Square"].astype(float)
+        df_output["Is Significant"] = df_output["Is Significant"].astype(int)
+        df_output = df_output.sort_values(by = "Chi Square", ascending = False)
 
-    # Set the dataframe columns as correct
-    df_output["DoF"] = df_output["DoF"].astype(int)
-    df_output["P Value"] = df_output["P Value"].astype(float)
-    df_output["Chi Square"] = df_output["Chi Square"].astype(float)
-    df_output["Is Significant"] = df_output["Is Significant"].astype(int)
-    df_output = df_output.sort_values(by = "Chi Square", ascending = False)
-
-    # d_descending = collections.OrderedDict(sorted(dict_chi_square.items(),
-    #                                               key = lambda kv: kv[1][CHIS.CHI_SQUARE], reverse = True))
-
+        # d_descending = collections.OrderedDict(sorted(dict_chi_square.items(),
+        #                                               key = lambda kv: kv[1][CHIS.CHI_SQUARE], reverse = True))
+    else:
+        df_output = None
     return df_output
 
 
