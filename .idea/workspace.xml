@@ -7,9 +7,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/CrossProcess_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Filter_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Filter_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Loader_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/Result Table - b1[b] VS u4[b].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/Output.csv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,11 +21,11 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file pinned="false" current-in-tab="false">
+            <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="491">
-                    <caret line="64" column="33" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
+                  <state relative-caret-position="168">
+                    <caret line="68" column="39" selection-start-line="68" selection-start-column="39" selection-end-line="68" selection-end-column="39" />
                     <folding>
                       <element signature="e#0#13#0" expanded="true" />
                     </folding>
@@ -34,11 +33,11 @@
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="true">
+            <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/Loader_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="509">
-                    <caret line="149" column="50" selection-start-line="149" selection-start-column="50" selection-end-line="149" selection-end-column="50" />
+                  <state relative-caret-position="111">
+                    <caret line="122" column="21" selection-start-line="122" selection-start-column="21" selection-end-line="122" selection-end-column="21" />
                     <folding>
                       <element signature="e#184#193#0" expanded="true" />
                     </folding>
@@ -70,12 +69,32 @@
         </state>
       </content>
     </window>
+    <window id="3">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="387">
+                    <caret line="125" column="40" selection-start-line="125" selection-start-column="40" selection-end-line="125" selection-end-column="40" />
+                    <folding>
+                      <element signature="e#1#19#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.52229846">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/___FullProcess.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="237">
@@ -87,14 +106,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pandas/core/internals/managers.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="216">
-                  <caret line="159" selection-start-line="159" selection-end-line="159" />
-                  <folding>
-                    <element signature="e#1#19#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="224">
+                  <caret line="1688" selection-start-line="1688" selection-end-line="1688" />
                 </state>
               </provider>
             </entry>
@@ -163,8 +179,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>applyfi</find>
-      <find>applyf</find>
       <find>def extractt</find>
       <find>print</find>
       <find>print(</find>
@@ -193,6 +207,8 @@
       <find>ACCEPT</find>
       <find>dtyp</find>
       <find>ex fil</find>
+      <find>EX FIL</find>
+      <find>EX FU</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST</replace>
@@ -282,8 +298,8 @@
         <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/_MODULE_AutomatedMining.py" />
         <option value="$PROJECT_DIR$/Filter_support.py" />
-        <option value="$PROJECT_DIR$/CrossProcess_support.py" />
         <option value="$PROJECT_DIR$/Loader_support.py" />
+        <option value="$PROJECT_DIR$/CrossProcess_support.py" />
       </list>
     </option>
   </component>
@@ -692,13 +708,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pandas/core/algorithms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="361" selection-start-line="361" selection-end-line="361" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
@@ -1068,16 +1077,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="159" selection-start-line="159" selection-end-line="159" />
-          <folding>
-            <element signature="e#1#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Filter_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1098,22 +1097,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/pandas/core/internals/managers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="64" column="33" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
+        <state relative-caret-position="224">
+          <caret line="1688" selection-start-line="1688" selection-end-line="1688" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChiSquare_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="125" column="40" selection-start-line="125" selection-start-column="40" selection-end-line="125" selection-end-column="40" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="149" column="50" selection-start-line="149" selection-start-column="50" selection-end-line="149" selection-end-column="50" />
+        <state relative-caret-position="111">
+          <caret line="122" column="21" selection-start-line="122" selection-start-column="21" selection-end-line="122" selection-end-column="21" />
           <folding>
             <element signature="e#184#193#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="68" column="39" selection-start-line="68" selection-start-column="39" selection-end-line="68" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

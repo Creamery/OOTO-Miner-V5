@@ -128,12 +128,20 @@ def exportChiSquareTable(df_output, filter, path = GL_OUTPUT_PATH):
     print("EX FILTER")
     print(filter)
 
+    # Result Table - b1[b] VS u4[b].csvb1[b] VS u4[a].csv
 
     str_filename = str("Result Table - ")
     i_dict_filter = 0
     for dict_filter in np_filters:
         # for i_feat_code in range(len_dict_filter):
+
+        i_feat_code = 0
+        len_dict_filter = len(dict_filter)
+
+        i_dict_filter = i_dict_filter + 1
+        len_np_filters = len(np_filters)
         for feat_code in dict_filter:
+            i_feat_code = i_feat_code + 1
             str_filename = str_filename + (str(feat_code))
             options = dict_filter[feat_code]
 
@@ -147,12 +155,24 @@ def exportChiSquareTable(df_output, filter, path = GL_OUTPUT_PATH):
                 else:
                     str_filename = str_filename + ", "
 
-        len_dict_filter = len(dict_filter) * 2 - 1
-        if isLastElement(i_dict_filter, len_dict_filter):
-            str_filename = str_filename + ".csv"
-        else:
-            str_filename = str_filename + " VS "
-        i_dict_filter = i_dict_filter + 1
+            # If last feat code, add .csv or VS?
+            if isLastElement(i_feat_code, len_dict_filter):  # If last element in filter group
+                if isLastElement(i_dict_filter, len_np_filters):  # Check first if it is the last element overall (i.e. last filter group)
+                    str_filename = str_filename + ".csv"  # If yes, add .csv
+                else:  # Else, add " VS "
+                    str_filename = str_filename + " VS "
+            # TODO If not last feature code, add a space at the end
+
+
+        # i_dict_filter = i_dict_filter + 1
+        # len_dict_filter = len(dict_filter)
+        # # print("idf " + str(i_dict_filter))
+        # # print("len " + str(len_dict_filter))
+        # # print()
+        # if isLastElement(i_dict_filter, len_dict_filter):
+        #     str_filename = str_filename + ".csv"
+        # else:
+        #     str_filename = str_filename + " VS "
 
 
     print(str_filename)
