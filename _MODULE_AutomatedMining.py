@@ -37,7 +37,8 @@ class AutomatedMining:
 
         self.model = MODEL.AutomatedMining_Model()
         self.view = VIEW.AutomatedMining_View(parentFrame)
-        self.controller = CONTROLLER.AutomatedMining_Controller(self.view, self.model, self.root)
+        # self.controller = CONTROLLER.AutomatedMining_Controller(self.view, self.model, self.root)
+        self.controller = CONTROLLER.AutomatedMining_Controller(self.view)
 
         
     def readFeatures(self, variableDescription):

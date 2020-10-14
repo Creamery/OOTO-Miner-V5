@@ -16,6 +16,7 @@ import numpy as np
 import pandas as pd
 
 # For exports
+import Filter_support as FILS
 import ChiSquare_support as CHIS
 
 # For loadVarDesc()
@@ -109,18 +110,64 @@ def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
 
+
 '''
-Prints the Chi-square dictionary results. Makes the necessary
-adjustments so that it will properly display in CSV.
+    Prints the Chi-square dictionary results. Makes the necessary
+    adjustments so that it will properly display in CSV.
+    
+    The 2nd parameter is a single filter (with 2 filter elements).
+    Filename is extracted within the function.
+    
+    This function exports the Chi-square Result Table.
 '''
-def exportChiSquareTable(df_output, filename, path = GL_OUTPUT_PATH):
+def exportChiSquareTable(df_output, filter, path = GL_OUTPUT_PATH):
     print("Export Chi-square Table")
-    exportDataFrame(df_output, filename, path)
+
+
+    np_filters = FILS.extractFilter(filter)  # Returns an Numpy array of dictionaries per filter element
+
+
+    str_filename = str("Result Table - ")
+    i_dict_filter = 0
+    for dict_filter in np_filters:
+        # for i_feat_code in range(len_dict_filter):
+        for feat_code in dict_filter:
+            str_filename = str_filename + (str(feat_code))
+            options = dict_filter[feat_code]
+
+            i_option = 0
+            len_options = len(options)
+            for option in options:
+                i_option = i_option + 1
+                str_filename = str_filename + "[" + str(option)
+                if isLastElement(i_option, len_options):
+                    str_filename = str_filename + "]"
+                else:
+                    str_filename = str_filename + ", "
+
+        len_dict_filter = len(dict_filter)
+        if isLastElement(i_dict_filter, len_dict_filter):
+            str_filename = str_filename + ".csv"
+        else:
+            str_filename = str_filename + " VS "
+        i_dict_filter = i_dict_filter + 1
+
+
+    print(str_filename)
+    print("")
+
+
+    exportDataFrame(df_output, str_filename, path)
     return df_output
 
-# TODO Implement
-def exportResultTable(df_results):
-    print("Export Result Table")
+def isLastElement(index, length):
+    if index == length:
+        return True
+    else:
+        return False
+
+# def exportResultTable(df_results):
+#     print("Export Result Table")
 
 def printDictionary(oDict):
     print(json.dumps(oDict, indent = 4))
