@@ -125,6 +125,8 @@ def exportChiSquareTable(df_output, filter, path = GL_OUTPUT_PATH):
 
 
     np_filters = FILS.extractFilter(filter)  # Returns an Numpy array of dictionaries per filter element
+    print("EX FILTER")
+    print(filter)
 
 
     str_filename = str("Result Table - ")
@@ -145,7 +147,7 @@ def exportChiSquareTable(df_output, filter, path = GL_OUTPUT_PATH):
                 else:
                     str_filename = str_filename + ", "
 
-        len_dict_filter = len(dict_filter)
+        len_dict_filter = len(dict_filter) * 2 - 1
         if isLastElement(i_dict_filter, len_dict_filter):
             str_filename = str_filename + ".csv"
         else:

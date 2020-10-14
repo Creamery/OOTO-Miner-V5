@@ -162,8 +162,8 @@ def processLVLs(CROSS):
             np_filter = crossFilters(SSF, level)
             # np_filter = np.array(filter)
             LVL[i_type][i_level] = np_filter  # TODO Lessen dimensions
-            print(np_filter)
-            print("")  # TODO Remove if you are not gonna print here anymore
+            # print(np_filter)
+            # print("")  # TODO Remove if you are not gonna print here anymore
         print("")
     LVL = np.array(LVL)
 

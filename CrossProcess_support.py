@@ -21,40 +21,70 @@ def crossProcess(df_dataset, np_CROSS):
     #   np_dataset_pairs[0][0][0]       - A list of dataset pairs (list) within the list of levels
     #   np_dataset_pairs[0][0][0][0]    - The contents of the list containing the dataset pairs
     np_cross_datasets, np_cross_filters = extractDatasets(df_dataset, np_CROSS)  # TODO (Future) Try to optimize
-
-
+    print("TOTAL FILTERS TO PROCESS: " + str(len(np_cross_filters)))
+    # print("NP CROSS FILTERS")
+    # print(type(np_cross_filters[2][2]))
+    # print(np_cross_filters[2][2])
     # print(len(np_dataset_pairs))
 
 
     start_time = time.time()
     file_counter = 0
 
-
-
     len_cross_datasets = len(np_cross_datasets)
-    len_cross_types = 1  # len(cross_type)
-    len_cross_level = 1  # len(cross_level)
+    # len_cross_types = 3  # len(cross_type)
+    # len_cross_level = 3  # len(cross_level)
     list_chi_square_table = []
     list_chi_square_output = []
 
+
+    i_cross_type = 0
+    i_cross_level = 0
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
-    for i_cross_type in range(len_cross_datasets):  # TODO Find a good way to partition this
-        cross_type = np_cross_datasets[i_cross_type]
-        for i_cross_level in range(len_cross_types):  # The variable cross_level is the list of dataframes
-            cross_level = cross_type[i_cross_level]
-            for i_dataset_pair in range(len_cross_level):
-                dataset_pair = cross_level[i_dataset_pair]
+    for cross_type in np_cross_datasets:  # TODO Find a good way to partition this
+        # cross_type = np_cross_datasets[i_cross_type]
+        len_cross_types = len(cross_type)
+
+        for cross_level in cross_type:  # The variable cross_level is the list of dataframes
+            # cross_level = cross_type[i_cross_level]
+            len_cross_level = len(cross_level)
+
+            for dataset_pair in cross_level:
+                # dataset_pair = cross_level[i_dataset_pair]
                 dict_chi_square = CHIS.chiSquare(dataset_pair)
                 df_output = CHIS.processChiSquareTable(dict_chi_square)  # TODO Printing
 
                 dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level]
+                print("type " + str(i_cross_type))
+                print("level " + str(i_cross_level))
+                print(dataset_pair_filter)
+                print("")
                 np_dataset_pair_filter = np.array(dataset_pair_filter)
 
                 # list_chi_square_output.append([df_output, np_dataset_pair_filter])
                 LS.exportChiSquareTable(df_output, dataset_pair_filter)  # TODO Printing
 
                 file_counter = file_counter + 1
+            i_cross_level = i_cross_level + 1
+        i_cross_type = i_cross_type + 1
 
+
+            # for i_dataset_pair in range(len_cross_level):
+            #     dataset_pair = cross_level[i_dataset_pair]
+            #     dict_chi_square = CHIS.chiSquare(dataset_pair)
+            #     df_output = CHIS.processChiSquareTable(dict_chi_square)  # TODO Printing
+            #
+            #     dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level]
+            #     print("type " + str(i_cross_type))
+            #     print("level " + str(i_cross_level))
+            #     print(dataset_pair_filter)
+            #     print("")
+            #     np_dataset_pair_filter = np.array(dataset_pair_filter)
+            #
+            #     # list_chi_square_output.append([df_output, np_dataset_pair_filter])
+            #     LS.exportChiSquareTable(df_output, dataset_pair_filter)  # TODO Printing
+            #
+            #     file_counter = file_counter + 1
 
 
     # np_cross_datasets = np_cross_datasets[0:]  # TODO Find a good way to partition this
@@ -90,10 +120,12 @@ def extractDatasets(df_dataset, np_CROSS):
                 list_level.append(np_dataset_pair)  # List of dataset pairs (list) in a level
                 list_level_filter.append(list_filter)
             list_cross_type.append(list_level)  # List of levels (list) of dataset pairs
-            list_cross_type_filter.append(list_level_filter)  # List of levels filters equivalent to list_cross_type
+        list_cross_type_filter.append(list_level_filter)  # List of levels filters equivalent to list_cross_type
+
 
     list_cross_type = np.array(list_cross_type)
     # list_cross_type_filter = np.array(list_cross_type_filter)
+
 
     return list_cross_type, list_cross_type_filter
 
