@@ -141,7 +141,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
         inputFrame.configure(
-            background = CS.SELECT_BG, foreground = CS.FG_COLOR
+            background = CS.WHITE, foreground = CS.FG_COLOR  # TODO
         )
         # endregion init lfInputElements
 
@@ -274,7 +274,7 @@ class AutomatedMining_View:
         WS.redraw(parentFrame)
 
         # region extend lfFeatureList
-        height = 165 # self.lfCommandsFeatureSelect.winfo_height() * 5
+        height = 165  # self.lfCommandsFeatureSelect.winfo_height() * 5  # TODO ADJ
         partialTopHeight = 80
         partialBottomHeight = height - partialTopHeight
 
@@ -754,11 +754,28 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_FILTER_REL_W, relheight = UI_support.TAB_TEST_FILTER_REL_H
         )
         processFrame.configure(
+            background = CS.WHITE, foreground = CS.FG_COLOR  # , text = '''FILTER'''
+        )
+
+        self.configureFilterElements(processFrame)  # Configures all sub elements under FILTER
+        return processFrame
+
+
+    def configureFilterElements(self, parentFrame):
+        # FILTER TITLE
+        self.labelFrameFilterTitle = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameFilterTitle.place(relx = 0, rely = 0.08, relwidth = 1,
+                                         relheight = UI_support.TAB_TEST_FILTER_TITLE_REL_H)
+        self.labelFrameFilterTitle.configure(
             background = CS.FILTER_BG, foreground = CS.FG_COLOR  # , text = '''FILTER'''
         )
 
-        # self.configureFilterElements(processFrame)  # Configures all sub elements under FILTER
-        return processFrame
+        # COLORED SEPARATOR
+        self.separatorlabelFrameFilterTitleNumber = self.createLabelSeparator(
+            self.labelFrameFilterTitle, 1,
+            False, CS.FILTER_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
+            0.5, W
+        )
 
     def initResultsUI(self, parentFrame, relativeFrame):
 
@@ -1358,3 +1375,5 @@ class AutomatedMining_View:
             self.getLbListConfirmedResponses().insert(END, str(entry))
 
     # endregion confirmed features updaters
+    # endregion
+

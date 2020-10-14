@@ -29,14 +29,14 @@ def crossProcess(df_dataset, np_CROSS):
     start_time = time.time()
     file_counter = 0
 
-    np_cross_datasets = np_cross_datasets[0:]
+    np_cross_datasets = np_cross_datasets[0:]  # TODO Find a good way to partition this
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
     for cross_type in np_cross_datasets:
         for cross_level in cross_type:  # The variable cross_level is the list of dataframes
             for dataset_pair in cross_level:
                 dict_chi_square = CHIS.chiSquare(dataset_pair)
-                df_output = CHIS.processChiSquareTable(dict_chi_square)
-                LS.exportDataFrame(df_output, "chi-" + str(file_counter) + ".csv")
+                df_output = CHIS.processChiSquareTable(dict_chi_square)  # TODO Printing
+                LS.exportDataFrame(df_output, "chi-" + str(file_counter) + ".csv")  # TODO Printing
                 file_counter = file_counter + 1
 
     print("--- %s seconds ---" % (time.time() - start_time))
