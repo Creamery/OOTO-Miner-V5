@@ -224,6 +224,11 @@ def exportList(list_data, filename, path = GL_OUTPUT_PATH):
         wr = csv.writer(file, quoting = csv.QUOTE_ALL)
         wr.writerow(list_data)
 
+def exportSSFs(list_ssfs, filename, path = GL_OUTPUT_PATH):
+    path_export = str(path + filename)
+    with open(path_export, 'wb') as file:
+        writer = csv.writer(file)
+        writer.writerows(list_ssfs)
 
 
 

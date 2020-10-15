@@ -119,6 +119,7 @@ def processChiSquareTable(dict_chi_square):
         isSignificant = 0
         if p_value < P_CUTOFF:
             isSignificant = 1
+            # print("IS SIG IS 1")
 
         row.append(feat_code)
         row.append(dof)
@@ -127,6 +128,16 @@ def processChiSquareTable(dict_chi_square):
         row.append(isSignificant)
 
         list_output.append(row)
+
+        if isSignificant == 1:  # If feat_code is marked significant, store to be returned as a list later
+            list_significant.append(feat_code)
+            # print("SIG IS ADDED")
+            # print("")
+            # print(str(feat_code) + " is significant")
+        # else:
+        #     print("")
+
+
     if len(list_output) > 0:
         df_output = pd.DataFrame(np.array(list_output), columns = list_headers)
         pd.Index(list_headers)  # Set index as headers
@@ -138,13 +149,11 @@ def processChiSquareTable(dict_chi_square):
         df_output["Is Significant"] = df_output["Is Significant"].astype(int)
         df_output = df_output.sort_values(by = "Chi Square", ascending = False)
 
-        if isSignificant > 0:  # If feat_code is marked significant, store to be returned as a list later
-            list_significant.append(feat_code)
     else:
         df_output = None
 
-    np_significant = np.array(list_significant)
-    return df_output, np_significant
+    # np_significant = np.array(list_significant)
+    return df_output, list_significant
 
 
 '''
