@@ -4,10 +4,10 @@ import numpy as np
 import copy
 import time
 
+import Loader_support as LS
 import Filter_support as FILS
 import ChiSquare_support as CHIS
-import Loader_support as LS
-
+import UIConstants_support as UICS
 
 '''
 The main function to call.
@@ -22,37 +22,9 @@ def crossProcess(df_dataset, np_CROSS):
     #   np_dataset_pairs[0][0][0][0]                - The contents of the list containing the dataset pairs
     np_cross_datasets, np_cross_filters = extractDatasets(df_dataset, np_CROSS)  # TODO (Future) Try to optimize
 
-    # print("")
-    # print("")
-    # print("")
-    #
-    # print(len(np_cross_datasets))  # Number of accepted features
-    # print(type(np_cross_datasets))  # Number of accepted features
-    # print("")
-    #
-    # print(len(np_cross_datasets[0]))  # Number of accepted features
-    # print(type(np_cross_datasets[0]))  # Number of accepted features
-    # print("")
-    #
-    # print(len(np_cross_datasets[0][0]))
-    # print(type(np_cross_datasets[0][0]))
-    # print("")
-    #
-    # print(len(np_cross_datasets[0][0][0]))
-    # print(type(np_cross_datasets[0][0][0]))
-    # print("")
-    #
-    # print(len(np_cross_datasets[0][0][0][0]))
-    # print(type(np_cross_datasets[0][0][0][0]))
-    # print("")
-
-
-
-
-
-    len_cross_datasets = len(np_cross_datasets)
-    # len_cross_types = 3  # len(cross_type)
-    # len_cross_level = 3  # len(cross_level)
+    len_cross_datasets = UICS.MAX_CROSS  # len(np_cross_datasets)
+    len_cross_types = UICS.MAX_LEVEL  # UICS.MAX_CROSS  # len(cross_type)
+    # len_cross_level = UICS.MAX_LEVEL  # len(cross_level)
 
     list_cross_ssfs = []
     list_level_ssfs = []
@@ -61,18 +33,30 @@ def crossProcess(df_dataset, np_CROSS):
     start_time = time.time()
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
     for i_cross_type in range(len_cross_datasets):  # TODO Find a good way to partition this
+        # print("Type " + str(i_cross_type) + ": " + str(i_cross_type + 1) + " out of "+ str(len_cross_datasets))
         cross_type = np_cross_datasets[i_cross_type]
-        len_cross_types = len(cross_type)
+        # len_cross_types = len(cross_type)
+
         for i_cross_level in range(len_cross_types):  # The variable cross_level is the list of dataframes
+            print("CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "]: " + str(i_cross_level + 1) + " out of "+ str(len_cross_types))
             cross_level = cross_type[i_cross_level]
             len_cross_level = len(cross_level)
+            # print("LCS " + str(len_cross_level))
+            # print("")
+            # print("")
             # print("CROSS LEVEL")
             # print(type(cross_level))
             # print(len(cross_level))
             # print("")
+            list_level_ssfs= []
             for i_dataset_pairs in range(len_cross_level):
+                # print(i_dataset_pairs)
+                # print(len_cross_level)
                 dataset_pairs = cross_level[i_dataset_pairs]
                 len_dataset_pairs = len(dataset_pairs)
+                # print("")
+                # print(len_dataset_pairs)
+
                 for i_dataset_pair in range(len_dataset_pairs):
                     dataset_pair = dataset_pairs[i_dataset_pair]
 
@@ -80,6 +64,7 @@ def crossProcess(df_dataset, np_CROSS):
                     df_processed_output, list_ssf = CHIS.processChiSquareTable(dict_chi_square)
                     if df_processed_output is not None:
                         dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level][i_dataset_pairs]
+                        list_level_ssfs.append(list_ssf)  # Store SSF list
 
                         # print("DATASET PAIR FILTER")
                         # print(dataset_pair_filter)
@@ -92,12 +77,12 @@ def crossProcess(df_dataset, np_CROSS):
                         LS.exportChiSquareTable(df_processed_output, np_dataset_pair_filter, list_index)  # NOTE: Leave the brackets, it has to be within an array
                     # else:
                     #     print("DF OUTPUT IS NULL: Skipping Item")
-
+                list_cross_ssfs.append((list_level_ssfs))
     print("--- %s seconds ---" % (time.time() - start_time))
     print("Processing Complete")
-    print("SSFs")
-    np_cross = np.array(list_cros)
-    print(np_cross)
+    # print("SSFs")
+    # np_cross_ssfs = np.array(list_cross_ssfs)
+    # print(np_cross_ssfs)
     print("")
     # CHIS.printTable(dict_chi_square)
 

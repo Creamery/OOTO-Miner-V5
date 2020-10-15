@@ -39,8 +39,8 @@ def rfeModule(df_raw_dataset, ftr_names):
 
 def filterModule(dict_rfe):
     print("SSF0:")
-    LS.printDictionary(dict_rfe)
-    print("")
+    # LS.printDictionary(dict_rfe)
+    # print("")
     # Takes the dictionary and converts it to the correct format for Crossing (e.g. ["b5:a", "b5:b"])
     extracted_cross_filters = FILS.extractCrossFilters(dict_rfe)
 
@@ -73,19 +73,23 @@ def crossProcessModule(df_dataset, np_CROSS):
 
 
 
-
-
-
-
 df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
+print("Starting RFE...")
 dict_rfe = rfeModule(df_raw_dataset, ftr_names)
+print("-- RFE Finished --")
+print("")
 
 # Returns the filter list for each level (np_cross[type][level]
 # where level starts from 1 (subtracted when retrieved)
+print("Starting Filtering...")
 np_cross = filterModule(dict_rfe)
+print("-- Filtering Finished --")
+print("")
 
+print("Starting Cross Process...")
 crossProcessModule(df_dataset, np_cross)
+print("-- Cross Process Finished --")
 
 
 

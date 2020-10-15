@@ -77,8 +77,8 @@ def crossFilters(filters, level):
     np_list_cross_filters = np.array(list_cross_filters)
 
     # print(np_list_cross_filters)
-    print("RAW " + str(ctr_Raw))
-    print("ACCEPTED " + str(ctr_Filtered))
+    # print("RAW " + str(ctr_Raw))
+    # print("ACCEPTED " + str(ctr_Filtered))
     return np_list_cross_filters
 
 
@@ -157,14 +157,14 @@ def processLVLs(CROSS):
 
         for i_level in range(MAX_LEVEL):  # For each SSF, process level 3x (or MAX_LEVEL times)
             level = i_level + 1
-            print "TYPE {0} LVL {1}".format(i_type, level)
+            # print "TYPE {0} LVL {1}".format(i_type, level)
 
             np_filter = crossFilters(SSF, level)
             # np_filter = np.array(filter)
             LVL[i_type][i_level] = np_filter  # TODO Lessen dimensions
             # print(np_filter)
             # print("")  # TODO Remove if you are not gonna print here anymore
-        print("")
+        # print("")
     LVL = np.array(LVL)
 
     # LVLs.append(LVL)
