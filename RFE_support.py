@@ -3,7 +3,7 @@ import collections
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
 
-MAX_RANK = 3
+import UIConstants_support as UICS
 
 '''
 Returns a dictionary containing the Rankings as keys (1-3) and
@@ -22,7 +22,7 @@ def performRFE(df_raw_dataset, ftr_names):
 
     # TODO (Future) Double check selected features
     model = LogisticRegression(solver = 'liblinear', multi_class = 'auto')  # or lbfgs or liblinear
-    rfe = RFE(model, MAX_RANK)  # The second parameter is the number of top features to select
+    rfe = RFE(model, UICS.MAX_RANK)  # The second parameter is the number of top features to select
     fit = rfe.fit(X, Y)
 
     # for i in range(X.shape[1]):
@@ -40,7 +40,7 @@ def performRFE(df_raw_dataset, ftr_names):
 
 def prepareDictResult(ftr_names, feat_rank):
     dict_rfe = collections.OrderedDict()
-    for i_rank in range(MAX_RANK):
+    for i_rank in range(UICS.MAX_RANK):
         rank = i_rank + 1
         # print("Rank " + str(rank))
 

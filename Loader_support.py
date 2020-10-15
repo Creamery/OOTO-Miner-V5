@@ -4,7 +4,6 @@ __copyright__ = "Copyright 2020, TE3D House | 2020, Liverpool Hope University"
 __credits__ = ["Arnulfo Azcarraga | Neil Buckley"]
 __version__ = "3.0"
 
-import os
 # For loadVarDesc()
 import json  # For pretty print
 import collections
@@ -15,8 +14,12 @@ import numpy as np
 # For loadDataset()
 import pandas as pd
 
+
 # For exports
+import Filter_support as FILS
 import ChiSquare_support as CHIS
+import os
+import errno
 
 # For loadVarDesc()
 ITEM_MARKER = "^"
@@ -104,20 +107,105 @@ def exportDataset(df_dataset, filename, path = GL_OUTPUT_PATH):
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
 def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
+    # print("Export Dataframe")
     path_export = str(path + filename)
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
 
+
 '''
-Prints the Chi-square dictionary results. Makes the necessary
-adjustments so that it will properly display in CSV.
+    Prints the Chi-square dictionary results. Makes the necessary
+    adjustments so that it will properly display in CSV.
+    
+    The 2nd parameter is a single filter (with 2 filter elements).
+    Filename is extracted within the function.
+    
+    The 3rd parameter contains the [type, level] value used for the filename.
+    This function exports the Chi-square Result Table.
+    
+    This function returns common significant SSFs per CROSS[type][level].
 '''
-def exportChiSquareTable(df_output, filename, path = GL_OUTPUT_PATH):
-    exportDataFrame(df_output, filename, path)
+def exportChiSquareTable(df_output, filter, list_index = None, path = GL_OUTPUT_PATH):
+
+    np_filters = FILS.extractFilter(filter)  # Returns an Numpy array of dictionaries per filter element
+
+    str_filename = str("Result Table - CROSS")
+    if list_index is not None:
+        i_type = list_index[0]
+        i_level = list_index[1] + 1
+        str_type = str("[" + str(i_type) + "]")
+        str_level = str("[" + str(i_level)+ "]")
+
+        str_filename = str_filename + str_type  # Add [type] to filename
+        str_filename = str_filename + str_level + " - "  # Add [level] to filename
+
+    i_dict_filter = 0
+    for dict_filter in np_filters:
+
+        i_feat_code = 0
+        len_dict_filter = len(dict_filter)
+
+        i_dict_filter = i_dict_filter + 1
+        len_np_filters = len(np_filters)
+        for feat_code in dict_filter:
+            i_feat_code = i_feat_code + 1
+            str_filename = str_filename + (str(feat_code))
+            options = dict_filter[feat_code]
+
+            i_option = 0
+            len_options = len(options)
+            for option in options:
+                i_option = i_option + 1
+                str_filename = str_filename + "[" + str(option)
+                if isLastElement(i_option, len_options):
+                    str_filename = str_filename + "]"
+                else:
+                    str_filename = str_filename + ", "
+
+            # If last feat code, add .csv or VS?
+            if isLastElement(i_feat_code, len_dict_filter):  # If last element in filter group
+                if isLastElement(i_dict_filter, len_np_filters):  # Check first if it is the last element overall (i.e. last filter group)
+                    str_filename = str_filename + ".csv"  # If yes, add .csv
+                else:  # Else, add " VS "
+                    str_filename = str_filename + " VS "
+
+    # print("Export: " + str_filename)
+    # print("")
+
+
+    output_path = path + "\\Result Tables\\"
+    checkDirectory(output_path)
+
+    if list_index is not None:
+        specific_path = output_path + "\\CROSS" + str_type + " LVL" + str_level + "\\"
+        checkPath(specific_path)
+        output_path = specific_path
+
+    exportDataFrame(df_output, str_filename, output_path)
     return df_output
 
-def exportResultTable(df_results):
-    print("Export Result Table")
+def isLastElement(index, length):
+    if index == length:
+        return True
+    else:
+        return False
+
+def checkDirectory(output_path):
+    if not os.path.exists(os.path.dirname(output_path)):
+        try:
+            os.makedirs(os.path.dirname(output_path))
+        except OSError as exc:  # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+
+def checkPath(file_path):
+    if not os.path.exists(os.path.dirname(file_path)):
+        try:
+            os.makedirs(os.path.dirname(file_path))
+        except OSError as exc:  # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+
 
 def printDictionary(oDict):
     print(json.dumps(oDict, indent = 4))
@@ -130,7 +218,11 @@ def exportDictionary(dict_data, filename, path = GL_OUTPUT_PATH):
         w.writeheader()
         w.writerow(dict_data)
 
-
+def exportList(list_data, filename, path = GL_OUTPUT_PATH):
+    path_export = str(path + filename)
+    with open(path_export, 'wb') as file:
+        wr = csv.writer(file, quoting = csv.QUOTE_ALL)
+        wr.writerow(list_data)
 
 
 

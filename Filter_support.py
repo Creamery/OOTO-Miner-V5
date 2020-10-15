@@ -51,10 +51,23 @@ def crossFilters(filters, level):
                 cross.append(item_1)
                 cross.append(item_2)
                 if updateChecklist(cross, level):
-                    cross_filters.append(cross)
-                    ctr_Filtered = ctr_Filtered + 1
+                    if not purgedCross(cross):
+                        cross_filters.append(cross)  # Append a filter to cross_filters
+                        ctr_Filtered = ctr_Filtered + 1
 
                 ctr_Raw = ctr_Raw + 1
+
+
+    # seen = set()
+    # newlist = []
+    # for item in cross_filters:
+    #     t = tuple(item)
+    #     if t not in seen:
+    #         newlist.append(item)
+    #         seen.add(t)
+    # print("NewList")
+    # print(newlist)
+
 
     # Remove the extra details from the array, i.e. "dtype"
     list_cross_filters = []
@@ -62,10 +75,31 @@ def crossFilters(filters, level):
         item = [list(i) for i in item]
         list_cross_filters.append(item)
     np_list_cross_filters = np.array(list_cross_filters)
-    print("RAW " + str(ctr_Raw))
-    print("ACCEPTED " + str(ctr_Filtered))
+
+    # print(np_list_cross_filters)
+    # print("RAW " + str(ctr_Raw))
+    # print("ACCEPTED " + str(ctr_Filtered))
     return np_list_cross_filters
 
+
+'''
+    Checks if there is a filter element that contains ['feat_code:a', 'feat_code:b']
+    and removes it (a and b under the same feature code is the same as sampling the
+    entire dataset.
+'''
+def purgedCross(cross):
+    isPurged = False
+    # st = st[:-1]
+    for filter_element in cross:
+        # Remove last letter of each entry inside filter_element (i.e. 'a' and 'b')
+        clean_filter_element = [x[:-1] for x in filter_element]
+
+        # Statement returns true of there is a duplicate in clean_filter_element
+        if len(clean_filter_element) != len(set(clean_filter_element)):
+            # if duplicate exists, set isPurged to True and return
+            isPurged = True
+            return isPurged
+    return isPurged
 
 '''
     Returns N SSFs, which is decided by RFES.MAX_RANK. In the current program, MAX_RANK = 3.
@@ -123,13 +157,14 @@ def processLVLs(CROSS):
 
         for i_level in range(MAX_LEVEL):  # For each SSF, process level 3x (or MAX_LEVEL times)
             level = i_level + 1
-            print "TYPE {0} LVL {1}".format(i_type, level)
+            # print "TYPE {0} LVL {1}".format(i_type, level)
 
             np_filter = crossFilters(SSF, level)
             # np_filter = np.array(filter)
             LVL[i_type][i_level] = np_filter  # TODO Lessen dimensions
-            print("")  # TODO Remove if you are not gonna print here anymore
-
+            # print(np_filter)
+            # print("")  # TODO Remove if you are not gonna print here anymore
+        # print("")
     LVL = np.array(LVL)
 
     # LVLs.append(LVL)
@@ -246,30 +281,50 @@ FUNCTIONS FOR APPLYING FILTERS
     It then returns the filtered dataset.
     A filter should be in the following format:
     [["b1:a", "b5:b"], ["b3:a", "u3:b]]
-
+    
+    The function returns the 2 datasets (dataset A and B) to be compared.
 '''
-def applyFilter(df_dataset, filter):
+def applyFilter(df_dataset, list_filter):
     df_filtered_dataset = df_dataset.copy(deep = True)
-    np_filter_dicts = extractFilter(filter)
+    list_results = []
+    np_filter_dict = extractFilter(list_filter)  # An np dictionary filter has 2 dictionaries
+
+    # print("DICT FILTER")
+    # print(np_filter_dicts[0])
+    for dict_filter in np_filter_dict:  # For each part of the filter (i.e. 1 dictionary)
+        df_result = filterDataset(df_filtered_dataset, dict_filter)
+        list_results.append(df_result)
 
 
-    np_filtered_dataset = np.array(df_filtered_dataset)
-    return np_filtered_dataset
+    # This approach fixes the value error as opposed to the commented approach
+    np_filtered_dataset_pair = np.empty(MAX_FILTER_ELEMENTS, dtype = object)
+    np_filtered_dataset_pair[:] = [list_results]
+    # np_filtered_dataset_pair = np.array(list_results)
+    return np_filtered_dataset_pair
 
 
 '''
 Extracts the filter, where a filter is of the format [["b1:a", "b5:b"], ["b3:a", "u3:b]].
 Filters are assumed to have 2 sets of conditions.
+
+This function returns a list (np_filters) of dictionaries that contain the dictionary form
+of the filters. For a 2-element filter, it will return a 2-element list (where an element
+is a dictionary).
 '''
 def extractFilter(filter):
     list_filters = []
-
-    for filter_element in filter:
+    # print("FILTER")
+    # print(filter)
+    for filter_element in filter:  # A single filter part, e.g. ["b1:a", "u3:b" ]
         dict_filter = collections.OrderedDict()
+        # print("FILTER ELEMENT")
+        # print(filter_element)
         for element in filter_element:
+            # print("ELEMENT")
+            # print(element)
             split_item = element.split(SPLIT_SYMBOL)
-            feat_key = split_item(0)
-            option = split_item(1)
+            feat_key = split_item[0]
+            option = split_item[1]
 
             # Check if the key has already been added. If not, add the key first
             if feat_key not in dict_filter:
@@ -286,9 +341,9 @@ def extractFilter(filter):
 
 '''
     Applies a a dict_filter on a dataset and returns the filtered dataset.
-    To be used on only 1 filter
+    To be used on only 1 filter.
 '''
-def applyFilter(df_dataset, dict_filter):
+def filterDataset(df_dataset, dict_filter):
     df_filtered_dataset = df_dataset.copy(deep = True)
 
     for key, options in dict_filter.items():

@@ -23,7 +23,7 @@ def loaderModule():
     fln_dataset = "Uniandes_Dataset (New).csv"
     path_dataset = str(dir_input + fln_dataset)
     df_raw_dataset, df_dataset = LS.loadDataset(path_dataset, dict_varDesc)
-    LS.exportDataset(df_dataset, "Output.csv", dir_output)
+    # LS.exportDataset(df_dataset, "Output.csv", dir_output)
 
     fln_ftrNames = "Uniandes_FeatureNames.csv"
     path_ftrNames = str(dir_input + fln_ftrNames)
@@ -38,7 +38,13 @@ def rfeModule(df_raw_dataset, ftr_names):
     return dict_rfe
 
 def filterModule(dict_rfe):
-    print(dict_rfe)
+    i = 1
+    print("SSFs:")
+    for key, value in dict_rfe.items():
+        print "SSF" + str(i) + " - " + str(value)
+        i = i + 1
+    # LS.printDictionary(dict_rfe)
+    # print("")
     # Takes the dictionary and converts it to the correct format for Crossing (e.g. ["b5:a", "b5:b"])
     extracted_cross_filters = FILS.extractCrossFilters(dict_rfe)
 
@@ -66,13 +72,28 @@ def crossProcessModule(df_dataset, np_CROSS):
     CPS.crossProcess(df_dataset, np_CROSS)
 
 
+
+
+
+
+
 df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
+print("Starting RFE...")
 dict_rfe = rfeModule(df_raw_dataset, ftr_names)
+print("-- RFE Finished --")
+print("")
 
-np_CROSS = filterModule(dict_rfe)
+# Returns the filter list for each level (np_cross[type][level]
+# where level starts from 1 (subtracted when retrieved)
+print("Starting Filtering...")
+np_cross = filterModule(dict_rfe)
+print("-- Filtering Finished --")
+print("")
 
-crossProcessModule(df_dataset, np_CROSS)
+print("Starting Cross Process...")
+crossProcessModule(df_dataset, np_cross)
+print("-- Cross Process Finished --")
 
 
 
