@@ -98,13 +98,18 @@ def chiSquare(np_dataset_pairs):
 Processes the Chi-square dictionary results into a table-like dataframe.
 Makes the necessary adjustments so that it will properly display in CSV.
 The headers are: ["Feature", "DoF", "P Value", "Chi Square", "Is Significant"]
+
+This function returns a data frame containing the formatted output as well
+as a Numpy array of significant features.
 '''
 def processChiSquareTable(dict_chi_square):
 
-
     list_output = []  # Will contain the properly formatted data for the dataframe
-    # The order will be: [feat_code, dof, p_value, chi_square]
+    list_significant = []  # Will contain the list of features marked as significant
+
+    # The order will be: [feat_code, dof, p_value, chi_square, is_significant]
     list_headers = ["Feature", "DoF", "P Value", "Chi Square", "Is Significant"]
+
     for feat_code, value in dict_chi_square.items():
 
         row = []
@@ -133,11 +138,13 @@ def processChiSquareTable(dict_chi_square):
         df_output["Is Significant"] = df_output["Is Significant"].astype(int)
         df_output = df_output.sort_values(by = "Chi Square", ascending = False)
 
-        # d_descending = collections.OrderedDict(sorted(dict_chi_square.items(),
-        #                                               key = lambda kv: kv[1][CHIS.CHI_SQUARE], reverse = True))
+        if isSignificant > 0:  # If feat_code is marked significant, store to be returned as a list later
+            list_significant.append(feat_code)
     else:
         df_output = None
-    return df_output
+
+    np_significant = np.array(list_significant)
+    return df_output, np_significant
 
 
 '''

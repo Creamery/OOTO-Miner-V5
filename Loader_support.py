@@ -122,6 +122,8 @@ def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
     
     The 3rd parameter contains the [type, level] value used for the filename.
     This function exports the Chi-square Result Table.
+    
+    This function returns common significant SSFs per CROSS[type][level].
 '''
 def exportChiSquareTable(df_output, filter, list_index = None, path = GL_OUTPUT_PATH):
 
@@ -167,8 +169,8 @@ def exportChiSquareTable(df_output, filter, list_index = None, path = GL_OUTPUT_
                 else:  # Else, add " VS "
                     str_filename = str_filename + " VS "
 
-    print("Export: " + str_filename)
-    print("")
+    # print("Export: " + str_filename)
+    # print("")
 
 
     output_path = path + "\\Result Tables\\"

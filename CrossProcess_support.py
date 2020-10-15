@@ -49,15 +49,16 @@ def crossProcess(df_dataset, np_CROSS):
 
 
 
-    start_time = time.time()
 
     len_cross_datasets = len(np_cross_datasets)
     # len_cross_types = 3  # len(cross_type)
     # len_cross_level = 3  # len(cross_level)
-    list_chi_square_table = []
-    list_chi_square_output = []
 
+    list_cross_ssfs = []
+    list_level_ssfs = []
 
+    print("Processing - Please Wait... (Average Runtime - 8 minutes")
+    start_time = time.time()
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
     for i_cross_type in range(len_cross_datasets):  # TODO Find a good way to partition this
         cross_type = np_cross_datasets[i_cross_type]
@@ -76,24 +77,28 @@ def crossProcess(df_dataset, np_CROSS):
                     dataset_pair = dataset_pairs[i_dataset_pair]
 
                     dict_chi_square = CHIS.chiSquare(dataset_pair)
-                    df_output = CHIS.processChiSquareTable(dict_chi_square)  # TODO Printing
-                    if df_output is not None:
+                    df_processed_output, list_ssf = CHIS.processChiSquareTable(dict_chi_square)
+                    if df_processed_output is not None:
                         dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level][i_dataset_pairs]
 
                         # print("DATASET PAIR FILTER")
                         # print(dataset_pair_filter)
                         # print("")
                         np_dataset_pair_filter = np.array(dataset_pair_filter)
-
                         # list_chi_square_output.append([df_output, np_dataset_pair_filter])
                         list_index = [i_cross_type, i_cross_level]
+
                         # TODO Printing
-                        LS.exportChiSquareTable(df_output, dataset_pair_filter, list_index)  # NOTE: Leave the brackets, it has to be within an array
-                    else:
-                        print("DF OUTPUT IS NULL: Skipping Item")
+                        LS.exportChiSquareTable(df_processed_output, np_dataset_pair_filter, list_index)  # NOTE: Leave the brackets, it has to be within an array
+                    # else:
+                    #     print("DF OUTPUT IS NULL: Skipping Item")
 
     print("--- %s seconds ---" % (time.time() - start_time))
-
+    print("Processing Complete")
+    print("SSFs")
+    np_cross = np.array(list_cros)
+    print(np_cross)
+    print("")
     # CHIS.printTable(dict_chi_square)
 
 
