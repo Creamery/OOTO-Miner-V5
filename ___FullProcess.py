@@ -23,7 +23,7 @@ def loaderModule():
     fln_dataset = "Uniandes_Dataset (New).csv"
     path_dataset = str(dir_input + fln_dataset)
     df_raw_dataset, df_dataset = LS.loadDataset(path_dataset, dict_varDesc)
-    LS.exportDataset(df_dataset, "Output.csv", dir_output)
+    # LS.exportDataset(df_dataset, "Output.csv", dir_output)
 
     fln_ftrNames = "Uniandes_FeatureNames.csv"
     path_ftrNames = str(dir_input + fln_ftrNames)

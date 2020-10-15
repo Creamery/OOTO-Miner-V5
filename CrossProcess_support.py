@@ -86,8 +86,9 @@ def crossProcess(df_dataset, np_CROSS):
                         np_dataset_pair_filter = np.array(dataset_pair_filter)
 
                         # list_chi_square_output.append([df_output, np_dataset_pair_filter])
+                        list_index = [i_cross_type, i_cross_level]
                         # TODO Printing
-                        LS.exportChiSquareTable(df_output, dataset_pair_filter)  # NOTE: Leave the brackets, it has to be within an array
+                        LS.exportChiSquareTable(df_output, dataset_pair_filter, list_index)  # NOTE: Leave the brackets, it has to be within an array
                     else:
                         print("DF OUTPUT IS NULL: Skipping Item")
 
