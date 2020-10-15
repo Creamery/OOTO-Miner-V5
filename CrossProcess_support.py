@@ -27,7 +27,6 @@ def crossProcess(df_dataset, np_CROSS):
     # len_cross_level = UICS.MAX_LEVEL  # len(cross_level)
 
     list_cross_ssfs = []
-    list_level_ssfs = []
 
     print("Processing - Please Wait... (Average Runtime - 8 minutes")
     start_time = time.time()

@@ -38,7 +38,11 @@ def rfeModule(df_raw_dataset, ftr_names):
     return dict_rfe
 
 def filterModule(dict_rfe):
-    print("SSF0:")
+    i = 1
+    print("SSFs:")
+    for key, value in dict_rfe.items():
+        print "SSF" + str(i) + " - " + str(value)
+        i = i + 1
     # LS.printDictionary(dict_rfe)
     # print("")
     # Takes the dictionary and converts it to the correct format for Crossing (e.g. ["b5:a", "b5:b"])
