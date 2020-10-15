@@ -10,7 +10,8 @@ MAX_CROSS = 3  # Tells until which CROSS type to perform
 MAX_LEVEL = 3  # Tells until which LEVEL to do per cross type
 
 
-
+# For Multiprocessing
+PROCESS_COUNT = 3
 
 
 
