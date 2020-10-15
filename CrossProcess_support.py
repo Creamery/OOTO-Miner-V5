@@ -49,6 +49,7 @@ def crossProcess(df_dataset, np_CROSS):
             # print("")
             list_level_ssfs= []
             list_all_ssfs = []
+            list_ssfs = []
             # np_level_ssfs = np.array(list_level_ssfs)
             for i_dataset_pairs in range(len_cross_level):
                 # print(i_dataset_pairs)
@@ -57,7 +58,6 @@ def crossProcess(df_dataset, np_CROSS):
                 len_dataset_pairs = len(dataset_pairs)
                 # print("")
                 # print(len_dataset_pairs)
-                list_ssfs = []
                 for i_dataset_pair in range(len_dataset_pairs):
                     dataset_pair = dataset_pairs[i_dataset_pair]
 
@@ -71,10 +71,6 @@ def crossProcess(df_dataset, np_CROSS):
                         else:
                             list_ssfs = mergeUnique(list_ssfs, list_ssf)
 
-                        # np_level_ssfs = np.concatenate(np_level_ssfs, np_ssf)
-                        # np_level_ssfs = np.unique(np_level_ssfs)
-
-
 
                         # print("DATASET PAIR FILTER")
                         # print(dataset_pair_filter)
@@ -85,31 +81,37 @@ def crossProcess(df_dataset, np_CROSS):
 
                         # TODO Printing
                         LS.exportChiSquareTable(df_processed_output, np_dataset_pair_filter, list_index)  # NOTE: Leave the brackets, it has to be within an array
+
+                list_all_ssfs = mergeUnique(list_all_ssfs, list_ssfs)
+                ssfs_filename = "SSFs - CROSS[" + str(i_cross_type) + "][" + str(i_cross_level) + "].csv"
+                LS.exportSSFs(list_ssfs, ssfs_filename)
                     # else:
                     #     print("DF OUTPUT IS NULL: Skipping Item")
 
-                list_all_ssfs = mergeUnique(list_all_ssfs, list_ssfs)
+
 
 
             list_level_ssfs.append(list_all_ssfs)  # Store SSF list
-            print("list_all_ssfs")
-            print(list_all_ssfs)
-            print("")
+            # print("list_all_ssfs")
+            # print(list_all_ssfs)
+            # print("")
 
-        print("")
-        print("")
         list_cross_ssfs.append(list_level_ssfs)
     print("--- %s seconds ---" % (time.time() - start_time))
     print("Processing Complete")
-    print("SSFs")
-    np_cross_ssfs = np.array(list_cross_ssfs)
-    i_level = 1
-    for cross in np_cross_ssfs:
-        for level in cross:
-            print str(i_level) + ": " + str(level)
-            print("")
-            i_level = i_level + 1
-    LS.exportSSFs(list_cross_ssfs, "SSFs.csv")
+    # print("SSFs")
+    # np_cross_ssfs = np.array(list_cross_ssfs)
+    # i_level = 1
+    # i_cross = 0
+    # for cross in np_cross_ssfs:
+    #     for level in cross:
+    #         print str(i_level) + ": " + str(level)
+    #         print("")
+    #         ssfs_filename = "SSFs - CROSS[" + str(i_cross) + "][" + str(i_level)+ "].csv"
+    #         i_level = i_level + 1
+    #
+    #         LS.exportSSFs(cross, ssfs_filename)
+    #     i_cross = i_cross + 1
     # CHIS.printTable(dict_chi_square)
 
 
