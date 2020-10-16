@@ -23,7 +23,7 @@ SELECT_ICO_SIZE = (33, 33)
 SELECT_ICO_SIZE_BUTTONS = (22, 22)
 FILTER_ICO_SIZE_BUTTONS = SELECT_ICO_SIZE_BUTTONS
 
-RUN_ICO_SIZE = (50, 50)  # (70, 70)
+RUN_ICO_SIZE = (65, 65)  # (50, 50)  # (70, 70)
 
 CORNER_ICO_SIZE_SMALL = (50, 50)
 
@@ -62,6 +62,9 @@ TAB_ICO_DOWN_ARROW_ON = PATH+'\\_icons\\ico_down_arrow_on.png'
 TEXTURE_STRIPE_ORANGE = PATH+'\\_icons\\texture_stripe_orange.png'
 TEXTURE_STRIPE_PINK = PATH+'\\_icons\\texture_stripe_pink.png'
 TEXTURE_STRIPE_LIME = PATH+'\\_icons\\texture_stripe_lime.png'
+TEXTURE_STRIPE_CYAN = PATH+'\\_icons\\texture_stripe_cyan.png'
+TEXTURE_STRIPE_PLUM = PATH+'\\_icons\\texture_stripe_plum.png'
+
 
 TEXTURE_BLACK = PATH+'\\_icons\\ico_black.png'
 

@@ -72,7 +72,7 @@ class AutomatedMining_Controller:
 
     def initializeVariables(self):
         # Selected UI for MM
-        self.selectOptionChiSquare(None)  # This selects the default algorithm in MM
+        self.selectOptionChangeCrossType(None)  # This selects the default algorithm in MM
         self.showConsoleScreen(None, self.listConsoleScreen)  # Click ALL type
 
         global queryType_gl
@@ -170,7 +170,7 @@ class AutomatedMining_Controller:
         self.listQueryDataA = self.view.getListQueryDataA()
         self.listQueryDataB = self.view.getListQueryDataB()
 
-        self.labelQueueCount = self.view.getLabelQueueCount()
+        # self.labelQueueCount = self.view.getLabelQueueCount()
         self.labelConsoleScreenTaskBar = self.view.getLabelConsoleScreenTaskBar()
 
         self.labelQueryDataACount = self.view.getLabelQueryDataACount()
@@ -190,8 +190,8 @@ class AutomatedMining_Controller:
 
         # BUTTONS
 
-        self.labelFrameProcessZTest = self.view.getLabelFrameProcessZTest()
-        self.labelFrameProcessChiSquare = self.view.getLabelFrameProcessChiSquare()
+        self.labelFrameProcessChangeLevel = self.view.getLabelFrameProcessChangeLevel()
+        self.labelFrameProcessChangeCrossType = self.view.getLabelFrameProcessChangeCrossType()
 
         self.buttonQuerySetDataA = self.view.getButtonQuerySetDataA()
         self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
@@ -209,16 +209,25 @@ class AutomatedMining_Controller:
         # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
 
-        self.buttonQueryZTest = self.view.getButtonQueryZTest()
-        self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)  # Run Z-test Sample vs Sample
+        self.buttonApplyLevelSpinBox = self.view.getButtonApplyLevelSpinBox()
+        self.buttonApplyLevelSpinBox.bind('<Button-1>', self.applyLevelSpinBox)  # Run with Level Value
+
+        self.buttonApplyCrossTypeSpinBox = self.view.getButtonApplyCrossTypeSpinBox()
+        self.buttonApplyCrossTypeSpinBox.bind('<Button-1>', self.applyCrossTypeSpinBox)  # Run with Level Value
+
         self.buttonQueryZTestSvP = self.view.getButtonQueryZTestSvP()
         self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)  # Run Z-test Sample vs Population
 
-        self.buttonQueue = self.view.getButtonQueue()
-        self.buttonQueue.bind('<Button-1>', self.queue)  # Enqueue Subset-pairs
+        self.buttonApplyCrossTypeSpinBox = self.view.getButtonApplyCrossTypeSpinBox()
+        self.buttonApplyCrossTypeSpinBox.bind('<Button-1>', self.applyCrossTypeSpinBox)  # Run with Cross Type Value
 
-        self.buttonClearQueue = self.view.getButtonClearQueue()
-        self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
+
+        # self.buttonQueue = self.view.getButtonQueue()
+        # self.buttonQueue.bind('<Button-1>', self.queue)  # Enqueue Subset-pairs
+
+        # self.buttonClearQueue = self.view.getButtonClearQueue()
+        # self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
+
         self.buttonTestQueue = self.view.getButtonTestQueue()
         self.buttonTestQueue.bind('<Button-1>', self.testQueue)  # Run Miner Button
 
@@ -230,10 +239,10 @@ class AutomatedMining_Controller:
 
         # Test option buttons
         self.buttonChooseChiSquare = self.view.getButtonChooseChiSquare()
-        self.buttonChooseChiSquare.bind('<Button-1>', self.selectOptionChiSquare)
+        self.buttonChooseChiSquare.bind('<Button-1>', self.selectOptionChangeCrossType)
 
         self.buttonChooseZTest = self.view.getButtonChooseZTest()
-        self.buttonChooseZTest.bind('<Button-1>', self.selectOptionZTest)
+        self.buttonChooseZTest.bind('<Button-1>', self.selectOptionChangeLevel)
 
         # Console buttons
         self.buttonConsoleAll = self.view.getButtonConsoleAll()
@@ -295,16 +304,20 @@ class AutomatedMining_Controller:
         self.buttonQueryFeature.bind("<Leave>",
                                      lambda event: self.leaveRightArrowPlainIcon(event, self.buttonQueryFeature_state))
 
-        self.buttonQueryZTest.bind("<Enter>", self.enterCheckIcon)
-        self.buttonQueryZTest.bind("<Leave>", self.leaveCheckIcon)
+        self.buttonApplyLevelSpinBox.bind("<Enter>", self.enterCheckIcon)
+        self.buttonApplyLevelSpinBox.bind("<Leave>", self.leaveCheckIcon)
 
-        self.buttonQueue.bind("<Enter>", self.enterAddIcon)
-        self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
+
+        self.buttonApplyCrossTypeSpinBox.bind("<Enter>", self.enterCheckIcon)
+        self.buttonApplyCrossTypeSpinBox.bind("<Leave>", self.leaveCheckIcon)
+
+        # self.buttonQueue.bind("<Enter>", self.enterAddIcon)
+        # self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
         # self.buttonQueue.bind("<Enter>", self.enterDownArrowIcon)
         # self.buttonQueue.bind("<Leave>", self.leaveDownArrowIcon)
 
-        self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
-        self.buttonClearQueue.bind("<Leave>", self.leaveCrossIcon)
+        # self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
+        # self.buttonClearQueue.bind("<Leave>", self.leaveCrossIcon)
 
         self.buttonTestQueue.bind("<Enter>", self.enterRightArrowIcon)
         self.buttonTestQueue.bind("<Leave>", self.leaveRightArrowIcon)
@@ -873,7 +886,7 @@ class AutomatedMining_Controller:
 
     # region
 
-    def selectOptionChiSquare(self, evt):
+    def selectOptionChangeCrossType(self, evt):
 
         # Change button appearance to selected
         self.buttonChooseChiSquare.configure(
@@ -887,12 +900,10 @@ class AutomatedMining_Controller:
             foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
         )
 
-        # Show Z-Test options
-        self.hideWidget(self.labelFrameProcessZTest)
-        # Hide Chi-square options
-        self.showWidget(self.labelFrameProcessChiSquare)
+        self.hideWidget(self.labelFrameProcessChangeLevel)
+        self.showWidget(self.labelFrameProcessChangeCrossType)
 
-    def selectOptionZTest(self, evt):
+    def selectOptionChangeLevel(self, evt):
         # Change button appearance to selected
         self.buttonChooseZTest.configure(
             background = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
@@ -904,10 +915,8 @@ class AutomatedMining_Controller:
             foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
         )
 
-        # Show Z-Test options
-        self.hideWidget(self.labelFrameProcessChiSquare)
-        # Hide Chi-square options
-        self.showWidget(self.labelFrameProcessZTest)
+        self.hideWidget(self.labelFrameProcessChangeCrossType)
+        self.showWidget(self.labelFrameProcessChangeLevel)
 
     ''' Adds test to the queue '''
 
@@ -1039,39 +1048,47 @@ class AutomatedMining_Controller:
         self.buttonQueue.configure(relief = FLAT)
         return "break"
 
-    ''' Conduct the Z-Test between the two samples. '''
 
-    def queryZTest(self, evt):
-        self.buttonQueryZTest.configure(relief = FLAT)
+    ''' Conduct the experiment with the given Level between the two samples. '''
+    def applyLevelSpinBox(self, evt):
+        self.buttonApplyLevelSpinBox.configure(relief = FLAT)
+        print("Query LEVEL Function")
         # Get selected confidence interval
         # confidenceInterval = self.comboQueryCriticalValue.get()
         confidenceInterval = self.spinBoxQueryZConfidence.get()
 
         # Get corresponding Z Critical Value of the confidence interval
-        zCritical = self.arrQueryCriticalValueMapping[confidenceInterval]
+        # zCritical = self.arrQueryCriticalValueMapping[confidenceInterval]
 
-        if 'Focus Feature' in self.datasetA:
-            try:
-                # Check if the selected focus feature and selected values of it are the same for both samples
-                isSame = FS.isSameFocusFeat(self.datasetA, self.datasetB,
-                                            self.datasetA['Focus Feature']['Selected Values'],
-                                            self.datasetB['Focus Feature']['Selected Values'])
-                if (isSame == 1):
-                    # Calculate Z score between the two samples
-                    zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'],
-                                                   self.datasetB['Total'], self.datasetB['ProportionPercent'])
-                    # Get result if accept/reject compared to the zCritical value
-                    zResult = svs.compareZtoZCritical(zScore, zCritical)
-                    # Display Z score and whether accept/reject at inputted confidence interval
-                    # self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
-                    consoleText = str('' + 'Z-Score:\t' + str(round(zScore, 2)) + ', ' +
-                                      str(float(confidenceInterval)) +
-                                      '\n' +
-                                      '' + 'Confidence:\t' + zResult + '\n\n')
-                    self.addToConsole(consoleText, self.listConsoleZTestScreen)
-                    self.addToConsole(consoleText, self.listConsoleScreen)
-            except:
-                tkMessageBox.showinfo("Missing Input", "Please select a FILTER value.")
+        # if 'Focus Feature' in self.datasetA:
+            # try:
+                # # Check if the selected focus feature and selected values of it are the same for both samples
+                # isSame = FS.isSameFocusFeat(self.datasetA, self.datasetB,
+                #                             self.datasetA['Focus Feature']['Selected Values'],
+                #                             self.datasetB['Focus Feature']['Selected Values'])
+                # if (isSame == 1):
+                #     # Calculate Z score between the two samples
+                #     zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'],
+                #                                    self.datasetB['Total'], self.datasetB['ProportionPercent'])
+                #     # Get result if accept/reject compared to the zCritical value
+                #     zResult = svs.compareZtoZCritical(zScore, zCritical)
+                #     # Display Z score and whether accept/reject at inputted confidence interval
+                #     # self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
+                #     consoleText = str('' + 'Z-Score:\t' + str(round(zScore, 2)) + ', ' +
+                #                       str(float(confidenceInterval)) +
+                #                       '\n' +
+                #                       '' + 'Confidence:\t' + zResult + '\n\n')
+                #     self.addToConsole(consoleText, self.listConsoleZTestScreen)
+                #     self.addToConsole(consoleText, self.listConsoleScreen)
+            # except:
+            #     tkMessageBox.showinfo("Missing Input", "Please select a FILTER value.")
+        return "break"
+
+    ''' Conduct the experiment with the given Cross Type between the two samples. '''
+    def applyCrossTypeSpinBox(self, evt):
+        self.buttonApplyLevelSpinBox.configure(relief = FLAT)
+        print("Query Cross Type Function")
+
         return "break"
 
     ''' Conduct Z-Test between the population and all samples '''
@@ -1148,7 +1165,7 @@ class AutomatedMining_Controller:
 
         # self.entryQueryFeatureA.configure(state = "normal")
         # self.entryQueryFeatureB.configure(state = "normal")
-        self.buttonQueryZTest.configure(state = "normal")
+        self.buttonApplyLevelSpinBox.configure(state = "normal")
 
         self.spinBoxQueryZConfidence.configure(state = "normal")
         # self.comboQueryCriticalValue.configure(state = "normal")
@@ -1192,7 +1209,7 @@ class AutomatedMining_Controller:
             # self.buttonQueryFeatureB.configure(state = "disabled")
             # self.entryQueryFeatureA.configure(state = "disabled")
             # self.entryQueryFeatureB.configure(state = "disabled")
-            self.buttonQueryZTest.configure(state = "disabled")
+            self.buttonApplyLevelSpinBox.configure(state = "disabled")
 
             self.spinBoxQueryZConfidence.configure(state = "disabled")
             # self.comboQueryCriticalValue.configure(state = "disabled")
@@ -1479,16 +1496,16 @@ class AutomatedMining_Controller:
     def enterQueryZTest(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(
+        self.buttonApplyLevelSpinBox.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+        self.buttonApplyLevelSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
     def leaveQueryZTest(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(
+        self.buttonApplyLevelSpinBox.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+        self.buttonApplyLevelSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
     # endregion
 
@@ -1585,7 +1602,7 @@ class AutomatedMining_Controller:
             )
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PINK)
+            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PLUM)
             texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_pink_stripes

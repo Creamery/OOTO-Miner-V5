@@ -297,6 +297,7 @@ class OOTO_Miner:
     def configureDataTabElements(self, parentFrame):
         self.INPUT = INPUT.InputModule(parentFrame)
         return self.INPUT
+
     ''' --> Configure TEST ("TEST") TAB (2.1) <-- '''
 
     def configureManualMiningTab(self, parentFrame):
@@ -323,6 +324,7 @@ class OOTO_Miner:
         self.Tabs.select(2)  # show the current tab to be able to retrieve height and
         automatedMining = AM.AutomatedMining(parentFrame, root)
         self.Tabs.select(0)  # return to first tab
+
         return automatedMining
 
         # self.chiTabParentFrame = chiFrame.getMainFrame()
@@ -598,7 +600,11 @@ class OOTO_Miner:
             dirPopulation = self.INPUT.getPopulationDir()
 
             # populationDataset = FS.readCSVDict(populationDir)
-            isSuccessfulAM = self.AM.uploadDataset(dirPopulation)
+
+            # TODO Fix This
+            # isSuccessfulAM = self.AM.uploadDataset(dirPopulation)
+            isSuccessfulAM = True
+
             # print("AM Pop Dataset, DatasetA, DatasetB")
             # print(self.AM.model.getPopulationDataset())
             # print(self.AM.model.getDatasetA())
