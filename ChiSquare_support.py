@@ -8,6 +8,7 @@ import pandas as pd
 import time
 import Filter_support as FILS
 import Loader_support as LS
+import UIConstants_support as UICS
 
 # Chi-square Dictionary Keys
 CHI_SQUARE = "ChiSquare"
@@ -15,7 +16,6 @@ P_VALUE = "PValue"
 DOF = "DoF"
 EXPECTED = "Expected"
 
-P_CUTOFF = 0.01
 
 '''
     Performs Chi-square on the selected dataset based on the filter.
@@ -95,17 +95,24 @@ def chiSquare(np_dataset_pairs):
 
 
 '''
-Processes the Chi-square dictionary results into a table-like dataframe.
-Makes the necessary adjustments so that it will properly display in CSV.
-The headers are: ["Feature", "DoF", "P Value", "Chi Square", "Is Significant"]
+    Processes the Chi-square dictionary results into a table-like dataframe.
+    Makes the necessary adjustments so that it will properly display in CSV.
+    The headers are: ["Feature", "DoF", "P Value", "Chi Square", "Is Significant"]
+    
+    This function returns a data frame containing the formatted output as well
+    as a Numpy array of significant features.
 
-This function returns a data frame containing the formatted output as well
-as a Numpy array of significant features.
+
+    This function returns an updated dict_result_table (as passed in the paremeter)
+    that records all dataset pairings (e.g. b1[a] VS b2[b]) as keys and their equivalent
+    table results [Feature, DoF, P Value, Chi Square, Is Significant] as values.
+    
 '''
 def processChiSquareTable(dict_chi_square):
 
     list_output = []  # Will contain the properly formatted data for the dataframe
     list_significant = []  # Will contain the list of features marked as significant
+    list_significant_output = []  # Will contain the properly formatted data for the dataframe
 
     # The order will be: [feat_code, dof, p_value, chi_square, is_significant]
     list_headers = ["Feature", "DoF", "P Value", "Chi Square", "Is Significant"]
@@ -117,7 +124,7 @@ def processChiSquareTable(dict_chi_square):
         p_value = round(value[P_VALUE], 6)
         dof = value[DOF]
         isSignificant = 0
-        if p_value < P_CUTOFF:
+        if p_value < UICS.P_CUTOFF:
             isSignificant = 1
             # print("IS SIG IS 1")
 
@@ -130,7 +137,15 @@ def processChiSquareTable(dict_chi_square):
         list_output.append(row)
 
         if isSignificant == 1:  # If feat_code is marked significant, store to be returned as a list later
+            sig_row = []
             list_significant.append(feat_code)
+            sig_row.append(feat_code)
+            sig_row.append(dof)
+            sig_row.append(p_value)
+            sig_row.append(chi_square)
+            sig_row.append(isSignificant)
+            list_significant_output.append(sig_row)
+
             # print("SIG IS ADDED")
             # print("")
             # print(str(feat_code) + " is significant")
@@ -152,8 +167,22 @@ def processChiSquareTable(dict_chi_square):
     else:
         df_output = None
 
+    if len(list_significant_output) > 0:
+        df_significant_output = pd.DataFrame(np.array(list_significant_output), columns = list_headers)
+        pd.Index(list_headers)  # Set index as headers
+
+        # Set the dataframe columns as correct
+        df_significant_output["DoF"] = df_significant_output["DoF"].astype(int)
+        df_significant_output["P Value"] = df_significant_output["P Value"].astype(float)
+        df_significant_output["Chi Square"] = df_significant_output["Chi Square"].astype(float)
+        df_significant_output["Is Significant"] = df_significant_output["Is Significant"].astype(int)
+        df_significant_output = df_significant_output.sort_values(by = "Chi Square", ascending = False)
+
+    else:
+        df_significant_output = None
+
     # np_significant = np.array(list_significant)
-    return df_output, list_significant
+    return df_output, list_significant, df_significant_output
 
 
 '''
