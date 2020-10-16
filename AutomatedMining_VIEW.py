@@ -134,16 +134,6 @@ class AutomatedMining_View:
         self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
 
 
-        # self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame, bd = 0)
-        # self.labelFrameSelectElements.place(
-        #     relx = UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
-        #     relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
-        # )
-        # self.labelFrameSelectElements.configure(
-        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
-        # )
-        # self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
-
 
 
         newRelY = FS.getRelY(self.labelFrameProcessElements) + FS.getRelH(
@@ -174,23 +164,6 @@ class AutomatedMining_View:
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
         )
         self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
-
-
-
-
-
-        # self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame, bd = 0)
-        # self.labelFrameProcessElements.place(
-        #     # relx = UI_support.TAB_TEST_PROCESS_REL_X,
-        #     relx = FS.getRelX(self.labelFrameSelectElements),
-        #     rely = newRelY,
-        #     relwidth = UI_support.TAB_TEST_PROCESS_REL_W,
-        #     relheight = UI_support.TAB_TEST_PROCESS_REL_H
-        # )
-        # self.labelFrameProcessElements.configure(
-        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
-        # )
-        # self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
 
 
 
@@ -534,7 +507,7 @@ class AutomatedMining_View:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQuerySetDataA.configure(
@@ -841,7 +814,7 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.buttonQuerySetDataA),
             relheight = FS.getRelH(self.buttonQuerySetDataA))
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQuerySetDataB.configure(
@@ -1192,7 +1165,7 @@ class AutomatedMining_View:
             relwidth = 0.041, relheight = 1)
         # relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQueryFeature.configure(
@@ -1821,8 +1794,6 @@ class AutomatedMining_View:
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
             text = '''TYPE''',
-            # text = '''Z - TEST''',
-            # text = '''OPTIONS''',
             anchor = CENTER,
             bd = 0, relief = GROOVE
         )
@@ -2080,7 +2051,7 @@ class AutomatedMining_View:
             relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
-            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H + 0.03)
         self.labelFrameProcessRunMinerTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.D_BLUE, foreground = Color_support.WHITE,

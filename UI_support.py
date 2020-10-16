@@ -75,11 +75,11 @@ LBL_ABOUT_VER = '''Version:'''
 STR_ABOUT_VER = '''OOTO Miner v. 2.0.0'''
 
 LBL_ABOUT_AUTHOR = '''Author:'''
-STR_ABOUT_AUTHOR = '''TE3D House'''
+STR_ABOUT_AUTHOR = '''Candy Espulgar'''
 
 
 LBL_ABOUT_AFFILIATION = '''Affiliation:'''
-STR_ABOUT_AFFILIATION = '''De La Salle University - Laguna'''
+STR_ABOUT_AFFILIATION = '''Liverpool Hope University'''
 
 
 # Constant values

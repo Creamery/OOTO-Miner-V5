@@ -501,7 +501,7 @@ class ManualMining_View:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQuerySetDataA.configure(
@@ -808,7 +808,7 @@ class ManualMining_View:
             relwidth = FS.getRelW(self.buttonQuerySetDataA),
             relheight = FS.getRelH(self.buttonQuerySetDataA))
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQuerySetDataB.configure(
@@ -1159,7 +1159,7 @@ class ManualMining_View:
             relwidth = 0.041, relheight = 1)
         # relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
+        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQueryFeature.configure(
@@ -2039,7 +2039,7 @@ class ManualMining_View:
             relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
-            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H + 0.03)
         self.labelFrameProcessRunMinerTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.D_BLUE, foreground = Color_support.WHITE,

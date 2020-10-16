@@ -211,6 +211,10 @@ class AutomatedMining_Controller:
 
         self.buttonApplyLevelSpinBox = self.view.getButtonApplyLevelSpinBox()
         self.buttonApplyLevelSpinBox.bind('<Button-1>', self.applyLevelSpinBox)  # Run with Level Value
+
+        self.buttonApplyCrossTypeSpinBox = self.view.getButtonApplyCrossTypeSpinBox()
+        self.buttonApplyCrossTypeSpinBox.bind('<Button-1>', self.applyCrossTypeSpinBox)  # Run with Level Value
+
         self.buttonQueryZTestSvP = self.view.getButtonQueryZTestSvP()
         self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)  # Run Z-test Sample vs Population
 
@@ -302,6 +306,10 @@ class AutomatedMining_Controller:
 
         self.buttonApplyLevelSpinBox.bind("<Enter>", self.enterCheckIcon)
         self.buttonApplyLevelSpinBox.bind("<Leave>", self.leaveCheckIcon)
+
+
+        self.buttonApplyCrossTypeSpinBox.bind("<Enter>", self.enterCheckIcon)
+        self.buttonApplyCrossTypeSpinBox.bind("<Leave>", self.leaveCheckIcon)
 
         # self.buttonQueue.bind("<Enter>", self.enterAddIcon)
         # self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
