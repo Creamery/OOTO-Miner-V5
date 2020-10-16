@@ -573,8 +573,8 @@ def createFilters(SSF, maxLevel = CSF.MAX_LVL):
         LVL = [[a1, a2], [a1, a3], [a2, a3]]
 """
 def createFeatureSet(level, LVLprev, BagOfFeatures):
-    print "level = " + str(level)
-    print "BagOfFeatures = " + str(BagOfFeatures)
+    # print "level = " + str(level)
+    # print "BagOfFeatures = " + str(BagOfFeatures)
 
     LVL = []
     lenBOF = len(BagOfFeatures)
@@ -588,7 +588,7 @@ def createFeatureSet(level, LVLprev, BagOfFeatures):
     # for each item in the previous LVL
     for i in range(lenLVLprev):
         prevItem = list(LVLprev[i])
-        print "prevItem " + str(prevItem)
+        # print "prevItem " + str(prevItem)
 
         firstIndex = i + prevLevel
         # go over each BOF item
@@ -599,7 +599,7 @@ def createFeatureSet(level, LVLprev, BagOfFeatures):
 
     # LVL = unique(LVL)  # only maintain unique values (pandas should preserve order)
     tupleLVL = tuple(LVL)  # convert list to tuples to be compatible with pd.unique
-    print "type " + str(type(tupleLVL))
+    # print "type " + str(type(tupleLVL))
     LVL = pd.unique(tupleLVL)  # only maintain unique values (pandas should preserve order)
     LVL = [list(x) for x in LVL]  # convert LVL to list
 

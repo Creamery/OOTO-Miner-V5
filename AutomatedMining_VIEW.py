@@ -2077,7 +2077,7 @@ class AutomatedMining_View:
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.D_BLUE, foreground = Color_support.WHITE,
             # background = Color_support.PROCESS_RUN_MINER_TITLE_BG, foreground = Color_support.PROCESS_RUN_MINER_TITLE_FG,
-            text = '''RUN MINER''',
+            text = '''RUN''',
             anchor = CENTER,
             bd = 1, relief = GROOVE
         )
@@ -2108,26 +2108,26 @@ class AutomatedMining_View:
 
         # RUN MINER BUTTON
         # region
-        self.buttonTestQueue = Button(self.labelFrameRunMinerElements, compound = CENTER)
+        self.buttonRunAutomatedMiner = Button(self.labelFrameRunMinerElements, compound = CENTER)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.RUN_ICO_SIZE, PIL.Image.ANTIALIAS)
         # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)/
         btn_queue_icon = PIL.ImageTk.PhotoImage(im)
 
-        self.buttonTestQueue.configure(
+        self.buttonRunAutomatedMiner.configure(
             image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonTestQueue.image = btn_queue_icon  # < ! > Required to make images appear
+        self.buttonRunAutomatedMiner.image = btn_queue_icon  # < ! > Required to make images appear
 
-        self.buttonTestQueue.configure(
+        self.buttonRunAutomatedMiner.configure(
             background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = FLAT)
 
-        self.buttonTestQueue.place(
+        self.buttonRunAutomatedMiner.place(
             relx = 0, rely = 0,
             relwidth = 1, relheight = 1
         )
-        self.buttonTestQueue.pack(side = RIGHT)
+        self.buttonRunAutomatedMiner.pack(side = RIGHT)
         # self.buttonTestQueue.update()
         self.labelFrameRunMinerElements.pack(fill = Y, expand = True)
 
@@ -2154,7 +2154,7 @@ class AutomatedMining_View:
         try:
             intValue = int(newValue)
             # If the new value is not defined in the value mapping, don't accept it
-            if intValue > UICS.MAX_LEVEL:
+            if intValue > UICS.MAX_LEVEL_REFERENCE:
                 self.refreshSpinBoxValue(spinBox)
         except:
             self.refreshSpinBoxValue(spinBox)
@@ -2169,7 +2169,7 @@ class AutomatedMining_View:
         try:
             intValue = int(newValue)
             # If the new value is not defined in the value mapping, don't accept it
-            if intValue > UICS.MAX_CROSS:
+            if intValue > UICS.MAX_CROSS_REFERENCE:
                 self.refreshSpinBoxValue(spinBox)
         except:
             self.refreshSpinBoxValue(spinBox)
@@ -2632,11 +2632,13 @@ class AutomatedMining_View:
     # region GETTERS
     def getButtonQuerySetDataA(self):
         return self.buttonQuerySetDataA
+
     def getButtonQuerySetDataB(self):
         return self.buttonQuerySetDataB
 
     def getButtonQueryAddFilterA(self):
         return self.buttonQueryAddFilterA
+
     def getButtonQueryAddFilterB(self):
         return self.buttonQueryAddFilterB
 
@@ -2646,21 +2648,14 @@ class AutomatedMining_View:
     def getButtonApplyLevelSpinBox(self):
         return self.buttonApplyLevelSpinBox
 
-
     def getButtonApplyCrossTypeSpinBox(self):
         return self.buttonApplyCrossTypeSpinBox
 
-
-    # def getButtonQueue(self):
-    #     return self.buttonQueue
-    # def getButtonClearQueue(self):
-    #     return self.buttonClearQueue
-    def getButtonTestQueue(self):
-        return self.buttonTestQueue
+    def getButtonRunAutomatedMiner(self):
+        return self.buttonRunAutomatedMiner
 
     def getButtonQueryResetFilterA(self):
         return self.buttonQueryResetFilterA
-
 
     def getButtonQueryResetFilterB(self):
         return self.buttonQueryResetFilterB
@@ -2668,25 +2663,30 @@ class AutomatedMining_View:
     def getButtonChooseChiSquare(self):
         return self.buttonChooseCrossType
 
-
     def getButtonChooseZTest(self):
         return self.buttonChooseCrossLevel
 
     def getButtonConsoleAll(self):
         return self.buttonConsoleAll
+
     def getButtonConsoleZTest(self):
         return self.buttonConsoleZTest
+
     def getButtonConsoleChiSquare(self):
         return self.buttonConsoleChiSquare
+
     def getButtonConsoleQueue(self):
         return self.buttonConsoleQueue
 
     def getListConsoleScreen(self):
         return self.listConsoleScreen
+
     def getListConsoleZTestScreen(self):
         return self.listConsoleZTestScreen
+
     def getListConsoleChiSquareScreen(self):
         return self.listConsoleChiSquareScreen
+
     def getListConsoleQueueScreen(self):
         return self.listConsoleQueueScreen
 
@@ -2701,6 +2701,7 @@ class AutomatedMining_View:
 
     def getListQueryDataA(self):
         return self.listQueryDataA
+
     def getListQueryDataB(self):
         return self.listQueryDataB
 
@@ -2749,8 +2750,11 @@ class AutomatedMining_View:
         return self.labelFrameProcessChangeLevel
         # return self.labelFrameProcessChangeCrossType
 
-    def getSpinBoxQueryZConfidence(self):
+    def getSpinBoxChangeLevel(self):
         return self.spinBoxChangeLevel
+
+    def getSpinBoxChangeCrossType(self):
+        return self.spinBoxChangeCrossType
 
     def getDictConsoleScreens(self):
         return self.dictConsoleScreens

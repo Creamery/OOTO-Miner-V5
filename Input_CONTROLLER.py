@@ -109,7 +109,7 @@ class Input_Controller:
         valFileDir = self.entryValuesFile.get()
 
         # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
-        print self.entryQueryPopulation.get()[-4:]
+        # print self.entryQueryPopulation.get()[-4:]
 
         if self.entryInitialVarDesc.get()[-4:] != ".csv":  # TODO Properly check for valid files
             tkMessageBox.showinfo("System Message", "Please enter a valid Variable Description CSV file")  # TODO!!

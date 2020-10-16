@@ -13,13 +13,14 @@ import numpy as np
 
 # For loadDataset()
 import pandas as pd
+import os
+import errno
 
 
 # For exports
 import Filter_support as FILS
 import ChiSquare_support as CHIS
-import os
-import errno
+import UIConstants_support as UICS
 
 # For loadVarDesc()
 ITEM_MARKER = "^"
@@ -27,7 +28,8 @@ FEAT_NAME = "Name"
 OPTION_NAME = "OptionName"
 
 # Paths
-GL_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\")
+GL_AM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\AM\\")
+GL_MM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\MM\\")
 
 # NOTE: Arrays start at 0
 def loadVarDesc(path_variableDesc):
@@ -102,11 +104,11 @@ def loadFeatureNames(path_FeatureNames):
     ftr_names = ftr_names.strip().split(',')
     return ftr_names
 
-def exportDataset(df_dataset, filename, path = GL_OUTPUT_PATH):
+def exportDataset(df_dataset, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
-def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
+def exportDataFrame(df_dataset, filename, path = GL_AM_OUTPUT_PATH):
     # print("Export Dataframe")
     path_export = str(path + filename)
     df_dataset.to_csv(path_export, index = False, sep = ",")
@@ -123,13 +125,15 @@ def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
     The 3rd parameter contains the [type, level] value used for the filename.
     This function exports the Chi-square Result Table.
     
-    This function returns common significant SSFs per CROSS[type][level].
 '''
-def exportChiSquareTable(df_output, filter, list_index = None, path = GL_OUTPUT_PATH):
+def exportChiSquareTable(df_output, filter, list_index = None, path = GL_AM_OUTPUT_PATH):
 
     np_filters = FILS.extractFilter(filter)  # Returns an Numpy array of dictionaries per filter element
-
+    # print(np_filters)
+    # print("")
     str_filename = str("Result Table - CROSS")
+    str_pair_name = ""
+
     if list_index is not None:
         i_type = list_index[0]
         i_level = list_index[1] + 1
@@ -150,6 +154,7 @@ def exportChiSquareTable(df_output, filter, list_index = None, path = GL_OUTPUT_
         for feat_code in dict_filter:
             i_feat_code = i_feat_code + 1
             str_filename = str_filename + (str(feat_code))
+            str_pair_name = str_pair_name + str(feat_code)
             options = dict_filter[feat_code]
 
             i_option = 0
@@ -157,17 +162,22 @@ def exportChiSquareTable(df_output, filter, list_index = None, path = GL_OUTPUT_
             for option in options:
                 i_option = i_option + 1
                 str_filename = str_filename + "[" + str(option)
+                str_pair_name = str_pair_name + "(" + str(option)
                 if isLastElement(i_option, len_options):
                     str_filename = str_filename + "]"
+                    str_pair_name = str_pair_name + ")"
                 else:
                     str_filename = str_filename + ", "
+                    str_pair_name = str_pair_name + ", "
 
             # If last feat code, add .csv or VS?
             if isLastElement(i_feat_code, len_dict_filter):  # If last element in filter group
                 if isLastElement(i_dict_filter, len_np_filters):  # Check first if it is the last element overall (i.e. last filter group)
                     str_filename = str_filename + ".csv"  # If yes, add .csv
                 else:  # Else, add " VS "
-                    str_filename = str_filename + " VS "
+                    str_filename = str_filename + UICS.STRING_VS
+                    str_pair_name = str_pair_name + UICS.STRING_VS
+
 
     # print("Export: " + str_filename)
     # print("")
@@ -182,7 +192,13 @@ def exportChiSquareTable(df_output, filter, list_index = None, path = GL_OUTPUT_
         output_path = specific_path
 
     exportDataFrame(df_output, str_filename, output_path)
-    return df_output
+    return df_output, str_pair_name
+
+def addToDictionaryResult(dict_result, key, value):
+    if key not in dict_result.keys():
+        dict_result[key] = value
+
+    return dict_result
 
 def isLastElement(index, length):
     if index == length:
@@ -210,7 +226,7 @@ def checkPath(file_path):
 def printDictionary(oDict):
     print(json.dumps(oDict, indent = 4))
 
-def exportDictionary(dict_data, filename, path = GL_OUTPUT_PATH):
+def exportDictionary(dict_data, filename, path = GL_AM_OUTPUT_PATH):
     print("Exported Dictionary")
     path_export = str(path + filename)
     with open(path_export, 'wb') as file:  # Just use 'w' mode in 3.x
@@ -218,13 +234,13 @@ def exportDictionary(dict_data, filename, path = GL_OUTPUT_PATH):
         w.writeheader()
         w.writerow(dict_data)
 
-def exportList(list_data, filename, path = GL_OUTPUT_PATH):
+def exportList(list_data, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)
     with open(path_export, 'wb') as file:
         wr = csv.writer(file, quoting = csv.QUOTE_ALL)
         wr.writerow(list_data)
 
-def exportSSFs(list_ssfs, filename, path = GL_OUTPUT_PATH):
+def exportSSFs(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + "\\SSFs\\")
     checkDirectory(path_export)
     path_export = path_export + filename
@@ -233,7 +249,7 @@ def exportSSFs(list_ssfs, filename, path = GL_OUTPUT_PATH):
             file.write(str(feat_code) + "\n")
 
 
-def export2DList(list_ssfs, filename, path = GL_OUTPUT_PATH):
+def export2DList(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)
     with open(path_export, 'wb') as file:
         writer = csv.writer(file)
@@ -241,3 +257,15 @@ def export2DList(list_ssfs, filename, path = GL_OUTPUT_PATH):
             writer.writerows(i)
 
 
+def exportUIResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PATH):
+    path_export = str(path + "UI Results\\")
+    checkDirectory(path_export)
+    path_export = path_export + filename
+    for df_name, df in dict_results.items():
+        if df is not None:
+            final_path = path_export + " - " + df_name + ".xlsx"
+            # print("Export " + str(final_path))
+            df.to_excel(final_path)
+            # writer = pd.ExcelWriter(path_export, engine = 'xlsxwriter')
+            # df.to_excel("r'UI Result - "+ df_name + ".xlsx")
+            # df.to_excel(writer, sheet_name = str(df_name))

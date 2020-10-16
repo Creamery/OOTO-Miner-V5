@@ -42,6 +42,7 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
+import AutomatedMining_RUN as AM_R
 
 class AutomatedMining_Controller:
 
