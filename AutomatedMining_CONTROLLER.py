@@ -72,7 +72,7 @@ class AutomatedMining_Controller:
 
     def initializeVariables(self):
         # Selected UI for MM
-        self.selectOptionChiSquare(None)  # This selects the default algorithm in MM
+        self.selectOptionChangeCrossType(None)  # This selects the default algorithm in MM
         self.showConsoleScreen(None, self.listConsoleScreen)  # Click ALL type
 
         global queryType_gl
@@ -190,8 +190,8 @@ class AutomatedMining_Controller:
 
         # BUTTONS
 
-        self.labelFrameProcessZTest = self.view.getLabelFrameProcessZTest()
-        self.labelFrameProcessChiSquare = self.view.getLabelFrameProcessChiSquare()
+        self.labelFrameProcessChangeLevel = self.view.getLabelFrameProcessChangeLevel()
+        self.labelFrameProcessChangeCrossType = self.view.getLabelFrameProcessChangeCrossType()
 
         self.buttonQuerySetDataA = self.view.getButtonQuerySetDataA()
         self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
@@ -210,9 +210,13 @@ class AutomatedMining_Controller:
         # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
 
         self.buttonApplyLevelSpinBox = self.view.getButtonApplyLevelSpinBox()
-        self.buttonApplyLevelSpinBox.bind('<Button-1>', self.applyLevelSpinBox)  # Run Z-test Sample vs Sample
+        self.buttonApplyLevelSpinBox.bind('<Button-1>', self.applyLevelSpinBox)  # Run with Level Value
         self.buttonQueryZTestSvP = self.view.getButtonQueryZTestSvP()
         self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)  # Run Z-test Sample vs Population
+
+        self.buttonApplyCrossTypeSpinBox = self.view.getButtonApplyCrossTypeSpinBox()
+        self.buttonApplyCrossTypeSpinBox.bind('<Button-1>', self.applyCrossTypeSpinBox)  # Run with Cross Type Value
+
 
         # self.buttonQueue = self.view.getButtonQueue()
         # self.buttonQueue.bind('<Button-1>', self.queue)  # Enqueue Subset-pairs
@@ -231,10 +235,10 @@ class AutomatedMining_Controller:
 
         # Test option buttons
         self.buttonChooseChiSquare = self.view.getButtonChooseChiSquare()
-        self.buttonChooseChiSquare.bind('<Button-1>', self.selectOptionChiSquare)
+        self.buttonChooseChiSquare.bind('<Button-1>', self.selectOptionChangeCrossType)
 
         self.buttonChooseZTest = self.view.getButtonChooseZTest()
-        self.buttonChooseZTest.bind('<Button-1>', self.selectOptionZTest)
+        self.buttonChooseZTest.bind('<Button-1>', self.selectOptionChangeLevel)
 
         # Console buttons
         self.buttonConsoleAll = self.view.getButtonConsoleAll()
@@ -874,7 +878,7 @@ class AutomatedMining_Controller:
 
     # region
 
-    def selectOptionChiSquare(self, evt):
+    def selectOptionChangeCrossType(self, evt):
 
         # Change button appearance to selected
         self.buttonChooseChiSquare.configure(
@@ -888,12 +892,10 @@ class AutomatedMining_Controller:
             foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
         )
 
-        # Show Z-Test options
-        self.hideWidget(self.labelFrameProcessZTest)
-        # Hide Chi-square options
-        self.showWidget(self.labelFrameProcessChiSquare)
+        self.hideWidget(self.labelFrameProcessChangeLevel)
+        self.showWidget(self.labelFrameProcessChangeCrossType)
 
-    def selectOptionZTest(self, evt):
+    def selectOptionChangeLevel(self, evt):
         # Change button appearance to selected
         self.buttonChooseZTest.configure(
             background = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
@@ -905,10 +907,8 @@ class AutomatedMining_Controller:
             foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
         )
 
-        # Show Z-Test options
-        self.hideWidget(self.labelFrameProcessChiSquare)
-        # Hide Chi-square options
-        self.showWidget(self.labelFrameProcessZTest)
+        self.hideWidget(self.labelFrameProcessChangeCrossType)
+        self.showWidget(self.labelFrameProcessChangeLevel)
 
     ''' Adds test to the queue '''
 
@@ -1040,8 +1040,8 @@ class AutomatedMining_Controller:
         self.buttonQueue.configure(relief = FLAT)
         return "break"
 
-    ''' Conduct the Z-Test between the two samples. '''
 
+    ''' Conduct the experiment with the given Level between the two samples. '''
     def applyLevelSpinBox(self, evt):
         self.buttonApplyLevelSpinBox.configure(relief = FLAT)
         print("Query LEVEL Function")
@@ -1074,6 +1074,13 @@ class AutomatedMining_Controller:
                 #     self.addToConsole(consoleText, self.listConsoleScreen)
             # except:
             #     tkMessageBox.showinfo("Missing Input", "Please select a FILTER value.")
+        return "break"
+
+    ''' Conduct the experiment with the given Cross Type between the two samples. '''
+    def applyCrossTypeSpinBox(self, evt):
+        self.buttonApplyLevelSpinBox.configure(relief = FLAT)
+        print("Query Cross Type Function")
+
         return "break"
 
     ''' Conduct Z-Test between the population and all samples '''
@@ -1587,7 +1594,7 @@ class AutomatedMining_Controller:
             )
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PINK)
+            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PLUM)
             texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_pink_stripes

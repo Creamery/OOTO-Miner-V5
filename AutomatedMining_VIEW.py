@@ -275,8 +275,8 @@ class AutomatedMining_View:
         # self.comboQueryCriticalValueSvP.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
         self.comboQueryCriticalValueSvP.configure(exportselection = "0")
         self.comboQueryCriticalValueSvP.configure(takefocus = "")
-        self.comboQueryCriticalValueSvP.configure(values = arrQueryCriticalValue)
-        self.comboQueryCriticalValueSvP.set(arrQueryCriticalValue[0])
+        # self.comboQueryCriticalValueSvP.configure(values = arrQueryCriticalValue)
+        # self.comboQueryCriticalValueSvP.set(arrQueryCriticalValue[0])
         self.comboQueryCriticalValueSvP.configure(state = "disabled")
 
         self.labelQueryZTestSvP = Label(self.labelFrameQuerySvP)
@@ -318,7 +318,7 @@ class AutomatedMining_View:
         self.labelFrameSelectTitle = LabelFrame(parentFrame, bd = 0)
         self.labelFrameSelectTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
         self.labelFrameSelectTitle.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
 
         # Create the top separator
@@ -328,7 +328,7 @@ class AutomatedMining_View:
         # COLORED SEPARATOR
         self.separatorlabelFrameSelectTitleNumber = self.createLabelSeparator(
             self.labelFrameSelectTitle, 1,
-            False, Color_support.SELECT_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
+            False, Color_support.PROCESS_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
             0.5, W
         )
 
@@ -343,7 +343,7 @@ class AutomatedMining_View:
         self.labelFrameSelectTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
+            background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
             text = '''3  ''',
             bd = 1, relief = GROOVE,
             anchor = SE
@@ -360,7 +360,7 @@ class AutomatedMining_View:
         self.labelFrameSelectTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.SELECT_TITLE_BG, foreground = Color_support.SELECT_TITLE_FG,
+            background = Color_support.PROCESS_TITLE_BG, foreground = Color_support.PROCESS_TITLE_FG,
             text = '''TEST''',
             bd = 0, relief = GROOVE,
             anchor = S
@@ -1579,7 +1579,7 @@ class AutomatedMining_View:
         # COLORED SEPARATOR
         self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
             self.labelFrameProcessTitle, 1,
-            False, Color_support.PROCESS_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
+            False, Color_support.SELECT_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
             0.5, W
         )
 
@@ -1594,7 +1594,7 @@ class AutomatedMining_View:
         self.labelFrameProcessTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
+            background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
             text = '''1  ''',
             bd = 1, relief = GROOVE,
             anchor = SE
@@ -1611,7 +1611,7 @@ class AutomatedMining_View:
         self.labelFrameProcessTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.PROCESS_TITLE_BG, foreground = Color_support.PROCESS_TITLE_FG,
+            background = Color_support.SELECT_TITLE_BG, foreground = Color_support.SELECT_TITLE_FG,
             text = '''INPUT''',
             bd = 0, relief = GROOVE,
             anchor = S
@@ -1755,19 +1755,6 @@ class AutomatedMining_View:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         # self.buttonChooseChiSquare.pack(fill = X, expand = True)
         # self.buttonChooseChiSquare.update()
 
@@ -1802,94 +1789,95 @@ class AutomatedMining_View:
 
         # endregion
 
-        # PROCESS Z-TEST OPTIONS
+
+
+
+
+
+        # PROCESS CROSS TYPE OPTIONS
         # region
 
-        # PROCESS Z-TEST PARENT
+        # PROCESS CHANGE CROSS TYPE PARENT
         # newRelX = FS.getRelX(self.labelFrameProcessStatTests) + FS.getRelW(self.labelFrameProcessStatTests)
-        self.labelFrameProcessZTest = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
-                                                 name = 'labelFrameProcessZTest')
-        self.labelFrameProcessZTest.place(
+        self.labelFrameProcessChangeCrossType = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
+                                                       name = 'labelFrameProcessChangeCrossType')
+        self.labelFrameProcessChangeCrossType.place(
             # relx = newRelX, rely = 0,
             relx = 0, rely = 0,
             relwidth = 1, relheight = 1
             # relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
         )
-        self.labelFrameProcessZTest.configure(
+        self.labelFrameProcessChangeCrossType.configure(
             background = Color_support.PROCESS_BG
         )
 
-        self.labelFrameProcessCrossTypeTitle = Label(self.labelFrameProcessZTest)
-        self.labelFrameProcessCrossTypeTitle.place(
+        self.labelFrameProcessChangeCrossTypeTitle = Label(self.labelFrameProcessChangeCrossType)
+        self.labelFrameProcessChangeCrossTypeTitle.place(
             relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
-        self.labelFrameProcessCrossTypeTitle.configure(
+        self.labelFrameProcessChangeCrossTypeTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
-            text = '''LEVEL''',
+            text = '''TYPE''',
             # text = '''Z - TEST''',
             # text = '''OPTIONS''',
             anchor = CENTER,
             bd = 0, relief = GROOVE
         )
 
-        global arrQueryCriticalValue
-        arrQueryCriticalValue = ["0.80", "0.90", "0.95", "0.98", "0.99"]
 
-        global arrQueryCriticalValueMapping
-        arrQueryCriticalValueMapping = {"0.80": 1.28, "0.90": 1.645, "0.95": 1.96, "0.98": 2.33, "0.99": 2.58}
 
-        newRelY = FS.getRelY(self.labelFrameProcessCrossTypeTitle) + FS.getRelH(
-            self.labelFrameProcessCrossTypeTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
+        newRelY = FS.getRelY(self.labelFrameProcessChangeCrossTypeTitle) + FS.getRelH(
+            self.labelFrameProcessChangeCrossTypeTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
         # SPINBOX ELEMENTS
         # self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessZTest, bd = 0)
-        self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessTestOptions, bd = 0)
-        self.labelFrameProcessZTestConfidence.place(
+        self.labelFrameProcessChangeCrossTypeDepths = LabelFrame(self.labelFrameProcessChangeCrossType, bd = 0)
+        self.labelFrameProcessChangeCrossTypeDepths.place(
             relx = 0.11, rely = newRelY,
             relwidth = 0.525, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_H
         )
-        self.labelFrameProcessZTestConfidence.configure(
+        self.labelFrameProcessChangeCrossTypeDepths.configure(
             background = Color_support.PROCESS_BG
         )
 
-        newRelX = FS.getRelX(self.labelFrameProcessZTestConfidence) + FS.getRelW(
-            self.labelFrameProcessZTestConfidence)
-        newRelY = FS.getRelY(self.labelFrameProcessZTestConfidence)
+        newRelX = FS.getRelX(self.labelFrameProcessChangeCrossTypeDepths) + FS.getRelW(
+            self.labelFrameProcessChangeCrossTypeDepths)
+        newRelY = FS.getRelY(self.labelFrameProcessChangeCrossTypeDepths)
 
         # BUTTON ELEMENTS
-        self.labelFrameProcessZTestButtonElements = LabelFrame(self.labelFrameProcessZTest, bd = 0)
-        self.labelFrameProcessZTestButtonElements.place(
+        self.labelFrameProcessChangeCrossTypeButtonElements = LabelFrame(self.labelFrameProcessChangeCrossType, bd = 0)
+        self.labelFrameProcessChangeCrossTypeButtonElements.place(
             relx = newRelX + 0.05, rely = newRelY,
-            relwidth = 1 - (newRelX + FS.getRelX(self.labelFrameProcessZTestConfidence)),
+            relwidth = 1 - (newRelX + FS.getRelX(self.labelFrameProcessChangeCrossTypeDepths)),
             # relwidth = 0.5 - 2 * FS.getRelX(self.labelFrameProcessZTestConfidence),
             relheight = 0.35
         )
-        self.labelFrameProcessZTestButtonElements.configure(
+        self.labelFrameProcessChangeCrossTypeButtonElements.configure(
             background = Color_support.PROCESS_BG
         )
 
-        # CONFIDENCE SPINBOX LABEL
-        self.labelQueryZConfidenceText = Label(self.labelFrameProcessZTestConfidence)
-        self.labelQueryZConfidenceText.place(
+        # CROSS TYPE DEPTHS SPINBOX LABEL
+        self.labelApplyChangeCrossTypeText = Label(self.labelFrameProcessChangeCrossTypeDepths)
+        self.labelApplyChangeCrossTypeText.place(
             relx = 0, rely = 0,
             relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_CONFIDENCE_TEXT_REL_H)
-        self.labelQueryZConfidenceText.configure(
+        self.labelApplyChangeCrossTypeText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
             background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
-            text = '''CONFIDENCE'''
+            text = '''MAX TYPE'''
         )
 
-        newRelY = FS.getRelY(self.labelQueryZConfidenceText) + FS.getRelH(self.labelQueryZConfidenceText)
-        newRelH = 1 - FS.getRelH(self.labelQueryZConfidenceText)
+        newRelY = FS.getRelY(self.labelApplyChangeCrossTypeText) + FS.getRelH(self.labelApplyChangeCrossTypeText)
+        newRelH = 1 - FS.getRelH(self.labelApplyChangeCrossTypeText)
 
-        # CONFIDENCE SPINBOX
-        self.spinBoxChangeLevel = Spinbox(self.labelFrameProcessZTestConfidence,
+        # CROSS TYPE SPINBOX
+        self.spinBoxChangeCrossType = Spinbox(self.labelFrameProcessChangeCrossTypeDepths,
                                           values = UICS.LIST_LEVELS)
 
-        self.spinBoxChangeLevel.place(
+        self.spinBoxChangeCrossType.place(
             relx = 0, rely = newRelY,
             relwidth = 1, relheight = newRelH
         )
@@ -1897,11 +1885,11 @@ class AutomatedMining_View:
         # Used to validate spinbox value
         stringVar = StringVar()
         stringVar.trace('w', lambda nm, idx, mode, var = stringVar:
-        self.validateChangeLevelSpinBox(var, self.spinBoxChangeLevel))
+        self.validateChangeCrossTypeSpinBox(var, self.spinBoxChangeCrossType))
 
         # ent = Entry(root, textvariable = sv)
 
-        self.spinBoxChangeLevel.configure(
+        self.spinBoxChangeCrossType.configure(
             textvariable = stringVar,
             # validate = "key",
             # validatecommand = vcmd,
@@ -1913,93 +1901,100 @@ class AutomatedMining_View:
             justify = CENTER
 
         )
-        self.refreshSpinBoxValue(self.spinBoxChangeLevel)
+        self.refreshSpinBoxValue(self.spinBoxChangeCrossType)
 
-        # newRelX = FS.getRelX(self.labelFrameProcessZTestConfidence) + FS.getRelW(self.labelFrameProcessZTestConfidence)
-        # newRelY = FS.getRelY(self.labelFrameProcessZTestConfidence)
-        # newRelH = FS.getRelH(self.labelFrameProcessZTestConfidence)
 
-        # APPLY LEVEL BUTTON
-        self.buttonApplyLevelSpinBox = Button(self.labelFrameProcessZTestButtonElements, compound = CENTER)
+
+        # APPLY CROSS TYPE BUTTON
+        self.buttonApplyCrossTypeSpinBox = Button(self.labelFrameProcessChangeCrossTypeButtonElements, compound = CENTER)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonApplyLevelSpinBox.configure(
+        self.buttonApplyCrossTypeSpinBox.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonApplyLevelSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
+        self.buttonApplyCrossTypeSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
-        self.buttonApplyLevelSpinBox.configure(
+        self.buttonApplyCrossTypeSpinBox.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
             activebackground = Color_support.PROCESS_TITLE_BG,
             highlightbackground = Color_support.PROCESS_TITLE_BG,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Test''')
 
-        self.buttonApplyLevelSpinBox.pack(anchor = CENTER)
-        self.buttonApplyLevelSpinBox.update()
+        self.buttonApplyCrossTypeSpinBox.pack(anchor = CENTER)
+        self.buttonApplyCrossTypeSpinBox.update()
 
-        # Z-TEST RESULTS
-        # self.labelQueryZTest = Label(self.labelFrameProcessZTest)  ## TODO functionality switch
-        # self.labelQueryZTest.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
-        # self.labelQueryZTest.configure(disabledforeground = "#a3a3a3")
-        # self.labelQueryZTest.configure(foreground = "#000000")
-        # self.labelQueryZTest.configure(text = '''NO DATA''')
 
-        # endregion
+        # self.buttonApplyCrossTypeSpinBox = Button(self.labelFrameProcessChangeCrossTypeButtonElements, compound = CENTER)
+        #
+        # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        # btn_change_cross_type_icon = PIL.ImageTk.PhotoImage(im)
+        # self.buttonApplyLevelSpinBox.configure(
+        #     image = btn_change_cross_type_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        # self.buttonApplyLevelSpinBox.image = btn_change_cross_type_icon  # < ! > Required to make images appear
+        #
+        # self.buttonApplyCrossTypeSpinBox.configure(
+        #     background = Color_support.PROCESS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
+        #     activebackground = Color_support.PROCESS_TITLE_BG,
+        #     highlightbackground = Color_support.PROCESS_TITLE_BG,
+        #     bd = 1, relief = FLAT, overrelief = FLAT)
+        # # text = '''Test''')
+        #
+        # self.buttonApplyCrossTypeSpinBox.pack(anchor = CENTER)
+        # self.buttonApplyCrossTypeSpinBox.update()
 
-        # PROCESS CROSS TYPE OPTIONS
-        # region
-        self.labelFrameProcessCrossType = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
-                                                     name = "labelFrameProcessChiSquare")
-        self.labelFrameProcessCrossType.place(
-            # relx = newRelX, rely = 0,
-            relx = 0, rely = 0,
-            # relwidth = UI_support.TEST_PROCESS_CHI_SQUARE_PARENT, relheight = 1
-            relwidth = 1, relheight = 1
-        )
-        self.labelFrameProcessCrossType.configure(
-            background = Color_support.PROCESS_BG
-        )
 
-        # newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(self.labelFrameProcessChiSquare)
-
-        # PROCESS CHI-SQUARE TITLE
-        self.labelFrameProcessCrossTypeTitle = Label(self.labelFrameProcessCrossType)
-        # self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
-        self.labelFrameProcessCrossTypeTitle.place(
-            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
-            rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
-            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
-            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
-        self.labelFrameProcessCrossTypeTitle.configure(
-            font = UI_support.FONT_MED_BOLD,
-            background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG,
-            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
-
-            text = '''TYPE''',
-            anchor = CENTER,
-            bd = 0, relief = GROOVE
-        )
-
-        # Top horizontal separator # TODO
-        self.chiSquareTitleSeparator = ttk.Separator(self.labelFrameProcessCrossTypeTitle, orient = HORIZONTAL)
-        self.chiSquareTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
-
-        # self.chiSquareRightSeparator = ttk.Separator(self.labelFrameProcessChiSquare, orient = VERTICAL)
-        # self.chiSquareRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
-
-        newRelY = FS.getRelY(self.labelFrameProcessCrossTypeTitle) + FS.getRelH(
-            self.labelFrameProcessCrossTypeTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
-
-        # BUTTON ELEMENTS
-        self.labelFrameProcessChiSquareElements = LabelFrame(self.labelFrameProcessCrossType, bd = 0)
-        self.labelFrameProcessChiSquareElements.place(
-            relx = 0, rely = newRelY,
-            relwidth = 1, relheight = 0.35
-        )
-        self.labelFrameProcessChiSquareElements.configure(
-            background = Color_support.PROCESS_BG
-        )
+        # self.labelFrameProcessCrossType = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
+        #                                              name = "labelFrameProcessChiSquare")
+        # self.labelFrameProcessCrossType.place(
+        #     # relx = newRelX, rely = 0,
+        #     relx = 0, rely = 0,
+        #     # relwidth = UI_support.TEST_PROCESS_CHI_SQUARE_PARENT, relheight = 1
+        #     relwidth = 1, relheight = 1
+        # )
+        # self.labelFrameProcessCrossType.configure(
+        #     background = Color_support.PROCESS_BG
+        # )
+        #
+        # # newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(self.labelFrameProcessChiSquare)
+        #
+        # # PROCESS CHI-SQUARE TITLE
+        # self.labelFrameProcessChangeLevelTitle = Label(self.labelFrameProcessCrossType)
+        # # self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
+        # self.labelFrameProcessChangeLevelTitle.place(
+        #     relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
+        #     rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+        #     relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
+        #     relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+        # self.labelFrameProcessChangeLevelTitle.configure(
+        #     font = UI_support.FONT_MED_BOLD,
+        #     background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG,
+        #     foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
+        #
+        #     text = '''TYPE''',
+        #     anchor = CENTER,
+        #     bd = 0, relief = GROOVE
+        # )
+        #
+        # # Top horizontal separator # TODO
+        # self.chiSquareTitleSeparator = ttk.Separator(self.labelFrameProcessChangeLevelTitle, orient = HORIZONTAL)
+        # self.chiSquareTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
+        #
+        # # self.chiSquareRightSeparator = ttk.Separator(self.labelFrameProcessChiSquare, orient = VERTICAL)
+        # # self.chiSquareRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
+        #
+        # newRelY = FS.getRelY(self.labelFrameProcessChangeLevelTitle) + FS.getRelH(
+        #     self.labelFrameProcessChangeLevelTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
+        #
+        # # BUTTON ELEMENTS
+        # self.labelFrameProcessChiSquareElements = LabelFrame(self.labelFrameProcessCrossType, bd = 0)
+        # self.labelFrameProcessChiSquareElements.place(
+        #     relx = 0, rely = newRelY,
+        #     relwidth = 1, relheight = 0.35
+        # )
+        # self.labelFrameProcessChiSquareElements.configure(
+        #     background = Color_support.PROCESS_BG
+        # )
 
 
         # CROSS TYPE ELEMENTS
@@ -2106,6 +2101,147 @@ class AutomatedMining_View:
 
         # endregion
 
+
+
+
+
+
+        # PROCESS CHANGE LEVEL OPTIONS
+        # region
+
+        # PROCESS CHANGE LEVEL PARENT
+        # newRelX = FS.getRelX(self.labelFrameProcessStatTests) + FS.getRelW(self.labelFrameProcessStatTests)
+        self.labelFrameProcessChangeLevel = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
+                                                       name = 'labelFrameProcessChangeLevel')
+        self.labelFrameProcessChangeLevel.place(
+            # relx = newRelX, rely = 0,
+            relx = 0, rely = 0,
+            relwidth = 1, relheight = 1
+            # relwidth = UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
+        )
+        self.labelFrameProcessChangeLevel.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        self.labelFrameProcessChangeLevelTitle = Label(self.labelFrameProcessChangeLevel)
+        self.labelFrameProcessChangeLevelTitle.place(
+            relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
+            rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
+            relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
+            relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
+        self.labelFrameProcessChangeLevelTitle.configure(
+            font = UI_support.FONT_MED_BOLD,
+            background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            text = '''LEVEL''',
+            # text = '''Z - TEST''',
+            # text = '''OPTIONS''',
+            anchor = CENTER,
+            bd = 0, relief = GROOVE
+        )
+
+
+        newRelY = FS.getRelY(self.labelFrameProcessChangeLevelTitle) + FS.getRelH(
+            self.labelFrameProcessChangeLevelTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
+
+        # SPINBOX ELEMENTS
+        # self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessZTest, bd = 0)
+        self.labelFrameProcessChangeLevelDepths = LabelFrame(self.labelFrameProcessChangeLevel, bd = 0)
+        self.labelFrameProcessChangeLevelDepths.place(
+            relx = 0.11, rely = newRelY,
+            relwidth = 0.525, relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_H
+        )
+        self.labelFrameProcessChangeLevelDepths.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        newRelX = FS.getRelX(self.labelFrameProcessChangeLevelDepths) + FS.getRelW(
+            self.labelFrameProcessChangeLevelDepths)
+        newRelY = FS.getRelY(self.labelFrameProcessChangeLevelDepths)
+
+        # BUTTON ELEMENTS
+        self.labelFrameProcessChangeLevelButtonElements = LabelFrame(self.labelFrameProcessChangeLevel, bd = 0)
+        self.labelFrameProcessChangeLevelButtonElements.place(
+            relx = newRelX + 0.05, rely = newRelY,
+            relwidth = 1 - (newRelX + FS.getRelX(self.labelFrameProcessChangeLevelDepths)),
+            # relwidth = 0.5 - 2 * FS.getRelX(self.labelFrameProcessZTestConfidence),
+            relheight = 0.35
+        )
+        self.labelFrameProcessChangeLevelButtonElements.configure(
+            background = Color_support.PROCESS_BG
+        )
+
+        # LEVEL DEPTHS SPINBOX LABEL
+        self.labelApplyChangeLevelText = Label(self.labelFrameProcessChangeLevelDepths)
+        self.labelApplyChangeLevelText.place(
+            relx = 0, rely = 0,
+            relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_CONFIDENCE_TEXT_REL_H)
+        self.labelApplyChangeLevelText.configure(
+            font = UI_support.FONT_DEFAULT_BOLD,
+            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            text = '''MAX LEVEL'''
+        )
+
+        newRelY = FS.getRelY(self.labelApplyChangeLevelText) + FS.getRelH(self.labelApplyChangeLevelText)
+        newRelH = 1 - FS.getRelH(self.labelApplyChangeLevelText)
+
+        # LEVEL SPINBOX
+        self.spinBoxChangeLevel = Spinbox(self.labelFrameProcessChangeLevelDepths,
+                                          values = UICS.LIST_LEVELS)
+
+        self.spinBoxChangeLevel.place(
+            relx = 0, rely = newRelY,
+            relwidth = 1, relheight = newRelH
+        )
+
+        # Used to validate spinbox value
+        stringVar = StringVar()
+        stringVar.trace('w', lambda nm, idx, mode, var = stringVar:
+        self.validateChangeLevelSpinBox(var, self.spinBoxChangeLevel))
+
+        # ent = Entry(root, textvariable = sv)
+
+        self.spinBoxChangeLevel.configure(
+            textvariable = stringVar,
+            # validate = "key",
+            # validatecommand = vcmd,
+            font = UI_support.FONT_LARGE_BOLD,
+            background = Color_support.WHITE, foreground = Color_support.FG_COLOR,
+            exportselection = 0,
+            buttonbackground = Color_support.WHITE,
+            buttonuprelief = FLAT, buttondownrelief = GROOVE,
+            justify = CENTER
+
+        )
+        self.refreshSpinBoxValue(self.spinBoxChangeLevel)
+
+        # newRelX = FS.getRelX(self.labelFrameProcessZTestConfidence) + FS.getRelW(self.labelFrameProcessZTestConfidence)
+        # newRelY = FS.getRelY(self.labelFrameProcessZTestConfidence)
+        # newRelH = FS.getRelH(self.labelFrameProcessZTestConfidence)
+
+        # APPLY LEVEL BUTTON
+        self.buttonApplyLevelSpinBox = Button(self.labelFrameProcessChangeLevelButtonElements, compound = CENTER)
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        self.buttonApplyLevelSpinBox.configure(
+            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.buttonApplyLevelSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
+
+        self.buttonApplyLevelSpinBox.configure(
+            background = Color_support.PROCESS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
+            activebackground = Color_support.PROCESS_TITLE_BG,
+            highlightbackground = Color_support.PROCESS_TITLE_BG,
+            bd = 1, relief = FLAT, overrelief = FLAT)
+        # text = '''Test''')
+
+        self.buttonApplyLevelSpinBox.pack(anchor = CENTER)
+        self.buttonApplyLevelSpinBox.update()
+
+        # endregion
+
+
+
+
         newRelX = FS.getRelX(self.labelFrameProcessTestOptions) + FS.getRelW(self.labelFrameProcessTestOptions)
 
         # PROCESS RUN PARENT
@@ -2171,7 +2307,7 @@ class AutomatedMining_View:
         self.buttonTestQueue.image = btn_queue_icon  # < ! > Required to make images appear
 
         self.buttonTestQueue.configure(
-            background = Color_support.PROCESS_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
+            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = FLAT)
 
@@ -2199,25 +2335,34 @@ class AutomatedMining_View:
 
 
     """
-        Performs spinbox value validation
+        Performs spinbox value validation for Level
     """
-
     def validateChangeLevelSpinBox(self, spinBoxValue, spinBox):
-        # global arrQueryCriticalValue, arrQueryCriticalValueMapping
-
         newValue = spinBoxValue.get()
         try:
             intValue = int(newValue)
-
-            print("Validated " + str(intValue))
             # If the new value is not defined in the value mapping, don't accept it
             if intValue > UICS.MAX_LEVEL:
                 self.refreshSpinBoxValue(spinBox)
-
         except:
             self.refreshSpinBoxValue(spinBox)
-
         spinBox.update()
+
+
+    """
+        Performs spinbox value validation for Cross Type
+    """
+    def validateChangeCrossTypeSpinBox(self, spinBoxValue, spinBox):
+        newValue = spinBoxValue.get()
+        try:
+            intValue = int(newValue)
+            # If the new value is not defined in the value mapping, don't accept it
+            if intValue > UICS.MAX_CROSS:
+                self.refreshSpinBoxValue(spinBox)
+        except:
+            self.refreshSpinBoxValue(spinBox)
+        spinBox.update()
+
 
     """Reconfigures spinbox value by pressing the up then down buttons"""
 
@@ -2690,6 +2835,9 @@ class AutomatedMining_View:
         return self.buttonApplyLevelSpinBox
 
 
+    def getButtonApplyCrossTypeSpinBox(self):
+        return self.buttonApplyCrossTypeSpinBox
+
 
     # def getButtonQueue(self):
     #     return self.buttonQueue
@@ -2780,10 +2928,14 @@ class AutomatedMining_View:
         return self.listQuerySetDataB
 
 
-    def getLabelFrameProcessChiSquare(self):
-        return self.labelFrameProcessCrossType
-    def getLabelFrameProcessZTest(self):
-        return self.labelFrameProcessZTest
+    def getLabelFrameProcessChangeCrossType(self):
+        return self.labelFrameProcessChangeCrossType
+        # return self.labelFrameProcessChangeLevel
+
+
+    def getLabelFrameProcessChangeLevel(self):
+        return self.labelFrameProcessChangeLevel
+        # return self.labelFrameProcessChangeCrossType
 
     def getSpinBoxQueryZConfidence(self):
         return self.spinBoxChangeLevel
