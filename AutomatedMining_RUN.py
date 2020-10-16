@@ -50,30 +50,33 @@ def filterModule(dict_rfe):
 
     return CROSS
 
+
 def crossProcessModule(df_dataset, np_CROSS):
     dict_significant_results = CPS.crossProcess(df_dataset, np_CROSS)
     return dict_significant_results
 
 
 
+def runAutomatedMining():
+    df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
-df_raw_dataset, df_dataset, ftr_names = loaderModule()
+    print("Starting RFE...")
+    dict_rfe = rfeModule(df_raw_dataset, ftr_names)
+    print("-- RFE Finished --")
+    print("")
 
-print("Starting RFE...")
-dict_rfe = rfeModule(df_raw_dataset, ftr_names)
-print("-- RFE Finished --")
-print("")
+    # Returns the filter list for each level (np_cross[type][level]
+    # where level starts from 1 (subtracted when retrieved)
+    print("Starting Filtering...")
+    np_cross = filterModule(dict_rfe)
+    print("-- Filtering Finished --")
+    print("")
 
-# Returns the filter list for each level (np_cross[type][level]
-# where level starts from 1 (subtracted when retrieved)
-print("Starting Filtering...")
-np_cross = filterModule(dict_rfe)
-print("-- Filtering Finished --")
-print("")
+    print("Starting Cross Process...")
+    dict_significant_results = crossProcessModule(df_dataset, np_cross)
+    print("-- Cross Process Finished --")
 
-print("Starting Cross Process...")
-dict_significant_results = crossProcessModule(df_dataset, np_cross)
-print("-- Cross Process Finished --")
+    return dict_significant_results
 
 
 

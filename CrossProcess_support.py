@@ -23,8 +23,8 @@ def crossProcess(df_dataset, np_CROSS):
     #   np_dataset_pairs[0][0][0][0]                - The contents of the list containing the dataset pairs
     np_cross_datasets, np_cross_filters = extractDatasets(df_dataset, np_CROSS)  # TODO (Future) Try to optimize
 
-    len_cross_datasets = UICS.MAX_CROSS  # len(np_cross_datasets)
-    len_cross_types = UICS.MAX_LEVEL  # UICS.MAX_CROSS  # len(cross_type)
+    len_cross_datasets = int(UICS.MAX_CROSS)  # len(np_cross_datasets)
+    len_cross_types = int(UICS.MAX_LEVEL)  # UICS.MAX_CROSS  # len(cross_type)
     # len_cross_level = UICS.MAX_LEVEL  # len(cross_level)
 
     list_cross_ssfs = []
@@ -106,21 +106,7 @@ def crossProcess(df_dataset, np_CROSS):
     print("--- %s seconds ---" % (time.time() - start_time))
     print("Processing Complete")
     LS.exportUIResultDictionary(dict_result_table_sig, "UI Result")
-    # print("SSFs")
-    # np_cross_ssfs = np.array(list_cross_ssfs)
-    # i_level = 1
-    # i_cross = 0
-    # for cross in np_cross_ssfs:
-    #     for level in cross:
-    #         print str(i_level) + ": " + str(level)
-    #         print("")
-    #         ssfs_filename = "SSFs - CROSS[" + str(i_cross) + "][" + str(i_level)+ "].csv"
-    #         i_level = i_level + 1
-    #
-    #         LS.exportSSFs(cross, ssfs_filename)
-    #     i_cross = i_cross + 1
-    # CHIS.printTable(dict_chi_square)
-
+    return dict_result_table_sig
 
 def mergeUnique(list1, list2):
     # in_first = set(list1)

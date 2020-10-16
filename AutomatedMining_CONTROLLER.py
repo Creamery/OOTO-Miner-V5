@@ -56,6 +56,8 @@ import Function_support as FS
 
 import UIConstants_support as UICS
 
+import AutomatedMining_RUN as AM_R
+
 
 class AutomatedMining_Controller:
 
@@ -65,6 +67,8 @@ class AutomatedMining_Controller:
 
         self.configureTestTabBindings()
         self.initializeVariables()
+
+        self.disableFilter()
 
     def setArrQueryCriticalValue(self, arrayValue):
         self.arrQueryCriticalValue = arrayValue
@@ -233,8 +237,8 @@ class AutomatedMining_Controller:
         # self.buttonClearQueue = self.view.getButtonClearQueue()
         # self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
 
-        self.buttonTestQueue = self.view.getButtonTestQueue()
-        self.buttonTestQueue.bind('<Button-1>', self.testQueue)  # Run Miner Button
+        self.buttonTestQueue = self.view.getButtonRunAutomatedMiner()
+        self.buttonTestQueue.bind('<Button-1>', self.runAutomatedMiner)  # Run Miner Button
 
         self.buttonQueryResetFilterA = self.view.getButtonQueryResetFilterA()
         self.buttonQueryResetFilterA.bind('<Button-1>', self.queryResetDatasetA)
@@ -972,76 +976,14 @@ class AutomatedMining_Controller:
             tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
         return "break"
 
+
     ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
+    def runAutomatedMiner(self, evt):
+        self.enableFilter()
+        dict_significant_results = AM_R.runAutomatedMining()
 
-    def testQueue(self, evt):
-        if len(tests_gl) == 0:
-            tkMessageBox.showerror("Error: Empty queue", "Queue is empty. Please queue a test.")
-            return "break"
-            # return -1
-        # self.listQueryDataB.delete(0, END)
-        queueNum = 0
-        chiTest = CHI.ChiTest.getInstance()  # Initialize singleton
-        for test in tests_gl:
-            fileNames = []
-            if test['Type'] == 'Sample vs Sample':
-                queueNum += 1
-                for dataset in test['Datasets']:  # For each sample pairs in queue
-                    FS.convertDatasetValuesToGroups(dataset, features_gl)
-
-                    print "convertDatasetValuesToGroups : "
-                    print "---- dataset : "
-
-                    n = 3  # TODO Define this
-
-                    print str(dataset.keys())
-                    print str(dataset['Filter Features'][:n])
-                    print str(WS.PrintDictItems(n, dataset['Feature']))
-                    # print str(dataset['Data'][:n])
-                    # print str(dataset['Feature'])
-                    # print str(dataset['Data'])
-                    # print "---- features : "
-                    # print str(features)
-
-                    fileName = FS.makeFileName(
-                        dataset)  # TODO This makes the intermediate tables based on the selected features
-
-                    queueStr = str("(Q" + str(queueNum) + ") ")
-                    fileName = str(queueStr + fileName)
-                    fileName = str(fileName + ".csv")
-                    fileNames.append(fileName)
-
-                    # print ("GENERATED FILENAME: " + str(fileName))
-                    FS.writeCSVDict(fileName, dataset['Data'])
-
-                print("!---- File NAMES")
-                print(fileNames)
-
-                # TODO Check if you need this removed
-                if not (os.path.isfile("Updated-Variables.csv")):
-                    FS.makeUpdatedVariables(features_gl, "Updated-Variables.csv")
-
-                # saveFile = ct.chiTest(fileNames)
-                saveFile = chiTest.chiTest(fileNames, queueNum)
-                print ("saveFile is " + saveFile)
-
-                # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
-                # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
-                # removeFiles(fileNames) # TODO This removes the intermediate tables
-
-                # print functions TODO remove
-                # if i == 1:
-                #     print "test type is "
-                #     print str(type(test))
-                #     # print "test = "
-                #     # print str(tests)
-                #     # print "test['Datasets'][0] = "
-                #     # print str(test['Datasets'][0])
-
-        # print "Contents of Features are "
-        # print str(features)
-
-        tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
+        tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
+        self.enableFilter()
         return "break"
 
     ''' Clears the tests in the queue. '''
@@ -1061,34 +1003,12 @@ class AutomatedMining_Controller:
         # confidenceInterval = self.comboQueryCriticalValue.get()
         level = self.spinBoxChangeLevel.get()
         UICS.MAX_LEVEL = level
-        print("MAX LEVEL is now " + str(UICS.MAX_LEVEL))
-        print("MAX CROSS TYPE is now " + str(UICS.MAX_CROSS))
-        print("")
-        # Get corresponding Z Critical Value of the confidence interval
-        # zCritical = self.arrQueryCriticalValueMapping[confidenceInterval]
 
-        # if 'Focus Feature' in self.datasetA:
-            # try:
-                # # Check if the selected focus feature and selected values of it are the same for both samples
-                # isSame = FS.isSameFocusFeat(self.datasetA, self.datasetB,
-                #                             self.datasetA['Focus Feature']['Selected Values'],
-                #                             self.datasetB['Focus Feature']['Selected Values'])
-                # if (isSame == 1):
-                #     # Calculate Z score between the two samples
-                #     zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'],
-                #                                    self.datasetB['Total'], self.datasetB['ProportionPercent'])
-                #     # Get result if accept/reject compared to the zCritical value
-                #     zResult = svs.compareZtoZCritical(zScore, zCritical)
-                #     # Display Z score and whether accept/reject at inputted confidence interval
-                #     # self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
-                #     consoleText = str('' + 'Z-Score:\t' + str(round(zScore, 2)) + ', ' +
-                #                       str(float(confidenceInterval)) +
-                #                       '\n' +
-                #                       '' + 'Confidence:\t' + zResult + '\n\n')
-                #     self.addToConsole(consoleText, self.listConsoleZTestScreen)
-                #     self.addToConsole(consoleText, self.listConsoleScreen)
-            # except:
-            #     tkMessageBox.showinfo("Missing Input", "Please select a FILTER value.")
+        tkMessageBox.showinfo("New Level Applied", "The MAX Level is now " + str(UICS.MAX_LEVEL))
+
+        # print("MAX LEVEL is now " + str(UICS.MAX_LEVEL))
+        # print("MAX CROSS TYPE is now " + str(UICS.MAX_CROSS))
+        # print("")
         return "break"
 
     ''' Conduct the experiment with the given Cross Type between the two samples. '''
@@ -1098,9 +1018,12 @@ class AutomatedMining_Controller:
 
         cross_type = self.spinBoxChangeCrossType.get()
         UICS.MAX_CROSS = cross_type
-        print("MAX CROSS TYPE is now " + str(UICS.MAX_CROSS))
-        print("MAX LEVEL is now " + str(UICS.MAX_LEVEL))
-        print("")
+
+        tkMessageBox.showinfo("New Cross Type Applied", "The MAX Cross Type is now " + str(UICS.MAX_CROSS))
+
+        # print("MAX CROSS TYPE is now " + str(UICS.MAX_CROSS))
+        # print("MAX LEVEL is now " + str(UICS.MAX_LEVEL))
+        # print("")
 
         return "break"
 

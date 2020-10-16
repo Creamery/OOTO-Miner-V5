@@ -28,7 +28,8 @@ FEAT_NAME = "Name"
 OPTION_NAME = "OptionName"
 
 # Paths
-GL_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\")
+GL_AM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\AM\\")
+GL_MM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\MM\\")
 
 # NOTE: Arrays start at 0
 def loadVarDesc(path_variableDesc):
@@ -103,11 +104,11 @@ def loadFeatureNames(path_FeatureNames):
     ftr_names = ftr_names.strip().split(',')
     return ftr_names
 
-def exportDataset(df_dataset, filename, path = GL_OUTPUT_PATH):
+def exportDataset(df_dataset, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
-def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
+def exportDataFrame(df_dataset, filename, path = GL_AM_OUTPUT_PATH):
     # print("Export Dataframe")
     path_export = str(path + filename)
     df_dataset.to_csv(path_export, index = False, sep = ",")
@@ -125,7 +126,7 @@ def exportDataFrame(df_dataset, filename, path = GL_OUTPUT_PATH):
     This function exports the Chi-square Result Table.
     
 '''
-def exportChiSquareTable(df_output, filter, list_index = None, path = GL_OUTPUT_PATH):
+def exportChiSquareTable(df_output, filter, list_index = None, path = GL_AM_OUTPUT_PATH):
 
     np_filters = FILS.extractFilter(filter)  # Returns an Numpy array of dictionaries per filter element
     # print(np_filters)
@@ -225,7 +226,7 @@ def checkPath(file_path):
 def printDictionary(oDict):
     print(json.dumps(oDict, indent = 4))
 
-def exportDictionary(dict_data, filename, path = GL_OUTPUT_PATH):
+def exportDictionary(dict_data, filename, path = GL_AM_OUTPUT_PATH):
     print("Exported Dictionary")
     path_export = str(path + filename)
     with open(path_export, 'wb') as file:  # Just use 'w' mode in 3.x
@@ -233,13 +234,13 @@ def exportDictionary(dict_data, filename, path = GL_OUTPUT_PATH):
         w.writeheader()
         w.writerow(dict_data)
 
-def exportList(list_data, filename, path = GL_OUTPUT_PATH):
+def exportList(list_data, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)
     with open(path_export, 'wb') as file:
         wr = csv.writer(file, quoting = csv.QUOTE_ALL)
         wr.writerow(list_data)
 
-def exportSSFs(list_ssfs, filename, path = GL_OUTPUT_PATH):
+def exportSSFs(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + "\\SSFs\\")
     checkDirectory(path_export)
     path_export = path_export + filename
@@ -248,14 +249,15 @@ def exportSSFs(list_ssfs, filename, path = GL_OUTPUT_PATH):
             file.write(str(feat_code) + "\n")
 
 
-def export2DList(list_ssfs, filename, path = GL_OUTPUT_PATH):
+def export2DList(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)
     with open(path_export, 'wb') as file:
         writer = csv.writer(file)
         for i in list_ssfs:
             writer.writerows(i)
 
-def exportUIResultDictionary(dict_results, filename, path = GL_OUTPUT_PATH):
+
+def exportUIResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + "UI Results\\")
     checkDirectory(path_export)
     path_export = path_export + filename

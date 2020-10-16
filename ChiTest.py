@@ -13,6 +13,8 @@ from clean import ColConverter
 import Output_support as out
 from collections import OrderedDict
 
+import Loader_support as LS
+
 class ChiTest:
     # Singleton
     __instance = None
@@ -694,10 +696,14 @@ class ChiTest:
             fileName = fileName.replace(queueStr, "")
 
             fileName = str(queueStr + " - Chi-Test -" + fileName)
-            self.writeonXLSX(results, fileName + '.xlsx', results_headers)
+            LS.checkDirectory(LS.GL_MM_OUTPUT_PATH)
+
+            path_csv = LS.GL_MM_OUTPUT_PATH + fileName
+            self.writeonXLSX(results, path_csv + '.xlsx', results_headers)
+
 
             # Print interim chi-square tables
-            self.writeOnCSV(tableList, fileName + "(Tables)" + ".csv")  # TODO: Comment out
+            self.writeOnCSV(tableList, path_csv + "(Tables)" + ".csv")  # TODO: Comment out
             return fileName
 
         # print "results"
