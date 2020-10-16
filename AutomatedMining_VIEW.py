@@ -57,6 +57,8 @@ import Function_support as FS
 import Widget_support as WS
 import Color_support as CS
 
+import UIConstants_support as UICS
+
 
 class AutomatedMining_View:
 
@@ -1826,7 +1828,8 @@ class AutomatedMining_View:
         self.labelFrameProcessCrossTypeTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
-            text = '''Z - TEST''',
+            text = '''LEVEL''',
+            # text = '''Z - TEST''',
             # text = '''OPTIONS''',
             anchor = CENTER,
             bd = 0, relief = GROOVE
@@ -1883,22 +1886,22 @@ class AutomatedMining_View:
         newRelH = 1 - FS.getRelH(self.labelQueryZConfidenceText)
 
         # CONFIDENCE SPINBOX
-        self.spinBoxQueryZConfidence = Spinbox(self.labelFrameProcessZTestConfidence,
-                                               values = arrQueryCriticalValue)
+        self.spinBoxChangeLevel = Spinbox(self.labelFrameProcessZTestConfidence,
+                                          values = UICS.LIST_LEVELS)
 
-        self.spinBoxQueryZConfidence.place(
+        self.spinBoxChangeLevel.place(
             relx = 0, rely = newRelY,
             relwidth = 1, relheight = newRelH
         )
 
         # Used to validate spinbox value
         stringVar = StringVar()
-        stringVar.trace('w', lambda nm, idx, mode, var = stringVar: self.validateZConfidenceSpinbox(var,
-                                                                                                    self.spinBoxQueryZConfidence))
+        stringVar.trace('w', lambda nm, idx, mode, var = stringVar:
+        self.validateChangeLevelSpinBox(var, self.spinBoxChangeLevel))
 
         # ent = Entry(root, textvariable = sv)
 
-        self.spinBoxQueryZConfidence.configure(
+        self.spinBoxChangeLevel.configure(
             textvariable = stringVar,
             # validate = "key",
             # validatecommand = vcmd,
@@ -1910,13 +1913,13 @@ class AutomatedMining_View:
             justify = CENTER
 
         )
-        self.refreshSpinBoxValue(self.spinBoxQueryZConfidence)
+        self.refreshSpinBoxValue(self.spinBoxChangeLevel)
 
         # newRelX = FS.getRelX(self.labelFrameProcessZTestConfidence) + FS.getRelW(self.labelFrameProcessZTestConfidence)
         # newRelY = FS.getRelY(self.labelFrameProcessZTestConfidence)
         # newRelH = FS.getRelH(self.labelFrameProcessZTestConfidence)
 
-        # Z-TEST BUTTON
+        # APPLY LEVEL BUTTON
         self.buttonApplyLevelSpinBox = Button(self.labelFrameProcessZTestButtonElements, compound = CENTER)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -1944,42 +1947,42 @@ class AutomatedMining_View:
 
         # endregion
 
-        # PROCESS CHI-SQUARE OPTIONS
+        # PROCESS CROSS TYPE OPTIONS
         # region
-        self.labelFrameProcessChiSquare = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
+        self.labelFrameProcessCrossType = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
                                                      name = "labelFrameProcessChiSquare")
-        self.labelFrameProcessChiSquare.place(
+        self.labelFrameProcessCrossType.place(
             # relx = newRelX, rely = 0,
             relx = 0, rely = 0,
             # relwidth = UI_support.TEST_PROCESS_CHI_SQUARE_PARENT, relheight = 1
             relwidth = 1, relheight = 1
         )
-        self.labelFrameProcessChiSquare.configure(
+        self.labelFrameProcessCrossType.configure(
             background = Color_support.PROCESS_BG
         )
 
         # newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(self.labelFrameProcessChiSquare)
 
         # PROCESS CHI-SQUARE TITLE
-        self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
+        self.labelFrameProcessCrossTypeTitle = Label(self.labelFrameProcessCrossType)
         # self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
-        self.labelFrameProcessChiSquareTitle.place(
+        self.labelFrameProcessCrossTypeTitle.place(
             relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
-        self.labelFrameProcessChiSquareTitle.configure(
+        self.labelFrameProcessCrossTypeTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG,
             foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
 
-            text = '''CHI - SQUARE''',
+            text = '''TYPE''',
             anchor = CENTER,
             bd = 0, relief = GROOVE
         )
 
         # Top horizontal separator # TODO
-        self.chiSquareTitleSeparator = ttk.Separator(self.labelFrameProcessChiSquareTitle, orient = HORIZONTAL)
+        self.chiSquareTitleSeparator = ttk.Separator(self.labelFrameProcessCrossTypeTitle, orient = HORIZONTAL)
         self.chiSquareTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
 
         # self.chiSquareRightSeparator = ttk.Separator(self.labelFrameProcessChiSquare, orient = VERTICAL)
@@ -1989,7 +1992,7 @@ class AutomatedMining_View:
             self.labelFrameProcessCrossTypeTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
         # BUTTON ELEMENTS
-        self.labelFrameProcessChiSquareElements = LabelFrame(self.labelFrameProcessChiSquare, bd = 0)
+        self.labelFrameProcessChiSquareElements = LabelFrame(self.labelFrameProcessCrossType, bd = 0)
         self.labelFrameProcessChiSquareElements.place(
             relx = 0, rely = newRelY,
             relwidth = 1, relheight = 0.35
@@ -1998,102 +2001,108 @@ class AutomatedMining_View:
             background = Color_support.PROCESS_BG
         )
 
+
+        # CROSS TYPE ELEMENTS
+
+
+
+
         # QUEUE ELEMENTS
-        self.labelFrameProcessChiSquareQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 1)
-        self.labelFrameProcessChiSquareQueue.place(
-            relx = 0.275, rely = 0,
-            relwidth = 0.45, relheight = 1
-        )
-        self.labelFrameProcessChiSquareQueue.configure(
-            background = Color_support.PROCESS_BG
-        )
+        # self.labelFrameProcessChiSquareQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 1)
+        # self.labelFrameProcessChiSquareQueue.place(
+        #     relx = 0.275, rely = 0,
+        #     relwidth = 0.45, relheight = 1
+        # )
+        # self.labelFrameProcessChiSquareQueue.configure(
+        #     background = Color_support.PROCESS_BG
+        # )
 
-        newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(
-            self.labelFrameProcessChiSquare)
+        # newRelX = FS.getRelX(self.labelFrameProcessCrossType) + FS.getRelW(
+        #     self.labelFrameProcessCrossType)
 
-        # > QUEUE COUNT
-        self.labelQueueText = Label(self.labelFrameProcessChiSquareQueue)
-        self.labelQueueText.place(
-            relx = 0, rely = 0,
-            relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_QUEUE_TEXT_REL_H
-        )
-        self.labelQueueText.configure(
-            font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
-            text = '''QUEUE SIZE'''
-        )
-
-        newRelY = FS.getRelY(self.labelQueueText) + FS.getRelH(self.labelQueueText)
-        newRelH = 1 - FS.getRelH(self.labelQueueText)
-
-        self.labelQueueCount = Label(self.labelFrameProcessChiSquareQueue)
-        self.labelQueueCount.place(
-            relx = 0, rely = newRelY,
-            relwidth = 1, relheight = newRelH)
-        self.labelQueueCount.configure(
-            font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
-            text = '''0'''
-        )
-
-        # ENQUEUE BUTTON
-        # Enqueue button parent (to handle centering after pack)
-
-        newRelX = FS.getRelX(self.labelFrameProcessChiSquareQueue) + FS.getRelW(
-            self.labelFrameProcessChiSquareQueue)
-
-        self.labelFrameProcessQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
-        self.labelFrameProcessQueue.place(
-            relx = newRelX + 0.025, rely = 0,
-            relwidth = 0.25, relheight = 1
-        )
-        self.labelFrameProcessQueue.configure(
-            background = Color_support.PROCESS_BG
-        )
-
-        # Enqueue button
-        self.buttonQueue = Button(self.labelFrameProcessQueue, compound = CENTER)
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_queue_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueue.configure(
-            image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueue.image = btn_queue_icon  # < ! > Required to make images appear
-
-        self.buttonQueue.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
-
-        self.buttonQueue.pack(side = LEFT)
-        self.buttonQueue.update()
-
-        # CLEAR QUEUE BUTTON
-
-        # Clear queue button parent (to handle centering after pack)
-        self.labelFrameProcessClearQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
-        self.labelFrameProcessClearQueue.place(
-            relx = 0, rely = 0,
-            relwidth = 0.25, relheight = 1
-        )
-        self.labelFrameProcessClearQueue.configure(
-            background = Color_support.PROCESS_BG
-        )
-
-        self.buttonClearQueue = Button(self.labelFrameProcessClearQueue, compound = CENTER)
-
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_clear_queue_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonClearQueue.configure(
-            image = btn_clear_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonClearQueue.image = btn_clear_queue_icon  # < ! > Required to make images appear
-
-        self.buttonClearQueue.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT
-        )
-
-        self.buttonClearQueue.pack(side = RIGHT)
-        self.buttonClearQueue.update()
+        # # > QUEUE COUNT
+        # self.labelQueueText = Label(self.labelFrameProcessChiSquareQueue)
+        # self.labelQueueText.place(
+        #     relx = 0, rely = 0,
+        #     relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_QUEUE_TEXT_REL_H
+        # )
+        # self.labelQueueText.configure(
+        #     font = UI_support.FONT_DEFAULT_BOLD,
+        #     background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+        #     text = '''QUEUE SIZE'''
+        # )
+        #
+        # newRelY = FS.getRelY(self.labelQueueText) + FS.getRelH(self.labelQueueText)
+        # newRelH = 1 - FS.getRelH(self.labelQueueText)
+        #
+        # self.labelQueueCount = Label(self.labelFrameProcessChiSquareQueue)
+        # self.labelQueueCount.place(
+        #     relx = 0, rely = newRelY,
+        #     relwidth = 1, relheight = newRelH)
+        # self.labelQueueCount.configure(
+        #     font = UI_support.FONT_LARGE_BOLD,
+        #     background = Color_support.SELECT_BG,
+        #     text = '''0'''
+        # )
+        #
+        # # ENQUEUE BUTTON
+        # # Enqueue button parent (to handle centering after pack)
+        #
+        # newRelX = FS.getRelX(self.labelFrameProcessChiSquareQueue) + FS.getRelW(
+        #     self.labelFrameProcessChiSquareQueue)
+        #
+        # self.labelFrameProcessQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
+        # self.labelFrameProcessQueue.place(
+        #     relx = newRelX + 0.025, rely = 0,
+        #     relwidth = 0.25, relheight = 1
+        # )
+        # self.labelFrameProcessQueue.configure(
+        #     background = Color_support.PROCESS_BG
+        # )
+        #
+        # # Enqueue button
+        # self.buttonQueue = Button(self.labelFrameProcessQueue, compound = CENTER)
+        #
+        # im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        # btn_queue_icon = PIL.ImageTk.PhotoImage(im)
+        # self.buttonQueue.configure(
+        #     image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        # self.buttonQueue.image = btn_queue_icon  # < ! > Required to make images appear
+        #
+        # self.buttonQueue.configure(
+        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+        #     bd = 1, relief = FLAT, overrelief = FLAT)
+        #
+        # self.buttonQueue.pack(side = LEFT)
+        # self.buttonQueue.update()
+        #
+        # # CLEAR QUEUE BUTTON
+        #
+        # # Clear queue button parent (to handle centering after pack)
+        # self.labelFrameProcessClearQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
+        # self.labelFrameProcessClearQueue.place(
+        #     relx = 0, rely = 0,
+        #     relwidth = 0.25, relheight = 1
+        # )
+        # self.labelFrameProcessClearQueue.configure(
+        #     background = Color_support.PROCESS_BG
+        # )
+        #
+        # self.buttonClearQueue = Button(self.labelFrameProcessClearQueue, compound = CENTER)
+        #
+        # im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        # btn_clear_queue_icon = PIL.ImageTk.PhotoImage(im)
+        # self.buttonClearQueue.configure(
+        #     image = btn_clear_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        # self.buttonClearQueue.image = btn_clear_queue_icon  # < ! > Required to make images appear
+        #
+        # self.buttonClearQueue.configure(
+        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
+        #     bd = 1, relief = FLAT, overrelief = FLAT
+        # )
+        #
+        # self.buttonClearQueue.pack(side = RIGHT)
+        # self.buttonClearQueue.update()
 
         # endregion
 
@@ -2193,15 +2202,18 @@ class AutomatedMining_View:
         Performs spinbox value validation
     """
 
-    def validateZConfidenceSpinbox(self, spinBoxValue, spinBox):
-        global arrQueryCriticalValue, arrQueryCriticalValueMapping
+    def validateChangeLevelSpinBox(self, spinBoxValue, spinBox):
+        # global arrQueryCriticalValue, arrQueryCriticalValueMapping
 
         newValue = spinBoxValue.get()
         try:
-            floatValue = float(newValue)
-            if not arrQueryCriticalValueMapping[
-                floatValue]:  # If the new value is not defined in the value mapping, don't accept it
+            intValue = int(newValue)
+
+            print("Validated " + str(intValue))
+            # If the new value is not defined in the value mapping, don't accept it
+            if intValue > UICS.MAX_LEVEL:
                 self.refreshSpinBoxValue(spinBox)
+
         except:
             self.refreshSpinBoxValue(spinBox)
 
@@ -2679,10 +2691,10 @@ class AutomatedMining_View:
 
 
 
-    def getButtonQueue(self):
-        return self.buttonQueue
-    def getButtonClearQueue(self):
-        return self.buttonClearQueue
+    # def getButtonQueue(self):
+    #     return self.buttonQueue
+    # def getButtonClearQueue(self):
+    #     return self.buttonClearQueue
     def getButtonTestQueue(self):
         return self.buttonTestQueue
 
@@ -2769,12 +2781,12 @@ class AutomatedMining_View:
 
 
     def getLabelFrameProcessChiSquare(self):
-        return self.labelFrameProcessChiSquare
+        return self.labelFrameProcessCrossType
     def getLabelFrameProcessZTest(self):
         return self.labelFrameProcessZTest
 
     def getSpinBoxQueryZConfidence(self):
-        return self.spinBoxQueryZConfidence
+        return self.spinBoxChangeLevel
 
     def getDictConsoleScreens(self):
         return self.dictConsoleScreens
@@ -2782,8 +2794,8 @@ class AutomatedMining_View:
     def getLabelConsoleScreenTaskBar(self):
         return self.labelConsoleScreenTaskBar
 
-    def getLabelQueueCount(self):
-        return self.labelQueueCount
+    # def getLabelQueueCount(self):
+    #     return self.labelQueueCount
 
     def getButtonQueryZTestSvP(self):
         return self.buttonQueryZTestSvP

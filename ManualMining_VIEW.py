@@ -2607,6 +2607,7 @@ class ManualMining_View:
         return self.buttonQueue
     def getButtonClearQueue(self):
         return self.buttonClearQueue
+
     def getButtonTestQueue(self):
         return self.buttonTestQueue
 

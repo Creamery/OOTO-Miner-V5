@@ -170,7 +170,7 @@ class AutomatedMining_Controller:
         self.listQueryDataA = self.view.getListQueryDataA()
         self.listQueryDataB = self.view.getListQueryDataB()
 
-        self.labelQueueCount = self.view.getLabelQueueCount()
+        # self.labelQueueCount = self.view.getLabelQueueCount()
         self.labelConsoleScreenTaskBar = self.view.getLabelConsoleScreenTaskBar()
 
         self.labelQueryDataACount = self.view.getLabelQueryDataACount()
@@ -214,11 +214,12 @@ class AutomatedMining_Controller:
         self.buttonQueryZTestSvP = self.view.getButtonQueryZTestSvP()
         self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)  # Run Z-test Sample vs Population
 
-        self.buttonQueue = self.view.getButtonQueue()
-        self.buttonQueue.bind('<Button-1>', self.queue)  # Enqueue Subset-pairs
+        # self.buttonQueue = self.view.getButtonQueue()
+        # self.buttonQueue.bind('<Button-1>', self.queue)  # Enqueue Subset-pairs
 
-        self.buttonClearQueue = self.view.getButtonClearQueue()
-        self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
+        # self.buttonClearQueue = self.view.getButtonClearQueue()
+        # self.buttonClearQueue.bind('<Button-1>', self.clearQueue)
+
         self.buttonTestQueue = self.view.getButtonTestQueue()
         self.buttonTestQueue.bind('<Button-1>', self.testQueue)  # Run Miner Button
 
@@ -298,13 +299,13 @@ class AutomatedMining_Controller:
         self.buttonApplyLevelSpinBox.bind("<Enter>", self.enterCheckIcon)
         self.buttonApplyLevelSpinBox.bind("<Leave>", self.leaveCheckIcon)
 
-        self.buttonQueue.bind("<Enter>", self.enterAddIcon)
-        self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
+        # self.buttonQueue.bind("<Enter>", self.enterAddIcon)
+        # self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
         # self.buttonQueue.bind("<Enter>", self.enterDownArrowIcon)
         # self.buttonQueue.bind("<Leave>", self.leaveDownArrowIcon)
 
-        self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
-        self.buttonClearQueue.bind("<Leave>", self.leaveCrossIcon)
+        # self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
+        # self.buttonClearQueue.bind("<Leave>", self.leaveCrossIcon)
 
         self.buttonTestQueue.bind("<Enter>", self.enterRightArrowIcon)
         self.buttonTestQueue.bind("<Leave>", self.leaveRightArrowIcon)
