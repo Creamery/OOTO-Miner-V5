@@ -73,6 +73,8 @@ class AutomatedMining_Controller:
     def initializeVariables(self):
         # Selected UI for MM
         self.selectOptionChiSquare(None)  # This selects the default algorithm in MM
+
+        # self.view.getButtonChooseChiSquare.set_focus()
         self.showConsoleScreen(None, self.listConsoleScreen)  # Click ALL type
 
         global queryType_gl

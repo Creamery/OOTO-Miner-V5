@@ -1564,121 +1564,6 @@ class AutomatedMining_View:
     def configureProcessElements(self, parentFrame):
 
         # PROCESS TITLE
-        # self.labelFrameProcessTitle = LabelFrame(parentFrame, bd = 0)
-        # # self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1,
-        # #                                   relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
-        # self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
-        # self.labelFrameProcessTitle.configure(
-        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
-        # )
-        #
-        #
-        # # PROCESS NUMBER
-        #
-        # # COLORED SEPARATOR
-        # self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
-        #     self.labelFrameProcessTitle, 1,
-        #     False, Color_support.PROCESS_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
-        #     0.5, W
-        # )
-        #
-        # self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
-        # # newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
-        # # newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
-        # # newRelY = FS.getRelY(self.labelFrameProcessTitleNumber)
-        # # newRelH = FS.getRelH(self.labelFrameProcessTitleNumber)
-        #
-        # newRelY = UI_support.LABEL_TITLE_REL_Y
-        # self.labelFrameProcessTitleNumber.place(
-        #     relx = 0, rely = newRelY,
-        #     relwidth = 0.04 + 0.05,
-        #     relheight = 1 - (newRelY * 2), anchor = NW)
-        #
-        # self.labelFrameProcessTitleNumber.configure(
-        #     font = UI_support.FONT_MED_BOLD,
-        #     # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-        #     background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
-        #     text = '''1  ''',
-        #     bd = 1, relief = GROOVE,
-        #     anchor = SE
-        # )
-        # newRelX = FS.getRelX(self.labelFrameProcessTitleNumber) + FS.getRelW(self.labelFrameProcessTitleNumber)
-        #
-        # # PROCESS TITLE
-        #
-        # self.labelFrameProcessTitleText = LabelFrame(parentFrame, bd = 0)
-        # self.labelFrameProcessTitleText.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
-        # self.labelFrameProcessTitleText.configure(
-        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
-        # )
-        #
-        # self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
-        # newRelY = FS.getRelY(self.labelFrameProcessTitleNumber)
-        # newRelH = FS.getRelH(self.labelFrameProcessTitleNumber)
-        #
-        # self.labelFrameProcessTitleText.place(
-        #     relx = newRelX - 0.001, rely = newRelY,
-        #     relwidth = 0.15, relheight = newRelH, anchor = NW)
-        # self.labelFrameProcessTitleText.configure(
-        #     font = UI_support.FONT_MED_BOLD,
-        #     # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-        #     background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
-        #     text = '''GROUP''',
-        #     bd = 0, relief = GROOVE,
-        #     anchor = S
-        # )
-        #
-        #
-        #
-        # # self.labelFrameProcessTitleNumber.place(
-        # #     relx = FS.getRelX(self.labelFrameProcessTitleNumber),
-        # #     rely = FS.getRelY(self.labelFrameProcessTitleNumber),
-        # #     relwidth = FS.getRelW(self.labelFrameProcessTitleNumber),
-        # #     relheight = FS.getRelH(self.labelFrameProcessTitleNumber),
-        # #     anchor = NW)
-        # #     # relx = FS.getRelX(self.labelFrameSelectTitleNumber),
-        # #     # rely = FS.getRelY(self.labelFrameSelectTitleNumber),
-        # #     # relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
-        # #     # relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
-        # #     # anchor = NW)
-        # #
-        # # self.labelFrameProcessTitleNumber.configure(
-        # #     font = UI_support.FONT_MED_BOLD,
-        # #     # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-        # #     background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
-        # #     text = '''3  ''',
-        # #     bd = 1, relief = GROOVE,
-        # #     anchor = SE
-        # # )
-        #
-        # # PROCESS TITLE
-        # # self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
-        # # self.labelFrameProcessTitleText.place(
-        # #     relx = FS.getRelX(self.labelFrameSelectTitleText),
-        # #     rely = FS.getRelY(self.labelFrameSelectTitleText),
-        # #     relwidth = FS.getRelW(self.labelFrameSelectTitleText),
-        # #     relheight = FS.getRelH(self.labelFrameSelectTitleText),
-        # #     anchor = NW)
-        # #
-        # # self.labelFrameProcessTitleText.configure(
-        # #     font = UI_support.FONT_MED_BOLD,
-        # #     # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-        # #     background = Color_support.PROCESS_TITLE_BG, foreground = Color_support.PROCESS_TITLE_FG,
-        # #     bd = 0, relief = GROOVE,
-        # #     text = '''TEST''',
-        # #     anchor = S
-        # # )
-        #
-        # # Title border
-        # self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
-        #     self.labelFrameProcessTitleText, 1,
-        #     True, Color_support.WHITE,
-        #     coordinate = 0.99, specifiedAnchor = NW
-        # )
-
-
-
-        # PROCESS TITLE
         self.labelFrameProcessTitle = LabelFrame(parentFrame, bd = 0)
         self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
         self.labelFrameProcessTitle.configure(
@@ -1725,7 +1610,7 @@ class AutomatedMining_View:
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             background = Color_support.PROCESS_TITLE_BG, foreground = Color_support.PROCESS_TITLE_FG,
-            text = '''GROUP''',
+            text = '''INPUT''',
             bd = 0, relief = GROOVE,
             anchor = S
         )
@@ -1774,7 +1659,7 @@ class AutomatedMining_View:
         self.labelFrameProcessStatTestsTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
-            text = '''TYPE''',
+            text = '''CROSS DEPTH''',
             anchor = CENTER,
             bd = 0, relief = GROOVE
         )
@@ -1792,30 +1677,27 @@ class AutomatedMining_View:
             background = Color_support.PROCESS_BG
         )
 
-        # CHOOSE Z-TEST BUTTON
-        self.buttonChooseZTest = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
 
-        # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        # btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        # self.buttonChooseZTest.configure(
-        #     image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        # self.buttonChooseZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
-        self.buttonChooseZTest.place(
+
+
+
+
+
+
+        # To remove that strange focus on Choose Chi-square Button
+        self.buttonFiller = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
+        self.buttonFiller.place(
             relx = 0, rely = 0.1,
             relwidth = 1, relheight = 0.28
+            # relx = 0, rely = newRelY,
+            # relwidth = FS.getRelW(self.buttonChooseZTest), relheight = FS.getRelH(self.buttonChooseZTest)
         )
-        self.buttonChooseZTest.configure(
-            background = Color_support.D_BLUE, foreground = Color_support.WHITE,
-            activebackground = Color_support.PROCESS_Z_TEST_TITLE_BG,
-            bd = 1, relief = GROOVE, overrelief = SUNKEN,
-            font = UI_support.FONT_DEFAULT_BOLD,
-            text = '''Z - TEST''')
-
-        # self.buttonChooseZTest.pack(fill = X, expand = True)
-        self.buttonChooseZTest.update()
+        # self.buttonFiller.configure(
+        #     state = DISABLED
+        # )
 
         # CHOOSE CHI-SQUARE BUTTON
-        self.buttonChooseChiSquare = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
+        self.buttonChooseCrossType = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
 
         # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         # btn_query_chi_square_icon = PIL.ImageTk.PhotoImage(im)
@@ -1823,17 +1705,66 @@ class AutomatedMining_View:
         #     image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         # self.buttonChooseChiSquare.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
-        newRelY = 0.05 + FS.getRelY(self.buttonChooseZTest) + FS.getRelH(self.buttonChooseZTest)
-        self.buttonChooseChiSquare.place(
-            relx = 0, rely = newRelY,
-            relwidth = FS.getRelW(self.buttonChooseZTest), relheight = FS.getRelH(self.buttonChooseZTest)
+        self.buttonChooseCrossType.place(
+            relx = 0, rely = 0.1,
+            relwidth = 1, relheight = 0.28
+            # relx = 0, rely = newRelY,
+            # relwidth = FS.getRelW(self.buttonChooseZTest), relheight = FS.getRelH(self.buttonChooseZTest)
         )
-        self.buttonChooseChiSquare.configure(
+        self.buttonChooseCrossType.configure(
             background = Color_support.WHITE, foreground = Color_support.D_BLUE,
             activebackground = Color_support.PROCESS_Z_TEST_TITLE_BG,
             bd = 1, relief = GROOVE, overrelief = SUNKEN,
             font = UI_support.FONT_DEFAULT_BOLD,
-            text = '''CHI - SQUARE''')
+            text = '''TYPE''')
+
+
+
+
+
+
+
+        newRelY = 0.05 + FS.getRelY(self.buttonChooseCrossType) + FS.getRelH(self.buttonChooseCrossType)
+        # CHOOSE Z-TEST BUTTON
+        self.buttonChooseCrossLevel = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
+
+        # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        # btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
+        # self.buttonChooseZTest.configure(
+        #     image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        # self.buttonChooseZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+
+        self.buttonChooseCrossLevel.place(
+            relx = 0, rely = newRelY,
+            relwidth = FS.getRelW(self.buttonChooseCrossType), relheight = FS.getRelH(self.buttonChooseCrossType)
+            # relx = 0, rely = 0.1,
+            # relwidth = 1, relheight = 0.28
+        )
+        self.buttonChooseCrossLevel.configure(
+            background = Color_support.D_BLUE, foreground = Color_support.WHITE,
+            activebackground = Color_support.PROCESS_Z_TEST_TITLE_BG,
+            bd = 1, relief = GROOVE, overrelief = SUNKEN,
+            font = UI_support.FONT_DEFAULT_BOLD,
+            text = '''LEVEL''')
+
+        # self.buttonChooseZTest.pack(fill = X, expand = True)
+        self.buttonChooseCrossLevel.update()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         # self.buttonChooseChiSquare.pack(fill = X, expand = True)
         # self.buttonChooseChiSquare.update()
@@ -2757,13 +2688,17 @@ class AutomatedMining_View:
 
     def getButtonQueryResetFilterA(self):
         return self.buttonQueryResetFilterA
+
+
     def getButtonQueryResetFilterB(self):
         return self.buttonQueryResetFilterB
 
     def getButtonChooseChiSquare(self):
-        return self.buttonChooseChiSquare
+        return self.buttonChooseCrossType
+
+
     def getButtonChooseZTest(self):
-        return self.buttonChooseZTest
+        return self.buttonChooseCrossLevel
 
     def getButtonConsoleAll(self):
         return self.buttonConsoleAll

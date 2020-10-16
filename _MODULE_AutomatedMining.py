@@ -40,7 +40,7 @@ class AutomatedMining:
         # self.controller = CONTROLLER.AutomatedMining_Controller(self.view, self.model, self.root)
         self.controller = CONTROLLER.AutomatedMining_Controller(self.view)
 
-        
+
     def readFeatures(self, variableDescription):
         return self.controller.readFeatures(variableDescription, "^")
 
