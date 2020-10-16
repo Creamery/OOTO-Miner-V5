@@ -57,6 +57,13 @@ class SystematicFiltering_Controller:
 
 
     " FUNCTIONS "
+
+    def updateProgress(self, progress, args = [""]):
+        self.view.updateProgress(progress, args)
+
+
+
+
     def startCrossProcessThread(self, event):
 
         lblCurrentDetails = self.view.getLblCurrentDetails()
@@ -106,7 +113,7 @@ def runCrossProcessThread():
     print("Running Cross Process Thread")
     # changeText(lblDetails, "HEY")
     AM_R.runAutomatedMining()
-    tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
+    # tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
 
 
 

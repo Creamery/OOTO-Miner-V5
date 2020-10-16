@@ -50,9 +50,10 @@ class SystematicFiltering_View(_Progressible):
         self.__parentFrame = WS.createDefaultFrame(parentWindow,
                                                    [0, 0, 1, 1],
                                                    [True, True])
-
+        self.__parentFrame.place(relx = 0.02, relwidth = 0.96)
         self.initializeWidgets(self.__parentFrame)
         WS.redraw(self.__parentFrame)
+
 
     " INHERITED "
     def updateProgress(self, progress, args = [""]):
@@ -66,6 +67,8 @@ class SystematicFiltering_View(_Progressible):
         strProgressInfo = str(args[0])
         self.getLbProgressConsole().insert(0, strProgressInfo)
 
+
+
     # region initialization functions
     def initializeWidgets(self, parentFrame):
         self.__lfProgressBar = WS.createDefaultFrame(parentFrame,
@@ -74,9 +77,16 @@ class SystematicFiltering_View(_Progressible):
         # region create the progress header widgets
         lblHeader = WS.createDefaultHeader(self.__lfProgressBar, "PROGRESS",
                                            [0, 0, 1, FS.headerHeight], [True, False])
+
+
+
         lblStripe = WS.createDefaultStripe(self.__lfProgressBar,
-                                           [0, 0, 1, FS.stripeHeight], [True, False])
+                                           [0, 0, 1, FS.stripeHeight], [True, False], IS.TEXTURE_STRIPE_GREY)
         FS.placeBelow(lblStripe, lblHeader)
+
+        # self.__lblGreyStripe = WS.createDefaultStripe(lblStripe, [0, 0, 1, 1],
+        #                                               [True, True], IS.TEXTURE_STRIPE_GREY)
+        # self.__lblGreyStripe.place(relwidth = 0)
 
         self.__lblGreenStripe = WS.createDefaultStripe(lblStripe, [0, 0, 1, 1],
                                                        [True, True], IS.TEXTURE_STRIPE_LIME)
@@ -130,6 +140,8 @@ class SystematicFiltering_View(_Progressible):
         WS.emborder(self.__lfConsoleCommands, [0, 0, None, None], [True, False, False, False])
         FS.placeBelow(self.__lfConsoleCommands, self.__lfProgressConsole)
 
+
+        # TODO
         self.__btnStartCrossProcess = Button(self.__lfConsoleCommands)
         self.__btnStartCrossProcess.place(x = 0, y = 0, width = 30, height = 30)
         # endregion create command widgets

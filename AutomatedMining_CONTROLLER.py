@@ -979,7 +979,7 @@ class AutomatedMining_Controller:
         return "break"
 
 
-    ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
+    ''' Starts the Automated Mining Process (RUN MINER) '''
     def runAutomatedMiner(self, evt):
         self.enableFilter()
         # df_raw_dataset, df_dataset, ftr_names = LS.loadInput()  # Can add parameters
@@ -1640,7 +1640,7 @@ class AutomatedMining_Controller:
     #     return "break"
 
     def runSystematicFilteringWindow(self, root):
-        self.model.confirmConfirmedFeatures(self.root)
+        self.model.runSystematicFiltering(self.root)
 
 
 

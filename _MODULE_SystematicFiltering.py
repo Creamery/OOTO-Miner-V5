@@ -22,17 +22,16 @@ import SystematicFiltering_VIEW as VIEW
 import SystematicFiltering_MODEL as MODEL
 import SystematicFiltering_CONTROLLER as CONTROLLER
 from _THREAD_CrossProcess import CrossProcessThread
-
+import Color_support as CS
 
 class SystematicFiltering:
     def __init__(self, root):
-
         self.root = root
 
         # create overlay window
         self.winOverlay = WS.createOverlayWindow(root)
         self.winTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
-
+        self.winTop.configure(bg = CS.WHITE)
         self.view = VIEW.SystematicFiltering_View(self.winTop)
         self.model = MODEL.SystematicFiltering_Model()
         self.controller = CONTROLLER.SystematicFiltering_Controller(self.model, self.view)
@@ -50,7 +49,9 @@ class SystematicFiltering:
 
 
 
-
+    def start(self):
+        print("UPDATE")
+        self.controller.updateProgress(1000)
 
 
     # region callable functions
@@ -107,6 +108,9 @@ class SystematicFiltering:
         top.title("Systematic Filtering")
         return top
 
+    '''
+        Configure the draggable top bar.
+    '''
     def __configureGrip(self, parentWindow, winOverlay, root):
         grip = GS.GripLabel(parentWindow, False)
         grip.assignOverlay(winOverlay, root)

@@ -64,6 +64,7 @@ TEXTURE_STRIPE_PINK = PATH+'\\_icons\\texture_stripe_pink.png'
 TEXTURE_STRIPE_LIME = PATH+'\\_icons\\texture_stripe_lime.png'
 TEXTURE_STRIPE_CYAN = PATH+'\\_icons\\texture_stripe_cyan.png'
 TEXTURE_STRIPE_PLUM = PATH+'\\_icons\\texture_stripe_plum.png'
+TEXTURE_STRIPE_GREY = PATH+'\\_icons\\texture_stripe_grey.png'
 
 
 TEXTURE_BLACK = PATH+'\\_icons\\ico_black.png'

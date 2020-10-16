@@ -181,15 +181,13 @@ class AutomatedMining_Model:
 
         return self.viewModel.getConfirmedFeatures()
 
-    def confirmConfirmedFeatures(self, root):
-        # print "confirmConfirmedFeatures"
-        self.runSystematicFiltering(root)
-        # self.startThread(event)  # TODO
-        return "break"
 
     def runSystematicFiltering(self, root):
+        if self.__systematicFiltering is None:
+            self.__systematicFiltering = SF.SystematicFiltering(root)
+        # SF.SystematicFiltering(root)
 
-        self.__systematicFiltering = SF.SystematicFiltering(root)
+        self.__systematicFiltering.start()
 
     def queryFeature(self, featureID):
         # featureID = self.viewModel.getCurrentFeature()

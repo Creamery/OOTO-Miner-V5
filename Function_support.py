@@ -39,7 +39,7 @@ sfHeight = 300
 headerWidth = 100  # blue header
 headerHeight = 23
 stripeWidth = 0  # pink stripe
-stripeHeight = 0
+stripeHeight = headerHeight
 
 commandsHeight = 60
 

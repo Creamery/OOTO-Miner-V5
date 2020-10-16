@@ -107,12 +107,12 @@ def createDefaultFrame(parentFrame, placeInfo = [0, 0, 1, 1],
     lfFrame.place(x = wX, y = wY,)
 
     # region relative conditions
-    if isRelative[0]: # width is relative
+    if isRelative[0]:  # width is relative
         lfFrame.place(relwidth = wWidth)
     else:
         lfFrame.place(width = wWidth)
 
-    if isRelative[1]: # height is relative
+    if isRelative[1]:  # height is relative
         lfFrame.place(relheight = wHeight)
     else:
         lfFrame.place(height = wHeight)
@@ -207,7 +207,7 @@ def createDefaultListbox(parentFrame,
 
 def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
                         isRelative = [True, True],
-                        texture = IS.TEXTURE_STRIPE_PINK):
+                        texture = IS.TEXTURE_STRIPE_GREY):
     wX = placeInfo[0]
     wY = placeInfo[1]
     wWidth = placeInfo[2]
@@ -217,12 +217,12 @@ def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
 
     lblStripes.place(x = wX, y = wY,)
     # region relative conditions
-    if isRelative[0]: # width is relative
+    if isRelative[0]:  # width is relative
         lblStripes.place(relwidth = wWidth)
     else:
         lblStripes.place(width = wWidth)
 
-    if isRelative[1]: # height is relative
+    if isRelative[1]:  # height is relative
         lblStripes.place(relheight = wHeight)
     else:
         lblStripes.place(height = wHeight)
