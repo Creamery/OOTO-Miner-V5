@@ -2154,7 +2154,7 @@ class AutomatedMining_View:
         try:
             intValue = int(newValue)
             # If the new value is not defined in the value mapping, don't accept it
-            if intValue > UICS.MAX_LEVEL:
+            if intValue > UICS.MAX_LEVEL_REFERENCE:
                 self.refreshSpinBoxValue(spinBox)
         except:
             self.refreshSpinBoxValue(spinBox)
@@ -2169,7 +2169,7 @@ class AutomatedMining_View:
         try:
             intValue = int(newValue)
             # If the new value is not defined in the value mapping, don't accept it
-            if intValue > UICS.MAX_CROSS:
+            if intValue > UICS.MAX_CROSS_REFERENCE:
                 self.refreshSpinBoxValue(spinBox)
         except:
             self.refreshSpinBoxValue(spinBox)
@@ -2749,8 +2749,11 @@ class AutomatedMining_View:
         return self.labelFrameProcessChangeLevel
         # return self.labelFrameProcessChangeCrossType
 
-    def getSpinBoxQueryZConfidence(self):
+    def getSpinBoxChangeLevel(self):
         return self.spinBoxChangeLevel
+
+    def getSpinBoxChangeCrossType(self):
+        return self.spinBoxChangeCrossType
 
     def getDictConsoleScreens(self):
         return self.dictConsoleScreens

@@ -54,6 +54,8 @@ import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
 
+import UIConstants_support as UICS
+
 
 class AutomatedMining_Controller:
 
@@ -183,7 +185,8 @@ class AutomatedMining_Controller:
         self.listQuerySetDataB = self.view.getListQuerySetDataB()
 
         # SPINBOXES
-        self.spinBoxQueryZConfidence = self.view.getSpinBoxQueryZConfidence()
+        self.spinBoxChangeLevel = self.view.getSpinBoxChangeLevel()
+        self.spinBoxChangeCrossType = self.view.getSpinBoxChangeCrossType()
 
         # ENTRIES
         self.entryQueryFeature = self.view.getEntryQueryFeature()
@@ -1054,11 +1057,13 @@ class AutomatedMining_Controller:
     ''' Conduct the experiment with the given Level between the two samples. '''
     def applyLevelSpinBox(self, evt):
         self.buttonApplyLevelSpinBox.configure(relief = FLAT)
-        print("Query LEVEL Function")
         # Get selected confidence interval
         # confidenceInterval = self.comboQueryCriticalValue.get()
-        confidenceInterval = self.spinBoxQueryZConfidence.get()
-
+        level = self.spinBoxChangeLevel.get()
+        UICS.MAX_LEVEL = level
+        print("MAX LEVEL is now " + str(UICS.MAX_LEVEL))
+        print("MAX CROSS TYPE is now " + str(UICS.MAX_CROSS))
+        print("")
         # Get corresponding Z Critical Value of the confidence interval
         # zCritical = self.arrQueryCriticalValueMapping[confidenceInterval]
 
@@ -1090,6 +1095,12 @@ class AutomatedMining_Controller:
     def applyCrossTypeSpinBox(self, evt):
         self.buttonApplyLevelSpinBox.configure(relief = FLAT)
         print("Query Cross Type Function")
+
+        cross_type = self.spinBoxChangeCrossType.get()
+        UICS.MAX_CROSS = cross_type
+        print("MAX CROSS TYPE is now " + str(UICS.MAX_CROSS))
+        print("MAX LEVEL is now " + str(UICS.MAX_LEVEL))
+        print("")
 
         return "break"
 
@@ -1169,7 +1180,7 @@ class AutomatedMining_Controller:
         # self.entryQueryFeatureB.configure(state = "normal")
         self.buttonApplyLevelSpinBox.configure(state = "normal")
 
-        self.spinBoxQueryZConfidence.configure(state = "normal")
+        self.spinBoxChangeLevel.configure(state = "normal")
         # self.comboQueryCriticalValue.configure(state = "normal")
 
         self.buttonQueue.configure(state = "normal")
@@ -1213,7 +1224,7 @@ class AutomatedMining_Controller:
             # self.entryQueryFeatureB.configure(state = "disabled")
             self.buttonApplyLevelSpinBox.configure(state = "disabled")
 
-            self.spinBoxQueryZConfidence.configure(state = "disabled")
+            self.spinBoxChangeLevel.configure(state = "disabled")
             # self.comboQueryCriticalValue.configure(state = "disabled")
 
             self.buttonQueue.configure(state = "disabled")

@@ -16,8 +16,13 @@ LIST_LEVELS = [1, 2, 3]
 
 
 # For Cross Process
-MAX_CROSS = 3  # Tells until which CROSS type to perform
-MAX_LEVEL = 3  # Tells until which LEVEL to do per cross type
+MAX_CROSS_REFERENCE = 3  # Tells until which CROSS type to perform
+MAX_LEVEL_REFERENCE = 3  # Tells until which LEVEL to do per cross type
+
+
+# TODO Change SpinBox Defaults if this is changed permanently
+MAX_CROSS = 1  # Tells until which CROSS type to perform
+MAX_LEVEL = 1  # Tells until which LEVEL to do per cross type
 
 
 # For Multiprocessing
