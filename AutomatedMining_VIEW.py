@@ -1917,23 +1917,23 @@ class AutomatedMining_View:
         # newRelH = FS.getRelH(self.labelFrameProcessZTestConfidence)
 
         # Z-TEST BUTTON
-        self.buttonQueryZTest = Button(self.labelFrameProcessZTestButtonElements, compound = CENTER)
+        self.buttonApplyLevelSpinBox = Button(self.labelFrameProcessZTestButtonElements, compound = CENTER)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(
+        self.buttonApplyLevelSpinBox.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+        self.buttonApplyLevelSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
-        self.buttonQueryZTest.configure(
+        self.buttonApplyLevelSpinBox.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
             activebackground = Color_support.PROCESS_TITLE_BG,
             highlightbackground = Color_support.PROCESS_TITLE_BG,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Test''')
 
-        self.buttonQueryZTest.pack(anchor = CENTER)
-        self.buttonQueryZTest.update()
+        self.buttonApplyLevelSpinBox.pack(anchor = CENTER)
+        self.buttonApplyLevelSpinBox.update()
 
         # Z-TEST RESULTS
         # self.labelQueryZTest = Label(self.labelFrameProcessZTest)  ## TODO functionality switch
@@ -2674,8 +2674,8 @@ class AutomatedMining_View:
     def getButtonQueryFeature(self):
         return self.buttonQueryFeature
 
-    def getButtonQueryZTest(self):
-        return self.buttonQueryZTest
+    def getButtonApplyLevelSpinBox(self):
+        return self.buttonApplyLevelSpinBox
 
 
 

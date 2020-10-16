@@ -209,8 +209,8 @@ class AutomatedMining_Controller:
         # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
 
-        self.buttonQueryZTest = self.view.getButtonQueryZTest()
-        self.buttonQueryZTest.bind('<Button-1>', self.queryZTest)  # Run Z-test Sample vs Sample
+        self.buttonApplyLevelSpinBox = self.view.getButtonApplyLevelSpinBox()
+        self.buttonApplyLevelSpinBox.bind('<Button-1>', self.applyLevelSpinBox)  # Run Z-test Sample vs Sample
         self.buttonQueryZTestSvP = self.view.getButtonQueryZTestSvP()
         self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)  # Run Z-test Sample vs Population
 
@@ -295,8 +295,8 @@ class AutomatedMining_Controller:
         self.buttonQueryFeature.bind("<Leave>",
                                      lambda event: self.leaveRightArrowPlainIcon(event, self.buttonQueryFeature_state))
 
-        self.buttonQueryZTest.bind("<Enter>", self.enterCheckIcon)
-        self.buttonQueryZTest.bind("<Leave>", self.leaveCheckIcon)
+        self.buttonApplyLevelSpinBox.bind("<Enter>", self.enterCheckIcon)
+        self.buttonApplyLevelSpinBox.bind("<Leave>", self.leaveCheckIcon)
 
         self.buttonQueue.bind("<Enter>", self.enterAddIcon)
         self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
@@ -1041,8 +1041,8 @@ class AutomatedMining_Controller:
 
     ''' Conduct the Z-Test between the two samples. '''
 
-    def queryZTest(self, evt):
-        self.buttonQueryZTest.configure(relief = FLAT)
+    def applyLevelSpinBox(self, evt):
+        self.buttonApplyLevelSpinBox.configure(relief = FLAT)
         print("Query LEVEL Function")
         # Get selected confidence interval
         # confidenceInterval = self.comboQueryCriticalValue.get()
@@ -1149,7 +1149,7 @@ class AutomatedMining_Controller:
 
         # self.entryQueryFeatureA.configure(state = "normal")
         # self.entryQueryFeatureB.configure(state = "normal")
-        self.buttonQueryZTest.configure(state = "normal")
+        self.buttonApplyLevelSpinBox.configure(state = "normal")
 
         self.spinBoxQueryZConfidence.configure(state = "normal")
         # self.comboQueryCriticalValue.configure(state = "normal")
@@ -1193,7 +1193,7 @@ class AutomatedMining_Controller:
             # self.buttonQueryFeatureB.configure(state = "disabled")
             # self.entryQueryFeatureA.configure(state = "disabled")
             # self.entryQueryFeatureB.configure(state = "disabled")
-            self.buttonQueryZTest.configure(state = "disabled")
+            self.buttonApplyLevelSpinBox.configure(state = "disabled")
 
             self.spinBoxQueryZConfidence.configure(state = "disabled")
             # self.comboQueryCriticalValue.configure(state = "disabled")
@@ -1480,16 +1480,16 @@ class AutomatedMining_Controller:
     def enterQueryZTest(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(
+        self.buttonApplyLevelSpinBox.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+        self.buttonApplyLevelSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
     def leaveQueryZTest(self, event):
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryZTest.configure(
+        self.buttonApplyLevelSpinBox.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
+        self.buttonApplyLevelSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
     # endregion
 

@@ -600,7 +600,11 @@ class OOTO_Miner:
             dirPopulation = self.INPUT.getPopulationDir()
 
             # populationDataset = FS.readCSVDict(populationDir)
-            isSuccessfulAM = self.AM.uploadDataset(dirPopulation)
+
+            # TODO Fix This
+            # isSuccessfulAM = self.AM.uploadDataset(dirPopulation)
+            isSuccessfulAM = True
+
             # print("AM Pop Dataset, DatasetA, DatasetB")
             # print(self.AM.model.getPopulationDataset())
             # print(self.AM.model.getDatasetA())
