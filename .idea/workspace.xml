@@ -8,8 +8,6 @@
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO_Driver.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO_Driver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,8 +35,8 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/ManualMining_VIEW.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="15902">
-                    <caret line="965" selection-start-line="965" selection-end-line="965" />
+                  <state relative-caret-position="206">
+                    <caret line="2600" column="26" lean-forward="true" selection-start-line="2600" selection-start-column="26" selection-end-line="2600" selection-end-column="26" />
                     <folding>
                       <element signature="e#444#454#0" expanded="true" />
                       <element signature="e#1663#1688#0" />
@@ -62,8 +60,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="216">
-                    <caret line="234" column="47" selection-start-line="234" selection-start-column="47" selection-end-line="234" selection-end-column="47" />
+                  <state relative-caret-position="187">
+                    <caret line="214" column="63" lean-forward="true" selection-start-line="214" selection-start-column="63" selection-end-line="214" selection-end-column="63" />
                   </state>
                 </provider>
               </entry>
@@ -138,24 +136,24 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file pinned="false" current-in-tab="false">
+            <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="225">
-                    <caret line="76" column="56" lean-forward="true" selection-start-line="76" selection-start-column="56" selection-end-line="76" selection-end-column="56" />
+                  <state relative-caret-position="377">
+                    <caret line="1045" column="35" selection-start-line="1045" selection-start-column="35" selection-end-line="1045" selection-end-column="35" />
                   </state>
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="true">
+            <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="206">
-                    <caret line="1661" column="33" lean-forward="true" selection-start-line="1661" selection-start-column="33" selection-end-line="1661" selection-end-column="33" />
+                  <state relative-caret-position="142">
+                    <caret line="1838" column="80" selection-start-line="1838" selection-start-column="80" selection-end-line="1838" selection-end-column="80" />
                     <folding>
                       <element signature="e#444#454#0" expanded="true" />
                       <element signature="e#1663#1688#0" />
-                      <marker date="1602825770825" expanded="true" signature="81188:81235" ph="..." />
+                      <marker date="1602825887602" expanded="true" signature="81188:81235" ph="..." />
                     </folding>
                   </state>
                 </provider>
@@ -271,7 +269,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/_MODULE_AutomatedMining.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="115">
+                <state relative-caret-position="119">
                   <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
                   <folding>
                     <element signature="e#359#396#0" expanded="true" />
@@ -307,10 +305,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>EX FU</find>
-      <find>export data</find>
-      <find>dataset pair</find>
-      <find>export</find>
       <find>i_level</find>
       <find>MAX_</find>
       <find>TYPE</find>
@@ -337,6 +331,10 @@
       <find>'INPUT'</find>
       <find>buttonChooseCh</find>
       <find>TYPE'</find>
+      <find>Z - TE</find>
+      <find>getSpinBoxQueryZConfidence</find>
+      <find>spinBoxQueryZConfidence</find>
+      <find>buttonQueryZTest</find>
     </findStrings>
     <replaceStrings>
       <replace>TEST_DATASET</replace>
@@ -425,9 +423,9 @@
         <option value="$PROJECT_DIR$/Multiprocessing_support.py" />
         <option value="$PROJECT_DIR$/ManualMining_VIEW.py" />
         <option value="$PROJECT_DIR$/OOTO_Driver.py" />
-        <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/_MODULE_AutomatedMining.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_VIEW.py" />
+        <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
       </list>
     </option>
   </component>
@@ -663,8 +661,8 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.34599155" />
-      <window_info active="true" anchor="bottom" x="70" y="96" width="952" height="719" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.34599155" />
+      <window_info anchor="bottom" x="30" y="179" width="952" height="719" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.5288326" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -795,17 +793,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py</url>
-          <line>117</line>
+          <line>113</line>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py</url>
-          <line>88</line>
+          <line>84</line>
           <option name="timeStamp" value="92" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py</url>
-          <line>110</line>
+          <line>106</line>
           <option name="timeStamp" value="93" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1165,16 +1163,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_MODEL.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-          <folding>
-            <element signature="e#177#212#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Function_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
@@ -1209,31 +1197,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ManualMining_VIEW.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15902">
-          <caret line="965" selection-start-line="965" selection-end-line="965" />
-          <folding>
-            <element signature="e#444#454#0" expanded="true" />
-            <element signature="e#1663#1688#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="234" column="47" selection-start-line="234" selection-start-column="47" selection-end-line="234" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="76" column="56" lean-forward="true" selection-start-line="76" selection-start-column="56" selection-end-line="76" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="453">
@@ -1244,9 +1207,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ManualMining_VIEW.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="2600" column="26" lean-forward="true" selection-start-line="2600" selection-start-column="26" selection-end-line="2600" selection-end-column="26" />
+          <folding>
+            <element signature="e#444#454#0" expanded="true" />
+            <element signature="e#1663#1688#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_MODEL.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
+          <folding>
+            <element signature="e#177#212#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_MODULE_AutomatedMining.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
+        <state relative-caret-position="119">
           <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
           <folding>
             <element signature="e#359#396#0" expanded="true" />
@@ -1254,15 +1238,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="214" column="63" lean-forward="true" selection-start-line="214" selection-start-column="63" selection-end-line="214" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="1661" column="33" lean-forward="true" selection-start-line="1661" selection-start-column="33" selection-end-line="1661" selection-end-column="33" />
+        <state relative-caret-position="142">
+          <caret line="1838" column="80" selection-start-line="1838" selection-start-column="80" selection-end-line="1838" selection-end-column="80" />
           <folding>
             <element signature="e#444#454#0" expanded="true" />
             <element signature="e#1663#1688#0" />
-            <marker date="1602825770825" expanded="true" signature="81188:81235" ph="..." />
+            <marker date="1602825887602" expanded="true" signature="81188:81235" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="1045" column="35" selection-start-line="1045" selection-start-column="35" selection-end-line="1045" selection-end-column="35" />
         </state>
       </provider>
     </entry>

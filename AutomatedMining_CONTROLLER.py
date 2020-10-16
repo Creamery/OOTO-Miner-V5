@@ -73,8 +73,6 @@ class AutomatedMining_Controller:
     def initializeVariables(self):
         # Selected UI for MM
         self.selectOptionChiSquare(None)  # This selects the default algorithm in MM
-
-        # self.view.getButtonChooseChiSquare.set_focus()
         self.showConsoleScreen(None, self.listConsoleScreen)  # Click ALL type
 
         global queryType_gl
@@ -1045,35 +1043,36 @@ class AutomatedMining_Controller:
 
     def queryZTest(self, evt):
         self.buttonQueryZTest.configure(relief = FLAT)
+        print("Query LEVEL Function")
         # Get selected confidence interval
         # confidenceInterval = self.comboQueryCriticalValue.get()
         confidenceInterval = self.spinBoxQueryZConfidence.get()
 
         # Get corresponding Z Critical Value of the confidence interval
-        zCritical = self.arrQueryCriticalValueMapping[confidenceInterval]
+        # zCritical = self.arrQueryCriticalValueMapping[confidenceInterval]
 
-        if 'Focus Feature' in self.datasetA:
-            try:
-                # Check if the selected focus feature and selected values of it are the same for both samples
-                isSame = FS.isSameFocusFeat(self.datasetA, self.datasetB,
-                                            self.datasetA['Focus Feature']['Selected Values'],
-                                            self.datasetB['Focus Feature']['Selected Values'])
-                if (isSame == 1):
-                    # Calculate Z score between the two samples
-                    zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'],
-                                                   self.datasetB['Total'], self.datasetB['ProportionPercent'])
-                    # Get result if accept/reject compared to the zCritical value
-                    zResult = svs.compareZtoZCritical(zScore, zCritical)
-                    # Display Z score and whether accept/reject at inputted confidence interval
-                    # self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
-                    consoleText = str('' + 'Z-Score:\t' + str(round(zScore, 2)) + ', ' +
-                                      str(float(confidenceInterval)) +
-                                      '\n' +
-                                      '' + 'Confidence:\t' + zResult + '\n\n')
-                    self.addToConsole(consoleText, self.listConsoleZTestScreen)
-                    self.addToConsole(consoleText, self.listConsoleScreen)
-            except:
-                tkMessageBox.showinfo("Missing Input", "Please select a FILTER value.")
+        # if 'Focus Feature' in self.datasetA:
+            # try:
+                # # Check if the selected focus feature and selected values of it are the same for both samples
+                # isSame = FS.isSameFocusFeat(self.datasetA, self.datasetB,
+                #                             self.datasetA['Focus Feature']['Selected Values'],
+                #                             self.datasetB['Focus Feature']['Selected Values'])
+                # if (isSame == 1):
+                #     # Calculate Z score between the two samples
+                #     zScore, pPrime, SE = svs.ZTest(self.datasetA['Total'], self.datasetA['ProportionPercent'],
+                #                                    self.datasetB['Total'], self.datasetB['ProportionPercent'])
+                #     # Get result if accept/reject compared to the zCritical value
+                #     zResult = svs.compareZtoZCritical(zScore, zCritical)
+                #     # Display Z score and whether accept/reject at inputted confidence interval
+                #     # self.labelQueryZTest.configure(text = 'Z-Score: ' + str(round(zScore,2)) +  ', ' + str(float(confidenceInterval)) + ' confidence: '+ zResult)
+                #     consoleText = str('' + 'Z-Score:\t' + str(round(zScore, 2)) + ', ' +
+                #                       str(float(confidenceInterval)) +
+                #                       '\n' +
+                #                       '' + 'Confidence:\t' + zResult + '\n\n')
+                #     self.addToConsole(consoleText, self.listConsoleZTestScreen)
+                #     self.addToConsole(consoleText, self.listConsoleScreen)
+            # except:
+            #     tkMessageBox.showinfo("Missing Input", "Please select a FILTER value.")
         return "break"
 
     ''' Conduct Z-Test between the population and all samples '''

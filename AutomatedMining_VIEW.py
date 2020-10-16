@@ -1817,13 +1817,13 @@ class AutomatedMining_View:
             background = Color_support.PROCESS_BG
         )
 
-        self.labelFrameProcessZTestTitle = Label(self.labelFrameProcessZTest)
-        self.labelFrameProcessZTestTitle.place(
+        self.labelFrameProcessCrossTypeTitle = Label(self.labelFrameProcessZTest)
+        self.labelFrameProcessCrossTypeTitle.place(
             relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
             relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
             relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
-        self.labelFrameProcessZTestTitle.configure(
+        self.labelFrameProcessCrossTypeTitle.configure(
             font = UI_support.FONT_MED_BOLD,
             background = Color_support.PROCESS_Z_TEST_TITLE_BG, foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
             text = '''Z - TEST''',
@@ -1838,8 +1838,8 @@ class AutomatedMining_View:
         global arrQueryCriticalValueMapping
         arrQueryCriticalValueMapping = {"0.80": 1.28, "0.90": 1.645, "0.95": 1.96, "0.98": 2.33, "0.99": 2.58}
 
-        newRelY = FS.getRelY(self.labelFrameProcessZTestTitle) + FS.getRelH(
-            self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
+        newRelY = FS.getRelY(self.labelFrameProcessCrossTypeTitle) + FS.getRelH(
+            self.labelFrameProcessCrossTypeTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
         # SPINBOX ELEMENTS
         # self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessZTest, bd = 0)
@@ -1985,8 +1985,8 @@ class AutomatedMining_View:
         # self.chiSquareRightSeparator = ttk.Separator(self.labelFrameProcessChiSquare, orient = VERTICAL)
         # self.chiSquareRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
 
-        newRelY = FS.getRelY(self.labelFrameProcessZTestTitle) + FS.getRelH(
-            self.labelFrameProcessZTestTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
+        newRelY = FS.getRelY(self.labelFrameProcessCrossTypeTitle) + FS.getRelH(
+            self.labelFrameProcessCrossTypeTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
         # BUTTON ELEMENTS
         self.labelFrameProcessChiSquareElements = LabelFrame(self.labelFrameProcessChiSquare, bd = 0)
