@@ -118,19 +118,34 @@ class AutomatedMining_View:
         newRelY = FS.getRelY(self.labelFrameTypeElements) + FS.getRelH(self.labelFrameTypeElements)
 
         # SELECT Parent Frame (Datasets)
-        self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame, bd = 0)
-        self.labelFrameSelectElements.place(
-            relx = UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
+        self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        self.labelFrameProcessElements.place(
+            # relx = UI_support.TAB_TEST_PROCESS_REL_X,
+            relx = UI_support.TAB_TEST_SELECT_REL_X,
+            rely = newRelY,
+            relwidth = UI_support.TAB_TEST_SELECT_REL_W,
+            relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
-        self.labelFrameSelectElements.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
+        self.labelFrameProcessElements.configure(
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
         )
+        self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
 
-        self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
 
-        newRelY = FS.getRelY(self.labelFrameSelectElements) + FS.getRelH(
-            self.labelFrameSelectElements)  # TODO Make constant (space in between)
+        # self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        # self.labelFrameSelectElements.place(
+        #     relx = UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
+        #     relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
+        # )
+        # self.labelFrameSelectElements.configure(
+        #     background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
+        # )
+        # self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
+
+
+
+        newRelY = FS.getRelY(self.labelFrameProcessElements) + FS.getRelH(
+            self.labelFrameProcessElements)  # TODO Make constant (space in between)
 
         # FILTER Parent Frame
         self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame, bd = 0)
@@ -147,19 +162,35 @@ class AutomatedMining_View:
         newRelY = FS.getRelY(self.labelFrameFilterElements) + FS.getRelH(self.labelFrameFilterElements)
 
         # PROCESS Parent Frame
-        self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame, bd = 0)
-        self.labelFrameProcessElements.place(
-            # relx = UI_support.TAB_TEST_PROCESS_REL_X,
-            relx = FS.getRelX(self.labelFrameSelectElements),
+        self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        self.labelFrameSelectElements.place(
+            relx = FS.getRelX(self.labelFrameProcessElements),
             rely = newRelY,
-            relwidth = UI_support.TAB_TEST_PROCESS_REL_W,
-            relheight = UI_support.TAB_TEST_PROCESS_REL_H
+            relwidth = UI_support.TAB_TEST_PROCESS_REL_W, relheight = UI_support.TAB_TEST_PROCESS_REL_H
         )
-        self.labelFrameProcessElements.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
+        self.labelFrameSelectElements.configure(
+            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
         )
+        self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
 
-        self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
+
+
+
+
+        # self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        # self.labelFrameProcessElements.place(
+        #     # relx = UI_support.TAB_TEST_PROCESS_REL_X,
+        #     relx = FS.getRelX(self.labelFrameSelectElements),
+        #     rely = newRelY,
+        #     relwidth = UI_support.TAB_TEST_PROCESS_REL_W,
+        #     relheight = UI_support.TAB_TEST_PROCESS_REL_H
+        # )
+        # self.labelFrameProcessElements.configure(
+        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
+        # )
+        # self.configureProcessElements(self.labelFrameProcessElements)  # Configures all sub elements under FILTER
+
+
 
         prevFrameRelX = float(self.labelFrameFilterElements.place_info()['relx'])
         prevFrameRelW = float(self.labelFrameFilterElements.place_info()['relwidth'])
@@ -311,7 +342,7 @@ class AutomatedMining_View:
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
-            text = '''1  ''',
+            text = '''3  ''',
             bd = 1, relief = GROOVE,
             anchor = SE
         )
@@ -328,7 +359,7 @@ class AutomatedMining_View:
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             background = Color_support.SELECT_TITLE_BG, foreground = Color_support.SELECT_TITLE_FG,
-            text = '''GROUP''',
+            text = '''TEST''',
             bd = 0, relief = GROOVE,
             anchor = S
         )
@@ -1012,13 +1043,13 @@ class AutomatedMining_View:
 
         # FILTER NUMBER
         self.labelFrameFilterTitleNumber = Label(self.labelFrameFilterTitle)
-        newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
-        newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
+        newRelY = FS.getRelY(self.labelFrameProcessTitleNumber)
+        newRelH = FS.getRelH(self.labelFrameProcessTitleNumber)
         self.labelFrameFilterTitleNumber.place(
-            relx = FS.getRelX(self.labelFrameSelectTitleNumber),
-            rely = FS.getRelY(self.labelFrameSelectTitleNumber),
-            relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
-            relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
+            relx = FS.getRelX(self.labelFrameProcessTitleNumber),
+            rely = FS.getRelY(self.labelFrameProcessTitleNumber),
+            relwidth = FS.getRelW(self.labelFrameProcessTitleNumber),
+            relheight = FS.getRelH(self.labelFrameProcessTitleNumber),
             anchor = NW)
 
         self.labelFrameFilterTitleNumber.configure(
@@ -1031,15 +1062,15 @@ class AutomatedMining_View:
         )
 
         # newRelX = FS.getRelX(self.labelFrameSelectTitleNumber) + FS.getRelW(self.labelFrameSelectTitleNumber)
-        newRelX = FS.getRelX(self.labelFrameSelectTitleText)
+        newRelX = FS.getRelX(self.labelFrameProcessTitleText)
 
         # FILTER TITLE
         self.labelFrameFilterTitleText = Label(self.labelFrameFilterTitle)
         self.labelFrameFilterTitleText.place(
-            relx = FS.getRelX(self.labelFrameSelectTitleText),
-            rely = FS.getRelY(self.labelFrameSelectTitleText),
-            relwidth = FS.getRelW(self.labelFrameSelectTitleText),
-            relheight = FS.getRelH(self.labelFrameSelectTitleText),
+            relx = FS.getRelX(self.labelFrameProcessTitleText),
+            rely = FS.getRelY(self.labelFrameProcessTitleText),
+            relwidth = FS.getRelW(self.labelFrameProcessTitleText),
+            relheight = FS.getRelH(self.labelFrameProcessTitleText),
             anchor = NW)
         self.labelFrameFilterTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
@@ -1533,14 +1564,130 @@ class AutomatedMining_View:
     def configureProcessElements(self, parentFrame):
 
         # PROCESS TITLE
+        # self.labelFrameProcessTitle = LabelFrame(parentFrame, bd = 0)
+        # # self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1,
+        # #                                   relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
+        # self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
+        # self.labelFrameProcessTitle.configure(
+        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
+        # )
+        #
+        #
+        # # PROCESS NUMBER
+        #
+        # # COLORED SEPARATOR
+        # self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
+        #     self.labelFrameProcessTitle, 1,
+        #     False, Color_support.PROCESS_TITLE_BG, UI_support.TITLE_SEPARATOR_H,
+        #     0.5, W
+        # )
+        #
+        # self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
+        # # newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
+        # # newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
+        # # newRelY = FS.getRelY(self.labelFrameProcessTitleNumber)
+        # # newRelH = FS.getRelH(self.labelFrameProcessTitleNumber)
+        #
+        # newRelY = UI_support.LABEL_TITLE_REL_Y
+        # self.labelFrameProcessTitleNumber.place(
+        #     relx = 0, rely = newRelY,
+        #     relwidth = 0.04 + 0.05,
+        #     relheight = 1 - (newRelY * 2), anchor = NW)
+        #
+        # self.labelFrameProcessTitleNumber.configure(
+        #     font = UI_support.FONT_MED_BOLD,
+        #     # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+        #     background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
+        #     text = '''1  ''',
+        #     bd = 1, relief = GROOVE,
+        #     anchor = SE
+        # )
+        # newRelX = FS.getRelX(self.labelFrameProcessTitleNumber) + FS.getRelW(self.labelFrameProcessTitleNumber)
+        #
+        # # PROCESS TITLE
+        #
+        # self.labelFrameProcessTitleText = LabelFrame(parentFrame, bd = 0)
+        # self.labelFrameProcessTitleText.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
+        # self.labelFrameProcessTitleText.configure(
+        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
+        # )
+        #
+        # self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
+        # newRelY = FS.getRelY(self.labelFrameProcessTitleNumber)
+        # newRelH = FS.getRelH(self.labelFrameProcessTitleNumber)
+        #
+        # self.labelFrameProcessTitleText.place(
+        #     relx = newRelX - 0.001, rely = newRelY,
+        #     relwidth = 0.15, relheight = newRelH, anchor = NW)
+        # self.labelFrameProcessTitleText.configure(
+        #     font = UI_support.FONT_MED_BOLD,
+        #     # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+        #     background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
+        #     text = '''GROUP''',
+        #     bd = 0, relief = GROOVE,
+        #     anchor = S
+        # )
+        #
+        #
+        #
+        # # self.labelFrameProcessTitleNumber.place(
+        # #     relx = FS.getRelX(self.labelFrameProcessTitleNumber),
+        # #     rely = FS.getRelY(self.labelFrameProcessTitleNumber),
+        # #     relwidth = FS.getRelW(self.labelFrameProcessTitleNumber),
+        # #     relheight = FS.getRelH(self.labelFrameProcessTitleNumber),
+        # #     anchor = NW)
+        # #     # relx = FS.getRelX(self.labelFrameSelectTitleNumber),
+        # #     # rely = FS.getRelY(self.labelFrameSelectTitleNumber),
+        # #     # relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
+        # #     # relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
+        # #     # anchor = NW)
+        # #
+        # # self.labelFrameProcessTitleNumber.configure(
+        # #     font = UI_support.FONT_MED_BOLD,
+        # #     # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+        # #     background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
+        # #     text = '''3  ''',
+        # #     bd = 1, relief = GROOVE,
+        # #     anchor = SE
+        # # )
+        #
+        # # PROCESS TITLE
+        # # self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
+        # # self.labelFrameProcessTitleText.place(
+        # #     relx = FS.getRelX(self.labelFrameSelectTitleText),
+        # #     rely = FS.getRelY(self.labelFrameSelectTitleText),
+        # #     relwidth = FS.getRelW(self.labelFrameSelectTitleText),
+        # #     relheight = FS.getRelH(self.labelFrameSelectTitleText),
+        # #     anchor = NW)
+        # #
+        # # self.labelFrameProcessTitleText.configure(
+        # #     font = UI_support.FONT_MED_BOLD,
+        # #     # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
+        # #     background = Color_support.PROCESS_TITLE_BG, foreground = Color_support.PROCESS_TITLE_FG,
+        # #     bd = 0, relief = GROOVE,
+        # #     text = '''TEST''',
+        # #     anchor = S
+        # # )
+        #
+        # # Title border
+        # self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
+        #     self.labelFrameProcessTitleText, 1,
+        #     True, Color_support.WHITE,
+        #     coordinate = 0.99, specifiedAnchor = NW
+        # )
+
+
+
+        # PROCESS TITLE
         self.labelFrameProcessTitle = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1,
-                                          relheight = UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
+        self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
         self.labelFrameProcessTitle.configure(
-            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''FILTER'''
         )
 
-        # PROCESS NUMBER
+        # Create the top separator
+        # self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = HORIZONTAL)
+        # self.labelFrameSelectHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
 
         # COLORED SEPARATOR
         self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
@@ -1549,50 +1696,48 @@ class AutomatedMining_View:
             0.5, W
         )
 
+        # Process NUMBER
         self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
-        newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
-        newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
-
+        newRelY = UI_support.LABEL_TITLE_REL_Y
         self.labelFrameProcessTitleNumber.place(
-            relx = FS.getRelX(self.labelFrameSelectTitleNumber),
-            rely = FS.getRelY(self.labelFrameSelectTitleNumber),
-            relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
-            relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
-            anchor = NW)
+            relx = 0, rely = newRelY,
+            relwidth = 0.04 + 0.05,
+            relheight = 1 - (newRelY * 2), anchor = NW)
 
         self.labelFrameProcessTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
-            text = '''3  ''',
+            text = '''1  ''',
             bd = 1, relief = GROOVE,
             anchor = SE
         )
+        newRelX = FS.getRelX(self.labelFrameProcessTitleNumber) + FS.getRelW(self.labelFrameProcessTitleNumber)
 
-        # PROCESS TITLE
+        # Process TITLE
         self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
+        newRelY = FS.getRelY(self.labelFrameProcessTitleNumber)
+        newRelH = FS.getRelH(self.labelFrameProcessTitleNumber)
         self.labelFrameProcessTitleText.place(
-            relx = FS.getRelX(self.labelFrameSelectTitleText),
-            rely = FS.getRelY(self.labelFrameSelectTitleText),
-            relwidth = FS.getRelW(self.labelFrameSelectTitleText),
-            relheight = FS.getRelH(self.labelFrameSelectTitleText),
-            anchor = NW)
-
+            relx = newRelX - 0.001, rely = newRelY,
+            relwidth = 0.15, relheight = newRelH, anchor = NW)
         self.labelFrameProcessTitleText.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
             background = Color_support.PROCESS_TITLE_BG, foreground = Color_support.PROCESS_TITLE_FG,
+            text = '''GROUP''',
             bd = 0, relief = GROOVE,
-            text = '''TEST''',
             anchor = S
         )
-
         # Title border
-        self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
+        self.separatorlabelFrameProcessTitleText = self.createLabelSeparator(
             self.labelFrameProcessTitleText, 1,
             True, Color_support.WHITE,
             coordinate = 0.99, specifiedAnchor = NW
         )
+
+
+
 
         newRelY = FS.getRelH(self.labelFrameProcessTitle) + UI_support.TAB_TEST_PROCESS_COMMANDS_REL_Y
 

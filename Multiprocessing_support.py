@@ -23,6 +23,7 @@ def mp_handler():
     p = multiprocessing.Pool(4)
     p.map(mp_worker, data)  # Maps an mp_worker for each entry in data
 
+
 if __name__ == '__main__':
     mp_handler()
 
