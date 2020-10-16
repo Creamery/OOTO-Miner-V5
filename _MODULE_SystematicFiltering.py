@@ -25,7 +25,7 @@ from _THREAD_CrossProcess import CrossProcessThread
 
 
 class SystematicFiltering:
-    def __init__(self, root, dataset, featureDescription, salientFeatures):
+    def __init__(self, root):
 
         self.root = root
 
@@ -34,7 +34,7 @@ class SystematicFiltering:
         self.winTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
 
         self.view = VIEW.SystematicFiltering_View(self.winTop)
-        self.model = MODEL.SystematicFiltering_Model(dataset, featureDescription, salientFeatures)
+        self.model = MODEL.SystematicFiltering_Model()
         self.controller = CONTROLLER.SystematicFiltering_Controller(self.model, self.view)
 
         self.grip = self.__configureGrip(self.winTop, self.winOverlay, self.root)
@@ -46,6 +46,12 @@ class SystematicFiltering:
 
         self.__configureBind()
         # WS.makeModal(self.winTop, self.root)  # make the window modal by setting root's wait_window
+
+
+
+
+
+
 
     # region callable functions
 

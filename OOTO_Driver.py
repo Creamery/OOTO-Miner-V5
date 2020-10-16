@@ -94,7 +94,7 @@ def vp_start_gui():
 
 
 def runOOTOMiner():
-    '''Starting point when module is the main routine.'''
+    # Starting point when module is the main routine.
     global val_gl, w_gl, root_gl
 
     root_gl = Tk()

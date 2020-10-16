@@ -43,28 +43,28 @@ from _THREAD_CrossProcessProgress import CrossProcessProgressThread
 
 class SystematicFiltering_Model:
 
-    def __init__(self, dataset, featureDescription, salientFeatures):
+    def __init__(self):
 
         # initialize properties
-        self.__rawDataset = dataset
-        print "convertDatasetValuesToGroups : "
+        # self.__rawDataset = dataset
+        # print "convertDatasetValuesToGroups : "
 
-        print "---- dataset : "
-        print str(dataset.keys())
-        print str(dataset['FeatureList'])
-        print str(dataset['Samples'])
+        # print "---- dataset : "
+        # print str(dataset.keys())
+        # print str(dataset['FeatureList'])
+        # print str(dataset['Samples'])
 
-        # self.__dataset = FS.convertDatasetValuesToGroups(dataset, featureDescription)
-        self.__dataset = dataset
-        self.__featureDescription = featureDescription
-        self.__salientFeatures = salientFeatures
-        self.__SSF = WS.initializeSSF(salientFeatures)
+        # # self.__dataset = FS.convertDatasetValuesToGroups(dataset, featureDescription)
+        # self.__dataset = dataset
+        # self.__featureDescription = featureDescription
+        # self.__salientFeatures = salientFeatures
+        # self.__SSF = WS.initializeSSF(salientFeatures)
 
 
         # thread that handles the actual processing
         # self.__threadCrossProcess = CrossProcessThread()  # TODO Remove
         # thread that handles the UI progress updates
-        self.__threadCrossProcessProgress = CrossProcessProgressThread(self.__dataset, self.__SSF)
+        # self.__threadCrossProcessProgress = CrossProcessProgressThread(self.__dataset, self.__SSF)
 
         self.__isCrossProcessing = False
 

@@ -7,6 +7,10 @@ import Filter_support as FILS
 import CrossProcess_support as CPS
 
 
+def loaderModule():
+    df_raw_dataset, df_dataset, ftr_names = LS.loadInput()  # Can add parameters
+    return df_raw_dataset, df_dataset, ftr_names
+
 def rfeModule(df_raw_dataset, ftr_names):
     dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names)
     return dict_rfe
@@ -33,8 +37,8 @@ def crossProcessModule(df_dataset, np_CROSS):
 
 
 
-def runAutomatedMining(df_raw_dataset, df_dataset, ftr_names):
-    # df_raw_dataset, df_dataset, ftr_names = loaderModule()
+def runAutomatedMining():
+    df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
     print("Starting RFE...")
     dict_rfe = rfeModule(df_raw_dataset, ftr_names)

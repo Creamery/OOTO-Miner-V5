@@ -39,6 +39,10 @@ import Icon_support as IS
 import UI_support as US
 from _THREAD_CrossProcess import CrossProcessThread
 
+from threading import Thread
+import AutomatedMining_RUN as AM_R
+import tkMessageBox
+
 class SystematicFiltering_Controller:
 
     def __init__(self, model, view):
@@ -54,17 +58,69 @@ class SystematicFiltering_Controller:
 
     " FUNCTIONS "
     def startCrossProcessThread(self, event):
-        if not self.model.isCrossProcessing():
-            self.model.startSystematicFiltering(self.view)
-            # self.view.getFrame().protocol("WM_DELETE_WINDOW", self.stopCrossProcess)
 
-            # crossProcess = CrossProcessThread(self)
-            # crossProcess.start()
-        else:
-            print ("isProcessing")
+        lblCurrentDetails = self.view.getLblCurrentDetails()
+        print("Cross Process Start")
+        startCrossProcessThread(lblCurrentDetails)
+
+        # if not self.model.isCrossProcessing():
+        #     self.model.startSystematicFiltering(self.view)
+        #     # self.view.getFrame().protocol("WM_DELETE_WINDOW", self.stopCrossProcess)
+        #
+        #     # crossProcess = CrossProcessThread(self)
+        #     # crossProcess.start()
+        # else:
+        #     print ("isProcessing")
+
 
     def stopCrossProcess(self):
         print "crossProcess stopped"
 
 
+
+    # def threaded_function(arg):
+    #     while True:
+    #         print("in")
+    #     # for i in range(arg):
+    #     #     print("running")
+    #     #     sleep(1)
+
+
+
+
+'''
+    THREADING FUNCTIONS
+'''
+
+lblDetails = None
+
+def startCrossProcessThread(lblCurrentDetails):
+    lblDetails = lblCurrentDetails
+    thread = Thread(target = runCrossProcessThread)
+    thread.start()
+    # thread.join()
+    print("thread finished...exiting")
+
+
+def runCrossProcessThread():
+    print("Running Cross Process Thread")
+    # changeText(lblDetails, "HEY")
+    AM_R.runAutomatedMining()
+    tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
+
+
+
+def changeText(label, text):
+    # current_text = label.get()
+    # label.set(current_text + "Text updated")
+    label.set(text + "Text updated")
+
+
+
     " GETTERS "
+
+
+
+
+
+

@@ -982,15 +982,16 @@ class AutomatedMining_Controller:
     ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
     def runAutomatedMiner(self, evt):
         self.enableFilter()
-        df_raw_dataset, df_dataset, ftr_names = LS.loadInput()  # Can add parameters
+        # df_raw_dataset, df_dataset, ftr_names = LS.loadInput()  # Can add parameters
         # dict_significant_results = AM_R.runAutomatedMining(df_raw_dataset, df_dataset, ftr_names)
         # dict_significant_results = MULTI_S.runAutomatedMining(df_raw_dataset, df_dataset, ftr_names)
-        MULTI_S.startThread()
-        # self.runSystematicFilteringWindow(self.root)  # TODO
+        # MULTI_S.startThread()
+        self.runSystematicFilteringWindow(self.root)  # TODO Launches the SF Thread
         # dict_significant_results = AM_R.runAutomatedMining()
 
+        # TODO Enable in Thread
+        # tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
 
-        tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
         self.enableFilter()
         return "break"
 
