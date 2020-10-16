@@ -28,6 +28,7 @@ FEAT_NAME = "Name"
 OPTION_NAME = "OptionName"
 
 # Paths
+GL_AM_INPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_input\\")
 GL_AM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\AM\\")
 GL_MM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\MM\\")
 
@@ -269,3 +270,44 @@ def exportUIResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PATH):
             # writer = pd.ExcelWriter(path_export, engine = 'xlsxwriter')
             # df.to_excel("r'UI Result - "+ df_name + ".xlsx")
             # df.to_excel(writer, sheet_name = str(df_name))
+
+
+
+
+
+
+
+
+def loadInput(path_varDesc = None, path_dataset = None, path_ftrNames = None):
+    # dir_path = os.path.dirname(os.path.realpath(__file__))
+    # dir_input = str(dir_path + "\\_input\\")
+    # dir_output = str(dir_path + "\\_output\\")
+
+    # Load Variable Description
+    if path_varDesc is None:
+        fln_varDesc = "Uniandes_VariableDescription (New).csv"
+        path_varDesc = str(GL_AM_INPUT_PATH + fln_varDesc)
+
+    dict_varDesc = loadVarDesc(path_varDesc)
+
+
+    # Load Dataset
+    if path_dataset is None:
+        fln_dataset = "Uniandes_Dataset (New).csv"
+        path_dataset = str(GL_AM_INPUT_PATH + fln_dataset)
+    df_raw_dataset, df_dataset = loadDataset(path_dataset, dict_varDesc)
+    # LS.exportDataset(df_dataset, "Output.csv", dir_output)
+
+    if path_ftrNames is None:
+        fln_ftrNames = "Uniandes_FeatureNames.csv"
+        path_ftrNames = str(GL_AM_INPUT_PATH + fln_ftrNames)
+    ftr_names = loadFeatureNames(path_ftrNames)
+
+    return df_raw_dataset, df_dataset, ftr_names
+
+
+
+
+
+
+

@@ -64,7 +64,36 @@ import _MODULE_AutomatedMining as AM
 w_gl = None
 
 
+from threading import Thread
+from time import sleep
+
+
+
+
+
+
 def vp_start_gui():
+
+    startProgram()
+
+    '''
+    # Starting point when module is the main routine.
+    global val_gl, w_gl, root_gl
+
+    root_gl = Tk()
+    # root.protocol("WM_DELETE_WINDOW", onRootClose)
+    root_gl.resizable(0, 0)
+    # Mother_support.set_Tk_var()
+    # top = OOTO_Miner(root)
+    OOTO_Miner(root_gl)
+    # root.update()
+    # Mother_support.init(root, top)
+    root_gl.mainloop()
+    '''
+
+
+
+def runOOTOMiner():
     '''Starting point when module is the main routine.'''
     global val_gl, w_gl, root_gl
 
@@ -77,6 +106,26 @@ def vp_start_gui():
     # root.update()
     # Mother_support.init(root, top)
     root_gl.mainloop()
+
+
+
+def startProgram():
+    # if __name__ == "__main__":
+    thread = Thread(target = runOOTOMiner)
+    thread.start()
+    thread.join()
+    print("")
+    print("Thread Finished - OOTO Miner Closed")
+
+
+
+
+
+
+
+
+
+
 
 # def onRootClose():
 #     if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):

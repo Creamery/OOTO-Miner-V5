@@ -53,16 +53,18 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
-
+import Loader_support as LS
 import UIConstants_support as UICS
 
 import AutomatedMining_RUN as AM_R
-
+import Multiprocessing_single as MULTI_S
 
 class AutomatedMining_Controller:
 
-    def __init__(self, view):
+    def __init__(self, view, model, root):
         self.view = view
+        self.model = model
+        self.root = root
         self.dictWidgetPlace = {}
 
         self.configureTestTabBindings()
@@ -980,7 +982,13 @@ class AutomatedMining_Controller:
     ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
     def runAutomatedMiner(self, evt):
         self.enableFilter()
-        dict_significant_results = AM_R.runAutomatedMining()
+        df_raw_dataset, df_dataset, ftr_names = LS.loadInput()  # Can add parameters
+        # dict_significant_results = AM_R.runAutomatedMining(df_raw_dataset, df_dataset, ftr_names)
+        # dict_significant_results = MULTI_S.runAutomatedMining(df_raw_dataset, df_dataset, ftr_names)
+        MULTI_S.startThread()
+        # self.runSystematicFilteringWindow(self.root)  # TODO
+        # dict_significant_results = AM_R.runAutomatedMining()
+
 
         tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
         self.enableFilter()
@@ -1625,3 +1633,17 @@ class AutomatedMining_Controller:
         return str(self.datasetCountB)
 
     # endregion
+
+    # def confirmConfirmedFeatures(self, event):
+    #     self.model.confirmConfirmedFeatures(self.root)
+    #     return "break"
+
+    def runSystematicFilteringWindow(self, root):
+        self.model.confirmConfirmedFeatures(self.root)
+
+
+
+
+
+
+

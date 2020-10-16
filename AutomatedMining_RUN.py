@@ -6,28 +6,6 @@ import RFE_support as RFES
 import Filter_support as FILS
 import CrossProcess_support as CPS
 
-def loaderModule():
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    dir_input = str(dir_path + "\\_input\\")
-    dir_output = str(dir_path + "\\_output\\")
-
-    # Load Variable Description
-    fln_varDesc = "Uniandes_VariableDescription (New).csv"
-    path_varDesc = str(dir_input + fln_varDesc)
-    dict_varDesc = LS.loadVarDesc(path_varDesc)
-
-
-    # Load Dataset
-    fln_dataset = "Uniandes_Dataset (New).csv"
-    path_dataset = str(dir_input + fln_dataset)
-    df_raw_dataset, df_dataset = LS.loadDataset(path_dataset, dict_varDesc)
-    # LS.exportDataset(df_dataset, "Output.csv", dir_output)
-
-    fln_ftrNames = "Uniandes_FeatureNames.csv"
-    path_ftrNames = str(dir_input + fln_ftrNames)
-    ftr_names = LS.loadFeatureNames(path_ftrNames)
-
-    return df_raw_dataset, df_dataset, ftr_names
 
 def rfeModule(df_raw_dataset, ftr_names):
     dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names)
@@ -55,8 +33,8 @@ def crossProcessModule(df_dataset, np_CROSS):
 
 
 
-def runAutomatedMining():
-    df_raw_dataset, df_dataset, ftr_names = loaderModule()
+def runAutomatedMining(df_raw_dataset, df_dataset, ftr_names):
+    # df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
     print("Starting RFE...")
     dict_rfe = rfeModule(df_raw_dataset, ftr_names)
