@@ -53,6 +53,7 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
+import Loader_support as LS
 
 class ManualMining_Controller:
 
@@ -149,7 +150,7 @@ class ManualMining_Controller:
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
-        print "UPLOADED"
+        # print "UPLOADED"
         return True
 
     def configureTestTabBindings(self):
@@ -356,7 +357,7 @@ class ManualMining_Controller:
     ''' Initial (SELECT) query for DATA A '''
 
     def querySetDataA(self, evt):
-        print "buttonQuerySetDataA"
+        # print "buttonQuerySetDataA"
         # CLEAR sample count
         self.queryResetDatasetA(evt)
         # CLEAR filter feature box first
@@ -388,7 +389,7 @@ class ManualMining_Controller:
         global features_gl
         # Here is how to get the value from entryFeatA
         featCode = entryFeat
-        print "Entered feature code: " + featCode
+        # print "Entered feature code: " + featCode
         arrTempItems = []
         found = False
         hasFocusFeature = False
@@ -400,15 +401,15 @@ class ManualMining_Controller:
                     if arg == "Dataset_Feature":
                         dataset['Feature'] = copy.deepcopy(feature)
                         populationDatasetOriginal['Feature'] = copy.deepcopy(feature)
-                        print ""
-                        print ""
-                        print "Dataset_Feature: "
-                        print ""
-                        print "dataset['Feature'] = "
-                        print str(dataset['Feature'])
-                        print ""
-                        print "populationDatasetOriginal['Feature'] = "
-                        print str(dataset['Feature'])
+                        # print ""
+                        # print ""
+                        # print "Dataset_Feature: "
+                        # print ""
+                        # print "dataset['Feature'] = "
+                        # print str(dataset['Feature'])
+                        # print ""
+                        # print "populationDatasetOriginal['Feature'] = "
+                        # print str(dataset['Feature'])
 
                     if arg == "Focus_Feature":
                         dataset['Focus Feature'] = copy.deepcopy(feature)
@@ -423,7 +424,7 @@ class ManualMining_Controller:
 
         # Getting the proportions and frequencies of each value (including invalid values) in the focus feature
         if hasFocusFeature == True:
-            print "HAS FOCUS FEATURE"
+            # print "HAS FOCUS FEATURE"
             arrTempItems = []
             dataset['ColumnData'] = []
             populationDatasetOriginal['ColumnData'] = []
@@ -457,10 +458,10 @@ class ManualMining_Controller:
                 '''
             for response in dataset['Focus Feature']['Responses']:
                 countP = 0
-                print 'Value: ' + response['Code']
-                print 'Frequency: ' + str(countP)
-                print 'n:' + str(countn)
-                print 'N:' + str(countN)
+                # print 'Value: ' + response['Code']
+                # print 'Frequency: ' + str(countP)
+                # print 'n:' + str(countn)
+                # print 'N:' + str(countN)
 
                 if response['Code'] in presentInData:  # If the value has occurred in the data
                     countP = int(c[response['Code']])
@@ -579,8 +580,8 @@ class ManualMining_Controller:
         # selectDatasetValues(evt, self.datasetA)
         self.datasetCountA = FS.selectDatasetValues(evt, self.populationDatasetOriginalA)
 
-        print ("Pop Dataset A" + str(len(self.populationDatasetOriginalA['Data'])))
-        print ("Dataset A" + str(len(self.datasetA['Data'])))
+        # print ("Pop Dataset A" + str(len(self.populationDatasetOriginalA['Data'])))
+        # print ("Dataset A" + str(len(self.datasetA['Data'])))
 
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
 
@@ -595,8 +596,8 @@ class ManualMining_Controller:
         # self.datasetCountB = selectDatasetValues(evt, self.datasetB)
         self.datasetCountB = FS.selectDatasetValues(evt, self.populationDatasetOriginalB)
 
-        print ("Pop Dataset B" + str(len(self.populationDatasetOriginalB['Data'])))
-        print ("Dataset B" + str(len(self.datasetB['Data'])))
+        # print ("Pop Dataset B" + str(len(self.populationDatasetOriginalB['Data'])))
+        # print ("Dataset B" + str(len(self.datasetB['Data'])))
 
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
@@ -627,7 +628,7 @@ class ManualMining_Controller:
         return "break"
 
     def queryAddFilterA(self, evt):
-        print "buttonQueryAddFilterA"
+        # print "buttonQueryAddFilterA"
 
         self.isReadyDatasetA = False
         self.buttonQueryAddFilterA.configure(relief = FLAT)
@@ -980,14 +981,14 @@ class ManualMining_Controller:
                 for dataset in test['Datasets']:  # For each sample pairs in queue
                     FS.convertDatasetValuesToGroups(dataset, features_gl)
 
-                    print "convertDatasetValuesToGroups : "
-                    print "---- dataset : "
+                    # print "convertDatasetValuesToGroups : "
+                    # print "---- dataset : "
 
                     n = 3  # TODO Define this
 
-                    print str(dataset.keys())
-                    print str(dataset['Filter Features'][:n])
-                    print str(WS.PrintDictItems(n, dataset['Feature']))
+                    # print str(dataset.keys())
+                    # print str(dataset['Filter Features'][:n])
+                    # print str(WS.PrintDictItems(n, dataset['Feature']))
                     # print str(dataset['Data'][:n])
                     # print str(dataset['Feature'])
                     # print str(dataset['Data'])
@@ -999,21 +1000,25 @@ class ManualMining_Controller:
                     queueStr = str("(Q" + str(queueNum) + ") ")
                     fileName = str(queueStr + fileName)
                     fileName = str(fileName + ".csv")
-                    fileNames.append(fileName)
+
+                    LS.checkDirectory(LS.GL_MM_OUTPUT_PATH)
+                    path_csv = LS.GL_MM_OUTPUT_PATH + fileName
+                    fileNames.append(path_csv)
 
                     # print ("GENERATED FILENAME: " + str(fileName))
-                    FS.writeCSVDict(fileName, dataset['Data'])
+                    FS.writeCSVDict(path_csv, dataset['Data'])
 
 
 
-                print("!---- File NAMES")
-                print(fileNames)
+                # print("!---- File NAMES")
+                # print(fileNames)
 
                 # TODO Check if you need this removed
                 if not (os.path.isfile("Updated-Variables.csv")):
                     FS.makeUpdatedVariables(features_gl, "Updated-Variables.csv")
 
                 # saveFile = ct.chiTest(fileNames)
+
                 saveFile = chiTest.chiTest(fileNames, queueNum)
                 print ("saveFile is " + saveFile)
 

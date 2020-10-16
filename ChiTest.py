@@ -522,22 +522,22 @@ class ChiTest:
 
     def getTable(self, col, clusters, V, header):
         groups = []
-        if (header == 'b3'):
-            print('b3 header ' + str(header))
-            print('col ' + str(col))
-            print('clusters ' + str(clusters))
-            print('V ' + str(V))
+        # if (header == 'b3'):
+        #     print('b3 header ' + str(header))
+        #     print('col ' + str(col))
+        #     print('clusters ' + str(clusters))
+        #     print('V ' + str(V))
 
         for c in clusters:
-            if (header == 'b3'):
-                print('b3 cluster col ' + str(col))
-                print('c ' + str(c))
-                print('V ' + str(V))
-                print('header ' + str(header))
+            # if (header == 'b3'):
+            #     print('b3 cluster col ' + str(col))
+            #     print('c ' + str(c))
+            #     print('V ' + str(V))
+            #     print('header ' + str(header))
             groups.append(self.group(col, c, V, header))
 
-        if (header == 'b3'):
-            print('b3 groups ' + str(groups))
+        # if (header == 'b3'):
+        #     print('b3 groups ' + str(groups))
         keys = []
         for g in groups:
 
@@ -571,8 +571,8 @@ class ChiTest:
         # change to ur own.
         vList = self.getVariableList('Updated-Variables.csv',
                                 '^')  # Get Variable Description # TODO This should always match the output in OOTO.py
-        print("!------ readHeader")
-        print(datasetPaths[0])
+        # print("!------ readHeader")
+        # print(datasetPaths[0])
         header = self.readHeader(datasetPaths[0])  # Read the header from one of the datasets which include the question codes
         # print("ex_header: " + str(header))
         results = []
@@ -614,7 +614,7 @@ class ChiTest:
             results.append(dataset_names)  # Append dataset names
 
             population_and_proportionHeaders = []  # Headers Ni and Pi for each cluster i
-            print("Cluster NAMES : " + str(len(clusternames)))
+            # print("Cluster NAMES : " + str(len(clusternames)))
 
             for x in range(0, len(clusternames)):
                 population_and_proportionHeaders.append("N" + str(x + 1))  # Add Header "Nx" for each cluster x. Total of x

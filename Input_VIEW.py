@@ -18,7 +18,7 @@ import Widget_support as WS
 
 class Input_View:
     def __init__(self, parentFrame):
-        print()
+        # print()
 
         # Create the parent frame
         self.dataTabParentFrame = LabelFrame(parentFrame, bd = 0)
