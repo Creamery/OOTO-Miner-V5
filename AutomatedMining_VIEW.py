@@ -140,7 +140,7 @@ class AutomatedMining_View:
         #     relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         # )
         # self.labelFrameSelectElements.configure(
-        #     background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
+        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
         # )
         # self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
 
@@ -171,7 +171,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
         self.labelFrameSelectElements.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
         )
         self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
 
@@ -382,7 +382,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
         )
         self.labelFrameDatasetA.configure(
-            background = Color_support.SELECT_BG
+            background = Color_support.PROCESS_BG
         )
         newRelH = FS.getRelH(self.labelFrameDatasetA)
         self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
@@ -392,7 +392,7 @@ class AutomatedMining_View:
             rely = newRelY, relwidth = 0.4, relheight = newRelH
         )
         self.labelFrameDatasetB.configure(
-            background = Color_support.SELECT_BG
+            background = Color_support.PROCESS_BG
         )
 
         # DATASET SEPARATOR
@@ -405,7 +405,7 @@ class AutomatedMining_View:
             relx = UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
             relwidth = UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = UI_support.TAB_TEST_SELECT_QUERY_REL_H)
         self.labelFrameQueryDataA.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = Color_support.PROCESS_ENTRY_BG, foreground = Color_support.PROCESS_ENTRY_FG,
             relief = GROOVE  # , text = '''Dataset A'''
         )
 
@@ -417,7 +417,7 @@ class AutomatedMining_View:
         self.labelQuerySetDataStatusA.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
         # self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusA.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            background = Color_support.PROCESS_LISTBOX_STATUS_BG, foreground = Color_support.PROCESS_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = UI_support.LBL_SELECT_NO_DATA,
             font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -489,7 +489,7 @@ class AutomatedMining_View:
             relwidth = UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
         )
         self.labelFrameBorderQuerySetDataA.configure(
-            background = Color_support.SELECT_BUTTONS_BG
+            background = Color_support.PROCESS_BUTTONS_BG
         )
 
         self.labelQuerySetDataA = Label(self.labelFrameBorderQuerySetDataA)
@@ -498,7 +498,7 @@ class AutomatedMining_View:
             relx = 0.01, rely = 0.025,
             relwidth = 0.98, relheight = 0.95)
         self.labelQuerySetDataA.configure(
-            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            background = Color_support.PROCESS_LABEL_BG, foreground = Color_support.PROCESS_TITLE_BG,
             text = UI_support.SELECT_LABEL_DATASETA_TEXT,
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
@@ -515,11 +515,11 @@ class AutomatedMining_View:
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
         self.entryQuerySetDataA.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = Color_support.PROCESS_ENTRY_BG, foreground = Color_support.PROCESS_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            selectbackground = Color_support.PROCESS_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = Color_support.PROCESS_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
         )  # TODO Constant font definiton
         # endregion
@@ -542,8 +542,8 @@ class AutomatedMining_View:
         self.buttonQuerySetDataA.image = btn_query_set_icon  # < ! > Required to make images appear
 
         self.buttonQuerySetDataA.configure(
-            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BG,
+            background = Color_support.PROCESS_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
+            activebackground = Color_support.PROCESS_BG,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE,
             # text = '''Find Feature'''
@@ -561,11 +561,11 @@ class AutomatedMining_View:
 
         self.listQuerySetDataA = Listbox(self.labelFrameListBoxA)
         self.listQuerySetDataA.configure(
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+            background = Color_support.PROCESS_LISTBOX_BG, foreground = Color_support.PROCESS_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = Color_support.PROCESS_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.PROCESS_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -603,7 +603,7 @@ class AutomatedMining_View:
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
         self.buttonQueryResetFilterA.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Reset''')
 
@@ -624,7 +624,7 @@ class AutomatedMining_View:
             relwidth = 0.50 - 0.005, relheight = 1
         )
         self.labelFrameQueryCount.configure(
-            background = Color_support.SELECT_BG
+            background = Color_support.PROCESS_BG
         )
 
         # Define count variables
@@ -636,7 +636,7 @@ class AutomatedMining_View:
                                         relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.labelQueryDataACount.configure(
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
+            background = Color_support.PROCESS_BG,
             text = self.getDatasetCountA()
         )
         self.labelQueryDataACountText = Label(self.labelFrameQueryCount)
@@ -645,7 +645,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
         self.labelQueryDataACountText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = Color_support.FG_COLOR, foreground = Color_support.PROCESS_BG,
             text = '''SAMPLES'''
         )
         # endregion
@@ -705,7 +705,7 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.labelFrameQueryDataA),
             relheight = FS.getRelH(self.labelFrameQueryDataA))
         self.labelFrameQueryDataB.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = Color_support.PROCESS_ENTRY_BG, foreground = Color_support.PROCESS_ENTRY_FG,
             relief = GROOVE  # , text = '''Dataset B'''
         )
         # endregion
@@ -751,7 +751,7 @@ class AutomatedMining_View:
         )
         # self.labelQuerySetDataStatusB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusB.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            background = Color_support.PROCESS_LISTBOX_STATUS_BG, foreground = Color_support.PROCESS_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = UI_support.LBL_SELECT_NO_DATA,
             font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -762,11 +762,11 @@ class AutomatedMining_View:
 
         self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
         self.listQuerySetDataB.configure(
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
+            background = Color_support.PROCESS_LISTBOX_BG, foreground = Color_support.PROCESS_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = Color_support.PROCESS_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.PROCESS_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -799,7 +799,7 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.labelFrameBorderQuerySetDataA),
             relheight = FS.getRelH(self.labelFrameBorderQuerySetDataA))
         self.labelFrameBorderQuerySetDataB.configure(
-            background = Color_support.SELECT_BUTTONS_BG
+            background = Color_support.PROCESS_BUTTONS_BG
         )
 
         self.labelQuerySetDataB = Label(self.labelFrameBorderQuerySetDataB)
@@ -810,7 +810,7 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.labelQuerySetDataA),
             relheight = FS.getRelH(self.labelQuerySetDataA))
         self.labelQuerySetDataB.configure(
-            background = Color_support.SELECT_LABEL_BG, foreground = Color_support.SELECT_LABEL_FG,
+            background = Color_support.PROCESS_LABEL_BG, foreground = Color_support.PROCESS_TITLE_BG,
             text = UI_support.SELECT_LABEL_DATASETB_TEXT,
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
@@ -825,11 +825,11 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.entryQuerySetDataA),
             relheight = FS.getRelH(self.entryQuerySetDataA))
         self.entryQuerySetDataB.configure(
-            background = Color_support.SELECT_ENTRY_BG, foreground = Color_support.SELECT_ENTRY_FG,
+            background = Color_support.PROCESS_ENTRY_BG, foreground = Color_support.PROCESS_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
-            selectbackground = Color_support.SELECT_ENTRY_SELECT_HIGHLIGHT_BG,
-            insertbackground = Color_support.SELECT_ENTRY_SELECT_INSERT_BG,
+            selectbackground = Color_support.PROCESS_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = Color_support.PROCESS_ENTRY_SELECT_INSERT_BG,
             takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
         )  # TODO Constant font definiton
 
@@ -849,8 +849,8 @@ class AutomatedMining_View:
         self.buttonQuerySetDataB.image = btn_query_set_icon  # < ! > Required to make images appear
 
         self.buttonQuerySetDataB.configure(
-            background = Color_support.SELECT_BUTTONS_BG, foreground = Color_support.SELECT_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+            background = Color_support.PROCESS_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
+            activebackground = Color_support.PROCESS_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE,
             # text = '''Find Feature'''
@@ -882,7 +882,7 @@ class AutomatedMining_View:
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
         self.buttonQueryResetFilterB.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Reset''')
 
@@ -944,7 +944,7 @@ class AutomatedMining_View:
             relwidth = 0.50 - 0.005, relheight = 1
         )
         self.labelFrameQueryCountB.configure(
-            background = Color_support.SELECT_BG
+            background = Color_support.PROCESS_BG
         )
 
         self.labelQueryDataBCount = Label(self.labelFrameQueryCountB)
@@ -952,7 +952,7 @@ class AutomatedMining_View:
                                         relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.labelQueryDataBCount.configure(
             font = UI_support.FONT_LARGE_BOLD,
-            background = Color_support.SELECT_BG,
+            background = Color_support.PROCESS_BG,
             text = self.getDatasetCountB()
         )
         self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
@@ -961,7 +961,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
         self.labelQueryDataBCountText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = Color_support.FG_COLOR, foreground = Color_support.PROCESS_BG,
             text = '''SAMPLES'''
         )
 
@@ -991,7 +991,7 @@ class AutomatedMining_View:
         self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
 
         self.buttonQueryAddFilterA.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Filter''')
         self.buttonQueryAddFilterA.pack(side = RIGHT)
@@ -1015,7 +1015,7 @@ class AutomatedMining_View:
         self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
 
         self.buttonQueryAddFilterB.configure(
-            background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR,
+            background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Filter''')
         self.buttonQueryAddFilterB.pack(side = RIGHT)
@@ -1201,7 +1201,7 @@ class AutomatedMining_View:
 
         self.buttonQueryFeature.configure(
             background = Color_support.FILTER_BUTTONS_BG, foreground = Color_support.FILTER_BUTTONS_FG,
-            activebackground = Color_support.SELECT_BTN_BG_ACTIVE,
+            activebackground = Color_support.PROCESS_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = FLAT
         )
@@ -1594,7 +1594,7 @@ class AutomatedMining_View:
         self.labelFrameProcessTitleNumber.configure(
             font = UI_support.FONT_MED_BOLD,
             # background = Color_support.BG_TITLE, foreground = Color_support.FG_TITLE,
-            background = Color_support.SELECT_NUMBER_BG, foreground = Color_support.SELECT_NUMBER_FG,
+            background = Color_support.PROCESS_NUMBER_BG, foreground = Color_support.PROCESS_NUMBER_FG,
             text = '''1  ''',
             bd = 1, relief = GROOVE,
             anchor = SE
@@ -1866,7 +1866,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_CONFIDENCE_TEXT_REL_H)
         self.labelApplyChangeCrossTypeText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = Color_support.FG_COLOR, foreground = Color_support.PROCESS_BG,
             text = '''MAX TYPE'''
         )
 
@@ -1919,192 +1919,12 @@ class AutomatedMining_View:
             activebackground = Color_support.PROCESS_TITLE_BG,
             highlightbackground = Color_support.PROCESS_TITLE_BG,
             bd = 1, relief = FLAT, overrelief = FLAT)
-        # text = '''Test''')
 
         self.buttonApplyCrossTypeSpinBox.pack(anchor = CENTER)
         self.buttonApplyCrossTypeSpinBox.update()
 
 
-        # self.buttonApplyCrossTypeSpinBox = Button(self.labelFrameProcessChangeCrossTypeButtonElements, compound = CENTER)
-        #
-        # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        # btn_change_cross_type_icon = PIL.ImageTk.PhotoImage(im)
-        # self.buttonApplyLevelSpinBox.configure(
-        #     image = btn_change_cross_type_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        # self.buttonApplyLevelSpinBox.image = btn_change_cross_type_icon  # < ! > Required to make images appear
-        #
-        # self.buttonApplyCrossTypeSpinBox.configure(
-        #     background = Color_support.PROCESS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
-        #     activebackground = Color_support.PROCESS_TITLE_BG,
-        #     highlightbackground = Color_support.PROCESS_TITLE_BG,
-        #     bd = 1, relief = FLAT, overrelief = FLAT)
-        # # text = '''Test''')
-        #
-        # self.buttonApplyCrossTypeSpinBox.pack(anchor = CENTER)
-        # self.buttonApplyCrossTypeSpinBox.update()
-
-
-        # self.labelFrameProcessCrossType = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
-        #                                              name = "labelFrameProcessChiSquare")
-        # self.labelFrameProcessCrossType.place(
-        #     # relx = newRelX, rely = 0,
-        #     relx = 0, rely = 0,
-        #     # relwidth = UI_support.TEST_PROCESS_CHI_SQUARE_PARENT, relheight = 1
-        #     relwidth = 1, relheight = 1
-        # )
-        # self.labelFrameProcessCrossType.configure(
-        #     background = Color_support.PROCESS_BG
-        # )
-        #
-        # # newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(self.labelFrameProcessChiSquare)
-        #
-        # # PROCESS CHI-SQUARE TITLE
-        # self.labelFrameProcessChangeLevelTitle = Label(self.labelFrameProcessCrossType)
-        # # self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
-        # self.labelFrameProcessChangeLevelTitle.place(
-        #     relx = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
-        #     rely = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
-        #     relwidth = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_W,
-        #     relheight = UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_H)
-        # self.labelFrameProcessChangeLevelTitle.configure(
-        #     font = UI_support.FONT_MED_BOLD,
-        #     background = Color_support.PROCESS_CHI_SQUARE_TITLE_BG,
-        #     foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
-        #
-        #     text = '''TYPE''',
-        #     anchor = CENTER,
-        #     bd = 0, relief = GROOVE
-        # )
-        #
-        # # Top horizontal separator # TODO
-        # self.chiSquareTitleSeparator = ttk.Separator(self.labelFrameProcessChangeLevelTitle, orient = HORIZONTAL)
-        # self.chiSquareTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
-        #
-        # # self.chiSquareRightSeparator = ttk.Separator(self.labelFrameProcessChiSquare, orient = VERTICAL)
-        # # self.chiSquareRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
-        #
-        # newRelY = FS.getRelY(self.labelFrameProcessChangeLevelTitle) + FS.getRelH(
-        #     self.labelFrameProcessChangeLevelTitle) + UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
-        #
-        # # BUTTON ELEMENTS
-        # self.labelFrameProcessChiSquareElements = LabelFrame(self.labelFrameProcessCrossType, bd = 0)
-        # self.labelFrameProcessChiSquareElements.place(
-        #     relx = 0, rely = newRelY,
-        #     relwidth = 1, relheight = 0.35
-        # )
-        # self.labelFrameProcessChiSquareElements.configure(
-        #     background = Color_support.PROCESS_BG
-        # )
-
-
         # CROSS TYPE ELEMENTS
-
-
-
-
-        # QUEUE ELEMENTS
-        # self.labelFrameProcessChiSquareQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 1)
-        # self.labelFrameProcessChiSquareQueue.place(
-        #     relx = 0.275, rely = 0,
-        #     relwidth = 0.45, relheight = 1
-        # )
-        # self.labelFrameProcessChiSquareQueue.configure(
-        #     background = Color_support.PROCESS_BG
-        # )
-
-        # newRelX = FS.getRelX(self.labelFrameProcessCrossType) + FS.getRelW(
-        #     self.labelFrameProcessCrossType)
-
-        # # > QUEUE COUNT
-        # self.labelQueueText = Label(self.labelFrameProcessChiSquareQueue)
-        # self.labelQueueText.place(
-        #     relx = 0, rely = 0,
-        #     relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_QUEUE_TEXT_REL_H
-        # )
-        # self.labelQueueText.configure(
-        #     font = UI_support.FONT_DEFAULT_BOLD,
-        #     background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
-        #     text = '''QUEUE SIZE'''
-        # )
-        #
-        # newRelY = FS.getRelY(self.labelQueueText) + FS.getRelH(self.labelQueueText)
-        # newRelH = 1 - FS.getRelH(self.labelQueueText)
-        #
-        # self.labelQueueCount = Label(self.labelFrameProcessChiSquareQueue)
-        # self.labelQueueCount.place(
-        #     relx = 0, rely = newRelY,
-        #     relwidth = 1, relheight = newRelH)
-        # self.labelQueueCount.configure(
-        #     font = UI_support.FONT_LARGE_BOLD,
-        #     background = Color_support.SELECT_BG,
-        #     text = '''0'''
-        # )
-        #
-        # # ENQUEUE BUTTON
-        # # Enqueue button parent (to handle centering after pack)
-        #
-        # newRelX = FS.getRelX(self.labelFrameProcessChiSquareQueue) + FS.getRelW(
-        #     self.labelFrameProcessChiSquareQueue)
-        #
-        # self.labelFrameProcessQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
-        # self.labelFrameProcessQueue.place(
-        #     relx = newRelX + 0.025, rely = 0,
-        #     relwidth = 0.25, relheight = 1
-        # )
-        # self.labelFrameProcessQueue.configure(
-        #     background = Color_support.PROCESS_BG
-        # )
-        #
-        # # Enqueue button
-        # self.buttonQueue = Button(self.labelFrameProcessQueue, compound = CENTER)
-        #
-        # im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        # btn_queue_icon = PIL.ImageTk.PhotoImage(im)
-        # self.buttonQueue.configure(
-        #     image = btn_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        # self.buttonQueue.image = btn_queue_icon  # < ! > Required to make images appear
-        #
-        # self.buttonQueue.configure(
-        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
-        #     bd = 1, relief = FLAT, overrelief = FLAT)
-        #
-        # self.buttonQueue.pack(side = LEFT)
-        # self.buttonQueue.update()
-        #
-        # # CLEAR QUEUE BUTTON
-        #
-        # # Clear queue button parent (to handle centering after pack)
-        # self.labelFrameProcessClearQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
-        # self.labelFrameProcessClearQueue.place(
-        #     relx = 0, rely = 0,
-        #     relwidth = 0.25, relheight = 1
-        # )
-        # self.labelFrameProcessClearQueue.configure(
-        #     background = Color_support.PROCESS_BG
-        # )
-        #
-        # self.buttonClearQueue = Button(self.labelFrameProcessClearQueue, compound = CENTER)
-        #
-        # im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        # btn_clear_queue_icon = PIL.ImageTk.PhotoImage(im)
-        # self.buttonClearQueue.configure(
-        #     image = btn_clear_queue_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        # self.buttonClearQueue.image = btn_clear_queue_icon  # < ! > Required to make images appear
-        #
-        # self.buttonClearQueue.configure(
-        #     background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
-        #     bd = 1, relief = FLAT, overrelief = FLAT
-        # )
-        #
-        # self.buttonClearQueue.pack(side = RIGHT)
-        # self.buttonClearQueue.update()
-
-        # endregion
-
-
-
-
-
 
         # PROCESS CHANGE LEVEL OPTIONS
         # region
@@ -2177,7 +1997,7 @@ class AutomatedMining_View:
             relwidth = 1, relheight = UI_support.TAB_TEST_PROCESS_CONFIDENCE_TEXT_REL_H)
         self.labelApplyChangeLevelText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
-            background = Color_support.FG_COLOR, foreground = Color_support.SELECT_BG,
+            background = Color_support.FG_COLOR, foreground = Color_support.PROCESS_BG,
             text = '''MAX LEVEL'''
         )
 
@@ -2403,7 +2223,7 @@ class AutomatedMining_View:
         )
 
         self.labelConsoleScreenTaskBar.configure(
-            background = Color_support.SELECT_LISTBOX_STATUS_BG, foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+            background = Color_support.PROCESS_LISTBOX_STATUS_BG, foreground = Color_support.PROCESS_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
             text = UI_support.LBL_SELECT_NO_DATA,
             font = UI_support.SELECT_STATUS_LABEL_FONT,
@@ -2561,8 +2381,8 @@ class AutomatedMining_View:
         )
         self.listConsoleScreen.configure(
             yscrollcommand = self.scrollConsoleScreen.set,
-            background = Color_support.SELECT_LISTBOX_BG, foreground = Color_support.SELECT_LISTBOX_FG,
-            selectbackground = Color_support.SELECT_LISTBOX_BG, selectforeground = Color_support.SELECT_LISTBOX_FG,
+            background = Color_support.PROCESS_LISTBOX_BG, foreground = Color_support.PROCESS_LISTBOX_FG,
+            selectbackground = Color_support.PROCESS_LISTBOX_BG, selectforeground = Color_support.PROCESS_LISTBOX_FG,
             font = UI_support.FONT_SMALL,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
 
