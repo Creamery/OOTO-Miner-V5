@@ -91,6 +91,8 @@ class AutomatedMining_Controller:
         self.isReadyDatasetB = False
         self.checkIfDatasetReady()
         self.resetDatasetContents()
+        self.enableFilter()  # TODO REMOVE
+
 
     def resetDatasetContents(self):
         # self.populationDataset = []
@@ -1602,7 +1604,7 @@ class AutomatedMining_Controller:
             )
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PLUM)
+            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE)
             texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_pink_stripes
@@ -1618,7 +1620,7 @@ class AutomatedMining_Controller:
             )
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE)
+            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PLUM)
             texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_orange_stripes
