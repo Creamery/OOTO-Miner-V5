@@ -121,10 +121,10 @@ class AutomatedMining_View:
         self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameProcessElements.place(
             # relx = UI_support.TAB_TEST_PROCESS_REL_X,
-            relx = UI_support.TAB_TEST_SELECT_REL_X,
+            relx = UI_support.TAB_TEST_PROCESS_REL_X,
             rely = newRelY,
-            relwidth = UI_support.TAB_TEST_SELECT_REL_W,
-            relheight = UI_support.TAB_TEST_SELECT_REL_H
+            relwidth = UI_support.TAB_TEST_PROCESS_REL_W,
+            relheight = UI_support.TAB_TEST_PROCESS_REL_H
         )
         self.labelFrameProcessElements.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR  # , text = '''PROCESS'''
@@ -145,7 +145,7 @@ class AutomatedMining_View:
 
 
         newRelY = FS.getRelY(self.labelFrameProcessElements) + FS.getRelH(
-            self.labelFrameProcessElements)  # TODO Make constant (space in between)
+            self.labelFrameProcessElements) - 0.05  # TODO Make constant (space in between)
 
         # FILTER Parent Frame
         self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame, bd = 0)
@@ -166,7 +166,7 @@ class AutomatedMining_View:
         self.labelFrameSelectElements.place(
             relx = FS.getRelX(self.labelFrameProcessElements),
             rely = newRelY,
-            relwidth = UI_support.TAB_TEST_PROCESS_REL_W, relheight = UI_support.TAB_TEST_PROCESS_REL_H
+            relwidth = UI_support.TAB_TEST_SELECT_REL_W, relheight = UI_support.TAB_TEST_SELECT_REL_H
         )
         self.labelFrameSelectElements.configure(
             background = Color_support.SELECT_BG, foreground = Color_support.FG_COLOR  # , text = '''SELECT'''
