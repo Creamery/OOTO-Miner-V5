@@ -106,13 +106,13 @@ def purgedCross(cross):
     The input dict_rfe contains:
     OrderedDict([(1, ['b1', 'u4', 'p10']), (2, ['p11']), (3, ['s6'])])
 '''
-def extractCrossFilters(dict_rfe):
+def extractCrossFilters(dict_rfe, controller):
     # print(dict_rfe)
     list_feat_codes = []
     for key, value in dict_rfe.items():
         list_feat_codes.append(value)  # Sample Contents: [[b1, u4, p10],[p11],[s6]]
     list_feat_codes = np.array(list_feat_codes)
-    extracted_filters = convertToCrossFilters(list_feat_codes)
+    extracted_filters = convertToCrossFilters(list_feat_codes, controller)
 
     return extracted_filters
 
@@ -122,7 +122,7 @@ def extractCrossFilters(dict_rfe):
     (i.e. ["b1:a", "b1:b",
            "u3:a", "u3:b"])
 '''
-def convertToCrossFilters(list_feat_codes):
+def convertToCrossFilters(list_feat_codes, controller):
     CROSS = []
 
     for feature_codes in list_feat_codes:

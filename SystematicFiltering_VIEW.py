@@ -57,22 +57,29 @@ class SystematicFiltering_View(_Progressible):
 
         maxProgressBarWidth = self.lblStripe.winfo_width()
         _Progressible.setMaxProgress(self, maxProgressBarWidth)
-        self.updateProgress(50)
+        self.updateProgress(0)
 
 
 
     " INHERITED "
-    def updateProgress(self, percent, args = [""]):
+
+    '''
+         A thread should call this function
+    '''
+    def updateProgress(self, percent, args = ""):
         # call super class
         _Progressible.updateProgress(self, percent)
-        print "MAX BAR WIDTH " + str(self.getMaxProgress())
-        print "CURRENT BAR WIDTH " + str(self.getCurrentProgress())
+        # print "MAX BAR WIDTH " + str(self.getMaxProgress())
+        # print "CURRENT BAR WIDTH " + str(self.getCurrentProgress())
 
         self.getLblCurrentProgress().place(width = self.getCurrentProgress())
         # self.getLblCurrentProgress().update()
-        self.getLblCurrentDetails().configure(text = str(int(self.getCurrentPercent())) + "%")
+        if len(args) == 0:
+            self.getLblCurrentDetails().configure(text = str(int(self.getCurrentPercent())) + "%")
+        else:
+            self.getLblCurrentDetails().configure(text = str(args))
 
-        strProgressInfo = str(args[0])
+        strProgressInfo = str(args)
         self.getLbProgressConsole().insert(0, strProgressInfo)
 
 

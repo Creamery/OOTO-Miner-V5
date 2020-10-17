@@ -4,14 +4,17 @@ from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
 
 import UIConstants_support as UICS
+import time
 
 '''
 Returns a dictionary containing the Rankings as keys (1-3) and
 an array of the feature codes under that ranking.
 '''
-def performRFE(df_raw_dataset, ftr_names):
-    # Convert DataFrame object to NumPy array for faster computation
+def performRFE(df_raw_dataset, ftr_names, controller):
+    key = UICS.KEY_RFE_MODULE  # For progress bar
+    i_key = 1
 
+    # Convert DataFrame object to NumPy array for faster computation
     array = df_raw_dataset.values
     # print(array)
     ftrCount = len(ftr_names)
@@ -20,10 +23,22 @@ def performRFE(df_raw_dataset, ftr_names):
     X = array[:, 0:ftrEndIndex]
     Y = array[:, ftrEndIndex]
 
+    controller.updateModuleProgress(key, i_key, "Starting RFE MODULE")  # 1
+    i_key = i_key + 1
+    time.sleep(0.01)
+
+    controller.updateModuleProgress(key, i_key, "Extracting Features")  # 2
+    i_key = i_key + 1
+    time.sleep(0.01)
+
     # TODO (Future) Double check selected features
     model = LogisticRegression(solver = 'liblinear', multi_class = 'auto')  # or lbfgs or liblinear
     rfe = RFE(model, UICS.MAX_RANK)  # The second parameter is the number of top features to select
     fit = rfe.fit(X, Y)
+
+    controller.updateModuleProgress(key, i_key, "Successfully Extracted Features")  # 3
+    i_key = i_key + 1
+    time.sleep(0.01)
 
     # for i in range(X.shape[1]):
     #     print('Column: %d, Selected %s, Rank: %.3f' % (i, rfe.support_[i], rfe.ranking_[i]))
@@ -33,7 +48,14 @@ def performRFE(df_raw_dataset, ftr_names):
     # print("Feature Ranking: %s" % (fit.ranking_))
     # print("Feature Names: ")
 
+    controller.updateModuleProgress(key, i_key, "Preparing RFE Results")  # 4
+    i_key = i_key + 1
+    time.sleep(0.01)
+
     dict_rfe = prepareDictResult(ftr_names, fit.ranking_)
+    controller.updateModuleProgress(key, i_key, "Successfully Created Result Dictionary")  # 5
+    time.sleep(0.01)
+
     # print(dict_rfe)
     return dict_rfe
 

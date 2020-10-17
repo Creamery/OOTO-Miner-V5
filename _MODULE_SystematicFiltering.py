@@ -51,6 +51,7 @@ class SystematicFiltering:
 
     def start(self):
         print("Start Systematic Filtering (From SFModule")
+        self.controller.startCrossProcessThread()
 
 
     # region callable functions
