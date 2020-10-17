@@ -50,8 +50,7 @@ class SystematicFiltering:
 
 
     def start(self):
-        print("UPDATE")
-        self.controller.updateProgress(1000)
+        print("Start Systematic Filtering (From SFModule")
 
 
     # region callable functions

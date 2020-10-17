@@ -336,6 +336,7 @@ def copyWidgetConfiguration(widget, reference):
             highlightthickness = reference['highlightthickness']
         )
 
+
 def emborder(parentFrame, placeInfo = [0, 0, None, None],
              conditions = [True, True, True, True], colors = [None, None, None, None]):
     # region handle defaults
@@ -639,14 +640,6 @@ def createFilter(featureSet, featureGroupMap):
         filters.append(filter)
 
     return filters
-
-
-def convertDatasetValuesToGroups(dataset, featureDescription):
-    print "DATASET IS "
-    print str(dataset)
-    print ""
-    print "featureDescription IS "
-    print str(featureDescription)
 
 
 

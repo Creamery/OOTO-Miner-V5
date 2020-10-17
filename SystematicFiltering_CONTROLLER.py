@@ -59,6 +59,7 @@ class SystematicFiltering_Controller:
     " FUNCTIONS "
 
     def updateProgress(self, progress, args = [""]):
+
         self.view.updateProgress(progress, args)
 
 

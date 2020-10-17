@@ -5,7 +5,8 @@ class _Progressible:
     def __init__(self):
         self.__currentProgress = 0
         self.__currentPercent = 0
-        self.setMaxProgress(100)
+        self.__maxProgress = 1
+        self.__maxPercent = 100
         self.__isComplete = False
 
     def resetProgress(self, maxProgress):
@@ -14,11 +15,14 @@ class _Progressible:
         self.__isComplete = False
         self.setMaxProgress(maxProgress)
 
-    def updateProgress(self, progress, args = [""]):
+    def updateProgress(self, percent, args = [""]):
         # self.setCurrentProgress(self.getCurrentProgress() + progress)
+        self.setCurrentPercent(percent)
+        progress = self.getMaxProgress() * (percent / self.getMaxPercent())
+
+        # self.setCurrentPercent(progress)
         self.setCurrentProgress(progress)
-        self.setCurrentPercent(self.getCurrentProgress() / self.getMaxProgress())
-        if self.getCurrentPercent() == 100:
+        if self.getCurrentPercent() == self.getMaxPercent():
             self.completeProgress()
 
     def completeProgress(self):
@@ -28,6 +32,9 @@ class _Progressible:
     def getMaxProgress(self):
         return float(self.__maxProgress)
 
+    def getMaxPercent(self):
+        return float(self.__maxPercent)
+
     def getCurrentProgress(self):
         return float(self.__currentProgress)
 
@@ -35,12 +42,17 @@ class _Progressible:
         return float(self.__currentPercent)
 
     def getCurrentDecimal(self):
-        return float(self.getCurrentPercent() / float(100))
+        return float(self.getCurrentPercent() * float(0.01))
 
     def isComplete(self):
         return self.__isComplete
 
+
     " SETTERS "
+    ''' 
+        The maximum width of the label that serves as
+        the progress bar.
+    '''
     def setMaxProgress(self, value):
         self.__maxProgress = float(value)
 
@@ -51,3 +63,5 @@ class _Progressible:
 
     def setCurrentPercent(self, value):
         self.__currentPercent = float(value)
+
+

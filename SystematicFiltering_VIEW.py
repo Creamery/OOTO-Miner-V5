@@ -43,9 +43,9 @@ from _Progressible import _Progressible
 class SystematicFiltering_View(_Progressible):
 
     def __init__(self, parentWindow):
+        # super(SystematicFiltering_View, self).__init__()
         # call _Progressible constructor
         _Progressible.__init__(self)
-        # super(SystematicFiltering_View, self).__init__()
 
         self.__parentFrame = WS.createDefaultFrame(parentWindow,
                                                    [0, 0, 1, 1],
@@ -55,42 +55,64 @@ class SystematicFiltering_View(_Progressible):
         WS.redraw(self.__parentFrame)
 
 
+        maxProgressBarWidth = self.lblStripe.winfo_width()
+        _Progressible.setMaxProgress(self, maxProgressBarWidth)
+        self.updateProgress(50)
+
+
+
     " INHERITED "
-    def updateProgress(self, progress, args = [""]):
+    def updateProgress(self, percent, args = [""]):
         # call super class
-        _Progressible.updateProgress(self, progress)
-        print "dec is " + str(self.getCurrentDecimal())
-        self.getLblCurrentProgress().place(relwidth = self.getCurrentDecimal())
+        _Progressible.updateProgress(self, percent)
+        print "MAX BAR WIDTH " + str(self.getMaxProgress())
+        print "CURRENT BAR WIDTH " + str(self.getCurrentProgress())
+
+        self.getLblCurrentProgress().place(width = self.getCurrentProgress())
         # self.getLblCurrentProgress().update()
-        self.getLblCurrentDetails().configure(text = str(self.getCurrentPercent()) + "%")
+        self.getLblCurrentDetails().configure(text = str(int(self.getCurrentPercent())) + "%")
 
         strProgressInfo = str(args[0])
         self.getLbProgressConsole().insert(0, strProgressInfo)
 
 
 
+    '''
+        Default frames are as follows:
+            > __lfProgressBar
+            > 
+    '''
     # region initialization functions
     def initializeWidgets(self, parentFrame):
+        y = 10
         self.__lfProgressBar = WS.createDefaultFrame(parentFrame,
-                                                     [0, 0, 1, 1],
+                                                     [0, y, 1, 0.7],
                                                      [True, True])
         # region create the progress header widgets
         lblHeader = WS.createDefaultHeader(self.__lfProgressBar, "PROGRESS",
                                            [0, 0, 1, FS.headerHeight], [True, False])
 
-
-
-        lblStripe = WS.createDefaultStripe(self.__lfProgressBar,
+        self.lblStripe = WS.createDefaultStripe(self.__lfProgressBar,
                                            [0, 0, 1, FS.stripeHeight], [True, False], IS.TEXTURE_STRIPE_GREY)
-        FS.placeBelow(lblStripe, lblHeader)
+        FS.placeBelow(self.lblStripe, lblHeader)
 
         # self.__lblGreyStripe = WS.createDefaultStripe(lblStripe, [0, 0, 1, 1],
         #                                               [True, True], IS.TEXTURE_STRIPE_GREY)
         # self.__lblGreyStripe.place(relwidth = 0)
 
-        self.__lblGreenStripe = WS.createDefaultStripe(lblStripe, [0, 0, 1, 1],
+        self.__lblGreenStripe = WS.createDefaultStripe(self.lblStripe, [0, 0, 0.999, 1],
                                                        [True, True], IS.TEXTURE_STRIPE_LIME)
         self.__lblGreenStripe.place(relwidth = 0)
+        borderColor = CS.L_GRAY
+        print(self.__lfProgressBar.place_info())
+        # WS.emborder(self.__lfProgressBar,
+        #             [0, 0, None, None],
+        #             [True, True, True, True],
+        #             [borderColor, borderColor, borderColor, borderColor]
+        #             )
+
+
+
         # endregion create the progress header widgets
 
         # region create the current progress widgets
@@ -114,13 +136,14 @@ class SystematicFiltering_View(_Progressible):
             # lblTitle.winfo_width(), 0, self.lfCurrentProgress.winfo_width() - lblTitle.winfo_width(), 1,
             [0, 0, 1, 1], [True, True],
             CS.WHITE, CS.D_GRAY, US.FONT_DEFAULT)
-        borderColor = CS.L_GRAY
-        WS.emborder(self.__lblCurrentDetails,
-                    [0, 0, None, None],
-                    [True, True, True, True],
-                    [borderColor, borderColor, borderColor, borderColor]
-                    )
-        FS.placeBelow(self.__lfCurrentProgress, lblStripe)
+        FS.placeBelow(self.__lfCurrentProgress, self.lblStripe)
+
+        # borderColor = CS.L_GRAY
+        # WS.emborder(self.__lblCurrentDetails,
+        #             [0, 0, None, None],
+        #             [True, True, True, True],
+        #             [borderColor, borderColor, borderColor, borderColor]
+        #             )
         # endregion create the current progress widgets
 
         # region create console listbox widgets
@@ -132,12 +155,19 @@ class SystematicFiltering_View(_Progressible):
                                                          [True, False])
         self.lbProgressConsole = WS.createDefaultListbox(self.__lfProgressConsole, SINGLE)
         FS.placeBelow(self.__lfProgressConsole, self.__lfCurrentProgress)
+
+        borderColor = CS.L_GRAY
+        # WS.emborder(self.lbProgressConsole,
+        #             [0, 0, None, None],
+        #             [True, True, True, True],
+        #             [borderColor, borderColor, borderColor, borderColor]
+        #             )
         # endregion create console listbox widgets
 
         # region create command widgets
         self.__lfConsoleCommands = WS.createDefaultFrame(self.__lfProgressBar,
                                                          [0, 0, 1, FS.commandsHeight], [True, False])
-        WS.emborder(self.__lfConsoleCommands, [0, 0, None, None], [True, False, False, False])
+        # WS.emborder(self.__lfConsoleCommands, [0, 0, None, None], [True, False, False, False])
         FS.placeBelow(self.__lfConsoleCommands, self.__lfProgressConsole)
 
 
