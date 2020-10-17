@@ -12,7 +12,6 @@ an array of the feature codes under that ranking.
 '''
 def performRFE(df_raw_dataset, ftr_names, controller):
     key = UICS.KEY_RFE_MODULE  # For progress bar
-    i_key = 1
 
     # Convert DataFrame object to NumPy array for faster computation
     array = df_raw_dataset.values
@@ -23,12 +22,10 @@ def performRFE(df_raw_dataset, ftr_names, controller):
     X = array[:, 0:ftrEndIndex]
     Y = array[:, ftrEndIndex]
 
-    controller.updateModuleProgress(key, i_key, "Starting RFE MODULE")  # 1
-    i_key = i_key + 1
+    controller.updateModuleProgress(key, "Starting RFE MODULE")  # 1
     time.sleep(0.01)
 
-    controller.updateModuleProgress(key, i_key, "Extracting Features")  # 2
-    i_key = i_key + 1
+    controller.updateModuleProgress(key, "Extracting Features")  # 2
     time.sleep(0.01)
 
     # TODO (Future) Double check selected features
@@ -36,8 +33,7 @@ def performRFE(df_raw_dataset, ftr_names, controller):
     rfe = RFE(model, UICS.MAX_RANK)  # The second parameter is the number of top features to select
     fit = rfe.fit(X, Y)
 
-    controller.updateModuleProgress(key, i_key, "Successfully Extracted Features")  # 3
-    i_key = i_key + 1
+    controller.updateModuleProgress(key, "Successfully Extracted Features")  # 3
     time.sleep(0.01)
 
     # for i in range(X.shape[1]):
@@ -48,12 +44,11 @@ def performRFE(df_raw_dataset, ftr_names, controller):
     # print("Feature Ranking: %s" % (fit.ranking_))
     # print("Feature Names: ")
 
-    controller.updateModuleProgress(key, i_key, "Preparing RFE Results")  # 4
-    i_key = i_key + 1
+    controller.updateModuleProgress(key, "Preparing RFE Results")  # 4
     time.sleep(0.01)
 
     dict_rfe = prepareDictResult(ftr_names, fit.ranking_)
-    controller.updateModuleProgress(key, i_key, "Successfully Created Result Dictionary")  # 5
+    controller.updateModuleProgress(key, "Successfully Created Result Dictionary")  # 5
     time.sleep(0.01)
 
     # print(dict_rfe)

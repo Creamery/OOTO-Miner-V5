@@ -85,7 +85,7 @@ class SystematicFiltering_Controller:
     '''
         FUNCTIONS - For updating the progress bar
     '''
-    def updateModuleProgress(self, key, current_iteration, description):
+    def updateModuleProgress(self, key, description):
         UICS.iterateProcessKey(key)  # Increment the given key's progress by 1
 
         key_values = UICS.getProcessKeyValues(key)  # Get the current key's value and max value
@@ -96,13 +96,20 @@ class SystematicFiltering_Controller:
         current_process_iterator = key_values[1]
         current_section_progress = float(current_process_iterator) / float(max_process_count)
 
+        if current_section_progress > 0.1:  # If progress is too small to record, set the value to the smallest allowed
+            current_section_progress = 0.1
 
         # The current progress will be the current section progress multiplied by
         # the current section number over the total number of sections (done in the
         # section_percent variable)
         section_percent = UICS.getSectionPercent(key)
+        print("")
+        print("CURRENT SECTION PROGRESS IS " + str(current_section_progress))
+        print("SECTION PERCENT IS " + str(section_percent))
         progress = current_section_progress * section_percent
-
+        progress = progress * 100
+        print("PROGRESS IS " + str(progress))
+        print("")
         self.updateProgress(progress, "    " + description)
 
 
