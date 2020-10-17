@@ -408,8 +408,8 @@ def centerWindow(window, reference = None, offsetX = 0, offsetY = 0):
     window.update()
     winWidth = window.winfo_width()
     winHeight = window.winfo_height()
-    print("winWidth " + str(winWidth))
-    print("winHeight " + str(winHeight))
+    # print("winWidth " + str(winWidth))
+    # print("winHeight " + str(winHeight))
 
     if reference is None:
         parentWidth = window.winfo_screenwidth()

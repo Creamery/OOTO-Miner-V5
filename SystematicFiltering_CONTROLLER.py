@@ -103,7 +103,7 @@ class SystematicFiltering_Controller:
         section_percent = UICS.getSectionPercent(key)
         progress = current_section_progress * section_percent
 
-        self.updateProgress(progress, description)
+        self.updateProgress(progress, "    " + description)
 
 
 
