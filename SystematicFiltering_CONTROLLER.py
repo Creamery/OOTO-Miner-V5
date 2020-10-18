@@ -94,20 +94,35 @@ class SystematicFiltering_Controller:
         # by the key by dividing the key's current progress from its max progress
         max_process_count = key_values[0]
         current_process_iterator = key_values[1]
-        current_section_progress = float(current_process_iterator) / float(max_process_count)
 
-        if current_section_progress > 0.1:  # If progress is too small to record, set the value to the smallest allowed
-            current_section_progress = 0.1
+        # The amount to add for a single successful process under the given section
+        single_section_progress = float(1) / float(max_process_count)
 
-        # The current progress will be the current section progress multiplied by
-        # the current section number over the total number of sections (done in the
-        # section_percent variable)
-        section_percent = UICS.getSectionPercent(key)
+        # The current section progress is a single process times the current iteration of that section
+        current_section_progress = float(current_process_iterator) * single_section_progress
+
+        # The progress of this section as part of the whole process
+        section_progress_from_whole = current_section_progress * UICS.SINGLE_SECTION_PERCENT
+        UICS.setKeyDecimalProgress(key, section_progress_from_whole)
+
+        # if current_section_progress > 0.1:  # If progress is too small to record, set the value to the smallest allowed
+        #     current_section_progress = 0.1
+
+        # Get the percent of the previous section
+        prev_running_percent = UICS.getPrevKeyRunningProgress(key)
+
         print("")
+        print(key)
+        print("SINGLE SECTION " + str(single_section_progress))
+        print("ITERATOR " + str(current_process_iterator))
+        print("MAX PROGRESS " + str(max_process_count))
         print("CURRENT SECTION PROGRESS IS " + str(current_section_progress))
-        print("SECTION PERCENT IS " + str(section_percent))
-        progress = current_section_progress * section_percent
-        progress = progress * 100
+        print("PREV RUNNING PERCENT IS " + str(prev_running_percent))
+
+
+        progress = section_progress_from_whole
+        progress = (progress + prev_running_percent)  # Previous section progress(es) + current section's progress
+        progress = progress * 100  # Multiply by 100 to express as percent
         print("PROGRESS IS " + str(progress))
         print("")
         self.updateProgress(progress, "    " + description)

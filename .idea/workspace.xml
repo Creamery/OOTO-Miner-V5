@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/Filter_support.py" description="    # TODO PRINT VALUES FOR PAPER&#10;" line="37" />
-    <bookmark url="file://$PROJECT_DIR$/Filter_support.py" line="140" />
+    <bookmark url="file://$PROJECT_DIR$/Filter_support.py" description="    # TODO PRINT VALUES FOR PAPER&#10;" line="39" />
+    <bookmark url="file://$PROJECT_DIR$/Filter_support.py" line="153" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/CrossProcess_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RFE_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/RFE_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filter_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Filter_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UIConstants_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UIConstants_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS p10(b).xlsx" afterDir="false" />
@@ -63,8 +62,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="130">
-                    <caret line="98" column="41" selection-start-line="98" selection-start-column="41" selection-end-line="98" selection-end-column="41" />
+                  <state relative-caret-position="434">
+                    <caret line="111" column="61" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="61" />
                     <folding>
                       <element signature="e#392#408#0" expanded="true" />
                     </folding>
@@ -92,8 +91,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/UIConstants_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="292">
-                    <caret line="60" column="36" selection-start-line="60" selection-start-column="36" selection-end-line="60" selection-end-column="36" />
+                  <state relative-caret-position="444">
+                    <caret line="200" column="72" selection-start-line="200" selection-start-column="72" selection-end-line="200" selection-end-column="72" />
                   </state>
                 </provider>
               </entry>
@@ -121,8 +120,8 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/Filter_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="217">
-                    <caret line="124" column="53" selection-start-line="124" selection-start-column="53" selection-end-line="124" selection-end-column="53" />
+                  <state relative-caret-position="446">
+                    <caret line="147" column="72" selection-start-line="147" selection-start-column="72" selection-end-line="147" selection-end-column="72" />
                     <folding>
                       <element signature="e#0#13#0" expanded="true" />
                     </folding>
@@ -145,8 +144,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="206">
-                    <caret line="56" column="99" selection-start-line="56" selection-start-column="99" selection-end-line="56" selection-end-column="99" />
+                  <state relative-caret-position="-456">
+                    <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
                     <folding>
                       <element signature="e#0#13#0" expanded="true" />
                     </folding>
@@ -196,7 +195,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>runAutoma</find>
       <find>Apply</find>
       <find>runSystem</find>
       <find>print</find>
@@ -225,6 +223,7 @@
       <find>print(</find>
       <find>winWidth</find>
       <find>0.0</find>
+      <find>UICS</find>
       <find>i_key</find>
     </findStrings>
     <replaceStrings>
@@ -308,23 +307,23 @@
         <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
-        <option value="$PROJECT_DIR$/Filter_support.py" />
         <option value="$PROJECT_DIR$/SystematicFiltering_VIEW.py" />
         <option value="$PROJECT_DIR$/Widget_support.py" />
         <option value="$PROJECT_DIR$/_Progressible.py" />
         <option value="$PROJECT_DIR$/Function_support.py" />
-        <option value="$PROJECT_DIR$/UIConstants_support.py" />
         <option value="$PROJECT_DIR$/RFE_support.py" />
-        <option value="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/CrossProcess_support.py" />
+        <option value="$PROJECT_DIR$/Filter_support.py" />
+        <option value="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" />
+        <option value="$PROJECT_DIR$/UIConstants_support.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-8" />
-    <option name="y" value="37" />
-    <option name="width" value="1515" />
-    <option name="height" value="1050" />
+    <option name="x" value="482" />
+    <option name="y" value="158" />
+    <option name="width" value="1360" />
+    <option name="height" value="864" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -545,15 +544,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="30" width="1212" height="840" extended-state="1" />
+    <frame x="386" y="127" width="1088" height="691" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" order="0" visible="true" weight="0.28596187" />
+      <window_info id="Project" order="0" visible="true" weight="0.32038835" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.44238976" />
-      <window_info active="true" anchor="bottom" x="82" y="178" width="967" height="494" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.56137186" />
+      <window_info active="true" anchor="bottom" x="413" y="145" width="967" height="494" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.41536275" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -895,16 +894,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Filter_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="124" column="53" selection-start-line="124" selection-start-column="53" selection-end-line="124" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
@@ -1061,6 +1050,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_Progressible.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/RFE_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -1071,10 +1067,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UIConstants_support.py">
+    <entry file="file://$PROJECT_DIR$/Filter_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="60" column="36" selection-start-line="60" selection-start-column="36" selection-end-line="60" selection-end-column="36" />
+        <state relative-caret-position="446">
+          <caret line="147" column="72" selection-start-line="147" selection-start-column="72" selection-end-line="147" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-456">
+          <caret line="12" column="3" selection-start-line="12" selection-start-column="3" selection-end-line="12" selection-end-column="3" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1088,30 +1097,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_Progressible.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="98" column="41" selection-start-line="98" selection-start-column="41" selection-end-line="98" selection-end-column="41" />
+        <state relative-caret-position="434">
+          <caret line="111" column="61" selection-start-line="111" selection-start-column="36" selection-end-line="111" selection-end-column="61" />
           <folding>
             <element signature="e#392#408#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+    <entry file="file://$PROJECT_DIR$/UIConstants_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="56" column="99" selection-start-line="56" selection-start-column="99" selection-end-line="56" selection-end-column="99" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="444">
+          <caret line="200" column="72" selection-start-line="200" selection-start-column="72" selection-end-line="200" selection-end-column="72" />
         </state>
       </provider>
     </entry>

@@ -3,6 +3,8 @@ import itertools
 import numpy as np
 import copy
 import collections
+import time
+import UIConstants_support as UICS
 
 PP = pprint.PrettyPrinter(indent = 4)
 OPTION_CODES = [":a", ":b"]  # TODO (Future) confirm this
@@ -123,7 +125,15 @@ def extractCrossFilters(dict_rfe, controller):
            "u3:a", "u3:b"])
 '''
 def convertToCrossFilters(list_feat_codes, controller):
+    key = UICS.KEY_FILTERING_MODULE
+
     CROSS = []
+    controller.updateModuleProgress(key, "Starting FILTER MODULE")  # 1
+    time.sleep(0.01)
+
+
+    controller.updateModuleProgress(key, "Creating SSF Array")  # 2
+    time.sleep(0.01)
 
     for feature_codes in list_feat_codes:
         SSF = []
@@ -134,6 +144,9 @@ def convertToCrossFilters(list_feat_codes, controller):
         # print(SSF)
         SSF = np.array(SSF)
         CROSS.append(SSF)
+
+    controller.updateModuleProgress(key, "Successfully Created SSF Array")  # 3
+    time.sleep(0.01)
 
     CROSS = np.array(CROSS)
     return CROSS
