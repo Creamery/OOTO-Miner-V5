@@ -258,10 +258,23 @@ class SystematicFiltering_View(_Progressible):
 
         self.createOverlay()
 
-        self.__lfDialogueFrame = self.__initializeWindow(self.root)
+        overlay_width = self.__winDialogueOverlay.winfo_width()
+        overlay_height = self.__winDialogueOverlay.winfo_height()
+        dialogue_frame_width = int(overlay_width * 0.4)
+        dialogue_frame_height = int(overlay_height * 0.4)
+        self.__lfDialogueFrame = self.__initializeWindow(self.root, dialogue_frame_width, dialogue_frame_height)
+        # self.__lfDialogueFrame.geometry(str(dialogue_frame_width) + "x" + str(dialogue_frame_height))
         self.__winDialogueOverlay.lower(self.__lfDialogueFrame)
 
+        borderColor = CS.L_GRAY
+        WS.emborder(self.__lfDialogueFrame,
+                    [0, 0, None, None],
+                    [True, True, True, True],
+                    [borderColor, borderColor, borderColor, borderColor]
+                    )
 
+
+        self.grip = GS.GripLabel(self.__lfDialogueFrame, False, False)
 
         btn_width = 40
         btn_height = btn_width
@@ -269,31 +282,55 @@ class SystematicFiltering_View(_Progressible):
 
         frame_parent_width = self.__lfDialogueFrame.winfo_width()
         frame_parent_height = self.__lfDialogueFrame.winfo_height()
-        self.grip = GS.GripLabel(self.__lfDialogueFrame, False, False)
         rel_width = float(btn_width) / float(frame_parent_width)
         rel_height = float(btn_height) / float(frame_parent_height)
 
         rel_x = 0.5 - (rel_width / 2)
         rel_y = 0.5 - (rel_height / 2)
 
-        # START MINING Button
-        self.btnCloseDialog = Button(self.__lfDialogueFrame)
-        self.btnCloseDialog.place(
+        # "NO" DIALOG Button
+        self.btnDialog_NO = Button(self.__lfDialogueFrame)
+        self.btnDialog_NO.place(
             relx = rel_x, rely = rel_y,
             width = btn_width, height = btn_height)
 
         im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
         btn_start_AM = PIL.ImageTk.PhotoImage(im)
-        self.btnCloseDialog.configure(
+        self.btnDialog_NO.configure(
             image = btn_start_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnCloseDialog.image = btn_start_AM  # < ! > Required to make images appear
+        self.btnDialog_NO.image = btn_start_AM  # < ! > Required to make images appear
 
-        self.btnCloseDialog.configure(
+        self.btnDialog_NO.configure(
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE
         )
+
+
+        # "YES" DIALOG BUTTON
+        # self.btnCloseDialog = Button(self.__lfDialogueFrame)
+        # self.btnCloseDialog.place(
+        #     relx = rel_x, rely = rel_y,
+        #     width = btn_width, height = btn_height)
+        #
+        # im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
+        # btn_start_AM = PIL.ImageTk.PhotoImage(im)
+        # self.btnCloseDialog.configure(
+        #     image = btn_start_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        # self.btnCloseDialog.image = btn_start_AM  # < ! > Required to make images appear
+        #
+        # self.btnCloseDialog.configure(
+        #     background = CS.WHITE, foreground = CS.D_BLUE,
+        #     activebackground = CS.FILTER_BG,
+        #     highlightthickness = 0, padx = 0, pady = 0,
+        #     bd = 0, relief = FLAT, overrelief = GROOVE
+        # )
+
+
+
+
+
 
         # self.__configureBorders(self.__lfDialogueFrame)
 
@@ -350,7 +387,7 @@ class SystematicFiltering_View(_Progressible):
         self.__winDialogueOverlay = None
         self.root.deiconify()
 
-    def __initializeWindow(self, root):
+    def __initializeWindow(self, root, win_width = FS.sfWidth, win_height = FS.sfHeight):
         top = Toplevel(root)
 
         # remove title bar
@@ -369,7 +406,7 @@ class SystematicFiltering_View(_Progressible):
         self.style.configure('.', font = "TkDefaultFont")
 
         # center window
-        strDimensions = str(FS.sfWidth) + "x" + str(FS.sfHeight)
+        strDimensions = str(win_width) + "x" + str(win_height)
         top.geometry(strDimensions)
         root.update()
         newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
@@ -381,7 +418,7 @@ class SystematicFiltering_View(_Progressible):
 
     def createOverlay(self):
         height_offset = FS.gripHeight
-        self.__winDialogueOverlay = WS.createOverlayWindow(self.root, height_offset)
+        self.__winDialogueOverlay = WS.createOverlayWindow(self.root)
         self.hasOverlay = True
         # self.__winDialogueOverlay.lower(self.__lfDialogueFrame)
         # self.__configureBorders(self.__lfDialogueFrame)
@@ -500,8 +537,8 @@ class SystematicFiltering_View(_Progressible):
     def getBtnStopCrossProcess(self):
         return self.__btnStopCrossProcess
 
-    def getBtnCloseDialog(self):
-        return self.btnCloseDialog
+    def getBtnDialog_NO(self):
+        return self.btnDialog_NO
 
     def getLbProgressConsole(self):
         return self.lbProgressConsole

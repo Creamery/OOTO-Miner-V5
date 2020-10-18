@@ -97,6 +97,7 @@ class SystematicFiltering_Controller:
         self.bindDialogButtons()
 
     def closeDialog(self, event):
+        # print("CLOSED")
         self.view.closeDialog()
 
     def declareBindingVariables(self):
@@ -108,7 +109,7 @@ class SystematicFiltering_Controller:
 
 
     def bindDialogButtons(self):
-        button = self.view.getBtnCloseDialog()
+        button = self.view.getBtnDialog_NO()
         button.bind('<Button-1>', self.closeDialog)
 
     def bindParentGripButtons(self):
