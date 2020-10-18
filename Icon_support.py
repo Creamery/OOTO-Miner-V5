@@ -60,6 +60,7 @@ TAB_ICO_DOWN_ARROW_ON = PATH + '\\_icons\\ico_down_arrow_on.png'
 
 
 # Initialize AM window icons
+AM_ICO_START = PATH + '\\_icons\\ico_check.png'
 AM_ICO_CANCEL = PATH + '\\_icons\\ico_cross.png'
 
 TEXTURE_STRIPE_ORANGE = PATH + '\\_icons\\texture_stripe_orange.png'

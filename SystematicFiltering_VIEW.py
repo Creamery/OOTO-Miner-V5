@@ -230,7 +230,7 @@ class SystematicFiltering_View(_Progressible):
             relx = rel_x, rely = rel_y,
             width = btn_width, height = btn_height)
 
-        im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(IS.AM_ICO_START).resize(icon_size, PIL.Image.ANTIALIAS)
         btn_start_AM = PIL.ImageTk.PhotoImage(im)
         self.__btnStartCrossProcess.configure(
             image = btn_start_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
