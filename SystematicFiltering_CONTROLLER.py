@@ -100,6 +100,10 @@ class SystematicFiltering_Controller:
         # print("CLOSED")
         self.view.closeDialog()
 
+    def closeProcessWindow(self, event):
+        self.view.closeDialog()
+        self.getParentGrip().onTopClose()
+
     def declareBindingVariables(self):
         self.icon_check_on = None
         self.icon_check_off = None
@@ -111,6 +115,9 @@ class SystematicFiltering_Controller:
     def bindDialogButtons(self):
         button = self.view.getBtnDialog_NO()
         button.bind('<Button-1>', self.closeDialog)
+
+        button = self.view.getBtnDialog_YES()
+        button.bind('<Button-1>', self.closeProcessWindow)
 
     def bindParentGripButtons(self):
         # button.bind("<Button-1>", lambda event: self.onTopClose())

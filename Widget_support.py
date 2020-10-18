@@ -128,7 +128,7 @@ def createDefaultFrame(parentFrame, placeInfo = [0, 0, 1, 1],
     return lfFrame
 
 
-def createDefaultHeader(parentFrame, wText = "", placeInfo = [0,0,1,1],
+def createDefaultHeader(parentFrame, wText = "", placeInfo = [0, 0, 1, 1],
                         isRelative = [True, True], bgColor = CS.D_BLUE, fgColor = CS.WHITE,
                         wFont = US.FONT_DEFAULT_BOLD):
     wX = placeInfo[0]
@@ -140,12 +140,12 @@ def createDefaultHeader(parentFrame, wText = "", placeInfo = [0,0,1,1],
 
     lblHeader.place(x = wX, y = wY,)
     # region relative conditions
-    if isRelative[0]: # width is relative
+    if isRelative[0]:  # width is relative
         lblHeader.place(relwidth = wWidth)
     else:
         lblHeader.place(width = wWidth)
 
-    if isRelative[1]: # height is relative
+    if isRelative[1]:  # height is relative
         lblHeader.place(relheight = wHeight)
     else:
         lblHeader.place(height = wHeight)

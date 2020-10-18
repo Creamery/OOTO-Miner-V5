@@ -260,45 +260,67 @@ class SystematicFiltering_View(_Progressible):
 
         overlay_width = self.__winDialogueOverlay.winfo_width()
         overlay_height = self.__winDialogueOverlay.winfo_height()
-        dialogue_frame_width = int(overlay_width * 0.4)
-        dialogue_frame_height = int(overlay_height * 0.4)
+        dialogue_frame_width = int(overlay_width * 0.45)
+        dialogue_frame_height = int(overlay_height * 0.37)  # + FS.gripHeight
         self.__lfDialogueFrame = self.__initializeWindow(self.root, dialogue_frame_width, dialogue_frame_height)
         # self.__lfDialogueFrame.geometry(str(dialogue_frame_width) + "x" + str(dialogue_frame_height))
         self.__winDialogueOverlay.lower(self.__lfDialogueFrame)
 
-        borderColor = CS.L_GRAY
-        WS.emborder(self.__lfDialogueFrame,
-                    [0, 0, None, None],
-                    [True, True, True, True],
-                    [borderColor, borderColor, borderColor, borderColor]
-                    )
 
+        bg_color = CS.D_GRAY
+        self.lblBodyBorder = WS.createDefaultHeader(self.__lfDialogueFrame, "",
+                                                    [0, 0, 1, 1], [True, True],
+                                                    bg_color)
+        bg_color = CS.WHITE
+        self.lblBody = WS.createDefaultHeader(self.lblBodyBorder, "",
+                                              [1, 0, 0.99, 0.99], [True, True],
+                                              bg_color)
+        # borderColor = CS.L_GRAY
+        # WS.emborder(self.lblBody,
+        #             [0, 0, 1, 1],
+        #             [True, True, True, True],
+        #             [borderColor, borderColor, borderColor, borderColor]
+        #             )
 
         self.grip = GS.GripLabel(self.__lfDialogueFrame, False, False)
 
+
+
+        message_y = 0
+        message_rel_height = 0.68
+        bg_color = CS.WHITE
+        self.lblMessage = WS.createDefaultHeader(self.lblBody, "",
+                                                 [0, message_y, 1, message_rel_height], [True, True],
+                                                 bg_color)
+        # Button Parent
+        button_rel_height = 1 - message_rel_height
+        bg_color = CS.WHITE
+        self.lblButtons = WS.createDefaultHeader(self.lblBody, "",
+                                                 [0, 0, 1, button_rel_height], [True, True],
+                                                 bg_color)
+        FS.placeBelow(self.lblButtons, self.lblMessage)
+
+        # Button Variables
         btn_width = 40
         btn_height = btn_width
         icon_size = (btn_width, btn_height)
+        rel_x = 0.2
+        rel_y = 0.1
 
-        frame_parent_width = self.__lfDialogueFrame.winfo_width()
-        frame_parent_height = self.__lfDialogueFrame.winfo_height()
-        rel_width = float(btn_width) / float(frame_parent_width)
-        rel_height = float(btn_height) / float(frame_parent_height)
-
-        rel_x = 0.5 - (rel_width / 2)
-        rel_y = 0.5 - (rel_height / 2)
-
+        parent_width = self.lblButtons.winfo_width()
+        rel_width = float(btn_width) / float(parent_width)
+        print(rel_width)
         # "NO" DIALOG Button
-        self.btnDialog_NO = Button(self.__lfDialogueFrame)
+        self.btnDialog_NO = Button(self.lblButtons)
         self.btnDialog_NO.place(
             relx = rel_x, rely = rel_y,
             width = btn_width, height = btn_height)
 
         im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
-        btn_start_AM = PIL.ImageTk.PhotoImage(im)
+        btn_cross = PIL.ImageTk.PhotoImage(im)
         self.btnDialog_NO.configure(
-            image = btn_start_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnDialog_NO.image = btn_start_AM  # < ! > Required to make images appear
+            image = btn_cross)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.btnDialog_NO.image = btn_cross  # < ! > Required to make images appear
 
         self.btnDialog_NO.configure(
             background = CS.WHITE, foreground = CS.D_BLUE,
@@ -307,25 +329,24 @@ class SystematicFiltering_View(_Progressible):
             bd = 0, relief = FLAT, overrelief = GROOVE
         )
 
-
         # "YES" DIALOG BUTTON
-        # self.btnCloseDialog = Button(self.__lfDialogueFrame)
-        # self.btnCloseDialog.place(
-        #     relx = rel_x, rely = rel_y,
-        #     width = btn_width, height = btn_height)
-        #
-        # im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
-        # btn_start_AM = PIL.ImageTk.PhotoImage(im)
-        # self.btnCloseDialog.configure(
-        #     image = btn_start_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        # self.btnCloseDialog.image = btn_start_AM  # < ! > Required to make images appear
-        #
-        # self.btnCloseDialog.configure(
-        #     background = CS.WHITE, foreground = CS.D_BLUE,
-        #     activebackground = CS.FILTER_BG,
-        #     highlightthickness = 0, padx = 0, pady = 0,
-        #     bd = 0, relief = FLAT, overrelief = GROOVE
-        # )
+        self.btnDialog_YES = Button(self.lblButtons)
+        self.btnDialog_YES.place(
+            relx = 1 - rel_x - rel_width, rely = rel_y,
+            width = btn_width, height = btn_height)
+
+        im = PIL.Image.open(IS.TAB_ICO_CHECK).resize(icon_size, PIL.Image.ANTIALIAS)
+        btn_check = PIL.ImageTk.PhotoImage(im)
+        self.btnDialog_YES.configure(
+            image = btn_check)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.btnDialog_YES.image = btn_check  # < ! > Required to make images appear
+
+        self.btnDialog_YES.configure(
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            activebackground = CS.FILTER_BG,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE
+        )
 
 
 
@@ -539,6 +560,9 @@ class SystematicFiltering_View(_Progressible):
 
     def getBtnDialog_NO(self):
         return self.btnDialog_NO
+
+    def getBtnDialog_YES(self):
+        return self.btnDialog_YES
 
     def getLbProgressConsole(self):
         return self.lbProgressConsole
