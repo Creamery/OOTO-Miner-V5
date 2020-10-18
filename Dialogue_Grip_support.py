@@ -33,6 +33,7 @@ class DialogueGripLabel:
         self.winOverlayWidth = None
         self.winOverlayHeight = None
         self.showOverlay = showOverlay
+        self.isActive = True
 
         self.parentWidth = parentFrame.winfo_width()
         self.parentHeight = parentFrame.winfo_height()
@@ -53,13 +54,25 @@ class DialogueGripLabel:
                     [True, True, True, True],
                     [borderColor, borderColor, CS.L_GRAY, borderColor])
 
-
     def assignOverlay(self, overlay, root):
         self.hasOverlay = True
         self.root = root
         self.winOverlay = overlay
         self.winOverlayWidth = self.winOverlay.winfo_width()
         self.winOverlayHeight = self.winOverlay.winfo_height()
+
+        if not self.showOverlay:
+            self.hideOverlay()
+
+    def resizeOverlay(self, x, y, width, height):
+        self.winOverlayWidth = width
+        self.winOverlayHeight = height
+
+        strX = str(x)
+        strY = str(y)
+        strWidth = str(self.winOverlayWidth)
+        strHeight = str(self.winOverlayHeight)
+        self.winOverlay.geometry(strWidth + "x" + strHeight + "+" + strX + "+" + strY)
 
         if not self.showOverlay:
             self.hideOverlay()
@@ -79,15 +92,6 @@ class DialogueGripLabel:
         strShowHeight = str(self.winOverlayHeight)
         self.winOverlay.geometry(strShowWidth + "x" + strShowHeight)
 
-    def resizeOverlay(self, width, height):
-        self.hasOverlay = True
-        self.root = root
-        self.winOverlay = overlay
-        self.winOverlayWidth = self.winOverlay.winfo_width()
-        self.winOverlayHeight = self.winOverlay.winfo_height()
-
-        if not self.showOverlay:
-            self.hideOverlay()
 
     def createGrip(self, parentFrame):
         parentFrame.update()
@@ -137,16 +141,20 @@ class DialogueGripLabel:
     def hideDialogue(self):
         self.isDialogueHidden = True
         self.top.geometry(str(0) + "x" + str(0))
+        self.hideOverlay()
 
     def showDialogue(self):
         self.isDialogueHidden = False
         self.top.geometry(self.strRootWidth + "x" + self.strRootHeight)
 
     def onTopClose(self):
+        print("DIALOGUE GRIP CLOSED")
+        self.hideDialogue()
         self.destroyOverlay()
+        self.isActive = False
         self.top.destroy()
         self.top = None
-        return "break"
+        # return "break"
 
     def destroyOverlay(self):
         if self.hasOverlay:
@@ -156,19 +164,22 @@ class DialogueGripLabel:
 
     """ Functions for draggable window """
     def startWinMove(self, event):
-        self.gripX = event.x
-        self.gripY = event.y
+        if self.isActive:
+            self.gripX = event.x
+            self.gripY = event.y
 
     def stopWinMove(self, event):
-        self.top.x = None
-        self.top.y = None
+        if self.isActive:
+            self.top.x = None
+            self.top.y = None
 
     def onWinMove(self, event):
-        deltaX = event.x - self.gripX
-        deltaY = event.y - self.gripY
-        x = self.top.winfo_x() + deltaX
-        y = self.top.winfo_y() + deltaY
-        self.top.geometry("+%s+%s" % (x, y))
+        if self.isActive:
+            deltaX = event.x - self.gripX
+            deltaY = event.y - self.gripY
+            x = self.top.winfo_x() + deltaX
+            y = self.top.winfo_y() + deltaY
+            self.top.geometry("+%s+%s" % (x, y))
 
     """ GETTERS """
     def getGrip(self):
@@ -178,4 +189,3 @@ class DialogueGripLabel:
         return self.isDialogueHidden
 
 
-    

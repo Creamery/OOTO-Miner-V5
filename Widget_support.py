@@ -75,13 +75,13 @@ def createDefaultToplevelWindow(root, placeInfo = [800, 600],
     return top
 
 
-def createOverlayWindow(root, bgColor = CS.BLACK):
+def createOverlayWindow(root, gripHeightOffset = 0, bgColor = CS.BLACK):
     wX = root.winfo_x()
     wY = root.winfo_y()
     wWidth = root.winfo_width()
-    wHeight = root.winfo_height()
+    wHeight = root.winfo_height() + gripHeightOffset
 
-    print "x y is " + str(wX) + " and " + str(wY)
+    # print "x y is " + str(wX) + " and " + str(wY)
     top = createDefaultToplevelWindow(root, [wWidth, wHeight], True, False)
     top.wm_attributes('-alpha', 0.7)
 

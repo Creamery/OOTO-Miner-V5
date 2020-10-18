@@ -77,3 +77,4 @@ CORNER_ROUND_NE = PATH + '\\_icons\\corner_curve_ne.png'
 CORNER_ROUND_NW = PATH + '\\_icons\\corner_curve_nw.png'
 CORNER_ROUND_SE = PATH + '\\_icons\\corner_curve_se.png'
 CORNER_ROUND_SW = PATH + '\\_icons\\corner_curve_sw.png'
+

@@ -40,6 +40,7 @@ import Function_support as FS
 import Widget_support as WS
 import Icon_support as IS
 import UI_support as US
+import Grip_support as GS
 
 from _Progressible import _Progressible
 import UIConstants_support as UICS
@@ -51,6 +52,8 @@ class SystematicFiltering_View(_Progressible):
         # super(SystematicFiltering_View, self).__init__()
         # call _Progressible constructor
         _Progressible.__init__(self)
+        self.hasOverlay = False
+        self.root = parentWindow
         self.declareBindingVariables()  # Initializes the button binding variables as None
         self.dictWidgetPlace = collections.OrderedDict()  # For hiding and showing elements
         self.__parentFrame = WS.createDefaultFrame(parentWindow,
@@ -58,12 +61,12 @@ class SystematicFiltering_View(_Progressible):
                                                    [True, True])
         self.__parentFrame.place(relx = 0.02, relwidth = 0.96)
         self.initializeWidgets(self.__parentFrame)
+        self.initializeDialogue(parentWindow)
         WS.redraw(self.__parentFrame)
 
 
         maxProgressBarWidth = self.lblStripe.winfo_width()
         _Progressible.setMaxProgress(self, maxProgressBarWidth)
-
         self.showStartMining()
 
 
@@ -193,9 +196,7 @@ class SystematicFiltering_View(_Progressible):
         y_offset = 6
         FS.placeBelow(self.__lfConsoleCommands, self.__lfProgressConsole, y_offset)
 
-
-
-        # TODO
+        # BUTTONS
         btn_width = 40
         btn_height = btn_width
         icon_size = (btn_width, btn_height)
@@ -253,7 +254,180 @@ class SystematicFiltering_View(_Progressible):
             bd = 0, relief = FLAT, overrelief = GROOVE
         )
         # endregion create command widgets
-    # endregion initialization functions
+
+    def initializeDialogue(self, parentWindow):
+
+        self.createOverlay()
+
+        # self.winTop = self.__initializeWindow(self.root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
+        # self.winTop.configure(bg = CS.WHITE)
+        # self.grip = GS.GripLabel(self.winTop, False, True)
+        # self.grip.assignOverlay(self.__winDialogueOverlay, self.root)
+
+        self.__lfDialogueFrame = self.__initializeWindow(self.root)
+        # self.__lfDialogueFrame = WS.createDefaultFrame(parentWindow,
+        #                                                [0, 0, 1, 1],
+        #                                                [True, True], CS.SALMON_LIGHT)
+
+
+
+        self.__winDialogueOverlay.lower(self.__lfDialogueFrame)
+
+        btn_width = 40
+        btn_height = btn_width
+        icon_size = (btn_width, btn_height)
+
+        self.ico_width_check = btn_width
+        self.ico_height_check = btn_height
+
+        self.ico_width_cross = btn_width
+        self.ico_height_cross = btn_height
+
+        frame_parent_width = self.__lfDialogueFrame.winfo_width()
+        frame_parent_height = self.__lfDialogueFrame.winfo_height()
+        rel_width = float(btn_width) / float(frame_parent_width)
+        rel_height = float(btn_height) / float(frame_parent_height)
+
+        rel_x = 0.5 - (rel_width / 2)
+        rel_y = 0.5 - (rel_height / 2)
+
+        # START MINING Button
+        self.__btnOverlay = Button(self.__lfDialogueFrame)
+        self.__btnOverlay.place(
+            relx = rel_x, rely = rel_y,
+            width = btn_width, height = btn_height)
+
+        im = PIL.Image.open(IS.AM_ICO_START).resize(icon_size, PIL.Image.ANTIALIAS)
+        btn_start_AM = PIL.ImageTk.PhotoImage(im)
+        self.__btnOverlay.configure(
+            image = btn_start_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.__btnOverlay.image = btn_start_AM  # < ! > Required to make images appear
+
+        self.__btnOverlay.configure(
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            activebackground = CS.FILTER_BG,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE
+        )
+
+
+        # self.__configureBorders(self.__lfDialogueFrame)
+
+
+        # self.__winDialogueOverlay = WS.createOverlayWindow(parentWindow, FS.gripHeight)
+
+
+        # self.lblOverlay = WS.createDefaultHeader(self.__lfDialogueOverlay, "",
+        #                                          [0, 0, 1, 1], [True, True])
+        # im = PIL.Image.open(IS.TEXTURE_BLACK).resize((50, 50), PIL.Image.ANTIALIAS)
+        # img_overlay = PIL.ImageTk.PhotoImage(im)
+        # self.lblOverlay.configure(image = img_overlay)
+        # self.lblOverlay.image = img_overlay
+
+
+        '''
+        self.__lfDialogue = WS.createDefaultFrame(self.__lfDialogueOverlay,
+                                                  [0, 0, 0.6, 0.6],
+                                                  [True, True], CS.WHITE)
+        # region create the progress header widgets
+        bg_color = CS.PALER_YELLOW
+        lblGrip = WS.createDefaultHeader(self.__lfDialogue, "Dialogue",
+                                         [0, 0, 1, FS.headerHeight], [True, False],
+                                         bg_color)
+
+        borderColor = CS.L_GRAY
+        WS.emborder(self.__lfDialogue,
+                    [0, 0, None, None],
+                    [True, True, True, True],
+                    [borderColor, borderColor, borderColor, borderColor]
+                    )
+        '''
+
+    def hideOverlay(self):
+        # self.__winDialogueOverlay
+        # self.__lfDialogueFrame.config(width = 0, height = 0)
+
+        strDimensions = str(0) + "x" + str(0)
+        self.__lfDialogueFrame.geometry(strDimensions)
+
+        self.__lfDialogueFrame.destroy()
+        self.__winDialogueOverlay.geometry(str(0) + "x" + str(0))
+
+        self.__configureUnbind()
+        self.__winDialogueOverlay.destroy()
+        self.__winDialogueOverlay = None
+        self.root.deiconify()
+
+    def __initializeWindow(self, root):
+        top = Toplevel(root)
+
+        # remove title bar
+        top.overrideredirect(True)
+        top.after(10, lambda: WS.showInTaskBar(top))
+
+        # top.transient(root)
+        top.grab_set()
+        # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
+        top.resizable(0, 0)
+
+        self.style = ttk.Style()
+        if sys.platform == "win32":
+            self.style.theme_use('winnative')
+
+        self.style.configure('.', font = "TkDefaultFont")
+
+        # center window
+        strDimensions = str(FS.sfWidth) + "x" + str(FS.sfHeight)
+        top.geometry(strDimensions)
+        root.update()
+        newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
+        top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
+
+        top.title("Systematic Filtering")
+        return top
+
+
+    def createOverlay(self):
+        height_offset = FS.gripHeight
+        self.__winDialogueOverlay = WS.createOverlayWindow(self.root, height_offset)
+        self.hasOverlay = True
+        # self.__winDialogueOverlay.lower(self.__lfDialogueFrame)
+        # self.__configureBorders(self.__lfDialogueFrame)
+        self.__configureBind()
+
+    def __configureBorders(self, parentFrame):
+        borderWidth = parentFrame.winfo_width()
+        borderHeight = parentFrame.winfo_height()
+        borderColor = CS.D_GRAY
+        WS.emborder(parentFrame,
+                    [0, 0, borderWidth, borderHeight],
+                    [True, True, True, True],
+                    [borderColor, borderColor, borderColor, borderColor])
+
+    def __handleConfigure(self, event):
+        # print self.root.tk.eval('wm stackorder '+str(self.winOverlay)+' isabove '+ str(self.root))
+        # print "Stackorder: " + self.root.tk.eval('wm stackorder '+str(self.root))
+        overlayBelowRoot = self.root.tk.eval('wm stackorder ' + str(self.__winDialogueOverlay)+ ' isabove ' + str(self.root))
+        if overlayBelowRoot:
+            self.__winDialogueOverlay.lift(self.root)
+            self.root.lower(self.__winDialogueOverlay)
+
+        self.__configureUnbind()
+        # set a short delay before re-binding to avoid infinite loops
+        self.root.after(1, lambda: self.__configureBind())
+
+    def destroyOverlay(self):
+        if self.hasOverlay:
+            self.unbindOverlay()
+            self.winOverlay.destroy()
+            self.winOverlay = None
+
+    def __configureBind(self):
+        self.root.bind("<Configure>", self.__handleConfigure)
+
+    def __configureUnbind(self):
+        self.root.unbind("<Configure>")
+
 
 
     '''
@@ -333,6 +507,9 @@ class SystematicFiltering_View(_Progressible):
 
     def getBtnStopCrossProcess(self):
         return self.__btnStopCrossProcess
+
+    def getBtnOverlay(self):
+        return self.__btnOverlay
 
     def getLbProgressConsole(self):
         return self.lbProgressConsole

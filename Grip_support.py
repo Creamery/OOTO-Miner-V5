@@ -106,7 +106,7 @@ class GripLabel:
 
 
     def onTopClose(self):
-
+        print("GRIP CLOSED")
         if self.hasPrompt:
             if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
                 self.destroyOverlay()

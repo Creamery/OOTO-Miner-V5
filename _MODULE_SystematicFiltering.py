@@ -47,19 +47,20 @@ class SystematicFiltering:
         self.__configureBind()
         # WS.makeModal(self.winTop, self.root)  # make the window modal by setting root's wait_window
 
-        self.winDialogueOverlay = WS.createOverlayWindow(root)
-        self.winDialogueTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
-        self.winDialogueTop.configure(bg = CS.WHITE)
-        self.gripDialogue = self.__configureDialogueGrip(self.winDialogueTop, self.winDialogueOverlay, root)
-        self.__configureBorders(self.winDialogueTop)
-        self.winDialogueOverlay.lower(self.winDialogueTop)
 
+        # self.winDialogueOverlay = WS.createOverlayWindow(root)
+        # self.winDialogueTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
+        # self.winDialogueTop.configure(bg = CS.WHITE)
+        # self.gripDialogue = self.__configureDialogueGrip(self.winDialogueTop, self.winDialogueOverlay, root)
+        # self.__configureBorders(self.winDialogueTop)
+        # self.winDialogueOverlay.lower(self.winDialogueTop)
+        # self.controller.setDialogueGrip(self.gripDialogue)
+        # self.controller.resizeDialogueOverlay()
 
-    def __configureDialogueGrip(self, parentWindow, winDialogueOverlay, root):
-        dialogue_grip = DGS.DialogueGripLabel(parentWindow, True, False)
-        dialogue_grip.assignOverlay(winDialogueOverlay, root)
-
-        return dialogue_grip
+    # def __configureDialogueGrip(self, parentWindow, winDialogueOverlay, root):
+    #     dialogue_grip = DGS.DialogueGripLabel(parentWindow, True, True)
+    #     dialogue_grip.assignOverlay(winDialogueOverlay, root)
+    #     return dialogue_grip
 
     # def start(self):
     #     print("Start Systematic Filtering (From SFModule")
@@ -92,7 +93,7 @@ class SystematicFiltering:
         self.root.unbind("<Configure>")
     # endregion overlay functions
 
-    def __initializeWindow(self, root,):
+    def __initializeWindow(self, root):
         top = Toplevel(root)
 
         # remove title bar
@@ -120,6 +121,34 @@ class SystematicFiltering:
         top.title("Systematic Filtering")
         return top
 
+
+    # def __initializeDialogueWindow(self, root):
+    #     top = Toplevel(root)
+    #
+    #     # remove title bar
+    #     top.overrideredirect(True)
+    #     top.after(10, lambda: WS.showInTaskBar(top))
+    #
+    #     # top.transient(root)
+    #     top.grab_set()
+    #     # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
+    #     top.resizable(0, 0)
+    #
+    #     self.style = ttk.Style()
+    #     if sys.platform == "win32":
+    #         self.style.theme_use('winnative')
+    #
+    #     self.style.configure('.', font = "TkDefaultFont")
+    #
+    #     # center window
+    #     strDimensions = str(FS.sfWidth) + "x" + str(FS.sfHeight)
+    #     top.geometry(strDimensions)
+    #     root.update()
+    #     newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
+    #     top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
+    #
+    #     top.title("Systematic Filtering")
+    #     return top
 
     '''
         Configure the draggable top bar.

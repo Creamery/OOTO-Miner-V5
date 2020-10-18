@@ -52,10 +52,27 @@ class SystematicFiltering_Controller:
     def __init__(self, model, view):
         self.model = model
         self.view = view
+        self.grip = None
+        # self.dialogue_grip = None
 
         self.setDictResults(None)
         self.declareBindingVariables()
         self.configureViewBindings()
+
+
+        # self.winDialogueOverlay = WS.createOverlayWindow(self.view.getFrame())
+        # self.winDialogueTop = self.__initializeWindow(self.view.getFrame())  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
+        # self.winDialogueTop.configure(bg = CS.WHITE)
+        # self.gripDialogue = self.__configureDialogueGrip(self.winDialogueTop, self.winDialogueOverlay, root)
+        # self.__configureBorders(self.winDialogueTop)
+        # self.winDialogueOverlay.lower(self.winDialogueTop)
+        # self.controller.setDialogueGrip(self.gripDialogue)
+        # self.controller.resizeDialogueOverlay()
+
+    # def __configureDialogueGrip(self, parentWindow, winDialogueOverlay, root):
+    #     dialogue_grip = DGS.DialogueGripLabel(parentWindow, True, True)
+    #     dialogue_grip.assignOverlay(winDialogueOverlay, root)
+    #     return dialogue_grip
 
     '''
         Connect buttons from view with their functionality
@@ -72,6 +89,13 @@ class SystematicFiltering_Controller:
         button.bind("<Enter>", self.enterCrossIcon)
         button.bind("<Leave>", self.leaveCrossIcon)
 
+
+        button = self.view.getBtnOverlay()
+        button.bind('<Button-1>', self.overlayAction)
+
+
+    def overlayAction(self, event):
+        self.view.hideOverlay()
 
     def declareBindingVariables(self):
         self.icon_check_on = None
@@ -216,6 +240,16 @@ class SystematicFiltering_Controller:
             image = self.icon_cross_off)
         item.image = self.icon_cross_off  # < ! > Required to make images appear
 
+    # def resizeDialogueOverlay(self):
+    #     # x = self.view.getFrame().winfo_x()
+    #     # y = self.view.getFrame().winfo_y()
+    #
+    #     width = self.view.getFrame().winfo_width()
+    #     height = self.view.getFrame().winfo_height()
+    #     x = float(width) / float(2)
+    #     y = float(height) / float(2)  # self.view.getFrame().winfo_y()
+    #     self.dialogue_grip.resizeOverlay(int(x), int(y), width, height)
+
     '''
         GETTERS / SETTERS
     '''
@@ -230,6 +264,12 @@ class SystematicFiltering_Controller:
 
     def setGrip(self, module_grip):
         self.grip = module_grip
+
+    # def getDialogueGrip(self):
+    #     return self.dialogue_grip
+
+    # def setDialogueGrip(self, grip):
+    #     self.dialogue_grip = grip
 
     def getIcoSizeCheck(self):
         width = self.view.getIcoWidthCheck()
