@@ -14,7 +14,6 @@ except ImportError:
     py3 = 1
 
 # import tkMessageBox
-import Color_support as CS
 import Function_support as FS
 import Grip_support as GS
 import Widget_support as WS
@@ -37,11 +36,12 @@ class SystematicFiltering:
         self.controller = CONTROLLER.SystematicFiltering_Controller(self.model, self.view)
 
         self.grip = self.__configureGrip(self.winTop, self.winOverlay, self.root)
-        FS.placeBelow(self.view.getFrame(), self.grip)
+        self.controller.setGrip(self.grip)
+
+        FS.placeBelow(self.view.getFrame(), self.grip.getGrip())
 
         self.__configureBorders(self.winTop)
         self.winOverlay.lower(self.winTop)
-
 
         self.__configureBind()
         # WS.makeModal(self.winTop, self.root)  # make the window modal by setting root's wait_window
@@ -116,7 +116,7 @@ class SystematicFiltering:
         grip = GS.GripLabel(parentWindow, False, False)
         grip.assignOverlay(winOverlay, root)
 
-        return grip.getGrip()
+        return grip
 
     def __configureBorders(self, parentFrame):
         borderWidth = parentFrame.winfo_width()

@@ -38,11 +38,12 @@ import Widget_support as WS
 import Icon_support as IS
 import UI_support as US
 from _THREAD_CrossProcess import CrossProcessThread
+import Grip_support as GS
 
 from threading import Thread
 import AutomatedMining_RUN as AM_R
 import tkMessageBox
-import time
+import collections
 
 import UIConstants_support as UICS
 
@@ -52,22 +53,44 @@ class SystematicFiltering_Controller:
         self.model = model
         self.view = view
 
+        self.setDictResults(None)
+        self.declareBindingVariables()
         self.configureViewBindings()
 
+    '''
+        Connect buttons from view with their functionality
+    '''
     def configureViewBindings(self):
         button = self.view.getBtnStartCrossProcess()
         button.bind('<Button-1>', self.startAutomatedMining)
+        button.bind("<Enter>", self.enterCheckIcon)
+        button.bind("<Leave>", self.leaveCheckIcon)
+
 
         button = self.view.getBtnStopCrossProcess()
         button.bind('<Button-1>', self.stopAutomatedMining)
+        button.bind("<Enter>", self.enterCrossIcon)
+        button.bind("<Leave>", self.leaveCrossIcon)
 
-    " FUNCTIONS "
+
+    def declareBindingVariables(self):
+        self.icon_check_on = None
+        self.icon_check_off = None
+
+        self.icon_cross_on = None
+        self.icon_cross_off = None
+
+
+
+
+    '''
+        FUNCTIONS
+    '''
     '''
         This function calls the update progress in its view.
     '''
     def updateProgress(self, progress, description = ""):
         self.view.updateProgress(progress, description)
-
 
 
     def startAutomatedMining(self, event):
@@ -80,8 +103,13 @@ class SystematicFiltering_Controller:
     def stopAutomatedMining(self, event):
         self.view.showStartMining()
         # TODO Perform necessary warnings in view before stopping
+        self.closeWindow()
 
         return "break"
+
+
+    def closeWindow(self):  # TODO
+        self.getGrip().onTopClose()
 
     '''
         FUNCTIONS - For updating the progress bar
@@ -117,22 +145,99 @@ class SystematicFiltering_Controller:
             # Get the percent of the previous section
             prev_running_percent = UICS.getPrevKeyRunningProgress(key)
 
-            # print("")
-            # print(key)
-            # print("SINGLE SECTION " + str(single_section_progress))
-            # print("ITERATOR " + str(current_process_iterator))
-            # print("MAX PROGRESS " + str(max_process_count))
-            # print("CURRENT SECTION PROGRESS IS " + str(current_section_progress))
-            # print("PREV RUNNING PERCENT IS " + str(prev_running_percent))
-
-
             progress = section_progress_from_whole
             progress = (progress + prev_running_percent)  # Previous section progress(es) + current section's progress
             progress = progress * 100  # Multiply by 100 to express as percent
 
             self.updateProgress(progress, "    " + description)
 
+    '''
+        FUNCTIONS - For Sections 2 and 3 functionality
+    '''
+    def searchResults(self, feat_code):
+        if self.dict_results is not None:  # Check if dict_results was ever initialized
+            dict_output = collections.OrderedDict()
+            for key, value in self.dict_results.items():
+                if feat_code in str(key):
+                    dict_output[key] = value
 
+            return dict_output
+
+
+
+    '''
+        FUNCTIONS - For button effects
+    '''
+    def enterCheckIcon(self, event):
+        if self.icon_check_on is None:
+            iconSize = self.getIcoSizeCheck()
+            im = PIL.Image.open(IS.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_check_on = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_check_on)
+        item.image = self.icon_check_on  # < ! > Required to make images appear
+
+
+    def leaveCheckIcon(self, event):
+        if self.icon_check_off is None:
+            iconSize = self.getIcoSizeCheck()
+            im = PIL.Image.open(IS.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_check_off = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_check_off)
+        item.image = self.icon_check_off  # < ! > Required to make images appear
+
+
+    def enterCrossIcon(self, event):
+        if self.icon_cross_on is None:
+            iconSize = self.getIcoSizeCross()
+            im = PIL.Image.open(IS.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_cross_on = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_cross_on)
+        item.image = self.icon_cross_on  # < ! > Required to make images appear
+
+    def leaveCrossIcon(self, event):
+        if self.icon_cross_off is None:
+            iconSize = self.getIcoSizeCross()
+            im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_cross_off = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_cross_off)
+        item.image = self.icon_cross_off  # < ! > Required to make images appear
+
+    '''
+        GETTERS / SETTERS
+    '''
+    def getDictResults(self):
+        return self.dict_results
+
+    def setDictResults(self, dict_results):
+        self.dict_results = dict_results
+
+    def getGrip(self):
+        return self.grip
+
+    def setGrip(self, module_grip):
+        self.grip = module_grip
+
+    def getIcoSizeCheck(self):
+        width = self.view.getIcoWidthCheck()
+        height = self.view.getIcoHeightCheck()
+        return width, height
+
+    def getIcoSizeCross(self):
+        width = self.view.getIcoWidthCross()
+        height = self.view.getIcoHeightCross()
+        return width, height
 
 
 
@@ -171,11 +276,6 @@ def changeText(label, text):
     # current_text = label.get()
     # label.set(current_text + "Text updated")
     label.set(text + "Text updated")
-
-
-
-    " GETTERS "
-
 
 
 

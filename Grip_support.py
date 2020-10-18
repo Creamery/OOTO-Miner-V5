@@ -104,6 +104,7 @@ class GripLabel:
         button.bind("<Button-1>", lambda event: self.onTopClose())
         return button
 
+
     def onTopClose(self):
         if self.hasPrompt:
             if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):

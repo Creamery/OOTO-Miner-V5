@@ -44,13 +44,13 @@ import UI_support as US
 from _Progressible import _Progressible
 import UIConstants_support as UICS
 
-
 class SystematicFiltering_View(_Progressible):
 
     def __init__(self, parentWindow):
         # super(SystematicFiltering_View, self).__init__()
         # call _Progressible constructor
         _Progressible.__init__(self)
+        self.declareBindingVariables()  # Initializes the button binding variables as None
         self.dictWidgetPlace = collections.OrderedDict()  # For hiding and showing elements
         self.__parentFrame = WS.createDefaultFrame(parentWindow,
                                                    [0, 0, 1, 1],
@@ -64,6 +64,14 @@ class SystematicFiltering_View(_Progressible):
         _Progressible.setMaxProgress(self, maxProgressBarWidth)
 
         self.showStartMining()
+
+    def declareBindingVariables(self):
+        self.ico_width_check = None
+        self.ico_height_check = None
+
+        self.ico_width_cross = None
+        self.ico_height_cross = None
+
 
     " INHERITED "
 
@@ -189,6 +197,13 @@ class SystematicFiltering_View(_Progressible):
         btn_width = 40
         btn_height = btn_width
         icon_size = (btn_width, btn_height)
+
+        self.ico_width_check = btn_width
+        self.ico_height_check = btn_height
+
+        self.ico_width_cross = btn_width
+        self.ico_height_cross = btn_height
+
 
         frame_parent_width = self.__lfConsoleCommands.winfo_width()
         frame_parent_height = self.__lfConsoleCommands.winfo_height()
@@ -320,3 +335,17 @@ class SystematicFiltering_View(_Progressible):
     def getLbProgressConsole(self):
         return self.lbProgressConsole
     # endregion getters
+
+    def getIcoWidthCheck(self):
+        return self.ico_width_check
+
+    def getIcoHeightCheck(self):
+        return self.ico_height_check
+
+    def getIcoWidthCross(self):
+        return self.ico_width_cross
+
+    def getIcoHeightCross(self):
+        return self.ico_height_cross
+
+
