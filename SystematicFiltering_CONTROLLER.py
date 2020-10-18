@@ -61,11 +61,10 @@ class SystematicFiltering_Controller:
 
     " FUNCTIONS "
     '''
-        For this function, the passed parameter 'args' gives the
-        message to show on below the progress bar.
+        This function calls the update progress in its view.
     '''
-    def updateProgress(self, progress, args = ""):
-        self.view.updateProgress(progress, args)
+    def updateProgress(self, progress, description = ""):
+        self.view.updateProgress(progress, description)
 
 
     def startCrossProcessThread(self):
@@ -86,47 +85,50 @@ class SystematicFiltering_Controller:
         FUNCTIONS - For updating the progress bar
     '''
     def updateModuleProgress(self, key, description):
-        UICS.iterateProcessKey(key)  # Increment the given key's progress by 1
+        if key is 0:  # Key = 0 is used for the first message
+            progress = 0
+            self.updateProgress(progress, description)
 
-        key_values = UICS.getProcessKeyValues(key)  # Get the current key's value and max value
+        else:
+            UICS.iterateProcessKey(key)  # Increment the given key's progress by 1
 
-        # Compute the progress for the current section of the program indicated
-        # by the key by dividing the key's current progress from its max progress
-        max_process_count = key_values[0]
-        current_process_iterator = key_values[1]
+            key_values = UICS.getProcessKeyValues(key)  # Get the current key's value and max value
 
-        # The amount to add for a single successful process under the given section
-        single_section_progress = float(1) / float(max_process_count)
+            # Compute the progress for the current section of the program indicated
+            # by the key by dividing the key's current progress from its max progress
+            max_process_count = key_values[0]
+            current_process_iterator = key_values[1]
 
-        # The current section progress is a single process times the current iteration of that section
-        current_section_progress = float(current_process_iterator) * single_section_progress
+            # The amount to add for a single successful process under the given section
+            single_section_progress = float(1) / float(max_process_count)
 
-        # The progress of this section as part of the whole process
-        section_progress_from_whole = current_section_progress * UICS.SINGLE_SECTION_PERCENT
-        UICS.setKeyDecimalProgress(key, section_progress_from_whole)
+            # The current section progress is a single process times the current iteration of that section
+            current_section_progress = float(current_process_iterator) * single_section_progress
 
-        # if current_section_progress > 0.1:  # If progress is too small to record, set the value to the smallest allowed
-        #     current_section_progress = 0.1
+            # The progress of this section as part of the whole process
+            section_progress_from_whole = current_section_progress * UICS.SINGLE_SECTION_PERCENT
+            UICS.setKeyDecimalProgress(key, section_progress_from_whole)
 
-        # Get the percent of the previous section
-        prev_running_percent = UICS.getPrevKeyRunningProgress(key)
+            # if current_section_progress > 0.1:  # If progress is too small to record, set the value to the smallest allowed
+            #     current_section_progress = 0.1
 
-        print("")
-        print(key)
-        print("SINGLE SECTION " + str(single_section_progress))
-        print("ITERATOR " + str(current_process_iterator))
-        print("MAX PROGRESS " + str(max_process_count))
-        print("CURRENT SECTION PROGRESS IS " + str(current_section_progress))
-        print("PREV RUNNING PERCENT IS " + str(prev_running_percent))
+            # Get the percent of the previous section
+            prev_running_percent = UICS.getPrevKeyRunningProgress(key)
+
+            # print("")
+            # print(key)
+            # print("SINGLE SECTION " + str(single_section_progress))
+            # print("ITERATOR " + str(current_process_iterator))
+            # print("MAX PROGRESS " + str(max_process_count))
+            # print("CURRENT SECTION PROGRESS IS " + str(current_section_progress))
+            # print("PREV RUNNING PERCENT IS " + str(prev_running_percent))
 
 
-        progress = section_progress_from_whole
-        progress = (progress + prev_running_percent)  # Previous section progress(es) + current section's progress
-        progress = progress * 100  # Multiply by 100 to express as percent
-        print("PROGRESS IS " + str(progress))
-        print("")
-        self.updateProgress(progress, "    " + description)
+            progress = section_progress_from_whole
+            progress = (progress + prev_running_percent)  # Previous section progress(es) + current section's progress
+            progress = progress * 100  # Multiply by 100 to express as percent
 
+            self.updateProgress(progress, "    " + description)
 
 
 

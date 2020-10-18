@@ -1,5 +1,6 @@
 
 import os
+import time
 # Uploader support for converting read dataset
 import Loader_support as LS
 import RFE_support as RFES
@@ -7,11 +8,15 @@ import Filter_support as FILS
 import CrossProcess_support as CPS
 import UIConstants_support as UICS
 
+
 def loaderModule():
     df_raw_dataset, df_dataset, ftr_names = LS.loadInput()  # Can add parameters
     return df_raw_dataset, df_dataset, ftr_names
 
 def rfeModule(df_raw_dataset, ftr_names, controller):
+    controller.updateModuleProgress(0, UICS.FIRST_MESSAGE_SPACE + "[ Starting Automated OOTO Miner] ")  # 1
+    time.sleep(0.05)
+
     dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names, controller)
     return dict_rfe
 

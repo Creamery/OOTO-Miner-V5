@@ -128,11 +128,11 @@ def convertToCrossFilters(list_feat_codes, controller):
     key = UICS.KEY_FILTERING_MODULE
 
     CROSS = []
-    controller.updateModuleProgress(key, "Starting FILTER MODULE")  # 1
+    controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting FILTER MODULE")  # 1
     time.sleep(0.01)
 
 
-    controller.updateModuleProgress(key, "Creating SSF Array")  # 2
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Creating SSF Array")  # 2
     time.sleep(0.01)
 
     for feature_codes in list_feat_codes:
@@ -145,7 +145,7 @@ def convertToCrossFilters(list_feat_codes, controller):
         SSF = np.array(SSF)
         CROSS.append(SSF)
 
-    controller.updateModuleProgress(key, "Successfully Created SSF Array")  # 3
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Created SSF Array")  # 3
     time.sleep(0.01)
 
     CROSS = np.array(CROSS)

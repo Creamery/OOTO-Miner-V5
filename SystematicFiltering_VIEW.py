@@ -31,6 +31,8 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 from Keys_support import Dataset as KSD
+import math
+from math import modf
 
 import Color_support as CS
 import Function_support as FS
@@ -39,6 +41,8 @@ import Icon_support as IS
 import UI_support as US
 
 from _Progressible import _Progressible
+import UIConstants_support as UICS
+
 
 class SystematicFiltering_View(_Progressible):
 
@@ -57,7 +61,6 @@ class SystematicFiltering_View(_Progressible):
 
         maxProgressBarWidth = self.lblStripe.winfo_width()
         _Progressible.setMaxProgress(self, maxProgressBarWidth)
-        self.updateProgress(0)
 
 
 
@@ -66,21 +69,48 @@ class SystematicFiltering_View(_Progressible):
     '''
          A thread should call this function
     '''
-    def updateProgress(self, percent, args = ""):
-        # call super class
-        _Progressible.updateProgress(self, percent)
-        # print "MAX BAR WIDTH " + str(self.getMaxProgress())
-        # print "CURRENT BAR WIDTH " + str(self.getCurrentProgress())
-
-        self.getLblCurrentProgress().place(width = self.getCurrentProgress())
-        # self.getLblCurrentProgress().update()
-        if len(args) == 0:
+    def updateProgress(self, percent, description = ""):
+        if percent is not 0:
+            # call super class
+            _Progressible.updateProgress(self, percent)
+            self.getLblCurrentProgress().place(width = self.getCurrentProgress())
+            # self.getLblCurrentProgress().update()
+        clean_description = ""
+        if len(description) == 0:
             self.getLblCurrentDetails().configure(text = str(int(self.getCurrentPercent())) + "%")
         else:
-            self.getLblCurrentDetails().configure(text = str(args))
+            # Remove the symbols when showing in the progress bar label
+            clean_description = description.replace(UICS.MODULE_INDICATOR, "")
+            clean_description = clean_description.replace(UICS.SUB_MODULE_INDICATOR, "")
+            self.getLblCurrentDetails().configure(text = str(clean_description.strip()))
 
-        strProgressInfo = str(args)
-        self.getLbProgressConsole().insert(0, strProgressInfo)
+        # Check if the string is a module title and add the necessary underscores before
+        # and after it (cosmetic)
+        if UICS.SINGLE_MODULE_SYMBOL in description:
+            print("[" + UICS.MODULE_INDICATOR + "]")
+            print("[" + clean_description.strip() + "]")
+            len_description = float(len(clean_description))
+            print(len_description)
+            print(UICS.LEN_MODULE_MAX)
+            symbol_count = float((UICS.LEN_MODULE_MAX - len_description) / 2)
+
+            # Check if the half count is a decimal. If so, add another symbol according
+            # to its value (i.e. if its greater than or less than 0.05)
+            symbol_count_decimal = math.modf(symbol_count)
+            addSymbol = ""
+            if symbol_count_decimal >= 0.5:
+                addSymbol = UICS.SINGLE_MODULE_SYMBOL
+                symbol_count = int(symbol_count + 1)
+            else:
+                symbol_count = int(symbol_count)
+
+            print(symbol_count)
+            symbols = ''.join([char * symbol_count for char in UICS.SINGLE_MODULE_SYMBOL])
+
+            description = UICS.PRE_STRING_SPACE + addSymbol + symbols + clean_description + symbols
+
+        strProgressInfo = str(description)
+        self.getLbProgressConsole().insert(END, strProgressInfo)
 
 
 

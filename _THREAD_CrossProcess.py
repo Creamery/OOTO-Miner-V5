@@ -18,7 +18,6 @@ class CrossProcessThread(threading.Thread):
             self.progressible.resetProgress()
 
             while not self.progressible.isComplete():
-                self.progressible.updateProgress(50)
                 # self.prog_bar.after(1, self.process_queue)
                 # self.process_queue()
                 print "progress " + str(self.progressible.getCurrentPercent())

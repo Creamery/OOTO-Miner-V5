@@ -17,7 +17,7 @@ Applies necessary functions to output a printable chi-square comparison table.
 def crossProcess(df_dataset, np_CROSS, controller):
     key = UICS.KEY_PRE_CROSS_MODULE  # Key for progress bar
 
-    controller.updateModuleProgress(key, "Starting CROSS PROCESS MODULE")  # 1
+    controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting CROSS PROCESS MODULE")  # 1
     time.sleep(0.01)
 
     # Generate datasets as dictated by filters
@@ -26,12 +26,12 @@ def crossProcess(df_dataset, np_CROSS, controller):
     #   np_dataset_pairs[type][level]               - A list of levels within the list of cross types
     #   np_dataset_pairs[type][level][0]            - A list of dataset pairs (list) within the list of levels
     #   np_dataset_pairs[0][0][0][0]                - The contents of the list containing the dataset pairs
-    controller.updateModuleProgress(key, "Extracting Datasets by Filter")  # 2
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Extracting Datasets by Filter")  # 2
     time.sleep(0.01)
 
     np_cross_datasets, np_cross_filters = extractDatasets(df_dataset, np_CROSS)  # TODO (Future) Try to optimize
 
-    controller.updateModuleProgress(key, "Successfully Extracted Datasets")  # 3
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Extracted Datasets")  # 3
     time.sleep(0.01)
 
     len_cross_datasets = int(UICS.MAX_CROSS)  # len(np_cross_datasets)
@@ -43,7 +43,7 @@ def crossProcess(df_dataset, np_CROSS, controller):
 
     print("Processing - Please Wait... (Average Runtime for ALL Features - 8 minutes")
 
-    controller.updateModuleProgress(key, "Starting Cross Process : This might take some time...")  # 4
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Starting Cross Process : This might take some time...")  # 4
     time.sleep(0.01)
 
 
@@ -76,7 +76,7 @@ def crossProcess(df_dataset, np_CROSS, controller):
             list_ssfs = []
 
             # Title for the current cross process
-            str_title = "Processing CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "]"  # LVL Pass 1
+            str_title = UICS.SUB_MODULE_INDICATOR + "Processing CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "]"  # LVL Pass 1
             # Update the progress bar about the current CROSS[type][level]
             controller.updateModuleProgress(key, str_title)  # Pass 1
             time.sleep(0.01)
@@ -88,7 +88,7 @@ def crossProcess(df_dataset, np_CROSS, controller):
 
                 str_cross_level_length = str(len_cross_level)
                 #  Description for the current cross process
-                str_description = "     " + str(i_dataset_pairs) + " of " + str_cross_level_length
+                str_description = "         " + str(i_dataset_pairs + 1) + " of " + str_cross_level_length
                 controller.updateModuleProgress(key, str_description)  # INNER PASS 1
 
                 for i_dataset_pair in range(len_dataset_pairs):

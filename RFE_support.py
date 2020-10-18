@@ -13,6 +13,7 @@ an array of the feature codes under that ranking.
 def performRFE(df_raw_dataset, ftr_names, controller):
     key = UICS.KEY_RFE_MODULE  # For progress bar
 
+
     # Convert DataFrame object to NumPy array for faster computation
     array = df_raw_dataset.values
     # print(array)
@@ -22,10 +23,10 @@ def performRFE(df_raw_dataset, ftr_names, controller):
     X = array[:, 0:ftrEndIndex]
     Y = array[:, ftrEndIndex]
 
-    controller.updateModuleProgress(key, "Starting RFE MODULE")  # 1
+    controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting RFE MODULE")  # 1
     time.sleep(0.01)
 
-    controller.updateModuleProgress(key, "Extracting Features")  # 2
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Extracting Features")  # 2
     time.sleep(0.01)
 
     # TODO (Future) Double check selected features
@@ -33,22 +34,15 @@ def performRFE(df_raw_dataset, ftr_names, controller):
     rfe = RFE(model, UICS.MAX_RANK)  # The second parameter is the number of top features to select
     fit = rfe.fit(X, Y)
 
-    controller.updateModuleProgress(key, "Successfully Extracted Features")  # 3
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Extracted Features")  # 3
     time.sleep(0.01)
 
-    # for i in range(X.shape[1]):
-    #     print('Column: %d, Selected %s, Rank: %.3f' % (i, rfe.support_[i], rfe.ranking_[i]))
 
-    # print("Num Features: %s" % (fit.n_features_))
-    # print("Selected Features: %s" % (fit.support_))
-    # print("Feature Ranking: %s" % (fit.ranking_))
-    # print("Feature Names: ")
-
-    controller.updateModuleProgress(key, "Preparing RFE Results")  # 4
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Preparing RFE Results")  # 4
     time.sleep(0.01)
 
     dict_rfe = prepareDictResult(ftr_names, fit.ranking_)
-    controller.updateModuleProgress(key, "Successfully Created Result Dictionary")  # 5
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Created Result Dictionary")  # 5
     time.sleep(0.01)
 
     # print(dict_rfe)
