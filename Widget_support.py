@@ -167,7 +167,7 @@ def createDefaultListbox(parentFrame,
                          placeInfo = [0,0,1,1],
                          isRelative = [True, True],
                          bg = CS.PALER_YELLOW,
-                         bgSelect = CS.DISABLED_ORANGE,
+                         bgSelect = CS.PALE_PLUM,
                          fg = CS.D_BLUE,
                          fgSelect = CS.D_BLUE):
     wX = placeInfo[0]

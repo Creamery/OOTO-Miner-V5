@@ -187,7 +187,7 @@ class AutomatedMining_Model:
             self.__systematicFiltering = SF.SystematicFiltering(root)
         # SF.SystematicFiltering(root)
 
-        self.__systematicFiltering.start()
+        # self.__systematicFiltering.start()
 
     def queryFeature(self, featureID):
         # featureID = self.viewModel.getCurrentFeature()

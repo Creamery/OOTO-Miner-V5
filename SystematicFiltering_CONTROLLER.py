@@ -56,7 +56,7 @@ class SystematicFiltering_Controller:
 
     def configureViewBindings(self):
         button = self.view.getBtnStartCrossProcess()
-        button.bind('<Button-1>', self.startCrossProcessThread)
+        button.bind('<Button-1>', self.startAutomatedMining)
 
 
     " FUNCTIONS "
@@ -67,18 +67,12 @@ class SystematicFiltering_Controller:
         self.view.updateProgress(progress, description)
 
 
-    def startCrossProcessThread(self):
-        print("Cross Process Start")
+
+    def startAutomatedMining(self, event):
+        print("Start Systematic Filtering (From SFModule")
         startCrossProcessThread([self])
 
-        # if not self.model.isCrossProcessing():
-        #     self.model.startSystematicFiltering(self.view)
-        #     # self.view.getFrame().protocol("WM_DELETE_WINDOW", self.stopCrossProcess)
-        #
-        #     # crossProcess = CrossProcessThread(self)
-        #     # crossProcess.start()
-        # else:
-        #     print ("isProcessing")
+        return "break"
 
 
     '''

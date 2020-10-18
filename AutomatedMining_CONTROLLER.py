@@ -99,7 +99,6 @@ class AutomatedMining_Controller:
         self.isReadyDatasetB = False
         self.checkIfDatasetReady()
         self.resetDatasetContents()
-        self.enableFilter()  # TODO REMOVE
 
 
     def resetDatasetContents(self):
@@ -981,7 +980,6 @@ class AutomatedMining_Controller:
 
     ''' Starts the Automated Mining Process (RUN MINER) '''
     def runAutomatedMiner(self, evt):
-        self.enableFilter()
         # df_raw_dataset, df_dataset, ftr_names = LS.loadInput()  # Can add parameters
         # dict_significant_results = AM_R.runAutomatedMining(df_raw_dataset, df_dataset, ftr_names)
         # dict_significant_results = MULTI_S.runAutomatedMining(df_raw_dataset, df_dataset, ftr_names)

@@ -24,7 +24,7 @@ import Icon_support as IS
 
 class GripLabel:
 
-    def __init__(self, parentFrame, hasPrompt = False):
+    def __init__(self, parentFrame, hasPrompt = False, hasClose = True):
         self.top = parentFrame
         self.hasPrompt = hasPrompt
         self.hasOverlay = False
@@ -40,7 +40,8 @@ class GripLabel:
         self.top.geometry(strRootWidth + "x" + strRootHeight)
 
         self.grip = self.createGrip(parentFrame)
-        self.btnClose = self.createGripButtons(self.grip)
+        if hasClose:
+            self.btnClose = self.createGripButtons(self.grip)
 
         WS.redraw(self.grip)
         borderColor = CS.D_GRAY

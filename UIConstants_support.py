@@ -30,7 +30,7 @@ POOL_COUNT = 3
 
 # For Progress Bar
 FIRST_MESSAGE_SPACE = "                                              "
-PRE_STRING_SPACE = " "
+PRE_STRING_SPACE = "   "
 SINGLE_MODULE_SYMBOL = "_"
 MODULE_SYMBOL = "________________________________________________________________"
 LEN_MODULE_MAX = float(len(MODULE_SYMBOL))  # Maximum underscores in a line

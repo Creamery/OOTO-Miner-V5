@@ -49,9 +49,9 @@ class SystematicFiltering:
 
 
 
-    def start(self):
-        print("Start Systematic Filtering (From SFModule")
-        self.controller.startCrossProcessThread()
+    # def start(self):
+    #     print("Start Systematic Filtering (From SFModule")
+    #     self.controller.startCrossProcessThread()
 
 
     # region callable functions
@@ -80,7 +80,7 @@ class SystematicFiltering:
         self.root.unbind("<Configure>")
     # endregion overlay functions
 
-    def __initializeWindow(self, root):
+    def __initializeWindow(self, root,):
         top = Toplevel(root)
 
         # remove title bar
@@ -108,13 +108,13 @@ class SystematicFiltering:
         top.title("Systematic Filtering")
         return top
 
+
     '''
         Configure the draggable top bar.
     '''
     def __configureGrip(self, parentWindow, winOverlay, root):
-        grip = GS.GripLabel(parentWindow, False)
+        grip = GS.GripLabel(parentWindow, False, False)
         grip.assignOverlay(winOverlay, root)
-
 
         return grip.getGrip()
 

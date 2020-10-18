@@ -117,7 +117,9 @@ class SystematicFiltering_View(_Progressible):
     '''
         Default frames are as follows:
             > __lfProgressBar
-            > 
+            > __lfCurrentProgress
+            > __lfProgressConsole
+            > __lfConsoleCommands
     '''
     # region initialization functions
     def initializeWidgets(self, parentFrame):
@@ -175,42 +177,73 @@ class SystematicFiltering_View(_Progressible):
             CS.WHITE, CS.D_GRAY, US.FONT_DEFAULT)
         FS.placeBelow(self.__lfCurrentProgress, self.lblStripe)
 
-        # borderColor = CS.L_GRAY
-        # WS.emborder(self.__lblCurrentDetails,
-        #             [0, 0, None, None],
-        #             [True, True, True, True],
-        #             [borderColor, borderColor, borderColor, borderColor]
-        #             )
         # endregion create the current progress widgets
 
         # region create console listbox widgets
         self.__lfCurrentProgress.update()
         wHeight = parentFrame.winfo_height() - (self.__lfCurrentProgress.winfo_y() + self.__lfCurrentProgress.winfo_height())
-        wHeight -= FS.commandsHeight
+        wHeight = wHeight - (FS.commandsHeight + 10)
+
         self.__lfProgressConsole = WS.createDefaultFrame(parentFrame,
-                                                         [0, 0, 1, wHeight],
+                                                         [0, y, 1, wHeight],
                                                          [True, False])
         self.lbProgressConsole = WS.createDefaultListbox(self.__lfProgressConsole, SINGLE)
         FS.placeBelow(self.__lfProgressConsole, self.__lfCurrentProgress)
 
-        borderColor = CS.L_GRAY
-        # WS.emborder(self.lbProgressConsole,
-        #             [0, 0, None, None],
-        #             [True, True, True, True],
-        #             [borderColor, borderColor, borderColor, borderColor]
-        #             )
+        borderColor = CS.D_YELLOW
+        WS.emborder(self.lbProgressConsole,
+                    [0, 0, None, None],
+                    [True, True, True, True],
+                    [borderColor, borderColor, borderColor, borderColor]
+                    )
+
         # endregion create console listbox widgets
 
+
+
         # region create command widgets
-        self.__lfConsoleCommands = WS.createDefaultFrame(self.__lfProgressBar,
-                                                         [0, 0, 1, FS.commandsHeight], [True, False])
+        bgColor = CS.WHITE  # CS.PALER_YELLOW
+        self.__lfConsoleCommands = WS.createDefaultFrame(parentFrame,
+                                                         [0, 0, 1, 0.15], [True, True],
+                                                         bgColor)
         # WS.emborder(self.__lfConsoleCommands, [0, 0, None, None], [True, False, False, False])
-        FS.placeBelow(self.__lfConsoleCommands, self.__lfProgressConsole)
+        y_offset = 6
+        FS.placeBelow(self.__lfConsoleCommands, self.__lfProgressConsole, y_offset)
+
+
 
 
         # TODO
+        btn_width = 40
+        btn_height = btn_width
+        icon_size = (btn_width, btn_height)
+
+        frame_parent_width = self.__lfConsoleCommands.winfo_width()
+        frame_parent_height = self.__lfConsoleCommands.winfo_height()
+        rel_width = float(btn_width) / float(frame_parent_width)
+        rel_height = float(btn_height) / float(frame_parent_height)
+
+        rel_x = 0.5 - (rel_width / 2)
+        rel_y = 0.5 - (rel_height / 2)
         self.__btnStartCrossProcess = Button(self.__lfConsoleCommands)
-        self.__btnStartCrossProcess.place(x = 0, y = 0, width = 30, height = 30)
+        self.__btnStartCrossProcess.place(
+            relx = rel_x, rely = rel_y,
+            width = btn_width, height = btn_height)
+
+        im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
+        btn_start_AM = PIL.ImageTk.PhotoImage(im)
+        self.__btnStartCrossProcess.configure(
+            image = btn_start_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.__btnStartCrossProcess.image = btn_start_AM  # < ! > Required to make images appear
+
+        self.__btnStartCrossProcess.configure(
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            activebackground = CS.FILTER_BG,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE,
+            # text = '''Find Feature'''
+        )
+
         # endregion create command widgets
 
 
