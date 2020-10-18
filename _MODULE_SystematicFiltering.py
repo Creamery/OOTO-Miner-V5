@@ -16,6 +16,7 @@ except ImportError:
 # import tkMessageBox
 import Function_support as FS
 import Grip_support as GS
+import Dialogue_Grip_support as DGS
 import Widget_support as WS
 import SystematicFiltering_VIEW as VIEW
 import SystematicFiltering_MODEL as MODEL
@@ -46,8 +47,19 @@ class SystematicFiltering:
         self.__configureBind()
         # WS.makeModal(self.winTop, self.root)  # make the window modal by setting root's wait_window
 
+        self.winDialogueOverlay = WS.createOverlayWindow(root)
+        self.winDialogueTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
+        self.winDialogueTop.configure(bg = CS.WHITE)
+        self.gripDialogue = self.__configureDialogueGrip(self.winDialogueTop, self.winDialogueOverlay, root)
+        self.__configureBorders(self.winDialogueTop)
+        self.winDialogueOverlay.lower(self.winDialogueTop)
 
 
+    def __configureDialogueGrip(self, parentWindow, winDialogueOverlay, root):
+        dialogue_grip = DGS.DialogueGripLabel(parentWindow, True, False)
+        dialogue_grip.assignOverlay(winDialogueOverlay, root)
+
+        return dialogue_grip
 
     # def start(self):
     #     print("Start Systematic Filtering (From SFModule")
@@ -113,7 +125,7 @@ class SystematicFiltering:
         Configure the draggable top bar.
     '''
     def __configureGrip(self, parentWindow, winOverlay, root):
-        grip = GS.GripLabel(parentWindow, False, False)
+        grip = GS.GripLabel(parentWindow, False, True)
         grip.assignOverlay(winOverlay, root)
 
         return grip

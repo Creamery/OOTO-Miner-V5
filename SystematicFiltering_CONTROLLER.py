@@ -103,7 +103,9 @@ class SystematicFiltering_Controller:
     def stopAutomatedMining(self, event):
         self.view.showStartMining()
         # TODO Perform necessary warnings in view before stopping
-        self.closeWindow()
+
+        # tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
+        # self.closeWindow()
 
         return "break"
 

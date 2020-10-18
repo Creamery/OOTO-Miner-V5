@@ -43,6 +43,7 @@ import UI_support as US
 
 from _Progressible import _Progressible
 import UIConstants_support as UICS
+import tkMessageBox
 
 class SystematicFiltering_View(_Progressible):
 
@@ -64,6 +65,7 @@ class SystematicFiltering_View(_Progressible):
         _Progressible.setMaxProgress(self, maxProgressBarWidth)
 
         self.showStartMining()
+
 
     def declareBindingVariables(self):
         self.ico_width_check = None

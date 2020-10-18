@@ -22,22 +22,25 @@ import UI_support as US
 import Icon_support as IS
 
 
-class GripLabel:
+class DialogueGripLabel:
 
-    def __init__(self, parentFrame, hasPrompt = False, hasClose = True):
+    def __init__(self, parentFrame, hasClose = True, showOverlay = True):
         self.top = parentFrame
-        self.hasPrompt = hasPrompt
+        self.isDialogueHidden = False
         self.hasOverlay = False
         self.winOverlay = None
         self.root = None
+        self.winOverlayWidth = None
+        self.winOverlayHeight = None
+        self.showOverlay = showOverlay
 
-        parentWidth = parentFrame.winfo_width()
-        parentHeight = parentFrame.winfo_height()
+        self.parentWidth = parentFrame.winfo_width()
+        self.parentHeight = parentFrame.winfo_height()
 
         # add grip on top of parentFrame
-        strRootWidth = str(parentWidth)
-        strRootHeight = str(parentHeight + FS.gripHeight)
-        self.top.geometry(strRootWidth + "x" + strRootHeight)
+        self.strRootWidth = str(self.parentWidth)
+        self.strRootHeight = str(self.parentHeight + FS.gripHeight)
+        self.top.geometry(self.strRootWidth + "x" + self.strRootHeight)
 
         self.grip = self.createGrip(parentFrame)
         if hasClose:
@@ -55,15 +58,38 @@ class GripLabel:
         self.hasOverlay = True
         self.root = root
         self.winOverlay = overlay
-        # self.winOverlay.lower(self.top)
-        # strDimensions = str(self.winOverlay.winfo_width()) + "x" + str(self.winOverlay.winfo_height())
-        # self.winOverlay.geometry(strDimensions + "0+0")
+        self.winOverlayWidth = self.winOverlay.winfo_width()
+        self.winOverlayHeight = self.winOverlay.winfo_height()
+
+        if not self.showOverlay:
+            self.hideOverlay()
 
     def unbindOverlay(self):
         self.root.unbind('<Configure>')
 
-    def createGrip(self, parentFrame):
+    def hideOverlay(self):
+        self.showOverlay = False
+        strHideWidth = str(0)
+        strHideHeight = str(0)
+        self.winOverlay.geometry(strHideWidth + "x" + strHideHeight)
 
+    def showOverlay(self):
+        self.showOverlay = True
+        strShowWidth = str(self.winOverlayWidth)
+        strShowHeight = str(self.winOverlayHeight)
+        self.winOverlay.geometry(strShowWidth + "x" + strShowHeight)
+
+    def resizeOverlay(self, width, height):
+        self.hasOverlay = True
+        self.root = root
+        self.winOverlay = overlay
+        self.winOverlayWidth = self.winOverlay.winfo_width()
+        self.winOverlayHeight = self.winOverlay.winfo_height()
+
+        if not self.showOverlay:
+            self.hideOverlay()
+
+    def createGrip(self, parentFrame):
         parentFrame.update()
         gripWidth = parentFrame.winfo_width()
         gripHeight = FS.gripHeight
@@ -104,19 +130,23 @@ class GripLabel:
         button.bind("<Button-1>", lambda event: self.onTopClose())
         return button
 
+    '''
+        Minimize the window by setting its width and height to zero.
+        Does not destroy the window.
+    '''
+    def hideDialogue(self):
+        self.isDialogueHidden = True
+        self.top.geometry(str(0) + "x" + str(0))
+
+    def showDialogue(self):
+        self.isDialogueHidden = False
+        self.top.geometry(self.strRootWidth + "x" + self.strRootHeight)
 
     def onTopClose(self):
-
-        if self.hasPrompt:
-            if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
-                self.destroyOverlay()
-                self.top.destroy()
-                self.top = None
-            return "break"
-        else:
-            self.destroyOverlay()
-            self.top.destroy()
-            self.top = None
+        self.destroyOverlay()
+        self.top.destroy()
+        self.top = None
+        return "break"
 
     def destroyOverlay(self):
         if self.hasOverlay:
@@ -143,3 +173,9 @@ class GripLabel:
     """ GETTERS """
     def getGrip(self):
         return self.grip
+
+    def isHidden(self):
+        return self.isDialogueHidden
+
+
+    
