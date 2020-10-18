@@ -37,9 +37,9 @@ class SystematicFiltering:
         self.controller = CONTROLLER.SystematicFiltering_Controller(self.model, self.view)
 
         self.grip = self.__configureGrip(self.winTop, self.winOverlay, self.root)
-        self.controller.setGrip(self.grip)
-
         FS.placeBelow(self.view.getFrame(), self.grip.getGrip())
+        self.controller.setParentGrip(self.grip)
+        self.controller.bindParentGripButtons()
 
         self.__configureBorders(self.winTop)
         self.winOverlay.lower(self.winTop)
@@ -154,7 +154,7 @@ class SystematicFiltering:
         Configure the draggable top bar.
     '''
     def __configureGrip(self, parentWindow, winOverlay, root):
-        grip = GS.GripLabel(parentWindow, False, True)
+        grip = GS.GripLabel(parentWindow, False, True, False)
         grip.assignOverlay(winOverlay, root)
 
         return grip

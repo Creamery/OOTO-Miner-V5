@@ -61,7 +61,6 @@ class SystematicFiltering_View(_Progressible):
                                                    [True, True])
         self.__parentFrame.place(relx = 0.02, relwidth = 0.96)
         self.initializeWidgets(self.__parentFrame)
-        self.initializeDialogue(parentWindow)
         WS.redraw(self.__parentFrame)
 
 
@@ -255,36 +254,22 @@ class SystematicFiltering_View(_Progressible):
         )
         # endregion create command widgets
 
-    def initializeDialogue(self, parentWindow):
+    def createDialog(self):
 
         self.createOverlay()
 
-        # self.winTop = self.__initializeWindow(self.root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
-        # self.winTop.configure(bg = CS.WHITE)
-        # self.grip = GS.GripLabel(self.winTop, False, True)
-        # self.grip.assignOverlay(self.__winDialogueOverlay, self.root)
-
         self.__lfDialogueFrame = self.__initializeWindow(self.root)
-        # self.__lfDialogueFrame = WS.createDefaultFrame(parentWindow,
-        #                                                [0, 0, 1, 1],
-        #                                                [True, True], CS.SALMON_LIGHT)
-
-
-
         self.__winDialogueOverlay.lower(self.__lfDialogueFrame)
+
+
 
         btn_width = 40
         btn_height = btn_width
         icon_size = (btn_width, btn_height)
 
-        self.ico_width_check = btn_width
-        self.ico_height_check = btn_height
-
-        self.ico_width_cross = btn_width
-        self.ico_height_cross = btn_height
-
         frame_parent_width = self.__lfDialogueFrame.winfo_width()
         frame_parent_height = self.__lfDialogueFrame.winfo_height()
+        self.grip = GS.GripLabel(self.__lfDialogueFrame, False, False)
         rel_width = float(btn_width) / float(frame_parent_width)
         rel_height = float(btn_height) / float(frame_parent_height)
 
@@ -292,24 +277,23 @@ class SystematicFiltering_View(_Progressible):
         rel_y = 0.5 - (rel_height / 2)
 
         # START MINING Button
-        self.__btnOverlay = Button(self.__lfDialogueFrame)
-        self.__btnOverlay.place(
+        self.btnCloseDialog = Button(self.__lfDialogueFrame)
+        self.btnCloseDialog.place(
             relx = rel_x, rely = rel_y,
             width = btn_width, height = btn_height)
 
-        im = PIL.Image.open(IS.AM_ICO_START).resize(icon_size, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
         btn_start_AM = PIL.ImageTk.PhotoImage(im)
-        self.__btnOverlay.configure(
+        self.btnCloseDialog.configure(
             image = btn_start_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.__btnOverlay.image = btn_start_AM  # < ! > Required to make images appear
+        self.btnCloseDialog.image = btn_start_AM  # < ! > Required to make images appear
 
-        self.__btnOverlay.configure(
+        self.btnCloseDialog.configure(
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE
         )
-
 
         # self.__configureBorders(self.__lfDialogueFrame)
 
@@ -343,7 +327,15 @@ class SystematicFiltering_View(_Progressible):
                     )
         '''
 
-    def hideOverlay(self):
+    '''
+        Create an overlay and bind accordingly
+    '''
+    def openDialog(self):
+        self.createDialog()
+    '''
+        Destroy the overlay and deiconify the root (main window)
+    '''
+    def closeDialog(self):
         # self.__winDialogueOverlay
         # self.__lfDialogueFrame.config(width = 0, height = 0)
 
@@ -418,7 +410,7 @@ class SystematicFiltering_View(_Progressible):
 
     def destroyOverlay(self):
         if self.hasOverlay:
-            self.unbindOverlay()
+            self.__configureUnbind()
             self.winOverlay.destroy()
             self.winOverlay = None
 
@@ -508,8 +500,8 @@ class SystematicFiltering_View(_Progressible):
     def getBtnStopCrossProcess(self):
         return self.__btnStopCrossProcess
 
-    def getBtnOverlay(self):
-        return self.__btnOverlay
+    def getBtnCloseDialog(self):
+        return self.btnCloseDialog
 
     def getLbProgressConsole(self):
         return self.lbProgressConsole

@@ -24,7 +24,7 @@ import Icon_support as IS
 
 class GripLabel:
 
-    def __init__(self, parentFrame, hasPrompt = False, hasClose = True):
+    def __init__(self, parentFrame, hasPrompt = False, hasClose = True, hasBind = True):
         self.top = parentFrame
         self.hasPrompt = hasPrompt
         self.hasOverlay = False
@@ -41,7 +41,7 @@ class GripLabel:
 
         self.grip = self.createGrip(parentFrame)
         if hasClose:
-            self.btnClose = self.createGripButtons(self.grip)
+            self.btnClose = self.createGripButtons(self.grip, hasBind)
 
         WS.redraw(self.grip)
         borderColor = CS.D_GRAY
@@ -80,7 +80,7 @@ class GripLabel:
 
         return grip
 
-    def createGripButtons(self, parentFrame):
+    def createGripButtons(self, parentFrame, hasBind):
         parentFrame.update()
         parentWidth = parentFrame.winfo_width()
         parentHeight = parentFrame.winfo_height()
@@ -101,7 +101,8 @@ class GripLabel:
         button.image = icoClose  # < ! > Required to make images appear
 
         # button.bind("<ButtonRelease-1>", self.onTopClose)
-        button.bind("<Button-1>", lambda event: self.onTopClose())
+        if hasBind:
+            button.bind("<Button-1>", lambda event: self.onTopClose())
         return button
 
 
@@ -143,3 +144,10 @@ class GripLabel:
     """ GETTERS """
     def getGrip(self):
         return self.grip
+
+    def getCloseButton(self):
+        return self.btnClose
+
+
+
+

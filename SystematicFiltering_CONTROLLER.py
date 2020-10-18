@@ -90,12 +90,14 @@ class SystematicFiltering_Controller:
         button.bind("<Leave>", self.leaveCrossIcon)
 
 
-        button = self.view.getBtnOverlay()
-        button.bind('<Button-1>', self.overlayAction)
 
 
-    def overlayAction(self, event):
-        self.view.hideOverlay()
+    def showDialogPrompt(self, event):
+        self.view.openDialog()
+        self.bindDialogButtons()
+
+    def closeDialog(self, event):
+        self.view.closeDialog()
 
     def declareBindingVariables(self):
         self.icon_check_on = None
@@ -105,7 +107,14 @@ class SystematicFiltering_Controller:
         self.icon_cross_off = None
 
 
+    def bindDialogButtons(self):
+        button = self.view.getBtnCloseDialog()
+        button.bind('<Button-1>', self.closeDialog)
 
+    def bindParentGripButtons(self):
+        # button.bind("<Button-1>", lambda event: self.onTopClose())
+        button = self.getParentGrip().getCloseButton()
+        button.bind('<Button-1>', self.showDialogPrompt)
 
     '''
         FUNCTIONS
@@ -264,6 +273,13 @@ class SystematicFiltering_Controller:
 
     def setGrip(self, module_grip):
         self.grip = module_grip
+
+    def setParentGrip(self, grip):
+        self.parent_grip = grip
+
+    def getParentGrip(self):
+        return self.parent_grip
+
 
     # def getDialogueGrip(self):
     #     return self.dialogue_grip

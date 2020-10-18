@@ -183,8 +183,8 @@ class AutomatedMining_Model:
 
 
     def runSystematicFiltering(self, root):
-        if self.__systematicFiltering is None:
-            self.__systematicFiltering = SF.SystematicFiltering(root)
+        # if self.__systematicFiltering is None:
+        self.__systematicFiltering = SF.SystematicFiltering(root)
         # SF.SystematicFiltering(root)
 
         # self.__systematicFiltering.start()
