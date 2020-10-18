@@ -75,8 +75,9 @@ def crossProcess(df_dataset, np_CROSS, controller):
             list_all_ssfs = []
             list_ssfs = []
 
+            str_current_cross = "[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "]"
             # Title for the current cross process
-            str_title = UICS.SUB_MODULE_INDICATOR + "Processing CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "]"  # LVL Pass 1
+            str_title = UICS.SUB_MODULE_INDICATOR + "Processing CROSS" + str_current_cross  # LVL Pass 1
             # Update the progress bar about the current CROSS[type][level]
             controller.updateModuleProgress(key, str_title)  # Pass 1
             time.sleep(0.01)
@@ -88,7 +89,7 @@ def crossProcess(df_dataset, np_CROSS, controller):
 
                 str_cross_level_length = str(len_cross_level)
                 #  Description for the current cross process
-                str_description = "         " + str(i_dataset_pairs + 1) + " of " + str_cross_level_length
+                str_description = "         " + str_current_cross + " - " + str(i_dataset_pairs + 1) + " of " + str_cross_level_length
                 controller.updateModuleProgress(key, str_description)  # INNER PASS 1
 
                 for i_dataset_pair in range(len_dataset_pairs):
@@ -137,11 +138,17 @@ def crossProcess(df_dataset, np_CROSS, controller):
 
 
             list_level_ssfs.append(list_all_ssfs)  # Store SSF list
-
         list_cross_ssfs.append(list_level_ssfs)
+
+
     print("--- %s seconds ---" % (time.time() - start_time))
     print("Processing Complete")
     LS.exportUIResultDictionary(dict_result_table_sig, "UI Result")
+
+    str_pickle_filename = "Pickle Result - CROSS[" + str(len_cross_datasets - 1) + "][" + str(len_cross_types) + "]"
+    LS.exportPickleResultDictionary(dict_result_table_sig, str_pickle_filename)
+    loaded_pickle = LS.loadPickleResultDictionary(str_pickle_filename)
+    print(loaded_pickle.keys())
     return dict_result_table_sig
 
 '''

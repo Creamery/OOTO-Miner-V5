@@ -88,11 +88,7 @@ class SystematicFiltering_View(_Progressible):
         # Check if the string is a module title and add the necessary underscores before
         # and after it (cosmetic)
         if UICS.SINGLE_MODULE_SYMBOL in description:
-            print("[" + UICS.MODULE_INDICATOR + "]")
-            print("[" + clean_description.strip() + "]")
             len_description = float(len(clean_description))
-            print(len_description)
-            print(UICS.LEN_MODULE_MAX)
             symbol_count = float((UICS.LEN_MODULE_MAX - len_description) / 2)
 
             # Check if the half count is a decimal. If so, add another symbol according
@@ -105,7 +101,6 @@ class SystematicFiltering_View(_Progressible):
             else:
                 symbol_count = int(symbol_count)
 
-            print(symbol_count)
             symbols = ''.join([char * symbol_count for char in UICS.SINGLE_MODULE_SYMBOL])
 
             description = UICS.PRE_STRING_SPACE + addSymbol + symbols + clean_description + symbols
@@ -219,8 +214,7 @@ class SystematicFiltering_View(_Progressible):
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE,
-            # text = '''Find Feature'''
+            bd = 0, relief = FLAT, overrelief = GROOVE
         )
 
         # STOP MINING Button
@@ -239,8 +233,7 @@ class SystematicFiltering_View(_Progressible):
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE,
-            # text = '''Find Feature'''
+            bd = 0, relief = FLAT, overrelief = GROOVE
         )
         # endregion create command widgets
     # endregion initialization functions
@@ -249,13 +242,18 @@ class SystematicFiltering_View(_Progressible):
     '''
         WIDGET FUNCTIONS
     '''
+
+    '''
+        The function called when the close button is clicked in AM window.
+    '''
     def showStopMining(self):
-        print("SHOW STOP")
         self.showWidget(self.getBtnStopCrossProcess())
         self.hideWidget(self.getBtnStartCrossProcess())
 
+    '''
+        The function called when the start button is clicked in AM window.
+    '''
     def showStartMining(self):
-        print("SHOW START")
         self.showWidget(self.getBtnStartCrossProcess())
         self.hideWidget(self.getBtnStopCrossProcess())
 

@@ -10,6 +10,7 @@ import collections
 import csv
 from csv import reader
 import numpy as np
+import pickle
 
 # For loadDataset()
 import pandas as pd
@@ -215,6 +216,17 @@ def checkDirectory(output_path):
             if exc.errno != errno.EEXIST:
                 raise
 
+
+def checkDirectoryExistence(output_path):
+    if not os.path.exists(os.path.dirname(output_path)):  # If path does not exist, return false
+        try:
+            return False
+        except OSError as exc:  # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+    else:
+        return True  # Else return true
+
 def checkPath(file_path):
     if not os.path.exists(os.path.dirname(file_path)):
         try:
@@ -265,14 +277,25 @@ def exportUIResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PATH):
     for df_name, df in dict_results.items():
         if df is not None:
             final_path = path_export + " - " + df_name + ".xlsx"
-            # print("Export " + str(final_path))
             df.to_excel(final_path)
-            # writer = pd.ExcelWriter(path_export, engine = 'xlsxwriter')
-            # df.to_excel("r'UI Result - "+ df_name + ".xlsx")
-            # df.to_excel(writer, sheet_name = str(df_name))
+
+def exportPickleResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PATH):
+    path_export = str(path + "Pickle Results\\")
+    checkDirectory(path_export)
+    path_export = path_export + filename
+    path_export = path_export.replace("\\", "/")
+    with open(path_export + '.pkl', 'wb') as file:
+        pickle.dump(dict_results, file, pickle.HIGHEST_PROTOCOL)
 
 
+def loadPickleResultDictionary(filename, path = GL_AM_OUTPUT_PATH):
+    path_import = str(path + "Pickle Results\\")
+    checkDirectoryExistence(path_import)
+    path_import = path_import + filename
+    path_import = path_import.replace("\\", "/")
 
+    with open(path_import + '.pkl', 'rb') as file:
+        return pickle.load(file)
 
 
 
