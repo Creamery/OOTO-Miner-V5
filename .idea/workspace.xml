@@ -6,8 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/SSFs/SSFs - CROSS[0][0].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/SSFs/SSFs - CROSS[0][0].csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/CrossProcess_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS p10(b).xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS u4(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS u4(a).xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS b1(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS b1(a).xlsx" afterDir="false" />
@@ -61,8 +60,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/SystematicFiltering_VIEW.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="522">
-                    <caret line="114" column="106" selection-start-line="114" selection-start-column="106" selection-end-line="114" selection-end-column="106" />
+                  <state relative-caret-position="123">
+                    <caret line="93" column="34" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="34" />
                     <folding>
                       <element signature="e#396#412#0" expanded="true" />
                     </folding>
@@ -125,10 +124,10 @@
       <content type="file-editors">
         <state>
           <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-            <file pinned="false" current-in-tab="true">
+            <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="292">
+                  <state relative-caret-position="178">
                     <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
                     <folding>
                       <element signature="e#1#10#0" expanded="true" />
@@ -161,11 +160,11 @@
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="false">
+            <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="95">
-                    <caret line="86" column="54" selection-start-line="86" selection-start-column="54" selection-end-line="86" selection-end-column="54" />
+                  <state relative-caret-position="399">
+                    <caret line="132" column="98" selection-start-line="132" selection-start-column="98" selection-end-line="132" selection-end-column="98" />
                     <folding>
                       <element signature="e#0#13#0" expanded="true" />
                     </folding>
@@ -355,7 +354,6 @@
         <option value="$PROJECT_DIR$/_Progressible.py" />
         <option value="$PROJECT_DIR$/Function_support.py" />
         <option value="$PROJECT_DIR$/Filter_support.py" />
-        <option value="$PROJECT_DIR$/CrossProcess_support.py" />
         <option value="$PROJECT_DIR$/_THREAD_CrossProcess.py" />
         <option value="$PROJECT_DIR$/RFE_support.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
@@ -371,6 +369,7 @@
         <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/SystematicFiltering_VIEW.py" />
+        <option value="$PROJECT_DIR$/CrossProcess_support.py" />
       </list>
     </option>
   </component>
@@ -606,9 +605,9 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.33001423" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" weight="0.33001423" />
       <window_info active="true" anchor="bottom" x="29" y="354" width="967" height="494" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.41536275" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" visible="true" weight="0.41536275" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" show_stripe_button="false" weight="0.3263328" />
@@ -992,16 +991,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="86" column="54" selection-start-line="86" selection-start-column="54" selection-end-line="86" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_Progressible.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
@@ -1015,16 +1004,6 @@
           <caret line="98" column="48" selection-start-line="98" selection-start-column="48" selection-end-line="98" selection-end-column="48" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1171,10 +1150,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SystematicFiltering_VIEW.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="114" column="106" selection-start-line="114" selection-start-column="106" selection-end-line="114" selection-end-column="106" />
+        <state relative-caret-position="123">
+          <caret line="93" column="34" selection-start-line="93" selection-start-column="34" selection-end-line="93" selection-end-column="34" />
           <folding>
             <element signature="e#396#412#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="44" column="12" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="132" column="98" selection-start-line="132" selection-start-column="98" selection-end-line="132" selection-end-column="98" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

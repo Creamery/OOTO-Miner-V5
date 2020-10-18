@@ -130,7 +130,7 @@ def crossProcess(df_dataset, np_CROSS, controller):
 
 
                 list_all_ssfs = mergeUnique(list_all_ssfs, list_ssfs)
-                ssfs_filename = "SSFs - CROSS[" + str(i_cross_type) + "][" + str(i_cross_level) + "].csv"
+                ssfs_filename = "SSFs - CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "].csv"
                 LS.exportSSFs(list_ssfs, ssfs_filename)
 
 
