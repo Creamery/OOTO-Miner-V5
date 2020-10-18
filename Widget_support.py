@@ -249,6 +249,7 @@ def getWidgetName(widget):
     return str(widget).split(".")[-1]
 
 
+
 """ A recursive call that updates all Widgets and their Widget children """
 def redraw(parentFrame):
     parentFrame.update()
@@ -264,6 +265,7 @@ def redraw(parentFrame):
             return "break"
 
     parentFrame.update()
+
 
 def copyWidget(widget, parent):
     # parent = widget.nametowidget(widget.winfo_parent())

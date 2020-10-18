@@ -58,6 +58,8 @@ class SystematicFiltering_Controller:
         button = self.view.getBtnStartCrossProcess()
         button.bind('<Button-1>', self.startAutomatedMining)
 
+        button = self.view.getBtnStopCrossProcess()
+        button.bind('<Button-1>', self.stopAutomatedMining)
 
     " FUNCTIONS "
     '''
@@ -69,11 +71,17 @@ class SystematicFiltering_Controller:
 
 
     def startAutomatedMining(self, event):
+        self.view.showStopMining()
         print("Start Systematic Filtering (From SFModule")
         startCrossProcessThread([self])
 
         return "break"
 
+    def stopAutomatedMining(self, event):
+        self.view.showStartMining()
+        # TODO Perform necessary warnings in view before stopping
+
+        return "break"
 
     '''
         FUNCTIONS - For updating the progress bar

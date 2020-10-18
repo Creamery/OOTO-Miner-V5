@@ -33,6 +33,7 @@ import CONSTANTS as const
 from Keys_support import Dataset as KSD
 import math
 from math import modf
+import collections
 
 import Color_support as CS
 import Function_support as FS
@@ -50,7 +51,7 @@ class SystematicFiltering_View(_Progressible):
         # super(SystematicFiltering_View, self).__init__()
         # call _Progressible constructor
         _Progressible.__init__(self)
-
+        self.dictWidgetPlace = collections.OrderedDict()  # For hiding and showing elements
         self.__parentFrame = WS.createDefaultFrame(parentWindow,
                                                    [0, 0, 1, 1],
                                                    [True, True])
@@ -62,7 +63,7 @@ class SystematicFiltering_View(_Progressible):
         maxProgressBarWidth = self.lblStripe.winfo_width()
         _Progressible.setMaxProgress(self, maxProgressBarWidth)
 
-
+        self.showStartMining()
 
     " INHERITED "
 
@@ -142,16 +143,6 @@ class SystematicFiltering_View(_Progressible):
         self.__lblGreenStripe = WS.createDefaultStripe(self.lblStripe, [0, 0, 0.999, 1],
                                                        [True, True], IS.TEXTURE_STRIPE_LIME)
         self.__lblGreenStripe.place(relwidth = 0)
-        borderColor = CS.L_GRAY
-        print(self.__lfProgressBar.place_info())
-        # WS.emborder(self.__lfProgressBar,
-        #             [0, 0, None, None],
-        #             [True, True, True, True],
-        #             [borderColor, borderColor, borderColor, borderColor]
-        #             )
-
-
-
         # endregion create the progress header widgets
 
         # region create the current progress widgets
@@ -178,7 +169,6 @@ class SystematicFiltering_View(_Progressible):
         FS.placeBelow(self.__lfCurrentProgress, self.lblStripe)
 
         # endregion create the current progress widgets
-
         # region create console listbox widgets
         self.__lfCurrentProgress.update()
         wHeight = parentFrame.winfo_height() - (self.__lfCurrentProgress.winfo_y() + self.__lfCurrentProgress.winfo_height())
@@ -198,9 +188,6 @@ class SystematicFiltering_View(_Progressible):
                     )
 
         # endregion create console listbox widgets
-
-
-
         # region create command widgets
         bgColor = CS.WHITE  # CS.PALER_YELLOW
         self.__lfConsoleCommands = WS.createDefaultFrame(parentFrame,
@@ -209,7 +196,6 @@ class SystematicFiltering_View(_Progressible):
         # WS.emborder(self.__lfConsoleCommands, [0, 0, None, None], [True, False, False, False])
         y_offset = 6
         FS.placeBelow(self.__lfConsoleCommands, self.__lfProgressConsole, y_offset)
-
 
 
 
@@ -225,6 +211,8 @@ class SystematicFiltering_View(_Progressible):
 
         rel_x = 0.5 - (rel_width / 2)
         rel_y = 0.5 - (rel_height / 2)
+
+        # START MINING Button
         self.__btnStartCrossProcess = Button(self.__lfConsoleCommands)
         self.__btnStartCrossProcess.place(
             relx = rel_x, rely = rel_y,
@@ -244,15 +232,84 @@ class SystematicFiltering_View(_Progressible):
             # text = '''Find Feature'''
         )
 
+        # STOP MINING Button
+        self.__btnStopCrossProcess = Button(self.__lfConsoleCommands)
+        self.__btnStopCrossProcess.place(
+            relx = rel_x, rely = rel_y,
+            width = btn_width, height = btn_height)
+
+        im = PIL.Image.open(IS.AM_ICO_CANCEL).resize(icon_size, PIL.Image.ANTIALIAS)
+        btn_stop_AM = PIL.ImageTk.PhotoImage(im)
+        self.__btnStopCrossProcess.configure(
+            image = btn_stop_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.__btnStopCrossProcess.image = btn_stop_AM  # < ! > Required to make images appear
+
+        self.__btnStopCrossProcess.configure(
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            activebackground = CS.FILTER_BG,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE,
+            # text = '''Find Feature'''
+        )
         # endregion create command widgets
-
-
-    def initializeProperties(self):
-        print "initializeProperties"
-        # self.btnConfirmConfirmedFeatures = [None]
-
-
     # endregion initialization functions
+
+
+    '''
+        WIDGET FUNCTIONS
+    '''
+    def showStopMining(self):
+        print("SHOW STOP")
+        self.showWidget(self.getBtnStopCrossProcess())
+        self.hideWidget(self.getBtnStartCrossProcess())
+
+    def showStartMining(self):
+        print("SHOW START")
+        self.showWidget(self.getBtnStartCrossProcess())
+        self.hideWidget(self.getBtnStopCrossProcess())
+
+    def hideWidget(self, widget):
+        widget.update()
+
+        # Store widget width and height if it's not in the dictionary
+        widgetName = WS.getWidgetName(widget)
+        if not (widgetName + '_W' in self.dictWidgetPlace):
+            # For relative width and height
+            self.dictWidgetPlace[widgetName + '_RelW'] = US.getRelW(widget)
+            self.dictWidgetPlace[widgetName + '_RelH'] = US.getRelH(widget)
+
+            # For width and height
+            self.dictWidgetPlace[widgetName + '_W'] = US.getW(widget)
+            self.dictWidgetPlace[widgetName + '_H'] = US.getH(widget)
+
+        # Set widget width and height to 0
+        widget.place(relwidth = 0, relheight = 0, width = 0, height = 0)
+
+
+    def showWidget(self, widget):
+        widgetName = WS.getWidgetName(widget)
+
+        # Retrieve widget width and height if it's in the dictionary
+        if widgetName + '_W' in self.dictWidgetPlace:
+            widgetRelWidth = self.dictWidgetPlace[widgetName + '_RelW']
+            widgetRelHeight = self.dictWidgetPlace[widgetName + '_RelH']
+
+            widgetWidth = self.dictWidgetPlace[widgetName + '_W']
+            widgetHeight = self.dictWidgetPlace[widgetName + '_H']
+
+            # Set widget width and height
+            widget.place(relwidth = widgetRelWidth, relheight = widgetRelHeight,
+                         width = widgetWidth, height = widgetHeight)
+
+            # Remove keys from dictionary
+            self.dictWidgetPlace.pop(widgetName + '_RelW', None)
+            self.dictWidgetPlace.pop(widgetName + '_RelH', None)
+
+            self.dictWidgetPlace.pop(widgetName + '_W', None)
+            self.dictWidgetPlace.pop(widgetName + '_H', None)
+
+        widget.update()
+
 
     " GETTERS "
     # region getters
@@ -267,6 +324,9 @@ class SystematicFiltering_View(_Progressible):
 
     def getBtnStartCrossProcess(self):
         return self.__btnStartCrossProcess
+
+    def getBtnStopCrossProcess(self):
+        return self.__btnStopCrossProcess
 
     def getLbProgressConsole(self):
         return self.lbProgressConsole

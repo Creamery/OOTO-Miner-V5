@@ -1630,7 +1630,7 @@ class ManualMining_Controller:
         widget.update()
 
         # Store widget width and height if it's not in the dictionary
-        widgetName = self.getWidgetName(widget)
+        widgetName = WS.getWidgetName(widget)
         if not (widgetName + '_W' in self.dictWidgetPlace):
             self.dictWidgetPlace[widgetName + '_W'] = UI_support.getRelW(widget)
             self.dictWidgetPlace[widgetName + '_H'] = UI_support.getRelH(widget)
@@ -1640,7 +1640,7 @@ class ManualMining_Controller:
 
     def showWidget(self, widget):
 
-        widgetName = self.getWidgetName(widget)
+        widgetName = WS.getWidgetName(widget)
 
         # Retrieve widget width and height if it's in the dictionary
         if (widgetName + '_W' in self.dictWidgetPlace):
@@ -1655,11 +1655,6 @@ class ManualMining_Controller:
             self.dictWidgetPlace.pop(widgetName + '_H', None)
 
         widget.update()
-
-    def getWidgetName(self, widget):
-        # print("widget name:", str(widget).split(".")[-1])
-        return str(widget).split(".")[-1]
-
 
 
 
