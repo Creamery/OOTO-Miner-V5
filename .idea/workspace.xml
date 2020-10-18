@@ -6,10 +6,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Widget_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Widget_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/SSFs/SSFs - CROSS[0][0].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/SSFs/SSFs - CROSS[0][0].csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS p10(b).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS u4(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS u4(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS b1(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS b1(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(b).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS u4(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS u4(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS b1(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS b1(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS p10(b).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(b) VS u4(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(b) VS u4(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(b).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS u4(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS u4(a).xlsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -48,20 +58,11 @@
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="237">
-                    <caret line="393" column="21" selection-start-line="393" selection-start-column="16" selection-end-line="393" selection-end-column="21" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/SystematicFiltering_VIEW.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="388">
-                    <caret line="285" column="71" selection-start-line="285" selection-start-column="71" selection-end-line="285" selection-end-column="71" />
+                  <state relative-caret-position="522">
+                    <caret line="114" column="106" selection-start-line="114" selection-start-column="106" selection-end-line="114" selection-end-column="106" />
                     <folding>
                       <element signature="e#396#412#0" expanded="true" />
                     </folding>
@@ -73,7 +74,7 @@
               <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
                 <provider selected="true" editor-type-id="text-editor">
                   <state relative-caret-position="206">
-                    <caret line="73" column="26" lean-forward="true" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
+                    <caret line="73" column="26" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
                     <folding>
                       <element signature="e#392#408#0" expanded="true" />
                     </folding>
@@ -195,7 +196,7 @@
         <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="69">
-              <caret line="1646" column="65" lean-forward="true" selection-start-line="1646" selection-start-column="65" selection-end-line="1646" selection-end-column="65" />
+              <caret line="1646" column="65" selection-start-line="1646" selection-start-column="65" selection-end-line="1646" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -229,7 +230,7 @@
         <entry file="file://$PROJECT_DIR$/ManualMining_VIEW.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="76">
-              <caret line="99" column="61" lean-forward="true" selection-start-line="99" selection-start-column="61" selection-end-line="99" selection-end-column="61" />
+              <caret line="99" column="61" selection-start-line="99" selection-start-column="61" selection-end-line="99" selection-end-column="61" />
               <folding>
                 <element signature="e#444#454#0" expanded="true" />
                 <element signature="e#1663#1688#0" />
@@ -249,7 +250,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>0.0</find>
       <find>UICS</find>
       <find>FILTERING</find>
       <find>0.05</find>
@@ -279,6 +279,7 @@
       <find>getWidgetName</find>
       <find>self.getWid</find>
       <find>showWid</find>
+      <find>updateP</find>
     </findStrings>
     <replaceStrings>
       <replace>CONSOLE</replace>
@@ -1118,7 +1119,7 @@
     <entry file="file://$PROJECT_DIR$/ManualMining_VIEW.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="76">
-          <caret line="99" column="61" lean-forward="true" selection-start-line="99" selection-start-column="61" selection-end-line="99" selection-end-column="61" />
+          <caret line="99" column="61" selection-start-line="99" selection-start-column="61" selection-end-line="99" selection-end-column="61" />
           <folding>
             <element signature="e#444#454#0" expanded="true" />
             <element signature="e#1663#1688#0" />
@@ -1129,7 +1130,7 @@
     <entry file="file://$PROJECT_DIR$/ManualMining_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
-          <caret line="1646" column="65" lean-forward="true" selection-start-line="1646" selection-start-column="65" selection-end-line="1646" selection-end-column="65" />
+          <caret line="1646" column="65" selection-start-line="1646" selection-start-column="65" selection-end-line="1646" selection-end-column="65" />
         </state>
       </provider>
     </entry>
@@ -1143,7 +1144,7 @@
     <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="206">
-          <caret line="73" column="26" lean-forward="true" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
+          <caret line="73" column="26" selection-start-line="73" selection-start-column="26" selection-end-line="73" selection-end-column="26" />
           <folding>
             <element signature="e#392#408#0" expanded="true" />
           </folding>
@@ -1170,8 +1171,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/SystematicFiltering_VIEW.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="285" column="71" selection-start-line="285" selection-start-column="71" selection-end-line="285" selection-end-column="71" />
+        <state relative-caret-position="522">
+          <caret line="114" column="106" selection-start-line="114" selection-start-column="106" selection-end-line="114" selection-end-column="106" />
           <folding>
             <element signature="e#396#412#0" expanded="true" />
           </folding>

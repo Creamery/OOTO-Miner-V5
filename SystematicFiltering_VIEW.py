@@ -112,6 +112,7 @@ class SystematicFiltering_View(_Progressible):
 
         strProgressInfo = str(description)
         self.getLbProgressConsole().insert(END, strProgressInfo)
+        self.getLbProgressConsole().yview(END)  # Automatically sets the scrollbar to the newly added item
 
 
 
@@ -149,16 +150,6 @@ class SystematicFiltering_View(_Progressible):
         self.__lfCurrentProgress = WS.createDefaultFrame(parentFrame,
                                                          [0, 0, 1, FS.headerHeight],
                                                          [True, False])
-
-        # lblTitle = WS.createDefaultHeader(self.lfCurrentProgress, 0, 0, 0.2, 1,
-        #                                   "Details", [True, True],
-        #                                   CS.WHITE, CS.FUSCHIA,
-        #                                   US.FONT_DEFAULT)
-        # borderColor = CS.FUSCHIA
-        # WS.emborder(lblTitle, 0, 0, None, None,
-        #             conditions = [True, True, True, True],
-        #             colors = [borderColor, borderColor, borderColor, borderColor]
-        #             )
 
         self.__lblCurrentDetails = WS.createDefaultHeader(
             self.__lfCurrentProgress,
