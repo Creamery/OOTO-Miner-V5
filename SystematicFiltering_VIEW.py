@@ -141,7 +141,7 @@ class SystematicFiltering_View(_Progressible):
                                            [0, 0, 1, FS.headerHeight], [True, False])
 
         self.lblStripe = WS.createDefaultStripe(self.__lfProgressBar,
-                                           [0, 0, 1, FS.stripeHeight], [True, False], IS.TEXTURE_STRIPE_GREY)
+                                                [0, 0, 1, FS.stripeHeight], [True, False], IS.TEXTURE_STRIPE_GREY)
         FS.placeBelow(self.lblStripe, lblHeader)
 
         # self.__lblGreyStripe = WS.createDefaultStripe(lblStripe, [0, 0, 1, 1],
@@ -285,20 +285,39 @@ class SystematicFiltering_View(_Progressible):
         self.grip = GS.GripLabel(self.__lfDialogueFrame, False, False)
 
 
+        y_val = 10
+        message_rel_height = 0.5
+        bg_color = CS.L_GRAY
+        fg_color = CS.D_BLUE
+        wFont = US.FONT_MED_BOLD
+        self.lblMessage = WS.createDefaultHeader(self.lblBody,
+                                                 "STOP MINING?\n",
+                                                 [0, y_val, 1, message_rel_height], [True, True],
+                                                 bg_color, fg_color, wFont)
+        self.lblMessage.update()
 
-        message_y = 0
-        message_rel_height = 0.68
+
         bg_color = CS.WHITE
-        self.lblMessage = WS.createDefaultHeader(self.lblBody, "",
-                                                 [0, message_y, 1, message_rel_height], [True, True],
-                                                 bg_color)
+        sub_message_rel_height = 0.28
+        wFont = US.FONT_VSMALL
+        self.lblSubMessage = WS.createDefaultHeader(self.lblBody,
+                                                    "Stopping the process mid-run\n" +
+                                                    "may corrupt some output files.",
+                                                    [0, 0, 1, sub_message_rel_height], [True, True],
+                                                    bg_color, fg_color, wFont)
+        self.lblSubMessage.update()
+        FS.placeBelow(self.lblSubMessage, self.lblMessage, -(y_val + 13))
+
         # Button Parent
-        button_rel_height = 1 - message_rel_height
+        button_rel_height = 1 - (message_rel_height + sub_message_rel_height)
+        button_rel_height = button_rel_height + 0.2
         bg_color = CS.WHITE
+        fg_color = CS.D_BLUE
         self.lblButtons = WS.createDefaultHeader(self.lblBody, "",
                                                  [0, 0, 1, button_rel_height], [True, True],
                                                  bg_color)
-        FS.placeBelow(self.lblButtons, self.lblMessage)
+        FS.placeBelow(self.lblButtons, self.lblSubMessage, 5)
+        self.lblButtons.update()
 
         # Button Variables
         btn_width = 40
@@ -347,24 +366,8 @@ class SystematicFiltering_View(_Progressible):
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE
         )
+        self.__lfDialogueFrame.update()
 
-
-
-
-
-
-        # self.__configureBorders(self.__lfDialogueFrame)
-
-
-        # self.__winDialogueOverlay = WS.createOverlayWindow(parentWindow, FS.gripHeight)
-
-
-        # self.lblOverlay = WS.createDefaultHeader(self.__lfDialogueOverlay, "",
-        #                                          [0, 0, 1, 1], [True, True])
-        # im = PIL.Image.open(IS.TEXTURE_BLACK).resize((50, 50), PIL.Image.ANTIALIAS)
-        # img_overlay = PIL.ImageTk.PhotoImage(im)
-        # self.lblOverlay.configure(image = img_overlay)
-        # self.lblOverlay.image = img_overlay
 
 
         '''
@@ -557,6 +560,9 @@ class SystematicFiltering_View(_Progressible):
 
     def getBtnStopCrossProcess(self):
         return self.__btnStopCrossProcess
+
+    def getDialogFrame(self):
+        return self.__lfDialogueFrame
 
     def getBtnDialog_NO(self):
         return self.btnDialog_NO

@@ -11,6 +11,7 @@ import csv
 from csv import reader
 import numpy as np
 import pickle
+import time
 
 # For loadDataset()
 import pandas as pd
@@ -196,6 +197,38 @@ def exportChiSquareTable(df_output, filter, list_index = None, path = GL_AM_OUTP
     exportDataFrame(df_output, str_filename, output_path)
     return df_output, str_pair_name
 
+'''
+    The final output call made by the OUTPUT MODULE. It exports the recorded
+    result tables as excel files separated by CROSS[type][level].
+    
+    It also outputs a single pickle file that consolidates all significant
+    feature code comparisons.
+'''
+def exportOutputModuleResults(dict_result_table_sig, len_cross_datasets, len_cross_types, controller):
+    key = UICS.KEY_OUTPUT_MODULE
+    controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting OUTPUT MODULE")  # 1
+    time.sleep(0.01)
+    controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Exporting UI Results")  # 2
+
+    exportUIResultDictionary(dict_result_table_sig, "UI Result")
+    controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Successfully Exported UI Results")  # 3
+    time.sleep(0.01)
+
+    str_pickle_filename = "Pickle Result - CROSS[" + str(len_cross_datasets - 1) + "][" + str(len_cross_types) + "]"
+
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Creating Pickle Save File")  # 4
+    time.sleep(0.01)
+
+    exportPickleResultDictionary(dict_result_table_sig, str_pickle_filename)
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Created Pickle Save File")  # 5
+    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "File Saved as \"" + str_pickle_filename + "\"")  # 6
+    time.sleep(0.01)
+
+    controller.updateModuleProgress(100, UICS.FIRST_MESSAGE_SPACE + "[ Finished Automated OOTO Miner] ")  # 1
+    # loaded_pickle = LS.loadPickleResultDictionary(str_pickle_filename)
+    # print(loaded_pickle.keys())
+
+
 def addToDictionaryResult(dict_result, key, value):
     if key not in dict_result.keys():
         dict_result[key] = value
@@ -296,9 +329,6 @@ def loadPickleResultDictionary(filename, path = GL_AM_OUTPUT_PATH):
 
     with open(path_import + '.pkl', 'rb') as file:
         return pickle.load(file)
-
-
-
 
 
 def loadInput(path_varDesc = None, path_dataset = None, path_ftrNames = None):

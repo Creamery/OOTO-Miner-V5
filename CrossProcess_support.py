@@ -143,27 +143,28 @@ def crossProcess(df_dataset, np_CROSS, controller):
 
     print("--- %s seconds ---" % (time.time() - start_time))
     print("Processing Complete")
-
-    key = UICS.KEY_OUTPUT_MODULE
-    controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting OUTPUT MODULE")  # 1
-    time.sleep(0.01)
-    controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Exporting UI Results")  # 2
-    LS.exportUIResultDictionary(dict_result_table_sig, "UI Result")
-    controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Successfully Exported UI Results")  # 3
-    time.sleep(0.01)
-
-    str_pickle_filename = "Pickle Result - CROSS[" + str(len_cross_datasets - 1) + "][" + str(len_cross_types) + "]"
-
-    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Creating Pickle Save File")  # 4
-    time.sleep(0.01)
-    LS.exportPickleResultDictionary(dict_result_table_sig, str_pickle_filename)
-    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Created Pickle Save File")  # 5
-    controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "File Saved as \"" + str_pickle_filename + "\"")  # 6
-    time.sleep(0.01)
-
-    controller.updateModuleProgress(100, UICS.FIRST_MESSAGE_SPACE + "[ Finished Automated OOTO Miner] ")  # 1
-    # loaded_pickle = LS.loadPickleResultDictionary(str_pickle_filename)
-    # print(loaded_pickle.keys())
+    LS.exportOutputModuleResults(dict_result_table_sig, len_cross_datasets,
+                                 len_cross_types, controller)
+    # key = UICS.KEY_OUTPUT_MODULE
+    # controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting OUTPUT MODULE")  # 1
+    # time.sleep(0.01)
+    # controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Exporting UI Results")  # 2
+    # LS.exportUIResultDictionary(dict_result_table_sig, "UI Result")
+    # controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Successfully Exported UI Results")  # 3
+    # time.sleep(0.01)
+    #
+    # str_pickle_filename = "Pickle Result - CROSS[" + str(len_cross_datasets - 1) + "][" + str(len_cross_types) + "]"
+    #
+    # controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Creating Pickle Save File")  # 4
+    # time.sleep(0.01)
+    # LS.exportPickleResultDictionary(dict_result_table_sig, str_pickle_filename)
+    # controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Created Pickle Save File")  # 5
+    # controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "File Saved as \"" + str_pickle_filename + "\"")  # 6
+    # time.sleep(0.01)
+    #
+    # controller.updateModuleProgress(100, UICS.FIRST_MESSAGE_SPACE + "[ Finished Automated OOTO Miner] ")  # 1
+    # # loaded_pickle = LS.loadPickleResultDictionary(str_pickle_filename)
+    # # print(loaded_pickle.keys())
     return dict_result_table_sig
 
 '''

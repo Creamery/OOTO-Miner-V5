@@ -95,6 +95,7 @@ class SystematicFiltering_Controller:
     def showDialogPrompt(self, event):
         self.view.openDialog()
         self.bindDialogButtons()
+        self.view.getDialogFrame().update()
 
     def closeDialog(self, event):
         # print("CLOSED")
@@ -130,8 +131,8 @@ class SystematicFiltering_Controller:
     def bindParentGripButtons(self):
         # button.bind("<Button-1>", lambda event: self.onTopClose())
         button = self.getParentGrip().getCloseButton()
-        button.bind('<Button-1>', self.showDialogPrompt)
-        # button.bind("<Button-1>", lambda event: self.showDialogPrompt())
+        button.bind('<ButtonRelease>', self.showDialogPrompt)
+        # button.bind("<Button-1>", lambda event: self.showDialogPrompt(None))
         button.bind("<Enter>", self.enterGripCrossIcon)
         button.bind("<Leave>", self.leaveGripCrossIcon)
 

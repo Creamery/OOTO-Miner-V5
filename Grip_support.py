@@ -90,7 +90,7 @@ class GripLabel:
                      width = parentHeight, height = parentHeight)
 
         button.configure(
-            background = CS.SELECT_BG, foreground = CS.FG_COLOR,
+            background = CS.WHITE, foreground = CS.FG_COLOR,
             bd = 0, relief = FLAT, overrelief = FLAT)
 
         offset = 6
