@@ -56,6 +56,7 @@ import CONSTANTS as const
 import Function_support as FS
 import Widget_support as WS
 import Color_support as CS
+import Loader_support as LS
 
 import UIConstants_support as UICS
 
@@ -63,7 +64,7 @@ import UIConstants_support as UICS
 class AutomatedMining_View:
 
     def __init__(self, parentFrame):
-
+        self.__parentFrame = parentFrame
         self.configureTestTabElements(parentFrame)
         self.configureZTestElements(parentFrame)
         self.configureTestTabConsoleElements(parentFrame)
@@ -405,19 +406,19 @@ class AutomatedMining_View:
 
         # QUERY STATUS CHILD - DATASET A
         # region
-        self.labelQuerySetDataStatusA = Label(self.labelFrameQueryDataA)
+        self.lblStatusSourceFolder = Label(self.labelFrameQueryDataA)
         # self.labelQuerySetDataStatusA = Label(self.labelFrameQuerySetDataStatusA)
         # self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
-        self.labelQuerySetDataStatusA.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
+        self.lblStatusSourceFolder.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
         # self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
-        self.labelQuerySetDataStatusA.configure(
+        self.lblStatusSourceFolder.configure(
             background = Color_support.PROCESS_LISTBOX_STATUS_BG, foreground = Color_support.PROCESS_LISTBOX_STATUS_FG,
             bd = UI_support.SELECT_STATUS_LABEL_BORDER, relief = UI_support.SELECT_STATUS_LABEL_RELIEF,
-            text = UI_support.LBL_SELECT_NO_DATA,
+            text = "EXTRACT SIGNIFICANT FEATURES",
             font = UI_support.SELECT_STATUS_LABEL_FONT,
         )
         if UI_support.SELECT_STATUS_LABEL_TOP_SEPARATOR:
-            self.labelFrameNoDataAHorizontalSeparator = ttk.Separator(self.labelQuerySetDataStatusA,
+            self.labelFrameNoDataAHorizontalSeparator = ttk.Separator(self.lblStatusSourceFolder,
                                                                       orient = HORIZONTAL)
             self.labelFrameNoDataAHorizontalSeparator.place(relx = 0, rely = 0, relwidth = 1, anchor = NW)
         # endregion
@@ -448,8 +449,8 @@ class AutomatedMining_View:
         # newRelH = FS.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
         newRelH = FS.getRelH(
             self.labelFrameQuerySetDataStatusA) * UI_support.SELECT_LABEL_STRIPES_REL_H_MULTIPLIER  # 5 / 8 # TODO Make constant reference
-        self.labelQuerySetDataStripesA = Label(self.labelFrameListBoxA, bd = 0, relief = GROOVE)
-        self.labelQuerySetDataStripesA.place(
+        self.lblStripesFeatureCodes = Label(self.labelFrameListBoxA, bd = 0, relief = GROOVE)
+        self.lblStripesFeatureCodes.place(
             relx = 0,
             rely = 0,
             # rely = newRelY,
@@ -457,7 +458,7 @@ class AutomatedMining_View:
             relheight = newRelH,
             anchor = NW
         )
-        newRelY = FS.getRelY(self.labelQuerySetDataStripesA) + FS.getRelH(self.labelQuerySetDataStripesA)
+        newRelY = FS.getRelY(self.lblStripesFeatureCodes) + FS.getRelH(self.lblStripesFeatureCodes)
         self.labelFrameQuerySetDataStatusA.place(
             relx = FS.getRelX(self.labelFrameQuerySetDataStatusA),
             rely = newRelY,
@@ -467,11 +468,11 @@ class AutomatedMining_View:
         im = PIL.Image.open(
             Icon_support.TEXTURE_STRIPE_ORANGE)
         texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
-        self.labelQuerySetDataStripesA.configure(
+        self.lblStripesFeatureCodes.configure(
             image = texture_pink_stripes,
             anchor = SW
         )
-        self.labelQuerySetDataStripesA.image = texture_pink_stripes  # < ! > Required to make images appear
+        self.lblStripesFeatureCodes.image = texture_pink_stripes  # < ! > Required to make images appear
         # endregion
 
         # QUERY FRAME - DATASET A
@@ -486,14 +487,14 @@ class AutomatedMining_View:
             background = Color_support.FILTER_BUTTONS_BG
         )
 
-        self.labelQuerySetDataA = Label(self.labelFrameBorderQuerySetDataA)
+        self.lblQuerySourceFolder = Label(self.labelFrameBorderQuerySetDataA)
 
-        self.labelQuerySetDataA.place(
+        self.lblQuerySourceFolder.place(
             relx = 0.01, rely = 0.025,
             relwidth = 0.98, relheight = 0.95)
-        self.labelQuerySetDataA.configure(
+        self.lblQuerySourceFolder.configure(
             background = Color_support.FILTER_LABEL_BG, foreground = Color_support.FILTER_TITLE_BG,
-            text = "Load Pickle",
+            text = "Directory",
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
         )
@@ -504,11 +505,11 @@ class AutomatedMining_View:
         # ENTRY - DATASET A
         # region
         # self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
-        self.entryPickleFilename = Entry(self.labelFrameQuerySetDataStatusA)
-        self.entryPickleFilename.place(
+        self.entrySourceFolderFilename = Entry(self.labelFrameQuerySetDataStatusA)
+        self.entrySourceFolderFilename.place(
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
-        self.entryPickleFilename.configure(
+        self.entrySourceFolderFilename.configure(
             background = Color_support.FILTER_ENTRY_BG, foreground = Color_support.FILTER_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
@@ -519,8 +520,8 @@ class AutomatedMining_View:
         # endregion
         # QUERY BUTTON - DATASET A
         # region
-        newRelX = FS.getRelX(self.entryPickleFilename) + FS.getRelW(
-            self.entryPickleFilename)  # + UI_support.TAB_3CHILD_LBL_REL_X
+        newRelX = FS.getRelX(self.entrySourceFolderFilename) + FS.getRelW(
+            self.entrySourceFolderFilename)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
         self.btnLoadPickle = Button(self.labelFrameQuerySetDataStatusA)  # TODO Query Features
@@ -565,7 +566,7 @@ class AutomatedMining_View:
             highlightthickness = 0
         )
         newRelY = FS.getRelY(self.labelFrameQuerySetDataStatusA) + FS.getRelH(self.labelFrameQuerySetDataStatusA)
-        newRelH = 1 - (FS.getRelH(self.labelFrameQuerySetDataStatusA) + FS.getRelH(self.labelQuerySetDataStripesA))
+        newRelH = 1 - (FS.getRelH(self.labelFrameQuerySetDataStatusA) + FS.getRelH(self.lblStripesFeatureCodes))
         self.listFeatureCodes.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
 
         # self.listQuerySetDataA.place(
@@ -718,30 +719,30 @@ class AutomatedMining_View:
 
         # QUERY TOP STRIPE PARENT - DATASET B
         # region
-        self.labelQuerySetDataStripesB = Label(self.labelFrameListBoxB, bd = 0, relief = GROOVE)
-        self.labelQuerySetDataStripesB.place(
-            relx = FS.getRelX(self.labelQuerySetDataStripesA),
-            rely = FS.getRelY(self.labelQuerySetDataStripesA),
-            relwidth = FS.getRelW(self.labelQuerySetDataStripesA),
-            relheight = FS.getRelH(self.labelQuerySetDataStripesA)
+        self.lblStripesFeatureGroups = Label(self.labelFrameListBoxB, bd = 0, relief = GROOVE)
+        self.lblStripesFeatureGroups.place(
+            relx = FS.getRelX(self.lblStripesFeatureCodes),
+            rely = FS.getRelY(self.lblStripesFeatureCodes),
+            relwidth = FS.getRelW(self.lblStripesFeatureCodes),
+            relheight = FS.getRelH(self.lblStripesFeatureCodes)
         )
         im = PIL.Image.open(
             Icon_support.TEXTURE_STRIPE_ORANGE)
         texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
-        self.labelQuerySetDataStripesB.configure(
+        self.lblStripesFeatureGroups.configure(
             image = texture_pink_stripes,
             anchor = SW
         )
-        self.labelQuerySetDataStripesB.image = texture_pink_stripes  # < ! > Required to make images appear
+        self.lblStripesFeatureGroups.image = texture_pink_stripes  # < ! > Required to make images appear
         # endregion
 
         self.labelQuerySetDataStatusB = Label(self.labelFrameQueryDataB)
         # self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
         self.labelQuerySetDataStatusB.place(
-            relx = FS.getRelX(self.labelQuerySetDataStatusA),
-            rely = FS.getRelY(self.labelQuerySetDataStatusA),
-            relwidth = FS.getRelW(self.labelQuerySetDataStatusA),
-            relheight = FS.getRelH(self.labelQuerySetDataStatusA)
+            relx = FS.getRelX(self.lblStatusSourceFolder),
+            rely = FS.getRelY(self.lblStatusSourceFolder),
+            relwidth = FS.getRelW(self.lblStatusSourceFolder),
+            relheight = FS.getRelH(self.lblStatusSourceFolder)
         )
         # self.labelQuerySetDataStatusB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusB.configure(
@@ -799,10 +800,10 @@ class AutomatedMining_View:
         self.labelQuerySetDataB = Label(self.labelFrameBorderQuerySetDataB)
 
         self.labelQuerySetDataB.place(
-            relx = FS.getRelX(self.labelQuerySetDataA),
-            rely = FS.getRelY(self.labelQuerySetDataA),
-            relwidth = FS.getRelW(self.labelQuerySetDataA),
-            relheight = FS.getRelH(self.labelQuerySetDataA))
+            relx = FS.getRelX(self.lblQuerySourceFolder),
+            rely = FS.getRelY(self.lblQuerySourceFolder),
+            relwidth = FS.getRelW(self.lblQuerySourceFolder),
+            relheight = FS.getRelH(self.lblQuerySourceFolder))
         self.labelQuerySetDataB.configure(
             background = Color_support.FILTER_LABEL_BG, foreground = Color_support.FILTER_TITLE_BG,
             text = UI_support.SELECT_LABEL_DATASETB_TEXT,
@@ -814,10 +815,10 @@ class AutomatedMining_View:
 
         self.entryQuerySetDataB = Entry(self.labelFrameQuerySetDataStatusB)
         self.entryQuerySetDataB.place(
-            relx = FS.getRelX(self.entryPickleFilename),
-            rely = FS.getRelY(self.entryPickleFilename),
-            relwidth = FS.getRelW(self.entryPickleFilename),
-            relheight = FS.getRelH(self.entryPickleFilename))
+            relx = FS.getRelX(self.entrySourceFolderFilename),
+            rely = FS.getRelY(self.entrySourceFolderFilename),
+            relwidth = FS.getRelW(self.entrySourceFolderFilename),
+            relheight = FS.getRelH(self.entrySourceFolderFilename))
         self.entryQuerySetDataB.configure(
             background = Color_support.FILTER_ENTRY_BG, foreground = Color_support.FILTER_ENTRY_FG,
             bd = 1,
@@ -1248,15 +1249,15 @@ class AutomatedMining_View:
         newRelH = 1 - (FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA))
 
         # BOTTOM STATUS LABEL - DATASET A
-        self.labelQueryDataA = Label(self.labelFrameFilterListDataA)
-        self.labelQueryDataA.place(
+        self.lblSelectedFeatureCodesTitle = Label(self.labelFrameFilterListDataA)
+        self.lblSelectedFeatureCodesTitle.place(
             relx = UI_support.TAB_TEST_FILTER_LISTBOX_STATUS_REL_X, rely = newRelY,
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_STATUS_REL_W, relheight = newRelH)
 
-        self.labelQueryDataA.configure(
+        self.lblSelectedFeatureCodesTitle.configure(
             background = Color_support.PROCESS_LISTBOX_STATUS_BG, foreground = Color_support.PROCESS_LISTBOX_STATUS_FG,
             bd = UI_support.FILTER_STATUS_LABEL_BORDER, relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
-            text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
+            text = str(LS.GL_AM_EXCEL_OUTPUT_PATH),
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
 
@@ -1489,16 +1490,16 @@ class AutomatedMining_View:
         self.labelOverlayQueryDataA = Label(self.labelOverlayFilterListDataA)
         newRelYReduction = 0.01
         self.labelOverlayQueryDataA.place(
-            relx = FS.getRelX(self.labelQueryDataA),
-            rely = FS.getRelY(self.labelQueryDataA) + (UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2),
+            relx = FS.getRelX(self.lblSelectedFeatureCodesTitle),
+            rely = FS.getRelY(self.lblSelectedFeatureCodesTitle) + (UI_support.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2),
             # TODO Make constant
-            relwidth = FS.getRelW(self.labelQueryDataA),
-            relheight = FS.getRelH(self.labelQueryDataA) - newRelYReduction)
+            relwidth = FS.getRelW(self.lblSelectedFeatureCodesTitle),
+            relheight = FS.getRelH(self.lblSelectedFeatureCodesTitle) - newRelYReduction)
 
         self.labelOverlayQueryDataA.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
             foreground = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
-            bd = self.labelQueryDataA['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
+            bd = self.lblSelectedFeatureCodesTitle['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
@@ -1536,7 +1537,7 @@ class AutomatedMining_View:
         self.labelOverlayQueryDataB.configure(
             background = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
             foreground = Color_support.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
-            bd = self.labelQueryDataA['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
+            bd = self.lblSelectedFeatureCodesTitle['bd'], relief = UI_support.FILTER_STATUS_LABEL_RELIEF,
             text = UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = UI_support.FILTER_STATUS_LABEL_FONT,
         )
@@ -2630,6 +2631,8 @@ class AutomatedMining_View:
     """ >>> GETTERS FOR TO-BIND ELEMENTS (e.g. buttons, listboxes) <<< """
 
     # region GETTERS
+    def getParentFrame(self):
+        return self.__parentFrame
 
     def getBtnLoadPickle(self):
         return self.btnLoadPickle
@@ -2695,8 +2698,9 @@ class AutomatedMining_View:
         return self.listConsoleQueueScreen
 
 
-    def getLabelQueryDataA(self):
-        return self.labelQueryDataA
+    def getLblSelectedFeatureCodesTitle(self):
+        return self.lblSelectedFeatureCodesTitle
+
     def getLabelQueryDataB(self):
         return self.labelQueryDataB
 
@@ -2714,28 +2718,32 @@ class AutomatedMining_View:
 
     def getLabelOverlayFilterListData(self):
         return self.labelOverlayFilterListData
+
     def getLabelFrameFilterListData(self):
         return self.labelFrameFilterListData
+
     def getLabelFilterStripes(self):
         return self.labelFilterStripes
 
-    def getLabelQuerySetDataStatusA(self):
-        return self.labelQuerySetDataStatusA
+    def getLblStatusSourceFolder(self):
+        return self.lblStatusSourceFolder
+
     def getLabelQuerySetDataStatusB(self):
         return self.labelQuerySetDataStatusB
 
-    def getLabelQuerySetDataStripesA(self):
-        return self.labelQuerySetDataStripesA
-    def getLabelQuerySetDataStripesB(self):
-        return self.labelQuerySetDataStripesB
+    def getLblStripesFeatureCodes(self):
+        return self.lblStripesFeatureCodes
+    def getLblStripesFeatureGroups(self):
+        return self.lblStripesFeatureGroups
 
     def getLblSelectedFeatureCount(self):
         return self.lblSelectedFeatureCount
+
     def getLabelQueryDataBCount(self):
         return self.labelQueryDataBCount
 
-    def getEntryPickleFilename(self):
-        return self.entryPickleFilename
+    def getEntrySourceFolderFilename(self):
+        return self.entrySourceFolderFilename
     def getEntryQuerySetDataB(self):
         return self.entryQuerySetDataB
 

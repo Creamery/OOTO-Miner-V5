@@ -31,8 +31,11 @@ FEAT_NAME = "Name"
 OPTION_NAME = "OptionName"
 
 # Paths
+
+GL_ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 GL_AM_INPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_input\\")
 GL_AM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\AM\\")
+GL_AM_EXCEL_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\AM\\UI Results\\")
 GL_MM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\MM\\")
 PICKLE_TITLE_NAME = "Pickle Result - "
 
@@ -323,7 +326,7 @@ def exportPickleResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PAT
         pickle.dump(dict_results, file, pickle.HIGHEST_PROTOCOL)
 
 
-def checkPickleFileExistence(filename, path = GL_AM_OUTPUT_PATH):
+def checkExcelFileExistence(filename, path = GL_AM_OUTPUT_PATH):
     path_import = str(path + filename)
     if checkDirectoryExistence(path_import):  # Check directory existence
         return True
@@ -331,7 +334,7 @@ def checkPickleFileExistence(filename, path = GL_AM_OUTPUT_PATH):
 
 
 
-def loadPickleResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH):
+def loadExcelResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH):
     # path_import = str(path + "Pickle Results\\")
     path_import = str(path + filename)
     checkDirectoryExistence(path_import)

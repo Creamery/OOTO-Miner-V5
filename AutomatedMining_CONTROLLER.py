@@ -47,7 +47,7 @@ except ImportError:
 
 import math
 import collections
-import Color_support
+import Color_support as CS
 import Icon_support
 import UI_support
 import PIL.Image
@@ -67,9 +67,10 @@ class AutomatedMining_Controller:
         self.model = model
         self.root = root
         self.dictWidgetPlace = {}
-        self.dict_result_data = None  # To be initialized by loadPickle()
+        self.dict_result_data = None  # To be initialized by loadSourceFolder()
         self.list_feature_codes = None
         self.list_feature_codes_original = None
+        self.prev_selection = 0
 
 
         self.configureTestTabBindings()
@@ -102,7 +103,7 @@ class AutomatedMining_Controller:
 
         self.isReadyDatasetA = False
         self.isReadyDatasetB = False
-        self.checkIfDatasetReady()
+        # self.checkIfDatasetReady()
         self.resetDatasetContents()
 
 
@@ -172,13 +173,13 @@ class AutomatedMining_Controller:
         self.labelOverlayFilterListData = self.view.getLabelOverlayFilterListData()
         self.labelFrameFilterListData = self.view.getLabelFrameFilterListData()
         self.labelFilterStripes = self.view.getLabelFilterStripes()
-        self.labelQuerySetDataStatusA = self.view.getLabelQuerySetDataStatusA()
+        self.lblStatusSourceFolder = self.view.getLblStatusSourceFolder()
         self.labelQuerySetDataStatusB = self.view.getLabelQuerySetDataStatusB()
-        self.labelQuerySetDataStripesA = self.view.getLabelQuerySetDataStripesA()
-        self.labelQuerySetDataStripesB = self.view.getLabelQuerySetDataStripesB()
+        self.lblStripesFeatureCodes = self.view.getLblStripesFeatureCodes()
+        self.lblStripeFeatureGroups = self.view.getLblStripesFeatureGroups()
 
         # LABELS
-        self.lblSelectedFeatureCodesTitle = self.view.getLabelQueryDataA()
+        self.lblSelectedFeatureCodesTitle = self.view.getLblSelectedFeatureCodesTitle()
         self.lblSelectedFeatureGroupsTitle = self.view.getLabelQueryDataB()
         self.labelQueryDataFeatureName = self.view.getLabelQueryDataFeatureName()
         self.listQueryDataA = self.view.getListQueryDataA()
@@ -200,7 +201,7 @@ class AutomatedMining_Controller:
 
         # ENTRIES
         self.entryQueryFeature = self.view.getEntryQueryFeature()
-        self.entryPickleFilename = self.view.getEntryPickleFilename()
+        self.entrySourceFolderFilename = self.view.getEntrySourceFolderFilename()
         self.entryQuerySetDataB = self.view.getEntryQuerySetDataB()
 
         # BUTTONS
@@ -209,7 +210,7 @@ class AutomatedMining_Controller:
         self.labelFrameProcessChangeCrossType = self.view.getLabelFrameProcessChangeCrossType()
 
         self.btnLoadPickle = self.view.getBtnLoadPickle()
-        self.btnLoadPickle.bind('<Button-1>', self.loadPickle)  # TODO When find is pressed, find pickle file
+        self.btnLoadPickle.bind('<Button-1>', self.loadSourceFolder)  # TODO When find is pressed, find pickle file
         self.buttonQuerySetDataB = self.view.getButtonQuerySetDataB()  # TODO Might remove
         self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
 
@@ -381,7 +382,7 @@ class AutomatedMining_Controller:
 
     ''' Load existing Pickle file '''
 
-    def loadPickle(self, evt):
+    def loadSourceFolder(self, evt):
         print("Loading Pickle")
         willLoad = True
         if self.list_feature_codes is not None:
@@ -394,17 +395,24 @@ class AutomatedMining_Controller:
             #     tk.tkMessageBox.showinfo('Return', 'You will now return to the application screen')
 
         if willLoad:
-            entry_pickle_filename = self.entryPickleFilename.get()
-            filename = entry_pickle_filename.strip()  # Directory name now
+            entry_source_folder_filename = self.entrySourceFolderFilename.get()
+            filename = entry_source_folder_filename.strip()  # Directory name now
             # print(filename)
 
+            # If entry box is empty, the program assumes the default directory
             if len(filename) <= 0:
                 filename = "UI Results\\"
-            if LS.checkPickleFileExistence(filename):
+
+            if LS.checkExcelFileExistence(filename):
                 self.list_feature_codes = []  # Reset feature codes when making a new pickle
                 self.list_feature_codes_original = []
 
-                self.df_results, self.result_colnames = LS.loadPickleResultDictionary()
+                # str_source_folder = str(LS.GL_AM_OUTPUT_PATH + filename).replace(str(LS.GL_ROOT_PATH), "")
+                # str_source_folder = str_source_folder.replace("\\", " > ")
+                # str_source_folder = str_source_folder.strip()[1:-1]
+                # self.lblStatusSourceFolder.configure(text = "[ROOT] > " + str_source_folder)  # Change the header text (originally NO DATA)
+
+                self.df_results, self.result_colnames = LS.loadExcelResultDictionary()
                 self.addToListFeatureCode(self.df_results, self.result_colnames)
             else:
                 tkMessageBox.showerror("Error: File not found",
@@ -434,15 +442,35 @@ class AutomatedMining_Controller:
         #                     self.list_feature_codes.append(current_feature.strip())
 
         # Create a dictionary where the chosen SSFs are the keys
+        self.dict_Significant_DTPairs = collections.OrderedDict()
         for key in df_results:
             print(key)
             print(df_results[key]['Feature'])
             # print(value)
             print("")
+            if key not in self.list_feature_codes:
+                self.list_feature_codes.append(key)
 
-        # for row in df_results.itertuples():
-        #     print(row.A)
-        #     print(row.Index)
+        self.list_feature_codes.sort()  # Sort
+        self.list_feature_codes_original = copy.deepcopy(self.list_feature_codes)  # Create an untouched copy
+
+
+        # Remove previous listbox entry
+        self.resetSelectedFeatureCodes(None)
+        # Add the new features to the listbox (listFeatureCodes)
+        for i_feature_code in range(len(self.list_feature_codes)):
+            feature_code = self.list_feature_codes[i_feature_code]
+
+            index = i_feature_code + 1
+            str_index = str(index)
+            if index < 10:
+                str_index = "  " + str_index
+            str_entry = UICS.PRE_LIST + str_index + "| " + feature_code
+            self.listFeatureCodes.insert(END, str_entry)
+        # return list_features
+
+
+
 
 
             # data_columns = dict_result_data[key]
@@ -609,10 +637,18 @@ class AutomatedMining_Controller:
         return "break"
 
     def resetSelectedFeatureCodes(self, evt):
-        print("RESET SELECTED FEATURE CODES")
+        # print("RESET SELECTED FEATURE CODES")
+        # Reset stripe
+        self.setStripeReady(False, self.lblStripesFeatureCodes)
 
-        self.listFeatureCodes.delete(0, END)  # Delete everything from Feature Code listbox
+        # Deselect all selected items/inidices
+        selected = self.listFeatureCodes.curselection()
+        for index in selected[::-1]:
+            self.listFeatureCodes.delete(index)
 
+        # Reset selected count label
+        selection_count = len(self.listFeatureCodes.curselection())
+        self.lblSelectedFeatureCount.configure(text = str(selection_count))
 
         '''
         self.isReadyDatasetA = False  # When a dataset is reset, it is not ready
@@ -626,8 +662,8 @@ class AutomatedMining_Controller:
         self.entryQueryFeature.configure(text = '')
         self.labelQuerySetDataStatusA.configure(
             text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-            background = Color_support.SELECT_LISTBOX_STATUS_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+            background = CS.SELECT_LISTBOX_STATUS_BG,
+            foreground = CS.SELECT_LISTBOX_STATUS_FG
         )
 
         # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
@@ -647,6 +683,10 @@ class AutomatedMining_Controller:
 
     def resetSelectedFeatureGroups(self, evt):
         print("RESET SELECTED FEATURE GROUPS")
+
+        self.listFeatureGroups.delete(0, END)  # Delete everything from Feature Code listbox
+        self.setStripeReady(False, self.lblStripesFeatureGroups)
+
         '''
         self.isReadyDatasetB = False  # When a dataset is reset, it is not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
@@ -660,8 +700,8 @@ class AutomatedMining_Controller:
         # self.labelFrameQueryDataB.configure(text = "Dataset B")
         self.labelQuerySetDataStatusB.configure(
             text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-            background = Color_support.SELECT_LISTBOX_STATUS_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+            background = CS.SELECT_LISTBOX_STATUS_BG,
+            foreground = CS.SELECT_LISTBOX_STATUS_FG
         )
 
         # if self.datasetB['Data'] is []:
@@ -678,7 +718,12 @@ class AutomatedMining_Controller:
         print("QUERY SELECTED FEATURE CODES")
         # Update Selection Count
         selection_count = len(self.listFeatureCodes.curselection())
+
         self.lblSelectedFeatureCount.configure(text = str(selection_count))
+        if selection_count != self.prev_selection:
+            self.setStripeReady(False, self.lblStripesFeatureCodes)  # Change stripe color
+
+        self.prev_selection = selection_count
 
         '''
         self.isReadyDatasetA = False  # When a listbox element is de/selected, mark the dataset as not ready
@@ -748,7 +793,7 @@ class AutomatedMining_Controller:
         list_selectedFeatureCodes = self.listFeatureCodes.curselection()
         for index in list_selectedFeatureCodes:
             print(self.listFeatureCodes.get(index))
-
+        self.setStripeReady(True, self.lblStripesFeatureCodes)  # Change stripe color
         print("CHECK 1 IS PRESSED")
         return "break"
 
@@ -776,8 +821,8 @@ class AutomatedMining_Controller:
 
             self.labelQuerySetDataStatusB.configure(
                 text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-                background = Color_support.SELECT_LISTBOX_STATUS_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+                background = CS.SELECT_LISTBOX_STATUS_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_FG
             )
             # return -1
 
@@ -826,10 +871,10 @@ class AutomatedMining_Controller:
             # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
             self.labelQuerySetDataStatusB.configure(
                 text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
-                background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
+                background = CS.SELECT_LISTBOX_STATUS_READY_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_READY_FG
             )
-            self.setDatasetStripeReady(True, self.labelQuerySetDataStripesB)
+            self.setStripeReady(True, self.lblStripeFeatureGroups)
 
         # print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
         # print ("Dataset B COUNT IS " + str(self.datasetCountB))
@@ -927,14 +972,14 @@ class AutomatedMining_Controller:
 
         # Change button appearance to selected
         self.buttonChooseChiSquare.configure(
-            background = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
-            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_BG
+            background = CS.PROCESS_CHI_SQUARE_TITLE_FG,
+            foreground = CS.PROCESS_CHI_SQUARE_TITLE_BG
         )
 
         # Revert other buttons to deselected
         self.buttonChooseZTest.configure(
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG,
-            foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG,
+            foreground = CS.PROCESS_Z_TEST_TITLE_FG,
         )
 
         self.hideWidget(self.labelFrameProcessChangeLevel)
@@ -943,13 +988,13 @@ class AutomatedMining_Controller:
     def selectOptionChangeLevel(self, evt):
         # Change button appearance to selected
         self.buttonChooseZTest.configure(
-            background = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
-            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_BG
+            background = CS.PROCESS_CHI_SQUARE_TITLE_FG,
+            foreground = CS.PROCESS_CHI_SQUARE_TITLE_BG
         )
         # Revert other buttons to deselected
         self.buttonChooseChiSquare.configure(
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG,
-            foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG,
+            foreground = CS.PROCESS_Z_TEST_TITLE_FG,
         )
 
         self.hideWidget(self.labelFrameProcessChangeCrossType)
@@ -981,11 +1026,11 @@ class AutomatedMining_Controller:
 
         '''
         self.buttonInitialVarDesc.configure(
-            background=Color_support.DATASET_BTN_BG, foreground=Color_support.DATASET_BTN_FG,
+            background=CS.DATASET_BTN_BG, foreground=CS.DATASET_BTN_FG,
             text=UI_support.BTN_DATASET_UPLOAD,
             bd=1, relief=GROOVE,
-            activebackground=Color_support.DATASET_BTN_BG_ACTIVE, activeforeground=Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground=Color_support.FG_DISABLED_COLOR)
+            activebackground=CS.DATASET_BTN_BG_ACTIVE, activeforeground=CS.DATASET_BTN_FG_ACTIVE,
+            disabledforeground=CS.FG_DISABLED_COLOR)
         '''
 
     ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
@@ -1145,12 +1190,12 @@ class AutomatedMining_Controller:
         self.listQueryDataB.configure(state = "normal")
 
         self.datasetA = self.resetDataset()
-        self.entryPickleFilename.configure(text = '')
+        self.entrySourceFolderFilename.configure(text = LS.GL_AM_EXCEL_OUTPUT_PATH)
         # self.entryQueryFeatureA.configure(text = '')
         if self.datasetA is not []:
             self.datasetCountA = len(self.datasetA['Data'])
             # self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-        self.lblSelectedFeatureCodesTitle.configure(text = "")
+        self.lblSelectedFeatureCodesTitle.configure(text = str(LS.GL_AM_EXCEL_OUTPUT_PATH))
         self.listQueryDataA.delete(0, END)
         self.listFeatureCodes.delete(0, END)
 
@@ -1185,13 +1230,14 @@ class AutomatedMining_Controller:
             self.listQueryDataA.configure(state = "disabled")
             # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
             # self.labelFrameQueryDataB.configure(text = "Samples")
-            self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
+            self.lblStatusSourceFolder.configure(
+                # text = UI_support.LBL_SELECT_NO_DATA,
+                text = "EXTRACT SIGNIFICANT FEATURES",
+                background = CS.L_GRAY
             )
             self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
+                text = UI_support.LBL_SELECT_NO_DATA,  # TODO Change text
+                background = CS.L_GRAY
             )
 
             # self.labelQueryDataBCount.configure(text = "")
@@ -1204,13 +1250,13 @@ class AutomatedMining_Controller:
             self.labelQueryZTestSvP.configure(state = "disabled")
             # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
             # self.labelFrameQueryDataB.configure(text = "Dataset B")
-            self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
+            self.lblStatusSourceFolder.configure(
+                text = "EXTRACT SIGNIFICANT FEATURES",
+                background = CS.L_GRAY
             )
             self.labelQuerySetDataStatusB.configure(
                 text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
+                background = CS.L_GRAY
             )
 
     def querySetAllFeatures(self):
@@ -1258,8 +1304,8 @@ class AutomatedMining_Controller:
 
         # Reconfigure tag settings
         consoleScreen.tag_configure(const.CONSOLE.SELECT,
-                                    background = Color_support.FUSCHIA,
-                                    foreground = Color_support.WHITE
+                                    background = CS.FUSCHIA,
+                                    foreground = CS.WHITE
                                     )
 
         # Get current insert index
@@ -1302,45 +1348,45 @@ class AutomatedMining_Controller:
         self.buttonConsoleQueue['relief'] = FLAT
 
         # Reset background color
-        self.buttonConsoleAll['background'] = Color_support.WHITE
-        self.buttonConsoleZTest['background'] = Color_support.WHITE
-        self.buttonConsoleChiSquare['background'] = Color_support.WHITE
-        self.buttonConsoleQueue['background'] = Color_support.WHITE
+        self.buttonConsoleAll['background'] = CS.WHITE
+        self.buttonConsoleZTest['background'] = CS.WHITE
+        self.buttonConsoleChiSquare['background'] = CS.WHITE
+        self.buttonConsoleQueue['background'] = CS.WHITE
 
         # Reset foreground color
-        self.buttonConsoleAll['foreground'] = Color_support.FG_COLOR
-        self.buttonConsoleZTest['foreground'] = Color_support.FG_COLOR
-        self.buttonConsoleChiSquare['foreground'] = Color_support.FG_COLOR
-        self.buttonConsoleQueue['foreground'] = Color_support.FG_COLOR
+        self.buttonConsoleAll['foreground'] = CS.FG_COLOR
+        self.buttonConsoleZTest['foreground'] = CS.FG_COLOR
+        self.buttonConsoleChiSquare['foreground'] = CS.FG_COLOR
+        self.buttonConsoleQueue['foreground'] = CS.FG_COLOR
 
         if self.dictConsoleScreens[consoleScreen] == const.SCREENS.QUEUE:
             self.showWidget(self.listConsoleQueueScreen)
             self.labelConsoleScreenTaskBar['text'] = '''QUEUE'''
-            self.buttonConsoleQueue['background'] = Color_support.FUSCHIA
-            self.buttonConsoleQueue['foreground'] = Color_support.WHITE
+            self.buttonConsoleQueue['background'] = CS.FUSCHIA
+            self.buttonConsoleQueue['foreground'] = CS.WHITE
             self.buttonConsoleQueue['relief'] = GROOVE
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.Z_TEST:
             self.showWidget(self.listConsoleZTestScreen)
             self.labelConsoleScreenTaskBar['text'] = '''Z-TEST'''
-            self.buttonConsoleZTest['background'] = Color_support.FUSCHIA
-            self.buttonConsoleZTest['foreground'] = Color_support.WHITE
+            self.buttonConsoleZTest['background'] = CS.FUSCHIA
+            self.buttonConsoleZTest['foreground'] = CS.WHITE
             self.buttonConsoleZTest['relief'] = GROOVE
 
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.CHI_SQUARE:
             self.showWidget(self.listConsoleChiSquareScreen)
             self.labelConsoleScreenTaskBar['text'] = '''CHI-SQUARE'''
-            self.buttonConsoleChiSquare['background'] = Color_support.FUSCHIA
-            self.buttonConsoleChiSquare['foreground'] = Color_support.WHITE
+            self.buttonConsoleChiSquare['background'] = CS.FUSCHIA
+            self.buttonConsoleChiSquare['foreground'] = CS.WHITE
             self.buttonConsoleChiSquare['relief'] = GROOVE
 
 
         else:
             self.showWidget(self.listConsoleScreen)
             self.labelConsoleScreenTaskBar['text'] = '''ALL'''
-            self.buttonConsoleAll['background'] = Color_support.FUSCHIA
-            self.buttonConsoleAll['foreground'] = Color_support.WHITE
+            self.buttonConsoleAll['background'] = CS.FUSCHIA
+            self.buttonConsoleAll['foreground'] = CS.WHITE
             self.buttonConsoleAll['relief'] = GROOVE
 
     """ >>> HELPER FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. enter, leave) <<< """
@@ -1476,12 +1522,12 @@ class AutomatedMining_Controller:
         if not self.isReadyDatasetA:  # If Dataset A is not ready
             # Clear and disable filter features option
             self.disableFilter()
-            self.setDatasetStatusReady(False, self.labelQuerySetDataStatusA, self.labelQuerySetDataStripesA)
+            self.setDatasetStatusReady(False, self.lblStatusSourceFolder, self.lblStripesFeatureCodes)
 
         if not self.isReadyDatasetB:  # If Dataset B is not ready
             # Clear and disable filter features option
             self.disableFilter()
-            self.setDatasetStatusReady(False, self.labelQuerySetDataStatusB, self.labelQuerySetDataStripesB)
+            self.setDatasetStatusReady(False, self.labelQuerySetDataStatusB, self.lblStripeFeatureGroups)
 
         if self.isReadyDatasetA and self.isReadyDatasetB:  # If both are ready
             # Enable filter feature option
@@ -1501,8 +1547,8 @@ class AutomatedMining_Controller:
 
         # Disable feature name
         self.labelQueryDataFeatureName.configure(
-            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG,
-            foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
+            background = CS.FILTER_LISTBOX_FEATURE_STATUS_BG,
+            foreground = CS.FILTER_LISTBOX_FEATURE_STATUS_FG,
             text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT
         )
 
@@ -1526,8 +1572,8 @@ class AutomatedMining_Controller:
 
         # Enable feature name
         self.labelQueryDataFeatureName.configure(
-            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_ON_BG,
-            foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_ON_FG,
+            background = CS.FILTER_LISTBOX_FEATURE_STATUS_ON_BG,
+            foreground = CS.FILTER_LISTBOX_FEATURE_STATUS_ON_FG,
             text = UI_support.FILTER_STATUS_READY_TEXT
         )
 
@@ -1542,19 +1588,19 @@ class AutomatedMining_Controller:
     def setDatasetStatusReady(self, isReady, statusWidget, stripeWidget):
         if isReady:
             statusWidget.configure(
-                background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG,
+                background = CS.SELECT_LISTBOX_STATUS_READY_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_READY_FG,
                 relief = GROOVE
             )
         else:
             statusWidget.configure(
-                text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-                background = Color_support.SELECT_LISTBOX_STATUS_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
+                text = "EXPORT SIGNIFICANT DATASETS",
+                background = CS.SELECT_LISTBOX_STATUS_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_FG,
                 relief = UI_support.SELECT_LISTBOX_RELIEF
             )
 
-    def setDatasetStripeReady(self, isReady, stripeWidget):
+    def setStripeReady(self, isReady, stripeWidget):
         if isReady:
             im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
             texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
@@ -1564,11 +1610,12 @@ class AutomatedMining_Controller:
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
             im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE)
-            texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+            texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
-                image = texture_pink_stripes
+                image = texture_orange_stripes
             )
-            stripeWidget.image = texture_pink_stripes
+            stripeWidget.image = texture_orange_stripes
+
 
     def setFilterStripeReady(self, isReady, stripeWidget):
         if isReady:
