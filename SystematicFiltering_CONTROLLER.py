@@ -80,14 +80,14 @@ class SystematicFiltering_Controller:
     def configureViewBindings(self):
         button = self.view.getBtnStartCrossProcess()
         button.bind('<Button-1>', self.startAutomatedMining)
-        button.bind("<Enter>", self.enterCheckIcon)
-        button.bind("<Leave>", self.leaveCheckIcon)
+        button.bind("<Enter>", self.enterAMCheckIcon)
+        button.bind("<Leave>", self.leaveAMCheckIcon)
 
 
         button = self.view.getBtnStopCrossProcess()
         button.bind('<Button-1>', self.stopAutomatedMining)
-        button.bind("<Enter>", self.enterCrossIcon)
-        button.bind("<Leave>", self.leaveCrossIcon)
+        button.bind("<Enter>", self.enterAMCrossIcon)
+        button.bind("<Leave>", self.leaveAMCrossIcon)
 
 
 
@@ -248,6 +248,52 @@ class SystematicFiltering_Controller:
             image = self.icon_check_off)
         item.image = self.icon_check_off  # < ! > Required to make images appear
 
+    def enterAMCheckIcon(self, event):
+        if self.icon_check_on is None:
+            iconSize = self.getIcoAMSizeCheck()
+            im = PIL.Image.open(IS.AM_ICO_START_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_AM_check_on = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_AM_check_on)
+        item.image = self.icon_AM_check_on  # < ! > Required to make images appear
+
+
+    def leaveAMCheckIcon(self, event):
+        if self.icon_check_on is None:
+            iconSize = self.getIcoAMSizeCheck()
+            im = PIL.Image.open(IS.AM_ICO_START).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_AM_check = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_AM_check)
+        item.image = self.icon_AM_check  # < ! > Required to make images appear
+
+    def enterAMCrossIcon(self, event):
+        if self.icon_check_on is None:
+            iconSize = self.getIcoAMSizeCross()
+            im = PIL.Image.open(IS.AM_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_AM_cross_on = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_AM_cross_on)
+        item.image = self.icon_AM_cross_on  # < ! > Required to make images appear
+
+
+    def leaveAMCrossIcon(self, event):
+        if self.icon_check_on is None:
+            iconSize = self.getIcoAMSizeCross()
+            im = PIL.Image.open(IS.AM_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_AM_cross = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_AM_cross)
+        item.image = self.icon_AM_cross  # < ! > Required to make images appear
+
 
     def enterCrossIcon(self, event):
         if self.icon_cross_on is None:
@@ -330,16 +376,27 @@ class SystematicFiltering_Controller:
 
     # def setDialogueGrip(self, grip):
     #     self.dialogue_grip = grip
+    def getIcoAMSizeCross(self):
+        width = self.view.getIcoAMWidthCross()
+        height = self.view.getIcoAMHeightCross()
+        return int(width), int(height)
+
+
+    def getIcoAMSizeCheck(self):
+        width = self.view.getIcoAMWidthCheck()
+        height = self.view.getIcoAMHeightCheck()
+        return int(width), int(height)
 
     def getIcoSizeCheck(self):
         width = self.view.getIcoWidthCheck()
         height = self.view.getIcoHeightCheck()
-        return width, height
+        return int(width), int(height)
 
     def getIcoSizeCross(self):
         width = self.view.getIcoWidthCross()
         height = self.view.getIcoHeightCross()
-        return width, height
+        return int(width), int(height)
+
 
 
 

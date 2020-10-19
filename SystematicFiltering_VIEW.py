@@ -196,29 +196,28 @@ class SystematicFiltering_View(_Progressible):
         FS.placeBelow(self.__lfConsoleCommands, self.__lfProgressConsole, y_offset)
 
         # BUTTONS
-        btn_width = 40
-        btn_height = btn_width
+
+        btn_width = 40 * 4 - 21
+        btn_height = 38
         icon_size = (btn_width, btn_height)
 
-        self.ico_width_check = btn_width
-        self.ico_height_check = btn_height
+        self.ico_AM_width_check = btn_width
+        self.ico_AM_height_check = btn_height
 
-        self.ico_width_cross = btn_width
-        self.ico_height_cross = btn_height
 
 
         frame_parent_width = self.__lfConsoleCommands.winfo_width()
         frame_parent_height = self.__lfConsoleCommands.winfo_height()
-        rel_width = float(btn_width) / float(frame_parent_width)
+        # rel_width = float(btn_width) / float(frame_parent_width)
         rel_height = float(btn_height) / float(frame_parent_height)
 
-        rel_x = 0.5 - (rel_width / 2)
+        # rel_x = 0.5 - (rel_width / 2)
         rel_y = 0.5 - (rel_height / 2)
 
         # START MINING Button
         self.__btnStartCrossProcess = Button(self.__lfConsoleCommands)
         self.__btnStartCrossProcess.place(
-            relx = rel_x, rely = rel_y,
+            x = 141, rely = rel_y,
             width = btn_width, height = btn_height)
 
         im = PIL.Image.open(IS.AM_ICO_START).resize(icon_size, PIL.Image.ANTIALIAS)
@@ -234,13 +233,23 @@ class SystematicFiltering_View(_Progressible):
             bd = 0, relief = FLAT, overrelief = GROOVE
         )
 
+
+        # STOP MINING Button
+        btn_width = 39
+        btn_height = 38
+        icon_size = (btn_width, btn_height)
+
+
+        self.ico_AM_width_cross = btn_width
+        self.ico_AM_height_cross = btn_height
+
         # STOP MINING Button
         self.__btnStopCrossProcess = Button(self.__lfConsoleCommands)
         self.__btnStopCrossProcess.place(
-            relx = rel_x, rely = rel_y,
+            x = 280, rely = rel_y,
             width = btn_width, height = btn_height)
 
-        im = PIL.Image.open(IS.AM_ICO_CANCEL).resize(icon_size, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(IS.AM_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
         btn_stop_AM = PIL.ImageTk.PhotoImage(im)
         self.__btnStopCrossProcess.configure(
             image = btn_stop_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -326,6 +335,11 @@ class SystematicFiltering_View(_Progressible):
         rel_x = 0.2
         rel_y = 0.1
 
+        self.ico_width_check = btn_width
+        self.ico_height_check = btn_height
+        self.ico_width_cross = btn_width
+        self.ico_height_cross = btn_height
+
         parent_width = self.lblButtons.winfo_width()
         rel_width = float(btn_width) / float(parent_width)
         print(rel_width)
@@ -368,25 +382,6 @@ class SystematicFiltering_View(_Progressible):
         )
         self.__lfDialogueFrame.update()
 
-
-
-        '''
-        self.__lfDialogue = WS.createDefaultFrame(self.__lfDialogueOverlay,
-                                                  [0, 0, 0.6, 0.6],
-                                                  [True, True], CS.WHITE)
-        # region create the progress header widgets
-        bg_color = CS.PALER_YELLOW
-        lblGrip = WS.createDefaultHeader(self.__lfDialogue, "Dialogue",
-                                         [0, 0, 1, FS.headerHeight], [True, False],
-                                         bg_color)
-
-        borderColor = CS.L_GRAY
-        WS.emborder(self.__lfDialogue,
-                    [0, 0, None, None],
-                    [True, True, True, True],
-                    [borderColor, borderColor, borderColor, borderColor]
-                    )
-        '''
 
     '''
         Create an overlay and bind accordingly
@@ -492,14 +487,14 @@ class SystematicFiltering_View(_Progressible):
     '''
     def showStopMining(self):
         self.showWidget(self.getBtnStopCrossProcess())
-        self.hideWidget(self.getBtnStartCrossProcess())
+        # self.hideWidget(self.getBtnStartCrossProcess())
 
     '''
         The function called when the start button is clicked in AM window.
     '''
-    def showStartMining(self):
+    def showStartMining(self):  # TODO Disable or enable cancel
         self.showWidget(self.getBtnStartCrossProcess())
-        self.hideWidget(self.getBtnStopCrossProcess())
+        # self.hideWidget(self.getBtnStopCrossProcess())
 
     def hideWidget(self, widget):
         widget.update()
@@ -580,10 +575,33 @@ class SystematicFiltering_View(_Progressible):
     def getIcoHeightCheck(self):
         return self.ico_height_check
 
+    def getIcoAMHeightCheck(self):
+        return self.ico_AM_height_check
+
+    def getIcoAMWidthCheck(self):
+        return self.ico_AM_width_check
+
     def getIcoWidthCross(self):
         return self.ico_width_cross
 
     def getIcoHeightCross(self):
         return self.ico_height_cross
+
+    def getIcoAMWidthCross(self):
+        return self.ico_AM_width_cross
+
+    def getIcoAMHeightCross(self):
+        return self.ico_AM_height_cross
+
+
+
+
+
+
+
+
+
+
+
 
 
