@@ -111,18 +111,29 @@ class SystematicFiltering_Controller:
         self.icon_cross_on = None
         self.icon_cross_off = None
 
+        self.icon_grip_cross_on = None
+        self.icon_grip_cross_off = None
+
 
     def bindDialogButtons(self):
         button = self.view.getBtnDialog_NO()
         button.bind('<Button-1>', self.closeDialog)
+        button.bind("<Enter>", self.enterCrossIcon)
+        button.bind("<Leave>", self.leaveCrossIcon)
 
         button = self.view.getBtnDialog_YES()
         button.bind('<Button-1>', self.closeProcessWindow)
+        button.bind("<Enter>", self.enterCheckIcon)
+        button.bind("<Leave>", self.leaveCheckIcon)
+
 
     def bindParentGripButtons(self):
         # button.bind("<Button-1>", lambda event: self.onTopClose())
         button = self.getParentGrip().getCloseButton()
         button.bind('<Button-1>', self.showDialogPrompt)
+        # button.bind("<Button-1>", lambda event: self.showDialogPrompt())
+        button.bind("<Enter>", self.enterGripCrossIcon)
+        button.bind("<Leave>", self.leaveGripCrossIcon)
 
     '''
         FUNCTIONS
@@ -256,6 +267,28 @@ class SystematicFiltering_Controller:
         item.configure(
             image = self.icon_cross_off)
         item.image = self.icon_cross_off  # < ! > Required to make images appear
+
+    def enterGripCrossIcon(self, event):
+        if self.icon_grip_cross_on is None:
+            iconSize = self.getParentGrip().getIcoSize()
+            im = PIL.Image.open(IS.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_grip_cross_on = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_grip_cross_on)
+        item.image = self.icon_grip_cross_on  # < ! > Required to make images appear
+
+    def leaveGripCrossIcon(self, event):
+        if self.icon_grip_cross_off is None:
+            iconSize = self.getParentGrip().getIcoSize()
+            im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_grip_cross_off = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_grip_cross_off)
+        item.image = self.icon_grip_cross_off  # < ! > Required to make images appear
 
     # def resizeDialogueOverlay(self):
     #     # x = self.view.getFrame().winfo_x()

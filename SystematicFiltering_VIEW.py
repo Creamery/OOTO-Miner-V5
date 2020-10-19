@@ -313,7 +313,7 @@ class SystematicFiltering_View(_Progressible):
         # "NO" DIALOG Button
         self.btnDialog_NO = Button(self.lblButtons)
         self.btnDialog_NO.place(
-            relx = rel_x, rely = rel_y,
+            relx = 1 - rel_x - rel_width, rely = rel_y,
             width = btn_width, height = btn_height)
 
         im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
@@ -332,7 +332,7 @@ class SystematicFiltering_View(_Progressible):
         # "YES" DIALOG BUTTON
         self.btnDialog_YES = Button(self.lblButtons)
         self.btnDialog_YES.place(
-            relx = 1 - rel_x - rel_width, rely = rel_y,
+            relx = rel_x, rely = rel_y,
             width = btn_width, height = btn_height)
 
         im = PIL.Image.open(IS.TAB_ICO_CHECK).resize(icon_size, PIL.Image.ANTIALIAS)

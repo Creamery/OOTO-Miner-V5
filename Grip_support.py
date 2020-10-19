@@ -95,6 +95,7 @@ class GripLabel:
 
         offset = 6
         iconSize = (parentHeight - offset, parentHeight - offset)
+        self.icoSize = iconSize
         im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
         icoClose = PIL.ImageTk.PhotoImage(im)
         button.configure(image = icoClose)
@@ -141,13 +142,14 @@ class GripLabel:
         y = self.top.winfo_y() + deltaY
         self.top.geometry("+%s+%s" % (x, y))
 
-    """ GETTERS """
+    """ GETTERS / SETTERS """
     def getGrip(self):
         return self.grip
 
     def getCloseButton(self):
         return self.btnClose
 
-
+    def getIcoSize(self):
+        return self.icoSize
 
 
