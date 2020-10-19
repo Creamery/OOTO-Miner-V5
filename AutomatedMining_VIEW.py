@@ -523,7 +523,7 @@ class AutomatedMining_View:
             self.entryQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
-        self.buttonQuerySetDataA = Button(self.labelFrameQuerySetDataStatusA)
+        self.buttonQuerySetDataA = Button(self.labelFrameQuerySetDataStatusA)  # TODO Query Features
         self.buttonQuerySetDataA.place(
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
@@ -592,7 +592,7 @@ class AutomatedMining_View:
 
         # RESET BUTTON (DATASET A)
         # region
-        self.buttonQueryResetFilterA = Button(self.labelFrameCommandsA)
+        self.buttonQueryResetFilterA = Button(self.labelFrameCommandsA)  # TODO Check if this is correct
         self.buttonQueryResetFilterA.place(
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)

@@ -204,11 +204,11 @@ class AutomatedMining_Controller:
         self.labelFrameProcessChangeCrossType = self.view.getLabelFrameProcessChangeCrossType()
 
         self.buttonQuerySetDataA = self.view.getButtonQuerySetDataA()
-        self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)
+        self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)  # TODO When check is pressed
         self.buttonQuerySetDataB = self.view.getButtonQuerySetDataB()
         self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
 
-        self.buttonQueryAddFilterA = self.view.getButtonQueryAddFilterA()
+        self.buttonQueryAddFilterA = self.view.getButtonQueryAddFilterA()  # TODO When arrow is pressed
         self.buttonQueryAddFilterA.bind('<Button-1>', self.queryAddFilterA)
         self.buttonQueryAddFilterB = self.view.getButtonQueryAddFilterB()
         self.buttonQueryAddFilterB.bind('<Button-1>', self.queryAddFilterB)
