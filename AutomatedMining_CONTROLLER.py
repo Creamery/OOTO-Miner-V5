@@ -71,6 +71,7 @@ class AutomatedMining_Controller:
         self.list_feature_codes = None
         self.list_feature_codes_original = None
         self.prev_selection = 0
+        self.dict_Significant_DTPairs = None
 
 
         self.configureTestTabBindings()
@@ -407,13 +408,9 @@ class AutomatedMining_Controller:
                 self.list_feature_codes = []  # Reset feature codes when making a new pickle
                 self.list_feature_codes_original = []
 
-                # str_source_folder = str(LS.GL_AM_OUTPUT_PATH + filename).replace(str(LS.GL_ROOT_PATH), "")
-                # str_source_folder = str_source_folder.replace("\\", " > ")
-                # str_source_folder = str_source_folder.strip()[1:-1]
-                # self.lblStatusSourceFolder.configure(text = "[ROOT] > " + str_source_folder)  # Change the header text (originally NO DATA)
-
-                self.df_results, self.result_colnames = LS.loadExcelResultDictionary()
-                self.addToListFeatureCode(self.df_results, self.result_colnames)
+                self.dict_results = LS.loadCSVResultDictionary()  # Loads all excel files from the specified directory
+                self.result_colnames = LS.RESULT_COLNAMES
+                self.addToListFeatureCode(self.dict_results)
             else:
                 tkMessageBox.showerror("Error: File not found",
                                        "Please place the input file in <\"_output/Pickle Results\"> and try again.")
@@ -426,7 +423,7 @@ class AutomatedMining_Controller:
         Extract all single features available in the result dictionary.
         Append all unique features to Feature Codes Listbox.
     '''
-    def addToListFeatureCode(self, df_results, result_data_colnames):
+    def addToListFeatureCode(self, dict_results):
         # for key in dict_result_data.keys():
         #     str_key = str(key)
         #     split_keys = str_key.split("VS")
@@ -442,18 +439,29 @@ class AutomatedMining_Controller:
         #                     self.list_feature_codes.append(current_feature.strip())
 
         # Create a dictionary where the chosen SSFs are the keys
+        # Colnames contain ["Feature", "DoF", "P Value", "Chi Square", "Observed", "Expected", "IsSignificant"]
         self.dict_Significant_DTPairs = collections.OrderedDict()
-        for key in df_results:
-            print(key)
-            print(df_results[key]['Feature'])
-            # print(value)
-            print("")
-            if key not in self.list_feature_codes:
-                self.list_feature_codes.append(key)
+        self.dict_DTPairs_ResultTable = dict_results
+
+        # print df_results
+        for key_DTPair, result_table in dict_results.items():
+            feature_codes = result_table[self.result_colnames[0]]  # Returns the array of significant features
+
+            # Update list of feature codes
+            for feature_code in feature_codes:  # Parse that array and check if each single feature has been recorded
+                if feature_code not in self.list_feature_codes:
+                    self.list_feature_codes.append(feature_code)  # This is the list that's parsed to update the listbox
+
+                # Then update the dictionary of significant_features : dataset pairs (the key here)
+                if feature_code not in self.dict_Significant_DTPairs:
+                    self.dict_Significant_DTPairs[feature_code] = []
+                else:
+                    self.dict_Significant_DTPairs[feature_code].append(key_DTPair)
 
         self.list_feature_codes.sort()  # Sort
         self.list_feature_codes_original = copy.deepcopy(self.list_feature_codes)  # Create an untouched copy
 
+        print(self.dict_Significant_DTPairs)
 
         # Remove previous listbox entry
         self.resetSelectedFeatureCodes(None)

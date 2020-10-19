@@ -40,6 +40,8 @@ GL_AM_EXCEL_FOLDER_NAME = str("UI Results")
 GL_MM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\MM\\")
 PICKLE_TITLE_NAME = "Pickle Result - "
 
+RESULT_COLNAMES = ["Feature", "DoF", "P Value", "Chi Square", "Observed", "Expected", "IsSignificant"]
+
 # NOTE: Arrays start at 0
 def loadVarDesc(path_variableDesc):
     dict_varDesc = collections.OrderedDict()
@@ -315,8 +317,8 @@ def exportUIResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PATH):
     path_export = path_export + filename
     for df_name, df in dict_results.items():
         if df is not None:
-            final_path = path_export + " - " + df_name + ".xlsx"
-            df.to_excel(final_path)
+            final_path = path_export + " - " + df_name + ".csv"
+            df.to_csv(final_path)
 
 def exportPickleResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + "Pickle Results\\")
@@ -335,29 +337,47 @@ def checkExcelFileExistence(filename, path = GL_AM_OUTPUT_PATH):
 
 
 
-def loadExcelResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH):
+def loadCSVResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH):
     # path_import = str(path + "Pickle Results\\")
     path_import = str(path + filename)
     checkDirectoryExistence(path_import)
 
-    excelFiles = glob.glob(path_import + "*.xlsx")
-    dfs = {}
-
+    excelFiles = glob.glob(path_import + "*.csv")
+    dict_output = collections.OrderedDict(())
     for excelFile in excelFiles:
         key = os.path.splitext(os.path.basename(excelFile))[0]
         key = key.replace("UI Result - ", "")
-        dfs[key] = pd.read_excel(excelFile)
+        dict_table = collections.OrderedDict()
+        with open(excelFile, mode = 'r') as infile:
+            reader = csv.reader(infile)
+            dictionary = collections.OrderedDict()
+            i_row = 0
+            ref_row = None  # The row reference for keys
+            for row in reader:
+                if i_row is not 0:  # Skip the first row since its the feature names
+                    i_column = 0
+                    for value in row:
+                        dict_table[ref_row[i_column]].append(value)
+                        i_column = i_column + 1
 
-    # list_excel_files = []
-    # # Acquire all Excel Files
-    # for excelFile in excelFiles:
-    #     rawExcel = pd.read_excel(excelFile)
-    #     list_excel_files.append(rawExcel)
-    # # place dataframe into list
+                else:  # This initializes the table keys using row 0's values
+                    i_value = 0
+                    for value in row:
+                        dict_table[value.strip()] = []
+                        print(value)
+                        i_value = i_value + 1
+                    ref_row = row
+                i_row = i_row + 1
 
-    list_colnames = ["Features", "DoF", "P Value", "Chi Square", "Observed", "Expected", "IsSignificant"]
+        dict_output[key] = dict_table
 
-    return dfs, list_colnames
+    # for key, value in dict_output.items():
+    #     print("key " + key)
+    #     print(value)
+    #     print("")
+
+
+    return dict_output
 
 
 
