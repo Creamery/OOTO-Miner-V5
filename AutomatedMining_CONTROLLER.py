@@ -115,8 +115,8 @@ class AutomatedMining_Controller:
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
-        self.queryResetDatasetA(None)
-        self.queryResetDatasetB(None)
+        # self.queryResetDatasetA(None)
+        # self.queryResetDatasetB(None)
 
     def readFeatures(self, variableDescription, itemMarker):
         global features_gl
@@ -186,8 +186,8 @@ class AutomatedMining_Controller:
         self.labelQueryDataBCount = self.view.getLabelQueryDataBCount()
 
         # LISTBOXES
-        self.listQuerySetDataA = self.view.getListQuerySetDataA()
-        self.listQuerySetDataB = self.view.getListQuerySetDataB()
+        self.listFeatureCodes = self.view.getListFeatureCodes()
+        self.listFeatureGroups = self.view.getListFeatureGroups()
 
         # SPINBOXES
         self.spinBoxChangeLevel = self.view.getSpinBoxChangeLevel()
@@ -203,18 +203,22 @@ class AutomatedMining_Controller:
         self.labelFrameProcessChangeLevel = self.view.getLabelFrameProcessChangeLevel()
         self.labelFrameProcessChangeCrossType = self.view.getLabelFrameProcessChangeCrossType()
 
-        self.buttonQuerySetDataA = self.view.getButtonQuerySetDataA()
-        self.buttonQuerySetDataA.bind('<Button-1>', self.querySetDataA)  # TODO When check is pressed
-        self.buttonQuerySetDataB = self.view.getButtonQuerySetDataB()
+        self.btnLoadPickle = self.view.getBtnLoadPickle()
+        self.btnLoadPickle.bind('<Button-1>', self.loadPickle)  # TODO When find is pressed, find pickle file
+        self.buttonQuerySetDataB = self.view.getButtonQuerySetDataB()  # TODO Might remove
         self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
 
-        self.buttonQueryAddFilterA = self.view.getButtonQueryAddFilterA()  # TODO When arrow is pressed
-        self.buttonQueryAddFilterA.bind('<Button-1>', self.queryAddFilterA)
-        self.buttonQueryAddFilterB = self.view.getButtonQueryAddFilterB()
-        self.buttonQueryAddFilterB.bind('<Button-1>', self.queryAddFilterB)
 
-        self.buttonQueryFeature = self.view.getButtonQueryFeature()
-        self.buttonQueryFeature.bind('<Button-1>', self.querySetFeature)
+        # The Check button in the first box
+        self.btnAddFeatureCode = self.view.getBtnAddFeatureCode()  # TODO When arrow is pressed
+        self.btnAddFeatureCode.bind('<Button-1>', self.addFeatureCode)
+
+        # The Check button in the second box (AKA Apply filters)
+        # self.btnApplySelectedFeatureSearch = self.view.getButtonQueryAddFilterB()
+        # self.btnApplySelectedFeatureSearch.bind('<Button-1>', self.queryAddFilterB)
+
+        self.btnCompareSelectedFeatureGroups = self.view.getBtnCompareSelectedFeatureGroups()
+        self.btnCompareSelectedFeatureGroups.bind('<Button-1>', self.compareSelectedFeatureGroups)
         # self.buttonQueryFeature.configure(command = self.querySetFeature)
         # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
@@ -242,10 +246,10 @@ class AutomatedMining_Controller:
         self.buttonTestQueue.bind('<Button-1>', self.runAutomatedMiner)  # Run Miner Button
 
         self.buttonQueryResetFilterA = self.view.getButtonQueryResetFilterA()
-        self.buttonQueryResetFilterA.bind('<Button-1>', self.queryResetDatasetA)
+        self.buttonQueryResetFilterA.bind('<Button-1>', self.resetSelectedFeatureCodes)
 
         self.buttonQueryResetFilterB = self.view.getButtonQueryResetFilterB()
-        self.buttonQueryResetFilterB.bind('<Button-1>', self.queryResetDatasetB)
+        self.buttonQueryResetFilterB.bind('<Button-1>', self.resetSelectedFeatureGroups)
 
         # Test option buttons
         self.buttonChooseChiSquare = self.view.getButtonChooseChiSquare()
@@ -293,26 +297,26 @@ class AutomatedMining_Controller:
                                          lambda event: self.selectConsoleEntry(event, self.listConsoleQueueScreen))
 
         # ENTER / LEAVE
-        self.buttonQuerySetDataA.bind("<Enter>", self.enterRightArrowPlainIcon)
-        self.buttonQuerySetDataA.bind("<Leave>", self.leaveRightArrowPlainIcon)
+        self.btnLoadPickle.bind("<Enter>", self.enterRightArrowPlainIcon)
+        self.btnLoadPickle.bind("<Leave>", self.leaveRightArrowPlainIcon)
 
         self.buttonQuerySetDataB.bind("<Enter>", self.enterRightArrowPlainIcon)
         self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowPlainIcon)
         # self.buttonQuerySetDataB.bind("<Enter>", lambda event, iconSize =  Icon_support.SELECT_ICO_SIZE_BUTTONS: self.enterRightArrowIcon(event, Icon_support.SELECT_ICO_SIZE_BUTTONS))
         # self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowIcon(Icon_support.SELECT_ICO_SIZE_BUTTONS))
 
-        self.buttonQueryAddFilterA.bind("<Enter>", self.enterCheckIcon)
-        self.buttonQueryAddFilterA.bind("<Leave>", self.leaveCheckIcon)
+        self.btnAddFeatureCode.bind("<Enter>", self.enterCheckIcon)
+        self.btnAddFeatureCode.bind("<Leave>", self.leaveCheckIcon)
 
-        self.buttonQueryAddFilterB.bind("<Enter>", self.enterCheckIcon)
-        self.buttonQueryAddFilterB.bind("<Leave>", self.leaveCheckIcon)
+        self.btnCompareSelectedFeatureGroups.bind("<Enter>", self.enterCheckIcon)
+        self.btnCompareSelectedFeatureGroups.bind("<Leave>", self.leaveCheckIcon)
 
         # self.buttonQueryFeature.bind("<Enter>", self.enterRightArrowPlainIcon)
-        self.buttonQueryFeature.bind("<Leave>", self.leaveRightArrowPlainIcon)
-        self.buttonQueryFeature.bind("<Enter>",
-                                     lambda event: self.enterRightArrowPlainIcon(event, self.buttonQueryFeature_state))
-        self.buttonQueryFeature.bind("<Leave>",
-                                     lambda event: self.leaveRightArrowPlainIcon(event, self.buttonQueryFeature_state))
+        # self.btnCompareSelectedFeatureGroups.bind("<Leave>", self.leaveRightArrowPlainIcon)
+        # self.btnCompareSelectedFeatureGroups.bind("<Enter>",
+        #                                           lambda event: self.enterRightArrowPlainIcon(event, self.buttonQueryFeature_state))
+        # self.btnCompareSelectedFeatureGroups.bind("<Leave>",
+        #                                           lambda event: self.leaveRightArrowPlainIcon(event, self.buttonQueryFeature_state))
 
         self.buttonApplyLevelSpinBox.bind("<Enter>", self.enterCheckIcon)
         self.buttonApplyLevelSpinBox.bind("<Leave>", self.leaveCheckIcon)
@@ -339,10 +343,10 @@ class AutomatedMining_Controller:
         self.buttonQueryResetFilterB.bind("<Leave>", self.leaveCrossIcon)
 
         # LISTBOX
-        self.listQuerySetDataA = self.view.getListQuerySetDataA()
-        self.listQuerySetDataA.bind('<<ListboxSelect>>', self.querySelectDataValuesA)
-        self.listQuerySetDataB = self.view.getListQuerySetDataB()
-        self.listQuerySetDataB.bind('<<ListboxSelect>>', self.querySelectDataValuesB)
+        self.listFeatureCodes = self.view.getListFeatureCodes()
+        self.listFeatureCodes.bind('<<ListboxSelect>>', self.querySelectedFeatureCodes)
+        self.listFeatureGroups = self.view.getListFeatureGroups()
+        self.listFeatureGroups.bind('<<ListboxSelect>>', self.querySelectedFeatureGroups)
 
         self.listQueryDataA = self.view.getListQueryDataA()
         self.listQueryDataA.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
@@ -372,25 +376,8 @@ class AutomatedMining_Controller:
 
     ''' Initial (SELECT) query for DATA A '''
 
-    def querySetDataA(self, evt):
-        print "buttonQuerySetDataA"
-        # CLEAR sample count
-        self.queryResetDatasetA(evt)
-        # CLEAR filter feature box first
-        self.queryResetFilterDetails(evt)
-
-        try:
-            # findFeature(self.entryQuerySetDataA.get(), self.listQuerySetDataA, self.datasetA, "Dataset_Feature")
-            self.findFeature(
-                self.entryQuerySetDataA.get(),
-                self.listQuerySetDataA,
-                self.datasetA,
-                self.populationDatasetOriginalA,
-                True,
-                "Dataset_Feature")
-        except NameError:
-            tkMessageBox.showerror("Error: No features",
-                                   "Features not found. Please upload your variable description file.")
+    def loadPickle(self, evt):
+        print("LOAD PICKLE IS PRESSED")
         return "break"
 
     '''
@@ -514,13 +501,13 @@ class AutomatedMining_Controller:
 
     def querySetDataB(self, evt):
         # CLEAR sample count
-        self.queryResetDatasetB(evt)
+        self.resetSelectedFeatureGroups(evt)
 
         # CLEAR filter feature box first
         self.queryResetFilterDetails(evt)
         try:
             # findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, "Dataset_Feature")
-            self.findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB,
+            self.findFeature(self.entryQuerySetDataB.get(), self.listFeatureGroups, self.datasetB,
                              self.populationDatasetOriginalB, True, "Dataset_Feature")
 
         except NameError:
@@ -528,7 +515,9 @@ class AutomatedMining_Controller:
                                    "Features not found. Please upload your variable description file.")
         return "break"
 
-    def queryResetDatasetA(self, evt):
+    def resetSelectedFeatureCodes(self, evt):
+        print("RESET SELECTED FEATURE CODES")
+        '''
         self.isReadyDatasetA = False  # When a dataset is reset, it is not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
@@ -555,11 +544,13 @@ class AutomatedMining_Controller:
 
         # Empty FILTER details of BOTH A and B
         self.queryResetFilterDetails(evt)
-        self.listQuerySetDataA.delete(0, END)
-
+        self.listFeatureCodes.delete(0, END)
+        '''
         return "break"
 
-    def queryResetDatasetB(self, evt):
+    def resetSelectedFeatureGroups(self, evt):
+        print("RESET SELECTED FEATURE GROUPS")
+        '''
         self.isReadyDatasetB = False  # When a dataset is reset, it is not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesB)
@@ -582,11 +573,13 @@ class AutomatedMining_Controller:
 
         # Empty FILTER details of BOTH A and B
         self.queryResetFilterDetails(evt)
-        self.listQuerySetDataB.delete(0, END)
-
+        self.listFeatureGroups.delete(0, END)
+        '''
         return "break"
 
-    def querySelectDataValuesA(self, evt):
+    def querySelectedFeatureCodes(self, evt):  # TODO List box function 1
+        print("QUERY SELECTED FEATURE CODES")
+        '''
         self.isReadyDatasetA = False  # When a listbox element is de/selected, mark the dataset as not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
@@ -601,8 +594,11 @@ class AutomatedMining_Controller:
         print ("Dataset A" + str(len(self.datasetA['Data'])))
 
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
+        '''
 
-    def querySelectDataValuesB(self, evt):
+    def querySelectedFeatureGroups(self, evt):  # TODO List box function 2
+        print("QUERY SELECTED FEATURE GROUPS")
+        '''
         self.isReadyDatasetB = False  # When a listbox element is de/selected, mark the dataset as not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
         self.setDatasetStripeReady(False, self.labelQuerySetDataStripesB)
@@ -617,6 +613,7 @@ class AutomatedMining_Controller:
         print ("Dataset B" + str(len(self.datasetB['Data'])))
 
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
+        '''
 
     def queryResetFilterDetails(self, evt):
         # Empty FILTER details of BOTH A and B
@@ -644,95 +641,17 @@ class AutomatedMining_Controller:
         # would end up scrolling the widget twice
         return "break"
 
-    def queryAddFilterA(self, evt):
-        print "buttonQueryAddFilterA"
+    def addFeatureCode(self, evt):
+        # Get Selected Features  TODO
+        # Search in Dictionary
 
-        self.isReadyDatasetA = False
-        self.buttonQueryAddFilterA.configure(relief = FLAT)
-        # print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
-        # print ("Dataset A COUNT IS " + str(self.datasetCountA))
-
-        # If the dataset is empty, do not push through with filtering.
-        if len(self.datasetA['Data']) <= 0:
-            tkMessageBox.showerror("Error: Empty dataset",
-                                   "Dataset is empty. Please check if you uploaded your population dataset")
-            # CLEAR filter feature box
-            self.queryResetFilterDetails(evt)
-
-        # If there are 0 samples in the selection, do not push through with filtering
-        elif self.datasetCountA <= 0:
-            tkMessageBox.showerror("Error: No samples selected for A",
-                                   "You must have at least 1 sample in your selection.")
-            # CLEAR filter feature box
-            self.queryResetFilterDetails(evt)
-            self.labelQuerySetDataStatusA.configure(
-                text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-                background = Color_support.SELECT_LISTBOX_STATUS_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_FG
-            )
-            # return -1
-
-        else:
-            # CLEAR filter feature box first
-            self.queryResetFilterDetails(evt)
-            self.isReadyDatasetA = True
-            self.checkIfDatasetReady()
-            self.datasetA = copy.deepcopy(self.populationDatasetOriginalA)
-
-            # Filter the data given the feature inputted and its values selected
-            try:
-                new_data = FS.filterDataset(self.datasetA, self.datasetA['Feature'],
-                                            self.datasetA['Feature']['Selected Responses'])
-                # new_data = filterDataset(self.populationDatasetOriginalA, self.populationDatasetOriginalA['Feature'], self.populationDatasetOriginalA['Feature']['Selected Responses'])
-            except KeyError:
-                tkMessageBox.showerror("Error: No selected responses",
-                                       "You did not select any responses. Please select at least one.")
-                # return -1
-                return "break"
-
-            # Add the feature to the dataset's filtered features
-            self.datasetA['Filter Features'].append(self.datasetA['Feature'])
-            # self.populationDatasetOriginalA['Filter Features'].append(self.datasetA['Feature'])
-
-            # Assign the new set of filtered data
-            self.datasetA['Data'] = new_data
-            # self.populationDatasetOriginalA['Data'] = new_data
-
-            if (queryType_gl == 'Sample vs Sample'):
-                queryStrFilterA = ''
-                # queryStrFilterA = 'Dataset A'
-            else:
-                # queryStrFilterA = 'Population'
-                queryStrFilterA = ''
-
-            # Write the breadcrumb trail of the features and values the dataset was filtered by
-            for i in range(0, len(self.datasetA['Filter Features'])):
-                # queryStrFilterA = queryStrFilterA + "->" + self.datasetA['Filter Features'][i]['Code']
-                queryStrFilterA = " [ " + self.datasetA['Filter Features'][i]['Code'] + " | "
-                for j in range(0, len(self.datasetA['Filter Features'][i]['Selected Responses'])):
-                    # if j == 0:
-                    #     queryStrFilterA = queryStrFilterA + " [ "
-                    queryStrFilterA = queryStrFilterA + self.datasetA['Filter Features'][i]['Selected Responses'][j][
-                        'Code'] + " "
-                    if j == (len(self.datasetA['Filter Features'][i]['Selected Responses']) - 1):
-                        queryStrFilterA = queryStrFilterA + "]"
-
-            # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
-            self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA,
-                background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
-            )
-            self.setDatasetStripeReady(True, self.labelQuerySetDataStripesA)
-        # print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
-        # print ("Dataset A COUNT IS " + str(self.datasetCountA))
-        # print ("")
+        print("CHECK 1 IS PRESSED")
         return "break"
 
     def queryAddFilterB(self, evt):
         self.isReadyDatasetB = False
 
-        self.buttonQueryAddFilterB.configure(relief = FLAT)
+        self.btnCompareSelectedFeatureGroups.configure(relief = FLAT)
         # print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
         # print ("Dataset B COUNT IS " + str(self.datasetCountB))
 
@@ -813,7 +732,9 @@ class AutomatedMining_Controller:
         # print ("")
         return "break"
 
-    def querySetFeature(self, evt):
+    def compareSelectedFeatureGroups(self, evt):
+        print("CHECK 2")
+        '''
         if self.buttonQueryFeature_state is not DISABLED:
             entryQuery = self.entryQueryFeature.get()
 
@@ -863,6 +784,7 @@ class AutomatedMining_Controller:
                     self.setFilterStripeReady(False, self.labelFilterStripes)
                 except:
                     print ("Exception in " + "def querySetFeature(self, evt)")
+        '''
         return "break"
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
@@ -1102,7 +1024,7 @@ class AutomatedMining_Controller:
     ''' Disables/enables views (buttons, entry fields etc.) based on test type selected '''
 
     def adjustQueryViews(self):
-        self.buttonQueryFeature.configure(state = "normal")
+        self.btnCompareSelectedFeatureGroups.configure(state = "normal")
         # self.buttonQueryFeatureA.configure(state = "normal")
         # self.buttonQueryFeatureB.configure(state = "normal")
 
@@ -1134,7 +1056,7 @@ class AutomatedMining_Controller:
             self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataA.configure(text = "")
         self.listQueryDataA.delete(0, END)
-        self.listQuerySetDataA.delete(0, END)
+        self.listFeatureCodes.delete(0, END)
 
         self.datasetB = self.resetDataset()
         self.entryQuerySetDataB.configure(text = '')
@@ -1144,10 +1066,10 @@ class AutomatedMining_Controller:
             self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
         self.labelQueryDataB.configure(text = "")
         self.listQueryDataB.delete(0, END)
-        self.listQuerySetDataB.delete(0, END)
+        self.listFeatureGroups.delete(0, END)
 
         if queryType_gl == 'Sample vs Population':
-            self.buttonQueryFeature.configure(state = "disabled")
+            self.btnCompareSelectedFeatureGroups.configure(state = "disabled")
             # self.buttonQueryFeatureA.configure(state = "disabled")
             # self.buttonQueryFeatureB.configure(state = "disabled")
             # self.entryQueryFeatureA.configure(state = "disabled")
@@ -1198,7 +1120,7 @@ class AutomatedMining_Controller:
     def querySetAllFeatures(self):
         # Test items
         global strarAllFeatures_gl
-        strarAllFeatures_gl = list(self.listQuerySetDataA.get(0, END))
+        strarAllFeatures_gl = list(self.listFeatureCodes.get(0, END))
 
     # endregion
 

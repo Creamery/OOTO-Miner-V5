@@ -465,7 +465,7 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.labelFrameQuerySetDataStatusA),
         )
         im = PIL.Image.open(
-            Icon_support.TEXTURE_STRIPE_PINK)
+            Icon_support.TEXTURE_STRIPE_ORANGE)
         texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelQuerySetDataStripesA.configure(
             image = texture_pink_stripes,
@@ -493,7 +493,7 @@ class AutomatedMining_View:
             relwidth = 0.98, relheight = 0.95)
         self.labelQuerySetDataA.configure(
             background = Color_support.FILTER_LABEL_BG, foreground = Color_support.FILTER_TITLE_BG,
-            text = UI_support.SELECT_LABEL_DATASETA_TEXT,
+            text = "Load Pickle",
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
         )
@@ -523,19 +523,19 @@ class AutomatedMining_View:
             self.entryQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
-        self.buttonQuerySetDataA = Button(self.labelFrameQuerySetDataStatusA)  # TODO Query Features
-        self.buttonQuerySetDataA.place(
+        self.btnLoadPickle = Button(self.labelFrameQuerySetDataStatusA)  # TODO Query Features
+        self.btnLoadPickle.place(
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQuerySetDataA.configure(
+        self.btnLoadPickle.configure(
             image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQuerySetDataA.image = btn_query_set_icon  # < ! > Required to make images appear
+        self.btnLoadPickle.image = btn_query_set_icon  # < ! > Required to make images appear
 
-        self.buttonQuerySetDataA.configure(
+        self.btnLoadPickle.configure(
             background = Color_support.FILTER_BUTTONS_BG, foreground = Color_support.FILTER_BUTTONS_FG,
             activebackground = Color_support.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
@@ -553,8 +553,8 @@ class AutomatedMining_View:
         # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
         # self.listQuerySetDataA = Listbox(self.labelFrameListBoxA, yscrollcommand = self.scrollbarQuerySetDataA.set)
 
-        self.listQuerySetDataA = Listbox(self.labelFrameListBoxA)
-        self.listQuerySetDataA.configure(
+        self.listFeatureCodes = Listbox(self.labelFrameListBoxA)
+        self.listFeatureCodes.configure(
             background = Color_support.PROCESS_LISTBOX_BG, foreground = Color_support.PROCESS_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
@@ -566,7 +566,7 @@ class AutomatedMining_View:
         )
         newRelY = FS.getRelY(self.labelFrameQuerySetDataStatusA) + FS.getRelH(self.labelFrameQuerySetDataStatusA)
         newRelH = 1 - (FS.getRelH(self.labelFrameQuerySetDataStatusA) + FS.getRelH(self.labelQuerySetDataStripesA))
-        self.listQuerySetDataA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
+        self.listFeatureCodes.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
 
         # self.listQuerySetDataA.place(
         #     relx = 0.01, rely = 0.025,
@@ -726,7 +726,7 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.labelQuerySetDataStripesA)
         )
         im = PIL.Image.open(
-            Icon_support.TEXTURE_STRIPE_PINK)
+            Icon_support.TEXTURE_STRIPE_ORANGE)
         texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelQuerySetDataStripesB.configure(
             image = texture_pink_stripes,
@@ -754,8 +754,8 @@ class AutomatedMining_View:
 
         # endregion
 
-        self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
-        self.listQuerySetDataB.configure(
+        self.listFeatureGroups = Listbox(self.labelFrameListBoxB)
+        self.listFeatureGroups.configure(
             background = Color_support.PROCESS_LISTBOX_BG, foreground = Color_support.PROCESS_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
@@ -766,11 +766,11 @@ class AutomatedMining_View:
             highlightthickness = 0
         )
 
-        self.listQuerySetDataB.place(
-            relx = FS.getRelX(self.listQuerySetDataA),
-            rely = FS.getRelY(self.listQuerySetDataA),
-            relwidth = FS.getRelW(self.listQuerySetDataA),
-            relheight = FS.getRelH(self.listQuerySetDataA)
+        self.listFeatureGroups.place(
+            relx = FS.getRelX(self.listFeatureCodes),
+            rely = FS.getRelY(self.listFeatureCodes),
+            relwidth = FS.getRelW(self.listFeatureCodes),
+            relheight = FS.getRelH(self.listFeatureCodes)
         )
 
         # STATUS - DATASET B
@@ -830,10 +830,10 @@ class AutomatedMining_View:
         # DATASET B
         self.buttonQuerySetDataB = Button(self.labelFrameQuerySetDataStatusB)
         self.buttonQuerySetDataB.place(
-            relx = FS.getRelX(self.buttonQuerySetDataA),
-            rely = FS.getRelY(self.buttonQuerySetDataA),
-            relwidth = FS.getRelW(self.buttonQuerySetDataA),
-            relheight = FS.getRelH(self.buttonQuerySetDataA))
+            relx = FS.getRelX(self.btnLoadPickle),
+            rely = FS.getRelY(self.btnLoadPickle),
+            relwidth = FS.getRelW(self.btnLoadPickle),
+            relheight = FS.getRelH(self.btnLoadPickle))
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
@@ -972,23 +972,23 @@ class AutomatedMining_View:
         newRelX = FS.getRelX(self.labelFrameQueryCount) + FS.getRelW(self.labelFrameQueryCount)
         newRelX = FS.getRelX(self.labelFrameQueryCount) + FS.getRelW(self.labelFrameQueryCount)
 
-        self.buttonQueryAddFilterA = Button(self.labelFrameCommandsA, compound = CENTER)
-        self.buttonQueryAddFilterA.place(
+        self.btnAddFeatureCode = Button(self.labelFrameCommandsA, compound = CENTER)
+        self.btnAddFeatureCode.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.25 - 0.005, relheight = 1
         )
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryAddFilterA.configure(
+        self.btnAddFeatureCode.configure(
             image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterA.image = btn_query_filter_icon  # < ! > Required to make images appear
+        self.btnAddFeatureCode.image = btn_query_filter_icon  # < ! > Required to make images appear
 
-        self.buttonQueryAddFilterA.configure(
+        self.btnAddFeatureCode.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Filter''')
-        self.buttonQueryAddFilterA.pack(side = RIGHT)
+        self.btnAddFeatureCode.pack(side = RIGHT)
         self.buttonQueryResetFilterA.pack(side = LEFT)
 
         # endregion
@@ -996,23 +996,23 @@ class AutomatedMining_View:
         # region
         newRelX = FS.getRelX(self.labelFrameQueryCountB) + FS.getRelW(self.labelFrameQueryCountB)
 
-        self.buttonQueryAddFilterB = Button(self.labelFrameCommandsB, compound = CENTER)
-        self.buttonQueryAddFilterB.place(
+        self.btnApplySelectedFeatureSearch = Button(self.labelFrameCommandsB, compound = CENTER)
+        self.btnApplySelectedFeatureSearch.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.25 - 0.005, relheight = 1
         )
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryAddFilterB.configure(
+        self.btnApplySelectedFeatureSearch.configure(
             image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryAddFilterB.image = btn_query_filter_icon  # < ! > Required to make images appear
+        self.btnApplySelectedFeatureSearch.image = btn_query_filter_icon  # < ! > Required to make images appear
 
-        self.buttonQueryAddFilterB.configure(
+        self.btnApplySelectedFeatureSearch.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Filter''')
-        self.buttonQueryAddFilterB.pack(side = RIGHT)
+        self.btnApplySelectedFeatureSearch.pack(side = RIGHT)
 
         self.buttonQueryResetFilterB.pack(side = LEFT)
         # endregion
@@ -1180,8 +1180,8 @@ class AutomatedMining_View:
 
         # FILTER QUERY BUTTON
         # region
-        self.buttonQueryFeature = Button(self.labelFrameFilterQueryData)
-        self.buttonQueryFeature.place(
+        self.btnCompareSelectedFeatureGroups = Button(self.labelFrameFilterQueryData)
+        self.btnCompareSelectedFeatureGroups.place(
             relx = newRelX, rely = 0,
             relwidth = 0.041, relheight = 1)
         # relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
@@ -1189,11 +1189,11 @@ class AutomatedMining_View:
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonQueryFeature.configure(
+        self.btnCompareSelectedFeatureGroups.configure(
             image = btn_query_feature_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonQueryFeature.image = btn_query_feature_icon  # < ! > Required to make images appear
+        self.btnCompareSelectedFeatureGroups.image = btn_query_feature_icon  # < ! > Required to make images appear
 
-        self.buttonQueryFeature.configure(
+        self.btnCompareSelectedFeatureGroups.configure(
             background = Color_support.PROCESS_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
             activebackground = Color_support.PROCESS_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
@@ -2630,20 +2630,22 @@ class AutomatedMining_View:
     """ >>> GETTERS FOR TO-BIND ELEMENTS (e.g. buttons, listboxes) <<< """
 
     # region GETTERS
-    def getButtonQuerySetDataA(self):
-        return self.buttonQuerySetDataA
+
+    def getBtnLoadPickle(self):
+        return self.btnLoadPickle
 
     def getButtonQuerySetDataB(self):
         return self.buttonQuerySetDataB
 
-    def getButtonQueryAddFilterA(self):
-        return self.buttonQueryAddFilterA
+    def getBtnAddFeatureCode(self):
+        return self.btnAddFeatureCode
 
-    def getButtonQueryAddFilterB(self):
-        return self.buttonQueryAddFilterB
+    def getBtnApplySelectedFeatureSearch(self):
+        return self.btnApplySelectedFeatureSearch
 
-    def getButtonQueryFeature(self):
-        return self.buttonQueryFeature
+
+    def getBtnCompareSelectedFeatureGroups(self):
+        return self.btnCompareSelectedFeatureGroups
 
     def getButtonApplyLevelSpinBox(self):
         return self.buttonApplyLevelSpinBox
@@ -2735,10 +2737,12 @@ class AutomatedMining_View:
     def getEntryQuerySetDataB(self):
         return self.entryQuerySetDataB
 
-    def getListQuerySetDataA(self):
-        return self.listQuerySetDataA
-    def getListQuerySetDataB(self):
-        return self.listQuerySetDataB
+
+    def getListFeatureCodes(self):
+        return self.listFeatureCodes
+
+    def getListFeatureGroups(self):
+        return self.listFeatureGroups
 
 
     def getLabelFrameProcessChangeCrossType(self):
