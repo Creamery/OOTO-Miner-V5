@@ -14,6 +14,7 @@ import UIConstants_support as UICS
 CHI_SQUARE = "ChiSquare"
 P_VALUE = "PValue"
 DOF = "DoF"
+OBSERVED = "Observed"
 EXPECTED = "Expected"
 
 
@@ -81,8 +82,16 @@ def chiSquare(np_dataset_pairs):
                 dict_chi_details[CHI_SQUARE] = chi_stat
                 dict_chi_details[P_VALUE] = p
                 dict_chi_details[DOF] = dof
+                dict_chi_details[OBSERVED] = observed
                 dict_chi_details[EXPECTED] = expected
-
+                # print("OBSERVED")
+                # print(observed)
+                # print("EXPECTED")
+                # print(expected)
+                # print("")
+                # print("")
+                # print("")
+                # print("")
                 dict_chi_square[feat_code] = dict_chi_details  # Add details to main dictionary
 
 
@@ -115,14 +124,21 @@ def processChiSquareTable(dict_chi_square):
     list_significant_output = []  # Will contain the properly formatted data for the dataframe
 
     # The order will be: [feat_code, dof, p_value, chi_square, is_significant]
-    list_headers = ["Feature", "DoF", "P Value", "Chi Square", "Is Significant"]
+    list_headers = ["Feature", "DoF", "P Value", "Chi Square", "Observed", "Expected", "Is Significant"]
 
     for feat_code, value in dict_chi_square.items():
 
         row = []
-        chi_square = round(value[CHI_SQUARE], 6)
-        p_value = round(value[P_VALUE], 6)
         dof = value[DOF]
+        p_value = round(value[P_VALUE], 6)
+        chi_square = round(value[CHI_SQUARE], 6)
+
+        observed = value[OBSERVED]
+        observed = str(observed[0]).strip() + " ; " + str(observed[1]).strip()
+        expected = value[EXPECTED]
+        expected = str(expected[0]).strip() + " ; " + str(expected[1]).strip()
+
+
         isSignificant = 0
         if p_value < UICS.P_CUTOFF:
             isSignificant = 1
@@ -132,6 +148,8 @@ def processChiSquareTable(dict_chi_square):
         row.append(dof)
         row.append(p_value)
         row.append(chi_square)
+        row.append(observed)
+        row.append(expected)
         row.append(isSignificant)
 
         list_output.append(row)
@@ -143,6 +161,8 @@ def processChiSquareTable(dict_chi_square):
             sig_row.append(dof)
             sig_row.append(p_value)
             sig_row.append(chi_square)
+            sig_row.append(observed)
+            sig_row.append(expected)
             sig_row.append(isSignificant)
             list_significant_output.append(sig_row)
 

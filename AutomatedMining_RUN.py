@@ -60,7 +60,7 @@ def runAutomatedMining(controller):
     print("Starting Cross Process...")
     dict_significant_results = crossProcessModule(df_dataset, np_cross, controller)
     print("-- Cross Process Finished --")
-
+    controller.isAMFinished()
     return dict_significant_results
 
 

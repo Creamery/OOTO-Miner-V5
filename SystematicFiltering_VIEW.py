@@ -160,7 +160,7 @@ class SystematicFiltering_View(_Progressible):
 
         self.__lblCurrentDetails = WS.createDefaultHeader(
             self.__lfCurrentProgress,
-            "Current Progress...",
+            "Click the arrow to start",
             # lblTitle.winfo_width(), 0, self.lfCurrentProgress.winfo_width() - lblTitle.winfo_width(), 1,
             [0, 0, 1, 1], [True, True],
             CS.WHITE, CS.D_GRAY, US.FONT_DEFAULT)
@@ -170,7 +170,7 @@ class SystematicFiltering_View(_Progressible):
         # region create console listbox widgets
         self.__lfCurrentProgress.update()
         wHeight = parentFrame.winfo_height() - (self.__lfCurrentProgress.winfo_y() + self.__lfCurrentProgress.winfo_height())
-        wHeight = wHeight - (FS.commandsHeight + 10)
+        wHeight = wHeight - (FS.commandsHeight + 18)
 
         self.__lfProgressConsole = WS.createDefaultFrame(parentFrame,
                                                          [0, y, 1, wHeight],
@@ -189,7 +189,7 @@ class SystematicFiltering_View(_Progressible):
         # region create command widgets
         bgColor = CS.WHITE  # CS.PALER_YELLOW
         self.__lfConsoleCommands = WS.createDefaultFrame(parentFrame,
-                                                         [0, 0, 1, 0.15], [True, True],
+                                                         [0, 0, 1, 0.25], [True, True],
                                                          bgColor)
         # WS.emborder(self.__lfConsoleCommands, [0, 0, None, None], [True, False, False, False])
         y_offset = 6
@@ -197,8 +197,8 @@ class SystematicFiltering_View(_Progressible):
 
         # BUTTONS
 
-        btn_width = 40 * 4 - 21
-        btn_height = 38
+        btn_width = 52 + 28  # 40 * 4 - 21
+        btn_height = 52
         icon_size = (btn_width, btn_height)
 
         self.ico_AM_width_check = btn_width
@@ -209,22 +209,26 @@ class SystematicFiltering_View(_Progressible):
         frame_parent_width = self.__lfConsoleCommands.winfo_width()
         frame_parent_height = self.__lfConsoleCommands.winfo_height()
         # rel_width = float(btn_width) / float(frame_parent_width)
+        rel_width = float(btn_width) / float(frame_parent_width)
         rel_height = float(btn_height) / float(frame_parent_height)
 
-        # rel_x = 0.5 - (rel_width / 2)
+        rel_x = 0.5 - (rel_width / 2)
         rel_y = 0.5 - (rel_height / 2)
 
         # START MINING Button
         self.__btnStartCrossProcess = Button(self.__lfConsoleCommands)
         self.__btnStartCrossProcess.place(
-            x = 141, rely = rel_y,
+            # x = 141, rely = rel_y,
+            relx = rel_x, rely = rel_y - 0.1,
             width = btn_width, height = btn_height)
+            # width = btn_width, height = btn_height)
 
         im = PIL.Image.open(IS.AM_ICO_START).resize(icon_size, PIL.Image.ANTIALIAS)
         btn_start_AM = PIL.ImageTk.PhotoImage(im)
         self.__btnStartCrossProcess.configure(
-            image = btn_start_AM)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+            image = btn_start_AM)
         self.__btnStartCrossProcess.image = btn_start_AM  # < ! > Required to make images appear
+
 
         self.__btnStartCrossProcess.configure(
             background = CS.WHITE, foreground = CS.D_BLUE,
@@ -232,11 +236,26 @@ class SystematicFiltering_View(_Progressible):
             highlightthickness = 0, padx = 0, pady = 0,
             bd = 0, relief = FLAT, overrelief = GROOVE
         )
+        self.__lfConsoleCommands.update()
+        self.__btnStartCrossProcess.update()
+        # Grey unnecessary (cosmetic) borders
+        ref_x = self.__btnStartCrossProcess.winfo_x()
+        ref_y = self.__btnStartCrossProcess.winfo_y()
+        ref_w = self.__btnStartCrossProcess.winfo_width()
+        ref_h = self.__btnStartCrossProcess.winfo_height()
+        x_offset = 10
+        lblLeftBorder = WS.createDefaultHeader(self.__lfConsoleCommands, "",
+                                               [ref_x - x_offset, ref_y + 2, 1, ref_h - 4], [False, False],
+                                               CS.L_GRAY, CS.D_GRAY, US.FONT_DEFAULT)
 
+
+        lblRightBorder = WS.createDefaultHeader(self.__lfConsoleCommands, "",
+                                                [ref_x + ref_w + x_offset, ref_y + 2, 1, ref_h - 4], [False, False],
+                                                CS.L_GRAY, CS.D_GRAY, US.FONT_DEFAULT)
 
         # STOP MINING Button
-        btn_width = 39
-        btn_height = 38
+        btn_width = 40
+        btn_height = 40
         icon_size = (btn_width, btn_height)
 
 
@@ -246,8 +265,10 @@ class SystematicFiltering_View(_Progressible):
         # STOP MINING Button
         self.__btnStopCrossProcess = Button(self.__lfConsoleCommands)
         self.__btnStopCrossProcess.place(
-            x = 280, rely = rel_y,
-            width = btn_width, height = btn_height)
+            # x = 280, rely = rel_y,
+            # width = btn_width, height = btn_height)
+            x = 0, y = 0,
+            width = 0, height = 0)
 
         im = PIL.Image.open(IS.AM_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
         btn_stop_AM = PIL.ImageTk.PhotoImage(im)
@@ -263,7 +284,7 @@ class SystematicFiltering_View(_Progressible):
         )
         # endregion create command widgets
 
-    def createDialog(self):
+    def createDialog(self, isFinished):
 
         self.createOverlay()
 
@@ -284,12 +305,7 @@ class SystematicFiltering_View(_Progressible):
         self.lblBody = WS.createDefaultHeader(self.lblBodyBorder, "",
                                               [1, 0, 0.99, 0.99], [True, True],
                                               bg_color)
-        # borderColor = CS.L_GRAY
-        # WS.emborder(self.lblBody,
-        #             [0, 0, 1, 1],
-        #             [True, True, True, True],
-        #             [borderColor, borderColor, borderColor, borderColor]
-        #             )
+
 
         self.grip = GS.GripLabel(self.__lfDialogueFrame, False, False)
 
@@ -299,8 +315,12 @@ class SystematicFiltering_View(_Progressible):
         bg_color = CS.L_GRAY
         fg_color = CS.D_BLUE
         wFont = US.FONT_MED_BOLD
+
+        str_message = "STOP MINING?\n"
+        if isFinished:
+            str_message = "MINING SUCCESSFUL!\n"
         self.lblMessage = WS.createDefaultHeader(self.lblBody,
-                                                 "STOP MINING?\n",
+                                                 str_message,
                                                  [0, y_val, 1, message_rel_height], [True, True],
                                                  bg_color, fg_color, wFont)
         self.lblMessage.update()
@@ -309,9 +329,13 @@ class SystematicFiltering_View(_Progressible):
         bg_color = CS.WHITE
         sub_message_rel_height = 0.28
         wFont = US.FONT_VSMALL
+        str_sub_message = "Stopping the process mid-run\n" +\
+                          "may corrupt some output files."
+        if isFinished:
+            str_sub_message = "You can now load the exported\n" +\
+                              "pickle file for Sections 2 and 3."
         self.lblSubMessage = WS.createDefaultHeader(self.lblBody,
-                                                    "Stopping the process mid-run\n" +
-                                                    "may corrupt some output files.",
+                                                    str_sub_message,
                                                     [0, 0, 1, sub_message_rel_height], [True, True],
                                                     bg_color, fg_color, wFont)
         self.lblSubMessage.update()
@@ -386,8 +410,8 @@ class SystematicFiltering_View(_Progressible):
     '''
         Create an overlay and bind accordingly
     '''
-    def openDialog(self):
-        self.createDialog()
+    def openDialog(self, isFinished):
+        self.createDialog(isFinished)
     '''
         Destroy the overlay and deiconify the root (main window)
     '''
@@ -404,6 +428,22 @@ class SystematicFiltering_View(_Progressible):
         self.__configureUnbind()
         self.__winDialogueOverlay.destroy()
         self.__winDialogueOverlay = None
+        self.root.deiconify()
+
+
+    def openDialogPrompt(self):
+        self.createDialogPrompt()
+
+    def closeDialogPrompt(self):
+        strDimensions = str(0) + "x" + str(0)
+        self.__lfDialogueFramePrompt.geometry(strDimensions)
+
+        self.__lfDialogueFramePrompt.destroy()
+        self.__winDialogueOverlayPrompt.geometry(str(0) + "x" + str(0))
+
+        self.__configureUnbind()
+        self.__winDialogueOverlayPrompt.destroy()
+        self.__winDialogueOverlayPromptr = None
         self.root.deiconify()
 
     def __initializeWindow(self, root, win_width = FS.sfWidth, win_height = FS.sfHeight):
@@ -442,6 +482,126 @@ class SystematicFiltering_View(_Progressible):
         # self.__winDialogueOverlay.lower(self.__lfDialogueFrame)
         # self.__configureBorders(self.__lfDialogueFrame)
         self.__configureBind()
+
+    def createDialogPrompt(self):
+
+        self.createOverlayPrompt()
+
+        overlay_width = self.__winDialogueOverlayPrompt.winfo_width()
+        overlay_height = self.__winDialogueOverlayPrompt.winfo_height()
+        dialogue_frame_width = int(overlay_width * 0.45)
+        dialogue_frame_height = int(overlay_height * 0.37)  # + FS.gripHeight
+        self.__lfDialogueFramePrompt = self.__initializeWindow(self.root, dialogue_frame_width, dialogue_frame_height)
+        # self.__lfDialogueFrame.geometry(str(dialogue_frame_width) + "x" + str(dialogue_frame_height))
+        self.__winDialogueOverlayPrompt.lower(self.__lfDialogueFrame)
+
+        bg_color = CS.D_GRAY
+        self.lblBodyBorderPrompt = WS.createDefaultHeader(self.__lfDialogueFramePrompt, "",
+                                                    [0, 0, 1, 1], [True, True],
+                                                    bg_color)
+        bg_color = CS.WHITE
+        self.lblBodyPrompt = WS.createDefaultHeader(self.lblBodyBorderPrompt, "",
+                                                    [1, 0, 0.99, 0.99], [True, True],
+                                                    bg_color)
+
+        self.gripPrompt = GS.GripLabel(self.__lfDialogueFrame, False, False)
+
+        y_val = 10
+        message_rel_height = 0.5
+        bg_color = CS.L_GRAY
+        fg_color = CS.D_BLUE
+        wFont = US.FONT_MED_BOLD
+        self.lblMessagePrompt = WS.createDefaultHeader(self.lblBody,
+                                                       "MINING SUCCESSFUL\n",
+                                                       [0, y_val, 1, message_rel_height], [True, True],
+                                                       bg_color, fg_color, wFont)
+        self.lblMessagePrompt.update()
+
+        bg_color = CS.WHITE
+        sub_message_rel_height = 0.28
+        wFont = US.FONT_VSMALL
+        self.lblSubMessagePrompt = WS.createDefaultHeader(self.lblBodyPrompt,
+                                                          "You can now load the pickle file\n" +
+                                                          "for the UI's Section 2 and 3.",
+                                                          [0, 0, 1, sub_message_rel_height], [True, True],
+                                                          bg_color, fg_color, wFont)
+        self.lblSubMessagePrompt.update()
+        FS.placeBelow(self.lblSubMessagePrompt, self.lblMessagePrompt, -(y_val + 13))
+
+        # Button Parent
+        button_rel_height = 1 - (message_rel_height + sub_message_rel_height)
+        button_rel_height = button_rel_height + 0.2
+        bg_color = CS.WHITE
+        fg_color = CS.D_BLUE
+        self.lblButtonsPrompt = WS.createDefaultHeader(self.lblBodyPrompt, "",
+                                                       [0, 0, 1, button_rel_height], [True, True],
+                                                       bg_color)
+        FS.placeBelow(self.lblButtonsPrompt, self.lblSubMessagePrompt, 5)
+        self.lblButtonsPrompt.update()
+
+        # Button Variables
+        btn_width = 40
+        btn_height = btn_width
+        icon_size = (btn_width, btn_height)
+        rel_x = 0.2
+        rel_y = 0.1
+
+        self.ico_width_check_prompt = btn_width
+        self.ico_height_check_prompt = btn_height
+        self.ico_width_cross_prompt = btn_width
+        self.ico_height_cross_prompt = btn_height
+
+        parent_width = self.lblButtonsPrompt.winfo_width()
+        rel_width = float(btn_width) / float(parent_width)
+        print(rel_width)
+        # "NO" DIALOG Button
+        self.btnDialog_NO_Prompt = Button(self.lblButtonsPrompt)
+        self.btnDialog_NO_Prompt.place(
+            relx = 1 - rel_x - rel_width, rely = rel_y,
+            width = btn_width, height = btn_height)
+
+        im = PIL.Image.open(IS.TAB_ICO_CROSS).resize(icon_size, PIL.Image.ANTIALIAS)
+        btn_cross = PIL.ImageTk.PhotoImage(im)
+        self.btnDialog_NO_Prompt.configure(
+            image = btn_cross)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.btnDialog_NO_Prompt.image = btn_cross  # < ! > Required to make images appear
+
+        self.btnDialog_NO_Prompt.configure(
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            activebackground = CS.FILTER_BG,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE
+        )
+
+        # "YES" DIALOG BUTTON
+        self.btnDialog_YES_Prompt = Button(self.lblButtonsPrompt)
+        self.btnDialog_YES_Prompt.place(
+            relx = rel_x, rely = rel_y,
+            width = btn_width, height = btn_height)
+
+        im = PIL.Image.open(IS.TAB_ICO_CHECK).resize(icon_size, PIL.Image.ANTIALIAS)
+        btn_check = PIL.ImageTk.PhotoImage(im)
+        self.btnDialog_YES_Prompt.configure(
+            image = btn_check)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.btnDialog_YES_Prompt.image = btn_check  # < ! > Required to make images appear
+
+        self.btnDialog_YES_Prompt.configure(
+            background = CS.WHITE, foreground = CS.D_BLUE,
+            activebackground = CS.FILTER_BG,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = GROOVE
+        )
+
+        self.__lfDialogueFramePrompt.update()
+
+    def createOverlayPrompt(self):
+        height_offset = FS.gripHeight
+        self.__winDialogueOverlayPrompt = WS.createOverlayWindow(self.root)
+        self.hasOverlayPrompt = True
+        # self.__winDialogueOverlay.lower(self.__lfDialogueFrame)
+        # self.__configureBorders(self.__lfDialogueFrame)
+        self.__configureBind()
+
 
     def __configureBorders(self, parentFrame):
         borderWidth = parentFrame.winfo_width()
@@ -558,6 +718,9 @@ class SystematicFiltering_View(_Progressible):
 
     def getDialogFrame(self):
         return self.__lfDialogueFrame
+
+    def getDialogFramePrompt(self):
+        return self.__lfDialogueFramePrompt
 
     def getBtnDialog_NO(self):
         return self.btnDialog_NO

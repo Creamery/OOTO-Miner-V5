@@ -625,22 +625,22 @@ class AutomatedMining_View:
         self.datasetCountA = 0
         self.datasetCountB = 0
 
-        self.labelQueryDataACount = Label(self.labelFrameQueryCount)
-        self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1,
-                                        relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
-        self.labelQueryDataACount.configure(
+        self.lblSelectedFeatureCount = Label(self.labelFrameQueryCount)
+        self.lblSelectedFeatureCount.place(relx = 0, rely = 0, relwidth = 1,
+                                           relheight = UI_support.TAB_TEST_SELECT_COUNT_REL_H)
+        self.lblSelectedFeatureCount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.PROCESS_BG,
-            text = self.getDatasetCountA()
+            text = str(0)
         )
-        self.labelQueryDataACountText = Label(self.labelFrameQueryCount)
-        self.labelQueryDataACountText.place(
-            relx = 0, rely = FS.getRelH(self.labelQueryDataACount),
+        self.lblSelectedFeatureTitle = Label(self.labelFrameQueryCount)
+        self.lblSelectedFeatureTitle.place(
+            relx = 0, rely = FS.getRelH(self.lblSelectedFeatureCount),
             relwidth = 1, relheight = UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
-        self.labelQueryDataACountText.configure(
+        self.lblSelectedFeatureTitle.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
             background = Color_support.FG_COLOR, foreground = Color_support.PROCESS_BG,
-            text = '''SAMPLES'''
+            text = '''SELECTION'''
         )
         # endregion
 
@@ -2729,8 +2729,8 @@ class AutomatedMining_View:
     def getLabelQuerySetDataStripesB(self):
         return self.labelQuerySetDataStripesB
 
-    def getLabelQueryDataACount(self):
-        return self.labelQueryDataACount
+    def getLblSelectedFeatureCount(self):
+        return self.lblSelectedFeatureCount
     def getLabelQueryDataBCount(self):
         return self.labelQueryDataBCount
 

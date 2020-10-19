@@ -68,6 +68,8 @@ class AutomatedMining_Controller:
         self.dictWidgetPlace = {}
         self.dict_result_data = None  # To be initialized by loadPickle()
         self.list_feature_codes = None
+        self.list_feature_codes_original = None
+
 
         self.configureTestTabBindings()
         self.initializeVariables()
@@ -114,7 +116,7 @@ class AutomatedMining_Controller:
         tests_gl = []
         self.datasetCountA = len(self.datasetA['Data'])
         self.datasetCountB = len(self.datasetB['Data'])
-        self.labelQueryDataACount.configure(text = self.getDatasetCountA())
+        self.lblSelectedFeatureCount.configure(text = str(0))
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
         # self.queryResetDatasetA(None)
@@ -175,8 +177,8 @@ class AutomatedMining_Controller:
         self.labelQuerySetDataStripesB = self.view.getLabelQuerySetDataStripesB()
 
         # LABELS
-        self.labelQueryDataA = self.view.getLabelQueryDataA()
-        self.labelQueryDataB = self.view.getLabelQueryDataB()
+        self.lblSelectedFeatureCodesTitle = self.view.getLabelQueryDataA()
+        self.lblSelectedFeatureGroupsTitle = self.view.getLabelQueryDataB()
         self.labelQueryDataFeatureName = self.view.getLabelQueryDataFeatureName()
         self.listQueryDataA = self.view.getListQueryDataA()
         self.listQueryDataB = self.view.getListQueryDataB()
@@ -184,8 +186,8 @@ class AutomatedMining_Controller:
         # self.labelQueueCount = self.view.getLabelQueueCount()
         self.labelConsoleScreenTaskBar = self.view.getLabelConsoleScreenTaskBar()
 
-        self.labelQueryDataACount = self.view.getLabelQueryDataACount()
-        self.labelQueryDataBCount = self.view.getLabelQueryDataBCount()
+        self.lblSelectedFeatureCount = self.view.getLblSelectedFeatureCount()
+        self.labelQueryDataBCount = self.view.getLabelQueryDataBCount()  # TODO Feature Groups
 
         # LISTBOXES
         self.listFeatureCodes = self.view.getListFeatureCodes()
@@ -373,8 +375,8 @@ class AutomatedMining_Controller:
     def setFocusFeatureValues(self, evt):  ### TODO Add checker if listbox is not empty
         listBox = evt.widget
         selectedItems = listBox.curselection()
-        FS.setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
-        FS.setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
+        FS.setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.lblSelectedFeatureCodesTitle, False)
+        FS.setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.lblSelectedFeatureGroupsTitle, True)
 
     ''' Load existing Pickle file '''
 
@@ -397,6 +399,7 @@ class AutomatedMining_Controller:
 
             if len(filename) > 0 and LS.checkPickleFileExistence(filename):
                 self.list_feature_codes = []  # Reset feature codes when making a new pickle
+                self.list_feature_codes_original = []
 
                 self.dict_result_data = LS.loadPickleResultDictionary(filename)
                 self.addToListFeatureCode(self.dict_result_data)
@@ -413,8 +416,6 @@ class AutomatedMining_Controller:
         Append all unique features to Feature Codes Listbox.
     '''
     def addToListFeatureCode(self, dict_result_data):
-        i_accepted = 0
-        self.list_feature_codes = []
         for key in dict_result_data.keys():
             str_key = str(key)
             split_keys = str_key.split("VS")
@@ -425,18 +426,18 @@ class AutomatedMining_Controller:
                     if len(feature) > 1:
                         current_feature = feature + ")"  # Put back the split character
 
-                        print(current_feature)
                         # If the feature is not yet added, append it
                         if current_feature.strip() not in self.list_feature_codes:
-                            # print(self.list_feature_codes)
                             self.list_feature_codes.append(current_feature.strip())
 
         self.list_feature_codes.sort()
+        self.list_feature_codes_original = copy.deepcopy(self.list_feature_codes)
         for i_accepted in range(len(self.list_feature_codes)):
-            # i_accepted = i_accepted + 1
             feature = self.list_feature_codes[i_accepted]
-            str_accepted = str(i_accepted)
-            if i_accepted < 10:
+
+            accepted = i_accepted + 1
+            str_accepted = str(accepted)
+            if accepted < 10:
                 str_accepted = "  " + str_accepted
             str_entry = UICS.PRE_LIST + str_accepted + "| " + feature
             self.listFeatureCodes.insert(END, str_entry)
@@ -579,6 +580,10 @@ class AutomatedMining_Controller:
 
     def resetSelectedFeatureCodes(self, evt):
         print("RESET SELECTED FEATURE CODES")
+
+        self.listFeatureCodes.delete(0, END)  # Delete everything from Feature Code listbox
+
+
         '''
         self.isReadyDatasetA = False  # When a dataset is reset, it is not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
@@ -641,6 +646,10 @@ class AutomatedMining_Controller:
 
     def querySelectedFeatureCodes(self, evt):  # TODO List box function 1
         print("QUERY SELECTED FEATURE CODES")
+        # Update Selection Count
+        selection_count = len(self.listFeatureCodes.curselection())
+        self.lblSelectedFeatureCount.configure(text = str(selection_count))
+
         '''
         self.isReadyDatasetA = False  # When a listbox element is de/selected, mark the dataset as not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
@@ -679,10 +688,10 @@ class AutomatedMining_Controller:
 
     def queryResetFilterDetails(self, evt):
         # Empty FILTER details of BOTH A and B
-        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.lblSelectedFeatureCodesTitle.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
         self.listQueryDataA.delete(0, END)
 
-        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.lblSelectedFeatureGroupsTitle.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
         self.listQueryDataB.delete(0, END)
 
         self.labelQueryDataFeatureName.configure(
@@ -706,6 +715,9 @@ class AutomatedMining_Controller:
     def addFeatureCode(self, evt):
         # Get Selected Features  TODO
         # Search in Dictionary
+        list_selectedFeatureCodes = self.listFeatureCodes.curselection()
+        for index in list_selectedFeatureCodes:
+            print(self.listFeatureCodes.get(index))
 
         print("CHECK 1 IS PRESSED")
         return "break"
@@ -1103,8 +1115,8 @@ class AutomatedMining_Controller:
         self.buttonTestQueue.configure(state = "normal")
         # self.buttonTest.configure(state = "normal")
         # self.labelQueryZTest.configure(state = "normal")
-        self.labelQueryDataA.configure(state = "normal")
-        self.labelQueryDataB.configure(state = "normal")
+        self.lblSelectedFeatureCodesTitle.configure(state = "normal")
+        self.lblSelectedFeatureGroupsTitle.configure(state = "normal")
         self.buttonQueryZTestSvP.configure(state = "normal")
         self.comboQueryCriticalValueSvP.configure(state = "normal")
         self.labelQueryZTestSvP.configure(state = "normal")
@@ -1117,7 +1129,7 @@ class AutomatedMining_Controller:
         if self.datasetA is not []:
             self.datasetCountA = len(self.datasetA['Data'])
             self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-        self.labelQueryDataA.configure(text = "")
+        self.lblSelectedFeatureCodesTitle.configure(text = "")
         self.listQueryDataA.delete(0, END)
         self.listFeatureCodes.delete(0, END)
 
@@ -1127,7 +1139,7 @@ class AutomatedMining_Controller:
         if self.datasetB is not []:
             self.datasetCountB = len(self.datasetB['Data'])
             self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
-        self.labelQueryDataB.configure(text = "")
+        self.lblSelectedFeatureGroupsTitle.configure(text = "")
         self.listQueryDataB.delete(0, END)
         self.listFeatureGroups.delete(0, END)
 
@@ -1147,8 +1159,8 @@ class AutomatedMining_Controller:
             self.buttonTestQueue.configure(state = "disabled")
             # self.buttonTest.configure(state = "disabled")
             # self.labelQueryZTest.configure(state = "disabled")
-            self.labelQueryDataA.configure(state = "disabled")
-            self.labelQueryDataB.configure(state = "disabled")
+            self.lblSelectedFeatureCodesTitle.configure(state = "disabled")
+            self.lblSelectedFeatureGroupsTitle.configure(state = "disabled")
             self.listQueryDataA.configure(state = "disabled")
             # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
             # self.labelFrameQueryDataB.configure(text = "Samples")

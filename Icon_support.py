@@ -58,12 +58,21 @@ TAB_ICO_ADD_ON = PATH + '\\_icons\\ico_add_on.png'
 TAB_ICO_DOWN_ARROW = PATH + '\\_icons\\ico_down_arrow.png'
 TAB_ICO_DOWN_ARROW_ON = PATH + '\\_icons\\ico_down_arrow_on.png'
 
+TAB_ICO_GO_ARROW = PATH + '\\_icons\\ico_go_arrow.png'
+TAB_ICO_GO_ARROW_ON = PATH + '\\_icons\\ico_go_arrow_on.png'
+TAB_ICO_GO_ARROW_OFF = PATH + '\\_icons\\ico_go_arrow_disabled.png'
 
 # Initialize AM window icons
-AM_ICO_START = PATH + '\\_icons\\ico_AM_start.png'
-AM_ICO_START_ON = PATH + '\\_icons\\ico_AM_start_on.png'
-AM_ICO_CROSS = PATH + '\\_icons\\ico_AM_cross.png'
-AM_ICO_CROSS_ON = PATH + '\\_icons\\ico_AM_cross_on.png'
+AM_ICO_START = TAB_ICO_GO_ARROW  # TAB_ICO_CHECK  # PATH + '\\_icons\\ico_AM_start.png'
+AM_ICO_START_ON = TAB_ICO_GO_ARROW_ON  # TAB_ICO_CHECK_ON  # PATH + '\\_icons\\ico_AM_start_on.png'
+
+AM_ICO_FINISHED = PATH + '\\_icons\\ico_go_finished.png'
+AM_ICO_FINISHED_ON = PATH + '\\_icons\\ico_go_finished_on.png'  # TAB_ICO_CHECK_ON  # PATH + '\\_icons\\ico_AM_start_on.png'
+
+
+AM_ICO_CROSS_OFF = TAB_ICO_GO_ARROW_OFF
+AM_ICO_CROSS = TAB_ICO_CROSS  # PATH + '\\_icons\\ico_AM_cross.png'
+AM_ICO_CROSS_ON = TAB_ICO_CROSS_ON  # ATH + '\\_icons\\ico_AM_cross_on.png'
 
 TEXTURE_STRIPE_ORANGE = PATH + '\\_icons\\texture_stripe_orange.png'
 TEXTURE_STRIPE_PINK = PATH + '\\_icons\\texture_stripe_pink.png'

@@ -53,6 +53,7 @@ class SystematicFiltering_Controller:
         self.model = model
         self.view = view
         self.grip = None
+        self.isFinished = False
         # self.dialogue_grip = None
 
         self.setDictResults(None)
@@ -91,18 +92,30 @@ class SystematicFiltering_Controller:
 
 
 
-
     def showDialogPrompt(self, event):
-        self.view.openDialog()
+        self.view.openDialog(self.isFinished)
         self.bindDialogButtons()
         self.view.getDialogFrame().update()
+
+
+    def showDialogOutputPrompt(self):
+        self.view.openDialogPrompt()
+        self.bindDialogButtonsPrompt()
+        self.view.getDialogFramePrompt().update()
 
     def closeDialog(self, event):
         # print("CLOSED")
         self.view.closeDialog()
 
+    def closeDialogPrompt(self, event):
+        self.view.closeDialogPrompt()
+
     def closeProcessWindow(self, event):
         self.view.closeDialog()
+        self.getParentGrip().onTopClose()
+
+    def closeProcessWindowPrompt(self, event):
+        self.view.closeDialogPrompt()
         self.getParentGrip().onTopClose()
 
     def declareBindingVariables(self):
@@ -128,6 +141,19 @@ class SystematicFiltering_Controller:
         button.bind("<Leave>", self.leaveCheckIcon)
 
 
+
+    def bindDialogButtonsPrompt(self):
+        # button = self.view.getBtnDialog_NO()
+        # button.bind('<Button-1>', self.closeDialogPrompt)
+        # button.bind("<Enter>", self.enterCrossIcon)
+        # button.bind("<Leave>", self.leaveCrossIcon)
+
+        button = self.view.getBtnDialog_YES()
+        button.bind('<Button-1>', self.closeProcessWindowPrompt)
+        button.bind("<Enter>", self.enterCheckIcon)
+        button.bind("<Leave>", self.leaveCheckIcon)
+
+
     def bindParentGripButtons(self):
         # button.bind("<Button-1>", lambda event: self.onTopClose())
         button = self.getParentGrip().getCloseButton()
@@ -146,8 +172,41 @@ class SystematicFiltering_Controller:
         self.view.updateProgress(progress, description)
 
 
+    def disableStartButton(self):
+        # self.view.getBtnStartCrossProcess().configure(state = "disabled", background = CS.WHITE, disabledforeground = CS.WHITE)
+        btn_width = 52 + 28  # 40 * 4 - 21
+        btn_height = 52
+        icon_size = (btn_width, btn_height)
+        im = PIL.Image.open(IS.AM_ICO_CROSS_OFF).resize(icon_size, PIL.Image.ANTIALIAS)
+        btn_disabled_AM = PIL.ImageTk.PhotoImage(im)
+        self.view.getBtnStartCrossProcess().configure(image = btn_disabled_AM)
+        self.view.getBtnStartCrossProcess().image = btn_disabled_AM  # < ! > Required to make images appear
+
+        self.view.getBtnStartCrossProcess().unbind("<Enter>")
+        self.view.getBtnStartCrossProcess().unbind("<Leave>")
+        self.view.getBtnStartCrossProcess().unbind("<Button-1>")
+
+    def enableStartButtonAsFinished(self):
+        # self.view.getBtnStartCrossProcess().configure(state = "disabled", background = CS.WHITE, disabledforeground = CS.WHITE)
+        btn_width = 52 + 28  # 40 * 4 - 21
+        btn_height = 52
+        icon_size = (btn_width, btn_height)
+        im = PIL.Image.open(IS.AM_ICO_FINISHED).resize(icon_size, PIL.Image.ANTIALIAS)
+        btn_finished_AM = PIL.ImageTk.PhotoImage(im)
+        self.view.getBtnStartCrossProcess().configure(image = btn_finished_AM)
+        self.view.getBtnStartCrossProcess().image = btn_finished_AM  # < ! > Required to make images appear
+
+        self.icon_AM_finished_on = None
+        self.icon_AM_finished = None
+        self.view.getBtnStartCrossProcess().bind('<Button-1>', self.showDialogPrompt)
+        self.view.getBtnStartCrossProcess().bind("<Enter>", self.enterAMFinishedIcon)
+        self.view.getBtnStartCrossProcess().bind("<Leave>", self.leaveAMFinishedIcon)
+
     def startAutomatedMining(self, event):
+        self.isFinished = False
+
         self.view.showStopMining()
+        self.disableStartButton()
         print("Start Systematic Filtering (From SFModule")
         startCrossProcessThread([self])
 
@@ -162,6 +221,9 @@ class SystematicFiltering_Controller:
 
         return "break"
 
+    def isAMFinished(self):
+        self.isFinished = True
+        self.enableStartButtonAsFinished()
 
     def closeWindow(self):  # TODO
         self.getGrip().onTopClose()
@@ -258,6 +320,28 @@ class SystematicFiltering_Controller:
         item.configure(
             image = self.icon_AM_check_on)
         item.image = self.icon_AM_check_on  # < ! > Required to make images appear
+
+    def enterAMFinishedIcon(self, event):
+        if self.icon_AM_finished_on is None:
+            iconSize = self.getIcoAMSizeCheck()
+            im = PIL.Image.open(IS.AM_ICO_FINISHED_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_AM_finished_on = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_AM_finished_on)
+        item.image = self.icon_AM_finished_on  # < ! > Required to make images appear
+
+    def leaveAMFinishedIcon(self, event):
+        if self.icon_AM_finished is None:
+            iconSize = self.getIcoAMSizeCheck()
+            im = PIL.Image.open(IS.AM_ICO_FINISHED).resize(iconSize, PIL.Image.ANTIALIAS)
+            self.icon_AM_finished = PIL.ImageTk.PhotoImage(im)
+
+        item = event.widget
+        item.configure(
+            image = self.icon_AM_finished)
+        item.image = self.icon_AM_finished  # < ! > Required to make images appear
 
 
     def leaveAMCheckIcon(self, event):
@@ -416,20 +500,25 @@ def startCrossProcessThread(controller):
 def runCrossProcessThread(controller):
     print("Running Cross Process Thread")
 
-    # changeText(lblDetails, "HEY")
-    progress = 0
-    while progress < 100:
-        if progress == 0:
-            thread = Thread(target = runAutomatedMining, args = [controller])
-            thread.start()
+    thread = Thread(target = runAutomatedMining, args = [controller])
+    thread.start()
 
-        progress = progress + 1
+
+    # progress = 0
+    # while progress < 100:
+    #     if progress == 0:
+    #         thread = Thread(target = runAutomatedMining, args = [controller])
+    #         thread.start()
+    #
+    #     progress = progress + 1
         # controller.updateProgress(progress)
     # tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
 
 
 def runAutomatedMining(controller):
     AM_R.runAutomatedMining(controller)
+
+
 
 def changeText(label, text):
     # current_text = label.get()
