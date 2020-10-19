@@ -801,8 +801,11 @@ class AutomatedMining_Controller:
         list_selectedFeatureCodes = self.listFeatureCodes.curselection()
         for index in list_selectedFeatureCodes:
             print(self.listFeatureCodes.get(index))
-        self.setStripeReady(True, self.lblStripesFeatureCodes)  # Change stripe color
-        print("CHECK 1 IS PRESSED")
+
+        len_selected_features = len(list_selectedFeatureCodes)
+        if len_selected_features > 0:
+            self.setStripeReady(True, self.lblStripesFeatureCodes)  # Change stripe color
+        # print("CHECK 1 IS PRESSED")
         return "break"
 
     def queryAddFilterB(self, evt):

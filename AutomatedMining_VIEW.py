@@ -807,7 +807,7 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.lblQuerySourceFolder))
         self.labelQuerySetDataB.configure(
             background = Color_support.FILTER_LABEL_BG, foreground = Color_support.FILTER_TITLE_BG,
-            text = UI_support.SELECT_LABEL_DATASETB_TEXT,
+            text = "Filter",
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
         )
@@ -949,7 +949,7 @@ class AutomatedMining_View:
         self.labelQueryDataBCount.configure(
             font = UI_support.FONT_LARGE_BOLD,
             background = Color_support.PROCESS_BG,
-            text = self.getDatasetCountB()
+            text = str(0)
         )
         self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
         self.labelQueryDataBCountText.place(
@@ -958,7 +958,7 @@ class AutomatedMining_View:
         self.labelQueryDataBCountText.configure(
             font = UI_support.FONT_DEFAULT_BOLD,
             background = Color_support.FG_COLOR, foreground = Color_support.PROCESS_BG,
-            text = '''SAMPLES'''
+            text = '''RESULTS'''
         )
 
         # Create the left separator

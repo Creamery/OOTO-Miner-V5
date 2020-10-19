@@ -6,6 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -140,8 +141,8 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="30">
-                    <caret line="439" lean-forward="true" selection-start-line="439" selection-end-line="439" />
+                  <state relative-caret-position="144">
+                    <caret line="793" selection-start-line="793" selection-end-line="793" />
                   </state>
                 </provider>
               </entry>
@@ -161,8 +162,8 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="334">
-                    <caret line="764" column="77" selection-start-line="764" selection-start-column="77" selection-end-line="764" selection-end-column="77" />
+                  <state relative-caret-position="68">
+                    <caret line="801" lean-forward="true" selection-start-line="801" selection-end-line="801" />
                     <folding>
                       <element signature="e#444#454#0" expanded="true" />
                     </folding>
@@ -211,16 +212,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/UI_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="620">
-              <caret line="242" selection-start-line="242" selection-end-line="242" />
+            <state relative-caret-position="62">
+              <caret line="312" lean-forward="true" selection-start-line="312" selection-end-line="312" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="128">
@@ -243,10 +244,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>loadSo</find>
-      <find>parentFr</find>
-      <find>parentFrame</find>
-      <find>WIL</find>
       <find>reset</find>
       <find>highlight</find>
       <find>PALE</find>
@@ -273,6 +270,10 @@
       <find>exportUI</find>
       <find>dict_ou</find>
       <find>LS.</find>
+      <find>listFeatureG</find>
+      <find>addFeat</find>
+      <find>expor</find>
+      <find>text =</find>
     </findStrings>
     <replaceStrings>
       <replace>CONSOLE</replace>
@@ -367,7 +368,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="92" />
     <option name="y" value="17" />
     <option name="width" value="1664" />
@@ -592,7 +593,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
+    <frame x="-7" y="23" width="1550" height="848" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Project" order="0" visible="true" weight="0.16957104" />
@@ -1130,13 +1131,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UI_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="620">
-          <caret line="242" selection-start-line="242" selection-end-line="242" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
@@ -1159,15 +1153,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="439" lean-forward="true" selection-start-line="439" selection-end-line="439" />
+        <state relative-caret-position="144">
+          <caret line="793" selection-start-line="793" selection-end-line="793" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UI_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="62">
+          <caret line="312" lean-forward="true" selection-start-line="312" selection-end-line="312" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="764" column="77" selection-start-line="764" selection-start-column="77" selection-end-line="764" selection-end-column="77" />
+        <state relative-caret-position="68">
+          <caret line="801" lean-forward="true" selection-start-line="801" selection-end-line="801" />
           <folding>
             <element signature="e#444#454#0" expanded="true" />
           </folding>
