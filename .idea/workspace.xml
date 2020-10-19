@@ -6,9 +6,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Grip_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grip_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/CrossProcess_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIConstants_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UIConstants_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS p10(b).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS u4(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS u4(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS b1(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS b1(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(b).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS u4(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS u4(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS b1(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS b1(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS p10(b).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(b) VS u4(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(b) VS u4(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(a).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(b).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(b).xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS u4(a).xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS u4(a).xlsx" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,11 +73,10 @@
             <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/SystematicFiltering_VIEW.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="57">
-                    <caret line="315" column="40" selection-start-line="315" selection-start-column="40" selection-end-line="315" selection-end-column="40" />
+                  <state relative-caret-position="298">
+                    <caret line="106" column="71" selection-start-line="106" selection-start-column="71" selection-end-line="106" selection-end-column="71" />
                     <folding>
                       <element signature="e#396#412#0" expanded="true" />
-                      <element signature="e#1729#3882#0" />
                       <element signature="e#3918#9542#0" />
                     </folding>
                   </state>
@@ -73,11 +86,10 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="1227">
-                    <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+                  <state relative-caret-position="30">
+                    <caret line="166" selection-start-line="166" selection-end-line="166" />
                     <folding>
                       <element signature="e#392#408#0" expanded="true" />
-                      <element signature="e#1952#4214#0" />
                     </folding>
                   </state>
                 </provider>
@@ -104,7 +116,7 @@
       <content type="file-editors">
         <state>
           <leaf>
-            <file pinned="false" current-in-tab="true">
+            <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/Icon_support.py">
                 <provider selected="true" editor-type-id="text-editor">
                   <state relative-caret-position="445">
@@ -113,11 +125,11 @@
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="false">
+            <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/UIConstants_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="141">
-                    <caret line="94" column="19" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
+                  <state relative-caret-position="220">
+                    <caret line="38" column="56" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
                   </state>
                 </provider>
               </entry>
@@ -139,11 +151,11 @@
       <content type="file-editors">
         <state>
           <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-            <file pinned="false" current-in-tab="true">
+            <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="304">
-                    <caret line="19" column="63" lean-forward="true" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
+                  <state relative-caret-position="163">
+                    <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="17" selection-end-column="17" />
                     <folding>
                       <element signature="e#1#10#0" expanded="true" />
                     </folding>
@@ -166,8 +178,8 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/RFE_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="475">
-                    <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+                  <state relative-caret-position="342">
+                    <caret line="36" column="69" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="69" />
                     <folding>
                       <element signature="e#0#18#0" expanded="true" />
                     </folding>
@@ -175,11 +187,11 @@
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="false">
+            <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="202">
-                    <caret line="134" column="46" selection-start-line="134" selection-start-column="46" selection-end-line="134" selection-end-column="46" />
+                  <state relative-caret-position="448">
+                    <caret line="160" column="41" selection-start-line="160" selection-start-column="41" selection-end-line="160" selection-end-column="41" />
                     <folding>
                       <element signature="e#0#13#0" expanded="true" />
                     </folding>
@@ -190,8 +202,8 @@
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/Loader_support.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="141">
-                    <caret line="290" column="23" selection-start-line="290" selection-start-column="23" selection-end-line="290" selection-end-column="23" />
+                  <state relative-caret-position="230">
+                    <caret line="272" column="4" selection-start-line="272" selection-start-column="4" selection-end-line="272" selection-end-column="4" />
                     <folding>
                       <element signature="e#204#235#0" expanded="true" />
                     </folding>
@@ -396,13 +408,10 @@
         <option value="$PROJECT_DIR$/Filter_support.py" />
         <option value="$PROJECT_DIR$/_THREAD_CrossProcess.py" />
         <option value="$PROJECT_DIR$/RFE_support.py" />
-        <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
-        <option value="$PROJECT_DIR$/UIConstants_support.py" />
         <option value="$PROJECT_DIR$/ManualMining_VIEW.py" />
         <option value="$PROJECT_DIR$/Color_support.py" />
         <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/Loader_support.py" />
-        <option value="$PROJECT_DIR$/CrossProcess_support.py" />
         <option value="$PROJECT_DIR$/Dialogue_Grip_support.py" />
         <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_MODEL.py" />
@@ -411,8 +420,11 @@
         <option value="$PROJECT_DIR$/AutomatedMining_VIEW.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/Grip_support.py" />
+        <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
         <option value="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" />
+        <option value="$PROJECT_DIR$/UIConstants_support.py" />
         <option value="$PROJECT_DIR$/SystematicFiltering_VIEW.py" />
+        <option value="$PROJECT_DIR$/CrossProcess_support.py" />
       </list>
     </option>
   </component>
@@ -649,7 +661,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.32911393" />
-      <window_info active="true" anchor="bottom" x="477" y="248" width="967" height="478" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
+      <window_info active="true" anchor="bottom" x="419" y="321" width="967" height="478" id="Run" order="2" sideWeight="0.54825735" type="WINDOWED" visible="true" weight="0.29113925" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.08438819" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -812,9 +824,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/__ test scripts/multiprocessing/process.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/__ test scripts/multiprocessing/admin_process.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="608">
@@ -997,16 +1006,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RFE_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_Progressible.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="217">
@@ -1014,47 +1013,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Filter_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4">
-          <caret line="98" column="48" selection-start-line="98" selection-start-column="48" selection-end-line="98" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UI_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="384" column="4" selection-start-line="384" selection-start-column="4" selection-end-line="384" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/UIConstants_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="94" column="19" selection-start-line="94" selection-start-column="19" selection-end-line="94" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Loader_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="290" column="23" selection-start-line="290" selection-start-column="23" selection-end-line="290" selection-end-column="23" />
-          <folding>
-            <element signature="e#204#235#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="134" column="46" selection-start-line="134" selection-start-column="46" selection-end-line="134" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1117,13 +1079,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Icon_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="73" column="48" selection-start-line="73" selection-start-column="48" selection-end-line="73" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Python27/Lib/lib-tk/Tkinter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1168,23 +1123,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="210" column="103" selection-start-line="210" selection-start-column="103" selection-end-line="210" selection-end-column="103" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="19" column="63" lean-forward="true" selection-start-line="19" selection-start-column="63" selection-end-line="19" selection-end-column="63" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_MODULE_SystematicFiltering.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -1204,25 +1142,101 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/1482717180/__builtin__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="2207" column="8" selection-start-line="2207" selection-start-column="8" selection-end-line="2207" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Filter_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4">
+          <caret line="98" column="48" selection-start-line="98" selection-start-column="48" selection-end-line="98" selection-end-column="48" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RFE_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="36" column="69" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="69" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="17" selection-end-column="17" />
+          <folding>
+            <element signature="e#1#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Loader_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="272" column="4" selection-start-line="272" selection-start-column="4" selection-end-line="272" selection-end-column="4" />
+          <folding>
+            <element signature="e#204#235#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Icon_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="73" column="48" selection-start-line="73" selection-start-column="48" selection-end-line="73" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UIConstants_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="38" column="56" selection-start-line="38" selection-start-column="56" selection-end-line="38" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1227">
-          <caret line="109" lean-forward="true" selection-start-line="109" selection-end-line="109" />
+        <state relative-caret-position="30">
+          <caret line="166" selection-start-line="166" selection-end-line="166" />
           <folding>
             <element signature="e#392#408#0" expanded="true" />
-            <element signature="e#1952#4214#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SystematicFiltering_VIEW.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="315" column="40" selection-start-line="315" selection-start-column="40" selection-end-line="315" selection-end-column="40" />
+        <state relative-caret-position="298">
+          <caret line="106" column="71" selection-start-line="106" selection-start-column="71" selection-end-line="106" selection-end-column="71" />
           <folding>
             <element signature="e#396#412#0" expanded="true" />
-            <element signature="e#1729#3882#0" />
             <element signature="e#3918#9542#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="210" column="103" selection-start-line="210" selection-start-column="103" selection-end-line="210" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CrossProcess_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="160" column="41" selection-start-line="160" selection-start-column="41" selection-end-line="160" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>

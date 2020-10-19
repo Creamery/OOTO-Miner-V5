@@ -172,7 +172,9 @@ class SystematicFiltering_Controller:
         if key is 0:  # Key = 0 is used for the first message
             progress = 0
             self.updateProgress(progress, description)
-
+        elif key is 100:
+            progress = 100
+            self.updateProgress(progress, description)
         else:
             UICS.iterateProcessKey(key)  # Increment the given key's progress by 1
 

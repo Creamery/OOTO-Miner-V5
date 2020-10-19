@@ -15,7 +15,7 @@ def loaderModule():
 
 def rfeModule(df_raw_dataset, ftr_names, controller):
     controller.updateModuleProgress(0, UICS.FIRST_MESSAGE_SPACE + "[ Starting Automated OOTO Miner] ")  # 1
-    time.sleep(0.05)
+    time.sleep(1)
 
     dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names, controller)
     return dict_rfe

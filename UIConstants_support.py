@@ -34,7 +34,7 @@ PRE_STRING_SPACE = "   "
 SINGLE_MODULE_SYMBOL = "_"
 MODULE_SYMBOL = "________________________________________________________________"
 LEN_MODULE_MAX = float(len(MODULE_SYMBOL))  # Maximum underscores in a line
-MODULE_INDICATOR = SINGLE_MODULE_SYMBOL + " "
+MODULE_INDICATOR = SINGLE_MODULE_SYMBOL
 SUB_MODULE_SYMBOL = "|"
 SUB_MODULE_INDICATOR = "      " + SUB_MODULE_SYMBOL + " "
 
@@ -74,7 +74,7 @@ CROSS_PROGRESS = 0
 
 # global OUTPUT_SECTION_NUMBER, OUTPUT_MAX_PROCESS_COUNT, OUTPUT_PROCESS_ITERATOR
 OUTPUT_SECTION_NUMBER = 5
-OUTPUT_MAX_PROCESS_COUNT = 2  # Manually update this according to module
+OUTPUT_MAX_PROCESS_COUNT = 6  # Manually update this according to module
 OUTPUT_PROCESS_ITERATOR = 0
 OUTPUT_PROGRESS = 0
 

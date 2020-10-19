@@ -115,7 +115,7 @@ class SystematicFiltering_View(_Progressible):
 
             symbols = ''.join([char * symbol_count for char in UICS.SINGLE_MODULE_SYMBOL])
 
-            description = UICS.PRE_STRING_SPACE + addSymbol + symbols + clean_description + symbols
+            description = UICS.PRE_STRING_SPACE + addSymbol + symbols + clean_description.strip() + symbols
 
         strProgressInfo = str(description)
         self.getLbProgressConsole().insert(END, strProgressInfo)
