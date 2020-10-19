@@ -494,7 +494,7 @@ class AutomatedMining_View:
             relwidth = 0.98, relheight = 0.95)
         self.lblQuerySourceFolder.configure(
             background = Color_support.FILTER_LABEL_BG, foreground = Color_support.FILTER_TITLE_BG,
-            text = "Directory",
+            text = "Folder Name",
             font = UI_support.SELECT_LABEL_FONT,
             bd = 0, relief = FLAT,
         )
@@ -515,8 +515,9 @@ class AutomatedMining_View:
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
             selectbackground = Color_support.FILTER_ENTRY_SELECT_HIGHLIGHT_BG,
             insertbackground = Color_support.FILTER_ENTRY_SELECT_INSERT_BG,
-            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY
+            takefocus = UI_support.ENTRY_TAKE_FOCUS, justify = UI_support.SELECT_ENTRY_JUSTIFY,
         )  # TODO Constant font definiton
+        self.entrySourceFolderFilename.insert(0, LS.GL_AM_EXCEL_FOLDER_NAME)
         # endregion
         # QUERY BUTTON - DATASET A
         # region

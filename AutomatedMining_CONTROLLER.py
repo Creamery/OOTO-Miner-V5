@@ -401,7 +401,7 @@ class AutomatedMining_Controller:
 
             # If entry box is empty, the program assumes the default directory
             if len(filename) <= 0:
-                filename = "UI Results\\"
+                filename = str("\\" + LS.GL_AM_EXCEL_FOLDER_NAME)
 
             if LS.checkExcelFileExistence(filename):
                 self.list_feature_codes = []  # Reset feature codes when making a new pickle

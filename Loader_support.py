@@ -36,6 +36,7 @@ GL_ROOT_PATH = os.path.dirname(os.path.realpath(__file__))
 GL_AM_INPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_input\\")
 GL_AM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\AM\\")
 GL_AM_EXCEL_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\AM\\UI Results\\")
+GL_AM_EXCEL_FOLDER_NAME = str("UI Results")
 GL_MM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\MM\\")
 PICKLE_TITLE_NAME = "Pickle Result - "
 
