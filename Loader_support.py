@@ -15,6 +15,7 @@ import time
 
 # For loadDataset()
 import pandas as pd
+import glob
 import os
 import errno
 
@@ -323,27 +324,50 @@ def exportPickleResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PAT
 
 
 def checkPickleFileExistence(filename, path = GL_AM_OUTPUT_PATH):
-    path_import = str(path + "Pickle Results\\")
+    path_import = str(path + filename)
     if checkDirectoryExistence(path_import):  # Check directory existence
-        path_import = path_import + filename + ".pkl"
-        path_import = path_import.replace("\\", "/")
-        print(path_import)
-
-        return os.path.isfile(path_import)  # Check file existence
-        # return checkDirectoryExistence(path_import)
+        return True
     return False
 
 
 
-def loadPickleResultDictionary(filename, path = GL_AM_OUTPUT_PATH):
-    path_import = str(path + "Pickle Results\\")
+def loadPickleResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH):
+    # path_import = str(path + "Pickle Results\\")
+    path_import = str(path + filename)
     checkDirectoryExistence(path_import)
-    path_import = path_import + filename
-    path_import = path_import.replace("\\", "/")
 
-    with open(path_import + '.pkl', 'rb') as file:
-        return pickle.load(file)
+    excelFiles = glob.glob(path_import + "*.xlsx")
+    dfs = {}
 
+    for excelFile in excelFiles:
+        key = os.path.splitext(os.path.basename(excelFile))[0]
+        key = key.replace("UI Result - ", "")
+        dfs[key] = pd.read_excel(excelFile)
+
+    # list_excel_files = []
+    # # Acquire all Excel Files
+    # for excelFile in excelFiles:
+    #     rawExcel = pd.read_excel(excelFile)
+    #     list_excel_files.append(rawExcel)
+    # # place dataframe into list
+
+    list_colnames = ["Features", "DoF", "P Value", "Chi Square", "Observed", "Expected", "IsSignificant"]
+
+    return dfs, list_colnames
+
+
+
+    # path_import = path_import + filename
+    # path_import = path_import.replace("\\", "/")
+    # dict_results = pd.read_excel(path_import, index_col = 0)
+    #
+    # # with open(path_import + '.pkl', 'rb') as file:
+    # #     dict_results =  pickle.load(file)
+    # # df_results = pd.read_pickle(path_import + ".pkl")
+    # # df_results.filter(list_colnames)
+    # list_colnames = ["Features", "DoF", "P Value", "Chi Square", "Observed", "Expected", "IsSignificant"]
+
+    # return dict_results, list_colnames
 
 def loadInput(path_varDesc = None, path_dataset = None, path_ftrNames = None):
     # dir_path = os.path.dirname(os.path.realpath(__file__))

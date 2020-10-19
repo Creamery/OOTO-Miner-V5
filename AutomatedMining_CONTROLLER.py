@@ -46,6 +46,7 @@ except ImportError:
     py3 = 1
 
 import math
+import collections
 import Color_support
 import Icon_support
 import UI_support
@@ -381,7 +382,7 @@ class AutomatedMining_Controller:
     ''' Load existing Pickle file '''
 
     def loadPickle(self, evt):
-        print("LOAD PICKLE IS PRESSED")
+        print("Loading Pickle")
         willLoad = True
         if self.list_feature_codes is not None:
             message_box = tkMessageBox.askquestion("Overwrite Session", "Loading a new pickle will overwrite your current session. Proceed?", icon = "warning")
@@ -394,15 +395,17 @@ class AutomatedMining_Controller:
 
         if willLoad:
             entry_pickle_filename = self.entryPickleFilename.get()
-            filename = entry_pickle_filename.strip()
-            print(filename)
+            filename = entry_pickle_filename.strip()  # Directory name now
+            # print(filename)
 
-            if len(filename) > 0 and LS.checkPickleFileExistence(filename):
+            if len(filename) <= 0:
+                filename = "UI Results\\"
+            if LS.checkPickleFileExistence(filename):
                 self.list_feature_codes = []  # Reset feature codes when making a new pickle
                 self.list_feature_codes_original = []
 
-                self.dict_result_data = LS.loadPickleResultDictionary(filename)
-                self.addToListFeatureCode(self.dict_result_data)
+                self.df_results, self.result_colnames = LS.loadPickleResultDictionary()
+                self.addToListFeatureCode(self.df_results, self.result_colnames)
             else:
                 tkMessageBox.showerror("Error: File not found",
                                        "Please place the input file in <\"_output/Pickle Results\"> and try again.")
@@ -415,33 +418,60 @@ class AutomatedMining_Controller:
         Extract all single features available in the result dictionary.
         Append all unique features to Feature Codes Listbox.
     '''
-    def addToListFeatureCode(self, dict_result_data):
-        for key in dict_result_data.keys():
-            str_key = str(key)
-            split_keys = str_key.split("VS")
-            for feature_codes in split_keys:
-                features = feature_codes.split(")")
-                for feature in features:
-                    # current_feature = feature.strip()
-                    if len(feature) > 1:
-                        current_feature = feature + ")"  # Put back the split character
+    def addToListFeatureCode(self, df_results, result_data_colnames):
+        # for key in dict_result_data.keys():
+        #     str_key = str(key)
+        #     split_keys = str_key.split("VS")
+        #     for feature_codes in split_keys:
+        #         features = feature_codes.split(")")
+        #         for feature in features:
+        #             # current_feature = feature.strip()
+        #             if len(feature) > 1:
+        #                 current_feature = feature + ")"  # Put back the split character
+        #
+        #                 # If the feature is not yet added, append it
+        #                 if current_feature.strip() not in self.list_feature_codes:
+        #                     self.list_feature_codes.append(current_feature.strip())
 
-                        # If the feature is not yet added, append it
-                        if current_feature.strip() not in self.list_feature_codes:
-                            self.list_feature_codes.append(current_feature.strip())
+        # Create a dictionary where the chosen SSFs are the keys
+        for key in df_results:
+            print(key)
+            print(df_results[key]['Feature'])
+            # print(value)
+            print("")
 
-        self.list_feature_codes.sort()
-        self.list_feature_codes_original = copy.deepcopy(self.list_feature_codes)
-        for i_accepted in range(len(self.list_feature_codes)):
-            feature = self.list_feature_codes[i_accepted]
+        # for row in df_results.itertuples():
+        #     print(row.A)
+        #     print(row.Index)
 
-            accepted = i_accepted + 1
-            str_accepted = str(accepted)
-            if accepted < 10:
-                str_accepted = "  " + str_accepted
-            str_entry = UICS.PRE_LIST + str_accepted + "| " + feature
-            self.listFeatureCodes.insert(END, str_entry)
-        # return list_features
+
+            # data_columns = dict_result_data[key]
+            # print(type(dict_result_data))
+            # for column in data_columns.items():
+            #     print column
+        #     for feature_codes in split_keys:
+        #         features = feature_codes.split(")")
+        #         for feature in features:
+        #             # current_feature = feature.strip()
+        #             if len(feature) > 1:
+        #                 current_feature = feature + ")"  # Put back the split character
+        #
+        #                 # If the feature is not yet added, append it
+        #                 if current_feature.strip() not in self.list_feature_codes:
+        #                     self.list_feature_codes.append(current_feature.strip())
+        #
+        # self.list_feature_codes.sort()
+        # self.list_feature_codes_original = copy.deepcopy(self.list_feature_codes)
+        # for i_accepted in range(len(self.list_feature_codes)):
+        #     feature = self.list_feature_codes[i_accepted]
+        #
+        #     accepted = i_accepted + 1
+        #     str_accepted = str(accepted)
+        #     if accepted < 10:
+        #         str_accepted = "  " + str_accepted
+        #     str_entry = UICS.PRE_LIST + str_accepted + "| " + feature
+        #     self.listFeatureCodes.insert(END, str_entry)
+        # # return list_features
 
     '''
     Finds the feature and displays its responses.
@@ -990,15 +1020,6 @@ class AutomatedMining_Controller:
         self.enableFilter()
         return "break"
 
-    ''' Clears the tests in the queue. '''
-
-    def clearQueue(self, evt):
-        tests_gl[:] = []
-        self.labelQueueCount.configure(text = str(len(tests_gl)))
-        tkMessageBox.showinfo("Reset", "Queue cleared.")
-        self.buttonQueue.configure(relief = FLAT)
-        return "break"
-
 
     ''' Conduct the experiment with the given Level between the two samples. '''
     def applyLevelSpinBox(self, evt):
@@ -1118,8 +1139,8 @@ class AutomatedMining_Controller:
         self.lblSelectedFeatureCodesTitle.configure(state = "normal")
         self.lblSelectedFeatureGroupsTitle.configure(state = "normal")
         self.buttonQueryZTestSvP.configure(state = "normal")
-        self.comboQueryCriticalValueSvP.configure(state = "normal")
-        self.labelQueryZTestSvP.configure(state = "normal")
+        # self.comboQueryCriticalValueSvP.configure(state = "normal")
+        # self.labelQueryZTestSvP.configure(state = "normal")
         self.listQueryDataA.configure(state = "normal")
         self.listQueryDataB.configure(state = "normal")
 
@@ -1128,7 +1149,7 @@ class AutomatedMining_Controller:
         # self.entryQueryFeatureA.configure(text = '')
         if self.datasetA is not []:
             self.datasetCountA = len(self.datasetA['Data'])
-            self.labelQueryDataACount.configure(text = self.getDatasetCountA())
+            # self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.lblSelectedFeatureCodesTitle.configure(text = "")
         self.listQueryDataA.delete(0, END)
         self.listFeatureCodes.delete(0, END)
