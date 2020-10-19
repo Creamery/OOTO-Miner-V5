@@ -27,6 +27,9 @@ P_CUTOFF = 0.001
 PROCESS_COUNT = 3
 POOL_COUNT = 3
 
+# For AM UI
+PRE_LIST = "    "
+
 
 # For Progress Bar
 FIRST_MESSAGE_SPACE = "                                              "

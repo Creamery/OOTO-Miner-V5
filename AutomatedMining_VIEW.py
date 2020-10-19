@@ -504,11 +504,11 @@ class AutomatedMining_View:
         # ENTRY - DATASET A
         # region
         # self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
-        self.entryQuerySetDataA = Entry(self.labelFrameQuerySetDataStatusA)
-        self.entryQuerySetDataA.place(
+        self.entryPickleFilename = Entry(self.labelFrameQuerySetDataStatusA)
+        self.entryPickleFilename.place(
             relx = newRelX, rely = 0,
             relwidth = UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
-        self.entryQuerySetDataA.configure(
+        self.entryPickleFilename.configure(
             background = Color_support.FILTER_ENTRY_BG, foreground = Color_support.FILTER_ENTRY_FG,
             bd = 1,
             font = UI_support.ENTRY_FONT, insertwidth = UI_support.INSERT_WIDTH,
@@ -519,8 +519,8 @@ class AutomatedMining_View:
         # endregion
         # QUERY BUTTON - DATASET A
         # region
-        newRelX = FS.getRelX(self.entryQuerySetDataA) + FS.getRelW(
-            self.entryQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
+        newRelX = FS.getRelX(self.entryPickleFilename) + FS.getRelW(
+            self.entryPickleFilename)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
         # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
         self.btnLoadPickle = Button(self.labelFrameQuerySetDataStatusA)  # TODO Query Features
@@ -814,10 +814,10 @@ class AutomatedMining_View:
 
         self.entryQuerySetDataB = Entry(self.labelFrameQuerySetDataStatusB)
         self.entryQuerySetDataB.place(
-            relx = FS.getRelX(self.entryQuerySetDataA),
-            rely = FS.getRelY(self.entryQuerySetDataA),
-            relwidth = FS.getRelW(self.entryQuerySetDataA),
-            relheight = FS.getRelH(self.entryQuerySetDataA))
+            relx = FS.getRelX(self.entryPickleFilename),
+            rely = FS.getRelY(self.entryPickleFilename),
+            relwidth = FS.getRelW(self.entryPickleFilename),
+            relheight = FS.getRelH(self.entryPickleFilename))
         self.entryQuerySetDataB.configure(
             background = Color_support.FILTER_ENTRY_BG, foreground = Color_support.FILTER_ENTRY_FG,
             bd = 1,
@@ -996,23 +996,23 @@ class AutomatedMining_View:
         # region
         newRelX = FS.getRelX(self.labelFrameQueryCountB) + FS.getRelW(self.labelFrameQueryCountB)
 
-        self.btnApplySelectedFeatureSearch = Button(self.labelFrameCommandsB, compound = CENTER)
-        self.btnApplySelectedFeatureSearch.place(
+        self.btnCompareSelectedFeatureGroups = Button(self.labelFrameCommandsB, compound = CENTER)
+        self.btnCompareSelectedFeatureGroups.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.25 - 0.005, relheight = 1
         )
 
         im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnApplySelectedFeatureSearch.configure(
+        self.btnCompareSelectedFeatureGroups.configure(
             image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnApplySelectedFeatureSearch.image = btn_query_filter_icon  # < ! > Required to make images appear
+        self.btnCompareSelectedFeatureGroups.image = btn_query_filter_icon  # < ! > Required to make images appear
 
-        self.btnApplySelectedFeatureSearch.configure(
+        self.btnCompareSelectedFeatureGroups.configure(
             background = Color_support.PROCESS_BG, foreground = Color_support.FG_COLOR,
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Filter''')
-        self.btnApplySelectedFeatureSearch.pack(side = RIGHT)
+        self.btnCompareSelectedFeatureGroups.pack(side = RIGHT)
 
         self.buttonQueryResetFilterB.pack(side = LEFT)
         # endregion
@@ -1180,20 +1180,20 @@ class AutomatedMining_View:
 
         # FILTER QUERY BUTTON
         # region
-        self.btnCompareSelectedFeatureGroups = Button(self.labelFrameFilterQueryData)
-        self.btnCompareSelectedFeatureGroups.place(
+        self.btnSearchFilterResults = Button(self.labelFrameFilterQueryData)
+        self.btnSearchFilterResults.place(
             relx = newRelX, rely = 0,
             relwidth = 0.041, relheight = 1)
         # relwidth = UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
-                                                                     PIL.Image.ANTIALIAS)
+                                                                           PIL.Image.ANTIALIAS)
         btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnCompareSelectedFeatureGroups.configure(
+        self.btnSearchFilterResults.configure(
             image = btn_query_feature_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnCompareSelectedFeatureGroups.image = btn_query_feature_icon  # < ! > Required to make images appear
+        self.btnSearchFilterResults.image = btn_query_feature_icon  # < ! > Required to make images appear
 
-        self.btnCompareSelectedFeatureGroups.configure(
+        self.btnSearchFilterResults.configure(
             background = Color_support.PROCESS_BUTTONS_BG, foreground = Color_support.PROCESS_BUTTONS_FG,
             activebackground = Color_support.PROCESS_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
@@ -2641,8 +2641,10 @@ class AutomatedMining_View:
         return self.btnAddFeatureCode
 
     def getBtnApplySelectedFeatureSearch(self):
-        return self.btnApplySelectedFeatureSearch
+        return None  # self.btnApplySelectedFeatureSearch
 
+    def getBtnSearchFilterResults(self):
+        return self.btnSearchFilterResults
 
     def getBtnCompareSelectedFeatureGroups(self):
         return self.btnCompareSelectedFeatureGroups
@@ -2732,8 +2734,8 @@ class AutomatedMining_View:
     def getLabelQueryDataBCount(self):
         return self.labelQueryDataBCount
 
-    def getEntryQuerySetDataA(self):
-        return self.entryQuerySetDataA
+    def getEntryPickleFilename(self):
+        return self.entryPickleFilename
     def getEntryQuerySetDataB(self):
         return self.entryQuerySetDataB
 

@@ -66,6 +66,8 @@ class AutomatedMining_Controller:
         self.model = model
         self.root = root
         self.dictWidgetPlace = {}
+        self.dict_result_data = None  # To be initialized by loadPickle()
+        self.list_feature_codes = None
 
         self.configureTestTabBindings()
         self.initializeVariables()
@@ -195,7 +197,7 @@ class AutomatedMining_Controller:
 
         # ENTRIES
         self.entryQueryFeature = self.view.getEntryQueryFeature()
-        self.entryQuerySetDataA = self.view.getEntryQuerySetDataA()
+        self.entryPickleFilename = self.view.getEntryPickleFilename()
         self.entryQuerySetDataB = self.view.getEntryQuerySetDataB()
 
         # BUTTONS
@@ -374,11 +376,71 @@ class AutomatedMining_Controller:
         FS.setFocusFeatureValues(self.listQueryDataA, self.datasetA, selectedItems, self.labelQueryDataA, False)
         FS.setFocusFeatureValues(self.listQueryDataB, self.datasetB, selectedItems, self.labelQueryDataB, True)
 
-    ''' Initial (SELECT) query for DATA A '''
+    ''' Load existing Pickle file '''
 
     def loadPickle(self, evt):
         print("LOAD PICKLE IS PRESSED")
+        willLoad = True
+        if self.list_feature_codes is not None:
+            message_box = tkMessageBox.askquestion("Overwrite Session", "Loading a new pickle will overwrite your current session. Proceed?", icon = "warning")
+            if message_box == 'yes':
+                willLoad = True
+            else:
+                willLoad = False
+            # else:
+            #     tk.tkMessageBox.showinfo('Return', 'You will now return to the application screen')
+
+        if willLoad:
+            entry_pickle_filename = self.entryPickleFilename.get()
+            filename = entry_pickle_filename.strip()
+            print(filename)
+
+            if len(filename) > 0 and LS.checkPickleFileExistence(filename):
+                self.list_feature_codes = []  # Reset feature codes when making a new pickle
+
+                self.dict_result_data = LS.loadPickleResultDictionary(filename)
+                self.addToListFeatureCode(self.dict_result_data)
+            else:
+                tkMessageBox.showerror("Error: File not found",
+                                       "Please place the input file in <\"_output/Pickle Results\"> and try again.")
+
+
         return "break"
+
+
+    '''
+        Extract all single features available in the result dictionary.
+        Append all unique features to Feature Codes Listbox.
+    '''
+    def addToListFeatureCode(self, dict_result_data):
+        i_accepted = 0
+        self.list_feature_codes = []
+        for key in dict_result_data.keys():
+            str_key = str(key)
+            split_keys = str_key.split("VS")
+            for feature_codes in split_keys:
+                features = feature_codes.split(")")
+                for feature in features:
+                    # current_feature = feature.strip()
+                    if len(feature) > 1:
+                        current_feature = feature + ")"  # Put back the split character
+
+                        print(current_feature)
+                        # If the feature is not yet added, append it
+                        if current_feature.strip() not in self.list_feature_codes:
+                            # print(self.list_feature_codes)
+                            self.list_feature_codes.append(current_feature.strip())
+
+        self.list_feature_codes.sort()
+        for i_accepted in range(len(self.list_feature_codes)):
+            # i_accepted = i_accepted + 1
+            feature = self.list_feature_codes[i_accepted]
+            str_accepted = str(i_accepted)
+            if i_accepted < 10:
+                str_accepted = "  " + str_accepted
+            str_entry = UICS.PRE_LIST + str_accepted + "| " + feature
+            self.listFeatureCodes.insert(END, str_entry)
+        # return list_features
 
     '''
     Finds the feature and displays its responses.
@@ -734,6 +796,8 @@ class AutomatedMining_Controller:
 
     def compareSelectedFeatureGroups(self, evt):
         print("CHECK 2")
+        return "break"
+
         '''
         if self.buttonQueryFeature_state is not DISABLED:
             entryQuery = self.entryQueryFeature.get()
@@ -785,7 +849,6 @@ class AutomatedMining_Controller:
                 except:
                     print ("Exception in " + "def querySetFeature(self, evt)")
         '''
-        return "break"
 
     ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
 
@@ -1049,7 +1112,7 @@ class AutomatedMining_Controller:
         self.listQueryDataB.configure(state = "normal")
 
         self.datasetA = self.resetDataset()
-        self.entryQuerySetDataA.configure(text = '')
+        self.entryPickleFilename.configure(text = '')
         # self.entryQueryFeatureA.configure(text = '')
         if self.datasetA is not []:
             self.datasetCountA = len(self.datasetA['Data'])

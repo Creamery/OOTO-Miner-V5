@@ -33,6 +33,7 @@ OPTION_NAME = "OptionName"
 GL_AM_INPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_input\\")
 GL_AM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\AM\\")
 GL_MM_OUTPUT_PATH = os.path.dirname(os.path.realpath(__file__)) + str("\\_output\\MM\\")
+PICKLE_TITLE_NAME = "Pickle Result - "
 
 # NOTE: Arrays start at 0
 def loadVarDesc(path_variableDesc):
@@ -214,7 +215,7 @@ def exportOutputModuleResults(dict_result_table_sig, len_cross_datasets, len_cro
     controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Successfully Exported UI Results")  # 3
     time.sleep(0.01)
 
-    str_pickle_filename = "Pickle Result - CROSS[" + str(len_cross_datasets - 1) + "][" + str(len_cross_types) + "]"
+    str_pickle_filename = PICKLE_TITLE_NAME = "CROSS[" + str(len_cross_datasets - 1) + "][" + str(len_cross_types) + "]"
 
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Creating Pickle Save File")  # 4
     time.sleep(0.01)
@@ -319,6 +320,19 @@ def exportPickleResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PAT
     path_export = path_export.replace("\\", "/")
     with open(path_export + '.pkl', 'wb') as file:
         pickle.dump(dict_results, file, pickle.HIGHEST_PROTOCOL)
+
+
+def checkPickleFileExistence(filename, path = GL_AM_OUTPUT_PATH):
+    path_import = str(path + "Pickle Results\\")
+    if checkDirectoryExistence(path_import):  # Check directory existence
+        path_import = path_import + filename + ".pkl"
+        path_import = path_import.replace("\\", "/")
+        print(path_import)
+
+        return os.path.isfile(path_import)  # Check file existence
+        # return checkDirectoryExistence(path_import)
+    return False
+
 
 
 def loadPickleResultDictionary(filename, path = GL_AM_OUTPUT_PATH):
