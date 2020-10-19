@@ -6,20 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Loader_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS p10(b).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(a) VS u4(a).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS b1(a).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(a).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS p10(b).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - b1(b) VS u4(a).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS b1(a).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(a) VS p10(b).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p10(b) VS u4(a).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(a).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS p10(b).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - u4(b) VS u4(a).xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -150,11 +137,11 @@
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="true">
+            <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="429">
-                    <caret line="454" column="16" selection-start-line="454" selection-start-column="16" selection-end-line="454" selection-end-column="16" />
+                  <state relative-caret-position="30">
+                    <caret line="439" lean-forward="true" selection-start-line="439" selection-end-line="439" />
                   </state>
                 </provider>
               </entry>
@@ -171,11 +158,11 @@
                 </provider>
               </entry>
             </file>
-            <file pinned="false" current-in-tab="false">
+            <file pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="908">
-                    <caret line="1257" column="41" selection-start-line="1257" selection-start-column="41" selection-end-line="1257" selection-end-column="41" />
+                  <state relative-caret-position="334">
+                    <caret line="764" column="77" selection-start-line="764" selection-start-column="77" selection-end-line="764" selection-end-column="77" />
                     <folding>
                       <element signature="e#444#454#0" expanded="true" />
                     </folding>
@@ -284,8 +271,8 @@
       <find>LS.c</find>
       <find>LS.RES</find>
       <find>exportUI</find>
-      <find>LS.</find>
       <find>dict_ou</find>
+      <find>LS.</find>
     </findStrings>
     <replaceStrings>
       <replace>CONSOLE</replace>
@@ -374,9 +361,9 @@
         <option value="$PROJECT_DIR$/Icon_support.py" />
         <option value="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/Widget_support.py" />
-        <option value="$PROJECT_DIR$/AutomatedMining_VIEW.py" />
         <option value="$PROJECT_DIR$/Loader_support.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
+        <option value="$PROJECT_DIR$/AutomatedMining_VIEW.py" />
       </list>
     </option>
   </component>
@@ -1160,16 +1147,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="908">
-          <caret line="1257" column="41" selection-start-line="1257" selection-start-column="41" selection-end-line="1257" selection-end-column="41" />
-          <folding>
-            <element signature="e#444#454#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
@@ -1182,8 +1159,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="454" column="16" selection-start-line="454" selection-start-column="16" selection-end-line="454" selection-end-column="16" />
+        <state relative-caret-position="30">
+          <caret line="439" lean-forward="true" selection-start-line="439" selection-end-line="439" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_VIEW.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="334">
+          <caret line="764" column="77" selection-start-line="764" selection-start-column="77" selection-end-line="764" selection-end-column="77" />
+          <folding>
+            <element signature="e#444#454#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

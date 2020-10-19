@@ -560,8 +560,8 @@ class AutomatedMining_View:
             background = Color_support.PROCESS_LISTBOX_BG, foreground = Color_support.PROCESS_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.PROCESS_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.PROCESS_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -761,8 +761,8 @@ class AutomatedMining_View:
             background = Color_support.PROCESS_LISTBOX_BG, foreground = Color_support.PROCESS_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = Color_support.PROCESS_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = Color_support.PROCESS_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
+            selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
             font = UI_support.SELECT_LABEL_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
@@ -1232,8 +1232,7 @@ class AutomatedMining_View:
             rely = newRelY,
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W,
             relheight = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_H -
-                        (
-                                    UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
+                        (UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
 
         self.listQueryDataA.configure(
             background = Color_support.PROCESS_LISTBOX_BG, foreground = Color_support.PROCESS_LISTBOX_FG,
