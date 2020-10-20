@@ -543,19 +543,19 @@ class AutomatedMining_View:
             self.entrySourceFolderFilename)  # + US.TAB_3CHILD_LBL_REL_X
 
         # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
-        self.btnLoadPickle = Button(self.labelFrameQuerySetDataStatusA)  # TODO Query Features
-        self.btnLoadPickle.place(
+        self.btnLoadSource = Button(self.labelFrameQuerySetDataStatusA)  # TODO Query Features
+        self.btnLoadSource.place(
             relx = newRelX, rely = 0,
             relwidth = US.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnLoadPickle.configure(
+        self.btnLoadSource.configure(
             image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnLoadPickle.image = btn_query_set_icon  # < ! > Required to make images appear
+        self.btnLoadSource.image = btn_query_set_icon  # < ! > Required to make images appear
 
-        self.btnLoadPickle.configure(
+        self.btnLoadSource.configure(
             background = CS.FILTER_BUTTONS_BG, foreground = CS.FILTER_BUTTONS_FG,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
@@ -850,10 +850,10 @@ class AutomatedMining_View:
         # DATASET B
         self.buttonQuerySetDataB = Button(self.labelFrameQuerySetDataStatusB)
         self.buttonQuerySetDataB.place(
-            relx = FS.getRelX(self.btnLoadPickle),
-            rely = FS.getRelY(self.btnLoadPickle),
-            relwidth = FS.getRelW(self.btnLoadPickle),
-            relheight = FS.getRelH(self.btnLoadPickle))
+            relx = FS.getRelX(self.btnLoadSource),
+            rely = FS.getRelY(self.btnLoadSource),
+            relwidth = FS.getRelW(self.btnLoadSource),
+            relheight = FS.getRelH(self.btnLoadSource))
 
         im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
                                                                      PIL.Image.ANTIALIAS)
@@ -1072,7 +1072,7 @@ class AutomatedMining_View:
             font = US.FONT_MED_BOLD,
             # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
             background = CS.PROCESS_NUMBER_BG, foreground = CS.PROCESS_NUMBER_FG,
-            text = '''2  ''',
+            text = '''3  ''',
             bd = 1, relief = GROOVE,
             anchor = SE
         )
@@ -1377,15 +1377,15 @@ class AutomatedMining_View:
         newRelH = 1 - (FS.getRelY(self.listResultsLeft) + FS.getRelH(self.listResultsLeft))
 
         # BOTTOM STATUS LABEL - DATASET A
-        self.lblSelectedFeatureCodesTitle = Label(self.labelFrameFilterListDataA)
-        self.lblSelectedFeatureCodesTitle.place(
+        self.lblLeftResultFocusValue = Label(self.labelFrameFilterListDataA)
+        self.lblLeftResultFocusValue.place(
             relx = US.TAB_TEST_FILTER_LISTBOX_STATUS_REL_X, rely = newRelY,
             relwidth = US.TAB_TEST_FILTER_LISTBOX_STATUS_REL_W, relheight = newRelH)
 
-        self.lblSelectedFeatureCodesTitle.configure(
+        self.lblLeftResultFocusValue.configure(
             background = CS.PROCESS_LISTBOX_STATUS_BG, foreground = CS.PROCESS_LISTBOX_STATUS_FG,
             bd = US.FILTER_STATUS_LABEL_BORDER, relief = US.FILTER_STATUS_LABEL_RELIEF,
-            text = str(LS.GL_AM_EXCEL_OUTPUT_PATH),
+            text = "NO DATA",
             font = US.FILTER_STATUS_LABEL_FONT,
         )
 
@@ -1413,7 +1413,7 @@ class AutomatedMining_View:
 
         self.listResultsRight.configure(
             background = CS.PROCESS_LISTBOX_BG, foreground = CS.PROCESS_LISTBOX_FG,
-            selectmode = MULTIPLE, exportselection = "0",
+            selectmode = SINGLE, exportselection = "0",
             activestyle = "none",
             selectbackground = CS.PALE_PLUM,
             selectforeground = CS.D_BLUE,
@@ -1425,13 +1425,13 @@ class AutomatedMining_View:
         newRelY = FS.getRelY(self.listResultsRight) + FS.getRelH(self.listResultsRight)
         newRelH = 1 - (FS.getRelY(self.listResultsLeft) + FS.getRelH(self.listResultsLeft))
         # BOTTOM STATUS LABEL - DATASET B
-        self.labelQueryDataB = Label(self.labelFrameFilterListDataB)
-        self.labelQueryDataB.place(
+        self.lblRightResultFocusValue = Label(self.labelFrameFilterListDataB)
+        self.lblRightResultFocusValue.place(
             relx = US.TAB_TEST_FILTER_LISTBOX_STATUS_REL_X, rely = newRelY,
             relwidth = US.TAB_TEST_FILTER_LISTBOX_STATUS_REL_W,
             relheight = newRelH)
 
-        self.labelQueryDataB.configure(
+        self.lblRightResultFocusValue.configure(
             background = CS.PROCESS_LISTBOX_STATUS_BG, foreground = CS.PROCESS_LISTBOX_STATUS_FG,
             bd = US.FILTER_STATUS_LABEL_BORDER, relief = US.FILTER_STATUS_LABEL_RELIEF,
             text = US.FILTER_STATUS_NO_DATA_TEXT,
@@ -1617,16 +1617,16 @@ class AutomatedMining_View:
         self.labelOverlayQueryDataA = Label(self.labelOverlayFilterListDataA)
         newRelYReduction = 0.01
         self.labelOverlayQueryDataA.place(
-            relx = FS.getRelX(self.lblSelectedFeatureCodesTitle),
-            rely = FS.getRelY(self.lblSelectedFeatureCodesTitle) + (US.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2),
+            relx = FS.getRelX(self.lblLeftResultFocusValue),
+            rely = FS.getRelY(self.lblLeftResultFocusValue) + (US.FILTER_LABEL_STRIPES_REL_H_REDUCTION / 2),
             # TODO Make constant
-            relwidth = FS.getRelW(self.lblSelectedFeatureCodesTitle),
-            relheight = FS.getRelH(self.lblSelectedFeatureCodesTitle) - newRelYReduction)
+            relwidth = FS.getRelW(self.lblLeftResultFocusValue),
+            relheight = FS.getRelH(self.lblLeftResultFocusValue) - newRelYReduction)
 
         self.labelOverlayQueryDataA.configure(
             background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
             foreground = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
-            bd = self.lblSelectedFeatureCodesTitle['bd'], relief = US.FILTER_STATUS_LABEL_RELIEF,
+            bd = self.lblLeftResultFocusValue['bd'], relief = US.FILTER_STATUS_LABEL_RELIEF,
             text = US.FILTER_STATUS_NO_DATA_TEXT,
             font = US.FILTER_STATUS_LABEL_FONT,
         )
@@ -1664,7 +1664,7 @@ class AutomatedMining_View:
         self.labelOverlayQueryDataB.configure(
             background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG,
             foreground = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_FG,
-            bd = self.lblSelectedFeatureCodesTitle['bd'], relief = US.FILTER_STATUS_LABEL_RELIEF,
+            bd = self.lblLeftResultFocusValue['bd'], relief = US.FILTER_STATUS_LABEL_RELIEF,
             text = US.FILTER_STATUS_NO_DATA_TEXT,
             font = US.FILTER_STATUS_LABEL_FONT,
         )
@@ -2761,8 +2761,8 @@ class AutomatedMining_View:
     def getParentFrame(self):
         return self.__parentFrame
 
-    def getBtnLoadPickle(self):
-        return self.btnLoadPickle
+    def getBtnLoadSource(self):
+        return self.btnLoadSource
 
     def getButtonQuerySetDataB(self):
         return self.buttonQuerySetDataB
@@ -2828,11 +2828,11 @@ class AutomatedMining_View:
         return self.listConsoleQueueScreen
 
 
-    def getLblSelectedFeatureCodesTitle(self):
-        return self.lblSelectedFeatureCodesTitle
+    def getLblLeftResultFocusValue(self):
+        return self.lblLeftResultFocusValue
 
-    def getLabelQueryDataB(self):
-        return self.labelQueryDataB
+    def getRightResultFocusValue(self):
+        return self.lblRightResultFocusValue
 
     def getLabelQueryDataFeatureName(self):
         return self.labelQueryDataFeatureName

@@ -101,12 +101,6 @@ class AutomatedMining_Controller:
         self.selectOptionChangeCrossType(None)  # This selects the default algorithm in MM
         self.showConsoleScreen(None, self.listConsoleScreen)  # Click ALL type
 
-        global queryType_gl
-        queryType_gl = self.comboQueryTest.get()
-
-        global populationDir_gl
-        populationDir_gl = ""
-
         # Button state variables (This is used instead of directly disabling buttons to keep their appearance)
         self.buttonQueryFeature_state = DISABLED
 
@@ -190,15 +184,16 @@ class AutomatedMining_Controller:
         # LABEL FRAMES
         self.labelOverlayFilterListData = self.view.getLabelOverlayFilterListData()
         self.labelFrameFilterListData = self.view.getLabelFrameFilterListData()
-        self.lblFilterResultStripes = self.view.getLblFilterResultStripes()
+        self.lblResultTableStripes = self.view.getLblFilterResultStripes()
         self.lblStatusSourceFolder = self.view.getLblStatusSourceFolder()
         self.labelQuerySetDataStatusB = self.view.getLabelQuerySetDataStatusB()
         self.lblStripesFeatureCodes = self.view.getLblStripesFeatureCodes()
         self.lblStripeFeatureGroups = self.view.getLblStripesFeatureGroups()
 
         # LABELS
-        self.lblSelectedFeatureCodesTitle = self.view.getLblSelectedFeatureCodesTitle()
-        self.lblSelectedFeatureGroupsTitle = self.view.getLabelQueryDataB()
+        self.lblLeftResultFocusValue = self.view.getLblLeftResultFocusValue()  # The BOTTOM label for the result table
+        self.lblRightResultFocusValue = self.view.getRightResultFocusValue()
+
         self.labelQueryDataFeatureName = self.view.getLabelQueryDataFeatureName()
         self.listResultsLeft = self.view.getListResultsLeft()
         self.listResultsRight = self.view.getListResultsRight()
@@ -238,10 +233,8 @@ class AutomatedMining_Controller:
         self.labelFrameProcessChangeLevel = self.view.getLabelFrameProcessChangeLevel()
         self.labelFrameProcessChangeCrossType = self.view.getLabelFrameProcessChangeCrossType()
 
-        self.btnLoadSource = self.view.getBtnLoadPickle()
+        self.btnLoadSource = self.view.getBtnLoadSource()
         self.btnLoadSource.bind('<Button-1>', self.loadSourceFolder)  # TODO When find is pressed, find pickle file
-        self.buttonQuerySetDataB = self.view.getButtonQuerySetDataB()  # TODO Might remove
-        self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
 
 
         # The Check button in the first box
@@ -266,18 +259,6 @@ class AutomatedMining_Controller:
         # self.buttonQueryFeature.configure(command = self.querySetFeature)
         # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
         # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
-
-        self.buttonApplyLevelSpinBox = self.view.getButtonApplyLevelSpinBox()
-        self.buttonApplyLevelSpinBox.bind('<Button-1>', self.applyLevelSpinBox)  # Run with Level Value
-
-        self.buttonApplyCrossTypeSpinBox = self.view.getButtonApplyCrossTypeSpinBox()
-        self.buttonApplyCrossTypeSpinBox.bind('<Button-1>', self.applyCrossTypeSpinBox)  # Run with Level Value
-
-        self.buttonQueryZTestSvP = self.view.getButtonQueryZTestSvP()
-        self.buttonQueryZTestSvP.bind('<Button-1>', self.querySVP)  # Run Z-test Sample vs Population
-
-        self.buttonApplyCrossTypeSpinBox = self.view.getButtonApplyCrossTypeSpinBox()
-        self.buttonApplyCrossTypeSpinBox.bind('<Button-1>', self.applyCrossTypeSpinBox)  # Run with Cross Type Value
 
 
         # self.buttonQueue = self.view.getButtonQueue()
@@ -344,8 +325,6 @@ class AutomatedMining_Controller:
         self.btnLoadSource.bind("<Enter>", self.enterRightArrowPlainIcon)
         self.btnLoadSource.bind("<Leave>", self.leaveRightArrowPlainIcon)
 
-        self.buttonQuerySetDataB.bind("<Enter>", self.enterRightArrowPlainIcon)
-        self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowPlainIcon)
 
         self.btnSearchResultsLeft.bind("<Enter>", self.enterDownArrowPlainIcon)
         self.btnSearchResultsLeft.bind("<Leave>", self.leaveDownArrowPlainIcon)
@@ -361,27 +340,7 @@ class AutomatedMining_Controller:
         self.btnCompareSelectedFeatureGroups.bind("<Enter>", self.enterCheckIcon)
         self.btnCompareSelectedFeatureGroups.bind("<Leave>", self.leaveCheckIcon)
 
-        # self.buttonQueryFeature.bind("<Enter>", self.enterRightArrowPlainIcon)
-        # self.btnCompareSelectedFeatureGroups.bind("<Leave>", self.leaveRightArrowPlainIcon)
-        # self.btnCompareSelectedFeatureGroups.bind("<Enter>",
-        #                                           lambda event: self.enterRightArrowPlainIcon(event, self.buttonQueryFeature_state))
-        # self.btnCompareSelectedFeatureGroups.bind("<Leave>",
-        #                                           lambda event: self.leaveRightArrowPlainIcon(event, self.buttonQueryFeature_state))
 
-        self.buttonApplyLevelSpinBox.bind("<Enter>", self.enterCheckIcon)
-        self.buttonApplyLevelSpinBox.bind("<Leave>", self.leaveCheckIcon)
-
-
-        self.buttonApplyCrossTypeSpinBox.bind("<Enter>", self.enterCheckIcon)
-        self.buttonApplyCrossTypeSpinBox.bind("<Leave>", self.leaveCheckIcon)
-
-        # self.buttonQueue.bind("<Enter>", self.enterAddIcon)
-        # self.buttonQueue.bind("<Leave>", self.leaveAddIcon)
-        # self.buttonQueue.bind("<Enter>", self.enterDownArrowIcon)
-        # self.buttonQueue.bind("<Leave>", self.leaveDownArrowIcon)
-
-        # self.buttonClearQueue.bind("<Enter>", self.enterCrossIcon)
-        # self.buttonClearQueue.bind("<Leave>", self.leaveCrossIcon)
 
         self.buttonTestQueue.bind("<Enter>", self.enterRightArrowIcon)
         self.buttonTestQueue.bind("<Leave>", self.leaveRightArrowIcon)
@@ -398,18 +357,18 @@ class AutomatedMining_Controller:
         self.listFeatureGroups = self.view.getListFeatureGroups()
         self.listFeatureGroups.bind('<<ListboxSelect>>', self.querySelectedFeatureGroups)
 
-        # self.listResultsLeft = self.view.getListQueryDataA()
-        # self.listResultsLeft.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
-        # self.listResultsRight = self.view.getListQueryDataB()
-        # self.listResultsRight.bind('<<ListboxSelect>>', self.setFocusFeatureValues)
+        self.listResultsLeft = self.view.getListResultsLeft()
+        self.listResultsLeft.bind('<<ListboxSelect>>', self.setLeftResultFocusValue)
+        self.listResultsRight = self.view.getListResultsRight()
+        self.listResultsRight.bind('<<ListboxSelect>>', self.setRightResultFocusValue)
 
         # MOUSEWHEEL
         # self.listResultsLeft.bind("<MouseWheel>", self.scrollFilterListBox)
         # self.listResultsRight.bind("<MouseWheel>", self.scrollFilterListBox)
 
         # COMBOBOX
-        self.comboQueryTest = self.view.getComboQueryTest()
-        self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
+        # self.comboQueryTest = self.view.getComboQueryTest()
+        # self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
 
     ''' --> Elements under the TEST ("TEST") TAB (2) <-- '''
     # region
@@ -540,142 +499,6 @@ class AutomatedMining_Controller:
         # return list_features
 
 
-
-    '''
-    Finds the feature and displays its responses.
-
-    If the feature being searched is the one that will be focused on for Z-Test between
-    two samples, it will also display all of the proportions, frequencies and total for each value of that 
-    feature
-    '''
-
-    # def findFeature(entryFeat, listFeat, dataset, *args):
-    def findFeature(self, entryFeat, listFeat, dataset, populationDatasetOriginal, isPrintingError = False, *args):
-        global features_gl
-        # Here is how to get the value from entryFeatA
-        featCode = entryFeat
-        print "Entered feature code: " + featCode
-        arrTempItems = []
-        found = False
-        hasFocusFeature = False
-        # Get proper list of features from initial variable description
-        for feature in features_gl:
-            if feature['Code'] == featCode:
-                found = True
-                for arg in args:
-                    if arg == "Dataset_Feature":
-                        dataset['Feature'] = copy.deepcopy(feature)
-                        populationDatasetOriginal['Feature'] = copy.deepcopy(feature)
-                        print ""
-                        print ""
-                        print "Dataset_Feature: "
-                        print ""
-                        print "dataset['Feature'] = "
-                        print str(dataset['Feature'])
-                        print ""
-                        print "populationDatasetOriginal['Feature'] = "
-                        print str(dataset['Feature'])
-
-                    if arg == "Focus_Feature":
-                        dataset['Focus Feature'] = copy.deepcopy(feature)
-                        populationDatasetOriginal['Focus Feature'] = copy.deepcopy(feature)
-                        hasFocusFeature = True
-                for response in feature['Responses']:
-                    tempResp = response['Code'] + " - " + response['Description']
-                    arrTempItems.append(tempResp)
-                break
-        if not found and isPrintingError:
-            tkMessageBox.showerror("Error: Feature not found", "Feature not found in Variable Descriptor. Try again.")
-
-        # Getting the proportions and frequencies of each value (including invalid values) in the focus feature
-        if hasFocusFeature == True:
-            print "HAS FOCUS FEATURE"
-            arrTempItems = []
-            dataset['ColumnData'] = []
-            populationDatasetOriginal['ColumnData'] = []
-            for record in dataset['Data']:
-                dataset['ColumnData'].append(record[featCode])
-                populationDatasetOriginal['ColumnData'].append(record[featCode])
-            c = Counter(dataset['ColumnData'])  # Counts the number of occurrences of each value of the focus feature
-
-            countN = len(dataset['ColumnData'])  # N is the size of the dataset
-            countn = 0  # n is the total number of values where their group is not -1
-
-            notInGroupNega1 = []  # List that keeps track of the values whose group is not -1
-            presentInData = []  # List of values that occurred at least once in the data
-
-            for response in dataset['Focus Feature']['Responses']:
-                for val in c:
-                    if val == response['Code']:
-                        presentInData.append(val)
-                        if response['Group'] != '-1':
-                            notInGroupNega1.append(val)
-                            countn = countn + int(c[val])
-                        break
-            '''
-                reminderN = "N = Total no. of records"
-                remindern = "n = Total no. of records where Group is not -1\n"
-                header = "Freq | p/N | p/n | Group | Code | Description"
-
-                arrTempItems.append(reminderN)
-                arrTempItems.append(remindern)
-                arrTempItems.append(header)
-                '''
-            for response in dataset['Focus Feature']['Responses']:
-                countP = 0
-                print 'Value: ' + response['Code']
-                print 'Frequency: ' + str(countP)
-                print 'n:' + str(countn)
-                print 'N:' + str(countN)
-
-                if response['Code'] in presentInData:  # If the value has occurred in the data
-                    countP = int(c[response['Code']])
-
-                proportionOverN = round(countP / float(countN) * 100.0, 2)
-                proportionOvern = round(countP / float(countn) * 100.0, 2)
-
-                if response['Code'] not in notInGroupNega1:  # If the value is an invalid value or its group/class is -1
-                    proportionOvern = proportionOvern * 0
-
-                tempResp = str(format(countP, '04')) + " | " + str(format(proportionOverN, '05')) + "%(N) | " + str(
-                    format(proportionOvern, '05')) + "%(n) | "
-                isValidResponse = False
-                for val in c:
-                    if val == response['Code']:
-                        isValidResponse = True
-                        tempResp = tempResp + response['Group'] + " | " + response['Code'] + " | " + response[
-                            'Description']
-                        break
-                if not isValidResponse:
-                    if response['Code'] not in presentInData:
-                        tempResp = tempResp + response['Group'] + " | " + response['Code'] + " | " + response[
-                            'Description']
-                    else:
-                        tempResp = tempResp + "-1" + " | " + response['Code'] + " | " + "INVALID VALUE"
-                arrTempItems.append(tempResp)
-
-        listFeat.delete(0, END)
-        for A in arrTempItems:
-            listFeat.insert(END, A)
-
-    ''' Initial (SELECT) query for DATA B '''
-
-    def querySetDataB(self, evt):
-        # CLEAR sample count
-        self.resetSelectedFeatureGroups(evt)
-
-        # CLEAR filter feature box first
-        self.queryResetResultDetails(evt)
-        try:
-            # findFeature(self.entryQuerySetDataB.get(), self.listQuerySetDataB, self.datasetB, "Dataset_Feature")
-            self.findFeature(self.entryQuerySetDataB.get(), self.listFeatureGroups, self.datasetB,
-                             self.populationDatasetOriginalB, True, "Dataset_Feature")
-
-        except NameError:
-            tkMessageBox.showerror("Error: No features",
-                                   "Features not found. Please upload your variable description file.")
-        return "break"
-
     def resetSelectedFeatureCodes(self, evt):
         # Reset stripe
         self.setStripeReady(False, self.lblStripesFeatureCodes)
@@ -689,6 +512,8 @@ class AutomatedMining_Controller:
         selection_count = len(self.listFeatureCodes.curselection())
         self.lblSelectedFeatureCount.configure(text = str(selection_count))
 
+        self.clearAllFeatureGroups(None)
+        self.clearAllResultTables(None)
         # print("CROSS 1")
         return "break"
 
@@ -706,13 +531,14 @@ class AutomatedMining_Controller:
         selection_count = len(self.listFeatureGroups.curselection())
         self.lblSelectedGroupCount.configure(text = str(selection_count))
 
+        self.clearAllResultTables(None)
         # print("CROSS 2")
-
         return "break"
 
     def clearAllFeatureListsBoxes(self, evt):
         self.clearAllFeatureCodes(None)
         self.clearAllFeatureGroups(None)
+        self.clearAllResultTables(None)
 
     def clearAllFeatureCodes(self, evt):
         # Reset stripe
@@ -742,6 +568,33 @@ class AutomatedMining_Controller:
         # Reset selected count zero
         self.lblSelectedGroupCount.configure(text = str(0))
 
+    def clearAllResultTables(self, evt):
+        # Reset stripe
+        self.setStripeReady(False, self.lblResultTableStripes)
+
+        # Clear all connected variables
+        self.list_str_feature_groups = []
+        self.dataset_pair_left = None
+        self.dataset_pair_right = None
+
+        # Reset bottom status to NO DATA
+        self.lblLeftResultFocusValue.configure(text = str("NO DATA"))  # NO DATA
+        self.lblRightResultFocusValue.configure(text = str("NO DATA"))  # NO DATA
+
+        # Remove Contents
+        self.listResultsLeft.delete(0, END)
+        self.listResultsRight.delete(0, END)
+
+        self.dropQueryLeft.config(values = self.list_str_feature_groups)  # Removes drop down contents
+        self.dropQueryLeft.delete(0, END)
+        self.dropQueryLeft.set('')
+
+        self.dropQueryRight.config(values = self.list_str_feature_groups)
+        self.dropQueryRight.delete(0, END)
+        self.dropQueryRight.set('')
+
+        # LOCK result table
+        self.disableListResultTable()
 
     def querySelectedFeatureCodes(self, evt):  # TODO List box function 1
 
@@ -751,7 +604,8 @@ class AutomatedMining_Controller:
         self.lblSelectedFeatureCount.configure(text = str(selection_count))
         if selection_count != self.prev_selection_feature_codes:
             self.setStripeReady(False, self.lblStripesFeatureCodes)  # Change stripe color
-
+            self.clearAllFeatureGroups(None)  # Clear other tables whenever user changes selection
+            self.clearAllResultTables(None)
         self.prev_selection_feature_codes = selection_count
 
         # print("ON LIST SELECT 1")
@@ -764,42 +618,33 @@ class AutomatedMining_Controller:
         self.lblSelectedGroupCount.configure(text = str(selection_count))
         if selection_count != self.prev_selection_feature_groups:
             self.setStripeReady(False, self.lblStripeFeatureGroups)  # Change stripe color
-            self.disableListResultTable()  # Close result table
+            self.clearAllResultTables(None)  # Clear other tables whenever user changes selection
         self.prev_selection_feature_groups = selection_count
-
         # print("ON LIST SELECT 2")
 
 
+    '''
+        Sets the Chi-square and P Value at the bottom of the table.
+        Also shows the DoF and Cut-off.
+    '''
+    def setLeftResultFocusValue(self, event):
+        print()  # BOTTOM LABEL
+        # Update Selection Count
+        self.dataset_pair_right
+        selected = self.listResultsLeft.curselection()
+        print(selected)
+        self.setStripeReady(False, self.lblResultTableStripes)  # Change stripe color
+        self.lblLeftResultFocusValue.config(text = "Selected")
 
-        '''
-        self.isReadyDatasetB = False  # When a listbox element is de/selected, mark the dataset as not ready
-        self.checkIfDatasetReady()  # Update dataset status accordingly
-        self.setDatasetStripeReady(False, self.labelQuerySetDataStripesB)
 
-        # self.datasetCountB = selectDatasetValues(evt, self.datasetB, self.populationDataset)
+    def setRightResultFocusValue(self, event):
+        # Update Selection Count
+        selected = self.listResultsLeft.curselection()
 
-        # Do search in populationDatasetOriginal, not filtered dataset B
-        # self.datasetCountB = selectDatasetValues(evt, self.datasetB)
-        self.datasetCountB = FS.selectDatasetValues(evt, self.populationDatasetOriginalB)
-
-        print ("Pop Dataset B" + str(len(self.populationDatasetOriginalB['Data'])))
-        print ("Dataset B" + str(len(self.datasetB['Data'])))
-
-        self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
-        '''
-
-    def queryResetResultDetails(self, evt):
-        # Empty FILTER details of BOTH A and B
-        self.lblSelectedFeatureCodesTitle.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listResultsLeft.delete(0, END)
-
-        self.lblSelectedFeatureGroupsTitle.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
-        self.listResultsRight.delete(0, END)
-
-        self.labelQueryDataFeatureName.configure(
-            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
-        )
-
+        self.dataset_pair_left
+        print(selected)
+        self.setStripeReady(False, self.lblResultTableStripes)  # Change stripe color
+        self.lblLeftResultFocusValue.config(text = "Selected")
     # endregion
 
     '''FILTER HEADER'''
@@ -976,6 +821,7 @@ class AutomatedMining_Controller:
         self.dropQueryLeft.config(values = self.list_str_feature_groups)
         self.dropQueryRight.config(values = self.list_str_feature_groups)
 
+
         # if event:
         #     print('event.widget.get():', event.widget.get())
 
@@ -1107,36 +953,6 @@ class AutomatedMining_Controller:
                 self.listResultsRight.insert(END, entry)
 
 
-
-
-
-    ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
-
-    def querySetFeatureA(self, entryQuery):
-        # findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
-        self.findFeature(entryQuery, self.listResultsLeft, self.datasetA, self.populationDatasetOriginalA, False,
-                         "Focus_Feature")
-        '''
-        # Get the feature description
-        featureDesc = self.datasetA['Focus Feature']['Description']
-
-        # If the description is too long
-        if len(featureDesc) > 70:
-            featureDesc = featureDesc[:71] + '...' #Shorten it
-
-        # Display the description
-        self.labelQueryDataFeatureName.config(text = featureDesc)
-        '''
-
-    ''' Find the feature and display the dataset's frequencies and proportions for each of its values '''
-
-    def querySetFeatureB(self, entryQuery):
-        # findFeature(entryQuery, self.listQueryDataB, self.datasetB, "Focus_Feature")
-        self.findFeature(entryQuery, self.listResultsRight, self.datasetB, self.populationDatasetOriginalB, True,
-                         "Focus_Feature")
-
-    # endregion
-
     '''TEST HEADER'''
 
     # region
@@ -1238,208 +1054,8 @@ class AutomatedMining_Controller:
         return "break"
 
 
-    ''' Conduct the experiment with the given Level between the two samples. '''
-    def applyLevelSpinBox(self, evt):
-        self.buttonApplyLevelSpinBox.configure(relief = FLAT)
-        # Get selected confidence interval
-        # confidenceInterval = self.comboQueryCriticalValue.get()
-        level = self.spinBoxChangeLevel.get()
-        UICS.MAX_LEVEL = level
-
-        tkMessageBox.showinfo("New Level Applied", "The MAX Level is now " + str(UICS.MAX_LEVEL))
-
-        # print("MAX LEVEL is now " + str(UICS.MAX_LEVEL))
-        # print("MAX CROSS TYPE is now " + str(UICS.MAX_CROSS))
-        # print("")
-        return "break"
-
-    ''' Conduct the experiment with the given Cross Type between the two samples. '''
-    def applyCrossTypeSpinBox(self, evt):
-        self.buttonApplyLevelSpinBox.configure(relief = FLAT)
-        print("Query Cross Type Function")
-
-        cross_type = self.spinBoxChangeCrossType.get()
-        UICS.MAX_CROSS = cross_type
-
-        tkMessageBox.showinfo("New Cross Type Applied", "The MAX Cross Type is now " + str(UICS.MAX_CROSS))
-
-        # print("MAX CROSS TYPE is now " + str(UICS.MAX_CROSS))
-        # print("MAX LEVEL is now " + str(UICS.MAX_LEVEL))
-        # print("")
-
-        return "break"
-
-    ''' Conduct Z-Test between the population and all samples '''
-
-    def querySVP(self, evt):
-        confidenceInterval = self.comboQueryCriticalValueSvP.get()  # Get selected confidence interval
-        zCritical = self.arrQueryCriticalValueMapping[confidenceInterval]  # Get corresponding Z Critical Value
-        sampleFeature = self.datasetB['Feature']['Code']
-        self.listResultsRight.delete(0, END)
-        # Iterate through every sample
-        for sampleResponse in self.datasetB['Feature']['Responses']:
-            resultsRows = []
-
-            sampleValue = sampleResponse['Code']  # Get sample code to get the samples by
-
-            # Header of the results file
-            header = ['Feature Code', 'N', 'F', 'P', 'Sample', 'n', 'f', 'p', 'SE', 'Z Score', 'Z Critical Value', 'LB',
-                      'UB', 'Accept/Reject']
-            resultsRows.append(header)
-
-            # Iterate through every feature
-            for feature in features_gl:
-                featureValues = []  # Values that are not in group -1. This will be all values of the feature.
-                selectedFeatureValues = []  # Values within featureValues that are selected by the user. By default, it is just those with group 'b'
-
-                # Iterate through the values of the feature
-                for response in feature['Responses']:
-                    # If the group of that value is not -1
-                    if response['Group'] != '-1':
-                        featureValues.append(response['Code'])  # Add to the allValues that will determine n
-
-                        # If the group of the value is 'a'
-                        if (response['Group'] == 'a'):  # MODIFY THIS SUCH THAT IT CAN BE SELECTED BY THE USER
-                            selectedFeatureValues.append(
-                                response['Code'])  # Add to selectedValues that will determine p
-
-                # Convert allValues to string separated by ':'
-                allValString = FS.concatListToString(featureValues, ':')
-
-                # Convert selectedValues to string separated by ':'
-                selectedValString = FS.concatListToString(selectedFeatureValues, ':')
-
-                # Get results of that sample vs population based on a feature given its values that determine
-                # n and values that determine p
-                resultRow = svp.sampleVsPopulationSpecific(self.datasetA['Data'], sampleFeature, sampleValue,
-                                                           feature['Code'], allValString, selectedValString, zCritical,
-                                                           ':')
-
-                resultsRows.append(resultRow)
-            # Write all results of all Z-Tests on all features of that sample in to a .csv file
-            fileName = "SVP.csv"
-            try:
-                fileName = "Z-Test_Sample " + sampleFeature + "(" + sampleValue + ")" + "_vs_Pop" + \
-                           self.datasetA['Feature']['Code'] + ".csv"
-            except KeyError:
-                fileName = "Z-Test_Sample " + sampleFeature + "(" + sampleValue + ")" + "_vs_Pop.csv"
-            FS.writeOnCSV(resultsRows, fileName)
-            self.listResultsRight.insert(END, "Z-Test complete. Saved as " + fileName)
-        # tkMessageBox.showinfo(testType, testType + " completed.")
-
-    ''' Sets test type: Sample vs Sample (Chi-Test, Z-Test) or Sample vs Population (Z-Test) '''
-
-    def querySetType(self, evt):
-        global queryType_gl
-        queryType_gl = self.comboQueryTest.get()
-        self.adjustQueryViews()
-
-    ''' Disables/enables views (buttons, entry fields etc.) based on test type selected '''
-
-    def adjustQueryViews(self):
-        self.btnCompareSelectedFeatureGroups.configure(state = "normal")
-        # self.buttonQueryFeatureA.configure(state = "normal")
-        # self.buttonQueryFeatureB.configure(state = "normal")
-
-        # self.entryQueryFeatureA.configure(state = "normal")
-        # self.entryQueryFeatureB.configure(state = "normal")
-        self.buttonApplyLevelSpinBox.configure(state = "normal")
-
-        self.spinBoxChangeLevel.configure(state = "normal")
-        # self.comboQueryCriticalValue.configure(state = "normal")
-
-        self.buttonQueue.configure(state = "normal")
-        self.buttonClearQueue.configure(state = "normal")
-        self.buttonTestQueue.configure(state = "normal")
-        # self.buttonTest.configure(state = "normal")
-        # self.labelQueryZTest.configure(state = "normal")
-        self.lblSelectedFeatureCodesTitle.configure(state = "normal")
-        self.lblSelectedFeatureGroupsTitle.configure(state = "normal")
-        self.buttonQueryZTestSvP.configure(state = "normal")
-        # self.comboQueryCriticalValueSvP.configure(state = "normal")
-        # self.labelQueryZTestSvP.configure(state = "normal")
-        self.listResultsLeft.configure(state = "normal")
-        self.listResultsRight.configure(state = "normal")
-
-        self.datasetA = self.resetDataset()
-        self.entrySourceFolderFilename.configure(text = LS.GL_AM_EXCEL_OUTPUT_PATH)
-        # self.entryQueryFeatureA.configure(text = '')
-        if self.datasetA is not []:
-            self.datasetCountA = len(self.datasetA['Data'])
-            # self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-        self.lblSelectedFeatureCodesTitle.configure(text = str(LS.GL_AM_EXCEL_OUTPUT_PATH))
-        self.listResultsLeft.delete(0, END)
-        self.listFeatureCodes.delete(0, END)
-
-        self.datasetB = self.resetDataset()
-        self.entryQuerySetDataB.configure(text = '')
-        # self.entryQueryFeatureB.configure(text = '')
-        if self.datasetB is not []:
-            self.datasetCountB = len(self.datasetB['Data'])
-            self.lblSelectedGroupCount.configure(text = self.getDatasetCountB())
-        self.lblSelectedFeatureGroupsTitle.configure(text = "")
-        self.listResultsRight.delete(0, END)
-        self.listFeatureGroups.delete(0, END)
-
-        if queryType_gl == 'Sample vs Population':
-            self.btnCompareSelectedFeatureGroups.configure(state = "disabled")
-            # self.buttonQueryFeatureA.configure(state = "disabled")
-            # self.buttonQueryFeatureB.configure(state = "disabled")
-            # self.entryQueryFeatureA.configure(state = "disabled")
-            # self.entryQueryFeatureB.configure(state = "disabled")
-            self.buttonApplyLevelSpinBox.configure(state = "disabled")
-
-            self.spinBoxChangeLevel.configure(state = "disabled")
-            # self.comboQueryCriticalValue.configure(state = "disabled")
-
-            self.buttonQueue.configure(state = "disabled")
-            self.buttonClearQueue.configure(state = "disabled")
-            self.buttonTestQueue.configure(state = "disabled")
-            # self.buttonTest.configure(state = "disabled")
-            # self.labelQueryZTest.configure(state = "disabled")
-            self.lblSelectedFeatureCodesTitle.configure(state = "disabled")
-            self.lblSelectedFeatureGroupsTitle.configure(state = "disabled")
-            self.listResultsLeft.configure(state = "disabled")
-            # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
-            # self.labelFrameQueryDataB.configure(text = "Samples")
-            self.lblStatusSourceFolder.configure(
-                # text = UI_support.LBL_SELECT_NO_DATA,
-                text = "EXTRACT SIGNIFICANT FEATURES",
-                background = CS.L_GRAY
-            )
-            self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,  # TODO Change text
-                background = CS.L_GRAY
-            )
-
-            # self.labelQueryDataBCount.configure(text = "")
-
-        else:
-            self.buttonQueryZTestSvP.configure(state = "disabled")
-
-            self.comboQueryCriticalValueSvP.configure(state = "disabled")
-
-            self.labelQueryZTestSvP.configure(state = "disabled")
-            # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
-            # self.labelFrameQueryDataB.configure(text = "Dataset B")
-            self.lblStatusSourceFolder.configure(
-                text = "EXTRACT SIGNIFICANT FEATURES",
-                background = CS.L_GRAY
-            )
-            self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = CS.L_GRAY
-            )
-
-    def querySetAllFeatures(self):
-        # Test items
-        global strarAllFeatures_gl
-        strarAllFeatures_gl = list(self.listFeatureCodes.get(0, END))
-
-    # endregion
 
     '''CONSOLE HEADER'''
-
     # region
 
     def clearConsole(self):
@@ -1729,7 +1345,6 @@ class AutomatedMining_Controller:
     def disableListResultTable(self):
         # Clear filter results
         event = None
-        self.queryResetResultDetails(event)
 
         # Disable entry
         self.entryQueryLeft.configure(
@@ -1753,7 +1368,7 @@ class AutomatedMining_Controller:
             relheight = UI_support.getRelH(self.labelFrameFilterListData))
 
         # Change stripe color
-        self.setFilterStripeReady(False, self.lblFilterResultStripes)
+        self.setFilterStripeReady(False, self.lblResultTableStripes)
 
     def enableListResultTable(self):
         # Enable entry
@@ -1776,7 +1391,7 @@ class AutomatedMining_Controller:
             relwidth = 0, relheight = 0)
 
         # Change stripe color
-        self.setFilterStripeReady(False, self.lblFilterResultStripes)
+        self.setFilterStripeReady(False, self.lblResultTableStripes)
 
     def setDatasetStatusReady(self, isReady, statusWidget, stripeWidget):
         if isReady:
