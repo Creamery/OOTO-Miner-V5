@@ -17,6 +17,7 @@ DOF = "DoF"
 OBSERVED = "Observed"
 EXPECTED = "Expected"
 
+DATASET_EXPORT_COUNTER = 1
 
 '''
     Performs Chi-square on the selected dataset based on the filter.
@@ -58,7 +59,6 @@ def chiSquare(np_dataset_pairs):
                 list_join.append(list_item)
             list_table_values.append(list_join)
 
-        # LS.exportList(list_table_values, "res.csv")
 
 
         # Then apply Chi-square and store in a dictionary
@@ -84,14 +84,7 @@ def chiSquare(np_dataset_pairs):
                 dict_chi_details[DOF] = dof
                 dict_chi_details[OBSERVED] = observed
                 dict_chi_details[EXPECTED] = expected
-                # print("OBSERVED")
-                # print(observed)
-                # print("EXPECTED")
-                # print(expected)
-                # print("")
-                # print("")
-                # print("")
-                # print("")
+
                 dict_chi_square[feat_code] = dict_chi_details  # Add details to main dictionary
 
 
@@ -215,6 +208,9 @@ def extractTables(np_dataset_pair):
     for dataset in np_dataset_pair:  # Iterate through each filtered dataset
         dict_table = extractContingencyTable(dataset)  # Then extract the values needed for Chi-square
         list_tables.append(dict_table)
+
+        # LS.exportDictionary(dict_table, "Dataset Result " + str(DATASET_EXPORT_COUNTER) + ".csv", LS.GL_AM_OUTPUT_PATH + "Datasets\\")
+        # DATASET_EXPORT_COUNTER = DATASET_EXPORT_COUNTER + 1
         # printTable(dict_table)
     np_tables = np.array(list_tables)
     return np_tables

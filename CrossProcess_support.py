@@ -57,7 +57,6 @@ def crossProcess(df_dataset, np_CROSS, controller):
     data_filter_process_count = computeMaxProcessCount(np_cross_datasets, len_cross_datasets, len_cross_types)
     data_filter_process_count = data_filter_process_count  # * 2
     UICS.CROSS_MAX_PROCESS_COUNT = UICS.CROSS_MAX_PROCESS_COUNT + data_filter_process_count
-    print("CPM Count " + str(UICS.CROSS_MAX_PROCESS_COUNT))
 
     start_time = time.time()
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs

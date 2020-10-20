@@ -104,6 +104,7 @@ def loadDataset(path_dataset, dict_varDesc):
 
         df_dataset[feat_code] = df_dataset[feat_code].replace(option_values, option_new_values)
         # df_dataset[key] = df_dataset[key].replace([1, 2], ["a", "b"])
+        exportDataset(df_dataset, "Converted Dataset.csv")
 
     # print(df_dataset[key])
 
@@ -117,6 +118,7 @@ def loadFeatureNames(path_FeatureNames):
 
 def exportDataset(df_dataset, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)
+    checkDirectory(path_export)
     df_dataset.to_csv(path_export, index = False, sep = ",")
 
 def exportDataFrame(df_dataset, filename, path = GL_AM_OUTPUT_PATH):
@@ -283,6 +285,7 @@ def printDictionary(oDict):
 def exportDictionary(dict_data, filename, path = GL_AM_OUTPUT_PATH):
     print("Exported Dictionary")
     path_export = str(path + filename)
+    checkDirectory(path_export)
     with open(path_export, 'wb') as file:  # Just use 'w' mode in 3.x
         w = csv.DictWriter(file, dict_data.keys())
         w.writeheader()

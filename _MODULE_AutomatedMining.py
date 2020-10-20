@@ -36,7 +36,7 @@ class AutomatedMining:
         self.root = root
 
         self.model = MODEL.AutomatedMining_Model()
-        self.view = VIEW.AutomatedMining_View(parentFrame)
+        self.view = VIEW.AutomatedMining_View(parentFrame, root)
         # self.controller = CONTROLLER.AutomatedMining_Controller(self.view, self.model, self.root)
         self.controller = CONTROLLER.AutomatedMining_Controller(self.view, self.model, self.root)
 

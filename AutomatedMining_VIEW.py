@@ -46,6 +46,7 @@ except ImportError:
 
     py3 = 1
 
+from tkinter import ttk
 
 import Icon_support
 import PIL.Image
@@ -62,8 +63,9 @@ import UIConstants_support as UICS
 
 class AutomatedMining_View:
 
-    def __init__(self, parentFrame):
+    def __init__(self, parentFrame, root):
         self.__parentFrame = parentFrame
+        self.root = root
         self.configureTestTabElements(parentFrame)
         self.configureZTestElements(parentFrame)
         self.configureTestTabConsoleElements(parentFrame)
@@ -227,7 +229,24 @@ class AutomatedMining_View:
 
 
     # endregion
+    @staticmethod
+    def get_style():
+        combo_style = ttk.Style()
+        combo_style.theme_create('combostyle', parent = 'alt',
+                                 settings = {
+                                    'TCombobox': {
+                                        'configure': {
+                                            'fieldbackground': 'white',
+                                            'selectbackground': 'white',
+                                            'selectforeground': 'black',
+                                            'fieldbackground' : 'black'
+                                        }
+                                    }
 
+                                 }
+                                 )
+
+        return combo_style
 
     def configureZTestElements(self, parentFrame):
 
@@ -1164,11 +1183,13 @@ class AutomatedMining_View:
 
         # FILTER QUERY ENTRY
         # region
-        self.entryQueryFeature = Entry(self.labelFrameFilterQueryData)
-        self.entryQueryFeature.place(
+        rel_width = 0.319
+        self.entryQueryLeft = Entry(self.labelFrameFilterQueryData)
+        self.entryQueryLeft.place(
             relx = newRelX, rely = 0,
-            relwidth = US.TAB_TEST_FILTER_QUERY_ENTRY_REL_W - 0.001, relheight = 1)
-        self.entryQueryFeature.configure(
+            # relwidth = US.TAB_TEST_FILTER_QUERY_ENTRY_REL_W - 0.001, relheight = 1)
+            relwidth = rel_width, relheight = 1)
+        self.entryQueryLeft.configure(
             background = CS.PROCESS_ENTRY_BG, foreground = CS.PROCESS_ENTRY_FG,
             bd = 1,
             font = US.ENTRY_FONT, insertwidth = US.INSERT_WIDTH,
@@ -1176,25 +1197,133 @@ class AutomatedMining_View:
             insertbackground = CS.PROCESS_ENTRY_SELECT_INSERT_BG,
             takefocus = US.ENTRY_TAKE_FOCUS, justify = US.FILTER_ENTRY_JUSTIFY
         )
-        # endregion
-        newRelX = FS.getRelX(self.entryQueryFeature) + FS.getRelW(self.entryQueryFeature)
 
-        # FILTER QUERY BUTTON
+        # varQueryLeft = StringVar(self.__parentFrame)
+        # varQueryLeft.set("one")  # default value
+
+        # style = ttk.Style()
+        # style.theme_use('alt')
+        # style.map('custom.TCombobox', fieldbackground = [('readonly', 'white')])
+        # style.map('custom.TCombobox', foreground = [('readonly', 'black')])
+
+
+        # combostyle = ttk.Style()
+        # combostyle.theme_create('combostyle', parent = 'alt',
+        #                         settings = {
+        #                             'TCombobox': {
+        #                                 'configure': {
+        #                                     'fieldbackground': '#E6C4FF',
+        #                                     'selectbackground': '#FFFFFF',
+        #                                     'selectforeground': '#D437FF',
+        #                                 }
+        #                             }
+        #                         }
+        #                         )
+
+
+        # self.root.option_add("*TCombobox*Listbox*Background", '#FFFFFF')  # '#E6C4FF'
+        # self.root.option_add("*TCombobox*Listbox*Foreground", '#D437FF')
+        # self.root.option_add("*TCombobox*Listbox*Font", US.FONT_SMALL)
+        # self.root.option_add("*TCombobox*Listbox*SelectForeground", '#E6C4FF')  # '#E6C4FF'
+        # # self.root.option_add("*TCombobox*Listbox*ArrowSize", 20)  # '#E6C4FF'
+        # # self.root.option_add("*TCombobox*Listbox*arrowsize", 20)  # '#E6C4FF'
+        # self.root.option_add("*TCombobox*Listbox*ArrowSize", 50)  # '#E6C4FF'
+
+
+        # combostyle = ttk.Style()
+        # combostyle.theme_use('combostyle')
+        self.style = ttk.Style()  # self.get_style()
+        # self.style.theme_use('combostyle')
+        self.root.option_add('*TCombobox*Listbox.foreground', CS.D_BLUE)
+        self.root.option_add('*TCombobox*Listbox.selectBackground', '#D437FF')
+        # self.root.option_add('*TCombobox*Listbox.selectForeground', '#D437FF')
+        self.root.option_add('*TCombobox*Listbox.arrowcolor', '#D437FF')
+        self.root.option_add('*TCombobox*Listbox.arrowSize', 20)
+        self.root.option_add('*TCombobox*Listbox.background', '#FFFFFF')
+        self.root.option_add('*TCombobox*Listbox.bordercolor ', '#D437FF')
+        self.root.option_add('*TCombobox*Listbox.fieldbackground', '#D437FF')
+        self.root.option_add('*TCombobox*Listbox.arrowcolor', '#D437FF')
+
+        self.style.map('TCombobox', fieldbackground = [('readonly', '#FFFFFF')])
+
+
+        self.dropQueryLeft = ttk.Combobox(self.labelFrameFilterQueryData, state = "readonly")
+        self.dropQueryLeft.place(
+            relx = newRelX, rely = 0,
+            # relwidth = US.TAB_TEST_FILTER_QUERY_ENTRY_REL_W - 0.001, relheight = 1)
+            relwidth = rel_width + 0.042, relheight = 1)
+        self.dropQueryLeft.configure(
+            background = CS.PROCESS_ENTRY_BG, foreground = CS.D_BLUE
+        )
+        self.dropQueryLeft.config(font = US.FONT_AM_LISTBOX_BOLD)
+
+
+        newRelX = FS.getRelX(self.entryQueryLeft) + FS.getRelW(self.entryQueryLeft)
+        self.entryQueryRight = Entry(self.labelFrameFilterQueryData)
+        self.entryQueryRight.place(
+            relx = newRelX, rely = 0,
+            relwidth = rel_width + US.TAB_TEST_FILTER_QUERY_LBL_REL_W + 0.037, relheight = 1)
+        self.entryQueryRight.configure(
+            background = CS.PROCESS_ENTRY_BG, foreground = CS.PROCESS_ENTRY_FG,
+            bd = 1,
+            font = US.ENTRY_FONT, insertwidth = US.INSERT_WIDTH,
+            selectbackground = CS.PROCESS_ENTRY_SELECT_HIGHLIGHT_BG,
+            insertbackground = CS.PROCESS_ENTRY_SELECT_INSERT_BG,
+            takefocus = US.ENTRY_TAKE_FOCUS, justify = US.FILTER_ENTRY_JUSTIFY
+        )
+
+
+        self.dropQueryRight = ttk.Combobox(self.labelFrameFilterQueryData, state = "readonly")
+        self.dropQueryRight.place(
+            relx = newRelX + 0.041, rely = 0,
+            # relwidth = US.TAB_TEST_FILTER_QUERY_ENTRY_REL_W - 0.001, relheight = 1)
+            relwidth = rel_width + US.TAB_TEST_FILTER_QUERY_LBL_REL_W + 0.038, relheight = 1)
+        self.dropQueryRight.configure(
+            background = CS.PROCESS_ENTRY_BG, foreground = CS.PROCESS_ENTRY_FG
+        )
+        self.dropQueryRight.config(font = US.FONT_AM_LISTBOX_BOLD)
+
+
+        # endregion
+        newRelX = FS.getRelX(self.entryQueryLeft) + FS.getRelW(self.entryQueryLeft)
+
+        # RESULT QUERY BUTTONs
         # region
-        self.btnSearchFilterResults = Button(self.labelFrameFilterQueryData)
-        self.btnSearchFilterResults.place(
+        self.btnSearchResultsLeft = Button(self.labelFrameFilterQueryData)
+        self.btnSearchResultsLeft.place(
             relx = newRelX, rely = 0,
             relwidth = 0.041, relheight = 1)
         # relwidth = US.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
+        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_PLAIN).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
                                                                            PIL.Image.ANTIALIAS)
         btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
-        self.btnSearchFilterResults.configure(
+        self.btnSearchResultsLeft.configure(
             image = btn_query_feature_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.btnSearchFilterResults.image = btn_query_feature_icon  # < ! > Required to make images appear
+        self.btnSearchResultsLeft.image = btn_query_feature_icon  # < ! > Required to make images appear
 
-        self.btnSearchFilterResults.configure(
+        self.btnSearchResultsLeft.configure(
+            background = CS.PROCESS_BUTTONS_BG, foreground = CS.PROCESS_BUTTONS_FG,
+            activebackground = CS.PROCESS_BTN_BG_ACTIVE,
+            highlightthickness = 0, padx = 0, pady = 0,
+            bd = 0, relief = FLAT, overrelief = FLAT
+        )
+
+
+        newRelX_Right = FS.getRelX(self.entryQueryRight) + FS.getRelW(self.entryQueryRight)
+        self.btnSearchResultsRight = Button(self.labelFrameFilterQueryData)
+        self.btnSearchResultsRight.place(
+            relx = newRelX_Right, rely = 0,
+            relwidth = 0.041, relheight = 1)
+
+        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_PLAIN).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
+                                                                           PIL.Image.ANTIALIAS)
+        btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
+        self.btnSearchResultsRight.configure(
+            image = btn_query_feature_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
+        self.btnSearchResultsRight.image = btn_query_feature_icon  # < ! > Required to make images appear
+
+        self.btnSearchResultsRight.configure(
             background = CS.PROCESS_BUTTONS_BG, foreground = CS.PROCESS_BUTTONS_FG,
             activebackground = CS.PROCESS_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
@@ -1223,29 +1352,29 @@ class AutomatedMining_View:
         )
 
         # FILTER LIST BOX - Left Side
-        # newRelY = US.FILTER_LABEL_STRIPES_REL_H + 0.03725 # TODO Make constant, + is the percent of stripes
+        # newRelY = US.FILTER_LABEL_STRIPES_REL_H + 0.03725
         newRelY = US.FILTER_LABEL_STRIPES_REL_H * US.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER,
-        self.listQueryDataA = Listbox(self.labelFrameFilterListDataA, bd = 0)  # TODO Filter Listbox/PURPLE LISTBOX
-        self.listQueryDataA.place(
+        self.listResultsLeft = Listbox(self.labelFrameFilterListDataA, bd = 0)
+        self.listResultsLeft.place(
             relx = US.TAB_TEST_FILTER_LISTBOX_LIST_REL_X,
             rely = newRelY,
             relwidth = US.TAB_TEST_FILTER_LISTBOX_LIST_REL_W,
             relheight = US.TAB_TEST_FILTER_LISTBOX_LIST_REL_H -
                         (US.FILTER_LABEL_STRIPES_REL_H * US.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
 
-        self.listQueryDataA.configure(
+        self.listResultsLeft.configure(
             background = CS.PROCESS_LISTBOX_BG, foreground = CS.PROCESS_LISTBOX_FG,
-            selectmode = MULTIPLE, exportselection = "0",
+            selectmode = SINGLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = CS.FILTER_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = CS.FILTER_LISTBOX_SELECTED_ITEM_FG,
+            selectbackground = CS.PALE_PLUM,
+            selectforeground = CS.PLUM_PURPLE,
             font = US.FONT_AM_LISTBOX,
             bd = US.FILTER_LISTBOX_BORDER, relief = US.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
         )
 
-        newRelY = FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA)
-        newRelH = 1 - (FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA))
+        newRelY = FS.getRelY(self.listResultsLeft) + FS.getRelH(self.listResultsLeft)
+        newRelH = 1 - (FS.getRelY(self.listResultsLeft) + FS.getRelH(self.listResultsLeft))
 
         # BOTTOM STATUS LABEL - DATASET A
         self.lblSelectedFeatureCodesTitle = Label(self.labelFrameFilterListDataA)
@@ -1276,13 +1405,13 @@ class AutomatedMining_View:
         )
 
         # FILTER LIST BOX - Right Side
-        self.listQueryDataB = Listbox(self.labelFrameFilterListDataB, bd = 0)  # TODO Filter Listbox/PURPLE LISTBOX
-        self.listQueryDataB.place(
-            relx = US.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = FS.getRelY(self.listQueryDataA),
+        self.listResultsRight = Listbox(self.labelFrameFilterListDataB, bd = 0)
+        self.listResultsRight.place(
+            relx = US.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = FS.getRelY(self.listResultsLeft),
             relwidth = US.TAB_TEST_FILTER_LISTBOX_LIST_REL_W,
-            relheight = FS.getRelH(self.listQueryDataA))
+            relheight = FS.getRelH(self.listResultsLeft))
 
-        self.listQueryDataB.configure(
+        self.listResultsRight.configure(
             background = CS.PROCESS_LISTBOX_BG, foreground = CS.PROCESS_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
@@ -1293,8 +1422,8 @@ class AutomatedMining_View:
             highlightthickness = 0
         )
 
-        newRelY = FS.getRelY(self.listQueryDataB) + FS.getRelH(self.listQueryDataB)
-        newRelH = 1 - (FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA))
+        newRelY = FS.getRelY(self.listResultsRight) + FS.getRelH(self.listResultsRight)
+        newRelH = 1 - (FS.getRelY(self.listResultsLeft) + FS.getRelH(self.listResultsLeft))
         # BOTTOM STATUS LABEL - DATASET B
         self.labelQueryDataB = Label(self.labelFrameFilterListDataB)
         self.labelQueryDataB.place(
@@ -2644,8 +2773,11 @@ class AutomatedMining_View:
     def getBtnApplySelectedFeatureSearch(self):
         return None  # self.btnApplySelectedFeatureSearch
 
-    def getBtnSearchFilterResults(self):
-        return self.btnSearchFilterResults
+    def getBtnSearchResultsLeft(self):
+        return self.btnSearchResultsLeft
+
+    def getBtnSearchResultsRight(self):
+        return self.btnSearchResultsRight
 
     def getBtnCompareSelectedFeatureGroups(self):
         return self.btnCompareSelectedFeatureGroups
@@ -2705,14 +2837,20 @@ class AutomatedMining_View:
     def getLabelQueryDataFeatureName(self):
         return self.labelQueryDataFeatureName
 
-    def getListQueryDataA(self):
-        return self.listQueryDataA
+    def getListResultsLeft(self):
+        return self.listResultsLeft
 
-    def getListQueryDataB(self):
-        return self.listQueryDataB
+    def getBtnSearchResultsLeft(self):
+        return self.btnSearchResultsLeft
 
-    def getEntryQueryFeature(self):
-        return self.entryQueryFeature
+    def getListResultsRight(self):
+        return self.listResultsRight
+
+    def getEntryQueryLeft(self):
+        return self.entryQueryLeft
+
+    def getEntryQueryRight(self):
+        return self.entryQueryRight
 
     def getLabelOverlayFilterListData(self):
         return self.labelOverlayFilterListData
@@ -2742,9 +2880,15 @@ class AutomatedMining_View:
 
     def getEntrySourceFolderFilename(self):
         return self.entrySourceFolderFilename
+
     def getEntryQuerySetDataB(self):
         return self.entryQuerySetDataB
 
+    def getDropQueryLeft(self):
+        return self.dropQueryLeft
+
+    def getDropQueryRight(self):
+        return self.dropQueryRight
 
     def getListFeatureCodes(self):
         return self.listFeatureCodes

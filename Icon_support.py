@@ -52,6 +52,10 @@ TAB_ICO_RIGHT_ARROW_SIDECURVE = PATH + '\\_icons\\ico_right_arrow_sidecurve.png'
 TAB_ICO_RIGHT_ARROW_PLAIN = PATH + '\\_icons\\ico_right_arrow_plain.png'
 TAB_ICO_RIGHT_ARROW_PLAIN_ON = PATH + '\\_icons\\ico_right_arrow_plain_on.png'
 
+TAB_ICO_DOWN_ARROW_PLAIN = PATH + '\\_icons\\ico_down_arrow_plain.png'
+TAB_ICO_DOWN_ARROW_PLAIN_ON = PATH + '\\_icons\\ico_down_arrow_plain_on.png'
+
+
 TAB_ICO_ADD = PATH + '\\_icons\\ico_add.png'
 TAB_ICO_ADD_ON = PATH + '\\_icons\\ico_add_on.png'
 
