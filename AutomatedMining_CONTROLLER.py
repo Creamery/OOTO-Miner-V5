@@ -465,6 +465,8 @@ class AutomatedMining_Controller:
             index = i_feature_code + 1
             str_index = str(index)
             if index < 10:
+                str_index = "  " + str_index
+            elif index < 100:
                 str_index = " " + str_index
             str_entry = UICS.PRE_LIST + str_index + "| " + feature_code
             self.listFeatureCodes.insert(END, str_entry)
@@ -825,6 +827,10 @@ class AutomatedMining_Controller:
         self.listFeatureGroups.delete(0, END)  # Empty the listbox before adding
 
         for feat_code, dt_pairs in self.dict_selected_features.items():
+            len_feat_code = len(feat_code)
+            if len_feat_code < 3:  # Add a space before the feature code if its length is less than 3
+                feat_code = " " + feat_code
+
             str_entry_index = UICS.PRE_LIST + feat_code + "| "
             for dt_pair in dt_pairs:
                 str_entry = str_entry_index + dt_pair
