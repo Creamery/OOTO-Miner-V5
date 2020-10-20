@@ -416,7 +416,7 @@ class ManualMining_Controller:
                         populationDatasetOriginal['Focus Feature'] = copy.deepcopy(feature)
                         hasFocusFeature = True
                 for response in feature['Responses']:
-                    tempResp = response['Code'] + " - " + response['Description']
+                    tempResp = response['Code'] + " - " + response['Description'].strip()
                     arrTempItems.append(tempResp)
                 break
         if not found and isPrintingError:
@@ -472,21 +472,27 @@ class ManualMining_Controller:
                 if response['Code'] not in notInGroupNega1:  # If the value is an invalid value or its group/class is -1
                     proportionOvern = proportionOvern * 0
 
-                tempResp = str(format(countP, '04')) + " | " + str(format(proportionOverN, '05')) + "%(N) | " + str(
-                    format(proportionOvern, '05')) + "%(n) | "
+                tempResp = str(format(countP, '04')) + "|" + str(format(proportionOverN, '05')) + "%(N)|" + str(
+                    format(proportionOvern, '05')) + "%(n)|"
                 isValidResponse = False
                 for val in c:
                     if val == response['Code']:
                         isValidResponse = True
-                        tempResp = tempResp + response['Group'] + " | " + response['Code'] + " | " + response[
-                            'Description']
+                        edited_group = response['Group']
+                        if "-" in edited_group:
+                            edited_group = "-"
+                        tempResp = tempResp + edited_group + "|" + response['Code'] + "|" + response[
+                            'Description'].strip()
                         break
                 if not isValidResponse:
                     if response['Code'] not in presentInData:
-                        tempResp = tempResp + response['Group'] + " | " + response['Code'] + " | " + response[
-                            'Description']
+                        edited_group = response['Group']
+                        if "-" in edited_group:
+                            edited_group = "-"
+                        tempResp = tempResp + edited_group + "|" + response['Code'] + "|" + response[
+                            'Description'].strip()
                     else:
-                        tempResp = tempResp + "-1" + " | " + response['Code'] + " | " + "INVALID VALUE"
+                        tempResp = tempResp + "-" + "|" + response['Code'] + "|" + "INVALID VALUE"
                 arrTempItems.append(tempResp)
 
         listFeat.delete(0, END)
@@ -830,8 +836,7 @@ class ManualMining_Controller:
                     self.setFilterStripeReady(True, self.labelFilterStripes)
 
                     # Get the feature description
-                    featureDesc = self.datasetA['Focus Feature'][
-                        'Description']  # Doesn't matter if you use datasetA or datasetB
+                    featureDesc = self.datasetA['Focus Feature']['Description']  # Doesn't matter if you use datasetA or datasetB
 
                     # If the description is too long
                     if len(featureDesc) > 70:
@@ -853,7 +858,7 @@ class ManualMining_Controller:
     def querySetFeatureA(self, entryQuery):
         # findFeature(entryQuery, self.listQueryDataA, self.datasetA,"Focus_Feature")
         self.findFeature(entryQuery, self.listQueryDataA, self.datasetA, self.populationDatasetOriginalA, False,
-                    "Focus_Feature")
+                         "Focus_Feature")
         '''
         # Get the feature description
         featureDesc = self.datasetA['Focus Feature']['Description']

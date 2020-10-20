@@ -465,7 +465,7 @@ class AutomatedMining_Controller:
             index = i_feature_code + 1
             str_index = str(index)
             if index < 10:
-                str_index = "  " + str_index
+                str_index = " " + str_index
             str_entry = UICS.PRE_LIST + str_index + "| " + feature_code
             self.listFeatureCodes.insert(END, str_entry)
         # return list_features
@@ -811,7 +811,7 @@ class AutomatedMining_Controller:
             self.dict_selected_features = collections.OrderedDict({k: self.dict_Significant_DTPairs[k] for k in (self.list_selected_features)})
 
             print(self.dict_selected_features)
-
+            self.updateFeatureGroupList()
         # print("CHECK 1")
         return "break"
 
@@ -825,8 +825,10 @@ class AutomatedMining_Controller:
         self.listFeatureGroups.delete(0, END)  # Empty the listbox before adding
 
         for feat_code, dt_pairs in self.dict_selected_features.items():
-            str_entry = UICS.PRE_LIST + feat_code + "| " + dt_pairs
-            self.listFeatureGroups.insert(END, str_entry)
+            str_entry_index = UICS.PRE_LIST + feat_code + "| "
+            for dt_pair in dt_pairs:
+                str_entry = str_entry_index + dt_pair
+                self.listFeatureGroups.insert(END, str_entry)
 
 
     def queryAddFilterB(self, evt):

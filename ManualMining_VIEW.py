@@ -533,7 +533,7 @@ class ManualMining_View:
             activestyle = "none",
             selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
-            font = UI_support.SELECT_LABEL_FONT,
+            font = UI_support.SELECT_LISTBOX_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
@@ -734,7 +734,7 @@ class ManualMining_View:
             activestyle = "none",
             selectbackground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = Color_support.SELECT_LISTBOX_SELECTED_ITEM_FG,
-            font = UI_support.SELECT_LABEL_FONT,
+            font = UI_support.SELECT_LISTBOX_FONT,
             bd = UI_support.SELECT_LISTBOX_BORDER, relief = UI_support.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
@@ -1203,8 +1203,7 @@ class ManualMining_View:
             rely = newRelY,
             relwidth = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W,
             relheight = UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_H -
-                        (
-                                    UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
+                        (UI_support.FILTER_LABEL_STRIPES_REL_H * UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER))
 
         self.listQueryDataA.configure(
             background = Color_support.FILTER_LISTBOX_BG, foreground = Color_support.FILTER_LISTBOX_FG,
@@ -1212,7 +1211,7 @@ class ManualMining_View:
             activestyle = "none",
             selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
-            font = UI_support.FILTER_LABEL_FONT,
+            font = UI_support.FILTER_LISTBOX_FONT,
             bd = UI_support.FILTER_LISTBOX_BORDER, relief = UI_support.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
         )
@@ -1262,7 +1261,7 @@ class ManualMining_View:
             activestyle = "none",
             selectbackground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = Color_support.FILTER_LISTBOX_SELECTED_ITEM_FG,
-            font = UI_support.FILTER_LABEL_FONT,
+            font = UI_support.FILTER_LISTBOX_FONT,
             bd = UI_support.FILTER_LISTBOX_BORDER, relief = UI_support.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
         )

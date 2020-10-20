@@ -274,8 +274,8 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
     tempAV = listBox.get(0, END)
     tempSV = [listBox.get(i) for i in listBox.curselection()]
 
-    allValuesRaw = parseListBoxValues(tempAV, " | ", 4)
-    selectedValues = parseListBoxValues(tempSV, " | ", 4)
+    allValuesRaw = parseListBoxValues(tempAV, "|", 4)
+    selectedValues = parseListBoxValues(tempSV, "|", 4)
 
     for val in allValuesRaw:
         for response in dataset['Focus Feature']['Responses']:
