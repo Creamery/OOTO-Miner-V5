@@ -72,6 +72,8 @@ class AutomatedMining_Controller:
         self.list_feature_codes_original = None
         self.prev_selection = 0
         self.dict_Significant_DTPairs = None
+        self.list_selected_features = None  # Initialized by addFeature() (Or the function for Check #1)
+        self.dict_selected_features = None  # The basis for Feature Groups (a.k.a Listbox # 2)
 
 
         self.configureTestTabBindings()
@@ -384,7 +386,7 @@ class AutomatedMining_Controller:
     ''' Load existing Pickle file '''
 
     def loadSourceFolder(self, evt):
-        print("Loading Pickle")
+        print("Loading Source Folder : loadSourceFolder()")
         willLoad = True
         if self.list_feature_codes is not None:
             message_box = tkMessageBox.askquestion("Overwrite Session", "Loading a new pickle will overwrite your current session. Proceed?", icon = "warning")
@@ -424,29 +426,20 @@ class AutomatedMining_Controller:
         Append all unique features to Feature Codes Listbox.
     '''
     def addToListFeatureCode(self, dict_results):
-        # for key in dict_result_data.keys():
-        #     str_key = str(key)
-        #     split_keys = str_key.split("VS")
-        #     for feature_codes in split_keys:
-        #         features = feature_codes.split(")")
-        #         for feature in features:
-        #             # current_feature = feature.strip()
-        #             if len(feature) > 1:
-        #                 current_feature = feature + ")"  # Put back the split character
-        #
-        #                 # If the feature is not yet added, append it
-        #                 if current_feature.strip() not in self.list_feature_codes:
-        #                     self.list_feature_codes.append(current_feature.strip())
-
         # Create a dictionary where the chosen SSFs are the keys
         # Colnames contain ["Feature", "DoF", "P Value", "Chi Square", "Observed", "Expected", "IsSignificant"]
         self.dict_Significant_DTPairs = collections.OrderedDict()
         self.dict_DTPairs_ResultTable = dict_results
 
+        print("")
+        print("Features read from source folder")
+        print("")
         # print df_results
         for key_DTPair, result_table in dict_results.items():
             feature_codes = result_table[self.result_colnames[0]]  # Returns the array of significant features
-
+            print(key_DTPair)
+            print(feature_codes)
+            print("")
             # Update list of feature codes
             for feature_code in feature_codes:  # Parse that array and check if each single feature has been recorded
                 if feature_code not in self.list_feature_codes:
@@ -454,14 +447,14 @@ class AutomatedMining_Controller:
 
                 # Then update the dictionary of significant_features : dataset pairs (the key here)
                 if feature_code not in self.dict_Significant_DTPairs:
-                    self.dict_Significant_DTPairs[feature_code] = []
-                else:
-                    self.dict_Significant_DTPairs[feature_code].append(key_DTPair)
+                    self.dict_Significant_DTPairs[feature_code] = []  # If the feature_code/key does not exist in the dictionary, add it with an empty list
+
+                self.dict_Significant_DTPairs[feature_code].append(key_DTPair)
 
         self.list_feature_codes.sort()  # Sort
         self.list_feature_codes_original = copy.deepcopy(self.list_feature_codes)  # Create an untouched copy
 
-        print(self.dict_Significant_DTPairs)
+        # print(self.dict_Significant_DTPairs)
 
         # Remove previous listbox entry
         self.resetSelectedFeatureCodes(None)
@@ -693,7 +686,7 @@ class AutomatedMining_Controller:
         print("RESET SELECTED FEATURE GROUPS")
 
         self.listFeatureGroups.delete(0, END)  # Delete everything from Feature Code listbox
-        self.setStripeReady(False, self.lblStripesFeatureGroups)
+        self.setStripeReady(False, self.lblStripeFeatureGroups)
 
         '''
         self.isReadyDatasetB = False  # When a dataset is reset, it is not ready
@@ -796,17 +789,45 @@ class AutomatedMining_Controller:
         return "break"
 
     def addFeatureCode(self, evt):
-        # Get Selected Features  TODO
         # Search in Dictionary
-        list_selectedFeatureCodes = self.listFeatureCodes.curselection()
-        for index in list_selectedFeatureCodes:
-            print(self.listFeatureCodes.get(index))
 
+        list_selectedFeatureCodes = self.listFeatureCodes.curselection()  # Right statement returns indices
         len_selected_features = len(list_selectedFeatureCodes)
         if len_selected_features > 0:
-            self.setStripeReady(True, self.lblStripesFeatureCodes)  # Change stripe color
-        # print("CHECK 1 IS PRESSED")
+            self.setStripeReady(True, self.lblStripesFeatureCodes)  # Change stripe color to indicate input accepted
+
+            self.list_selected_features = []
+            for index in list_selectedFeatureCodes:  # Loop through each selected index
+                str_list_box_entry = self.listFeatureCodes.get(index)
+                # The pipe (|) is the delimiter between the number (which is lfc index + 1) and feature code (e.g. 1| a3)
+                str_entry = [x.strip() for x in str_list_box_entry.split('|')]  # Use strip to remove spaces
+                print(str_entry)
+                lfc_index = int(str_entry[0]) - 1  # The real list index starts at 0
+                feat_code = self.list_feature_codes[lfc_index]  # Equivalent to str_entry[1]
+
+                # list_inclusive_DTPairs = self.dict_Significant_DTPairs[feat_code]
+                self.list_selected_features.append(feat_code)
+
+            self.dict_selected_features = collections.OrderedDict({k: self.dict_Significant_DTPairs[k] for k in (self.list_selected_features)})
+
+            print(self.dict_selected_features)
+
+        # print("CHECK 1")
         return "break"
+
+
+    '''
+        Update Feature Group List (Listbox #2) with the values of the dictionary.
+        Write the parent feature code (instead of the integer) on the left side of the
+        pipe (|).
+    '''
+    def updateFeatureGroupList(self):
+        self.listFeatureGroups.delete(0, END)  # Empty the listbox before adding
+
+        for feat_code, dt_pairs in self.dict_selected_features.items():
+            str_entry = UICS.PRE_LIST + feat_code + "| " + dt_pairs
+            self.listFeatureGroups.insert(END, str_entry)
+
 
     def queryAddFilterB(self, evt):
         self.isReadyDatasetB = False

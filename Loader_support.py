@@ -345,12 +345,13 @@ def loadCSVResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH)
     excelFiles = glob.glob(path_import + "*.csv")
     dict_output = collections.OrderedDict(())
     for excelFile in excelFiles:
-        key = os.path.splitext(os.path.basename(excelFile))[0]
-        key = key.replace("UI Result - ", "")
-        dict_table = collections.OrderedDict()
         with open(excelFile, mode = 'r') as infile:
+
+            key = os.path.splitext(os.path.basename(excelFile))[0]
+            key = key.replace("UI Result - ", "")
+            dict_table = collections.OrderedDict()
+
             reader = csv.reader(infile)
-            dictionary = collections.OrderedDict()
             i_row = 0
             ref_row = None  # The row reference for keys
             for row in reader:
@@ -364,12 +365,11 @@ def loadCSVResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH)
                     i_value = 0
                     for value in row:
                         dict_table[value.strip()] = []
-                        print(value)
                         i_value = i_value + 1
                     ref_row = row
                 i_row = i_row + 1
 
-        dict_output[key] = dict_table
+            dict_output[key] = dict_table
 
     # for key, value in dict_output.items():
     #     print("key " + key)
