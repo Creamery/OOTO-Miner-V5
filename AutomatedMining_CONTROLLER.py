@@ -429,7 +429,6 @@ class AutomatedMining_Controller:
         self.dropQueryLeft.selection_clear()
 
         self.dataset_pair_left = str(event.widget.get()).strip()
-        print(self.dataset_pair_left)
 
         if self.dataset_pair_left is not None:
             self.addToResultTable(self.RESULT_LEFT, self.dataset_pair_left)
@@ -442,8 +441,10 @@ class AutomatedMining_Controller:
         # print('var.get():', self.var.get())
         self.dropQueryRight.selection_clear()
 
-        # if event:
-        #     print('event.widget.get():', event.widget.get())
+        self.dataset_pair_right = str(event.widget.get()).strip()
+
+        if self.dataset_pair_right is not None:
+            self.addToResultTable(self.RESULT_RIGHT, self.dataset_pair_right)
 
 
     ''' Load existing Pickle file '''
@@ -1023,7 +1024,9 @@ class AutomatedMining_Controller:
         separator = "|"
 
         # Print column names
-        entry = " FEAT" + separator + "PVAL"
+        entry = "  FC " + separator + \
+                "D1:a" + separator + "D1:b" + separator + "D2:a" + separator + "D2:b" + separator + \
+                "E1:a" + separator + "E1:b" + separator + "E2:a" + separator + "E2:b"
 
         if table_code is self.RESULT_LEFT:
             self.listResultsLeft.insert(END, entry)
@@ -1033,19 +1036,70 @@ class AutomatedMining_Controller:
 
 
         for i in range(len_columns):
-            entry = " "
+            entry = ""
 
             feat_code = col_features[i].strip()
             len_feat_code = len(feat_code)
             if len_feat_code < 3:
-                feat_code = feat_code + " "
+                feat_code = " " + feat_code
 
-            entry = entry + " " + feat_code + separator
-            entry = entry + str(round(float(col_pval[i]), 2))
-            # entry = entry + col_observed[i]
+            entry = entry + " " + feat_code + " " + separator
+
+            # pval = str(col_pval[i])
+            # len_pval = len(pval)
+            # if len_pval < 8:
+            #     difference = 8 - len_pval
+            #     pval = pval + " " * difference
+            #
+            # entry = entry + str(pval) + separator
+
+            observed = ""
+            raw_col_observed = col_observed[i]
+            raw_col_observed = raw_col_observed.split(';')
+            for str_item in raw_col_observed:
+                str_item = str_item.strip()
+                str_item = str_item.replace("[", "").strip()
+                str_item = str_item.replace("]", "").strip()
+                single_items = str_item.split(" ")
+
+                single_items = filter(None, single_items)
+                for str_single in single_items:
+
+                    str_single = str_single.strip()
+                    len_str_single = len(str_single)
+                    if len_str_single < 4:
+                        difference = 4 - len_str_single
+                        str_single = str_single + " " * difference
+                    observed = observed + str_single + separator
+
+            entry = entry + observed
+
+
             # entry = entry + col_expected[i]
-            print(entry)
-            print("")
+            expected = ""
+            raw_col_expected = col_expected[i]
+            raw_col_expected = raw_col_expected.split(';')
+            for str_item in raw_col_expected:
+                str_item = str_item.strip()
+                str_item = str_item.replace("[", "").strip()
+                str_item = str_item.replace("]", "").strip()
+                single_items = str_item.split(" ")
+
+                single_items = filter(None, single_items)
+                for str_single in single_items:
+
+                    str_single = str_single.strip()
+                    i_single = float(str_single)
+                    str_single = str(math.trunc(i_single))
+
+                    len_str_single = len(str_single)
+                    if len_str_single < 4:
+                        difference = 4 - len_str_single
+                        str_single = str_single + " " * difference
+                    expected = expected + str_single + separator
+
+            entry = entry + expected
+
             if table_code is self.RESULT_LEFT:
                 self.listResultsLeft.insert(END, entry)
 
@@ -1053,12 +1107,6 @@ class AutomatedMining_Controller:
                 self.listResultsRight.insert(END, entry)
 
 
-            # print(entry)
-            # if table_code is self.RESULT_LEFT:
-            #     self.listResultsLeft.insert(END, entry)
-            #
-            # elif table_code is self.RESULT_RIGHT:
-            #     self.listResultsRight.insert(END, entry)
 
 
 

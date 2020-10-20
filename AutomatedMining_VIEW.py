@@ -1367,8 +1367,8 @@ class AutomatedMining_View:
             selectmode = SINGLE, exportselection = "0",
             activestyle = "none",
             selectbackground = CS.PALE_PLUM,
-            selectforeground = CS.PLUM_PURPLE,
-            font = US.FONT_AM_LISTBOX,
+            selectforeground = CS.D_BLUE,
+            font = US.FONT_AM_RESULTS,
             bd = US.FILTER_LISTBOX_BORDER, relief = US.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
         )
@@ -1415,9 +1415,9 @@ class AutomatedMining_View:
             background = CS.PROCESS_LISTBOX_BG, foreground = CS.PROCESS_LISTBOX_FG,
             selectmode = MULTIPLE, exportselection = "0",
             activestyle = "none",
-            selectbackground = CS.PROCESS_LISTBOX_SELECTED_ITEM_BG,
-            selectforeground = CS.PROCESS_LISTBOX_SELECTED_ITEM_FG,
-            font = US.FONT_AM_LISTBOX,
+            selectbackground = CS.PALE_PLUM,
+            selectforeground = CS.D_BLUE,
+            font = US.FONT_AM_RESULTS,
             bd = US.FILTER_LISTBOX_BORDER, relief = US.FILTER_LISTBOX_RELIEF,
             highlightthickness = 0
         )
