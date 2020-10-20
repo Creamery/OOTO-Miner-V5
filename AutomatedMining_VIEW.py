@@ -413,7 +413,7 @@ class AutomatedMining_View:
         self.lblStatusSourceFolder.configure(
             background = CS.PROCESS_LISTBOX_STATUS_BG, foreground = CS.PROCESS_LISTBOX_STATUS_FG,
             bd = US.SELECT_STATUS_LABEL_BORDER, relief = US.SELECT_STATUS_LABEL_RELIEF,
-            text = "EXTRACT SIGNIFICANT FEATURES",
+            text = "SIGNIFICANT FEATURES",
             font = US.SELECT_STATUS_LABEL_FONT,
         )
         if US.SELECT_STATUS_LABEL_TOP_SEPARATOR:
@@ -641,7 +641,7 @@ class AutomatedMining_View:
         self.lblSelectedFeatureTitle.configure(
             font = US.FONT_DEFAULT_BOLD,
             background = CS.FG_COLOR, foreground = CS.PROCESS_BG,
-            text = '''SELECTION'''
+            text = '''SELECTED'''
         )
         # endregion
 
@@ -942,22 +942,22 @@ class AutomatedMining_View:
             background = CS.PROCESS_BG
         )
 
-        self.labelQueryDataBCount = Label(self.labelFrameQueryCountB)
-        self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1,
-                                        relheight = US.TAB_TEST_SELECT_COUNT_REL_H)
-        self.labelQueryDataBCount.configure(
+        self.lblSelectedGroupCount = Label(self.labelFrameQueryCountB)
+        self.lblSelectedGroupCount.place(relx = 0, rely = 0, relwidth = 1,
+                                         relheight = US.TAB_TEST_SELECT_COUNT_REL_H)
+        self.lblSelectedGroupCount.configure(
             font = US.FONT_LARGE_BOLD,
             background = CS.PROCESS_BG,
             text = str(0)
         )
         self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
         self.labelQueryDataBCountText.place(
-            relx = 0, rely = FS.getRelH(self.labelQueryDataBCount),
+            relx = 0, rely = FS.getRelH(self.lblSelectedGroupCount),
             relwidth = 1, relheight = US.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
         self.labelQueryDataBCountText.configure(
             font = US.FONT_DEFAULT_BOLD,
             background = CS.FG_COLOR, foreground = CS.PROCESS_BG,
-            text = '''RESULTS'''
+            text = '''SELECTED'''
         )
 
         # Create the left separator
@@ -1154,7 +1154,7 @@ class AutomatedMining_View:
             relwidth = 0.98, relheight = 0.95)
         self.labelQueryFeature.configure(
             background = CS.PROCESS_LABEL_BG, foreground = CS.PROCESS_LABEL_FG,
-            text = US.FILTER_LABEL_QUERY_FEATURE_TEXT,
+            text = '''Filter Groups''',
             font = US.FILTER_LABEL_FONT,
             bd = 0, relief = FLAT,
         )
@@ -1310,8 +1310,8 @@ class AutomatedMining_View:
         )
 
         # QUERY BOTTOM STRIPES
-        self.labelFilterStripes = Label(self.labelFrameFilterListData, bd = 1, relief = GROOVE)
-        self.labelFilterStripes.place(
+        self.lblFilterResultStripes = Label(self.labelFrameFilterListData, bd = 1, relief = GROOVE)
+        self.lblFilterResultStripes.place(
             relx = FS.getRelX(self.labelFrameFilterListDataA),
             rely = FS.getRelY(self.labelFrameFilterListDataA),
             relwidth = 1,
@@ -1323,11 +1323,11 @@ class AutomatedMining_View:
         im = PIL.Image.open(
             Icon_support.TEXTURE_STRIPE_PLUM)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
-        self.labelFilterStripes.configure(
+        self.lblFilterResultStripes.configure(
             image = texture_orange_stripes,
             anchor = SW
         )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.labelFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
+        self.lblFilterResultStripes.image = texture_orange_stripes  # < ! > Required to make images appear
 
         # FILTER BORDERS
         self.separatorFilterListDataA = Label(self.labelFrameFilterListDataA)
@@ -1474,7 +1474,7 @@ class AutomatedMining_View:
             # relheight = FS.getRelH(self.labelFrameFilterListDataA) + FS.getRelH(self.labelOverlayFilterQueryData))
             relheight = FS.getRelH(self.labelFrameFilterListDataA) +
                         FS.getRelH(self.labelOverlayFilterQueryData) +
-                        FS.getRelH(self.labelFilterStripes) - 0.018)
+                        FS.getRelH(self.lblFilterResultStripes) - 0.018)
 
         self.labelOverlayFilterListDataA.configure(
             background = CS.FILTER_LISTBOX_OVERLAY_BG,
@@ -2720,8 +2720,8 @@ class AutomatedMining_View:
     def getLabelFrameFilterListData(self):
         return self.labelFrameFilterListData
 
-    def getLabelFilterStripes(self):
-        return self.labelFilterStripes
+    def getLblFilterResultStripes(self):
+        return self.lblFilterResultStripes
 
     def getLblStatusSourceFolder(self):
         return self.lblStatusSourceFolder
@@ -2737,8 +2737,8 @@ class AutomatedMining_View:
     def getLblSelectedFeatureCount(self):
         return self.lblSelectedFeatureCount
 
-    def getLabelQueryDataBCount(self):
-        return self.labelQueryDataBCount
+    def getLblSelectedGroupCount(self):
+        return self.lblSelectedGroupCount
 
     def getEntrySourceFolderFilename(self):
         return self.entrySourceFolderFilename

@@ -70,16 +70,18 @@ class AutomatedMining_Controller:
         self.dict_result_data = None  # To be initialized by loadSourceFolder()
         self.list_feature_codes = None
         self.list_feature_codes_original = None
-        self.prev_selection = 0
+        self.prev_selection_feature_codes = 0
+        self.prev_selection_feature_groups = 0
         self.dict_Significant_DTPairs = None
         self.list_selected_features = None  # Initialized by addFeature() (Or the function for Check #1)
         self.dict_selected_features = None  # The basis for Feature Groups (a.k.a Listbox # 2)
 
+        self.list_selected_feature_groups = None  # Contains all dataset pairs for the selected significant features
 
         self.configureTestTabBindings()
         self.initializeVariables()
 
-        self.disableFilter()
+        self.disableListResultTable()
 
     def setArrQueryCriticalValue(self, arrayValue):
         self.arrQueryCriticalValue = arrayValue
@@ -122,7 +124,7 @@ class AutomatedMining_Controller:
         self.datasetCountA = len(self.datasetA['Data'])
         self.datasetCountB = len(self.datasetB['Data'])
         self.lblSelectedFeatureCount.configure(text = str(0))
-        self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
+        self.lblSelectedGroupCount.configure(text = self.getDatasetCountB())
 
         # self.queryResetDatasetA(None)
         # self.queryResetDatasetB(None)
@@ -162,7 +164,7 @@ class AutomatedMining_Controller:
         self.datasetCountB = 0
 
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-        self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
+        self.lblSelectedGroupCount.configure(text = self.getDatasetCountB())
 
         print "UPLOADED"
         return True
@@ -175,7 +177,7 @@ class AutomatedMining_Controller:
         # LABEL FRAMES
         self.labelOverlayFilterListData = self.view.getLabelOverlayFilterListData()
         self.labelFrameFilterListData = self.view.getLabelFrameFilterListData()
-        self.labelFilterStripes = self.view.getLabelFilterStripes()
+        self.lblFilterResultStripes = self.view.getLblFilterResultStripes()
         self.lblStatusSourceFolder = self.view.getLblStatusSourceFolder()
         self.labelQuerySetDataStatusB = self.view.getLabelQuerySetDataStatusB()
         self.lblStripesFeatureCodes = self.view.getLblStripesFeatureCodes()
@@ -192,7 +194,7 @@ class AutomatedMining_Controller:
         self.labelConsoleScreenTaskBar = self.view.getLabelConsoleScreenTaskBar()
 
         self.lblSelectedFeatureCount = self.view.getLblSelectedFeatureCount()
-        self.labelQueryDataBCount = self.view.getLabelQueryDataBCount()  # TODO Feature Groups
+        self.lblSelectedGroupCount = self.view.getLblSelectedGroupCount()
 
         # LISTBOXES
         self.listFeatureCodes = self.view.getListFeatureCodes()
@@ -212,8 +214,8 @@ class AutomatedMining_Controller:
         self.labelFrameProcessChangeLevel = self.view.getLabelFrameProcessChangeLevel()
         self.labelFrameProcessChangeCrossType = self.view.getLabelFrameProcessChangeCrossType()
 
-        self.btnLoadPickle = self.view.getBtnLoadPickle()
-        self.btnLoadPickle.bind('<Button-1>', self.loadSourceFolder)  # TODO When find is pressed, find pickle file
+        self.btnLoadSource = self.view.getBtnLoadPickle()
+        self.btnLoadSource.bind('<Button-1>', self.loadSourceFolder)  # TODO When find is pressed, find pickle file
         self.buttonQuerySetDataB = self.view.getButtonQuerySetDataB()  # TODO Might remove
         self.buttonQuerySetDataB.bind('<Button-1>', self.querySetDataB)
 
@@ -306,8 +308,8 @@ class AutomatedMining_Controller:
                                          lambda event: self.selectConsoleEntry(event, self.listConsoleQueueScreen))
 
         # ENTER / LEAVE
-        self.btnLoadPickle.bind("<Enter>", self.enterRightArrowPlainIcon)
-        self.btnLoadPickle.bind("<Leave>", self.leaveRightArrowPlainIcon)
+        self.btnLoadSource.bind("<Enter>", self.enterRightArrowPlainIcon)
+        self.btnLoadSource.bind("<Leave>", self.leaveRightArrowPlainIcon)
 
         self.buttonQuerySetDataB.bind("<Enter>", self.enterRightArrowPlainIcon)
         self.buttonQuerySetDataB.bind("<Leave>", self.leaveRightArrowPlainIcon)
@@ -440,6 +442,8 @@ class AutomatedMining_Controller:
             print(key_DTPair)
             print(feature_codes)
             print("")
+            feature_codes = sorted(feature_codes)  # Sort feature codes
+            print(feature_codes)
             # Update list of feature codes
             for feature_code in feature_codes:  # Parse that array and check if each single feature has been recorded
                 if feature_code not in self.list_feature_codes:
@@ -456,8 +460,9 @@ class AutomatedMining_Controller:
 
         # print(self.dict_Significant_DTPairs)
 
-        # Remove previous listbox entry
-        self.resetSelectedFeatureCodes(None)
+        # Remove previous listbox entries from all other listboxes
+        self.clearAllFeatureListsBoxes(None)
+
         # Add the new features to the listbox (listFeatureCodes)
         for i_feature_code in range(len(self.list_feature_codes)):
             feature_code = self.list_feature_codes[i_feature_code]
@@ -473,36 +478,6 @@ class AutomatedMining_Controller:
         # return list_features
 
 
-
-
-
-            # data_columns = dict_result_data[key]
-            # print(type(dict_result_data))
-            # for column in data_columns.items():
-            #     print column
-        #     for feature_codes in split_keys:
-        #         features = feature_codes.split(")")
-        #         for feature in features:
-        #             # current_feature = feature.strip()
-        #             if len(feature) > 1:
-        #                 current_feature = feature + ")"  # Put back the split character
-        #
-        #                 # If the feature is not yet added, append it
-        #                 if current_feature.strip() not in self.list_feature_codes:
-        #                     self.list_feature_codes.append(current_feature.strip())
-        #
-        # self.list_feature_codes.sort()
-        # self.list_feature_codes_original = copy.deepcopy(self.list_feature_codes)
-        # for i_accepted in range(len(self.list_feature_codes)):
-        #     feature = self.list_feature_codes[i_accepted]
-        #
-        #     accepted = i_accepted + 1
-        #     str_accepted = str(accepted)
-        #     if accepted < 10:
-        #         str_accepted = "  " + str_accepted
-        #     str_entry = UICS.PRE_LIST + str_accepted + "| " + feature
-        #     self.listFeatureCodes.insert(END, str_entry)
-        # # return list_features
 
     '''
     Finds the feature and displays its responses.
@@ -640,55 +615,36 @@ class AutomatedMining_Controller:
         return "break"
 
     def resetSelectedFeatureCodes(self, evt):
-        # print("RESET SELECTED FEATURE CODES")
         # Reset stripe
         self.setStripeReady(False, self.lblStripesFeatureCodes)
 
-        # Deselect all selected items/inidices
+        # Deselect all selected items/indices
         selected = self.listFeatureCodes.curselection()
         for index in selected[::-1]:
-            self.listFeatureCodes.delete(index)
+            self.listFeatureCodes.selection_clear(index)
 
         # Reset selected count label
         selection_count = len(self.listFeatureCodes.curselection())
         self.lblSelectedFeatureCount.configure(text = str(selection_count))
 
-        '''
-        self.isReadyDatasetA = False  # When a dataset is reset, it is not ready
-        self.checkIfDatasetReady()  # Update dataset status accordingly
-        self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
-
-        self.buttonQueryResetFilterA.configure(relief = FLAT)
-
-        self.datasetA = self.resetDataset()
-        self.entryQuerySetDataA.configure(text = '')
-        self.entryQueryFeature.configure(text = '')
-        self.labelQuerySetDataStatusA.configure(
-            text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-            background = CS.SELECT_LISTBOX_STATUS_BG,
-            foreground = CS.SELECT_LISTBOX_STATUS_FG
-        )
-
-        # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
-        # self.labelQuerySetDataStatusA.configure(text = UI_support.LBL_SELECT_NO_DATA)
-
-        # if self.datasetA['Data'] is []:
-
-        self.datasetCountA = 0  # len(self.datasetA['Data'])
-        self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-        # self.labelQueryDataACount.configure(text = "" + str(len(self.datasetA['Data']))) ### TODO
-
-        # Empty FILTER details of BOTH A and B
-        self.queryResetFilterDetails(evt)
-        self.listFeatureCodes.delete(0, END)
-        '''
+        # print("CROSS 1")
         return "break"
 
     def resetSelectedFeatureGroups(self, evt):
-        print("RESET SELECTED FEATURE GROUPS")
-
-        self.listFeatureGroups.delete(0, END)  # Delete everything from Feature Code listbox
+        # Reset stripe
         self.setStripeReady(False, self.lblStripeFeatureGroups)
+        self.disableListResultTable()  # Close result table
+
+        # Deselect all selected items/indices
+        selected = self.listFeatureGroups.curselection()
+        for index in selected[::-1]:
+            self.listFeatureGroups.selection_clear(index)
+
+        # Reset selected count label
+        selection_count = len(self.listFeatureGroups.curselection())
+        self.lblSelectedGroupCount.configure(text = str(selection_count))
+
+        # print("CROSS 2")
 
         '''
         self.isReadyDatasetB = False  # When a dataset is reset, it is not ready
@@ -717,36 +673,67 @@ class AutomatedMining_Controller:
         '''
         return "break"
 
+    def clearAllFeatureListsBoxes(self, evt):
+        self.clearAllFeatureCodes(None)
+        self.clearAllFeatureGroups(None)
+
+    def clearAllFeatureCodes(self, evt):
+        # Reset stripe
+        self.setStripeReady(False, self.lblStripesFeatureCodes)
+
+        # Clear connected variables
+        self.list_selected_features = []
+
+        # Delete all contents
+        self.listFeatureCodes.delete(0, END)
+        self.dict_selected_features = collections.OrderedDict()
+
+        # Reset selected count zero
+        self.lblSelectedFeatureCount.configure(text = str(0))
+
+
+    def clearAllFeatureGroups(self, evt):
+        # Reset stripe
+        self.setStripeReady(False, self.lblStripeFeatureGroups)
+
+        # Clear all connected variables
+        self.list_selected_feature_groups = []
+
+        # Delete all contents
+        self.listFeatureGroups.delete(0, END)
+
+        # Reset selected count zero
+        self.lblSelectedGroupCount.configure(text = str(0))
+
+
     def querySelectedFeatureCodes(self, evt):  # TODO List box function 1
-        print("QUERY SELECTED FEATURE CODES")
+
         # Update Selection Count
         selection_count = len(self.listFeatureCodes.curselection())
 
         self.lblSelectedFeatureCount.configure(text = str(selection_count))
-        if selection_count != self.prev_selection:
+        if selection_count != self.prev_selection_feature_codes:
             self.setStripeReady(False, self.lblStripesFeatureCodes)  # Change stripe color
 
-        self.prev_selection = selection_count
+        self.prev_selection_feature_codes = selection_count
 
-        '''
-        self.isReadyDatasetA = False  # When a listbox element is de/selected, mark the dataset as not ready
-        self.checkIfDatasetReady()  # Update dataset status accordingly
-        self.setDatasetStripeReady(False, self.labelQuerySetDataStripesA)
+        # print("ON LIST SELECT 1")
 
-        # self.datasetCountA = selectDatasetValues(evt, self.datasetA, self.populationDataset)
-
-        # Do search in populationDatasetOriginal, not filtered dataset A
-        # selectDatasetValues(evt, self.datasetA)
-        self.datasetCountA = FS.selectDatasetValues(evt, self.populationDatasetOriginalA)
-
-        print ("Pop Dataset A" + str(len(self.populationDatasetOriginalA['Data'])))
-        print ("Dataset A" + str(len(self.datasetA['Data'])))
-
-        self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-        '''
 
     def querySelectedFeatureGroups(self, evt):  # TODO List box function 2
-        print("QUERY SELECTED FEATURE GROUPS")
+        # Update Selection Count
+        selection_count = len(self.listFeatureGroups.curselection())
+
+        self.lblSelectedGroupCount.configure(text = str(selection_count))
+        if selection_count != self.prev_selection_feature_groups:
+            self.setStripeReady(False, self.lblStripeFeatureGroups)  # Change stripe color
+            self.disableListResultTable()  # Close result table
+        self.prev_selection_feature_groups = selection_count
+
+        # print("ON LIST SELECT 2")
+
+
+
         '''
         self.isReadyDatasetB = False  # When a listbox element is de/selected, mark the dataset as not ready
         self.checkIfDatasetReady()  # Update dataset status accordingly
@@ -799,18 +786,29 @@ class AutomatedMining_Controller:
             self.setStripeReady(True, self.lblStripesFeatureCodes)  # Change stripe color to indicate input accepted
 
             self.list_selected_features = []
+            list_selectedFeatureCodes = sorted(list_selectedFeatureCodes)
+
             for index in list_selectedFeatureCodes:  # Loop through each selected index
                 str_list_box_entry = self.listFeatureCodes.get(index)
                 # The pipe (|) is the delimiter between the number (which is lfc index + 1) and feature code (e.g. 1| a3)
                 str_entry = [x.strip() for x in str_list_box_entry.split('|')]  # Use strip to remove spaces
-                print(str_entry)
                 lfc_index = int(str_entry[0]) - 1  # The real list index starts at 0
                 feat_code = self.list_feature_codes[lfc_index]  # Equivalent to str_entry[1]
 
                 # list_inclusive_DTPairs = self.dict_Significant_DTPairs[feat_code]
                 self.list_selected_features.append(feat_code)
 
-            self.dict_selected_features = collections.OrderedDict({k: self.dict_Significant_DTPairs[k] for k in (self.list_selected_features)})
+            print self.list_selected_features
+            self.list_selected_features.sort()
+            print(""
+                  ""
+                  "")
+            print self.list_selected_features
+            self.dict_selected_features = collections.OrderedDict()
+            for feature in self.list_selected_features:
+                self.dict_selected_features[feature] = self.dict_Significant_DTPairs[feature]
+
+            # self.dict_selected_features = collections.OrderedDict({k: self.dict_Significant_DTPairs[k] for k in (self.list_selected_features)})
 
             print(self.dict_selected_features)
             self.updateFeatureGroupList()
@@ -825,7 +823,7 @@ class AutomatedMining_Controller:
     '''
     def updateFeatureGroupList(self):
         self.listFeatureGroups.delete(0, END)  # Empty the listbox before adding
-
+        self.list_selected_feature_groups = []
         for feat_code, dt_pairs in self.dict_selected_features.items():
             len_feat_code = len(feat_code)
             if len_feat_code < 3:  # Add a space before the feature code if its length is less than 3
@@ -834,6 +832,7 @@ class AutomatedMining_Controller:
             str_entry_index = UICS.PRE_LIST + feat_code + "| "
             for dt_pair in dt_pairs:
                 str_entry = str_entry_index + dt_pair
+                self.list_selected_feature_groups.append(dt_pairs)  # Contains all dataset pairs for the selected significant features
                 self.listFeatureGroups.insert(END, str_entry)
 
 
@@ -916,13 +915,15 @@ class AutomatedMining_Controller:
             )
             self.setStripeReady(True, self.lblStripeFeatureGroups)
 
-        # print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
-        # print ("Dataset B COUNT IS " + str(self.datasetCountB))
-        # print ("")
         return "break"
 
     def compareSelectedFeatureGroups(self, evt):
-        print("CHECK 2")
+        list_selectedFeatureGroups = self.listFeatureGroups.curselection()  # Right statement returns indices
+        len_selected_groups = len(list_selectedFeatureGroups)
+        if len_selected_groups > 0:  # If selection is not empty
+            self.setStripeReady(True, self.lblStripeFeatureGroups)  # Change stripe color to indicate input accepted
+            self.enableListResultTable()  # Show result table if input is accepted
+        # print("CHECK 2")
         return "break"
 
         '''
@@ -1102,7 +1103,7 @@ class AutomatedMining_Controller:
         # TODO Enable in Thread
         # tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
 
-        self.enableFilter()
+        self.enableListResultTable()
         return "break"
 
 
@@ -1244,7 +1245,7 @@ class AutomatedMining_Controller:
         # self.entryQueryFeatureB.configure(text = '')
         if self.datasetB is not []:
             self.datasetCountB = len(self.datasetB['Data'])
-            self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
+            self.lblSelectedGroupCount.configure(text = self.getDatasetCountB())
         self.lblSelectedFeatureGroupsTitle.configure(text = "")
         self.listQueryDataB.delete(0, END)
         self.listFeatureGroups.delete(0, END)
@@ -1561,19 +1562,19 @@ class AutomatedMining_Controller:
     def checkIfDatasetReady(self):
         if not self.isReadyDatasetA:  # If Dataset A is not ready
             # Clear and disable filter features option
-            self.disableFilter()
+            self.disableListResultTable()
             self.setDatasetStatusReady(False, self.lblStatusSourceFolder, self.lblStripesFeatureCodes)
 
         if not self.isReadyDatasetB:  # If Dataset B is not ready
             # Clear and disable filter features option
-            self.disableFilter()
+            self.disableListResultTable()
             self.setDatasetStatusReady(False, self.labelQuerySetDataStatusB, self.lblStripeFeatureGroups)
 
         if self.isReadyDatasetA and self.isReadyDatasetB:  # If both are ready
             # Enable filter feature option
-            self.enableFilter()
+            self.enableListResultTable()
 
-    def disableFilter(self):
+    def disableListResultTable(self):
         # Clear filter results
         event = None
         self.queryResetFilterDetails(event)
@@ -1600,9 +1601,9 @@ class AutomatedMining_Controller:
             relheight = UI_support.getRelH(self.labelFrameFilterListData))
 
         # Change stripe color
-        self.setFilterStripeReady(False, self.labelFilterStripes)
+        self.setFilterStripeReady(False, self.lblFilterResultStripes)
 
-    def enableFilter(self):
+    def enableListResultTable(self):
         # Enable entry
         self.entryQueryFeature.configure(
             state = NORMAL
@@ -1623,7 +1624,7 @@ class AutomatedMining_Controller:
             relwidth = 0, relheight = 0)
 
         # Change stripe color
-        self.setFilterStripeReady(False, self.labelFilterStripes)
+        self.setFilterStripeReady(False, self.lblFilterResultStripes)
 
     def setDatasetStatusReady(self, isReady, statusWidget, stripeWidget):
         if isReady:
