@@ -1,4 +1,17 @@
 # -*- coding: utf-8 -*-
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+
+'''
+    A script used for the original Manual Mining system.
+    See the original notes by the creator below.
+    [Candy]
+'''
+
+
 """
 Created on Tue Feb 20 11:03:29 2018
 

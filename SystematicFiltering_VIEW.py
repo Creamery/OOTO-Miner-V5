@@ -6,11 +6,16 @@ Systematic Filtering User Interface
 """
 
 __author__ = ["Candy Espulgar"]
-
-__copyright__ = "Copyright 2019, TE3D House"
-__credits__ = ["Arnulfo Azcarraga"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
 __version__ = "3.0"
 
+'''
+    This script handles the creation and placement of all
+    UI elements in the pop-up window that appears when the AM
+    module is run.
+    [Candy]
+'''
 
 try:
     from Tkinter import *
@@ -144,9 +149,6 @@ class SystematicFiltering_View(_Progressible):
                                                 [0, 0, 1, FS.stripeHeight], [True, False], IS.TEXTURE_STRIPE_GREY)
         FS.placeBelow(self.lblStripe, lblHeader)
 
-        # self.__lblGreyStripe = WS.createDefaultStripe(lblStripe, [0, 0, 1, 1],
-        #                                               [True, True], IS.TEXTURE_STRIPE_GREY)
-        # self.__lblGreyStripe.place(relwidth = 0)
 
         self.__lblGreenStripe = WS.createDefaultStripe(self.lblStripe, [0, 0, 0.999, 1],
                                                        [True, True], IS.TEXTURE_STRIPE_LIME)
@@ -333,7 +335,7 @@ class SystematicFiltering_View(_Progressible):
                           "may corrupt some output files."
         if isFinished:
             str_sub_message = "You can now load the exported\n" +\
-                              "pickle file for Sections 2 and 3."
+                              "UI Result files for Sections 2 and 3."
         self.lblSubMessage = WS.createDefaultHeader(self.lblBody,
                                                     str_sub_message,
                                                     [0, 0, 1, sub_message_rel_height], [True, True],

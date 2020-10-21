@@ -1,3 +1,16 @@
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+
+'''
+    The RFE MODULE.
+    Applies Recursive Feature Elimination (RFE) to the original dataset in
+    order to extract the first set of SSFs.
+    [Candy]
+'''
+
 import collections
 # Recursive Feature Elimination
 from sklearn.feature_selection import RFE
@@ -5,6 +18,7 @@ from sklearn.linear_model import LogisticRegression
 
 import UIConstants_support as UICS
 import time
+
 
 '''
 Returns a dictionary containing the Rankings as keys (1-3) and

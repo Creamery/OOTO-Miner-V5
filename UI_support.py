@@ -2,8 +2,16 @@
 {Description}
 Contains constant values for UI elements in OOTO.py
 """
-__author__ = "Candy"
-__copyright__ = "Copyright 2019, TE3D House"
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+
+'''
+    This script contains constant variables used for UI text values.
+    It is mainly used by the MM tab.
+    [Candy]
+'''
 
 
 # import Tkinter as tk

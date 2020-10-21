@@ -6,9 +6,8 @@ Systematic Filtering Controller
 """
 
 __author__ = ["Candy Espulgar"]
-
-__copyright__ = "Copyright 2019, TE3D House"
-__credits__ = ["Arnulfo Azcarraga"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
 __version__ = "3.0"
 
 '''

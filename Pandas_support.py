@@ -1,12 +1,19 @@
 
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+
+'''
+    Pandas support for the original Manual Mining system.
+    [Candy]
+'''
+
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
 
 import pandas as pd
-import numpy as np
 
-import csv
-import os
 
 
 """

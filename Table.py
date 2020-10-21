@@ -1,4 +1,13 @@
-import numpy as np
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+
+'''
+	A script used by the original Manual Mining system.
+	[Candy]
+'''
 
 class Table(object):
 
@@ -8,12 +17,7 @@ class Table(object):
 		header = [head]
 		header = header + keys
 		self.rows.append(header)
-		#print "Table keys"
-		#print keys
 
-		#print len(groups[0][keys[0]])
-
-		#print groups
 
 		for i  in range(0,len(groups)):
 			row = [i]

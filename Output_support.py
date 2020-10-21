@@ -1,12 +1,18 @@
 """
 {Description}
 Contains constant values used by the Output Module in OutputModule.py
-TODO : Separate export functions from various scripts into a single script called OutputModule.py
 """
-__author__ = "Candy"
-__copyright__ = "Copyright 2019, TE3D House"
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
 
-
+'''
+    Output support for the original Manual Mining
+    system. It is NOT the output module discussed in the paper.
+    That module can be found under Loader_support.
+    [Candy]
+'''
 # import enum
 
 class ChiTest:

@@ -12,9 +12,10 @@ __version__ = "3.0"
 
 '''
     This script is the main module for the Automated Mining (AM) UI.
-    It consolidates an AutomatedMining_View and AutomatedMining_Controller.
-    The _View script handles all UI elements while the _Controller script
-    handles its functionality,
+    It consolidates an AutomatedMining_View, AutomatedMining_View,
+    and AutomatedMining_Controller. The _View script handles all UI
+    elements, the _Model script handles the data shown by the _View,
+    and the _Controller script handles UI functionality.
     
     This is the class instantiated by the driver in order to create the
     AM tab in the UI.

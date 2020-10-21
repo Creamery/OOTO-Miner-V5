@@ -573,7 +573,7 @@ class AutomatedMining_Controller:
 
     def clearAllResultTables(self, evt):
         # Reset stripe
-        self.setStripeReady(False, self.lblResultTableStripes)
+        self.setStripeReady(False, self.lblResultTableStripes, False)
 
         # Clear all connected variables
         self.list_str_feature_groups = []
@@ -633,7 +633,7 @@ class AutomatedMining_Controller:
     def setLeftResultFocusValue(self, event):
         # Update BOTTOM LABEL
 
-        self.setStripeReady(False, self.lblResultTableStripes)  # Change stripe color
+        self.setStripeReady(False, self.lblResultTableStripes, False)  # Change stripe color
 
         i_selected = self.listResultsLeft.curselection()[0]
 
@@ -663,8 +663,7 @@ class AutomatedMining_Controller:
 
     def setRightResultFocusValue(self, event):
         # Update BOTTOM LABEL
-
-        self.setStripeReady(False, self.lblResultTableStripes)  # Change stripe color
+        self.setStripeReady(False, self.lblResultTableStripes, False)  # Change stripe color
 
         i_selected = self.listResultsRight.curselection()[0]
 
@@ -1378,7 +1377,8 @@ class AutomatedMining_Controller:
                 relief = UI_support.SELECT_LISTBOX_RELIEF
             )
 
-    def setStripeReady(self, isReady, stripeWidget):
+    def setStripeReady(self, isReady, stripeWidget, isOrange = True):
+
         if isReady:
             im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
             texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
@@ -1387,12 +1387,22 @@ class AutomatedMining_Controller:
             )
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE)
-            texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
-            stripeWidget.configure(
-                image = texture_orange_stripes
-            )
-            stripeWidget.image = texture_orange_stripes
+            if isOrange:
+                im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE)
+                texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
+                stripeWidget.configure(
+                    image = texture_orange_stripes
+                )
+                stripeWidget.image = texture_orange_stripes
+            else:
+
+                im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PLUM)
+                texture_plum_stripes = PIL.ImageTk.PhotoImage(im)
+                stripeWidget.configure(
+                    image = texture_plum_stripes
+                )
+                stripeWidget.image = texture_plum_stripes
+
 
 
     def setFilterStripeReady(self, isReady, stripeWidget):

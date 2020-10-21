@@ -1439,8 +1439,8 @@ class AutomatedMining_View:
         )
 
         # QUERY BOTTOM STRIPES
-        self.lblFilterResultStripes = Label(self.labelFrameFilterListData, bd = 1, relief = GROOVE)
-        self.lblFilterResultStripes.place(
+        self.lblResultStripes = Label(self.labelFrameFilterListData, bd = 1, relief = GROOVE)
+        self.lblResultStripes.place(
             relx = FS.getRelX(self.labelFrameFilterListDataA),
             rely = FS.getRelY(self.labelFrameFilterListDataA),
             relwidth = 1,
@@ -1449,14 +1449,13 @@ class AutomatedMining_View:
             # relheight = FS.getRelH(self.labelFrameFilterQueryData) * US.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER,
             anchor = NW
         )
-        im = PIL.Image.open(
-            Icon_support.TEXTURE_STRIPE_PLUM)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
-        self.lblFilterResultStripes.configure(
-            image = texture_orange_stripes,
+        im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PLUM)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        texture_purple_stripes = PIL.ImageTk.PhotoImage(im)
+        self.lblResultStripes.configure(
+            image = texture_purple_stripes,
             anchor = SW
         )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.lblFilterResultStripes.image = texture_orange_stripes  # < ! > Required to make images appear
+        self.lblResultStripes.image = texture_purple_stripes  # < ! > Required to make images appear
 
         # FILTER BORDERS
         self.separatorFilterListDataA = Label(self.labelFrameFilterListDataA)
@@ -1575,13 +1574,13 @@ class AutomatedMining_View:
         )
         im = PIL.Image.open(
             Icon_support.TEXTURE_STRIPE_PLUM)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
+        texture_purple_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelOverlayFilterStripes.configure(
-            image = texture_orange_stripes,
+            image = texture_purple_stripes,
             anchor = SW,
             bd = 0
         )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.labelOverlayFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
+        self.labelOverlayFilterStripes.image = texture_purple_stripes  # < ! > Required to make images appear
 
         # self.separatorOverlayFilterQueryData = ttk.Separator(self.labelOverlayFilterQueryData, orient = VERTICAL)
         # self.separatorOverlayFilterQueryData.place(relx = 0, rely = 0, relheight = 1)
@@ -1601,9 +1600,9 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.labelFrameFilterListDataA),
             # relheight = FS.getRelH(self.labelFrameFilterListDataA) + US.FILTER_LABEL_STRIPES_REL_H_REDUCTION)
             # relheight = FS.getRelH(self.labelFrameFilterListDataA) + FS.getRelH(self.labelOverlayFilterQueryData))
-            relheight = FS.getRelH(self.labelFrameFilterListDataA) +
-                        FS.getRelH(self.labelOverlayFilterQueryData) +
-                        FS.getRelH(self.lblFilterResultStripes) - 0.018)
+            relheight =FS.getRelH(self.labelFrameFilterListDataA) +
+                       FS.getRelH(self.labelOverlayFilterQueryData) +
+                       FS.getRelH(self.lblResultStripes) - 0.018)
 
         self.labelOverlayFilterListDataA.configure(
             background = CS.FILTER_LISTBOX_OVERLAY_BG,
@@ -2859,7 +2858,7 @@ class AutomatedMining_View:
         return self.labelFrameFilterListData
 
     def getLblFilterResultStripes(self):
-        return self.lblFilterResultStripes
+        return self.lblResultStripes
 
     def getLblStatusSourceFolder(self):
         return self.lblStatusSourceFolder

@@ -1,5 +1,16 @@
 
-import collections
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+
+'''
+    This script provides necessary constants for the AM
+    tab. It is also used in the main Automated Mining
+    process.
+    [Candy]
+'''
+
 
 # Constants for Automated Mining
 # For RFE
