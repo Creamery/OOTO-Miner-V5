@@ -55,7 +55,7 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
-import Loader_support as LS
+import _Loader_support as LS
 import UIConstants_support as UICS
 
 import AutomatedMining_RUN as AM_R
@@ -451,7 +451,7 @@ class AutomatedMining_Controller:
                 self.addToListFeatureCode(self.dict_results)
             else:
                 tkMessageBox.showerror("Error: File not found",
-                                       "Please place the input file in <\"_output/Pickle Results\"> and try again.")
+                                       "Please place UI Result.csv files in | _output/" + self.entrySourceFolderFilename.get() + "/ | and try again.")
 
 
         return "break"

@@ -13,7 +13,7 @@ from clean import ColConverter
 import Output_support as out
 from collections import OrderedDict
 
-import Loader_support as LS
+import _Loader_support as LS
 
 class ChiTest:
     # Singleton

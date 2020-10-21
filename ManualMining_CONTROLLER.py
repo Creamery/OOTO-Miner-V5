@@ -53,7 +53,7 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
-import Loader_support as LS
+import _Loader_support as LS
 
 class ManualMining_Controller:
 
