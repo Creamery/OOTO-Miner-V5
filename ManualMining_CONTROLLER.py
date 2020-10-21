@@ -149,7 +149,8 @@ class ManualMining_Controller:
         self.labelQueryDataACount.configure(text = self.getDatasetCountA())
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
-        # print "UPLOADED"
+
+        self.addToConsole("Dataset successfully uploaded!", self.listConsoleScreen)
         return True
 
     def configureTestTabBindings(self):
@@ -964,8 +965,11 @@ class ManualMining_Controller:
 
         if (queryType_gl == 'Sample vs Sample'):  # TODO Remove this condition?
             self.addToQueue(queryType_gl, datasetArgs = datasets)
+            self.addToConsole("\nTest added to queue", self.listConsoleScreen)
+            self.addToConsole("\nTest added to queue", self.listConsoleQueueScreen)
         else:
             tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
+
         return "break"
 
     ''' Conducts all of the chi-tests in the queue (RUN MINER) '''
@@ -1020,29 +1024,22 @@ class ManualMining_Controller:
                 # TODO Check if you need this removed
                 if not (os.path.isfile("Updated-Variables.csv")):
                     FS.makeUpdatedVariables(features_gl, "Updated-Variables.csv")
+                    self.addToConsole("\nCreated Updated-Variables.csv", self.listConsoleScreen)
 
                 # saveFile = ct.chiTest(fileNames)
 
                 saveFile = chiTest.chiTest(fileNames, queueNum)
                 print ("saveFile is " + saveFile)
 
+                self.addToConsole("\nQ" + queueNum + "Chi-test complete", self.listConsoleChiSquareScreen)
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
-                # self.listQueryDataB.insert(END, tempString) #### TODO Put this somewhere else (CONSOLE)
                 # removeFiles(fileNames) # TODO This removes the intermediate tables
 
-                # print functions TODO remove
-                # if i == 1:
-                #     print "test type is "
-                #     print str(type(test))
-                #     # print "test = "
-                #     # print str(tests)
-                #     # print "test['Datasets'][0] = "
-                #     # print str(test['Datasets'][0])
 
-        # print "Contents of Features are "
-        # print str(features)
 
         tkMessageBox.showinfo("Test Queue Complete", "All of the tests in the queue have been completed.")
+        self.addToConsole("\nTest Queue Complete!", self.listConsoleScreen)
+        self.addToConsole("\nTest Queue Complete!", self.listConsoleQueueScreen)
         return "break"
 
     ''' Clears the tests in the queue. '''
@@ -1297,7 +1294,7 @@ class ManualMining_Controller:
         # Reconfigure tag settings
         consoleScreen.tag_configure(const.CONSOLE.SELECT,
                                     background = CS.CYAN,
-                                    foreground = CS.WHITE
+                                    foreground = CS.D_BLUE
                                     )
 
         # Get current insert index
