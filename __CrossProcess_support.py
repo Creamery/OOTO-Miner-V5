@@ -20,8 +20,8 @@ import collections
 
 import __Loader_support as LS
 import __Filter_support as FILS
-import ChiSquare_support as CHIS
-import UIConstants_support as UICS
+import _ChiSquare_support as CHIS
+import _UIConstants_support as UICS
 
 def crossProcess(df_dataset, np_CROSS, controller):
     key = UICS.KEY_PRE_CROSS_MODULE  # Key for progress bar
@@ -146,8 +146,11 @@ def crossProcess(df_dataset, np_CROSS, controller):
             list_level_ssfs.append(list_all_ssfs)  # Store SSF list
         list_cross_ssfs.append(list_level_ssfs)
 
+    run_time = (time.time() - start_time)
+    print("--- %s seconds ---" % run_time)
+    str_runtime = "\nAM Time elapsed:\n" + str(run_time) + " seconds"
+    controller.getAMController().addToConsoleAll(str_runtime + "\n")
 
-    print("--- %s seconds ---" % (time.time() - start_time))
     print("Processing Complete")
     LS.exportOutputModuleResults(dict_result_table_sig, len_cross_datasets,
                                  len_cross_types, controller)

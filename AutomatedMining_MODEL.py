@@ -29,7 +29,7 @@ from collections import OrderedDict
 import copy
 import Function_support as FS
 from Keys_support import Dataset as KSD
-import Widget_support as WS
+import _Widget_support as WS
 import _MODULE_SystematicFiltering as SF
 import Pandas_support as PS
 
@@ -42,7 +42,7 @@ class AutomatedMining_Model:
         self.isProcessing = False
         self.winProgressBar = None
         self.pbProgressBar = None
-
+        self.AMController = None
         self.__systematicFiltering = None
 
         self.__resetFeatureDescription()
@@ -170,7 +170,10 @@ class AutomatedMining_Model:
 
 
     def runSystematicFiltering(self, root):
-        self.__systematicFiltering = SF.SystematicFiltering(root)
+        self.__systematicFiltering = SF.SystematicFiltering(root, self.AMController)
+
+    def setAMController(self, controller):
+        self.AMController = controller
 
     def queryFeature(self, featureID):
         # featureID = self.viewModel.getCurrentFeature()

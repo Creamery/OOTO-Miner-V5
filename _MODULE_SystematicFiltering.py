@@ -30,17 +30,17 @@ except ImportError:
 
 
 import Function_support as FS
-import Grip_support as GS
+import _Grip_support as GS
 
-import Widget_support as WS
+import _Widget_support as WS
 import SystematicFiltering_VIEW as VIEW
 import SystematicFiltering_CONTROLLER as CONTROLLER
 
-import Color_support as CS
+import _Color_support as CS
 
 
 class SystematicFiltering:
-    def __init__(self, root):
+    def __init__(self, root, AMController):
         self.root = root
 
         # create overlay window
@@ -48,7 +48,7 @@ class SystematicFiltering:
         self.winTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
         self.winTop.configure(bg = CS.WHITE)
         self.view = VIEW.SystematicFiltering_View(self.winTop)
-        self.controller = CONTROLLER.SystematicFiltering_Controller(self.view)
+        self.controller = CONTROLLER.SystematicFiltering_Controller(self.view, AMController)
 
         self.grip = self.__configureGrip(self.winTop, self.winOverlay, self.root)
         FS.placeBelow(self.view.getFrame(), self.grip.getGrip())
@@ -59,37 +59,11 @@ class SystematicFiltering:
         self.winOverlay.lower(self.winTop)
 
         self.__configureBind()
-        # WS.makeModal(self.winTop, self.root)  # make the window modal by setting root's wait_window
 
-
-        # self.winDialogueOverlay = WS.createOverlayWindow(root)
-        # self.winDialogueTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
-        # self.winDialogueTop.configure(bg = CS.WHITE)
-        # self.gripDialogue = self.__configureDialogueGrip(self.winDialogueTop, self.winDialogueOverlay, root)
-        # self.__configureBorders(self.winDialogueTop)
-        # self.winDialogueOverlay.lower(self.winDialogueTop)
-        # self.controller.setDialogueGrip(self.gripDialogue)
-        # self.controller.resizeDialogueOverlay()
-
-    # def __configureDialogueGrip(self, parentWindow, winDialogueOverlay, root):
-    #     dialogue_grip = DGS.DialogueGripLabel(parentWindow, True, True)
-    #     dialogue_grip.assignOverlay(winDialogueOverlay, root)
-    #     return dialogue_grip
-
-    # def start(self):
-    #     print("Start Systematic Filtering (From SFModule")
-    #     self.controller.startCrossProcessThread()
-
-
-    # region callable functions
-
-    # endregion callable functions
 
     # region initialization functions
     # region overlay functions
     def __handleConfigure(self, event):
-        # print self.root.tk.eval('wm stackorder '+str(self.winOverlay)+' isabove '+ str(self.root))
-        # print "Stackorder: " + self.root.tk.eval('wm stackorder '+str(self.root))
         overlayBelowRoot = self.root.tk.eval('wm stackorder ' + str(self.winOverlay)+ ' isabove ' + str(self.root))
         if overlayBelowRoot:
             self.winOverlay.lift(self.root)
@@ -135,34 +109,6 @@ class SystematicFiltering:
         top.title("Systematic Filtering")
         return top
 
-
-    # def __initializeDialogueWindow(self, root):
-    #     top = Toplevel(root)
-    #
-    #     # remove title bar
-    #     top.overrideredirect(True)
-    #     top.after(10, lambda: WS.showInTaskBar(top))
-    #
-    #     # top.transient(root)
-    #     top.grab_set()
-    #     # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
-    #     top.resizable(0, 0)
-    #
-    #     self.style = ttk.Style()
-    #     if sys.platform == "win32":
-    #         self.style.theme_use('winnative')
-    #
-    #     self.style.configure('.', font = "TkDefaultFont")
-    #
-    #     # center window
-    #     strDimensions = str(FS.sfWidth) + "x" + str(FS.sfHeight)
-    #     top.geometry(strDimensions)
-    #     root.update()
-    #     newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
-    #     top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
-    #
-    #     top.title("Systematic Filtering")
-    #     return top
 
     '''
         Configure the draggable top bar.

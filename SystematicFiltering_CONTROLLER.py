@@ -37,18 +37,19 @@ except ImportError:
 import PIL.Image
 import PIL.ImageTk
 
-import Icon_support as IS
+import _Icon_support as IS
 
 from threading import Thread
 import AutomatedMining_RUN as AM_R
 import collections
 
-import UIConstants_support as UICS
+import _UIConstants_support as UICS
 
 class SystematicFiltering_Controller:
 
-    def __init__(self, view):
+    def __init__(self, view, AMController):
         self.view = view
+        self.AMController = AMController
         self.grip = None
         self.isFinished = False
 
@@ -93,8 +94,14 @@ class SystematicFiltering_Controller:
         self.view.closeDialogPrompt()
 
     def closeProcessWindow(self, event):
+        if self.isFinished:
+            self.getAMController().addToConsoleAll("MINING SUCCESSFUL!" + "\n")
+        else:
+            self.getAMController().addToConsoleAll("Miner stopped abruptly" + "\n")
+
         self.view.closeDialog()
         self.getParentGrip().onTopClose()
+
 
     def closeProcessWindowPrompt(self, event):
         self.view.closeDialogPrompt()
@@ -194,20 +201,18 @@ class SystematicFiltering_Controller:
 
         return "break"
 
+    def getAMController(self):
+        return self.AMController
+
     def stopAutomatedMining(self, event):
         self.view.showStartMining()
-        # TODO Perform necessary warnings in view before stopping
-
-        # tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
-        # self.closeWindow()
-
         return "break"
 
     def isAMFinished(self):
         self.isFinished = True
         self.enableStartButtonAsFinished()
 
-    def closeWindow(self):  # TODO
+    def closeWindow(self):
         self.getGrip().onTopClose()
 
     '''

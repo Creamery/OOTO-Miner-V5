@@ -36,15 +36,15 @@ except ImportError:
     import tkinter.ttk as ttk
 
     py3 = 1
-import Color_support as CS
-import Icon_support as IS
-import UI_support as US
+import _Color_support as CS
+import _Icon_support as IS
+import _UI_support as US
 import PIL.Image
 import PIL.ImageTk
 
-import Grip_support as GS
+import _Grip_support as GS
 import Function_support as FS
-import Widget_support as WS
+import _Widget_support as WS
 import _MODULE_Input as INPUT
 import _MODULE_ManualMining as MM
 import _MODULE_AutomatedMining as AM
@@ -76,39 +76,6 @@ def startProgram():
     print("Thread Finished - OOTO Miner Closed")
 
 
-
-
-
-
-
-
-
-
-
-# def onRootClose():
-#     if tkMessageBox.askokcancel("Quit", "Do you want to quit?"):
-#         global root
-#         root.destroy()
-#         root = None
-
-
-
-# def create_OOTO_Miner(root, *args, **kwargs):
-#     '''Starting point when module is imported by another program.'''
-#     global w, w_win, rt
-#     rt = root
-#     w = Toplevel(root)
-#     Mother_support.set_Tk_var()
-#     top = OOTO_Miner(w)
-#     Mother_support.init(w, top, *args, **kwargs)
-#     return (w, top)
-
-
-# def destroy_OOTO_Miner():
-#     global w
-#     w.destroy()
-#     w = None
-
 class OOTO_Miner:
 
     def __init__(self, root = None):
@@ -124,7 +91,7 @@ class OOTO_Miner:
         self.INPUT = self.configureDataTabElements(self.Tabs_t2)
         self.INPUT.getButtonStartDatasetUpload().bind('<Button-1>', self.uploadInputFiles)
 
-        ''' TAB 2 - AM (Tabs_t3) '''
+        ''' TAB 2 - MM (Tabs_t3) '''
         self.MM = self.configureManualMiningTab(self.Tabs_t3)
 
         ''' TAB 3 - AM (Tabs_t5) '''
@@ -334,14 +301,6 @@ class OOTO_Miner:
 
         return automatedMining
 
-        # self.chiTabParentFrame = chiFrame.getMainFrame()
-        # self.chiTabParentFrame.place(
-        #     relx = US.TAB_REL_X, rely = US.TAB_REL_Y,
-        #     relwidth = US.TAB_REL_W, relheight = US.TAB_REL_H
-        # )
-        # self.chiTabParentFrame.configure(
-        #     background = CS.TAB_BG_COLOR, foreground = CS.FG_COLOR
-        # )
 
     def configureInfoTabElements(self):
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)

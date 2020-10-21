@@ -8,7 +8,7 @@ import pandas as pd
 import time
 import __Filter_support as FILS
 import __Loader_support as LS
-import UIConstants_support as UICS
+import _UIConstants_support as UICS
 
 # Chi-square Dictionary Keys
 CHI_SQUARE = "ChiSquare"

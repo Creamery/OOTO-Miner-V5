@@ -24,7 +24,7 @@ import copy
 import SampleVsPopulation as svp
 import SampleVsSample as svs
 import ChiTest as CHI
-import Widget_support as WS
+import _Widget_support as WS
 import os
 from collections import Counter
 
@@ -45,9 +45,9 @@ except ImportError:
     py3 = 1
 
 import math
-import Color_support
-import Icon_support
-import UI_support
+import _Color_support as CS
+import _Icon_support
+import _UI_support
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
@@ -527,9 +527,9 @@ class ManualMining_Controller:
         self.entryQuerySetDataA.configure(text = '')
         self.entryQueryFeature.configure(text = '')
         self.labelQuerySetDataStatusA.configure(
-            text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-            background = Color_support.SELECT_LISTBOX_STATUS_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+            text = _UI_support.SELECT_STATUS_NO_DATA_TEXT,
+            background = CS.SELECT_LISTBOX_STATUS_BG,
+            foreground = CS.SELECT_LISTBOX_STATUS_FG
         )
 
         # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
@@ -559,9 +559,9 @@ class ManualMining_Controller:
 
         # self.labelFrameQueryDataB.configure(text = "Dataset B")
         self.labelQuerySetDataStatusB.configure(
-            text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-            background = Color_support.SELECT_LISTBOX_STATUS_BG,
-            foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+            text = _UI_support.SELECT_STATUS_NO_DATA_TEXT,
+            background = CS.SELECT_LISTBOX_STATUS_BG,
+            foreground = CS.SELECT_LISTBOX_STATUS_FG
         )
 
         # if self.datasetB['Data'] is []:
@@ -608,14 +608,14 @@ class ManualMining_Controller:
 
     def queryResetFilterDetails(self, evt):
         # Empty FILTER details of BOTH A and B
-        self.labelQueryDataA.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.labelQueryDataA.configure(text = _UI_support.SELECT_STATUS_NO_DATA_TEXT)
         self.listQueryDataA.delete(0, END)
 
-        self.labelQueryDataB.configure(text = UI_support.SELECT_STATUS_NO_DATA_TEXT)
+        self.labelQueryDataB.configure(text = _UI_support.SELECT_STATUS_NO_DATA_TEXT)
         self.listQueryDataB.delete(0, END)
 
         self.labelQueryDataFeatureName.configure(
-            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
+            text = _UI_support.FILTER_STATUS_NO_FEATURE_TEXT,
         )
 
     # endregion
@@ -654,9 +654,9 @@ class ManualMining_Controller:
             # CLEAR filter feature box
             self.queryResetFilterDetails(evt)
             self.labelQuerySetDataStatusA.configure(
-                text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-                background = Color_support.SELECT_LISTBOX_STATUS_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+                text = _UI_support.SELECT_STATUS_NO_DATA_TEXT,
+                background = CS.SELECT_LISTBOX_STATUS_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_FG
             )
             # return -1
 
@@ -707,9 +707,9 @@ class ManualMining_Controller:
 
             # self.labelFrameQueryDataA.configure(text = queryStrFilterA) ### TODO
             self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_READY + "" + queryStrFilterA,
-                background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
+                text =_UI_support.LBL_SELECT_READY + "" + queryStrFilterA,
+                background = CS.SELECT_LISTBOX_STATUS_READY_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_READY_FG
             )
             self.setDatasetStripeReady(True, self.labelQuerySetDataStripesA)
         # print ("LEN (After) IS " + str(len(self.datasetA['Data'])))
@@ -740,9 +740,9 @@ class ManualMining_Controller:
             self.queryResetFilterDetails(evt)
 
             self.labelQuerySetDataStatusB.configure(
-                text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-                background = Color_support.SELECT_LISTBOX_STATUS_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_FG
+                text = _UI_support.SELECT_STATUS_NO_DATA_TEXT,
+                background = CS.SELECT_LISTBOX_STATUS_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_FG
             )
             # return -1
 
@@ -790,9 +790,9 @@ class ManualMining_Controller:
             # Concat the Filter String Here
             # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
             self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
-                background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG
+                text =_UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
+                background = CS.SELECT_LISTBOX_STATUS_READY_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_READY_FG
             )
             self.setDatasetStripeReady(True, self.labelQuerySetDataStripesB)
 
@@ -842,7 +842,7 @@ class ManualMining_Controller:
                         featureDesc = featureDesc[:71] + '...'  # Shorten it
 
                     # Display the description
-                    self.labelQueryDataFeatureName.config(text = UI_support.FILTER_STATUS_CONFIRMED_TEXT + featureDesc)
+                    self.labelQueryDataFeatureName.config(text =_UI_support.FILTER_STATUS_CONFIRMED_TEXT + featureDesc)
 
                 except NameError:
                     tkMessageBox.showerror("Error: No features",
@@ -887,14 +887,14 @@ class ManualMining_Controller:
 
         # Change button appearance to selected
         self.buttonChooseChiSquare.configure(
-            background = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
-            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_BG
+            background = CS.PROCESS_CHI_SQUARE_TITLE_FG,
+            foreground = CS.PROCESS_CHI_SQUARE_TITLE_BG
         )
 
         # Revert other buttons to deselected
         self.buttonChooseZTest.configure(
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG,
-            foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG,
+            foreground = CS.PROCESS_Z_TEST_TITLE_FG,
         )
 
         # Show Z-Test options
@@ -905,13 +905,13 @@ class ManualMining_Controller:
     def selectOptionZTest(self, evt):
         # Change button appearance to selected
         self.buttonChooseZTest.configure(
-            background = Color_support.PROCESS_CHI_SQUARE_TITLE_FG,
-            foreground = Color_support.PROCESS_CHI_SQUARE_TITLE_BG
+            background = CS.PROCESS_CHI_SQUARE_TITLE_FG,
+            foreground = CS.PROCESS_CHI_SQUARE_TITLE_BG
         )
         # Revert other buttons to deselected
         self.buttonChooseChiSquare.configure(
-            background = Color_support.PROCESS_Z_TEST_TITLE_BG,
-            foreground = Color_support.PROCESS_Z_TEST_TITLE_FG,
+            background = CS.PROCESS_Z_TEST_TITLE_BG,
+            foreground = CS.PROCESS_Z_TEST_TITLE_FG,
         )
 
         # Show Z-Test options
@@ -945,11 +945,11 @@ class ManualMining_Controller:
 
         '''
         self.buttonInitialVarDesc.configure(
-            background=Color_support.DATASET_BTN_BG, foreground=Color_support.DATASET_BTN_FG,
+            background=CS.DATASET_BTN_BG, foreground=CS.DATASET_BTN_FG,
             text=UI_support.BTN_DATASET_UPLOAD,
             bd=1, relief=GROOVE,
-            activebackground=Color_support.DATASET_BTN_BG_ACTIVE, activeforeground=Color_support.DATASET_BTN_FG_ACTIVE,
-            disabledforeground=Color_support.FG_DISABLED_COLOR)
+            activebackground=CS.DATASET_BTN_BG_ACTIVE, activeforeground=CS.DATASET_BTN_FG_ACTIVE,
+            disabledforeground=CS.FG_DISABLED_COLOR)
         '''
 
     ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
@@ -1224,12 +1224,12 @@ class ManualMining_Controller:
             # self.labelFrameQueryDataA.configure(text = "Population") ### TODO
             # self.labelFrameQueryDataB.configure(text = "Samples")
             self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
+                text = _UI_support.LBL_SELECT_NO_DATA,
+                background = CS.L_GRAY
             )
             self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
+                text = _UI_support.LBL_SELECT_NO_DATA,
+                background = CS.L_GRAY
             )
 
             # self.labelQueryDataBCount.configure(text = "")
@@ -1243,12 +1243,12 @@ class ManualMining_Controller:
             # self.labelFrameQueryDataA.configure(text = "Dataset A") ### TODO
             # self.labelFrameQueryDataB.configure(text = "Dataset B")
             self.labelQuerySetDataStatusA.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
+                text = _UI_support.LBL_SELECT_NO_DATA,
+                background = CS.L_GRAY
             )
             self.labelQuerySetDataStatusB.configure(
-                text = UI_support.LBL_SELECT_NO_DATA,
-                background = Color_support.L_GRAY
+                text = _UI_support.LBL_SELECT_NO_DATA,
+                background = CS.L_GRAY
             )
 
     def querySetAllFeatures(self):
@@ -1296,8 +1296,8 @@ class ManualMining_Controller:
 
         # Reconfigure tag settings
         consoleScreen.tag_configure(const.CONSOLE.SELECT,
-                                    background = Color_support.FUSCHIA,
-                                    foreground = Color_support.WHITE
+                                    background = CS.CYAN,
+                                    foreground = CS.WHITE
                                     )
 
         # Get current insert index
@@ -1340,45 +1340,45 @@ class ManualMining_Controller:
         self.buttonConsoleQueue['relief'] = FLAT
 
         # Reset background color
-        self.buttonConsoleAll['background'] = Color_support.WHITE
-        self.buttonConsoleZTest['background'] = Color_support.WHITE
-        self.buttonConsoleChiSquare['background'] = Color_support.WHITE
-        self.buttonConsoleQueue['background'] = Color_support.WHITE
+        self.buttonConsoleAll['background'] = CS.WHITE
+        self.buttonConsoleZTest['background'] = CS.WHITE
+        self.buttonConsoleChiSquare['background'] = CS.WHITE
+        self.buttonConsoleQueue['background'] = CS.WHITE
 
         # Reset foreground color
-        self.buttonConsoleAll['foreground'] = Color_support.FG_COLOR
-        self.buttonConsoleZTest['foreground'] = Color_support.FG_COLOR
-        self.buttonConsoleChiSquare['foreground'] = Color_support.FG_COLOR
-        self.buttonConsoleQueue['foreground'] = Color_support.FG_COLOR
+        self.buttonConsoleAll['foreground'] = CS.D_BLUE
+        self.buttonConsoleZTest['foreground'] = CS.D_BLUE
+        self.buttonConsoleChiSquare['foreground'] = CS.D_BLUE
+        self.buttonConsoleQueue['foreground'] = CS.D_BLUE
 
         if self.dictConsoleScreens[consoleScreen] == const.SCREENS.QUEUE:
             self.showWidget(self.listConsoleQueueScreen)
             self.labelConsoleScreenTaskBar['text'] = '''QUEUE'''
-            self.buttonConsoleQueue['background'] = Color_support.FUSCHIA
-            self.buttonConsoleQueue['foreground'] = Color_support.WHITE
+            self.buttonConsoleQueue['background'] = CS.CYAN
+            self.buttonConsoleQueue['foreground'] = CS.D_BLUE
             self.buttonConsoleQueue['relief'] = GROOVE
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.Z_TEST:
             self.showWidget(self.listConsoleZTestScreen)
             self.labelConsoleScreenTaskBar['text'] = '''Z-TEST'''
-            self.buttonConsoleZTest['background'] = Color_support.FUSCHIA
-            self.buttonConsoleZTest['foreground'] = Color_support.WHITE
+            self.buttonConsoleZTest['background'] = CS.CYAN
+            self.buttonConsoleZTest['foreground'] = CS.D_BLUE
             self.buttonConsoleZTest['relief'] = GROOVE
 
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.CHI_SQUARE:
             self.showWidget(self.listConsoleChiSquareScreen)
             self.labelConsoleScreenTaskBar['text'] = '''CHI-SQUARE'''
-            self.buttonConsoleChiSquare['background'] = Color_support.FUSCHIA
-            self.buttonConsoleChiSquare['foreground'] = Color_support.WHITE
+            self.buttonConsoleChiSquare['background'] = CS.CYAN
+            self.buttonConsoleChiSquare['foreground'] = CS.D_BLUE
             self.buttonConsoleChiSquare['relief'] = GROOVE
 
 
         else:
             self.showWidget(self.listConsoleScreen)
             self.labelConsoleScreenTaskBar['text'] = '''ALL'''
-            self.buttonConsoleAll['background'] = Color_support.FUSCHIA
-            self.buttonConsoleAll['foreground'] = Color_support.WHITE
+            self.buttonConsoleAll['background'] = CS.CYAN
+            self.buttonConsoleAll['foreground'] = CS.D_BLUE
             self.buttonConsoleAll['relief'] = GROOVE
 
 
@@ -1386,8 +1386,8 @@ class ManualMining_Controller:
 
     # TODO Optimize (avoid resizing, keep a reference)
     # region
-    def enterCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+    def enterCheckIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_check_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
@@ -1395,16 +1395,16 @@ class ManualMining_Controller:
             image = btn_check_icon)
         item.image = btn_check_icon  # < ! > Required to make images appear
 
-    def leaveCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveCheckIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_check_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
             image = btn_check_icon)
         item.image = btn_check_icon  # < ! > Required to make images appear
 
-    def enterCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+    def enterCrossIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_cross_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
@@ -1412,16 +1412,16 @@ class ManualMining_Controller:
             image = btn_cross_icon)
         item.image = btn_cross_icon  # < ! > Required to make images appear
 
-    def leaveCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveCrossIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_cross_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
             image = btn_cross_icon)
         item.image = btn_cross_icon  # < ! > Required to make images appear
 
-    def enterAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_ADD_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+    def enterAddIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_ADD_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_add_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
@@ -1429,79 +1429,79 @@ class ManualMining_Controller:
             image = btn_add_icon)
         item.image = btn_add_icon  # < ! > Required to make images appear
 
-    def leaveAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveAddIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_ADD).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_add_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
             image = btn_add_icon)
         item.image = btn_add_icon  # < ! > Required to make images appear
 
-    def enterDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+    def enterDownArrowIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
         item = event.widget
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
         item.configure(
             image = btn_down_arrow_icon)
         item.image = btn_down_arrow_icon  # < ! > Required to make images appear
 
-    def leaveDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveDownArrowIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
             image = btn_down_arrow_icon)
         item.image = btn_down_arrow_icon  # < ! > Required to make images appear
 
-    def enterRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
+    def enterRightArrowIcon(self, event, iconSize = _Icon_support.RUN_ICO_SIZE):
         item = event.widget
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
         item.configure(
             image = btn_right_arrow_icon)
         item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
-    def leaveRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveRightArrowIcon(self, event, iconSize = _Icon_support.RUN_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
             image = btn_right_arrow_icon)
         item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
-    def enterRightArrowPlainIcon(self, event, state = NORMAL, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+    def enterRightArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
         if state != DISABLED:
             item = event.widget
-            im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
             btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
             item.configure(
                 image = btn_right_arrow_icon)
             item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
-    def leaveRightArrowPlainIcon(self, event, state = NORMAL, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+    def leaveRightArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
         if state != DISABLED:
             item = event.widget
             if item['state'] != DISABLED:
-                im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
+                im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
                 btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
                 item.configure(
                     image = btn_right_arrow_icon)
                 item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
     def enterQueryZTest(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK_ON).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQueryZTest.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.buttonQueryZTest.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
     def leaveQueryZTest(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQueryZTest.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -1540,16 +1540,16 @@ class ManualMining_Controller:
 
         # Disable feature name
         self.labelQueryDataFeatureName.configure(
-            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_BG,
-            foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_FG,
-            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT
+            background = CS.FILTER_LISTBOX_FEATURE_STATUS_BG,
+            foreground = CS.FILTER_LISTBOX_FEATURE_STATUS_FG,
+            text = _UI_support.FILTER_STATUS_NO_FEATURE_TEXT
         )
 
         # Show lock cover
         self.labelOverlayFilterListData.place(
-            relx = UI_support.getRelX(self.labelFrameFilterListData), rely = UI_support.getRelY(self.labelFrameFilterListData),
-            relwidth = UI_support.getRelW(self.labelFrameFilterListData),
-            relheight = UI_support.getRelH(self.labelFrameFilterListData))
+            relx = _UI_support.getRelX(self.labelFrameFilterListData), rely = _UI_support.getRelY(self.labelFrameFilterListData),
+            relwidth = _UI_support.getRelW(self.labelFrameFilterListData),
+            relheight = _UI_support.getRelH(self.labelFrameFilterListData))
 
         # Change stripe color
         self.setFilterStripeReady(False, self.labelFilterStripes)
@@ -1564,9 +1564,9 @@ class ManualMining_Controller:
 
         # Enable feature name
         self.labelQueryDataFeatureName.configure(
-            background = Color_support.FILTER_LISTBOX_FEATURE_STATUS_ON_BG,
-            foreground = Color_support.FILTER_LISTBOX_FEATURE_STATUS_ON_FG,
-            text = UI_support.FILTER_STATUS_READY_TEXT
+            background = CS.FILTER_LISTBOX_FEATURE_STATUS_ON_BG,
+            foreground = CS.FILTER_LISTBOX_FEATURE_STATUS_ON_FG,
+            text = _UI_support.FILTER_STATUS_READY_TEXT
         )
 
         # Hide lock cover
@@ -1580,28 +1580,28 @@ class ManualMining_Controller:
     def setDatasetStatusReady(self, isReady, statusWidget, stripeWidget):
         if isReady:
             statusWidget.configure(
-                background = Color_support.SELECT_LISTBOX_STATUS_READY_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_READY_FG,
+                background = CS.SELECT_LISTBOX_STATUS_READY_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_READY_FG,
                 relief = GROOVE
             )
         else:
             statusWidget.configure(
-                text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-                background = Color_support.SELECT_LISTBOX_STATUS_BG,
-                foreground = Color_support.SELECT_LISTBOX_STATUS_FG,
-                relief = UI_support.SELECT_LISTBOX_RELIEF
+                text = _UI_support.SELECT_STATUS_NO_DATA_TEXT,
+                background = CS.SELECT_LISTBOX_STATUS_BG,
+                foreground = CS.SELECT_LISTBOX_STATUS_FG,
+                relief = _UI_support.SELECT_LISTBOX_RELIEF
             )
 
     def setDatasetStripeReady(self, isReady, stripeWidget):
         if isReady:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
+            im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_LIME)
             texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_lime_stripes
             )
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PINK)
+            im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_PINK)
             texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_pink_stripes
@@ -1610,14 +1610,14 @@ class ManualMining_Controller:
 
     def setFilterStripeReady(self, isReady, stripeWidget):
         if isReady:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
+            im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_LIME)
             texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_lime_stripes
             )
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE)
+            im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_ORANGE)
             texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_orange_stripes
@@ -1637,8 +1637,8 @@ class ManualMining_Controller:
         # Store widget width and height if it's not in the dictionary
         widgetName = WS.getWidgetName(widget)
         if not (widgetName + '_W' in self.dictWidgetPlace):
-            self.dictWidgetPlace[widgetName + '_W'] = UI_support.getRelW(widget)
-            self.dictWidgetPlace[widgetName + '_H'] = UI_support.getRelH(widget)
+            self.dictWidgetPlace[widgetName + '_W'] = _UI_support.getRelW(widget)
+            self.dictWidgetPlace[widgetName + '_H'] = _UI_support.getRelH(widget)
 
         # Set widget width and height to 0
         widget.place(relwidth = 0, relheight = 0)

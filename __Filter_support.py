@@ -15,7 +15,7 @@ import numpy as np
 import copy
 import collections
 import time
-import UIConstants_support as UICS
+import _UIConstants_support as UICS
 
 PP = pprint.PrettyPrinter(indent = 4)
 OPTION_CODES = [":a", ":b"]  # TODO (Future) confirm this

@@ -24,7 +24,7 @@ except ImportError:
     py3 = 1
 
 import tkMessageBox
-import UI_support
+import _UI_support
 import Function_support as FS
 from tkFileDialog import askopenfilename
 import CONSTANTS as const
@@ -129,7 +129,7 @@ class Input_Controller:
 
         else:
             tkMessageBox.showinfo("System Message", "Dataset successfully uploaded!")  # TODO!!
-            self.Tabs.select(UI_support.TAB_TEST_INDEX)
+            self.Tabs.select(_UI_support.TAB_TEST_INDEX)
         return "break"
 
 

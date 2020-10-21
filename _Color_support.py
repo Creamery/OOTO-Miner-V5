@@ -72,8 +72,8 @@ FG_MAIN_NUMBER = WHITE
 
 
 # GENERAL COLORS
-ACTIVE_COLOR = CYAN # Change this to change all highlight colors
-ACTIVE_COLOR_LIGHT = PALE_YELLOW # Change this to change all highlight colors
+ACTIVE_COLOR = CYAN  # Change this to change all highlight colors
+ACTIVE_COLOR_LIGHT = PALE_YELLOW  # Change this to change all highlight colors
 FG_COLOR = D_BLUE
 
 

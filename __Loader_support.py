@@ -31,8 +31,8 @@ import errno
 
 # For exports
 import __Filter_support as FILS
-import ChiSquare_support as CHIS
-import UIConstants_support as UICS
+import _ChiSquare_support as CHIS
+import _UIConstants_support as UICS
 
 # For loadVarDesc()
 ITEM_MARKER = "^"

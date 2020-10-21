@@ -40,15 +40,15 @@ import math
 from math import modf
 import collections
 
-import Color_support as CS
+import _Color_support as CS
 import Function_support as FS
-import Widget_support as WS
-import Icon_support as IS
-import UI_support as US
-import Grip_support as GS
+import _Widget_support as WS
+import _Icon_support as IS
+import _UI_support as US
+import _Grip_support as GS
 
 from _Progressible import _Progressible
-import UIConstants_support as UICS
+import _UIConstants_support as UICS
 import tkMessageBox
 
 class SystematicFiltering_View(_Progressible):

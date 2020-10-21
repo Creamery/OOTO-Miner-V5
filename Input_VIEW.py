@@ -24,9 +24,9 @@ except ImportError:
 
     py3 = 1
 
-import UI_support as US
-import Color_support as CS
-import Widget_support as WS
+import _UI_support as US
+import _Color_support as CS
+import _Widget_support as WS
 
 class Input_View:
     def __init__(self, parentFrame):

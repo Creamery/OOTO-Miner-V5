@@ -48,17 +48,17 @@ except ImportError:
 
 # from tkinter import ttk
 import Tkinter
-import Icon_support
+import _Icon_support
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
-import UI_support as US
+import _UI_support as US
 import Function_support as FS
-import Widget_support as WS
-import Color_support as CS
+import _Widget_support as WS
+import _Color_support as CS
 import __Loader_support as LS
 
-import UIConstants_support as UICS
+import _UIConstants_support as UICS
 
 
 class AutomatedMining_View:
@@ -67,7 +67,6 @@ class AutomatedMining_View:
         self.__parentFrame = parentFrame
         self.root = root
         self.configureTestTabElements(parentFrame)
-        self.configureZTestElements(parentFrame)
         self.configureTestTabConsoleElements(parentFrame)
 
         self.configureSeparators(parentFrame)
@@ -229,91 +228,7 @@ class AutomatedMining_View:
 
 
     # endregion
-    @staticmethod
-    def get_style():
-        combo_style = ttk.Style()
-        combo_style.theme_create('combostyle', parent = 'alt',
-                                 settings = {
-                                    'TCombobox': {
-                                        'configure': {
-                                            'fieldbackground': 'white',
-                                            'selectbackground': 'white',
-                                            'selectforeground': 'black',
-                                            'fieldbackground' : 'black'
-                                        }
-                                    }
 
-                                 }
-                                 )
-
-        return combo_style
-
-    def configureZTestElements(self, parentFrame):
-
-        global arrQueryCriticalValue
-        global arrQueryCriticalValueMapping
-
-        # > COMBO BOX
-        global testTypes
-        testTypes = ["Sample vs Sample", "Sample vs Population"]
-        self.comboQueryTest = ttk.Combobox(parentFrame)
-        # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 50, width = 360) # 316) # TODO SVP
-        self.comboQueryTest.configure(exportselection = "0")
-        self.comboQueryTest.configure(takefocus = "")
-        self.comboQueryTest.configure(values = testTypes)
-        self.comboQueryTest.current(0)
-        self.comboQueryTest.configure(state = "readonly")
-
-        # > CHI-TEST FRAME
-
-        self.labelFrameQueryChi = LabelFrame(parentFrame)
-        # self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0,
-        #                               relwidth = 0)# 0.48)
-        self.labelFrameQueryChi.configure(relief = GROOVE)
-        self.labelFrameQueryChi.configure(foreground = "black")
-        self.labelFrameQueryChi.configure(text = '''Chi Test''')
-        self.labelFrameQueryChi.configure(background = "#d9d9d9")
-
-        # > Z-TEST FRAME POPULATION ##### TODO Add functionality
-        # region
-        self.labelFrameQuerySvP = LabelFrame(parentFrame)
-        # self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0.1,
-        #                               relwidth = 0.3) # 0.48) # TODO SVP
-        self.labelFrameQuerySvP.configure(relief = GROOVE)
-        self.labelFrameQuerySvP.configure(foreground = "black")
-        self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
-        self.labelFrameQuerySvP.configure(background = "#d9d9d9")
-
-        self.comboQueryCriticalValueSvP = ttk.Combobox(self.labelFrameQuerySvP)
-        # self.comboQueryCriticalValueSvP.place(relx = 0.24, rely = 0.01, height = 0, width = 0)
-        self.comboQueryCriticalValueSvP.configure(exportselection = "0")
-        self.comboQueryCriticalValueSvP.configure(takefocus = "")
-        # self.comboQueryCriticalValueSvP.configure(values = arrQueryCriticalValue)
-        # self.comboQueryCriticalValueSvP.set(arrQueryCriticalValue[0])
-        self.comboQueryCriticalValueSvP.configure(state = "disabled")
-
-        self.labelQueryZTestSvP = Label(self.labelFrameQuerySvP)
-        # self.labelQueryZTestSvP.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
-        # self.labelQueryZTest.configure(background = "#d9d9d9")
-        self.labelQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
-        self.labelQueryZTestSvP.configure(foreground = "#000000")
-        self.labelQueryZTestSvP.configure(text = '''NO DATA''')
-        self.labelQueryZTestSvP.configure(state = "disabled")
-
-        self.buttonQueryZTestSvP = Button(self.labelFrameQuerySvP)
-        self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 20, width = 300)
-        self.buttonQueryZTestSvP.configure(activebackground = "#d9d9d9")
-        self.buttonQueryZTestSvP.configure(activeforeground = "#000000")
-        self.buttonQueryZTestSvP.configure(background = "#d9d9d9")
-        self.buttonQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
-        self.buttonQueryZTestSvP.configure(foreground = "#000000")
-        self.buttonQueryZTestSvP.configure(highlightbackground = "#d9d9d9")
-        self.buttonQueryZTestSvP.configure(highlightcolor = "black")
-        self.buttonQueryZTestSvP.configure(pady = "0")
-        self.buttonQueryZTestSvP.configure(text = '''Test''')
-        self.buttonQueryZTestSvP.configure(state = "disabled")
-
-        # endregion
 
 
     """ >>> FUNCTIONS FOR THE CONFIGURATION OF UI ELEMENTS <<< """
@@ -486,7 +401,7 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.labelFrameQuerySetDataStatusA),
         )
         im = PIL.Image.open(
-            Icon_support.TEXTURE_STRIPE_ORANGE)
+            _Icon_support.TEXTURE_STRIPE_ORANGE)
         texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
         self.lblStripesFeatureCodes.configure(
             image = texture_pink_stripes,
@@ -550,8 +465,8 @@ class AutomatedMining_View:
             relx = newRelX, rely = 0,
             relwidth = US.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
-                                                                     PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(_Icon_support.SELECT_ICO_SIZE_BUTTONS,
+                                                                            PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
         self.btnLoadSource.configure(
             image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -623,7 +538,7 @@ class AutomatedMining_View:
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Reset''')
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CROSS).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQueryResetFilterA.configure(
             image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -748,7 +663,7 @@ class AutomatedMining_View:
             relheight = FS.getRelH(self.lblStripesFeatureCodes)
         )
         im = PIL.Image.open(
-            Icon_support.TEXTURE_STRIPE_ORANGE)
+            _Icon_support.TEXTURE_STRIPE_ORANGE)
         texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
         self.lblStripesFeatureGroups.configure(
             image = texture_pink_stripes,
@@ -857,8 +772,8 @@ class AutomatedMining_View:
             relwidth = FS.getRelW(self.btnLoadSource),
             relheight = FS.getRelH(self.btnLoadSource))
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(Icon_support.SELECT_ICO_SIZE_BUTTONS,
-                                                                     PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(_Icon_support.SELECT_ICO_SIZE_BUTTONS,
+                                                                            PIL.Image.ANTIALIAS)
         btn_query_set_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQuerySetDataB.configure(
             image = btn_query_set_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -902,7 +817,7 @@ class AutomatedMining_View:
             bd = 1, relief = FLAT, overrelief = FLAT)
         # text = '''Reset''')
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CROSS).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_reset_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonQueryResetFilterB.configure(
             image = btn_query_reset_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -1000,7 +915,7 @@ class AutomatedMining_View:
             relwidth = 0.25 - 0.005, relheight = 1
         )
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
         self.btnAddFeatureCode.configure(
             image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -1024,7 +939,7 @@ class AutomatedMining_View:
             relwidth = 0.25 - 0.005, relheight = 1
         )
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_filter_icon = PIL.ImageTk.PhotoImage(im)
         self.btnCompareSelectedFeatureGroups.configure(
             image = btn_query_filter_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -1297,7 +1212,7 @@ class AutomatedMining_View:
             relwidth = 0.041, relheight = 1)
         # relwidth = US.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_PLAIN).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
+        im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW_PLAIN).resize(_Icon_support.FILTER_ICO_SIZE_BUTTONS,
                                                                            PIL.Image.ANTIALIAS)
         btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
         self.btnSearchResultsLeft.configure(
@@ -1318,7 +1233,7 @@ class AutomatedMining_View:
             relx = newRelX_Right, rely = 0,
             relwidth = 0.041, relheight = 1)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_PLAIN).resize(Icon_support.FILTER_ICO_SIZE_BUTTONS,
+        im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW_PLAIN).resize(_Icon_support.FILTER_ICO_SIZE_BUTTONS,
                                                                            PIL.Image.ANTIALIAS)
         btn_query_feature_icon = PIL.ImageTk.PhotoImage(im)
         self.btnSearchResultsRight.configure(
@@ -1451,7 +1366,7 @@ class AutomatedMining_View:
             # relheight = FS.getRelH(self.labelFrameFilterQueryData) * US.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER,
             anchor = NW
         )
-        im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PLUM)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_PLUM)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         texture_purple_stripes = PIL.ImageTk.PhotoImage(im)
         self.lblResultStripes.configure(
             image = texture_purple_stripes,
@@ -1575,7 +1490,7 @@ class AutomatedMining_View:
             anchor = NW
         )
         im = PIL.Image.open(
-            Icon_support.TEXTURE_STRIPE_PLUM)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+            _Icon_support.TEXTURE_STRIPE_PLUM)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         texture_purple_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelOverlayFilterStripes.configure(
             image = texture_purple_stripes,
@@ -2029,7 +1944,7 @@ class AutomatedMining_View:
         # APPLY CROSS TYPE BUTTON
         self.buttonApplyCrossTypeSpinBox = Button(self.labelFrameProcessChangeCrossTypeButtonElements, compound = CENTER)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonApplyCrossTypeSpinBox.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -2162,7 +2077,7 @@ class AutomatedMining_View:
         # APPLY LEVEL BUTTON
         self.buttonApplyLevelSpinBox = Button(self.labelFrameProcessChangeLevelButtonElements, compound = CENTER)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
         self.buttonApplyLevelSpinBox.configure(
             image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
@@ -2239,7 +2154,7 @@ class AutomatedMining_View:
         # region
         self.buttonRunAutomatedMiner = Button(self.labelFrameRunMinerElements, compound = CENTER)
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(Icon_support.RUN_ICO_SIZE, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW).resize(_Icon_support.RUN_ICO_SIZE, PIL.Image.ANTIALIAS)
         # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)/
         btn_queue_icon = PIL.ImageTk.PhotoImage(im)
 
@@ -2363,13 +2278,13 @@ class AutomatedMining_View:
             relheight = newRelH
         )
 
-        im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PINK)
-        texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
+        im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_CYAN)
+        texture_cyan_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelConsoleStripes.configure(
-            image = texture_pink_stripes,
+            image = texture_cyan_stripes,
             anchor = SW
         )
-        self.labelConsoleStripes.image = texture_pink_stripes  # < ! > Required to make images appear
+        self.labelConsoleStripes.image = texture_cyan_stripes  # < ! > Required to make images appear
 
         # CONSOLE SCREEN
         self.configureConsoleScreenElements()
@@ -2403,7 +2318,7 @@ class AutomatedMining_View:
         self.buttonConsoleAll.configure(
             text = '''ALL''',
             background = CS.WHITE,
-            foreground = CS.FG_COLOR,
+            foreground = CS.D_BLUE,
             bd = 1, relief = FLAT, overrelief = GROOVE,
             activebackground = CS.L_GRAY,
             activeforeground = CS.DATASET_BTN_FG_ACTIVE,
@@ -2411,19 +2326,19 @@ class AutomatedMining_View:
         )
 
         # SHOW Z-TEST CONSOLE
-        self.buttonConsoleZTest = Button(self.labelFrameConsoleControls)
+        self.btnConsoleInput = Button(self.labelFrameConsoleControls)
         buttonReference = self.buttonConsoleAll
         newRelX = FS.getRelX(buttonReference) + FS.getRelW(buttonReference) + FS.getRelX(self.buttonConsoleAll)
 
-        self.buttonConsoleZTest.place(
+        self.btnConsoleInput.place(
             relx = newRelX,
             rely = FS.getRelY(buttonReference),
             relwidth = FS.getRelW(buttonReference),
             relheight = FS.getRelH(buttonReference)
         )
 
-        self.buttonConsoleZTest.configure(
-            text = '''Z''',
+        self.btnConsoleInput.configure(
+            text = '''INPUT''',
             background = buttonReference['background'],
             foreground = buttonReference['foreground'],
             bd = buttonReference['bd'], relief = buttonReference['relief'], overrelief = buttonReference['overrelief'],
@@ -2433,19 +2348,19 @@ class AutomatedMining_View:
         )
 
         # SHOW CHI-SQUARE CONSOLE
-        self.buttonConsoleChiSquare = Button(self.labelFrameConsoleControls)
-        buttonReference = self.buttonConsoleZTest
+        self.btnConsoleSearch = Button(self.labelFrameConsoleControls)
+        buttonReference = self.btnConsoleInput
         newRelX = FS.getRelX(buttonReference) + FS.getRelW(buttonReference) + FS.getRelX(self.buttonConsoleAll)
 
-        self.buttonConsoleChiSquare.place(
+        self.btnConsoleSearch.place(
             relx = newRelX,
             rely = FS.getRelY(buttonReference),
             relwidth = FS.getRelW(buttonReference),
             relheight = FS.getRelH(buttonReference)
         )
 
-        self.buttonConsoleChiSquare.configure(
-            text = '''CHI''',
+        self.btnConsoleSearch.configure(
+            text = '''SRCH''',
             background = buttonReference['background'],
             foreground = buttonReference['foreground'],
             bd = buttonReference['bd'], relief = buttonReference['relief'], overrelief = buttonReference['overrelief'],
@@ -2456,7 +2371,7 @@ class AutomatedMining_View:
 
         # SHOW QUEUE CONSOLE
         self.buttonConsoleQueue = Button(self.labelFrameConsoleControls)
-        buttonReference = self.buttonConsoleChiSquare
+        buttonReference = self.btnConsoleSearch
         newRelX = FS.getRelX(buttonReference) + FS.getRelW(buttonReference) + FS.getRelX(self.buttonConsoleAll)
 
         self.buttonConsoleQueue.place(
@@ -2467,7 +2382,7 @@ class AutomatedMining_View:
         )
 
         self.buttonConsoleQueue.configure(
-            text = '''Q''',
+            text = '''RES''',
             background = buttonReference['background'],
             foreground = buttonReference['foreground'],
             bd = buttonReference['bd'], relief = buttonReference['relief'], overrelief = buttonReference['overrelief'],
@@ -2503,7 +2418,7 @@ class AutomatedMining_View:
         self.listConsoleScreen.configure(
             yscrollcommand = self.scrollConsoleScreen.set,
             background = CS.PROCESS_LISTBOX_BG, foreground = CS.PROCESS_LISTBOX_FG,
-            selectbackground = CS.PROCESS_LISTBOX_BG, selectforeground = CS.PROCESS_LISTBOX_FG,
+            selectbackground = CS.SALMON_LIGHT, selectforeground = CS.PROCESS_LISTBOX_FG,
             font = US.FONT_SMALL,
             bd = US.SELECT_LISTBOX_BORDER, relief = US.SELECT_LISTBOX_RELIEF,
 
@@ -2685,7 +2600,7 @@ class AutomatedMining_View:
 
         labelNE = Label(cornerParent)
         im = PIL.Image.open(
-            Icon_support.CORNER_ROUND_NE)  # .resize(Icon_support.CORNER_ICO_SIZE_SMALL, PIL.Image.ANTIALIAS)
+            _Icon_support.CORNER_ROUND_NE)  # .resize(Icon_support.CORNER_ICO_SIZE_SMALL, PIL.Image.ANTIALIAS)
         corner_round_ne = PIL.ImageTk.PhotoImage(im)
         labelNE.place(
             relx = 0,
@@ -2808,10 +2723,10 @@ class AutomatedMining_View:
         return self.buttonConsoleAll
 
     def getButtonConsoleZTest(self):
-        return self.buttonConsoleZTest
+        return self.btnConsoleInput
 
     def getButtonConsoleChiSquare(self):
-        return self.buttonConsoleChiSquare
+        return self.btnConsoleSearch
 
     def getButtonConsoleQueue(self):
         return self.buttonConsoleQueue

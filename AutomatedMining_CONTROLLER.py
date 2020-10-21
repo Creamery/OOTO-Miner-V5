@@ -41,15 +41,15 @@ except ImportError:
 import Tkinter
 import math
 import collections
-import Color_support as CS
-import Icon_support
-import UI_support
+import _Color_support as CS
+import _Icon_support
+import _UI_support
 import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
 import __Loader_support as LS
-import UIConstants_support as UICS
+import _UIConstants_support as UICS
 
 
 class AutomatedMining_Controller:
@@ -248,15 +248,8 @@ class AutomatedMining_Controller:
         self.applyCrossLevelSpinbox.bind('<Button-1>', self.applyCrossLevel)
 
 
-        # The Check button in the second box (AKA Apply filters)
-        # self.btnApplySelectedFeatureSearch = self.view.getButtonQueryAddFilterB()
-        # self.btnApplySelectedFeatureSearch.bind('<Button-1>', self.queryAddFilterB)
-
         self.btnCompareSelectedFeatureGroups = self.view.getBtnCompareSelectedFeatureGroups()
         self.btnCompareSelectedFeatureGroups.bind('<Button-1>', self.compareSelectedFeatureGroups)
-        # self.buttonQueryFeature.configure(command = self.querySetFeature)
-        # self.buttonQueryFeatureA.bind('<Button-1>', self.querySetFeatureA)
-        # self.buttonQueryFeatureB.bind('<Button-1>', self.querySetFeatureB)
 
 
         # self.buttonQueue = self.view.getButtonQueue()
@@ -285,17 +278,17 @@ class AutomatedMining_Controller:
         self.buttonConsoleAll = self.view.getButtonConsoleAll()
         self.buttonConsoleAll.bind("<Button-1>", lambda event: self.showConsoleScreen(event, self.listConsoleScreen))
 
-        self.buttonConsoleZTest = self.view.getButtonConsoleZTest()
-        self.buttonConsoleZTest.bind("<Button-1>",
-                                     lambda event: self.showConsoleScreen(event, self.listConsoleZTestScreen))
+        self.btnConsoleInput = self.view.getButtonConsoleZTest()
+        self.btnConsoleInput.bind("<Button-1>",
+                                  lambda event: self.showConsoleScreen(event, self.listConsoleInputScreen))
 
-        self.buttonConsoleChiSquare = self.view.getButtonConsoleChiSquare()
-        self.buttonConsoleChiSquare.bind("<Button-1>",
-                                         lambda event: self.showConsoleScreen(event, self.listConsoleChiSquareScreen))
+        self.btnConsoleSearch = self.view.getButtonConsoleChiSquare()
+        self.btnConsoleSearch.bind("<Button-1>",
+                                   lambda event: self.showConsoleScreen(event, self.listConsoleSearchScreen))
 
-        self.buttonConsoleQueue = self.view.getButtonConsoleQueue()
-        self.buttonConsoleQueue.bind("<Button-1>",
-                                     lambda event: self.showConsoleScreen(event, self.listConsoleQueueScreen))
+        self.btnConsoleResults = self.view.getButtonConsoleQueue()
+        self.btnConsoleResults.bind("<Button-1>",
+                                    lambda event: self.showConsoleScreen(event, self.listConsoleResultsScreen))
         # self.buttonConsoleAll.bind('<Button-1>', self.showConsoleScreen(self.listConsoleScreen))
         # self.buttonConsoleZTest.bind('<Button-1>', self.showConsoleScreen(self.listConsoleZTestScreen))
         # self.buttonConsoleChiSquare.bind('<Button-1>', self.showConsoleScreen(self.listConsoleChiSquareScreen))
@@ -307,17 +300,17 @@ class AutomatedMining_Controller:
         self.listConsoleScreen.bind("<ButtonRelease>",
                                     lambda event: self.selectConsoleEntry(event, self.listConsoleScreen))
 
-        self.listConsoleZTestScreen = self.view.getListConsoleZTestScreen()
-        self.listConsoleZTestScreen.bind("<ButtonRelease>",
-                                         lambda event: self.selectConsoleEntry(event, self.listConsoleZTestScreen))
+        self.listConsoleInputScreen = self.view.getListConsoleZTestScreen()
+        self.listConsoleInputScreen.bind("<ButtonRelease>",
+                                         lambda event: self.selectConsoleEntry(event, self.listConsoleInputScreen))
 
-        self.listConsoleChiSquareScreen = self.view.getListConsoleChiSquareScreen()
-        self.listConsoleChiSquareScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event,
-                                                                                                      self.listConsoleChiSquareScreen))
+        self.listConsoleSearchScreen = self.view.getListConsoleChiSquareScreen()
+        self.listConsoleSearchScreen.bind("<ButtonRelease>", lambda event: self.selectConsoleEntry(event,
+                                                                                                   self.listConsoleSearchScreen))
 
-        self.listConsoleQueueScreen = self.view.getListConsoleQueueScreen()
-        self.listConsoleQueueScreen.bind("<ButtonRelease>",
-                                         lambda event: self.selectConsoleEntry(event, self.listConsoleQueueScreen))
+        self.listConsoleResultsScreen = self.view.getListConsoleQueueScreen()
+        self.listConsoleResultsScreen.bind("<ButtonRelease>",
+                                           lambda event: self.selectConsoleEntry(event, self.listConsoleResultsScreen))
 
         # ENTER / LEAVE
         self.btnLoadSource.bind("<Enter>", self.enterRightArrowPlainIcon)
@@ -370,13 +363,22 @@ class AutomatedMining_Controller:
     def applyCrossType(self, event):
         new_cross = self.spinBoxChangeCrossType.get()
         UICS.MAX_CROSS = new_cross
-        tkMessageBox.showinfo("CROSS TYPE Successfully Changed", "The new CROSS TYPE is now " + str(UICS.MAX_CROSS))
+
+        text = "The new CROSS TYPE is now " + str(UICS.MAX_CROSS)
+        tkMessageBox.showinfo("CROSS TYPE Successfully Changed", text)
+
+        self.addToConsole(text + "\n", self.listConsoleScreen)
+        self.addToConsole(text + "\n", self.listConsoleInputScreen)
         return "break"
 
     def applyCrossLevel(self, event):
         new_level = self.spinBoxChangeLevel.get()
         UICS.MAX_LEVEL = new_level
-        tkMessageBox.showinfo("CROSS LEVEL Successfully Changed", "The new LEVEL is now " + str(UICS.MAX_LEVEL))
+        text = "The new LEVEL is now " + str(UICS.MAX_LEVEL)
+        tkMessageBox.showinfo("CROSS LEVEL Successfully Changed", text)
+
+        self.addToConsole(text + "\n", self.listConsoleScreen)
+        self.addToConsole(text + "\n", self.listConsoleInputScreen)
         return "break"
 
     def dropDownLeft(self, event):
@@ -403,7 +405,7 @@ class AutomatedMining_Controller:
         print("Loading Source Folder : loadSourceFolder()")
         willLoad = True
         if self.list_feature_codes is not None:
-            message_box = tkMessageBox.askquestion("Overwrite Session", "Loading a new pickle will overwrite your current session. Proceed?", icon = "warning")
+            message_box = tkMessageBox.askquestion("Overwrite Session", "Loading a new source will overwrite your current session. Proceed?", icon = "warning")
             if message_box == 'yes':
                 willLoad = True
             else:
@@ -762,7 +764,6 @@ class AutomatedMining_Controller:
                         i_longest_length = len_entry
 
                 list_entries.append(str_entry)
-                print (dt_pairs)
                 self.list_selected_feature_groups.append(dt_pairs)  # Contains all dataset pairs for the selected significant features
 
         for entry in list_entries:
@@ -973,40 +974,6 @@ class AutomatedMining_Controller:
         self.hideWidget(self.labelFrameProcessChangeCrossType)
         self.showWidget(self.labelFrameProcessChangeLevel)
 
-    ''' Adds test to the queue '''
-
-    def addToQueue(self, testType, **params):
-        global tests_gl
-        test = {'Type': testType}
-        for key in params:
-            if (key == 'popDirArg'):
-                test['Population Path'] = copy.copy(params[key])
-            elif (key == 'sampleFeatArg'):
-                test['Sample Feature'] = copy.copy(params[key])
-            elif (key == 'selectedFeatArg'):
-                test['Selected Feature'] = copy.copy(params[key])
-            elif (key == 'allValArg'):
-                test['SF All Values'] = copy.copy(params[key])
-            elif (key == 'selValArg'):
-                test['SF Selected Values'] = copy.copy(params[key])
-            elif (key == 'datasetArgs'):
-                test['Datasets'] = copy.deepcopy(params[key])
-            elif (key == 'zArg'):
-                test['Z Critical Value'] = copy.copy(params[key])
-        tests_gl.append(test)
-        self.labelQueueCount.configure(text = str(len(tests_gl)))
-        tkMessageBox.showinfo("Test queued", test['Type'] + " has been queued.")
-
-        '''
-        self.buttonInitialVarDesc.configure(
-            background=CS.DATASET_BTN_BG, foreground=CS.DATASET_BTN_FG,
-            text=UI_support.BTN_DATASET_UPLOAD,
-            bd=1, relief=GROOVE,
-            activebackground=CS.DATASET_BTN_BG_ACTIVE, activeforeground=CS.DATASET_BTN_FG_ACTIVE,
-            disabledforeground=CS.FG_DISABLED_COLOR)
-        '''
-
-
 
     ''' Starts the Automated Mining Process (RUN MINER) '''
     def runAutomatedMiner(self, evt):
@@ -1024,13 +991,13 @@ class AutomatedMining_Controller:
 
     def addToConsole(self, consoleItem, consoleScreen):
         if self.dictConsoleScreens[consoleScreen] == const.SCREENS.Z_TEST:
-            targetScreen = self.listConsoleZTestScreen
+            targetScreen = self.listConsoleInputScreen
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.CHI_SQUARE:
-            targetScreen = self.listConsoleChiSquareScreen
+            targetScreen = self.listConsoleSearchScreen
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.QUEUE:
-            targetScreen = self.listConsoleQueueScreen
+            targetScreen = self.listConsoleResultsScreen
 
         else:
             targetScreen = self.listConsoleScreen
@@ -1053,8 +1020,8 @@ class AutomatedMining_Controller:
 
         # Reconfigure tag settings
         consoleScreen.tag_configure(const.CONSOLE.SELECT,
-                                    background = CS.FUSCHIA,
-                                    foreground = CS.WHITE
+                                    background = CS.CYAN,
+                                    foreground = CS.D_BLUE
                                     )
 
         # Get current insert index
@@ -1065,11 +1032,6 @@ class AutomatedMining_Controller:
         indexStart = str(start)
         end = start + 1
         indexEnd = str(end)
-        # print(str(insertIndex))
-        # print("S " + str(indexStart))
-        # print("E " + str(indexEnd))
-        # self.listConsoleScreen.tag_raise("sel")
-        # self.listConsoleScreen.tag_bind(CONSTANTS.CONSOLE.SELECT, show_hand_cursor)
 
         if consoleScreen.get(indexStart, indexEnd).strip() != '':
             # Highlight the range by specifying the tag
@@ -1078,72 +1040,67 @@ class AutomatedMining_Controller:
         # Disable the entry to prevent editing
         consoleScreen.configure(state = DISABLED)
 
-    def highlightEntry(self, consoleScreen):
-        consoleScreen.text.tag_remove("current_line", 1.0, "end")
-        consoleScreen.text.tag_add("current_line", "insert linestart", "insert lineend+1c")
-
     def showConsoleScreen(self, event, consoleScreen):
-
         # Hide all screens first
         self.hideWidget(self.listConsoleScreen)
-        self.hideWidget(self.listConsoleQueueScreen)
-        self.hideWidget(self.listConsoleZTestScreen)
-        self.hideWidget(self.listConsoleChiSquareScreen)
+        self.hideWidget(self.listConsoleResultsScreen)
+        self.hideWidget(self.listConsoleInputScreen)
+        self.hideWidget(self.listConsoleSearchScreen)
 
         # Reset relief
         self.buttonConsoleAll['relief'] = FLAT
-        self.buttonConsoleZTest['relief'] = FLAT
-        self.buttonConsoleChiSquare['relief'] = FLAT
-        self.buttonConsoleQueue['relief'] = FLAT
+        self.btnConsoleInput['relief'] = FLAT
+        self.btnConsoleSearch['relief'] = FLAT
+        self.btnConsoleResults['relief'] = FLAT
 
         # Reset background color
         self.buttonConsoleAll['background'] = CS.WHITE
-        self.buttonConsoleZTest['background'] = CS.WHITE
-        self.buttonConsoleChiSquare['background'] = CS.WHITE
-        self.buttonConsoleQueue['background'] = CS.WHITE
+        self.btnConsoleInput['background'] = CS.WHITE
+        self.btnConsoleSearch['background'] = CS.WHITE
+        self.btnConsoleResults['background'] = CS.WHITE
 
         # Reset foreground color
-        self.buttonConsoleAll['foreground'] = CS.FG_COLOR
-        self.buttonConsoleZTest['foreground'] = CS.FG_COLOR
-        self.buttonConsoleChiSquare['foreground'] = CS.FG_COLOR
-        self.buttonConsoleQueue['foreground'] = CS.FG_COLOR
+        self.buttonConsoleAll['foreground'] = CS.D_BLUE
+        self.btnConsoleInput['foreground'] = CS.D_BLUE
+        self.btnConsoleSearch['foreground'] = CS.D_BLUE
+        self.btnConsoleResults['foreground'] = CS.D_BLUE
 
         if self.dictConsoleScreens[consoleScreen] == const.SCREENS.QUEUE:
-            self.showWidget(self.listConsoleQueueScreen)
-            self.labelConsoleScreenTaskBar['text'] = '''QUEUE'''
-            self.buttonConsoleQueue['background'] = CS.FUSCHIA
-            self.buttonConsoleQueue['foreground'] = CS.WHITE
-            self.buttonConsoleQueue['relief'] = GROOVE
+            self.showWidget(self.listConsoleResultsScreen)
+            self.labelConsoleScreenTaskBar['text'] = '''RESULTS'''
+            self.btnConsoleResults['background'] = CS.CYAN
+            self.btnConsoleResults['foreground'] = CS.D_BLUE
+            self.btnConsoleResults['relief'] = GROOVE
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.Z_TEST:
-            self.showWidget(self.listConsoleZTestScreen)
-            self.labelConsoleScreenTaskBar['text'] = '''Z-TEST'''
-            self.buttonConsoleZTest['background'] = CS.FUSCHIA
-            self.buttonConsoleZTest['foreground'] = CS.WHITE
-            self.buttonConsoleZTest['relief'] = GROOVE
+            self.showWidget(self.listConsoleInputScreen)
+            self.labelConsoleScreenTaskBar['text'] = '''INPUT'''
+            self.btnConsoleInput['background'] = CS.CYAN
+            self.btnConsoleInput['foreground'] = CS.D_BLUE
+            self.btnConsoleInput['relief'] = GROOVE
 
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.CHI_SQUARE:
-            self.showWidget(self.listConsoleChiSquareScreen)
-            self.labelConsoleScreenTaskBar['text'] = '''CHI-SQUARE'''
-            self.buttonConsoleChiSquare['background'] = CS.FUSCHIA
-            self.buttonConsoleChiSquare['foreground'] = CS.WHITE
-            self.buttonConsoleChiSquare['relief'] = GROOVE
+            self.showWidget(self.listConsoleSearchScreen)
+            self.labelConsoleScreenTaskBar['text'] = '''SEARCH'''
+            self.btnConsoleSearch['background'] = CS.CYAN
+            self.btnConsoleSearch['foreground'] = CS.D_BLUE
+            self.btnConsoleSearch['relief'] = GROOVE
 
 
         else:
             self.showWidget(self.listConsoleScreen)
             self.labelConsoleScreenTaskBar['text'] = '''ALL'''
-            self.buttonConsoleAll['background'] = CS.FUSCHIA
-            self.buttonConsoleAll['foreground'] = CS.WHITE
+            self.buttonConsoleAll['background'] = CS.CYAN
+            self.buttonConsoleAll['foreground'] = CS.D_BLUE
             self.buttonConsoleAll['relief'] = GROOVE
 
     """ >>> HELPER FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. enter, leave) <<< """
 
     # TODO Optimize (avoid resizing, keep a reference)
     # region
-    def enterCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+    def enterCheckIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_check_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
@@ -1151,16 +1108,16 @@ class AutomatedMining_Controller:
             image = btn_check_icon)
         item.image = btn_check_icon  # < ! > Required to make images appear
 
-    def leaveCheckIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveCheckIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_check_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
             image = btn_check_icon)
         item.image = btn_check_icon  # < ! > Required to make images appear
 
-    def enterCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+    def enterCrossIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CROSS_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_cross_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
@@ -1168,16 +1125,16 @@ class AutomatedMining_Controller:
             image = btn_cross_icon)
         item.image = btn_cross_icon  # < ! > Required to make images appear
 
-    def leaveCrossIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveCrossIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_CROSS).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_cross_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
             image = btn_cross_icon)
         item.image = btn_cross_icon  # < ! > Required to make images appear
 
-    def enterAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_ADD_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+    def enterAddIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_ADD_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_add_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
@@ -1185,44 +1142,44 @@ class AutomatedMining_Controller:
             image = btn_add_icon)
         item.image = btn_add_icon  # < ! > Required to make images appear
 
-    def leaveAddIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_ADD).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveAddIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_ADD).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_add_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
             image = btn_add_icon)
         item.image = btn_add_icon  # < ! > Required to make images appear
 
-    def enterDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
+    def enterDownArrowIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
         item = event.widget
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
         item.configure(
             image = btn_down_arrow_icon)
         item.image = btn_down_arrow_icon  # < ! > Required to make images appear
 
-    def leaveDownArrowIcon(self, event, iconSize = Icon_support.SELECT_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveDownArrowIcon(self, event, iconSize = _Icon_support.SELECT_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
             image = btn_down_arrow_icon)
         item.image = btn_down_arrow_icon  # < ! > Required to make images appear
 
-    def enterRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
+    def enterRightArrowIcon(self, event, iconSize = _Icon_support.RUN_ICO_SIZE):
         item = event.widget
 
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+        im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
         btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
         item.configure(
             image = btn_right_arrow_icon)
         item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
-    def leaveRightArrowIcon(self, event, iconSize = Icon_support.RUN_ICO_SIZE):
-        im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
+    def leaveRightArrowIcon(self, event, iconSize = _Icon_support.RUN_ICO_SIZE):
+        im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW).resize(iconSize, PIL.Image.ANTIALIAS)
         btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
         item = event.widget
         item.configure(
@@ -1230,41 +1187,41 @@ class AutomatedMining_Controller:
         item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
 
-    def enterDownArrowPlainIcon(self, event, state = NORMAL, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+    def enterDownArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
         if state != DISABLED:
             item = event.widget
-            im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
             btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
             item.configure(
                 image = btn_down_arrow_icon)
             item.image = btn_down_arrow_icon  # < ! > Required to make images appear
 
-    def leaveDownArrowPlainIcon(self, event, state = NORMAL, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+    def leaveDownArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
         if state != DISABLED:
             item = event.widget
-            im = PIL.Image.open(Icon_support.TAB_ICO_DOWN_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
+            im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
 
             btn_down_arrow_icon = PIL.ImageTk.PhotoImage(im)
             item.configure(
                 image = btn_down_arrow_icon)
             item.image = btn_down_arrow_icon  # < ! > Required to make images appear
 
-    def enterRightArrowPlainIcon(self, event, state = NORMAL, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+    def enterRightArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
         if state != DISABLED:
             item = event.widget
-            im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
+            im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
             btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
             item.configure(
                 image = btn_right_arrow_icon)
             item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
-    def leaveRightArrowPlainIcon(self, event, state = NORMAL, iconSize = Icon_support.SELECT_ICO_SIZE_BUTTONS):
+    def leaveRightArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
         if state != DISABLED:
             item = event.widget
             if item['state'] != DISABLED:
-                im = PIL.Image.open(Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
+                im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
                 btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
                 item.configure(
                     image = btn_right_arrow_icon)
@@ -1304,15 +1261,15 @@ class AutomatedMining_Controller:
         self.labelQueryDataFeatureName.configure(
             background = CS.FILTER_LISTBOX_FEATURE_STATUS_BG,
             foreground = CS.FILTER_LISTBOX_FEATURE_STATUS_FG,
-            text = UI_support.FILTER_STATUS_NO_FEATURE_TEXT
+            text = _UI_support.FILTER_STATUS_NO_FEATURE_TEXT
         )
 
         # Show lock cover
         self.labelOverlayFilterListData.place(
-            relx = UI_support.getRelX(self.labelFrameFilterListData),
-            rely = UI_support.getRelY(self.labelFrameFilterListData),
-            relwidth = UI_support.getRelW(self.labelFrameFilterListData),
-            relheight = UI_support.getRelH(self.labelFrameFilterListData))
+            relx = _UI_support.getRelX(self.labelFrameFilterListData),
+            rely = _UI_support.getRelY(self.labelFrameFilterListData),
+            relwidth = _UI_support.getRelW(self.labelFrameFilterListData),
+            relheight = _UI_support.getRelH(self.labelFrameFilterListData))
 
         # Change stripe color
         self.setFilterStripeReady(False, self.lblResultTableStripes)
@@ -1329,7 +1286,7 @@ class AutomatedMining_Controller:
         self.labelQueryDataFeatureName.configure(
             background = CS.FILTER_LISTBOX_FEATURE_STATUS_ON_BG,
             foreground = CS.FILTER_LISTBOX_FEATURE_STATUS_ON_FG,
-            text = UI_support.FILTER_STATUS_READY_TEXT
+            text = _UI_support.FILTER_STATUS_READY_TEXT
         )
 
         # Hide lock cover
@@ -1352,13 +1309,13 @@ class AutomatedMining_Controller:
                 text = "EXPORT SIGNIFICANT DATASETS",
                 background = CS.SELECT_LISTBOX_STATUS_BG,
                 foreground = CS.SELECT_LISTBOX_STATUS_FG,
-                relief = UI_support.SELECT_LISTBOX_RELIEF
+                relief = _UI_support.SELECT_LISTBOX_RELIEF
             )
 
     def setStripeReady(self, isReady, stripeWidget, isOrange = True):
 
         if isReady:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
+            im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_LIME)
             texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_lime_stripes
@@ -1366,7 +1323,7 @@ class AutomatedMining_Controller:
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
             if isOrange:
-                im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_ORANGE)
+                im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_ORANGE)
                 texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
                 stripeWidget.configure(
                     image = texture_orange_stripes
@@ -1374,7 +1331,7 @@ class AutomatedMining_Controller:
                 stripeWidget.image = texture_orange_stripes
             else:
 
-                im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PLUM)
+                im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_PLUM)
                 texture_plum_stripes = PIL.ImageTk.PhotoImage(im)
                 stripeWidget.configure(
                     image = texture_plum_stripes
@@ -1385,14 +1342,14 @@ class AutomatedMining_Controller:
 
     def setFilterStripeReady(self, isReady, stripeWidget):
         if isReady:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_LIME)
+            im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_LIME)
             texture_lime_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_lime_stripes
             )
             stripeWidget.image = texture_lime_stripes  # < ! > Required to make images appear
         else:
-            im = PIL.Image.open(Icon_support.TEXTURE_STRIPE_PLUM)
+            im = PIL.Image.open(_Icon_support.TEXTURE_STRIPE_PLUM)
             texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
             stripeWidget.configure(
                 image = texture_orange_stripes
@@ -1411,8 +1368,8 @@ class AutomatedMining_Controller:
         # Store widget width and height if it's not in the dictionary
         widgetName = self.getWidgetName(widget)
         if not (widgetName + '_W' in self.dictWidgetPlace):
-            self.dictWidgetPlace[widgetName + '_W'] = UI_support.getRelW(widget)
-            self.dictWidgetPlace[widgetName + '_H'] = UI_support.getRelH(widget)
+            self.dictWidgetPlace[widgetName + '_W'] = _UI_support.getRelW(widget)
+            self.dictWidgetPlace[widgetName + '_H'] = _UI_support.getRelH(widget)
 
         # Set widget width and height to 0
         widget.place(relwidth = 0, relheight = 0)
@@ -1471,9 +1428,11 @@ class AutomatedMining_Controller:
     def runSystematicFilteringWindow(self, root):
         self.model.runSystematicFiltering(self.root)
 
+    def addToConsoleAll(self, text):
+        self.addToConsole(text, self.listConsoleScreen)
 
-
-
+    def addToConsoleInput(self, text):
+        self.addToConsole(text, self.listConsoleInputScreen)
 
 
 

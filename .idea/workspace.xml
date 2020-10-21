@@ -30,13 +30,30 @@
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_MODEL.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_MODEL.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ChiSquare_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_ChiSquare_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_Color_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dialogue_Grip_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_Dialogue_Grip_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Grip_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_Grip_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_Icon_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Input_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/Input_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Input_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/Input_VIEW.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ManualMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/MM/(Q1) - Chi-Test - b1 [1]  b5 [1] (Tables).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/MM/(Q1) - Chi-Test - b1 [1]  b5 [1] .xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/MM/(Q1) b1 [1].csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/MM/(Q1) b5 [1].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UIConstants_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_UIConstants_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_UI_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Widget_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_Widget_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__CrossProcess_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__Filter_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Filter_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Loader_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__RFE_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__RFE_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/___OOTO_Driver.py" beforeDir="false" afterPath="$PROJECT_DIR$/___OOTO_Driver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,22 +270,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="778" height="637" key="GridCell.Tab.0.bottom" timestamp="1603312494669">
+    <state width="778" height="637" key="GridCell.Tab.0.bottom" timestamp="1603319874869">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603312494669" />
-    <state width="778" height="637" key="GridCell.Tab.0.center" timestamp="1603312494669">
+    <state width="778" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603319874869" />
+    <state width="778" height="637" key="GridCell.Tab.0.center" timestamp="1603319874869">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603312494669" />
-    <state width="778" height="637" key="GridCell.Tab.0.left" timestamp="1603312494669">
+    <state width="778" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603319874869" />
+    <state width="778" height="637" key="GridCell.Tab.0.left" timestamp="1603319874869">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603312494669" />
-    <state width="778" height="637" key="GridCell.Tab.0.right" timestamp="1603312494669">
+    <state width="778" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603319874869" />
+    <state width="778" height="637" key="GridCell.Tab.0.right" timestamp="1603319874869">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603312494669" />
+    <state width="778" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603319874869" />
     <state x="-59" y="121" key="SettingsEditor" timestamp="1603292241063">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -296,12 +313,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/___OOTO_Driver.py</url>
-          <line>337</line>
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/___OOTO_Driver.py</url>
-          <line>190</line>
+          <line>157</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -310,13 +322,13 @@
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Widget_support.py</url>
+          <url>file://$PROJECT_DIR$/_Widget_support.py</url>
           <line>450</line>
           <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ManualMining_CONTROLLER.py</url>
-          <line>982</line>
+          <line>983</line>
           <option name="timeStamp" value="101" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -325,23 +337,13 @@
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ManualMining_CONTROLLER.py</url>
-          <line>268</line>
-          <option name="timeStamp" value="112" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/_MODULE_SystematicFiltering.py</url>
-          <line>60</line>
-          <option name="timeStamp" value="113" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AutomatedMining_VIEW.py</url>
-          <line>1194</line>
+          <line>1109</line>
           <option name="timeStamp" value="120" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AutomatedMining_VIEW.py</url>
-          <line>1215</line>
+          <line>1130</line>
           <option name="timeStamp" value="121" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">

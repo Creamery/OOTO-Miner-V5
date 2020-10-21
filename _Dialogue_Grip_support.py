@@ -26,9 +26,9 @@ import PIL.Image
 import PIL.ImageTk
 
 import Function_support as FS
-import Widget_support as WS
-import Color_support as CS
-import Icon_support as IS
+import _Widget_support as WS
+import _Color_support as CS
+import _Icon_support as IS
 
 class DialogueGripLabel:
 

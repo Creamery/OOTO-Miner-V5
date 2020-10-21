@@ -32,9 +32,9 @@ import os
 import PIL.Image
 import PIL.ImageTk
 
-import Color_support as CS
-import UI_support as US
-import Icon_support as IS
+import _Color_support as CS
+import _UI_support as US
+import _Icon_support as IS
 import Function_support as FS
 
 from Keys_support import Dataset as KSD

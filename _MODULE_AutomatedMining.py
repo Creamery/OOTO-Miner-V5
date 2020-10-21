@@ -39,7 +39,6 @@ except ImportError:
 import AutomatedMining_MODEL as MODEL
 import AutomatedMining_VIEW as VIEW
 import AutomatedMining_CONTROLLER as CONTROLLER
-import Function_support as FS
 
 
 class AutomatedMining:
@@ -50,7 +49,7 @@ class AutomatedMining:
         self.view = VIEW.AutomatedMining_View(parentFrame, root)
         # self.controller = CONTROLLER.AutomatedMining_Controller(self.view, self.model, self.root)
         self.controller = CONTROLLER.AutomatedMining_Controller(self.view, self.model, self.root)
-
+        self.model.setAMController(self.controller)
 
     def readFeatures(self, variableDescription):
         return self.controller.readFeatures(variableDescription, "^")

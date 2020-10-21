@@ -16,7 +16,7 @@ import collections
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import LogisticRegression
 
-import UIConstants_support as UICS
+import _UIConstants_support as UICS
 import time
 
 
