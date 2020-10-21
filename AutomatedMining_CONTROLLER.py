@@ -21,12 +21,6 @@ __version__ = "3.0"
 
 import tkMessageBox
 import copy
-import SampleVsPopulation as svp
-import SampleVsSample as svs
-import ChiTest as CHI
-import Widget_support as WS
-import os
-from collections import Counter
 
 import Tkinter as tk
 
@@ -723,7 +717,6 @@ class AutomatedMining_Controller:
                 # list_inclusive_DTPairs = self.dict_Significant_DTPairs[feat_code]
                 self.list_selected_features.append(feat_code)
 
-            print self.list_selected_features
             self.list_selected_features.sort()
             # print(""
             #       ""
@@ -749,16 +742,38 @@ class AutomatedMining_Controller:
     def updateFeatureGroupList(self):
         self.listFeatureGroups.delete(0, END)  # Empty the listbox before adding
         self.list_selected_feature_groups = []
+
+        shortenText = False
+        list_entries = []
+        i_longest_length = 0
         for feat_code, dt_pairs in self.dict_selected_features.items():
             len_feat_code = len(feat_code)
             if len_feat_code < 3:  # Add a space before the feature code if its length is less than 3
                 feat_code = " " + feat_code
 
-            str_entry_index = feat_code + "| "
+            str_entry_index = feat_code + "|"
             for dt_pair in dt_pairs:
                 str_entry = str_entry_index + dt_pair
+                len_entry = len(str_entry)
+
+                if len_entry > 33:  # If length of text is longer than box, shorten later
+                    shortenText = True
+                    if len_entry > i_longest_length:
+                        i_longest_length = len_entry
+
+                list_entries.append(str_entry)
+                print (dt_pairs)
                 self.list_selected_feature_groups.append(dt_pairs)  # Contains all dataset pairs for the selected significant features
-                self.listFeatureGroups.insert(END, str_entry)
+
+        for entry in list_entries:
+            if shortenText:  # Shorten the entries as required
+                entry = entry[1:]
+                entry = entry.replace(" VS ", "|")
+
+            self.listFeatureGroups.insert(END, entry)
+
+
+
 
 
 
@@ -775,9 +790,15 @@ class AutomatedMining_Controller:
                 str_list_box_entry = self.listFeatureGroups.get(index)
 
                 # The pipe (|) is the delimiter between the feature code and dataset pair/group
+                str_list_box_entry = str_list_box_entry.replace("|", "?", 1)
+                str_list_box_entry = str_list_box_entry.replace("|", " VS ")
+                str_list_box_entry = str_list_box_entry.replace("?", "|")
+                # print(str_list_box_entry)
+
                 str_entry = [x.strip() for x in str_list_box_entry.split('|')]  # Use strip to remove spaces
                 feat_code = str_entry[0]
                 dataset_pair = str_entry[1]  # Returns the "x(n) VS y(m)" notation of the dataset pair
+
                 self.list_feature_groups.append(dataset_pair)  # This will contain the list of dataset pairs to show
                 self.list_str_feature_groups.append(" " + str(dataset_pair))
 
@@ -985,35 +1006,12 @@ class AutomatedMining_Controller:
             disabledforeground=CS.FG_DISABLED_COLOR)
         '''
 
-    ''' Function that happens when the 'Enqueue' button is pressed. Adds Chi-Test to the queue '''
-
-    def queue(self, evt):
-        global queryType_gl
-
-        self.buttonQueue.configure(relief = FLAT)
-        datasets = []
-        datasets.append(self.datasetA)
-        datasets.append(self.datasetB)
-
-        if (queryType_gl == 'Sample vs Sample'):  # TODO Remove this condition?
-            self.addToQueue(queryType_gl, datasetArgs = datasets)
-        else:
-            tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
-        return "break"
 
 
     ''' Starts the Automated Mining Process (RUN MINER) '''
     def runAutomatedMiner(self, evt):
-        # df_raw_dataset, df_dataset, ftr_names = LS.loadInput()  # Can add parameters
-        # dict_significant_results = AM_R.runAutomatedMining(df_raw_dataset, df_dataset, ftr_names)
-        # dict_significant_results = MULTI_S.runAutomatedMining(df_raw_dataset, df_dataset, ftr_names)
-        # MULTI_S.startThread()
-        self.runSystematicFilteringWindow(self.root)  # TODO Launches the SF Thread
-        # dict_significant_results = AM_R.runAutomatedMining()
-
-        # TODO Enable in Thread
-        # tkMessageBox.showinfo("Automated Mining Complete", "You can now review the results by searching below.")
-
+        # Launches the SF Thread (pop-up window)
+        self.runSystematicFilteringWindow(self.root)
         return "break"
 
 
@@ -1271,20 +1269,6 @@ class AutomatedMining_Controller:
                 item.configure(
                     image = btn_right_arrow_icon)
                 item.image = btn_right_arrow_icon  # < ! > Required to make images appear
-
-    def enterQueryZTest(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK_ON).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonApplyLevelSpinBox.configure(
-            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonApplyLevelSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
-
-    def leaveQueryZTest(self, event):
-        im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
-        btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
-        self.buttonApplyLevelSpinBox.configure(
-            image = btn_query_z_test_icon)  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
-        self.buttonApplyLevelSpinBox.image = btn_query_z_test_icon  # < ! > Required to make images appear
 
     # endregion
 

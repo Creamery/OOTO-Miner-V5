@@ -335,7 +335,7 @@ class ManualMining_View:
         self.labelFrameDatasetA = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetA.place(
             relx = 0.05, rely = newRelY,
-            relwidth = UI_support.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
+            relwidth = 0.46, relheight = 1 - titleRelH
         )
         self.labelFrameDatasetA.configure(
             background = CS.SELECT_BG
@@ -343,9 +343,9 @@ class ManualMining_View:
         newRelH = FS.getRelH(self.labelFrameDatasetA)
         self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
-            relx = UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15,
+            relx = UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15 - 0.06,
             # (2 * FS.getRelX(self.labelFrameDatasetA)) + FS.getRelW(self.labelFrameDatasetA),
-            rely = newRelY, relwidth = 0.4, relheight = newRelH
+            rely = newRelY, relwidth = 0.46, relheight = newRelH
         )
         self.labelFrameDatasetB.configure(
             background = CS.SELECT_BG

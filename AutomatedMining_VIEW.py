@@ -392,7 +392,8 @@ class AutomatedMining_View:
         self.labelFrameDatasetA = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetA.place(
             relx = 0.05, rely = newRelY,
-            relwidth = US.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
+            # relwidth = US.TAB_TEST_SELECT_DATASET_REL_W, relheight = 1 - titleRelH
+            relwidth = 0.46, relheight = 1 - titleRelH
         )
         self.labelFrameDatasetA.configure(
             background = CS.PROCESS_BG
@@ -400,9 +401,10 @@ class AutomatedMining_View:
         newRelH = FS.getRelH(self.labelFrameDatasetA)
         self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
-            relx = US.TAB_TEST_SELECT_DATASET_REL_W + 0.15,
+            relx = US.TAB_TEST_SELECT_DATASET_REL_W + 0.15 - 0.06,
             # (2 * FS.getRelX(self.labelFrameDatasetA)) + FS.getRelW(self.labelFrameDatasetA),
-            rely = newRelY, relwidth = 0.4, relheight = newRelH
+            # rely = newRelY, relwidth = 0.4, relheight = newRelH
+            rely = newRelY, relwidth = 0.46, relheight = newRelH
         )
         self.labelFrameDatasetB.configure(
             background = CS.PROCESS_BG
@@ -580,7 +582,7 @@ class AutomatedMining_View:
             activestyle = "none",
             selectbackground = CS.FILTER_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = CS.FILTER_LISTBOX_SELECTED_ITEM_FG,
-            font = US.FONT_AM_LISTBOX,
+            font = US.FONT_AM_LISTBOX_DEFAULT,
             bd = US.SELECT_LISTBOX_BORDER, relief = US.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
@@ -781,7 +783,7 @@ class AutomatedMining_View:
             activestyle = "none",
             selectbackground = CS.FILTER_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = CS.FILTER_LISTBOX_SELECTED_ITEM_FG,
-            font = US.FONT_AM_LISTBOX,
+            font = US.FONT_AM_LISTBOX_SMALL,
             bd = US.SELECT_LISTBOX_BORDER, relief = US.SELECT_LISTBOX_RELIEF,
             highlightthickness = 0
         )
