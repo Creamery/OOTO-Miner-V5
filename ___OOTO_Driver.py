@@ -45,7 +45,7 @@ except ImportError:
     import tkinter.ttk as ttk
 
     py3 = 1
-
+import Tkinter
 import math
 import Mother_support
 import Color_support as CS

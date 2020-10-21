@@ -45,6 +45,7 @@ except ImportError:
 
     py3 = 1
 
+import Tkinter
 import math
 import collections
 import Color_support as CS
@@ -249,6 +250,12 @@ class AutomatedMining_Controller:
         self.btnSearchResultsRight = self.view.getBtnSearchResultsRight()  # When arrow is pressed in left result
         self.btnSearchResultsRight.bind('<Button-1>', self.triggerRightResults)
 
+        self.applyCrossTypeSpinbox = self.view.getButtonApplyCrossTypeSpinBox()
+        self.applyCrossTypeSpinbox.bind('<Button-1>', self.applyCrossType)
+
+        self.applyCrossLevelSpinbox = self.view.getButtonApplyLevelSpinBox()
+        self.applyCrossLevelSpinbox.bind('<Button-1>', self.applyCrossLevel)
+
 
         # The Check button in the second box (AKA Apply filters)
         # self.btnApplySelectedFeatureSearch = self.view.getButtonQueryAddFilterB()
@@ -341,6 +348,8 @@ class AutomatedMining_Controller:
         self.btnCompareSelectedFeatureGroups.bind("<Leave>", self.leaveCheckIcon)
 
 
+        self.applyCrossTypeSpinbox.bind("<Enter>", self.enterCheckIcon)
+        self.applyCrossTypeSpinbox.bind("<Leave>", self.leaveCheckIcon)
 
         self.buttonTestQueue.bind("<Enter>", self.enterRightArrowIcon)
         self.buttonTestQueue.bind("<Leave>", self.leaveRightArrowIcon)
@@ -374,13 +383,17 @@ class AutomatedMining_Controller:
     # region
 
     '''SELECT HEADER'''
+    def applyCrossType(self, event):
+        new_cross = self.spinBoxChangeCrossType.get()
+        UICS.MAX_CROSS = new_cross
+        tkMessageBox.showinfo("CROSS TYPE Successfully Changed", "The new CROSS TYPE is now " + str(UICS.MAX_CROSS))
+        return "break"
 
-    # region
-    # def setFocusFeatureValues(self, evt):
-    #     listBox = evt.widget
-    #     selectedItems = listBox.curselection()
-    #     FS.setFocusFeatureValues(self.listResultsLeft, self.datasetA, selectedItems, self.lblSelectedFeatureCodesTitle, False)
-    #     FS.setFocusFeatureValues(self.listResultsRight, self.datasetB, selectedItems, self.lblSelectedFeatureGroupsTitle, True)
+    def applyCrossLevel(self, event):
+        new_level = self.spinBoxChangeLevel.get()
+        UICS.MAX_LEVEL = new_level
+        tkMessageBox.showinfo("CROSS LEVEL Successfully Changed", "The new LEVEL is now " + str(UICS.MAX_LEVEL))
+        return "break"
 
     def dropDownLeft(self, event):
         # print('--- callback ---')
@@ -630,7 +643,7 @@ class AutomatedMining_Controller:
     def setLeftResultFocusValue(self, event):
         print()  # BOTTOM LABEL
         # Update Selection Count
-        self.dataset_pair_right
+        self.dataset_pair_left
         selected = self.listResultsLeft.curselection()
         print(selected)
         self.setStripeReady(False, self.lblResultTableStripes)  # Change stripe color
@@ -640,12 +653,12 @@ class AutomatedMining_Controller:
     def setRightResultFocusValue(self, event):
         # Update Selection Count
         selected = self.listResultsLeft.curselection()
-
-        self.dataset_pair_left
+        self.dataset_pair
         print(selected)
         self.setStripeReady(False, self.lblResultTableStripes)  # Change stripe color
         self.lblLeftResultFocusValue.config(text = "Selected")
     # endregion
+
 
     '''FILTER HEADER'''
     # region
@@ -718,86 +731,6 @@ class AutomatedMining_Controller:
                 self.listFeatureGroups.insert(END, str_entry)
 
 
-
-    # def queryAddFilterB(self, evt):
-    #     self.isReadyDatasetB = False
-    #
-    #     self.btnCompareSelectedFeatureGroups.configure(relief = FLAT)
-    #     # print ("LEN (Prev) IS " + str(len(self.datasetA['Data'])))
-    #     # print ("Dataset B COUNT IS " + str(self.datasetCountB))
-    #
-    #     # If the dataset is empty, do not push through with filtering.
-    #     if len(self.datasetB['Data']) <= 0:
-    #         tkMessageBox.showerror("Error: Empty dataset",
-    #                                "Dataset is empty. Please check if you uploaded your population dataset")
-    #         # CLEAR filter feature box
-    #         self.queryResetResultDetails(evt)
-    #
-    #
-    #     # If there are 0 samples in the selection, do not push through with filtering
-    #     elif self.datasetCountB <= 0:
-    #         tkMessageBox.showerror("Error: No samples selected for B",
-    #                                "You must have at least 1 sample in your selection.")
-    #         # CLEAR filter feature box
-    #         self.queryResetResultDetails(evt)
-    #
-    #         self.labelQuerySetDataStatusB.configure(
-    #             text = UI_support.SELECT_STATUS_NO_DATA_TEXT,
-    #             background = CS.SELECT_LISTBOX_STATUS_BG,
-    #             foreground = CS.SELECT_LISTBOX_STATUS_FG
-    #         )
-    #
-    #     else:
-    #         # CLEAR filter feature box first
-    #         self.queryResetResultDetails(evt)
-    #         self.isReadyDatasetB = True
-    #         self.checkIfDatasetReady()
-    #         self.datasetB = copy.deepcopy(self.populationDatasetOriginalB)
-    #
-    #         # Filter the data given the feature inputted and its values selected
-    #
-    #         try:
-    #             new_data = FS.filterDataset(self.datasetB, self.datasetB['Feature'],
-    #                                         self.datasetB['Feature']['Selected Responses'])
-    #         except KeyError:
-    #             tkMessageBox.showerror("Error: No selected responses",
-    #                                    "You did not select any responses. Please select at least one.")
-    #             # return -1
-    #             return "break"
-    #
-    #         # Add the feature to the dataset's filtered features
-    #         self.datasetB['Filter Features'].append(self.datasetB['Feature'])
-    #
-    #         # Assign the new set of filtered data
-    #         self.datasetB['Data'] = new_data
-    #
-    #         if (queryType_gl == 'Sample vs Sample'):  ### TODO
-    #             queryStrFilterB = ''
-    #         else:
-    #             queryStrFilterB = ''
-    #
-    #         # Write the breadcrumb trail of the features and values the dataset was filtered by
-    #         for i in range(0, len(self.datasetB['Filter Features'])):
-    #             # queryStrFilterB = queryStrFilterB + "->" + self.datasetB['Filter Features'][i]['Code']
-    #             queryStrFilterB = " [ " + self.datasetB['Filter Features'][i]['Code'] + " | "
-    #             for j in range(0, len(self.datasetB['Filter Features'][i]['Selected Responses'])):
-    #                 # if j == 0:
-    #                 #     queryStrFilterB = queryStrFilterB + "("
-    #                 queryStrFilterB = queryStrFilterB + self.datasetB['Filter Features'][i]['Selected Responses'][j][
-    #                     'Code'] + " "
-    #                 if j == (len(self.datasetB['Filter Features'][i]['Selected Responses']) - 1):
-    #                     queryStrFilterB = queryStrFilterB + "]"
-    #
-    #         # Concat the Filter String Here
-    #         # self.labelFrameQueryDataB.configure(text = queryStrFilterB)
-    #         self.labelQuerySetDataStatusB.configure(
-    #             text = UI_support.LBL_SELECT_READY + "" + queryStrFilterB,
-    #             background = CS.SELECT_LISTBOX_STATUS_READY_BG,
-    #             foreground = CS.SELECT_LISTBOX_STATUS_READY_FG
-    #         )
-    #         self.setStripeReady(True, self.lblStripeFeatureGroups)
-    #
-    #     return "break"
 
     def compareSelectedFeatureGroups(self, evt):  # TODO Limit selections to 2?
         list_selectedFeatureGroups = self.listFeatureGroups.curselection()  # Right statement returns indices

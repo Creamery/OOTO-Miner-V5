@@ -46,8 +46,8 @@ except ImportError:
 
     py3 = 1
 
-from tkinter import ttk
-
+# from tkinter import ttk
+import Tkinter
 import Icon_support
 import PIL.Image
 import PIL.ImageTk
