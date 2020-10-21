@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/OOTO Miner Python v2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OOTO Miner Python v2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/___OOTO_Driver.py" beforeDir="false" afterPath="$PROJECT_DIR$/___OOTO_Driver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_input/Uniandes_Dataset.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_input/Uniandes_VariableDescription.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/AM/SSFs/SSFs - CROSS[0][1].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/SSFs/SSFs - CROSS[0][1].csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,38 +223,38 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="778" height="637" key="GridCell.Tab.0.bottom" timestamp="1603289728563">
+    <state width="778" height="637" key="GridCell.Tab.0.bottom" timestamp="1603291574169">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603289728563" />
-    <state width="778" height="637" key="GridCell.Tab.0.center" timestamp="1603289728563">
+    <state width="778" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603291574169" />
+    <state width="778" height="637" key="GridCell.Tab.0.center" timestamp="1603291574169">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603289728563" />
-    <state width="778" height="637" key="GridCell.Tab.0.left" timestamp="1603289728563">
+    <state width="778" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603291574169" />
+    <state width="778" height="637" key="GridCell.Tab.0.left" timestamp="1603291574169">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603289728563" />
-    <state width="778" height="637" key="GridCell.Tab.0.right" timestamp="1603289728563">
+    <state width="778" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603291574169" />
+    <state width="778" height="637" key="GridCell.Tab.0.right" timestamp="1603291574169">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603289728563" />
+    <state width="778" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603291574169" />
     <state x="461" y="165" key="SettingsEditor" timestamp="1603287497533">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603287497533" />
-    <state x="198" y="22" width="1278" height="932" key="dock-window-5" timestamp="1603289206432">
+    <state x="186" y="501" width="1278" height="932" key="dock-window-5" timestamp="1603290777039">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="198" y="22" width="1278" height="932" key="dock-window-5/0.0.1920.1040@0.0.1920.1040" timestamp="1603289206432" />
+    <state x="186" y="501" width="1278" height="932" key="dock-window-5/0.0.1920.1040@0.0.1920.1040" timestamp="1603290777039" />
     <state x="515" y="180" width="1200" height="800" key="dock-window-7" timestamp="1603289485480">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="515" y="180" width="1200" height="800" key="dock-window-7/0.0.1920.1040@0.0.1920.1040" timestamp="1603289485480" />
-    <state x="500" y="224" width="672" height="678" key="search.everywhere.popup" timestamp="1603289603074">
+    <state x="500" y="224" width="672" height="678" key="search.everywhere.popup" timestamp="1603290839420">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="500" y="224" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603289603074" />
+    <state x="500" y="224" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603290839420" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

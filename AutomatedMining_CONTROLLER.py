@@ -641,22 +641,69 @@ class AutomatedMining_Controller:
         Also shows the DoF and Cut-off.
     '''
     def setLeftResultFocusValue(self, event):
-        print()  # BOTTOM LABEL
-        # Update Selection Count
-        self.dataset_pair_left
-        selected = self.listResultsLeft.curselection()
-        print(selected)
-        self.setStripeReady(False, self.lblResultTableStripes)  # Change stripe color
-        self.lblLeftResultFocusValue.config(text = "Selected")
+        # Update BOTTOM LABEL
 
+        self.setStripeReady(False, self.lblResultTableStripes)  # Change stripe color
+
+        i_selected = self.listResultsLeft.curselection()[0]
+
+        if i_selected > 0:
+            i_selected = i_selected - 1
+            str_drop_down_item = self.dropQueryLeft.get().strip()  # The currently selected item in the drop down
+
+            # [0 "Feature", 1 "DoF", 2 "P Value", 3 "Chi Square", 4 "Observed", 5 "Expected", 6 "IsSignificant"]
+            str_left_result_details = "Chi-Value: "
+            chi_value = self.dict_DTPairs_ResultTable[str_drop_down_item]['Chi Square'][i_selected]
+            chi_value = round(float(chi_value), 2)
+            str_left_result_details = str_left_result_details + str(chi_value) + " | "
+
+            str_left_result_details = str_left_result_details + "P-Value: "
+            p_value = self.dict_DTPairs_ResultTable[str_drop_down_item]['P Value'][i_selected]
+            p_value = round(float(p_value), 4)
+            str_left_result_details = str_left_result_details + str(p_value) + " | "
+
+            str_left_result_details = str_left_result_details + "DoF: "
+            dof = self.dict_DTPairs_ResultTable[str_drop_down_item]['DoF'][i_selected]
+            dof = round(float(dof), 2)
+            str_left_result_details = str_left_result_details + str(dof)
+
+            self.lblLeftResultFocusValue.config(text = str_left_result_details)
+        else:
+            self.lblLeftResultFocusValue.config(text = "")
 
     def setRightResultFocusValue(self, event):
-        # Update Selection Count
-        selected = self.listResultsLeft.curselection()
-        self.dataset_pair
-        print(selected)
+        # Update BOTTOM LABEL
+
         self.setStripeReady(False, self.lblResultTableStripes)  # Change stripe color
-        self.lblLeftResultFocusValue.config(text = "Selected")
+
+        i_selected = self.listResultsRight.curselection()[0]
+
+        if i_selected > 0:
+            i_selected = i_selected - 1
+            str_drop_down_item = self.dropQueryRight.get().strip()  # The currently selected item in the drop down
+
+            # [0 "Feature", 1 "DoF", 2 "P Value", 3 "Chi Square", 4 "Observed", 5 "Expected", 6 "IsSignificant"]
+            str_right_result_details = "Chi-Value: "
+            chi_value = self.dict_DTPairs_ResultTable[str_drop_down_item]['Chi Square'][i_selected]
+            chi_value = round(float(chi_value), 2)
+            str_right_result_details = str_right_result_details + str(chi_value) + " | "
+
+            str_right_result_details = str_right_result_details + "P-Value: "
+            p_value = self.dict_DTPairs_ResultTable[str_drop_down_item]['P Value'][i_selected]
+            p_value = round(float(p_value), 4)
+            str_right_result_details = str_right_result_details + str(p_value) + " | "
+
+            str_right_result_details = str_right_result_details + "DoF: "
+            dof = self.dict_DTPairs_ResultTable[str_drop_down_item]['DoF'][i_selected]
+            dof = round(float(dof), 2)
+            str_right_result_details = str_right_result_details + str(dof)
+
+            self.lblRightResultFocusValue.config(text = str_right_result_details)
+            
+        else:
+            self.lblRightResultFocusValue.config(text = "")
+
+
     # endregion
 
 
