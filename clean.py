@@ -1,3 +1,14 @@
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+	A function used by the original Manual Mining system.
+	[Candy]
+'''
+
+
 import csv
 
 class ColConverter(object):

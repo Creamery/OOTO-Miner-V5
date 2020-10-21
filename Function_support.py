@@ -1,4 +1,15 @@
 
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    A script handling various function support for
+    the original Manual Mining system.
+    [Candy]
+'''
+
+
 import Tkinter as tk
 
 try:
@@ -19,8 +30,6 @@ import tkMessageBox
 import SampleVsSample as svs
 import os
 import numpy as np
-import Color_support as CS
-from collections import Counter
 
 import csv
 import copy

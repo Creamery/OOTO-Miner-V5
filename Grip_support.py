@@ -1,3 +1,14 @@
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    This class handles the window dragability of the main OOTO Miner window.
+    [Candy]
+'''
+
+
 try:
     from Tkinter import *
 except ImportError:

@@ -1,3 +1,14 @@
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    This class handles the window dragability of 
+    the Systematic Filtering pop-up window.
+    [Candy]
+'''
+
 try:
     from Tkinter import *
 except ImportError:
@@ -13,14 +24,11 @@ except ImportError:
 
 import PIL.Image
 import PIL.ImageTk
-import tkMessageBox
 
 import Function_support as FS
 import Widget_support as WS
 import Color_support as CS
-import UI_support as US
 import Icon_support as IS
-
 
 class DialogueGripLabel:
 

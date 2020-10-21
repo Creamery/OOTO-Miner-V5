@@ -6,10 +6,20 @@
 """
 
 __author__ = ["Candy Espulgar"]
-__copyright__ = "Copyright 2019, TE3D House"
-__credits__ = ["Arnulfo Azcarraga"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
 __version__ = "3.0"
 
+'''
+    This script is the main module for the Automated Mining (AM) UI.
+    It consolidates an AutomatedMining_View and AutomatedMining_Controller.
+    The _View script handles all UI elements while the _Controller script
+    handles its functionality,
+    
+    This is the class instantiated by the driver in order to create the
+    AM tab in the UI.
+    [Candy]
+'''
 
 try:
     from Tkinter import *

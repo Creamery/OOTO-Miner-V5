@@ -6,8 +6,8 @@ from scipy.stats import chi2_contingency
 import pandas as pd
 
 import time
-import Filter_support as FILS
-import _Loader_support as LS
+import __Filter_support as FILS
+import __Loader_support as LS
 import UIConstants_support as UICS
 
 # Chi-square Dictionary Keys

@@ -9,16 +9,15 @@
 Manual Mining Functions
 """
 
-__author__ = ["Candy Espulgar (Version 3 - Current)",
-              "Arren Antioquia (Version 1)",
-              "Arces Talavera (Version 1)",
-              "Jet Virtusio (Version 1)",
-              "Edmund Gerald Cruz (Version 2)",
-              "Rgee Gallega (Version 2)"]
-
-__copyright__ = "Copyright 2020, TE3D House | 2020, Liverpool Hope University"
-__credits__ = ["Arnulfo Azcarraga | Neil Buckley"]
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
 __version__ = "3.0"
+'''
+    This script handles the UI functionality declared in
+    ManualMining_View.
+    [Candy]
+'''
 
 import tkMessageBox
 import copy
@@ -53,7 +52,7 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
-import _Loader_support as LS
+import __Loader_support as LS
 
 class ManualMining_Controller:
 
@@ -1087,7 +1086,8 @@ class ManualMining_Controller:
                     self.addToConsole(consoleText, self.listConsoleZTestScreen)
                     self.addToConsole(consoleText, self.listConsoleScreen)
             except:
-                tkMessageBox.showinfo("Missing Input", "Please select a FILTER value.")
+                # tkMessageBox.showinfo("Missing Input", "Please select a FILTER value.")
+                print("Z Test")
         return "break"
 
     ''' Conduct Z-Test between the population and all samples '''

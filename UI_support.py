@@ -82,10 +82,10 @@ LBL_SELECT_READY = '''READY'''
 TITLE_ABOUT = '''About'''
 
 LBL_ABOUT_VER = '''Version:'''
-STR_ABOUT_VER = '''OOTO Miner v. 2.0.0'''
+STR_ABOUT_VER = '''OOTO Miner v. 3.0.0'''
 
-LBL_ABOUT_AUTHOR = '''Author:'''
-STR_ABOUT_AUTHOR = '''Candy Espulgar'''
+LBL_ABOUT_AUTHOR = '''Author | Advisers:'''
+STR_ABOUT_AUTHOR = '''Candy Espulgar | Neil Buckley, Arnulfo Azcarraga'''
 
 
 LBL_ABOUT_AFFILIATION = '''Affiliation:'''

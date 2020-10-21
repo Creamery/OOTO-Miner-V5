@@ -1,8 +1,17 @@
-__author__ = ["Candy Espulgar"]
 
-__copyright__ = "Copyright 2020, TE3D House | 2020, Liverpool Hope University"
-__credits__ = ["Arnulfo Azcarraga | Neil Buckley"]
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
 __version__ = "3.0"
+'''
+    This script handles all LOADER MODULE functions.
+    It loads data from the _input and _output folders.
+    
+    The OUTPUT MODULE is integrated in this script as well
+    (through export functions). This module exports to destinations
+    within the _output folder.
+    [Candy]
+'''
 
 # For loadVarDesc()
 import json  # For pretty print
@@ -21,7 +30,7 @@ import errno
 
 
 # For exports
-import Filter_support as FILS
+import __Filter_support as FILS
 import ChiSquare_support as CHIS
 import UIConstants_support as UICS
 

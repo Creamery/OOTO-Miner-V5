@@ -3,9 +3,15 @@
 Contains constant values used by UI icons in OOTO.py
 """
 
-__author__ = "Candy"
-__copyright__ = "Copyright 2019, TE3D House"
-
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    This script contains various constant variables used to show
+    icons or images in the UI.
+    [Candy]
+'''
 
 # import sys
 # import PIL.Image

@@ -30,85 +30,39 @@
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_MODEL.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_MODEL.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CONSTANTS.py" beforeDir="false" afterPath="$PROJECT_DIR$/CONSTANTS.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiSquare_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiSquare_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ChiTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/ChiTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/CrossProcess_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/OOTO Miner - Uniandes.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/ChildDuplicates.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child10_removedParentsWithNoChildren.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child10_working.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child5_deletedOutdatedDuplicates.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child5_duplicates.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child5_filtered(working set).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child5_filtered.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child6.5_801-890.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child6.5_filtered(working set).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child6.5_invalid ages.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child6.5_invalid genders.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child6.5_purely 99 or blank records.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child6_diffRespondentsWithSameCode.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child6_filtered(working set).xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child6_filtered(working set)_duplicates.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child7_invalid ages.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/others/child7_invalid genders.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/population UNICEF.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/Child1&amp;2_merged.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/Child1&amp;2_merged_deletedDuplicatesNoLocations.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/Child1&amp;2_merged_duplicatesNoLocations.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/Child1.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/Child2.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/Merged12.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/PartialChildRespondentsOct 21.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/child10.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/child2.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/child3.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/child4.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/child5.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/child6.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datasets/raw/child7.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_Loader_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Color_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Color_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__CrossProcess_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dialogue_Grip_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Dialogue_Grip_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Filter_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Filter_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Function_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Function_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Grip_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Grip_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Icon_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Icon_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Input_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/Input_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Input_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/Input_VIEW.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Keys_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Keys_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Chi-Test__a2(9 10 11 )_a1(1 ).csv__a2(9 10 11 )_a1(2 ).csv_.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Chi-Test__b1(1 ).csv__b1(2 ).csv_.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Chi-Test__b1(1 ).csv__b1(2 ).csv_.csv.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Chi-Test__b1(1 ).csv__b1(2 ).csv_.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Chi-Test__b5(1 )_b1(1 ).csv__b5(1 )_b1(2 ).csv_.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Chi-Test__prov1(1 2 3 )_a2(9 10 11 ).csv__prov1(1 2 3 )_a2(12 13 14 ).csv_.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Tables Chi-Test__a1(1 ).csv__a1(2 ).csv_.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Tables Chi-Test__b1(1 ).csv__b1(2 ).csv_.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Results/Tables Chi-Test__b5(1 )_b1(1 ).csv__b5(1 )_b1(2 ).csv_.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_CrossProcess.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_Trial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/Filter_support.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/Trial_RFE.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/Loader_support.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/Trial_Chi-square.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_input/Uniandes_Dataset (New).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_input/Uniandes_Dataset.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_input/Uniandes_VariableDescription (New).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_input/Uniandes_VariableDescription.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_input/b1(1 2) b5(1)/b1(1).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_input/b1(1 2) b5(1)/b5(1).csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_output/Output.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_output/b1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__Chi-square/_output/b5.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/_input/Uniandes_Dataset.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/_input/Uniandes_FeatureCodes.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/_input/Uniandes_FeatureNames -Actual Names.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/_input/Uniandes_FeatureNames.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/_input/Uniandes_VariableDescription.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/_output/dataframe1.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/multiprocessing/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/multiprocessing/_run.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/multiprocessing/admin_process.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/multiprocessing/process.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/__ test scripts/multiprocessing/process_handler.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/___FullProcess.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/___TestRuns.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/___Visualization Test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ManualMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_VIEW.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mother_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Mother_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" afterPath="$PROJECT_DIR$/OOTO.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SystematicFiltering_MODEL.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Loader_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_MODULE_Input.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_Input.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_MODULE_ManualMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_ManualMining.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_Progressible.py" beforeDir="false" afterPath="$PROJECT_DIR$/_Progressible.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_THREAD_CrossProcess.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_THREAD_CrossProcessProgress.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/___OOTO_Driver.py" beforeDir="false" afterPath="$PROJECT_DIR$/___OOTO_Driver.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clean.py" beforeDir="false" afterPath="$PROJECT_DIR$/clean.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -325,22 +279,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="778" height="637" key="GridCell.Tab.0.bottom" timestamp="1603292507037">
+    <state width="778" height="637" key="GridCell.Tab.0.bottom" timestamp="1603295200878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603292507037" />
-    <state width="778" height="637" key="GridCell.Tab.0.center" timestamp="1603292507037">
+    <state width="778" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603295200878" />
+    <state width="778" height="637" key="GridCell.Tab.0.center" timestamp="1603295200878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603292507037" />
-    <state width="778" height="637" key="GridCell.Tab.0.left" timestamp="1603292507037">
+    <state width="778" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603295200878" />
+    <state width="778" height="637" key="GridCell.Tab.0.left" timestamp="1603295200878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603292507037" />
-    <state width="778" height="637" key="GridCell.Tab.0.right" timestamp="1603292507037">
+    <state width="778" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603295200878" />
+    <state width="778" height="637" key="GridCell.Tab.0.right" timestamp="1603295200878">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603292507037" />
+    <state width="778" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603295200878" />
     <state x="-59" y="121" key="SettingsEditor" timestamp="1603292241063">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -388,37 +342,32 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ManualMining_VIEW.py</url>
-          <line>204</line>
+          <line>203</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/___OOTO_Driver.py</url>
-          <line>379</line>
+          <line>366</line>
           <option name="timeStamp" value="67" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/___OOTO_Driver.py</url>
-          <line>232</line>
+          <line>219</line>
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ManualMining_VIEW.py</url>
-          <line>80</line>
+          <line>69</line>
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/_THREAD_CrossProcessProgress.py</url>
-          <line>73</line>
-          <option name="timeStamp" value="90" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py</url>
-          <line>126</line>
+          <line>123</line>
           <option name="timeStamp" value="91" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/AutomatedMining_CONTROLLER.py</url>
-          <line>127</line>
+          <line>124</line>
           <option name="timeStamp" value="93" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -427,13 +376,8 @@
           <option name="timeStamp" value="96" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/_THREAD_CrossProcessProgress.py</url>
-          <line>78</line>
-          <option name="timeStamp" value="99" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ManualMining_CONTROLLER.py</url>
-          <line>983</line>
+          <line>982</line>
           <option name="timeStamp" value="101" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -442,18 +386,13 @@
           <option name="timeStamp" value="104" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Icon_support.py</url>
-          <line>18</line>
-          <option name="timeStamp" value="111" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ManualMining_CONTROLLER.py</url>
-          <line>269</line>
+          <line>268</line>
           <option name="timeStamp" value="112" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/_MODULE_SystematicFiltering.py</url>
-          <line>46</line>
+          <line>60</line>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -465,6 +404,11 @@
           <url>file://$PROJECT_DIR$/AutomatedMining_VIEW.py</url>
           <line>1213</line>
           <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/_MODULE_Input.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="122" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

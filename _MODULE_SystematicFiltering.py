@@ -1,4 +1,19 @@
 
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+
+'''
+    This is the main class that handles the SystematicFiltering_View
+    and SystematicFiltering_Controller. It is the class instantiated by the driver.
+    
+    This module is responsible for the pop-up window when running
+    the Automated Mining process. 
+    [Candy]
+'''
+
+
 try:
     from Tkinter import *
 except ImportError:
@@ -13,16 +28,16 @@ except ImportError:
 
     py3 = 1
 
-# import tkMessageBox
+
 import Function_support as FS
 import Grip_support as GS
-import Dialogue_Grip_support as DGS
+
 import Widget_support as WS
 import SystematicFiltering_VIEW as VIEW
-import SystematicFiltering_MODEL as MODEL
 import SystematicFiltering_CONTROLLER as CONTROLLER
-from _THREAD_CrossProcess import CrossProcessThread
+
 import Color_support as CS
+
 
 class SystematicFiltering:
     def __init__(self, root):
@@ -33,8 +48,7 @@ class SystematicFiltering:
         self.winTop = self.__initializeWindow(root)  # WS.createDefaultToplevelWindow(root, [FS.sfWidth, FS.sfHeight], True, True)
         self.winTop.configure(bg = CS.WHITE)
         self.view = VIEW.SystematicFiltering_View(self.winTop)
-        self.model = MODEL.SystematicFiltering_Model()
-        self.controller = CONTROLLER.SystematicFiltering_Controller(self.model, self.view)
+        self.controller = CONTROLLER.SystematicFiltering_Controller(self.view)
 
         self.grip = self.__configureGrip(self.winTop, self.winOverlay, self.root)
         FS.placeBelow(self.view.getFrame(), self.grip.getGrip())

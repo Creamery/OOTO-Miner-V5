@@ -1,3 +1,14 @@
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    The FILTERING MODULE. This script generates the filters required
+    by the CROSS PROCESS MODULE in the Automated Mining System.
+    [Candy]
+'''
+
 import pprint
 import itertools
 import numpy as np
@@ -60,15 +71,6 @@ def crossFilters(filters, level):
                 ctr_Raw = ctr_Raw + 1
 
 
-    # seen = set()
-    # newlist = []
-    # for item in cross_filters:
-    #     t = tuple(item)
-    #     if t not in seen:
-    #         newlist.append(item)
-    #         seen.add(t)
-    # print("NewList")
-    # print(newlist)
 
 
     # Remove the extra details from the array, i.e. "dtype"
@@ -79,8 +81,10 @@ def crossFilters(filters, level):
     np_list_cross_filters = np.array(list_cross_filters)
 
     # print(np_list_cross_filters)
-    # print("RAW " + str(ctr_Raw))
-    # print("ACCEPTED " + str(ctr_Filtered))
+    print("")
+    print("RAW " + str(ctr_Raw))
+    print("ACCEPTED " + str(ctr_Filtered))
+    print("")
     return np_list_cross_filters
 
 
@@ -257,25 +261,11 @@ def checkChecklist(list_cross, level):
                 # If all items in the array matches the other, return True
                 if collections.Counter(np_cross_item) == collections.Counter(np_checklist_item):
                     count_match = count_match + 1
-                    # if count_match == 1:
-                    #     match_1_ci = cross_item
-                    #     match_1_chi = checklist_item
-                    # elif count_match == 2:
-                    #     match_2_ci = cross_item
-                    #     match_2_chi = checklist_item
+
 
                     # If all entries in a group match, return True
                     if count_match == MAX_FILTER_ELEMENTS:
                         isIn = True
-
-                        # print("CHECK CHECKLIST")
-                        # print(match_1_ci)
-                        # print(match_1_chi)
-                        # print("")
-                        # print(match_2_ci)
-                        # print(match_2_chi)
-                        # print("")
-
                         return isIn
 
     return isIn

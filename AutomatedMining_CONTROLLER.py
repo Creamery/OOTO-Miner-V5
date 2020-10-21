@@ -9,16 +9,15 @@
 Manual Mining Functions
 """
 
-__author__ = ["Candy Espulgar (Version 3 - Current)",
-              "Arren Antioquia (Version 1)",
-              "Arces Talavera (Version 1)",
-              "Jet Virtusio (Version 1)",
-              "Edmund Gerald Cruz (Version 2)",
-              "Rgee Gallega (Version 2)"]
-
-__copyright__ = "Copyright 2020, TE3D House | 2020, Liverpool Hope University"
-__credits__ = ["Arnulfo Azcarraga | Neil Buckley"]
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
 __version__ = "3.0"
+
+'''
+    This class handles all functionality for AutomatedMining_View.
+    [Candy]
+'''
 
 import tkMessageBox
 import copy
@@ -55,11 +54,9 @@ import PIL.Image
 import PIL.ImageTk
 import CONSTANTS as const
 import Function_support as FS
-import _Loader_support as LS
+import __Loader_support as LS
 import UIConstants_support as UICS
 
-import AutomatedMining_RUN as AM_R
-import Multiprocessing_single as MULTI_S
 
 class AutomatedMining_Controller:
 
@@ -371,13 +368,6 @@ class AutomatedMining_Controller:
         self.listResultsRight = self.view.getListResultsRight()
         self.listResultsRight.bind('<<ListboxSelect>>', self.setRightResultFocusValue)
 
-        # MOUSEWHEEL
-        # self.listResultsLeft.bind("<MouseWheel>", self.scrollFilterListBox)
-        # self.listResultsRight.bind("<MouseWheel>", self.scrollFilterListBox)
-
-        # COMBOBOX
-        # self.comboQueryTest = self.view.getComboQueryTest()
-        # self.comboQueryTest.bind('<<ComboboxSelected>>', self.querySetType)
 
     ''' --> Elements under the TEST ("TEST") TAB (2) <-- '''
     # region

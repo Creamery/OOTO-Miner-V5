@@ -1,4 +1,14 @@
 
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    The Controller class of the Input tab. It
+    handles the main functionality of its View.
+    [Candy]
+'''
+
 try:
     from Tkinter import *
 except ImportError:

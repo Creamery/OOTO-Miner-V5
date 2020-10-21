@@ -1,4 +1,15 @@
 
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    This script is referenced by the AutomatedMining_View
+    to know what data to show.
+    [Candy]
+'''
+
+
 try:
     from Tkinter import *
 except ImportError:
@@ -21,7 +32,7 @@ import Widget_support as WS
 import _MODULE_SystematicFiltering as SF
 import Pandas_support as PS
 
-# AM MODEL - the class referenced by the AM VIEW to know what data to show
+
 class AutomatedMining_Model:
 
     def __init__(self):
@@ -63,7 +74,7 @@ class AutomatedMining_Model:
         print(type(self.getFeatureNames()))
 
     """
-    Change the format of responses to a dictionary of the form :
+    Changes the format of responses to a dictionary of the form :
     { 'a': { 'Code': [], 'Description': [] } }
     """
 
@@ -88,29 +99,6 @@ class AutomatedMining_Model:
     def readDataset(self, dirPopulation):
         PS.loadDataset(dirPopulation, self.getFeatureNames())
 
-
-    # TODO Delete?
-    # def readDataset(self, dataset):
-    #     self.__resetDatasets()
-    #
-    #     # Append SAMPLES
-    #     for record in dataset:
-    #         orderedRecord = WS.AlphabeticalDict(record)  # sort sample's answers (keys) alphabetically
-    #         self.getPopulationDataset()[KSD.SAMPLES].append(orderedRecord)
-    #         self.getDatasetA()[KSD.SAMPLES].append(orderedRecord)
-    #         self.getDatasetB()[KSD.SAMPLES].append(orderedRecord)
-    #
-    #     # Set FEATURE_LIST
-    #     self.getPopulationDataset()[KSD.FEATURE_LIST] = self.getFeatureDescription()
-    #     self.getDatasetA()[KSD.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
-    #     self.getDatasetB()[KSD.FEATURE_LIST] = copy.deepcopy(self.getFeatureDescription())
-    #     # print "getPopulationDataset[key.FEATURE_LIST]"
-    #     # print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b1'])
-    #     # print ""
-    #     # print str(self.getPopulationDataset()[KS.FEATURE_LIST]['b4'])
-    #     # print "getPopulationDataset[key.SAMPLES]"
-    #     # print str(self.getPopulationDataset()[KS.SAMPLES][0:3])
-    #     # print str(self.getPopulationDataset()[KS.SAMPLES])
 
 
     def __resetFeatureDescription(self):
@@ -169,25 +157,19 @@ class AutomatedMining_Model:
         print "confirmFeatureSelect"
         selectedFeatureIndices = self.viewModel.getSelectedFeatureIndices()
 
-        # confirmedFeatures = [self.getFeatureDescription().items()[index] for index in selectedFeatureIndices]
         confirmedFeatures = [self.viewModel.getCurrentQueryFeatureList().items()[index] for index in selectedFeatureIndices]
         confirmedFeatures = WS.AlphabeticalDict(confirmedFeatures)
 
         updatedFeatures = WS.MergedDict(self.viewModel.getConfirmedFeatures(), confirmedFeatures)
 
         # update viewModel's confirmed features with the currently selected features
-        # self.viewModel.setConfirmedFeatures(confirmedFeatures)
         self.viewModel.setConfirmedFeatures(updatedFeatures)
 
         return self.viewModel.getConfirmedFeatures()
 
 
     def runSystematicFiltering(self, root):
-        # if self.__systematicFiltering is None:
         self.__systematicFiltering = SF.SystematicFiltering(root)
-        # SF.SystematicFiltering(root)
-
-        # self.__systematicFiltering.start()
 
     def queryFeature(self, featureID):
         # featureID = self.viewModel.getCurrentFeature()

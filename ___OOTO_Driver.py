@@ -8,29 +8,20 @@
 {Description}
 The runnable script for OOTO Miner
 """
+'''
+    This script is the driver script for the program.
+    Run this to start the program.
+    [Candy]
+'''
 
-__author__ = ["Arren Antioquia", "Arces Talavera", "Jet Virtusio",
-              "Edmund Gerald Cruz", "Rgee Gallega",
-              "Candy Espulgar"]
 
-__copyright__ = "Copyright 2019, TE3D House"
-__credits__ = ["Arnulfo Azcarraga"]
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
 __version__ = "3.0"
 
 
-import sys
-import csv
 import tkMessageBox
-from tkFileDialog import askopenfilename
-import copy
-import SampleVsPopulation as svp
-import SampleVsSample as svs
-import ChiTest as ct
-import os
-import numpy as np
-from collections import Counter
-
-import Tkinter as tk
 
 try:
     from Tkinter import *
@@ -45,9 +36,6 @@ except ImportError:
     import tkinter.ttk as ttk
 
     py3 = 1
-import Tkinter
-import math
-import Mother_support
 import Color_support as CS
 import Icon_support as IS
 import UI_support as US
@@ -110,7 +98,6 @@ def runOOTOMiner():
 
 
 def startProgram():
-    # if __name__ == "__main__":
     thread = Thread(target = runOOTOMiner)
     thread.start()
     thread.join()

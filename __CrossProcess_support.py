@@ -1,19 +1,28 @@
-import pprint
-import itertools
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    The CROSS PROCESSING MODULE. This script handles the application
+    of generated filters from the FILTERING MODULE to the given dataset.
+    
+    This is also the script where the CHI-SQUARE MODULE is called.
+    It applies chi-square to the generated filtered datasets and
+    calls the LOADER MODULE to export the results into a table.
+    [Candy]
+'''
+
+
 import numpy as np
-import copy
 import time
 import collections
 
-import _Loader_support as LS
-import Filter_support as FILS
+import __Loader_support as LS
+import __Filter_support as FILS
 import ChiSquare_support as CHIS
 import UIConstants_support as UICS
 
-'''
-The main function to call.
-Applies necessary functions to output a printable chi-square comparison table. 
-'''
 def crossProcess(df_dataset, np_CROSS, controller):
     key = UICS.KEY_PRE_CROSS_MODULE  # Key for progress bar
 
@@ -64,8 +73,6 @@ def crossProcess(df_dataset, np_CROSS, controller):
         cross_type = np_cross_datasets[i_cross_type]  # Iterate through each CROSS TYPE
 
         for i_cross_level in range(len_cross_types):
-            # print("CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "]: " + str(i_cross_level + 1) + " out of "+ str(len_cross_types))
-
             # The variable cross_level is the list of dataframes
             cross_level = cross_type[i_cross_level]  # Iterate through each LEVEL
             len_cross_level = len(cross_level)
@@ -144,26 +151,7 @@ def crossProcess(df_dataset, np_CROSS, controller):
     print("Processing Complete")
     LS.exportOutputModuleResults(dict_result_table_sig, len_cross_datasets,
                                  len_cross_types, controller)
-    # key = UICS.KEY_OUTPUT_MODULE
-    # controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting OUTPUT MODULE")  # 1
-    # time.sleep(0.01)
-    # controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Exporting UI Results")  # 2
-    # LS.exportUIResultDictionary(dict_result_table_sig, "UI Result")
-    # controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Successfully Exported UI Results")  # 3
-    # time.sleep(0.01)
-    #
-    # str_pickle_filename = "Pickle Result - CROSS[" + str(len_cross_datasets - 1) + "][" + str(len_cross_types) + "]"
-    #
-    # controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Creating Pickle Save File")  # 4
-    # time.sleep(0.01)
-    # LS.exportPickleResultDictionary(dict_result_table_sig, str_pickle_filename)
-    # controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Created Pickle Save File")  # 5
-    # controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "File Saved as \"" + str_pickle_filename + "\"")  # 6
-    # time.sleep(0.01)
-    #
-    # controller.updateModuleProgress(100, UICS.FIRST_MESSAGE_SPACE + "[ Finished Automated OOTO Miner] ")  # 1
-    # # loaded_pickle = LS.loadPickleResultDictionary(str_pickle_filename)
-    # # print(loaded_pickle.keys())
+
     return dict_result_table_sig
 
 '''

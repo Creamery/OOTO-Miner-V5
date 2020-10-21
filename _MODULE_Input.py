@@ -1,4 +1,17 @@
 
+
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+
+'''
+    This script handles the Input in the Manual Mining (MM)
+    modules.
+    [Candy]
+'''
+
 try:
     from Tkinter import *
 except ImportError:

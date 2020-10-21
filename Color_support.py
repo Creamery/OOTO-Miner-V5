@@ -3,9 +3,16 @@
 Contains a reference to various constant color values
 used in the application.
 """
-__author__ = "Candy"
-__copyright__ = "Copyright 2019, TE3D House"
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
 
+'''
+    This script declares various color constants that
+    can be used within the project.
+    [Candy]
+'''
 
 
 

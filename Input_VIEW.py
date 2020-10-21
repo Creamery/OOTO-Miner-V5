@@ -1,3 +1,15 @@
+
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    The View class for the Input tab. It handles
+    all UI generation for its tab.
+    [Candy]
+'''
+
+
 try:
     from Tkinter import *
 except ImportError:

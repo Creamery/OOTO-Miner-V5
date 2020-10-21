@@ -1,3 +1,13 @@
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+'''
+    Various constants used in the original Manual
+    Mining System.
+    [Candy]
+'''
+
 class SYSTEMATIC_FILTERING:
     MAX_LVL = 3
 
