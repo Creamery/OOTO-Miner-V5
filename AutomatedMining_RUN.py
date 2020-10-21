@@ -1,4 +1,16 @@
 
+__author__ = ["Candy Espulgar"]
+__copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope University"
+__credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
+__version__ = "3.0"
+
+'''
+    This script contains all calls to the various Automated Mining
+    Modules. It is also the script that is called when the Run button
+    is clicked in the AM tab.
+    [Candy]
+'''
+
 import os
 import time
 # Uploader support for converting read dataset
@@ -62,6 +74,7 @@ def runAutomatedMining(controller):
     print("-- Cross Process Finished --")
     controller.isAMFinished()
     return dict_significant_results
+    print("Automated Mining Finished...")
 
 
 

@@ -30,29 +30,7 @@
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedMining_MODEL.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_MODEL.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mother_support.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multiprocessing_single.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Multiprocessing_support.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OOTO.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Output_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Output_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Overlay_support.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pandas_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pandas_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RFE_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__RFE_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SampleVsPopulation.py" beforeDir="false" afterPath="$PROJECT_DIR$/SampleVsPopulation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SampleVsSample.py" beforeDir="false" afterPath="$PROJECT_DIR$/SampleVsSample.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Table.py" beforeDir="false" afterPath="$PROJECT_DIR$/Table.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Threading_support.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/UIConstants_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UIConstants_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VariableDescriptorMaker.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Widget_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/Widget_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

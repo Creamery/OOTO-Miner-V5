@@ -386,8 +386,6 @@ class AutomatedMining_Controller:
         return "break"
 
     def dropDownLeft(self, event):
-        # print('--- callback ---')
-        # print('var.get():', self.var.get())
         self.dropQueryLeft.selection_clear()
 
         self.dataset_pair_left = str(event.widget.get()).strip()
@@ -395,12 +393,8 @@ class AutomatedMining_Controller:
         if self.dataset_pair_left is not None:
             self.addToResultTable(self.RESULT_LEFT, self.dataset_pair_left)
 
-        # if event:
-        #     print('event.widget.get():', event.widget.get())
 
     def dropDownRight(self, event):
-        # print('--- callback ---')
-        # print('var.get():', self.var.get())
         self.dropQueryRight.selection_clear()
 
         self.dataset_pair_right = str(event.widget.get()).strip()
@@ -457,17 +451,17 @@ class AutomatedMining_Controller:
         self.dict_Significant_DTPairs = collections.OrderedDict()
         self.dict_DTPairs_ResultTable = dict_results
 
-        print("")
-        print("Features read from source folder")
-        print("")
+        # print("")
+        # print("Features read from source folder")
+        # print("")
         # print df_results
         for key_DTPair, result_table in dict_results.items():
             feature_codes = result_table[self.result_colnames[0]]  # Returns the array of significant features
-            print(key_DTPair)
-            print(feature_codes)
-            print("")
+            # print(key_DTPair)
+            # print(feature_codes)
+            # print("")
             feature_codes = sorted(feature_codes)  # Sort feature codes
-            print(feature_codes)
+            # print(feature_codes)
             # Update list of feature codes
             for feature_code in feature_codes:  # Parse that array and check if each single feature has been recorded
                 if feature_code not in self.list_feature_codes:
@@ -731,17 +725,17 @@ class AutomatedMining_Controller:
 
             print self.list_selected_features
             self.list_selected_features.sort()
-            print(""
-                  ""
-                  "")
-            print self.list_selected_features
+            # print(""
+            #       ""
+            #       "")
+            # print self.list_selected_features
             self.dict_selected_features = collections.OrderedDict()
             for feature in self.list_selected_features:
                 self.dict_selected_features[feature] = self.dict_Significant_DTPairs[feature]
 
             # self.dict_selected_features = collections.OrderedDict({k: self.dict_Significant_DTPairs[k] for k in (self.list_selected_features)})
 
-            print(self.dict_selected_features)
+            # print(self.dict_selected_features)
             self.updateFeatureGroupList()
         # print("CHECK 1")
         return "break"
