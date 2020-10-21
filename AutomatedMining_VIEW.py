@@ -755,19 +755,19 @@ class AutomatedMining_View:
         self.lblStripesFeatureGroups.image = texture_pink_stripes  # < ! > Required to make images appear
         # endregion
 
-        self.labelQuerySetDataStatusB = Label(self.labelFrameQueryDataB)
+        self.lblFeatureGroupsHeader = Label(self.labelFrameQueryDataB)
         # self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
-        self.labelQuerySetDataStatusB.place(
+        self.lblFeatureGroupsHeader.place(
             relx = FS.getRelX(self.lblStatusSourceFolder),
             rely = FS.getRelY(self.lblStatusSourceFolder),
             relwidth = FS.getRelW(self.lblStatusSourceFolder),
             relheight = FS.getRelH(self.lblStatusSourceFolder)
         )
         # self.labelQuerySetDataStatusB.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
-        self.labelQuerySetDataStatusB.configure(
+        self.lblFeatureGroupsHeader.configure(
             background = CS.PROCESS_LISTBOX_STATUS_BG, foreground = CS.PROCESS_LISTBOX_STATUS_FG,
             bd = US.SELECT_STATUS_LABEL_BORDER, relief = US.SELECT_STATUS_LABEL_RELIEF,
-            text = US.LBL_SELECT_NO_DATA,
+            text = "FEATURE GROUPS",
             font = US.SELECT_STATUS_LABEL_FONT,
         )
         # endregion
@@ -2864,7 +2864,7 @@ class AutomatedMining_View:
         return self.lblStatusSourceFolder
 
     def getLabelQuerySetDataStatusB(self):
-        return self.labelQuerySetDataStatusB
+        return self.lblFeatureGroupsHeader
 
     def getLblStripesFeatureCodes(self):
         return self.lblStripesFeatureCodes

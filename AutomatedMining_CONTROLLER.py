@@ -754,7 +754,7 @@ class AutomatedMining_Controller:
             if len_feat_code < 3:  # Add a space before the feature code if its length is less than 3
                 feat_code = " " + feat_code
 
-            str_entry_index = UICS.PRE_LIST + feat_code + "| "
+            str_entry_index = feat_code + "| "
             for dt_pair in dt_pairs:
                 str_entry = str_entry_index + dt_pair
                 self.list_selected_feature_groups.append(dt_pairs)  # Contains all dataset pairs for the selected significant features
@@ -762,7 +762,7 @@ class AutomatedMining_Controller:
 
 
 
-    def compareSelectedFeatureGroups(self, evt):  # TODO Limit selections to 2?
+    def compareSelectedFeatureGroups(self, evt):
         list_selectedFeatureGroups = self.listFeatureGroups.curselection()  # Right statement returns indices
         len_selected_groups = len(list_selectedFeatureGroups)
         if len_selected_groups > 0:  # If selection is not empty
