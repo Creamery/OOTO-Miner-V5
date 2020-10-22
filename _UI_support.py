@@ -79,11 +79,11 @@ BTN_DATASET_UPLOAD = '''Upload'''
 LBL_DATASET_POPULATION = '''Population Dataset:'''
 
 BTN_START = '''Start'''
-TITLE_VARDESC = '''Variable Description Generator (Not yet functional)'''
+TITLE_VARDESC = '''Additional Automated Mining Inputs'''
 
 
 LBL_VARDESC_VARFILE = '''Variable File:'''
-BTN_VARDESC_UPLOAD = '''Choose File...'''
+BTN_VARDESC_UPLOAD = '''Upload'''  # '''Choose File...'''
 
 LBL_VARDESC_VALFILE = '''Values File:'''
 

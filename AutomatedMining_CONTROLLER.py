@@ -119,48 +119,23 @@ class AutomatedMining_Controller:
         self.lblSelectedFeatureCount.configure(text = str(0))
         self.lblSelectedGroupCount.configure(text = self.getDatasetCountB())
 
-        # self.queryResetDatasetA(None)
-        # self.queryResetDatasetB(None)
 
-    def readFeatures(self, variableDescription, itemMarker):
-        global features_gl
-        features_gl = FS.readFeatures(variableDescription, itemMarker)
-        if (len(features_gl)) <= 0:  # Invalid variable description file
-            return False
-        else:
+    def readFeatures(self, variableDescription):
+        if LS.checkCSVFileExistence(variableDescription):  # Return true if the file exists
+            UICS.PATH_VARDESC = variableDescription  # Set input path as the one uploaded by the user
             return True
+        return False
+
 
     '''
     Upload the dataset specified by the given path.
 
     '''
-
-    def uploadDataset(self, directory, newDataset):
-        global populationDir_gl
-        populationDir_gl = directory
-
-        self.populationDataset = newDataset
-
-        # Reset contents of dataset variables
-        self.resetDatasetContents()
-
-        for record in self.populationDataset:
-            self.datasetA['Data'].append(record)
-            self.datasetB['Data'].append(record)
-            self.populationDatasetOriginalA['Data'].append(record)  # This keeps a copy of the unaltered dataset
-            self.populationDatasetOriginalB['Data'].append(record)  # This keeps a copy of the unaltered dataset
-
-        # TODO Show the total samples of the unaltered dataset
-        # self.datasetCountA = len(self.datasetA['Data'])
-        # self.datasetCountB = len(self.datasetB['Data'])
-        self.datasetCountA = 0
-        self.datasetCountB = 0
-
-        self.labelQueryDataACount.configure(text = self.getDatasetCountA())
-        self.lblSelectedGroupCount.configure(text = self.getDatasetCountB())
-
-        print "UPLOADED"
-        return True
+    def uploadDataset(self, dataset):
+        if LS.checkCSVFileExistence(dataset):  # Return true if the file exists
+            UICS.PATH_DATASET = dataset  # Set input path as the one uploaded by the user
+            return True
+        return False
 
     def defocusLeft(self, event):
         self.dropQueryLeft.master.focus_set()
@@ -589,7 +564,7 @@ class AutomatedMining_Controller:
         # LOCK result table
         self.disableListResultTable()
 
-    def querySelectedFeatureCodes(self, evt):  # TODO List box function 1
+    def querySelectedFeatureCodes(self, evt):
 
         # Update Selection Count
         selection_count = len(self.listFeatureCodes.curselection())
@@ -604,7 +579,7 @@ class AutomatedMining_Controller:
         # print("ON LIST SELECT 1")
 
 
-    def querySelectedFeatureGroups(self, evt):  # TODO List box function 2
+    def querySelectedFeatureGroups(self, evt):
         # Update Selection Count
         selection_count = len(self.listFeatureGroups.curselection())
 
@@ -720,17 +695,30 @@ class AutomatedMining_Controller:
                 self.list_selected_features.append(feat_code)
 
             self.list_selected_features.sort()
-            # print(""
-            #       ""
-            #       "")
-            # print self.list_selected_features
+
             self.dict_selected_features = collections.OrderedDict()
+            text = "Selected SSF:"
+            self.addToConsole(text + "\n", self.listConsoleScreen)  # Add to "ALL" and "SEARCH" tabs
+            self.addToConsole(text + "\n", self.listConsoleSearchScreen)
+
+            text = ""
+            i_count = 0
+            i_end = len(self.list_selected_features) - 1
             for feature in self.list_selected_features:
                 self.dict_selected_features[feature] = self.dict_Significant_DTPairs[feature]
 
-            # self.dict_selected_features = collections.OrderedDict({k: self.dict_Significant_DTPairs[k] for k in (self.list_selected_features)})
+                if i_count == 0:
+                    text = "[" + feature + ", "
+                elif i_count == i_end:
+                    text = text + feature + "] \n"
+                else:
+                    text = text + feature + ", "
 
-            # print(self.dict_selected_features)
+                i_count = i_count + 1
+
+            self.addToConsole(text + "", self.listConsoleScreen)  # Add to "ALL" and "SEARCH" tabs
+            self.addToConsole(text + "", self.listConsoleSearchScreen)
+
             self.updateFeatureGroupList()
         # print("CHECK 1")
         return "break"
@@ -787,6 +775,11 @@ class AutomatedMining_Controller:
 
             self.list_feature_groups = []
             self.list_str_feature_groups = []
+            text = "\nSelected Groups:"
+            self.addToConsole(text + "\n", self.listConsoleScreen)  # Add to "ALL" and "SEARCH" tabs
+            self.addToConsole(text + "\n", self.listConsoleSearchScreen)
+
+            text = ""
             for index in list_selectedFeatureGroups:
                 str_list_box_entry = self.listFeatureGroups.get(index)
 
@@ -800,6 +793,15 @@ class AutomatedMining_Controller:
                 feat_code = str_entry[0]
                 dataset_pair = str_entry[1]  # Returns the "x(n) VS y(m)" notation of the dataset pair
 
+                text_pair = dataset_pair.split(" VS ")
+                text = text_pair[0] + " VS "
+                self.addToConsole(text + "\n", self.listConsoleScreen)  # Add to "ALL" and "SEARCH" tabs
+                self.addToConsole(text + "\n", self.listConsoleSearchScreen)
+
+                text = text_pair[1] + "\n"
+                self.addToConsole(text + "\n", self.listConsoleScreen)  # Add to "ALL" and "SEARCH" tabs
+                self.addToConsole(text + "\n", self.listConsoleSearchScreen)
+
                 self.list_feature_groups.append(dataset_pair)  # This will contain the list of dataset pairs to show
                 self.list_str_feature_groups.append(" " + str(dataset_pair))
 
@@ -807,10 +809,6 @@ class AutomatedMining_Controller:
         self.dropQueryRight.config(values = self.list_str_feature_groups)
 
 
-        # if event:
-        #     print('event.widget.get():', event.widget.get())
-
-        # self.addToResultTable()
         # print("CHECK 2")
         return "break"
 

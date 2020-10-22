@@ -13,6 +13,8 @@ __version__ = "3.0"
     [Candy]
 '''
 
+import tkMessageBox
+
 # For loadVarDesc()
 import json  # For pretty print
 import collections
@@ -347,7 +349,16 @@ def checkExcelFileExistence(filename, path = GL_AM_OUTPUT_PATH):
         return True
     return False
 
+def checkCSVFileExistence(filename, path = GL_AM_OUTPUT_PATH):
+    path_import = str(path + filename)
+    if checkDirectoryExistence(path_import):  # Check directory existence
+        return True
+    return False
 
+def checkCSVFileExistence(full_path):
+    if checkDirectoryExistence(full_path):  # Check directory existence
+        return True
+    return False
 
 def loadCSVResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH):
     # path_import = str(path + "Pickle Results\\")
@@ -383,58 +394,55 @@ def loadCSVResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH)
 
             dict_output[key] = dict_table
 
-    # for key, value in dict_output.items():
-    #     print("key " + key)
-    #     print(value)
-    #     print("")
-
-
     return dict_output
 
 
 
-    # path_import = path_import + filename
-    # path_import = path_import.replace("\\", "/")
-    # dict_results = pd.read_excel(path_import, index_col = 0)
-    #
-    # # with open(path_import + '.pkl', 'rb') as file:
-    # #     dict_results =  pickle.load(file)
-    # # df_results = pd.read_pickle(path_import + ".pkl")
-    # # df_results.filter(list_colnames)
-    # list_colnames = ["Features", "DoF", "P Value", "Chi Square", "Observed", "Expected", "IsSignificant"]
-
-    # return dict_results, list_colnames
-
-def loadInput(path_varDesc = None, path_dataset = None, path_ftrNames = None):
-    # dir_path = os.path.dirname(os.path.realpath(__file__))
-    # dir_input = str(dir_path + "\\_input\\")
-    # dir_output = str(dir_path + "\\_output\\")
+def loadInput():
 
     # Load Variable Description
-    if path_varDesc is None:
+    path_varDesc = UICS.PATH_VARDESC
+    if UICS.PATH_VARDESC is None:
         fln_varDesc = "Uniandes_VariableDescription (New).csv"
         path_varDesc = str(GL_AM_INPUT_PATH + fln_varDesc)
-
     dict_varDesc = loadVarDesc(path_varDesc)
 
-
     # Load Dataset
-    if path_dataset is None:
+    path_dataset = UICS.PATH_DATASET
+    if UICS.PATH_DATASET is None:
         fln_dataset = "Uniandes_Dataset (New).csv"
         path_dataset = str(GL_AM_INPUT_PATH + fln_dataset)
     df_raw_dataset, df_dataset = loadDataset(path_dataset, dict_varDesc)
     # LS.exportDataset(df_dataset, "Output.csv", dir_output)
 
-    if path_ftrNames is None:
-        fln_ftrNames = "Uniandes_FeatureNames.csv"
-        path_ftrNames = str(GL_AM_INPUT_PATH + fln_ftrNames)
-    ftr_names = loadFeatureNames(path_ftrNames)
+    # Load Feature Names
+    path_ftr_names = UICS.PATH_FTRNAMES
+    if path_ftr_names is None:
+        path_ftr_names = locateFeatureNamesFile(path_dataset)
+
+    # if not checkCSVFileExistence(path_ftr_names):  # If file does not exist, show an error message
+    #     tkMessageBox.showerror("FEATURE NAMES FILE NOT FOUND", "Please make sure that the file you entered is correct.")
+
+    ftr_names = loadFeatureNames(path_ftr_names)
 
     return df_raw_dataset, df_dataset, ftr_names
 
+'''
+    Attempts to locate the missing feature names file by searching the assumed values.
+'''
+def locateFeatureNamesFile(path_dataset):
+    # Try to find the file by assuming it is the dataset name + "_FeatureNames"
+    file_name = path_dataset.split("/")
+    i_end_file_name = len(file_name) - 1
+    file_name = file_name[i_end_file_name][:-4]
+    # The feature names file is assumed to be the dataset name + "_FeatureNames
+    ftr_file_path = file_name + "_FeatureNames.csv"
 
+    # if not checkCSVFileExistence(ftr_file_path):  # If the assumed name still doesn't exist
+    #     fln_ftrNames = "Uniandes_FeatureNames.csv"
+    #     path_ftrNames = str(GL_AM_INPUT_PATH + fln_ftrNames)
 
-
+    return ftr_file_path
 
 
 

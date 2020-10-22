@@ -11,7 +11,6 @@ __version__ = "3.0"
     [Candy]
 '''
 
-
 # Constants for Automated Mining
 # For RFE
 MAX_RANK = 3  # The max rank of SSFs that RFE will select
@@ -21,6 +20,10 @@ LIST_LEVELS_MAPPING = {"1": 1, "2": 2, "3": 3}
 # LIST_LEVELS = ["1", "2", "3"]
 LIST_LEVELS = [1, 2, 3]
 
+# Loader Variables
+PATH_VARDESC = None
+PATH_DATASET = None
+PATH_FTRNAMES = None
 
 # For Cross Process
 MAX_CROSS_REFERENCE = 3  # Tells until which CROSS type to perform

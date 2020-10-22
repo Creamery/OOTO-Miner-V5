@@ -150,7 +150,7 @@ class ManualMining_Controller:
         self.labelQueryDataBCount.configure(text = self.getDatasetCountB())
 
 
-        self.addToConsole("Dataset successfully uploaded!", self.listConsoleScreen)
+        self.addToConsole("\nDataset successfully uploaded!", self.listConsoleScreen)
         return True
 
     def configureTestTabBindings(self):
@@ -1031,7 +1031,7 @@ class ManualMining_Controller:
                 saveFile = chiTest.chiTest(fileNames, queueNum)
                 print ("saveFile is " + saveFile)
 
-                self.addToConsole("\nQ" + queueNum + "Chi-test complete", self.listConsoleChiSquareScreen)
+                self.addToConsole("\nQ" + str(queueNum) + " Chi-test complete", self.listConsoleChiSquareScreen)
                 # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
                 # removeFiles(fileNames) # TODO This removes the intermediate tables
 

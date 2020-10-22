@@ -1426,60 +1426,6 @@ class AutomatedMining_View:
             # bd = self.labelFrameFilterQueryData['bd'], relief = self.labelFrameFilterQueryData['relief'],
         )
 
-        '''
-        # MOCK LABEL BORDER
-        self.labelOverlayBorderQueryFeature = Label(self.labelOverlayFilterQueryData)
-        self.labelOverlayBorderQueryFeature.place(
-            relx = FS.getRelX(self.labelFrameBorderQueryFeature),
-            rely = FS.getRelY(self.labelFrameBorderQueryFeature),
-            relwidth = FS.getRelW(self.labelFrameBorderQueryFeature),
-            relheight = FS.getRelH(self.labelFrameBorderQueryFeature)
-        )
-        self.labelOverlayBorderQueryFeature.configure(
-            background = CS.FILTER_LABEL_OVERLAY_BG,
-            foreground = self.labelFrameBorderQueryFeature['foreground'],
-            text = self.labelFrameBorderQueryFeature['text'],
-            # text = ''''Please confirm the dataset groupings before filtering''''',
-            font = self.labelFrameBorderQueryFeature['font'],
-            bd = self.labelFrameBorderQueryFeature['bd'], relief = self.labelFrameBorderQueryFeature['relief'],
-        )
-
-        # MOCK LABEL
-        self.labelOverlayLabelQueryFeature = Label(self.labelOverlayBorderQueryFeature)
-        self.labelOverlayLabelQueryFeature.place(
-            relx = FS.getRelX(self.labelQueryFeature),
-            rely = FS.getRelY(self.labelQueryFeature),
-            relwidth = FS.getRelW(self.labelQueryFeature),
-            relheight = FS.getRelH(self.labelQueryFeature)
-        )
-        self.labelOverlayLabelQueryFeature.configure(
-            background = self.labelQueryFeature['background'],
-            foreground = CS.FILTER_LABEL_OVERLAY_BG,
-            text = self.labelQueryFeature['text'],
-            # text = ''''Please confirm the dataset groupings before filtering'''',
-            font = self.labelQueryFeature['font'],
-            bd = self.labelQueryFeature['bd'], relief = self.labelQueryFeature['relief'],
-        )
-
-
-        # MOCK BUTTON
-        self.labelOverlayButtonQueryFeature = Label(self.labelOverlayFilterQueryData)
-        self.labelOverlayButtonQueryFeature.place(
-            relx = FS.getRelX(self.buttonQueryFeature),
-            rely = FS.getRelY(self.buttonQueryFeature),
-            relwidth = FS.getRelW(self.buttonQueryFeature),
-            relheight = FS.getRelH(self.buttonQueryFeature)
-        )
-        self.labelOverlayButtonQueryFeature.configure(
-            background = CS.FILTER_LABEL_OVERLAY_BG,
-            foreground = self.buttonQueryFeature['foreground'],
-            text = self.buttonQueryFeature['text'],
-            # text = ''''Please confirm the dataset groupings before filtering'''',
-            font = self.buttonQueryFeature['font'],
-            bd = 1, relief = self.buttonQueryFeature['relief'],
-            image = self.buttonQueryFeature['image']
-        )
-        '''
         # MOCK STRIPED COVER
         self.labelOverlayFilterStripes = Label(self.labelOverlayFilterQueryData)
         self.labelOverlayFilterStripes.place(
@@ -1499,12 +1445,9 @@ class AutomatedMining_View:
         )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.labelOverlayFilterStripes.image = texture_purple_stripes  # < ! > Required to make images appear
 
-        # self.separatorOverlayFilterQueryData = ttk.Separator(self.labelOverlayFilterQueryData, orient = VERTICAL)
-        # self.separatorOverlayFilterQueryData.place(relx = 0, rely = 0, relheight = 1)
         # endregion
 
-        # FILTER LOCK LISTBOX COVER
-
+        # RESULT LOCK LISTBOX COVER
         # LEFT COVER
         # region
         # self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListDataA)
@@ -1515,8 +1458,6 @@ class AutomatedMining_View:
             # rely = FS.getRelY(self.labelFrameFilterListDataA) - US.FILTER_LABEL_STRIPES_REL_H_REDUCTION,
             rely = newRelY,
             relwidth = FS.getRelW(self.labelFrameFilterListDataA),
-            # relheight = FS.getRelH(self.labelFrameFilterListDataA) + US.FILTER_LABEL_STRIPES_REL_H_REDUCTION)
-            # relheight = FS.getRelH(self.labelFrameFilterListDataA) + FS.getRelH(self.labelOverlayFilterQueryData))
             relheight =FS.getRelH(self.labelFrameFilterListDataA) +
                        FS.getRelH(self.labelOverlayFilterQueryData) +
                        FS.getRelH(self.lblResultStripes) - 0.018)
@@ -2419,7 +2360,7 @@ class AutomatedMining_View:
             yscrollcommand = self.scrollConsoleScreen.set,
             background = CS.PROCESS_LISTBOX_BG, foreground = CS.PROCESS_LISTBOX_FG,
             selectbackground = CS.SALMON_LIGHT, selectforeground = CS.PROCESS_LISTBOX_FG,
-            font = US.FONT_SMALL,
+            font = US.FONT_AM_LISTBOX_SMALL,
             bd = US.SELECT_LISTBOX_BORDER, relief = US.SELECT_LISTBOX_RELIEF,
 
             cursor = "arrow",
@@ -2451,12 +2392,8 @@ class AutomatedMining_View:
         )
         screenWidget.configure(
             background = screenReference['background'],
-            # background = CS.D_GRAY,
             foreground = screenReference['foreground'],
 
-            # selectmode = screenReference['selectmode'],
-            # exportselection = screenReference['exportselection'],
-            # activestyle = screenReference['activestyle'],
             selectbackground = screenReference['selectbackground'],
             selectforeground = screenReference['selectforeground'],
 
@@ -2479,9 +2416,9 @@ class AutomatedMining_View:
                                    justify = LEFT)
         # endregion
 
-        # Z-TEST CONSOLE SCREEN listConsoleZTestScreen
+        # INPUT CONSOLE SCREEN listConsoleZTestScreen
         # region
-        self.listConsoleZTestScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleZTestScreen')
+        self.listConsoleZTestScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleInputScreen')
         screenWidget = self.listConsoleZTestScreen
         screenReference = self.listConsoleScreen
 
@@ -2495,9 +2432,6 @@ class AutomatedMining_View:
             background = screenReference['background'],
             foreground = screenReference['foreground'],
 
-            # selectmode = screenReference['selectmode'],
-            # exportselection = screenReference['exportselection'],
-            # activestyle = screenReference['activestyle'],
             selectbackground = screenReference['selectbackground'],
             selectforeground = screenReference['selectforeground'],
 
@@ -2520,9 +2454,9 @@ class AutomatedMining_View:
                                    justify = LEFT)
         # endregion
 
-        # CHI-SQUARE CONSOLE SCREEN listConsoleChiSquareScreen
+        # SEARCH CONSOLE SCREEN listConsoleChiSquareScreen
         # region
-        self.listConsoleChiSquareScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleChiSquareScreen')
+        self.listConsoleChiSquareScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleSearchScreen')
         screenWidget = self.listConsoleChiSquareScreen
         screenReference = self.listConsoleScreen
 
@@ -2536,9 +2470,6 @@ class AutomatedMining_View:
             background = screenReference['background'],
             foreground = screenReference['foreground'],
 
-            # selectmode = screenReference['selectmode'],
-            # exportselection = screenReference['exportselection'],
-            # activestyle = screenReference['activestyle'],
             selectbackground = screenReference['selectbackground'],
             selectforeground = screenReference['selectforeground'],
 
@@ -2566,9 +2497,6 @@ class AutomatedMining_View:
             rely = 0,
             relwidth = 0,
             relheight = 0
-            # rely = newRelY,
-            # relwidth = 1,
-            # relheight = newRelH
         )
         self.scrollConsoleScreen.configure(
             background = CS.D_BLUE,

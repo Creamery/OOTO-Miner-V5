@@ -52,7 +52,7 @@ class AutomatedMining:
         self.model.setAMController(self.controller)
 
     def readFeatures(self, variableDescription):
-        return self.controller.readFeatures(variableDescription, "^")
+        return self.controller.readFeatures(variableDescription)
 
     def uploadDataset(self, dirPopulation):
         return self.controller.uploadDataset(dirPopulation)

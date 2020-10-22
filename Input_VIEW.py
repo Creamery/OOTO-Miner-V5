@@ -205,7 +205,7 @@ class Input_View:
             relwidth = US.TAB_3CHILD_LBL_REL_W, relheight = US.TAB_3CHILD_LBL_REL_H_SMALL)
         self.labelVariableFile.configure(
             background = CS.VARDESC_LBL_BG, foreground = CS.VARDESC_LBL_FG,
-            text = US.LBL_VARDESC_VARFILE,
+            text = "Feature Names:",  # US.LBL_VARDESC_VARFILE,
             disabledforeground = CS.FG_DISABLED_COLOR,
             bd = 1)
 
@@ -241,61 +241,62 @@ class Input_View:
             relx = newRelX, rely = prevLblRelY,
             relwidth = US.TAB_3CHILD_BTN_REL_W, relheight = prevLblRelH)
         self.buttonVariableFile.configure(
-            background = CS.VARDESC_BTN_BG, foreground = CS.VARDESC_BTN_FG,
+            background = CS.DATASET_BTN_BG, foreground = CS.DATASET_BTN_FG,
             text = US.BTN_VARDESC_UPLOAD,
             bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = CS.VARDESC_BTN_BG_ACTIVE,
-            activeforeground = CS.VARDESC_BTN_FG_ACTIVE,
+            activebackground = CS.DATASET_BTN_BG_ACTIVE,
+            activeforeground = CS.DATASET_BTN_FG_ACTIVE,
             disabledforeground = CS.FG_DISABLED_COLOR)
 
-        # Previous values (1.3)
-        prevBtnRelX = float(self.buttonVariableFile.place_info()['relx'])
-        prevBtnRelY = float(self.buttonVariableFile.place_info()['rely'])
-        prevBtnRelW = float(self.buttonVariableFile.place_info()['relwidth'])
-        prevBtnRelH = float(self.buttonVariableFile.place_info()['relheight'])
 
-        newRelY = US.TAB_3CHILD_LBL_REL_Y_SMALL + prevBtnRelY + prevBtnRelH
-
-        # Values File label
-        self.labelValuesFile = Label(self.labelFrameVarDescElements)
-        self.labelValuesFile.place(
-            relx = prevLblRelX, rely = newRelY,
-            relwidth = prevLblRelW, relheight = prevLblRelH)
-        self.labelValuesFile.configure(
-            background = CS.VARDESC_LBL_BG, foreground = CS.VARDESC_LBL_FG,
-            text = US.LBL_VARDESC_VALFILE,
-            disabledforeground = CS.FG_DISABLED_COLOR,
-            bd = 1)
-
-        # Values File entry
-        self.entryValuesFile = Entry(self.labelFrameVarDescElements)
-        self.entryValuesFile.place(
-            relx = prevEntryRelX, rely = newRelY,
-            relwidth = prevEntryRelW, relheight = prevEntryRelH)
-        self.entryValuesFile.configure(
-            background = CS.VARDESC_ENTRY_BG, foreground = CS.VARDESC_ENTRY_FG,
-            bd = 1,
-            disabledforeground = CS.FG_DISABLED_COLOR)
-
-        # Values File upload
-        self.buttonValuesFile = Button(self.labelFrameVarDescElements)
-        self.buttonValuesFile.place(
-            relx = prevBtnRelX, rely = newRelY,
-            relwidth = prevBtnRelW, relheight = prevBtnRelH)
-        self.buttonValuesFile.configure(
-            background = CS.VARDESC_BTN_BG, foreground = CS.VARDESC_BTN_FG,
-            text = US.BTN_VARDESC_UPLOAD,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
-            activebackground = CS.VARDESC_BTN_BG_ACTIVE,
-            activeforeground = CS.VARDESC_BTN_FG_ACTIVE,
-            disabledforeground = CS.FG_DISABLED_COLOR)
+        # # Previous values (1.3)
+        # prevBtnRelX = float(self.buttonVariableFile.place_info()['relx'])
+        # prevBtnRelY = float(self.buttonVariableFile.place_info()['rely'])
+        # prevBtnRelW = float(self.buttonVariableFile.place_info()['relwidth'])
+        # prevBtnRelH = float(self.buttonVariableFile.place_info()['relheight'])
+        #
+        # newRelY = US.TAB_3CHILD_LBL_REL_Y_SMALL + prevBtnRelY + prevBtnRelH
+        #
+        # # Values File label
+        # self.labelValuesFile = Label(self.labelFrameVarDescElements)
+        # self.labelValuesFile.place(
+        #     relx = prevLblRelX, rely = newRelY,
+        #     relwidth = prevLblRelW, relheight = prevLblRelH)
+        # self.labelValuesFile.configure(
+        #     background = CS.VARDESC_LBL_BG, foreground = CS.VARDESC_LBL_FG,
+        #     text = US.LBL_VARDESC_VALFILE,
+        #     disabledforeground = CS.FG_DISABLED_COLOR,
+        #     bd = 1)
+        #
+        # # Values File entry
+        # self.entryValuesFile = Entry(self.labelFrameVarDescElements)
+        # self.entryValuesFile.place(
+        #     relx = prevEntryRelX, rely = newRelY,
+        #     relwidth = prevEntryRelW, relheight = prevEntryRelH)
+        # self.entryValuesFile.configure(
+        #     background = CS.VARDESC_ENTRY_BG, foreground = CS.VARDESC_ENTRY_FG,
+        #     bd = 1,
+        #     disabledforeground = CS.FG_DISABLED_COLOR)
+        #
+        # # Values File upload
+        # self.buttonValuesFile = Button(self.labelFrameVarDescElements)
+        # self.buttonValuesFile.place(
+        #     relx = prevBtnRelX, rely = newRelY,
+        #     relwidth = prevBtnRelW, relheight = prevBtnRelH)
+        # self.buttonValuesFile.configure(
+        #     background = CS.VARDESC_BTN_BG, foreground = CS.VARDESC_BTN_FG,
+        #     text = US.BTN_VARDESC_UPLOAD,
+        #     bd = 1, relief = FLAT, overrelief = GROOVE,
+        #     activebackground = CS.VARDESC_BTN_BG_ACTIVE,
+        #     activeforeground = CS.VARDESC_BTN_FG_ACTIVE,
+        #     disabledforeground = CS.FG_DISABLED_COLOR)
 
     ''' -> Elements under the START (" ") HEADER <- '''
 
     def configureStartElements(self):
         # START
         # Always update to reflect height and width values in winfo when using relheight/relwidth
-        self.buttonValuesFile.update()
+        # self.buttonValuesFile.update()
         self.labelFrameVariableDescriptor.update()
 
         # print "height " + str(self.buttonValuesFile.winfo_height())
@@ -307,8 +308,8 @@ class Input_View:
         prevFrameRelH = float(self.labelFrameVariableDescriptor.place_info()['relheight'])
         buttonY = US.TAB_VARDESC_REL_Y + prevFrameRelY + prevFrameRelH
 
-        buttonHeight = self.buttonValuesFile.winfo_height()
-        buttonWidth = self.buttonValuesFile.winfo_width()
+        buttonHeight = self.buttonVariableFile.winfo_height()
+        buttonWidth = self.buttonVariableFile.winfo_width()
 
         self.buttonStartDatasetUpload = Button(self.dataTabParentFrame)
         self.buttonStartDatasetUpload.place(
@@ -333,8 +334,8 @@ class Input_View:
     def getButtonVariableFile(self):
         return self.buttonVariableFile
 
-    def getButtonValuesFile(self):
-        return self.buttonValuesFile
+    # def getButtonValuesFile(self):
+    #     return self.buttonValuesFile
 
     def getButtonStartDatasetUpload(self):
         return self.buttonStartDatasetUpload
@@ -345,8 +346,8 @@ class Input_View:
     def getEntryVariableFile(self):
         return self.entryVariableFile
 
-    def getEntryValuesFile(self):
-        return self.entryValuesFile
+    # def getEntryValuesFile(self):
+    #     return self.entryValuesFile
 
     def getEntryQueryPopulation(self):
         return self.entryQueryPopulation

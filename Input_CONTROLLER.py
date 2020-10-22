@@ -27,15 +27,7 @@ import tkMessageBox
 import _UI_support
 import Function_support as FS
 from tkFileDialog import askopenfilename
-import CONSTANTS as const
-
-import SampleVsSample as svs
-import os
-import numpy as np
-from collections import Counter
-
-import csv
-import copy
+import _UIConstants_support as UICS
 
 class Input_Controller:
 
@@ -48,6 +40,7 @@ class Input_Controller:
     def initializeVariables(self):
         self.hasUploadedVariableDescription = False
         self.hasUploadedPopulation = False
+        self.hasFeatureNames = False
 
 
 
@@ -60,10 +53,14 @@ class Input_Controller:
         self.buttonQueryPopulation = self.view.getButtonQueryPopulation()
         self.buttonQueryPopulation.bind('<Button-1>', self.selectSetPopulation)
 
-        self.buttonVariableFile = self.view.getButtonVariableFile()
-        self.buttonVariableFile.bind('<Button-1>', self.getVariableFile)
-        self.buttonValuesFile = self.view.getButtonValuesFile()
-        self.buttonValuesFile.bind('<Button-1>', self.getValuesFile)
+        self.btnInitialFeatureNames = self.view.getButtonVariableFile()
+        self.btnInitialFeatureNames.bind('<Button-1>', self.selectFeatureNamesFile)
+
+
+        # self.buttonVariableFile = self.view.getButtonVariableFile()
+        # self.buttonVariableFile.bind('<Button-1>', self.getVariableFile)
+        # self.buttonValuesFile = self.view.getButtonValuesFile()
+        # self.buttonValuesFile.bind('<Button-1>', self.getValuesFile)
 
         # self.buttonStartVariableDescriptor.bind('<Button-1>', self.makeInitialVarDesc) ### TODO
         self.buttonStartDatasetUpload = self.view.getButtonStartDatasetUpload()
@@ -72,7 +69,7 @@ class Input_Controller:
         self.entryInitialVarDesc = self.view.getEntryInitialVarDesc()
         self.entryQueryPopulation = self.view.getEntryQueryPopulation()
         self.entryVariableFile = self.view.getEntryVariableFile()
-        self.entryValuesFile = self.view.getEntryValuesFile()
+        # self.entryValuesFile = self.view.getEntryValuesFile()
 
 
     ''' Selects the variable description file '''
@@ -85,7 +82,7 @@ class Input_Controller:
 
         if len(self.initVarDisc) == 0:
             tkMessageBox.showerror("Error: Upload Variable description",
-                                   "Please select a valid variable description file.")
+                                   "Please select a valid [variable description] file.")
         else:
             self.hasUploadedVariableDescription = True
             self.entryInitialVarDesc.delete(0, END)
@@ -103,20 +100,37 @@ class Input_Controller:
                                         filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
 
         if len(dirPopulation) == 0:
-            tkMessageBox.showerror("Error: Upload error", "Please select a valid population dataset.")
+            tkMessageBox.showerror("Error: Upload error", "Please select a valid [population dataset].")
         else:
             self.hasUploadedPopulation = True
             self.entryQueryPopulation.delete(0, END)
             self.entryQueryPopulation.insert(0, dirPopulation)
         return "break"
 
+    ''' Selects the Feature Names file for AM '''
+
+    def selectFeatureNamesFile(self, evt):
+        self.hasFeatureNames = False
+
+        global dirFeatureNames
+        dirFeatureNames = askopenfilename(title = "Select file",
+                                          filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
+
+        if len(dirFeatureNames) == 0:
+            tkMessageBox.showerror("Error: Upload error", "Please select a valid [feature names] file.")
+        else:
+            self.hasFeatureNames = True
+            self.entryVariableFile.delete(0, END)
+            self.entryVariableFile.insert(0, dirFeatureNames)
+            UICS.PATH_FTRNAMES = dirFeatureNames
+        return "break"
     # endregion
 
 
     ''' (?) Generates the initial variable description '''
     def makeInitialVarDesc(self, evt):
         varFileDir = self.entryVariableFile.get()
-        valFileDir = self.entryValuesFile.get()
+        # valFileDir = self.entryValuesFile.get()
 
         # tkMessageBox.showinfo("Work in progress",'Make the Initial Variable Descriptor! (WIP)') # TODO!!
         # print self.entryQueryPopulation.get()[-4:]
@@ -139,23 +153,21 @@ class Input_Controller:
     ''' --> Elements under the DATA ("DATA") TAB (1) <-- '''
     # region
 
-    ''' (?) Uploads the variable file '''
+    # ''' (?) Uploads the variable file '''
+    # def getVariableFile(self, evt):
+    #     varFileDir = askopenfilename(title = "Select variable file",
+    #                                  filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
+    #     self.entryVariableFile.delete(0, END)
+    #     self.entryVariableFile.insert(0, varFileDir)
+    #     return "break"
 
-    def getVariableFile(self, evt):
-        varFileDir = askopenfilename(title = "Select variable file",
-                                     filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
-        self.entryVariableFile.delete(0, END)
-        self.entryVariableFile.insert(0, varFileDir)
-        return "break"
-
-    ''' (?) Uploads the values file '''
-
-    def getValuesFile(self, evt):
-        valFileDir = askopenfilename(title = "Select values file",
-                                     filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
-        self.entryValuesFile.delete(0, END)
-        self.entryValuesFile.insert(0, valFileDir)
-        return "break"
+    # ''' (?) Uploads the values file '''
+    # def getValuesFile(self, evt):
+    #     valFileDir = askopenfilename(title = "Select values file",
+    #                                  filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
+    #     self.entryValuesFile.delete(0, END)
+    #     self.entryValuesFile.insert(0, valFileDir)
+    #     return "break"
 
 
     def getHasUploadedVariableDescription(self):
@@ -163,6 +175,9 @@ class Input_Controller:
 
     def getHasUploadedPopulation(self):
         return self.hasUploadedPopulation
+
+    def getHasFeatureNames(self):
+        return self.hasFeatureNames
 
     def getInitVarDisc(self):
         return self.initVarDisc

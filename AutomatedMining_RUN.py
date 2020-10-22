@@ -35,9 +35,14 @@ def rfeModule(df_raw_dataset, ftr_names, controller):
 def filterModule(dict_rfe, controller):
     i = 1
     print("SSFs:")
+    text = "RFE Chosen SSFs:"
+    controller.getAMController().addToConsoleAll(text + "\n")
     for key, value in dict_rfe.items():
-        print "SSF" + str(i) + " - " + str(value)
+        text = "SSF" + str(i) + " - " + str(value)
+        print(text)
         i = i + 1
+        controller.getAMController().addToConsoleAll(text + "\n")
+        controller.getAMController().addToConsoleInput(text + "\n")
 
     # Takes the dictionary and converts it to the correct format for Crossing (e.g. ["b5:a", "b5:b"])
     extracted_cross_filters = FILS.extractCrossFilters(dict_rfe, controller)
@@ -55,6 +60,18 @@ def crossProcessModule(df_dataset, np_CROSS, controller):
 
 
 def runAutomatedMining(controller):
+
+    text = "RUNNING Automated Mining\n"  # Show start message in console
+    controller.getAMController().addToConsoleAll(text + "\n")
+
+    text = "MAX CROSS: " + str(UICS.MAX_CROSS)  # Show MAX CROSS in console and input
+    controller.getAMController().addToConsoleAll(text + "\n")
+    controller.getAMController().addToConsoleInput(text + "\n")
+
+    text = "MAX LEVEL: " + str(UICS.MAX_LEVEL) + "\n"  # Show MAX LEVEL in console and input
+    controller.getAMController().addToConsoleAll(text + "\n")
+    controller.getAMController().addToConsoleInput(text + "\n")
+
     df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
     print("Starting RFE...")

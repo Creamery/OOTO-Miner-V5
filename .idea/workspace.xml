@@ -29,8 +29,18 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Input_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/Input_CONTROLLER.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Input_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/Input_VIEW.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_MODULE_ManualMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_ManualMining.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_UIConstants_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_UIConstants_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_UI_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Loader_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Uniandes_FeatureNames.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/MM/(Q1) b1 [1].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/MM/(Q1) b1 [1].csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,26 +257,30 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="778" height="637" key="GridCell.Tab.0.bottom" timestamp="1603319969819">
+    <state width="1323" height="637" key="GridCell.Tab.0.bottom" timestamp="1603325880919">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603319969819" />
-    <state width="778" height="637" key="GridCell.Tab.0.center" timestamp="1603319969819">
+    <state width="1323" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603325880919" />
+    <state width="1323" height="637" key="GridCell.Tab.0.center" timestamp="1603325880919">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603319969819" />
-    <state width="778" height="637" key="GridCell.Tab.0.left" timestamp="1603319969819">
+    <state width="1323" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603325880919" />
+    <state width="1323" height="637" key="GridCell.Tab.0.left" timestamp="1603325880919">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603319969819" />
-    <state width="778" height="637" key="GridCell.Tab.0.right" timestamp="1603319969819">
+    <state width="1323" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603325880919" />
+    <state width="1323" height="637" key="GridCell.Tab.0.right" timestamp="1603325880919">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="778" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603319969819" />
+    <state width="1323" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603325880919" />
     <state x="-59" y="121" key="SettingsEditor" timestamp="1603292241063">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="-59" y="121" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1603292241063" />
+    <state x="61" y="141" width="1573" height="843" key="dock-window-1" timestamp="1603321373599">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="61" y="141" width="1573" height="843" key="dock-window-1/0.0.1920.1040@0.0.1920.1040" timestamp="1603321373599" />
     <state x="186" y="501" width="1278" height="932" key="dock-window-5" timestamp="1603290777039">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -307,16 +321,6 @@
           <url>file://$PROJECT_DIR$/__ test scripts/multiprocessing/process_handler.py</url>
           <line>17</line>
           <option name="timeStamp" value="104" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/AutomatedMining_VIEW.py</url>
-          <line>1109</line>
-          <option name="timeStamp" value="120" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/AutomatedMining_VIEW.py</url>
-          <line>1130</line>
-          <option name="timeStamp" value="121" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/_MODULE_Input.py</url>
