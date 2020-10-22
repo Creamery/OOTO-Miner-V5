@@ -29,18 +29,10 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedMining_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Input_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/Input_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Input_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/Input_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" beforeDir="false" afterPath="$PROJECT_DIR$/ManualMining_CONTROLLER.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" beforeDir="false" afterPath="$PROJECT_DIR$/_MODULE_AutomatedMining.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_UIConstants_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_UIConstants_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_UI_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_UI_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Loader_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_input/Uniandes_FeatureNames.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_output/MM/(Q1) b1 [1].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/MM/(Q1) b1 [1].csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/MM/(Q1) - Chi-Test - b1 [1]  b5 [1] (Tables).csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/MM/(Q1) - Chi-Test - b1 [1]  b5 [1] (Tables).csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/MM/(Q1) - Chi-Test - b1 [1]  b5 [1] .xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/_output/MM/(Q1) - Chi-Test - b1 [1]  b5 [1] .xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/MM/(Q1) b5 [1].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/MM/(Q1) b5 [1].csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,22 +249,22 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1323" height="637" key="GridCell.Tab.0.bottom" timestamp="1603325880919">
+    <state width="1323" height="637" key="GridCell.Tab.0.bottom" timestamp="1603326135829">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1323" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603325880919" />
-    <state width="1323" height="637" key="GridCell.Tab.0.center" timestamp="1603325880919">
+    <state width="1323" height="637" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1603326135829" />
+    <state width="1323" height="637" key="GridCell.Tab.0.center" timestamp="1603326135829">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1323" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603325880919" />
-    <state width="1323" height="637" key="GridCell.Tab.0.left" timestamp="1603325880919">
+    <state width="1323" height="637" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1603326135829" />
+    <state width="1323" height="637" key="GridCell.Tab.0.left" timestamp="1603326135829">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1323" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603325880919" />
-    <state width="1323" height="637" key="GridCell.Tab.0.right" timestamp="1603325880919">
+    <state width="1323" height="637" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1603326135829" />
+    <state width="1323" height="637" key="GridCell.Tab.0.right" timestamp="1603326135829">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1323" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603325880919" />
+    <state width="1323" height="637" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1603326135829" />
     <state x="-59" y="121" key="SettingsEditor" timestamp="1603292241063">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
