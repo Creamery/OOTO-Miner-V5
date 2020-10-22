@@ -27,7 +27,6 @@ an array of the feature codes under that ranking.
 def performRFE(df_raw_dataset, ftr_names, controller):
     key = UICS.KEY_RFE_MODULE  # For progress bar
 
-
     # Convert DataFrame object to NumPy array for faster computation
     array = df_raw_dataset.values
     # print(array)
@@ -43,7 +42,6 @@ def performRFE(df_raw_dataset, ftr_names, controller):
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Extracting Features")  # 2
     time.sleep(0.01)
 
-    # TODO (Future) Double check selected features
     model = LogisticRegression(solver = 'liblinear', multi_class = 'auto')  # or lbfgs or liblinear
     rfe = RFE(model, UICS.MAX_RANK)  # The second parameter is the number of top features to select
     fit = rfe.fit(X, Y)
@@ -56,10 +54,10 @@ def performRFE(df_raw_dataset, ftr_names, controller):
     time.sleep(0.01)
 
     dict_rfe = prepareDictResult(ftr_names, fit.ranking_)
+
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Created Result Dictionary")  # 5
     time.sleep(0.01)
 
-    # print(dict_rfe)
     return dict_rfe
 
 
