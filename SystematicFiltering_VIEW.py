@@ -459,7 +459,7 @@ class SystematicFiltering_View(_Progressible):
         top.geometry(strDimensions)
         root.update()
         newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
-        top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
+        top.geometry(strDimensions + "+" + str(int(newX)) + "+" + str(int(newY)))
 
         top.title("Systematic Filtering")
         return top
