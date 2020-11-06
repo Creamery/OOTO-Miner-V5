@@ -30,7 +30,6 @@
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" beforeDir="false" afterPath="$PROJECT_DIR$/SystematicFiltering_VIEW.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Loader_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_output/AM/Pickle Results/CROSS[0][1].pkl" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/Pickle Results/CROSS[0][1].pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_output/AM/SSFs/SSFs - CROSS[0][1].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/SSFs/SSFs - CROSS[0][1].csv" afterDir="false" />
     </list>
