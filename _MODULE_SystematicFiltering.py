@@ -12,23 +12,9 @@ __version__ = "3.0"
     the Automated Mining process. 
     [Candy]
 '''
-
-
-try:
-    from Tkinter import *
-except ImportError:
-    from _tkinter import *
-
-try:
-    import ttk
-
-    py3 = 0
-except ImportError:
-    import tkinter.ttk as ttk
-
-    py3 = 1
-
-
+import tkinter as tk
+from tkinter.ttk import *
+import sys
 import Function_support as FS
 import _Grip_support as GS
 
@@ -82,7 +68,7 @@ class SystematicFiltering:
     # endregion overlay functions
 
     def __initializeWindow(self, root):
-        top = Toplevel(root)
+        top = tk.Toplevel(root)
 
         # remove title bar
         top.overrideredirect(True)
@@ -93,7 +79,7 @@ class SystematicFiltering:
         # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
         top.resizable(0, 0)
 
-        self.style = ttk.Style()
+        self.style = Style()
         if sys.platform == "win32":
             self.style.theme_use('winnative')
 
@@ -104,7 +90,7 @@ class SystematicFiltering:
         top.geometry(strDimensions)
         root.update()
         newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
-        top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
+        top.geometry(strDimensions + "+" + str(int(newX)) + "+" + str(int(newY)))
 
         top.title("Systematic Filtering")
         return top

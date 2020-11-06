@@ -297,14 +297,14 @@ def exportDictionary(dict_data, filename, path = GL_AM_OUTPUT_PATH):
     print("Exported Dictionary")
     path_export = str(path + filename)
     checkDirectory(path_export)
-    with open(path_export, 'wb') as file:  # Just use 'w' mode in 3.x
+    with open(path_export, 'w') as file:  # Just use 'w' mode in 3.x
         w = csv.DictWriter(file, dict_data.keys())
         w.writeheader()
         w.writerow(dict_data)
 
 def exportList(list_data, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)
-    with open(path_export, 'wb') as file:
+    with open(path_export, 'w') as file:
         wr = csv.writer(file, quoting = csv.QUOTE_ALL)
         wr.writerow(list_data)
 
@@ -312,14 +312,14 @@ def exportSSFs(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + "\\SSFs\\")
     checkDirectory(path_export)
     path_export = path_export + filename
-    with open(path_export, 'wb') as file:
+    with open(path_export, 'w') as file:
         for feat_code in list_ssfs:
             file.write(str(feat_code) + "\n")
 
 
 def export2DList(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)
-    with open(path_export, 'wb') as file:
+    with open(path_export, 'w') as file:
         writer = csv.writer(file)
         for i in list_ssfs:
             writer.writerows(i)

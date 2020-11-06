@@ -17,27 +17,13 @@ __version__ = "3.0"
     [Candy]
 '''
 
-try:
-    from Tkinter import *
-except ImportError:
-    from _tkinter import *
-
-try:
-    import ttk
-    py3 = 0
-
-except ImportError:
-    import tkinter.ttk as tk
-
-    py3 = 1
-
+import sys
+import tkinter as tk
+from tkinter.ttk import *
 
 import PIL.Image
 import PIL.ImageTk
-import CONSTANTS as const
-from Keys_support import Dataset as KSD
 import math
-from math import modf
 import collections
 
 import _Color_support as CS
@@ -49,7 +35,6 @@ import _Grip_support as GS
 
 from _Progressible import _Progressible
 import _UIConstants_support as UICS
-import tkinter.messagebox as tkMessageBox
 
 class SystematicFiltering_View(_Progressible):
 
@@ -110,7 +95,7 @@ class SystematicFiltering_View(_Progressible):
 
             # Check if the half count is a decimal. If so, add another symbol according
             # to its value (i.e. if its greater than or less than 0.05)
-            symbol_count_decimal = math.modf(symbol_count)
+            symbol_count_decimal = math.modf(symbol_count)[0]
             addSymbol = ""
             if symbol_count_decimal >= 0.5:
                 addSymbol = UICS.SINGLE_MODULE_SYMBOL
@@ -124,8 +109,8 @@ class SystematicFiltering_View(_Progressible):
 
         strProgressInfo = str(description)
 
-        self.getLbProgressConsole().insert(END, strProgressInfo)
-        self.getLbProgressConsole().yview(END)  # Automatically sets the scrollbar to the newly added item
+        self.getLbProgressConsole().insert(tk.END, strProgressInfo)
+        self.getLbProgressConsole().yview(tk.END)  # Automatically sets the scrollbar to the newly added item
 
 
 
@@ -220,7 +205,7 @@ class SystematicFiltering_View(_Progressible):
         rel_y = 0.5 - (rel_height / 2)
 
         # START MINING Button
-        self.__btnStartCrossProcess = Button(self.__lfConsoleCommands)
+        self.__btnStartCrossProcess = tk.Button(self.__lfConsoleCommands)
         self.__btnStartCrossProcess.place(
             # x = 141, rely = rel_y,
             relx = rel_x, rely = rel_y - 0.1,
@@ -238,10 +223,11 @@ class SystematicFiltering_View(_Progressible):
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE
+            bd = 0, relief = tk.FLAT, overrelief = tk.GROOVE
         )
         self.__lfConsoleCommands.update()
         self.__btnStartCrossProcess.update()
+        
         # Grey unnecessary (cosmetic) borders
         ref_x = self.__btnStartCrossProcess.winfo_x()
         ref_y = self.__btnStartCrossProcess.winfo_y()
@@ -267,7 +253,7 @@ class SystematicFiltering_View(_Progressible):
         self.ico_AM_height_cross = btn_height
 
         # STOP MINING Button
-        self.__btnStopCrossProcess = Button(self.__lfConsoleCommands)
+        self.__btnStopCrossProcess = tk.Button(self.__lfConsoleCommands)
         self.__btnStopCrossProcess.place(
             # x = 280, rely = rel_y,
             # width = btn_width, height = btn_height)
@@ -284,7 +270,7 @@ class SystematicFiltering_View(_Progressible):
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE
+            bd = 0, relief = tk.FLAT, overrelief = tk.GROOVE
         )
         # endregion create command widgets
 
@@ -372,7 +358,7 @@ class SystematicFiltering_View(_Progressible):
         rel_width = float(btn_width) / float(parent_width)
         print(rel_width)
         # "NO" DIALOG Button
-        self.btnDialog_NO = Button(self.lblButtons)
+        self.btnDialog_NO = tk.Button(self.lblButtons)
         self.btnDialog_NO.place(
             relx = 1 - rel_x - rel_width, rely = rel_y,
             width = btn_width, height = btn_height)
@@ -387,11 +373,11 @@ class SystematicFiltering_View(_Progressible):
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE
+            bd = 0, relief = tk.FLAT, overrelief = tk.GROOVE
         )
 
         # "YES" DIALOG BUTTON
-        self.btnDialog_YES = Button(self.lblButtons)
+        self.btnDialog_YES = tk.Button(self.lblButtons)
         self.btnDialog_YES.place(
             relx = rel_x, rely = rel_y,
             width = btn_width, height = btn_height)
@@ -406,7 +392,7 @@ class SystematicFiltering_View(_Progressible):
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE
+            bd = 0, relief = tk.FLAT, overrelief = tk.GROOVE
         )
         self.__lfDialogueFrame.update()
 
@@ -451,7 +437,7 @@ class SystematicFiltering_View(_Progressible):
         self.root.deiconify()
 
     def __initializeWindow(self, root, win_width = FS.sfWidth, win_height = FS.sfHeight):
-        top = Toplevel(root)
+        top = tk.Toplevel(root)
 
         # remove title bar
         top.overrideredirect(True)
@@ -462,7 +448,7 @@ class SystematicFiltering_View(_Progressible):
         # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
         top.resizable(0, 0)
 
-        self.style = ttk.Style()
+        self.style = Style()
         if sys.platform == "win32":
             self.style.theme_use('winnative')
 
@@ -559,7 +545,7 @@ class SystematicFiltering_View(_Progressible):
         rel_width = float(btn_width) / float(parent_width)
         print(rel_width)
         # "NO" DIALOG Button
-        self.btnDialog_NO_Prompt = Button(self.lblButtonsPrompt)
+        self.btnDialog_NO_Prompt = tk.Button(self.lblButtonsPrompt)
         self.btnDialog_NO_Prompt.place(
             relx = 1 - rel_x - rel_width, rely = rel_y,
             width = btn_width, height = btn_height)
@@ -574,11 +560,11 @@ class SystematicFiltering_View(_Progressible):
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE
+            bd = 0, relief = tk.FLAT, overrelief = tk.GROOVE
         )
 
         # "YES" DIALOG BUTTON
-        self.btnDialog_YES_Prompt = Button(self.lblButtonsPrompt)
+        self.btnDialog_YES_Prompt = tk.Button(self.lblButtonsPrompt)
         self.btnDialog_YES_Prompt.place(
             relx = rel_x, rely = rel_y,
             width = btn_width, height = btn_height)
@@ -593,7 +579,7 @@ class SystematicFiltering_View(_Progressible):
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.FILTER_BG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE
+            bd = 0, relief = tk.FLAT, overrelief = tk.GROOVE
         )
 
         self.__lfDialogueFramePrompt.update()

@@ -9,25 +9,10 @@ __version__ = "3.0"
     UI widget placement.
     [Candy]
 '''
-
+import sys
 import tkinter as tk
-
-try:
-    from Tkinter import *
-except ImportError:
-    from _tkinter import *
-
-try:
-    import ttk
-
-    py3 = 0
-except ImportError:
-    import tkinter.ttk as ttk
-
-    py3 = 1
-
+from tkinter.ttk import *
 from ctypes import windll
-import os
 
 import PIL.Image
 import PIL.ImageTk
@@ -58,7 +43,7 @@ WS_EX_TOOLWINDOW = 0x00000080
 
 def createDefaultToplevelWindow(root, placeInfo = [800, 600],
                                 isOverrideRedirect = True, isTaskbar = True):
-    top = Toplevel(root)
+    top = tk.Toplevel(root)
 
     # remove title bar
     top.overrideredirect(isOverrideRedirect)
@@ -71,7 +56,7 @@ def createDefaultToplevelWindow(root, placeInfo = [800, 600],
     # top.protocol("WM_DELETE_WINDOW", onTopClose)  # TODO return this
     top.resizable(0, 0)
 
-    top.style = ttk.Style()
+    top.style = Style()
     if sys.platform == "win32":
         top.style.theme_use('winnative')
 
@@ -82,7 +67,7 @@ def createDefaultToplevelWindow(root, placeInfo = [800, 600],
     top.geometry(strDimensions)
     root.update()
     newX, newY = FS.centerWindow(top, root, 0, -FS.gripHeight)
-    top.geometry(strDimensions + "+" + str(newX) + "+" + str(newY))
+    top.geometry(strDimensions + "+" + str(int(newX)) + "+" + str(int(newY)))
 
     return top
 
@@ -115,7 +100,7 @@ def createDefaultFrame(parentFrame, placeInfo = [0, 0, 1, 1],
     wWidth = placeInfo[2]
     wHeight = placeInfo[3]
 
-    lfFrame = LabelFrame(parentFrame, bd = 0)
+    lfFrame = tk.LabelFrame(parentFrame, bd = 0)
     lfFrame.place(x = wX, y = wY,)
 
     # region relative conditions
@@ -133,7 +118,7 @@ def createDefaultFrame(parentFrame, placeInfo = [0, 0, 1, 1],
 
     lfFrame.configure(
         background = bgColor, foreground = fgColor,
-        relief = FLAT)
+        relief = tk.FLAT)
 
     lfFrame.update()
 
@@ -165,7 +150,7 @@ def createDefaultHeader(parentFrame, wText = "", placeInfo = [0, 0, 1, 1],
 
     lblHeader.configure(
         background =bgColor, foreground = fgColor,
-        bd = 0, relief = FLAT,
+        bd = 0, relief = tk.FLAT,
         text = wText,
         font = wFont,
     )
@@ -187,7 +172,7 @@ def createDefaultListbox(parentFrame,
     wWidth = placeInfo[2]
     wHeight = placeInfo[3]
 
-    listbox = Listbox(parentFrame)
+    listbox = tk.Listbox(parentFrame)
     listbox.place(x = wX, y = wY)
     # region relative conditions
     if isRelative[0]: # width is relative
@@ -209,7 +194,7 @@ def createDefaultListbox(parentFrame,
         selectforeground = fgSelect,
         font = US.SELECT_LABEL_FONT,
         bd = 0,
-        relief = GROOVE,
+        relief = tk.GROOVE,
         highlightthickness = 0
     )
 
@@ -225,7 +210,7 @@ def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
     wWidth = placeInfo[2]
     wHeight = placeInfo[3]
 
-    lblStripes = tk.Label(parentFrame, bd = 0, relief = GROOVE)
+    lblStripes = tk.Label(parentFrame, bd = 0, relief = tk.GROOVE)
 
     lblStripes.place(x = wX, y = wY,)
     # region relative conditions
@@ -244,7 +229,7 @@ def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
     icoStripes = PIL.ImageTk.PhotoImage(im)
     lblStripes.configure(
         image = icoStripes,
-        anchor = SW
+        anchor = tk.SW
     )
     lblStripes.image = icoStripes  # < ! > Required to make images appear
 
@@ -337,7 +322,7 @@ def copyWidgetConfiguration(widget, reference):
             takefocus = reference['takefocus'], justify = reference['justify']
         )
 
-    elif isinstance(widget, Listbox):
+    elif isinstance(widget, tk.Listbox):
         widget.configure(
             background = reference['background'], foreground = reference['foreground'],
             selectmode = reference['selectmode'], exportselection = reference['exportselection'],

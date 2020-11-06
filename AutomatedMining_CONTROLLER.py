@@ -446,7 +446,7 @@ class AutomatedMining_Controller:
             elif index < 100:
                 str_index = " " + str_index
             str_entry = UICS.PRE_LIST + str_index + "| " + feature_code
-            self.listFeatureCodes.insert(END, str_entry)
+            self.listFeatureCodes.insert(tk.END, str_entry)
         # return list_features
 
 
@@ -499,7 +499,7 @@ class AutomatedMining_Controller:
         self.list_selected_features = []
 
         # Delete all contents
-        self.listFeatureCodes.delete(0, END)
+        self.listFeatureCodes.delete(0, tk.END)
         self.dict_selected_features = collections.OrderedDict()
 
         # Reset selected count zero
@@ -514,7 +514,7 @@ class AutomatedMining_Controller:
         self.list_selected_feature_groups = []
 
         # Delete all contents
-        self.listFeatureGroups.delete(0, END)
+        self.listFeatureGroups.delete(0, tk.END)
 
         # Reset selected count zero
         self.lblSelectedGroupCount.configure(text = str(0))
@@ -533,15 +533,15 @@ class AutomatedMining_Controller:
         self.lblRightResultFocusValue.configure(text = str("NO DATA"))  # NO DATA
 
         # Remove Contents
-        self.listResultsLeft.delete(0, END)
-        self.listResultsRight.delete(0, END)
+        self.listResultsLeft.delete(0, tk.END)
+        self.listResultsRight.delete(0, tk.END)
 
         self.dropQueryLeft.config(values = self.list_str_feature_groups)  # Removes drop down contents
-        self.dropQueryLeft.delete(0, END)
+        self.dropQueryLeft.delete(0, tk.END)
         self.dropQueryLeft.set('')
 
         self.dropQueryRight.config(values = self.list_str_feature_groups)
-        self.dropQueryRight.delete(0, END)
+        self.dropQueryRight.delete(0, tk.END)
         self.dropQueryRight.set('')
 
         # LOCK result table
@@ -713,7 +713,7 @@ class AutomatedMining_Controller:
         pipe (|).
     '''
     def updateFeatureGroupList(self):
-        self.listFeatureGroups.delete(0, END)  # Empty the listbox before adding
+        self.listFeatureGroups.delete(0, tk.END)  # Empty the listbox before adding
         self.list_selected_feature_groups = []
 
         shortenText = False
@@ -742,7 +742,7 @@ class AutomatedMining_Controller:
                 entry = entry[1:]
                 entry = entry.replace(" VS ", "|")
 
-            self.listFeatureGroups.insert(END, entry)
+            self.listFeatureGroups.insert(tk.END, entry)
 
 
 
@@ -821,10 +821,10 @@ class AutomatedMining_Controller:
     def addToResultTable(self, table_code, dataset_pair):
 
         if table_code is self.RESULT_LEFT:
-            self.listResultsLeft.delete(0, END)
+            self.listResultsLeft.delete(0, tk.END)
 
         elif table_code is self.RESULT_RIGHT:
-            self.listResultsRight.delete(0, END)
+            self.listResultsRight.delete(0, tk.END)
 
         result_table = self.dict_DTPairs_ResultTable[dataset_pair]
 
@@ -841,10 +841,10 @@ class AutomatedMining_Controller:
                 "E1:a" + separator + "E1:b" + separator + "E2:a" + separator + "E2:b"
 
         if table_code is self.RESULT_LEFT:
-            self.listResultsLeft.insert(END, entry)
+            self.listResultsLeft.insert(tk.END, entry)
 
         elif table_code is self.RESULT_RIGHT:
-            self.listResultsRight.insert(END, entry)
+            self.listResultsRight.insert(tk.END, entry)
 
 
         for i in range(len_columns):
@@ -913,10 +913,10 @@ class AutomatedMining_Controller:
             entry = entry + expected
 
             if table_code is self.RESULT_LEFT:
-                self.listResultsLeft.insert(END, entry)
+                self.listResultsLeft.insert(tk.END, entry)
 
             elif table_code is self.RESULT_RIGHT:
-                self.listResultsRight.insert(END, entry)
+                self.listResultsRight.insert(tk.END, entry)
 
 
     '''TEST HEADER'''
@@ -968,7 +968,7 @@ class AutomatedMining_Controller:
     # region
 
     def clearConsole(self):
-        self.listConsoleScreen.delete(0, END)
+        self.listConsoleScreen.delete(0, tk.END)
 
     def addToConsole(self, consoleItem, consoleScreen):
         if self.dictConsoleScreens[consoleScreen] == const.SCREENS.Z_TEST:
@@ -985,8 +985,8 @@ class AutomatedMining_Controller:
 
         targetScreen.configure(state = tk.NORMAL)
 
-        targetScreen.insert(END, consoleItem)
-        targetScreen.tag_add(const.CONSOLE.DEFAULT, '1.0', END)
+        targetScreen.insert(tk.END, consoleItem)
+        targetScreen.tag_add(const.CONSOLE.DEFAULT, '1.0', tk.END)
 
         targetScreen.configure(state = tk.DISABLED)
 
