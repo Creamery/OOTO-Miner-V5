@@ -10,7 +10,7 @@ __version__ = "3.0"
 '''
 
 
-import Tkinter as tk
+import tkinter as tk
 
 try:
     from Tkinter import *
@@ -26,7 +26,7 @@ except ImportError:
 
     py3 = 1
 
-import tkMessageBox
+import tkinter.messagebox as tkMessageBox
 import SampleVsSample as svs
 import os
 import numpy as np
@@ -105,7 +105,8 @@ def saveDatasetFile(dataset):
 Writes a list of dictionaries into a .csv file
 """
 def writeCSVDict(filename, dataset):
-    with open(filename, 'wb') as f:
+    with open(filename, 'w') as f:
+    # with open(filename, 'wb') as f:
         w = csv.DictWriter(f, dataset[0].keys())
         w.writeheader()
         w.writerows(dataset)
@@ -275,12 +276,12 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
     datasets = []
     allValues = []
 
-    listBox.selection_clear(0, END)  # Deselect all
+    listBox.selection_clear(0, tk.END)  # Deselect all
     for i in selectedItems:  # Select items specified in selectedItems
         # print ("i is " + str(i))
         listBox.selection_set(i)
 
-    tempAV = listBox.get(0, END)
+    tempAV = listBox.get(0, tk.END)
     tempSV = [listBox.get(i) for i in listBox.curselection()]
 
     allValuesRaw = parseListBoxValues(tempAV, "|", 4)
@@ -314,8 +315,8 @@ def setFocusFeatureValues(listBox, dataset, selectedItems, label, isWarn):
 Verifies if the focus features and their selected values for datasets 1 and 2 are the same.
 """
 def isSameFocusFeat(dataset1, dataset2, selectedValD1, selectedValD2):
-    print selectedValD1
-    print selectedValD2
+    # print selectedValD1
+    # print selectedValD2
     if (dataset1['Focus Feature'] == dataset2['Focus Feature']):
         if (np.array_equal(selectedValD1, selectedValD2)):
             return 1
@@ -348,7 +349,7 @@ def selectDatasetValues(evt, dataset):
                     selected_response = copy.deepcopy(response)
                     dataset['Feature']['Selected Responses'].append(selected_response)
 
-        print str(len(dataset['Data']))
+        # print str(len(dataset['Data']))
         for record in dataset['Data']:
             if any(response['Code'] == record[dataset['Feature']['Code']] for response in
                    dataset['Feature']['Selected Responses']):

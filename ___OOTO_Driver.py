@@ -20,22 +20,12 @@ __copyright__ = "Copyright 2019 - TE3D House, Copyright 2020 - Liverpool Hope Un
 __credits__ = ["Arnulfo Azcarraga, Neil Buckley"]
 __version__ = "3.0"
 
+import sys
 
-import tkMessageBox
+import tkinter.messagebox as tkMessageBox
+import tkinter as tk
+from tkinter.ttk import *
 
-try:
-    from Tkinter import *
-except ImportError:
-    from _tkinter import *
-
-try:
-    import ttk
-
-    py3 = 0
-except ImportError:
-    import tkinter.ttk as ttk
-
-    py3 = 1
 import _Color_support as CS
 import _Icon_support as IS
 import _UI_support as US
@@ -61,7 +51,7 @@ def runOOTOMiner():
     # Starting point when module is the main routine.
     global val_gl, w_gl, root_gl
 
-    root_gl = Tk()
+    root_gl = tk.Tk()
     root_gl.resizable(0, 0)
     OOTO_Miner(root_gl)
     root_gl.mainloop()
@@ -162,7 +152,7 @@ class OOTO_Miner:
         # show window in taskbar after titlebar is removed
         top.after(10, lambda: WS.showInTaskBar(root_gl))
 
-        self.style = ttk.Style()
+        self.style = Style()
         if sys.platform == "win32":
             self.style.theme_use('winnative')
         # else:
@@ -176,7 +166,7 @@ class OOTO_Miner:
         strRootHeight = str(FS.rootHeight)
         top.geometry(strRootWidth + "x" + strRootHeight)
         newX, newY = FS.centerWindow(top)
-        top.geometry(strRootWidth + "x" + strRootHeight + "+" + str(newX) + "+" + str(newY))
+        top.geometry(strRootWidth + "x" + strRootHeight + "+" + str(int(newX)) + "+" + str(int(newY)))
         top.title("OOTO Miner")
 
         # root.wm_attributes('-transparentcolor', 'black')
@@ -199,54 +189,55 @@ class OOTO_Miner:
                                              })]
                           )
 
-        self.Tabs = ttk.Notebook(root_gl, style = 'Tab')  # top)
+        self.Tabs = Notebook(root_gl, style = 'Tab')  # top)
         self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
         # self.Tabs.place(relx = 0.0, rely = 0.0, relheight = 1.0, relwidth = 1)
         # self.Tabs.configure(takefocus = "")
 
         # Top horizontal separator # TODO
-        self.rootTopSeparator = ttk.Separator(root_gl, orient = HORIZONTAL)
+        self.rootTopSeparator = Separator(root_gl, orient = tk.HORIZONTAL)
         self.rootTopSeparator.place(relx = 0, rely = 0, relwidth = 1)
 
         # > START TAB (0)
-        self.Tabs_t2 = ttk.Frame(self.Tabs)
+        self.Tabs_t2 = tk.Frame(self.Tabs)
+        self.Tabs_t2 = tk.Frame(self.Tabs)
         ''' Tab icon '''
         im = PIL.Image.open(IS.TAB_ICO_START).resize(IS.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_start_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t2.image = tab_start_icon  # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t2, text = "Data", image = tab_start_icon,
-                      compound = CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
+                      compound = tk.CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
         # self.Tabs.tab(0, text = _txtpadding+"Data"+_txtpadding, underline = "-1")
 
         # > TEST TAB (1)
 
-        self.Tabs_t3 = ttk.Frame(self.Tabs)
+        self.Tabs_t3 = Frame(self.Tabs)
         ''' Tab icon '''
         im = PIL.Image.open(IS.TAB_ICO_TEST).resize(IS.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_test_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t3.image = tab_test_icon  # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t3, text = "MM", image = tab_test_icon,
-                      compound = CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
+                      compound = tk.CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
 
 
         # > ABOUT TAB (2)
-        self.Tabs_t5 = ttk.Frame(self.Tabs)
+        self.Tabs_t5 = Frame(self.Tabs)
         ''' Tab icon '''
         im = PIL.Image.open(IS.TAB_ICO_INFO).resize(IS.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_info_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t5.image = tab_info_icon  # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t5, text = "AM", image = tab_info_icon,
-                      compound = CENTER)
+                      compound = tk.CENTER)
 
 
         # > ABOUT TAB (4)
-        self.Tabs_t4 = ttk.Frame(self.Tabs)
+        self.Tabs_t4 = Frame(self.Tabs)
         ''' Tab icon '''
         im = PIL.Image.open(IS.TAB_ICO_INFO).resize(IS.TAB_ICO_SIZE, PIL.Image.ANTIALIAS)
         tab_info_icon = PIL.ImageTk.PhotoImage(im)
         self.Tabs_t4.image = tab_info_icon  # < ! > Required to make images appear
         self.Tabs.add(self.Tabs_t4, text = "Info", image = tab_info_icon,
-                      compound = CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
+                      compound = tk.CENTER)  # self.Tabs.add(self.Tabs_t2, text = _txtpadding+"Data"+_txtpadding, image = photo, compound = TOP)
 
 
 
@@ -276,12 +267,12 @@ class OOTO_Miner:
 
     def configureManualMiningTab(self, parentFrame):
         manualMining = MM.ManualMining(parentFrame)
-        # self.testTabParentFrame = manualMining.getMainFrame() # LabelFrame(self.Tabs_t3, bd = 0)
+        # self.testTabParentFrame = manualMining.getMainFrame() # tk.LabelFrame(self.Tabs_t3, bd = 0)
         return manualMining
     ''' --> Configure TEST ("TEST") TAB (2.2) <-- '''
 
     def configureTestTabConsoleElements(self):
-        self.testTabConsoleParentFrame = LabelFrame(self.Tabs_t3, bd = 0)
+        self.testTabConsoleParentFrame = tk.LabelFrame(self.Tabs_t3, bd = 0)
         # newRelW = 0.2
         # self.testTabConsoleParentFrame.place(
         #     relx = 1 - newRelW,
@@ -304,7 +295,7 @@ class OOTO_Miner:
 
     def configureInfoTabElements(self):
         # Creates the parent frame (infoTabParentFrame) that will hold all the elements in INFO TAB 3 (Tabs_t4)
-        self.infoTabParentFrame = LabelFrame(self.Tabs_t4, bd = 0)
+        self.infoTabParentFrame = tk.LabelFrame(self.Tabs_t4, bd = 0)
         self.infoTabParentFrame.place(
             relx = US.TAB_REL_X, rely = US.TAB_REL_Y,
             relwidth = US.TAB_REL_W, relheight = US.TAB_REL_H)
@@ -343,7 +334,7 @@ class OOTO_Miner:
     # region
     def configureAboutElements(self):
         # Create the About parent frame
-        self.labelFrameAbout = LabelFrame(self.infoTabParentFrame, bd = 0)
+        self.labelFrameAbout = tk.LabelFrame(self.infoTabParentFrame, bd = 0)
         self.labelFrameAbout.configure(
             background = CS.ABOUT_BG, foreground = CS.FG_COLOR, text = US.TITLE_ABOUT)
         self.labelFrameAbout.place(
@@ -351,7 +342,7 @@ class OOTO_Miner:
             relwidth = US.TAB_ABOUT_REL_W, relheight = US.TAB_ABOUT_REL_H)
 
         # Create the About element parent frame
-        self.labelFrameAboutElements = LabelFrame(self.labelFrameAbout, bd = 0)
+        self.labelFrameAboutElements = tk.LabelFrame(self.labelFrameAbout, bd = 0)
         self.labelFrameAboutElements.configure(
             background = CS.ABOUT_BG, foreground = CS.FG_COLOR)
         self.labelFrameAboutElements.place(
@@ -360,7 +351,7 @@ class OOTO_Miner:
 
         # > ABOUT ELEMENTS
         # Version label
-        self.labelVersion = Label(self.labelFrameAboutElements)
+        self.labelVersion = tk.Label(self.labelFrameAboutElements)
         self.labelVersion.place(
             relx = US.TAB_CHILD_LBL_REL_X, rely = US.TAB_CHILD_LBL_REL_Y,
             relwidth = US.TAB_CHILD_LBL_REL_W, relheight = US.TAB_CHILD_LBL_REL_H)
@@ -379,7 +370,7 @@ class OOTO_Miner:
         newRelX = US.TAB_CHILD_LBL_REL_X + prevLblRelX + prevLblRelW
 
         # Version text
-        self.labelVersionText = Label(self.labelFrameAboutElements)
+        self.labelVersionText = tk.Label(self.labelFrameAboutElements)
         self.labelVersionText.place(
             relx = newRelX, rely = prevLblRelY,
             relwidth = US.TAB_CHILD_STR_REL_W, relheight = prevLblRelH)
@@ -398,7 +389,7 @@ class OOTO_Miner:
         newRelY = US.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
 
         # Author label
-        self.labelAuthor = Label(self.labelFrameAboutElements)
+        self.labelAuthor = tk.Label(self.labelFrameAboutElements)
         self.labelAuthor.place(
             relx = prevLblRelX, rely = newRelY,
             relwidth = prevLblRelW, relheight = prevLblRelH)
@@ -408,7 +399,7 @@ class OOTO_Miner:
             disabledforeground = CS.FG_DISABLED_COLOR)
 
         # Author text
-        self.labelAuthorText = Label(self.labelFrameAboutElements)
+        self.labelAuthorText = tk.Label(self.labelFrameAboutElements)
         self.labelAuthorText.place(
             relx = prevStrRelX, rely = newRelY,
             relwidth = prevStrRelW, relheight = prevStrRelH)
@@ -424,7 +415,7 @@ class OOTO_Miner:
         newRelY = US.TAB_CHILD_LBL_REL_Y + prevLblRelY + prevLblRelH
 
         # Affiliation label
-        self.labelAffiliation = Label(self.labelFrameAboutElements)
+        self.labelAffiliation = tk.Label(self.labelFrameAboutElements)
         self.labelAffiliation.place(
             relx = prevLblRelX, rely = newRelY + 0.005,
             relwidth = prevLblRelW, relheight = prevLblRelH)
@@ -434,7 +425,7 @@ class OOTO_Miner:
             disabledforeground = CS.FG_DISABLED_COLOR)
 
         # Affiliation text
-        self.labelAffiliationText = Label(self.labelFrameAboutElements)
+        self.labelAffiliationText = tk.Label(self.labelFrameAboutElements)
         self.labelAffiliationText.place(
             relx = prevStrRelX, rely = newRelY,
             relwidth = prevStrRelW, relheight = prevStrRelH)
@@ -450,7 +441,7 @@ class OOTO_Miner:
     # region
     def createCornerImage(self, cornerParent):
 
-        labelNE = Label(cornerParent)
+        labelNE = tk.Label(cornerParent)
         im = PIL.Image.open(
             IS.CORNER_ROUND_NE)  # .resize(IS.CORNER_ICO_SIZE_SMALL, PIL.Image.ANTIALIAS)
         corner_round_ne = PIL.ImageTk.PhotoImage(im)
@@ -465,12 +456,12 @@ class OOTO_Miner:
         labelNE.image = corner_round_ne  # < ! > Required to make images appear
         labelNE.configure(background = CS.PALE_ORANGE)  # cornerParent['background'])
         labelNE.pack()
-        # labelNE.pack(side = RIGHT, fill = Y, expand = True, anchor = CENTER)
+        # labelNE.pack(side = RIGHT, fill = Y, expand = True, anchor = tk.CENTER)
 
     def createLabelSeparator(self, separatorParent, span, isVertical, color, thickness = 1, coordinate = 0,
-                             specifiedAnchor = NW):
+                             specifiedAnchor = tk.NW):
 
-        separatorHolder = Label(separatorParent)
+        separatorHolder = tk.Label(separatorParent)
         if isVertical:
             newRelY = (1 - (1 - span)) / 2
             separatorHolder.place(

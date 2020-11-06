@@ -10,7 +10,7 @@ __version__ = "3.0"
     [Candy]
 '''
 
-import Tkinter as tk
+import tkinter as tk
 
 try:
     from Tkinter import *
@@ -97,7 +97,7 @@ def createOverlayWindow(root, gripHeightOffset = 0, bgColor = CS.BLACK):
     top = createDefaultToplevelWindow(root, [wWidth, wHeight], True, False)
     top.wm_attributes('-alpha', 0.7)
 
-    label = Label(top)
+    label = tk.Label(top)
     label.place(x = 0, y = 0, relwidth = 1, relheight = 1)
     label.configure(background = bgColor)
 
@@ -148,7 +148,7 @@ def createDefaultHeader(parentFrame, wText = "", placeInfo = [0, 0, 1, 1],
     wWidth = placeInfo[2]
     wHeight = placeInfo[3]
 
-    lblHeader = Label(parentFrame)
+    lblHeader = tk.Label(parentFrame)
 
     lblHeader.place(x = wX, y = wY,)
     # region relative conditions
@@ -175,7 +175,7 @@ def createDefaultHeader(parentFrame, wText = "", placeInfo = [0, 0, 1, 1],
 
 
 def createDefaultListbox(parentFrame,
-                         selectMode = SINGLE,
+                         selectMode = tk.SINGLE,
                          placeInfo = [0,0,1,1],
                          isRelative = [True, True],
                          bg = CS.PALER_YELLOW,
@@ -225,7 +225,7 @@ def createDefaultStripe(parentFrame, placeInfo = [0,0,1,1],
     wWidth = placeInfo[2]
     wHeight = placeInfo[3]
 
-    lblStripes = Label(parentFrame, bd = 0, relief = GROOVE)
+    lblStripes = tk.Label(parentFrame, bd = 0, relief = GROOVE)
 
     lblStripes.place(x = wX, y = wY,)
     # region relative conditions
@@ -262,7 +262,7 @@ def getWidgetName(widget):
 
 
 
-""" A recursive call that updates all Widgets and their Widget children """
+""" A recursive call that updates all tk.Widgets and their tk.Widget children """
 def redraw(parentFrame):
     parentFrame.update()
 
@@ -271,7 +271,7 @@ def redraw(parentFrame):
         item.place(
             relx = 0, rely = 0, relwidth = 0, relheight = 0,
             x = item.winfo_x(), y = item.winfo_y(), width = item.winfo_width(), height = item.winfo_height())
-        if isinstance(item, Widget):
+        if isinstance(item, tk.Widget):
             redraw(item)
         else:
             return "break"
@@ -372,7 +372,7 @@ def emborder(parentFrame, placeInfo = [0, 0, None, None],
 
     index = 0
     if conditions[index]:
-        sepCommandTop = Label(parentFrame)
+        sepCommandTop = tk.Label(parentFrame)
         sepCommandTop.place(
             x = borderX,
             y = borderY,
@@ -382,7 +382,7 @@ def emborder(parentFrame, placeInfo = [0, 0, None, None],
 
     index = 2
     if conditions[index]:
-        sepCommandBottom = Label(parentFrame)
+        sepCommandBottom = tk.Label(parentFrame)
         sepCommandBottom.place(
             x = borderX,
             y = borderY + borderH,
@@ -392,7 +392,7 @@ def emborder(parentFrame, placeInfo = [0, 0, None, None],
 
     index = 3
     if conditions[index]:
-        sepCommandLeft = Label(parentFrame)
+        sepCommandLeft = tk.Label(parentFrame)
         sepCommandLeft.place(
             x = borderX,
             y = borderY,
@@ -402,7 +402,7 @@ def emborder(parentFrame, placeInfo = [0, 0, None, None],
 
     index = 1
     if conditions[index]:
-        sepCommandRight = Label(parentFrame)
+        sepCommandRight = tk.Label(parentFrame)
         sepCommandRight.place(
             x = borderX + borderW,
             y = borderY,
@@ -574,7 +574,7 @@ def createFilters(SSF, maxLevel = CSF.MAX_LVL):
     FILTERS = [[]] * (maxLevel + 1)
 
     for level in range(1, maxLevel + 1):
-        print "level " + str(level)
+        # print "level " + str(level)
         LVL = LVLS[level]
         FILTERS[level] = createFilterSet(LVL, SSF[KSS.FEAT_GROUP])  # dict of array of dict, ex: {'level': }
 

@@ -146,7 +146,7 @@ class AutomatedMining_Model:
 
         if hasKey:
             response = featureList[featureID][KSD.RESPONSES]
-            print "Key found"
+            # print "Key found"
         else:
             response= {}
 
@@ -155,7 +155,6 @@ class AutomatedMining_Model:
 
     """BUTTON FUNCTIONS"""
     def confirmFeatureSelect(self):
-        print "confirmFeatureSelect"
         selectedFeatureIndices = self.viewModel.getSelectedFeatureIndices()
 
         confirmedFeatures = [self.viewModel.getCurrentQueryFeatureList().items()[index] for index in selectedFeatureIndices]
@@ -176,9 +175,6 @@ class AutomatedMining_Model:
         self.AMController = controller
 
     def queryFeature(self, featureID):
-        # featureID = self.viewModel.getCurrentFeature()
-        print "featureID " + str(featureID)
-
         self.viewModel.setQueryFeatureList(featureID)
         queryFeatureList = self.__getFeatureQuery(featureID)
         # responses = self.__getFeatureResponses(featureID)
@@ -189,9 +185,6 @@ class AutomatedMining_Model:
         return queryFeatureList
 
     def queryFeatureResponses(self, featureID):
-        # featureID = self.viewModel.getCurrentFeature()
-        print "featureID " + str(featureID)
-
         self.viewModel.setQueryFeatureList(featureID)
         response = self.__getFeatureResponses(featureID)
 
@@ -200,19 +193,12 @@ class AutomatedMining_Model:
         return response
 
     def resetFeatureSelect(self):
-        print "resetFeatureSelect"
         return "break"
 
     def resetConfirmedFeatures(self):
-        print "resetConfirmedFeatures"
         confirmedFeatureList = self.viewModel.getConfirmedFeatures()
         selectedIndices = self.viewModel.getSelectedConfirmedFeatureIndices()
 
-        print "confirmed selected indices"
-        print str(selectedIndices)
-
-        # selectedFeatures = [self.viewModel.getCurrentQueryFeatureList().items()[index] for index in
-        #                      selectedFeatureIndices]
         selectedFeatures = [self.viewModel.getConfirmedFeatures().items()[index] for index in selectedIndices]
         selectedFeatures = WS.AlphabeticalDict(selectedFeatures)
 
@@ -223,9 +209,6 @@ class AutomatedMining_Model:
 
         return self.viewModel.getConfirmedFeatures()
 
-        # emptySet = {}
-        # self.viewModel.setConfirmedFeatures(emptySet)
-        # return emptySet
 
     """GETTERS"""
     # returns the formatted feature description used for UI data retrieval
@@ -282,7 +265,6 @@ class AutomatedMining_Model:
         featureID = self.extractFeatureID(selectedItem)
         response = {}
 
-        print "featureID is " + str(featureID)
         if not (featureID == '-1'):
             response = self.getFeatureDescription()[featureID][KSD.RESPONSES]
 
@@ -294,7 +276,6 @@ class AutomatedMining_Model:
         featureID = self.extractFeatureID(selectedItem)
         response = {}
 
-        print "featureID is " + str(featureID)
         if not (featureID == '-1'):
             response = self.getFeatureDescription()[featureID][KSD.RESPONSES]
 
@@ -304,7 +285,6 @@ class AutomatedMining_Model:
 
     def extractFeatureID(self, selectedItem):
         featureId = str(selectedItem).strip()[0:2]
-        print str(featureId)
         return featureId
 
 # AM MODEL class that contains the functions and variables utilized by the UI/VIEW
@@ -392,9 +372,7 @@ class ViewModel:
         self.updatePrevSelectedFeatures()
         self.setSelectedFeatureIndices(newSelectedFeatureIndices)
 
-        # w = event.widget
         if self.getPrevSelectedFeatures():  # if not empty
-            print "getPrevSelectedFeatures not empty"
             # compare last selectionlist with new list and extract the difference
             changedSelection = set(self.getPrevSelectedFeatures()).symmetric_difference(set(newSelectedFeatureIndices))
             self.setPrevSelectedFeatures(newSelectedFeatureIndices)
@@ -424,7 +402,6 @@ class ViewModel:
         self.setSelectedConfirmedFeatureIndices(newSelectedFeatureIndices)
 
         if self.getPrevSelectedConfirmedFeatures():  # if not empty
-            print "getPrevSelectedConfirmedFeatures not empty"
             # compare last selectionlist with new list and extract the difference
             changedSelection = set(self.getPrevSelectedConfirmedFeatures()).symmetric_difference(set(newSelectedFeatureIndices))
             self.setPrevSelectedConfirmedFeatures(newSelectedFeatureIndices)
@@ -433,8 +410,6 @@ class ViewModel:
             self.setPrevSelectedConfirmedFeatures(newSelectedFeatureIndices)
             changedSelection = newSelectedFeatureIndices
 
-        print "changedSelection = "
-        print str(changedSelection)
         if len(changedSelection) > 0:
             index = int(list(changedSelection)[0])
             if index in listbox.curselection():
@@ -443,7 +418,6 @@ class ViewModel:
                 lastSelectedIndex = -1
         else:
             lastSelectedIndex = -1
-        print('ls '+ str(lastSelectedIndex))
 
         return lastSelectedIndex
 

@@ -13,7 +13,7 @@ __version__ = "3.0"
     [Candy]
 '''
 
-import tkMessageBox
+import tkinter.messagebox as tkMessageBox
 
 # For loadVarDesc()
 import json  # For pretty print

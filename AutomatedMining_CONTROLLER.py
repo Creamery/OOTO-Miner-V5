@@ -19,26 +19,9 @@ __version__ = "3.0"
     [Candy]
 '''
 
-import tkMessageBox
+import tkinter.messagebox as tkMessageBox
 import copy
-
-import Tkinter as tk
-
-try:
-    from Tkinter import *
-except ImportError:
-    from tkinter import *
-
-try:
-    import ttk
-
-    py3 = 0
-except ImportError:
-    import tkinter.ttk as ttk
-
-    py3 = 1
-
-import Tkinter
+import tkinter as tk
 import math
 import collections
 import _Color_support as CS
@@ -94,7 +77,7 @@ class AutomatedMining_Controller:
         self.showConsoleScreen(None, self.listConsoleScreen)  # Click ALL type
 
         # Button state variables (This is used instead of directly disabling buttons to keep their appearance)
-        self.buttonQueryFeature_state = DISABLED
+        self.buttonQueryFeature_state = tk.DISABLED
 
         self.hasUploadedVariableDescription = False
         self.hasUploadedPopulation = False
@@ -1000,18 +983,18 @@ class AutomatedMining_Controller:
         else:
             targetScreen = self.listConsoleScreen
 
-        targetScreen.configure(state = NORMAL)
+        targetScreen.configure(state = tk.NORMAL)
 
         targetScreen.insert(END, consoleItem)
         targetScreen.tag_add(const.CONSOLE.DEFAULT, '1.0', END)
 
-        targetScreen.configure(state = DISABLED)
+        targetScreen.configure(state = tk.DISABLED)
 
     '''Select a single line in the console screen Text widget'''
 
     def selectConsoleEntry(self, event, consoleScreen):
         # Enable console
-        consoleScreen.configure(state = NORMAL)
+        consoleScreen.configure(state = tk.NORMAL)
 
         # Clear previous highlights by deleting the old tag
         consoleScreen.tag_delete(const.CONSOLE.SELECT)
@@ -1036,7 +1019,7 @@ class AutomatedMining_Controller:
             consoleScreen.tag_add(const.CONSOLE.SELECT, indexStart, indexEnd)
 
         # Disable the entry to prevent editing
-        consoleScreen.configure(state = DISABLED)
+        consoleScreen.configure(state = tk.DISABLED)
 
     def showConsoleScreen(self, event, consoleScreen):
         # Hide all screens first
@@ -1046,10 +1029,10 @@ class AutomatedMining_Controller:
         self.hideWidget(self.listConsoleSearchScreen)
 
         # Reset relief
-        self.buttonConsoleAll['relief'] = FLAT
-        self.btnConsoleInput['relief'] = FLAT
-        self.btnConsoleSearch['relief'] = FLAT
-        self.btnConsoleResults['relief'] = FLAT
+        self.buttonConsoleAll['relief'] = tk.FLAT
+        self.btnConsoleInput['relief'] = tk.FLAT
+        self.btnConsoleSearch['relief'] = tk.FLAT
+        self.btnConsoleResults['relief'] = tk.FLAT
 
         # Reset background color
         self.buttonConsoleAll['background'] = CS.WHITE
@@ -1068,14 +1051,14 @@ class AutomatedMining_Controller:
             self.labelConsoleScreenTaskBar['text'] = '''RESULTS'''
             self.btnConsoleResults['background'] = CS.CYAN
             self.btnConsoleResults['foreground'] = CS.D_BLUE
-            self.btnConsoleResults['relief'] = GROOVE
+            self.btnConsoleResults['relief'] = tk.GROOVE
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.Z_TEST:
             self.showWidget(self.listConsoleInputScreen)
             self.labelConsoleScreenTaskBar['text'] = '''INPUT'''
             self.btnConsoleInput['background'] = CS.CYAN
             self.btnConsoleInput['foreground'] = CS.D_BLUE
-            self.btnConsoleInput['relief'] = GROOVE
+            self.btnConsoleInput['relief'] = tk.GROOVE
 
 
         elif self.dictConsoleScreens[consoleScreen] == const.SCREENS.CHI_SQUARE:
@@ -1083,7 +1066,7 @@ class AutomatedMining_Controller:
             self.labelConsoleScreenTaskBar['text'] = '''SEARCH'''
             self.btnConsoleSearch['background'] = CS.CYAN
             self.btnConsoleSearch['foreground'] = CS.D_BLUE
-            self.btnConsoleSearch['relief'] = GROOVE
+            self.btnConsoleSearch['relief'] = tk.GROOVE
 
 
         else:
@@ -1091,7 +1074,7 @@ class AutomatedMining_Controller:
             self.labelConsoleScreenTaskBar['text'] = '''ALL'''
             self.buttonConsoleAll['background'] = CS.CYAN
             self.buttonConsoleAll['foreground'] = CS.D_BLUE
-            self.buttonConsoleAll['relief'] = GROOVE
+            self.buttonConsoleAll['relief'] = tk.GROOVE
 
     """ >>> HELPER FUNCTIONS CALLED BY BOUNDED ELEMENTS (e.g. enter, leave) <<< """
 
@@ -1185,8 +1168,8 @@ class AutomatedMining_Controller:
         item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
 
-    def enterDownArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        if state != DISABLED:
+    def enterDownArrowPlainIcon(self, event, state = tk.NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        if state != tk.DISABLED:
             item = event.widget
             im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
@@ -1195,8 +1178,8 @@ class AutomatedMining_Controller:
                 image = btn_down_arrow_icon)
             item.image = btn_down_arrow_icon  # < ! > Required to make images appear
 
-    def leaveDownArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        if state != DISABLED:
+    def leaveDownArrowPlainIcon(self, event, state = tk.NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        if state != tk.DISABLED:
             item = event.widget
             im = PIL.Image.open(_Icon_support.TAB_ICO_DOWN_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
 
@@ -1205,8 +1188,8 @@ class AutomatedMining_Controller:
                 image = btn_down_arrow_icon)
             item.image = btn_down_arrow_icon  # < ! > Required to make images appear
 
-    def enterRightArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        if state != DISABLED:
+    def enterRightArrowPlainIcon(self, event, state = tk.NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        if state != tk.DISABLED:
             item = event.widget
             im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
@@ -1215,10 +1198,10 @@ class AutomatedMining_Controller:
                 image = btn_right_arrow_icon)
             item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
-    def leaveRightArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        if state != DISABLED:
+    def leaveRightArrowPlainIcon(self, event, state = tk.NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
+        if state != tk.DISABLED:
             item = event.widget
-            if item['state'] != DISABLED:
+            if item['state'] != tk.DISABLED:
                 im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
                 btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
                 item.configure(
@@ -1250,10 +1233,10 @@ class AutomatedMining_Controller:
 
         # Disable entry
         self.entryQueryLeft.configure(
-            state = DISABLED
+            state = tk.DISABLED
         )
         # Disable button
-        self.buttonQueryFeature_state = DISABLED
+        self.buttonQueryFeature_state = tk.DISABLED
 
         # Disable feature name
         self.labelQueryDataFeatureName.configure(
@@ -1275,10 +1258,10 @@ class AutomatedMining_Controller:
     def enableListResultTable(self):
         # Enable entry
         self.entryQueryLeft.configure(
-            state = NORMAL
+            state = tk.NORMAL
         )
         # Enable button
-        self.buttonQueryFeature_state = NORMAL
+        self.buttonQueryFeature_state = tk.NORMAL
 
         # Enable feature name
         self.labelQueryDataFeatureName.configure(
@@ -1300,7 +1283,7 @@ class AutomatedMining_Controller:
             statusWidget.configure(
                 background = CS.SELECT_LISTBOX_STATUS_READY_BG,
                 foreground = CS.SELECT_LISTBOX_STATUS_READY_FG,
-                relief = GROOVE
+                relief = tk.GROOVE
             )
         else:
             statusWidget.configure(

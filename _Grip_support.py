@@ -9,27 +9,14 @@ __version__ = "3.0"
 '''
 
 
-try:
-    from Tkinter import *
-except ImportError:
-    from _tkinter import *
-
-try:
-    import ttk
-    py3 = 0
-
-except ImportError:
-    import tkinter.ttk as ttk
-    py3 = 1
-
+import tkinter as tk
 import PIL.Image
 import PIL.ImageTk
-import tkMessageBox
+import tkinter.messagebox as tkMessageBox
 
 import Function_support as FS
 import _Widget_support as WS
 import _Color_support as CS
-import _UI_support as US
 import _Icon_support as IS
 
 
@@ -80,7 +67,7 @@ class GripLabel:
         gripHeight = FS.gripHeight
 
         # create grip label
-        grip = LabelFrame(self.top, bd = 0)
+        grip = tk.LabelFrame(self.top, bd = 0)
         grip.place(x = 0, y = 0, width = gripWidth, height = gripHeight)
         grip.configure(background = CS.WHITE)
 
@@ -96,13 +83,13 @@ class GripLabel:
         parentWidth = parentFrame.winfo_width()
         parentHeight = parentFrame.winfo_height()
 
-        button = Button(parentFrame)
+        button = tk.Button(parentFrame)
         button.place(x = parentWidth - parentHeight, y = 0,
                      width = parentHeight, height = parentHeight)
 
         button.configure(
             background = CS.WHITE, foreground = CS.FG_COLOR,
-            bd = 0, relief = FLAT, overrelief = FLAT)
+            bd = 0, relief = tk.FLAT, overrelief = tk.FLAT)
 
         offset = 6
         iconSize = (parentHeight - offset, parentHeight - offset)

@@ -8,25 +8,11 @@ __version__ = "3.0"
     handles the main functionality of its View.
     [Candy]
 '''
+import tkinter.messagebox as tkMessageBox
+import tkinter.filedialog as tkFileDialog
+import tkinter as tk
 
-try:
-    from Tkinter import *
-except ImportError:
-    from tkinter import *
-
-try:
-    import ttk
-
-    py3 = 0
-except ImportError:
-    import tkinter.ttk as ttk
-
-    py3 = 1
-
-import tkMessageBox
 import _UI_support
-import Function_support as FS
-from tkFileDialog import askopenfilename
 import _UIConstants_support as UICS
 
 class Input_Controller:
@@ -77,15 +63,15 @@ class Input_Controller:
     def selectInitVarDesc(self, evt):
         self.hasUploadedVariableDescription = False
 
-        self.initVarDisc = askopenfilename(title = "Select file",
-                                           filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
+        self.initVarDisc = tkFileDialog.askopenfilename(title = "Select file",
+                                                        filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
 
         if len(self.initVarDisc) == 0:
             tkMessageBox.showerror("Error: Upload Variable description",
                                    "Please select a valid [variable description] file.")
         else:
             self.hasUploadedVariableDescription = True
-            self.entryInitialVarDesc.delete(0, END)
+            self.entryInitialVarDesc.delete(0, tk.END)
             self.entryInitialVarDesc.insert(0, self.initVarDisc)
 
         return "break"  # this "unsinks" the button after opening the file explorer
@@ -96,14 +82,14 @@ class Input_Controller:
         self.hasUploadedPopulation = False
 
         global dirPopulation
-        dirPopulation = askopenfilename(title = "Select file",
-                                        filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
+        dirPopulation = tkFileDialog.askopenfilename(title = "Select file",
+                                                     filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
 
         if len(dirPopulation) == 0:
             tkMessageBox.showerror("Error: Upload error", "Please select a valid [population dataset].")
         else:
             self.hasUploadedPopulation = True
-            self.entryQueryPopulation.delete(0, END)
+            self.entryQueryPopulation.delete(0, tk.END)
             self.entryQueryPopulation.insert(0, dirPopulation)
         return "break"
 
@@ -113,14 +99,14 @@ class Input_Controller:
         self.hasFeatureNames = False
 
         global dirFeatureNames
-        dirFeatureNames = askopenfilename(title = "Select file",
-                                          filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
+        dirFeatureNames = tkFileDialog.askopenfilename(title = "Select file",
+                                                       filetypes = (("csv files", "*.csv"), ("all files", "*.*")))
 
         if len(dirFeatureNames) == 0:
             tkMessageBox.showerror("Error: Upload error", "Please select a valid [feature names] file.")
         else:
             self.hasFeatureNames = True
-            self.entryVariableFile.delete(0, END)
+            self.entryVariableFile.delete(0, tk.END)
             self.entryVariableFile.insert(0, dirFeatureNames)
             UICS.PATH_FTRNAMES = dirFeatureNames
         return "break"
@@ -157,7 +143,7 @@ class Input_Controller:
     # def getVariableFile(self, evt):
     #     varFileDir = askopenfilename(title = "Select variable file",
     #                                  filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
-    #     self.entryVariableFile.delete(0, END)
+    #     self.entryVariableFile.delete(0, tk.END)
     #     self.entryVariableFile.insert(0, varFileDir)
     #     return "break"
 
@@ -165,7 +151,7 @@ class Input_Controller:
     # def getValuesFile(self, evt):
     #     valFileDir = askopenfilename(title = "Select values file",
     #                                  filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
-    #     self.entryValuesFile.delete(0, END)
+    #     self.entryValuesFile.delete(0, tk.END)
     #     self.entryValuesFile.insert(0, valFileDir)
     #     return "break"
 

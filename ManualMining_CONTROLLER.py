@@ -19,7 +19,7 @@ __version__ = "3.0"
     [Candy]
 '''
 
-import tkMessageBox
+import tkinter.messagebox as tkMessageBox
 import copy
 import SampleVsPopulation as svp
 import SampleVsSample as svs
@@ -28,7 +28,7 @@ import _Widget_support as WS
 import os
 from collections import Counter
 
-import Tkinter as tk
+import tkinter as tk
 
 try:
     from Tkinter import *
@@ -83,7 +83,7 @@ class ManualMining_Controller:
         populationDir_gl = ""
 
         # Button state variables (This is used instead of directly disabling buttons to keep their appearance)
-        self.buttonQueryFeature_state = DISABLED
+        self.buttonQueryFeature_state = tk.DISABLED
 
         self.hasUploadedVariableDescription = False
         self.hasUploadedPopulation = False
@@ -803,7 +803,7 @@ class ManualMining_Controller:
         return "break"
 
     def querySetFeature(self, evt):
-        if self.buttonQueryFeature_state is not DISABLED:
+        if self.buttonQueryFeature_state is not tk.DISABLED:
             entryQuery = self.entryQueryFeature.get()
 
             # If the dataset is empty, do not continue finding the feature
@@ -963,12 +963,12 @@ class ManualMining_Controller:
         datasets.append(self.datasetA)
         datasets.append(self.datasetB)
 
-        if (queryType_gl == 'Sample vs Sample'):  # TODO Remove this condition?
-            self.addToQueue(queryType_gl, datasetArgs = datasets)
-            self.addToConsole("\nTest added to queue", self.listConsoleScreen)
-            self.addToConsole("\nTest added to queue", self.listConsoleQueueScreen)
-        else:
-            tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
+        # if (queryType_gl == 'Sample vs Sample'):  # TODO Remove this condition?
+        self.addToQueue(queryType_gl, datasetArgs = datasets)
+        self.addToConsole("\nTest added to queue", self.listConsoleScreen)
+        self.addToConsole("\nTest added to queue", self.listConsoleQueueScreen)
+        # else:
+        #     tkMessageBox.showerror("Error: Sample vs Sample not selected", "Please select Sample vs Sample test")
 
         return "break"
 
@@ -983,57 +983,61 @@ class ManualMining_Controller:
         queueNum = 0
         chiTest = CHI.ChiTest.getInstance()  # Initialize singleton
         for test in tests_gl:
+            print("ENTER")
             fileNames = []
-            if test['Type'] == 'Sample vs Sample':
-                queueNum += 1
-                for dataset in test['Datasets']:  # For each sample pairs in queue
-                    FS.convertDatasetValuesToGroups(dataset, features_gl)
+            # if test['Type'] == 'Sample vs Sample':
+            queueNum += 1
 
-                    # print "convertDatasetValuesToGroups : "
-                    # print "---- dataset : "
+            print("ENTER 2")
+            for dataset in test['Datasets']:  # For each sample pairs in queue
+                FS.convertDatasetValuesToGroups(dataset, features_gl)
 
-                    n = 3  # TODO Define this
+                print("ENTER 3")
+                # print "convertDatasetValuesToGroups : "
+                # print "---- dataset : "
 
-                    # print str(dataset.keys())
-                    # print str(dataset['Filter Features'][:n])
-                    # print str(WS.PrintDictItems(n, dataset['Feature']))
-                    # print str(dataset['Data'][:n])
-                    # print str(dataset['Feature'])
-                    # print str(dataset['Data'])
-                    # print "---- features : "
-                    # print str(features)
+                n = 3  # TODO Define this
 
-                    fileName = FS.makeFileName(dataset)  # TODO This makes the intermediate tables based on the selected features
+                # print str(dataset.keys())
+                # print str(dataset['Filter Features'][:n])
+                # print str(WS.PrintDictItems(n, dataset['Feature']))
+                # print str(dataset['Data'][:n])
+                # print str(dataset['Feature'])
+                # print str(dataset['Data'])
+                # print "---- features : "
+                # print str(features)
 
-                    queueStr = str("(Q" + str(queueNum) + ") ")
-                    fileName = str(queueStr + fileName)
-                    fileName = str(fileName + ".csv")
+                fileName = FS.makeFileName(dataset)  # TODO This makes the intermediate tables based on the selected features
 
-                    LS.checkDirectory(LS.GL_MM_OUTPUT_PATH)
-                    path_csv = LS.GL_MM_OUTPUT_PATH + fileName
-                    fileNames.append(path_csv)
+                queueStr = str("(Q" + str(queueNum) + ") ")
+                fileName = str(queueStr + fileName)
+                fileName = str(fileName + ".csv")
 
-                    # print ("GENERATED FILENAME: " + str(fileName))
-                    FS.writeCSVDict(path_csv, dataset['Data'])
+                LS.checkDirectory(LS.GL_MM_OUTPUT_PATH)
+                path_csv = LS.GL_MM_OUTPUT_PATH + fileName
+                fileNames.append(path_csv)
+
+                # print ("GENERATED FILENAME: " + str(fileName))
+                FS.writeCSVDict(path_csv, dataset['Data'])
 
 
 
-                # print("!---- File NAMES")
-                # print(fileNames)
+            # print("!---- File NAMES")
+            # print(fileNames)
 
-                # TODO Check if you need this removed
-                if not (os.path.isfile("Updated-Variables.csv")):
-                    FS.makeUpdatedVariables(features_gl, "Updated-Variables.csv")
-                    self.addToConsole("\nCreated Updated-Variables.csv", self.listConsoleScreen)
+            # TODO Check if you need this removed
+            if not (os.path.isfile("Updated-Variables.csv")):
+                FS.makeUpdatedVariables(features_gl, "Updated-Variables.csv")
+                self.addToConsole("\nCreated Updated-Variables.csv", self.listConsoleScreen)
 
-                # saveFile = ct.chiTest(fileNames)
+            # saveFile = ct.chiTest(fileNames)
 
-                saveFile = chiTest.chiTest(fileNames, queueNum)
-                print ("saveFile is " + saveFile)
+            saveFile = chiTest.chiTest(fileNames, queueNum)
+            print("saveFile is " + saveFile)
 
-                self.addToConsole("\nQ" + str(queueNum) + " Chi-test complete", self.listConsoleChiSquareScreen)
-                # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
-                # removeFiles(fileNames) # TODO This removes the intermediate tables
+            self.addToConsole("\nQ" + str(queueNum) + " Chi-test complete", self.listConsoleChiSquareScreen)
+            # tempString = "Chi-test complete. " + str(i) + "/" + str(len(tests)) + "complete."
+            # removeFiles(fileNames) # TODO This removes the intermediate tables
 
 
 
@@ -1280,7 +1284,7 @@ class ManualMining_Controller:
         targetScreen.insert(END, consoleItem)
         targetScreen.tag_add(const.CONSOLE.DEFAULT, '1.0', END)
 
-        targetScreen.configure(state = DISABLED)
+        targetScreen.configure(state = tk.DISABLED)
 
     '''Select a single line in the console screen Text widget'''
 
@@ -1305,18 +1309,13 @@ class ManualMining_Controller:
         indexStart = str(start)
         end = start + 1
         indexEnd = str(end)
-        # print(str(insertIndex))
-        # print("S " + str(indexStart))
-        # print("E " + str(indexEnd))
-        # self.listConsoleScreen.tag_raise("sel")
-        # self.listConsoleScreen.tag_bind(CONSTANTS.CONSOLE.SELECT, show_hand_cursor)
 
         if consoleScreen.get(indexStart, indexEnd).strip() != '':
             # Highlight the range by specifying the tag
             consoleScreen.tag_add(const.CONSOLE.SELECT, indexStart, indexEnd)
 
         # Disable the entry to prevent editing
-        consoleScreen.configure(state = DISABLED)
+        consoleScreen.configure(state = tk.DISABLED)
 
     def highlightEntry(self, consoleScreen):
         consoleScreen.text.tag_remove("current_line", 1.0, "end")
@@ -1471,7 +1470,7 @@ class ManualMining_Controller:
         item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
     def enterRightArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        if state != DISABLED:
+        if state != tk.DISABLED:
             item = event.widget
             im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN_ON).resize(iconSize, PIL.Image.ANTIALIAS)
 
@@ -1481,9 +1480,9 @@ class ManualMining_Controller:
             item.image = btn_right_arrow_icon  # < ! > Required to make images appear
 
     def leaveRightArrowPlainIcon(self, event, state = NORMAL, iconSize = _Icon_support.SELECT_ICO_SIZE_BUTTONS):
-        if state != DISABLED:
+        if state != tk.DISABLED:
             item = event.widget
-            if item['state'] != DISABLED:
+            if item['state'] != tk.DISABLED:
                 im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW_PLAIN).resize(iconSize, PIL.Image.ANTIALIAS)
                 btn_right_arrow_icon = PIL.ImageTk.PhotoImage(im)
                 item.configure(
@@ -1530,10 +1529,10 @@ class ManualMining_Controller:
 
         # Disable entry
         self.entryQueryFeature.configure(
-            state = DISABLED
+            state = tk.DISABLED
         )
         # Disable button
-        self.buttonQueryFeature_state = DISABLED
+        self.buttonQueryFeature_state = tk.DISABLED
 
         # Disable feature name
         self.labelQueryDataFeatureName.configure(

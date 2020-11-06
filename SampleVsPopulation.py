@@ -61,7 +61,7 @@ def writeOnCSV(rows, filename):
 	with open(filename, 'wb') as f:
 	    writer = csv.writer(f)
 	    writer.writerows(rows)
-	print 'Saved file is: ' + filename
+	# print 'Saved file is: ' + filename
 
 '''
 Given the feature you want to make the samples by, divide the population into the samples.
@@ -259,8 +259,8 @@ def sampleVsPopulation(popDatasetPath, sampleFeature, selectedFeature, allValues
     makeSamples(records, sampleFeature,samples)#Make the samples from the population raw dataset
 
     records = readCSVDict(popDatasetPath) #Read the records again because for some reason they disappear after making the sample groups
-    print "All values: " + allValues
-    print "Selected values: " + selectedValues
+    # print "All values: " + allValues
+    # print "Selected values: " + selectedValues
     allValues = allValues.split(":")
     selectedValues = selectedValues.split(":")
     getSampleTotalsAndProportions(records, samples, sampleFeature, selectedFeature, allValues, selectedValues)#Calculate n, f, and p of the samples

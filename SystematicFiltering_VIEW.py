@@ -24,10 +24,10 @@ except ImportError:
 
 try:
     import ttk
-
     py3 = 0
+
 except ImportError:
-    import tkinter.ttk as ttk
+    import tkinter.ttk as tk
 
     py3 = 1
 
@@ -49,7 +49,7 @@ import _Grip_support as GS
 
 from _Progressible import _Progressible
 import _UIConstants_support as UICS
-import tkMessageBox
+import tkinter.messagebox as tkMessageBox
 
 class SystematicFiltering_View(_Progressible):
 
@@ -123,6 +123,7 @@ class SystematicFiltering_View(_Progressible):
             description = UICS.PRE_STRING_SPACE + addSymbol + symbols + clean_description.strip() + symbols
 
         strProgressInfo = str(description)
+
         self.getLbProgressConsole().insert(END, strProgressInfo)
         self.getLbProgressConsole().yview(END)  # Automatically sets the scrollbar to the newly added item
 
@@ -177,7 +178,8 @@ class SystematicFiltering_View(_Progressible):
         self.__lfProgressConsole = WS.createDefaultFrame(parentFrame,
                                                          [0, y, 1, wHeight],
                                                          [True, False])
-        self.lbProgressConsole = WS.createDefaultListbox(self.__lfProgressConsole, SINGLE)
+
+        self.lbProgressConsole = WS.createDefaultListbox(self.__lfProgressConsole, tk.SINGLE)
         FS.placeBelow(self.__lfProgressConsole, self.__lfCurrentProgress)
 
         borderColor = CS.D_YELLOW

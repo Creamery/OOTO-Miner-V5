@@ -2,6 +2,9 @@ import csv
 import math
 import numpy as np
 from scipy.stats import chi2_contingency
+import tkinter as tk
+
+from importlib import reload
 from scipy.stats import chi2
 import sys
 import string
@@ -22,8 +25,6 @@ class ChiTest:
     # Properties
     significance = 0
     degreeFreedom = 0
-    # chiCritical = 0
-    # rawCritical = 0
 
     @staticmethod
     def getInstance():
@@ -41,7 +42,7 @@ class ChiTest:
 
 
     def writeOnCSV(self, rows, filename):
-        with open(filename, 'wb') as f:
+        with open(filename, 'w') as f:
             writer = csv.writer(f)
             writer.writerows(rows)
 
@@ -66,11 +67,6 @@ class ChiTest:
 
                 # Write the Cut-off
                 elif (col == cutoff_col and row != header_index):
-                    # ws.write_formula(row + 1, col,
-                    #                  # "=IF(B1=0.05,IF(E:E=1,3.84,IF(E:E=2,5.99,-1)),IF(B1=0.01,IF(E:E=1,6.635,IF(E:E=2,9.21,-1)),IF(B1=0.001,IF(E:E=1,10.8,IF(E:E=2,13.8,-1)),-1)))")
-                    #                  "=IF(B1=0.05,IF(E:E=1,3.84,IF(E:E=2,5.99,-1)),"
-                    #                  "IF(B1=0.01,IF(E:E=1,6.635,IF(E:E=2,9.21,-1)),"
-                    #                  "IF(B1=0.001,IF(E:E=1,10.8,IF(E:E=2,13.8,-1)),-1)))")
 
                     degreeFreedom = rows[row][df_col]
                     probability = 1 - self.significance
@@ -83,7 +79,8 @@ class ChiTest:
                     # Write the first element of it
                     ws.write(row + 1, col, rows[row][col][0])
 
-                elif (isinstance(rows[row][col], basestring)):
+                elif (isinstance(rows[row][col], str)):
+                # elif (isinstance(rows[row][col], basestring)):
                     string = str(rows[row][col])
                     '''
                                     try:
@@ -100,7 +97,7 @@ class ChiTest:
         try:
             wb.close()
         except UnicodeDecodeError:
-            print 'Error in writing .xlsx file. Check your Variable Description for characters out of the UTF-8 character set.  Saving instead as .csv'
+            print('Error in writing .xlsx file. Check your Variable Description for characters out of the UTF-8 character set.  Saving instead as .csv')
             self.writeOnCSV(rows, filename + '.csv')
 
 
@@ -251,8 +248,8 @@ class ChiTest:
             temp = temp + "+" + str(header[y])
         newheader.append(temp)
 
-        print "new header"
-        print newheader
+        # print "new header"
+        # print newheader
         newrow = []
 
         for row in rows:
@@ -296,14 +293,10 @@ class ChiTest:
         if (len(numpiRows[0]) > 2 and numpiRows[0][0] == 0):
             numpiRows = np.delete(numpiRows, 0, axis = 1)
 
-        print "numpiRows: " + str(numpiRows)
 
         totals = self.getSumRows(numpiRows)
-        print "total: "+str(totals)
 
         proportions = self.getProportions(numpiRows, totals)
-
-        print "proportions " + str(proportions)
 
         proportions_list = proportions.tolist()
         # print "proportion list " + str(proportions_list)
@@ -349,7 +342,7 @@ class ChiTest:
                 # print colSum[y]
                 expected[i][y] = totals[i][0] * colSum[y] / grandTotal
 
-        print "Expected " + str(expected)
+        # print "Expected " + str(expected)
         # print expected
 
         # print "the data"
@@ -358,72 +351,20 @@ class ChiTest:
         chi = ((numpiRows - expected) * (numpiRows - expected)) / expected ## TODO Chi-square is performed here
         # print "Expected"
         # print expected
-        print "Observed " + str(numpiRows)
+        # print "Observed " + str(numpiRows)
 
         shapeexpected = np.reshape(expected, (-1, 1))
-        print "Shape expected " + str(shapeexpected)
+        # print "Shape expected " + str(shapeexpected)
 
         chistat = np.sum(chi)
 
         # if(chistat > z): #If the chi score is greater than the chi-square critical value, add it to the results
         higherOrLower = ""
 
-        '''
-        tolerableFive =  expected.size
-        tolerableFive = int(tolerableFive*0.20)
-    
-    
-        numFive = 0
-        for el in range(0,shapeexpected.size):
-                if shapeexpected[el][0] < 5:
-                        numFive = numFive +1
-    
-        if numFive > tolerableFive:
-                chistat = np.nan
-        '''
-        if (not np.isnan(chistat)):
-            print "observed",
-            try:
-                print numpiRows[0][1]
-            except IndexError:
-                print 'empty'
-            print "expected",
-            try:
-                print expected[0][1]
-            except IndexError:
-                print 'empty'
-            try:
-                if (expected[0][1] < numpiRows[0][1]):
-                    higherOrLower = "+"
-                else:
-                    higherOrLower = "-"
-            except IndexError:
-                higherOrLower = "-1"
-
-        # print chistat
-
-        print "Chi-Square"
-        print chi
-        print "Chi -stat"
-        print chistat
-        """
-        print "Population count "+ str(PopulationCount)
-        print "Pop Count "+ str(colSum)
-        print "Errors" + str(errors)
-        print "Pop Proportions "+ str(PopQuestionProp) 
-        print "Lower "+ str(lowerBounds)
-        print "Upper "+str(upperBounds)
-        """
-        # if(chistat > z):
         thequestion = converter.convert(fileNum)
-        print "The H " + str(H)
-        print "The Question " + thequestion
 
         if (np.isnan(chistat)):
             chistat = ""
-
-        # print colSum.size
-        # print totals.size
 
         self.degreeFreedom = (colSum.size - 1) * (totals.size - 1)
 
@@ -468,7 +409,6 @@ class ChiTest:
 
         results_temp.extend(totals_list)  # append populations for all groups
 
-        print "proportion list " + str(proportions_list)
         # for group in proportions_list:  # for every group
         for group in proportions_list:  # for every group
             print ("group contains " + str(group))
@@ -489,55 +429,33 @@ class ChiTest:
         groups = OrderedDict()  # {}
         # 1 Because first index is question name
         if header not in V.keys():
-            print "Warning " + header + " " + "not in Variable description"
+            print("Warning " + header + " " + "not in Variable description")
         else:
             for i in range(1, len(V[header])):
                 entry = V[header][i][0]
                 groups[V[header][i][0]] = []
-                # print ("b3 " + str(i) + " groups | header " + str(V[header][i][0]))
 
-        # if (header == "b3"):
-        #     print ("b3 groups INIT " + str(groups))
+        for i in range(len(rows)):
+            len_entry = len(rows[i])
+            if(len_entry > 0):
+                entry = rows[i][index]
+                if (entry != '-1' and entry != '' and entry != '-1.0'):
+                    if entry in groups:
+                        groups[entry].append(i)
+                    else:
+                        # print "Warning  " + str(entry) + " is not declared in variable description for question " + header
+                        groups[entry] = []
+                        groups[entry].append(i)
 
-        for i in range(0, len(rows)):
-
-            entry = rows[i][index]
-            # if (header == "b3"):
-            #     print ("b3 i " + str(i))
-            #     print ("b3 entry " + str(entry))
-
-            if (entry != '-1' and entry != '' and entry != '-1.0'):
-
-                if entry in groups:
-                    groups[entry].append(i)
-                else:
-                    print "Warning  " + str(entry) + " is not declared in variable description for question " + header
-                    groups[entry] = []
-                    groups[entry].append(i)
-
-            # if (header == "b3"):
-            #     print ("b3 groups " + str(groups))
         return groups
 
 
     def getTable(self, col, clusters, V, header):
         groups = []
-        # if (header == 'b3'):
-        #     print('b3 header ' + str(header))
-        #     print('col ' + str(col))
-        #     print('clusters ' + str(clusters))
-        #     print('V ' + str(V))
 
         for c in clusters:
-            # if (header == 'b3'):
-            #     print('b3 cluster col ' + str(col))
-            #     print('c ' + str(c))
-            #     print('V ' + str(V))
-            #     print('header ' + str(header))
             groups.append(self.group(col, c, V, header))
 
-        # if (header == 'b3'):
-        #     print('b3 groups ' + str(groups))
         keys = []
         for g in groups:
 
@@ -586,16 +504,13 @@ class ChiTest:
 
         # For each data set
         for clustername in clusternames:
-            # print ("~CLUSTER NAME: " + str(clustername))
+            # print("~CLUSTER NAME: " + str(clustername))
             clusterRow = self.readCSV(clustername)  # Get all of the respondent's IDs and answers in the dataset
-            # print clusterRow
+            # print(clusterRow)
             clusters.append(clusterRow)  # Add to the clusters
 
         tableList = []  # list of contingency tables
-
-        # z = [6.64]
         z = [0.0]  # TODO Clean this function
-        # zstr = ['1960']
 
         fileName = ""
 
@@ -657,16 +572,11 @@ class ChiTest:
                     for row in theTable.rows:  # Delete the entire -1 column.
                         del row[position]
 
-                # print "~Table 1",
-                # print theTable.rows
 
                 theTable.getPrintable(tableList)
 
 
             # Print results
-
-            # fileName = str("(Q" + str(queueNum) + ") ")
-            # fileName = str(fileName + "- Chi-Test -")  # Get filename of save file TODO
             for name in dataset_names:
                 fileName = fileName + name + " "
 
@@ -684,11 +594,6 @@ class ChiTest:
 
             sortColumn = chiValueColumn
             results[rowStart:] = sorted(results[rowStart:], key = lambda temp: temp[sortColumn], reverse = True)
-            # results[rowStart:].sort(key = lambda temp: temp[sortColumn])
-
-            # print("rowStart: " + str(rowStart))
-            # print("sortColumn: " + str(sortColumn))
-            # print("results now contain: " + str(results))
 
 
             fileName = fileName.replace(".csv", "")
@@ -706,5 +611,3 @@ class ChiTest:
             self.writeOnCSV(tableList, path_csv + "(Tables)" + ".csv")  # TODO: Comment out
             return fileName
 
-        # print "results"
-        # print results

@@ -20,7 +20,7 @@ __version__ = "3.0"
 '''
 
 
-import Tkinter as tk
+import tkinter as tk
 
 try:
     from Tkinter import *
@@ -84,7 +84,7 @@ class ManualMining_View:
     ''' --> Configure TEST ("TEST") TAB (2.1) <-- '''
 
     def configureTestTabElements(self, parentFrame):
-        self.testTabParentFrame = LabelFrame(parentFrame, bd = 0)
+        self.testTabParentFrame = tk.LabelFrame(parentFrame, bd = 0)
         self.testTabParentFrame.place(
             relx = _UI_support.TAB_REL_X, rely = _UI_support.TAB_REL_Y,
             relwidth = _UI_support.TAB_REL_W, relheight = _UI_support.TAB_REL_H
@@ -94,7 +94,7 @@ class ManualMining_View:
         )
 
         # TYPE Parent Frame
-        self.labelFrameTypeElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        self.labelFrameTypeElements = tk.LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameTypeElements.place(
             relx = _UI_support.TAB_TEST_TYPE_REL_X, rely = _UI_support.TAB_TEST_TYPE_REL_Y,
             relwidth = _UI_support.TAB_TEST_TYPE_REL_W, relheight = _UI_support.TAB_TEST_TYPE_REL_H
@@ -106,8 +106,8 @@ class ManualMining_View:
 
         newRelY = FS.getRelY(self.labelFrameTypeElements) + FS.getRelH(self.labelFrameTypeElements)
 
-        # SELECT Parent Frame (Datasets)
-        self.labelFrameSelectElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        # tk.SELECT Parent Frame (Datasets)
+        self.labelFrameSelectElements = tk.LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameSelectElements.place(
             relx = _UI_support.TAB_TEST_SELECT_REL_X, rely = newRelY,
             relwidth = _UI_support.TAB_TEST_SELECT_REL_W, relheight = _UI_support.TAB_TEST_SELECT_REL_H
@@ -116,13 +116,13 @@ class ManualMining_View:
             background = CS.SELECT_BG, foreground = CS.FG_COLOR  # , text = '''SELECT'''
         )
 
-        self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under SELECT
+        self.configureSelectElements(self.labelFrameSelectElements)  # Configures all sub elements under tk.SELECT
 
         newRelY = FS.getRelY(self.labelFrameSelectElements) + FS.getRelH(
             self.labelFrameSelectElements)  # TODO Make constant (space in between)
 
         # FILTER Parent Frame
-        self.labelFrameFilterElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        self.labelFrameFilterElements = tk.LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameFilterElements.place(
             relx = _UI_support.TAB_TEST_FILTER_REL_X, rely = newRelY,
             relwidth = _UI_support.TAB_TEST_FILTER_REL_W, relheight = _UI_support.TAB_TEST_FILTER_REL_H
@@ -136,7 +136,7 @@ class ManualMining_View:
         newRelY = FS.getRelY(self.labelFrameFilterElements) + FS.getRelH(self.labelFrameFilterElements)
 
         # PROCESS Parent Frame
-        self.labelFrameProcessElements = LabelFrame(self.testTabParentFrame, bd = 0)
+        self.labelFrameProcessElements = tk.LabelFrame(self.testTabParentFrame, bd = 0)
         self.labelFrameProcessElements.place(
             # relx = UI_support.TAB_TEST_PROCESS_REL_X,
             relx = FS.getRelX(self.labelFrameSelectElements),
@@ -155,7 +155,7 @@ class ManualMining_View:
         newRelX = prevFrameRelX + prevFrameRelW
 
         # CONSOLE Parent Frame
-        self.labelFrameConsoleElements = LabelFrame(self.testTabParentFrame, bd = 0, relief = GROOVE)
+        self.labelFrameConsoleElements = tk.LabelFrame(self.testTabParentFrame, bd = 0, relief = tk.GROOVE)
         # self.labelFrameConsoleElements.place(
         #     relx = newRelX, rely = UI_support.TAB_TEST_CONSOLE_REL_Y,
         #     relwidth = UI_support.TAB_TEST_CONSOLE_REL_W, relheight = UI_support.TAB_TEST_CONSOLE_REL_H
@@ -175,7 +175,7 @@ class ManualMining_View:
     ''' --> Configure TEST ("TEST") TAB (2.2) <-- '''
 
     def configureTestTabConsoleElements(self, parentFrame):
-        self.testTabConsoleParentFrame = LabelFrame(parentFrame, bd = 0)
+        self.testTabConsoleParentFrame = tk.LabelFrame(parentFrame, bd = 0)
         newRelW = 0.2
         # self.testTabConsoleParentFrame.place(
         #     relx = 1 - newRelW,
@@ -198,9 +198,9 @@ class ManualMining_View:
 
         # > COMBO BOX
         global testTypes
-        testTypes = ["Sample vs Sample", "Sample vs Population"]
+        testTypes = ["Sample vs tk.Sample", "Sample vs Population"]
         self.comboQueryTest = ttk.Combobox(parentFrame)
-        # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 50, width = 360) # 316) # TODO SVP
+        # self.comboQueryTest.place(relx = 0.01, rely = 0.02, height = 50, width = 360) # 316) # TODO tk.SVP
         self.comboQueryTest.configure(exportselection = "0")
         self.comboQueryTest.configure(takefocus = "")
         self.comboQueryTest.configure(values = testTypes)
@@ -209,22 +209,22 @@ class ManualMining_View:
 
         # > CHI-TEST FRAME
 
-        self.labelFrameQueryChi = LabelFrame(parentFrame)
+        self.labelFrameQueryChi = tk.LabelFrame(parentFrame)
         # self.labelFrameQueryChi.place(relx = 0.5, rely = 0.78, relheight = 0,
         #                               relwidth = 0)# 0.48)
-        self.labelFrameQueryChi.configure(relief = GROOVE)
+        self.labelFrameQueryChi.configure(relief = tk.GROOVE)
         self.labelFrameQueryChi.configure(foreground = "black")
         self.labelFrameQueryChi.configure(text = '''Chi Test''')
         self.labelFrameQueryChi.configure(background = "#d9d9d9")
 
         # > Z-TEST FRAME POPULATION ##### TODO Add functionality
         # region
-        self.labelFrameQuerySvP = LabelFrame(parentFrame)
+        self.labelFrameQuerySvP = tk.LabelFrame(parentFrame)
         # self.labelFrameQuerySvP.place(relx = 0.01, rely = 0.88, relheight = 0.1,
-        #                               relwidth = 0.3) # 0.48) # TODO SVP
-        self.labelFrameQuerySvP.configure(relief = GROOVE)
+        #                               relwidth = 0.3) # 0.48) # TODO tk.SVP
+        self.labelFrameQuerySvP.configure(relief = tk.GROOVE)
         self.labelFrameQuerySvP.configure(foreground = "black")
-        self.labelFrameQuerySvP.configure(text = '''Z-Test Sample Vs Population''')
+        self.labelFrameQuerySvP.configure(text = '''Z-Test tk.Sample Vs Population''')
         self.labelFrameQuerySvP.configure(background = "#d9d9d9")
 
         self.comboQueryCriticalValueSvP = ttk.Combobox(self.labelFrameQuerySvP)
@@ -235,7 +235,7 @@ class ManualMining_View:
         self.comboQueryCriticalValueSvP.set(arrQueryCriticalValue[0])
         self.comboQueryCriticalValueSvP.configure(state = "disabled")
 
-        self.labelQueryZTestSvP = Label(self.labelFrameQuerySvP)
+        self.labelQueryZTestSvP =  tk.Label(self.labelFrameQuerySvP)
         # self.labelQueryZTestSvP.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
         # self.labelQueryZTest.configure(background = "#d9d9d9")
         self.labelQueryZTestSvP.configure(disabledforeground = "#a3a3a3")
@@ -243,7 +243,7 @@ class ManualMining_View:
         self.labelQueryZTestSvP.configure(text = '''NO DATA''')
         self.labelQueryZTestSvP.configure(state = "disabled")
 
-        self.buttonQueryZTestSvP = Button(self.labelFrameQuerySvP)
+        self.buttonQueryZTestSvP = tk.Button(self.labelFrameQuerySvP)
         self.buttonQueryZTestSvP.place(relx = 0.01, rely = 0.01, height = 20, width = 300)
         self.buttonQueryZTestSvP.configure(activebackground = "#d9d9d9")
         self.buttonQueryZTestSvP.configure(activeforeground = "#000000")
@@ -264,75 +264,75 @@ class ManualMining_View:
 
     ''' --> Elements under TEST ("TEST") TAB (2) <-- '''
     # region
-    ''' -> Elements under the SELECT ("GROUP") HEADER <- '''
+    ''' -> Elements under the tk.SELECT ("GROUP") HEADER <- '''
 
     def configureSelectElements(self, parentFrame):
 
         global queryStrFilterB
 
-        # SELECT TITLE
-        self.labelFrameSelectTitle = LabelFrame(parentFrame, bd = 0)
+        # tk.SELECT TITLE
+        self.labelFrameSelectTitle = tk.LabelFrame(parentFrame, bd = 0)
         self.labelFrameSelectTitle.place(relx = 0, rely = 0, relwidth = 1, relheight = 0.12)
         self.labelFrameSelectTitle.configure(
             background = CS.SELECT_BG, foreground = CS.FG_COLOR  # , text = '''FILTER'''
         )
 
         # Create the top separator
-        # self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = HORIZONTAL)
+        # self.labelFrameSelectHorizontalSeparator = ttk.Separator(self.labelFrameSelectTitle, orient = tk.HORIZONTAL)
         # self.labelFrameSelectHorizontalSeparator.place(relx = 0.05, rely = 0.5, relwidth = 0.9)
 
-        # COLORED SEPARATOR
+        # COLORED tk.SEPARATOR
         self.separatorlabelFrameSelectTitleNumber = self.createLabelSeparator(
             self.labelFrameSelectTitle, 1,
             False, CS.SELECT_TITLE_BG, _UI_support.TITLE_SEPARATOR_H,
-            0.5, W
+            0.5, tk.W
         )
 
-        # SELECT NUMBER
-        self.labelFrameSelectTitleNumber = Label(self.labelFrameSelectTitle)
+        # tk.SELECT NUMBER
+        self.labelFrameSelectTitleNumber =  tk.Label(self.labelFrameSelectTitle)
         newRelY = _UI_support.LABEL_TITLE_REL_Y
         self.labelFrameSelectTitleNumber.place(
             relx = 0, rely = newRelY,
             relwidth = 0.04 + 0.05,
-            relheight = 1 - (newRelY * 2), anchor = NW)
+            relheight = 1 - (newRelY * 2), anchor = tk.NW)
 
         self.labelFrameSelectTitleNumber.configure(
             font = _UI_support.FONT_MED_BOLD,
             # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
             background = CS.SELECT_NUMBER_BG, foreground = CS.SELECT_NUMBER_FG,
             text = '''1  ''',
-            bd = 1, relief = GROOVE,
-            anchor = SE
+            bd = 1, relief = tk.GROOVE,
+            anchor = tk.SE
         )
         newRelX = FS.getRelX(self.labelFrameSelectTitleNumber) + FS.getRelW(self.labelFrameSelectTitleNumber)
 
-        # SELECT TITLE
-        self.labelFrameSelectTitleText = Label(self.labelFrameSelectTitle)
+        # tk.SELECT TITLE
+        self.labelFrameSelectTitleText =  tk.Label(self.labelFrameSelectTitle)
         newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
         newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
         self.labelFrameSelectTitleText.place(
             relx = newRelX - 0.001, rely = newRelY,
-            relwidth = 0.15, relheight = newRelH, anchor = NW)
+            relwidth = 0.15, relheight = newRelH, anchor = tk.NW)
         self.labelFrameSelectTitleText.configure(
             font = _UI_support.FONT_MED_BOLD,
             # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
             background = CS.SELECT_TITLE_BG, foreground = CS.SELECT_TITLE_FG,
             text = '''GROUP''',
-            bd = 0, relief = GROOVE,
-            anchor = S
+            bd = 0, relief = tk.GROOVE,
+            anchor = tk.S
         )
         # Title border
         self.separatorlabelFrameSelectTitleText = self.createLabelSeparator(
             self.labelFrameSelectTitleText, 1,
             True, CS.WHITE,
-            coordinate = 0.99, specifiedAnchor = NW
+            coordinate = 0.99, specifiedAnchor = tk.NW
         )
 
         newRelY = FS.getRelY(self.labelFrameSelectTitle) + FS.getRelH(
             self.labelFrameSelectTitle)  # + UI_support.TAB_TEST_FILTER_QUERY_REL_Y
         titleRelH = FS.getRelH(self.labelFrameSelectTitle)
 
-        self.labelFrameDatasetA = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameDatasetA = tk.LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetA.place(
             relx = 0.05, rely = newRelY,
             relwidth = 0.46, relheight = 1 - titleRelH
@@ -341,7 +341,7 @@ class ManualMining_View:
             background = CS.SELECT_BG
         )
         newRelH = FS.getRelH(self.labelFrameDatasetA)
-        self.labelFrameDatasetB = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameDatasetB = tk.LabelFrame(parentFrame, bd = 0)
         self.labelFrameDatasetB.place(
             relx =_UI_support.TAB_TEST_SELECT_DATASET_REL_W + 0.15 - 0.06,
             # (2 * FS.getRelX(self.labelFrameDatasetA)) + FS.getRelW(self.labelFrameDatasetA),
@@ -351,25 +351,25 @@ class ManualMining_View:
             background = CS.SELECT_BG
         )
 
-        # DATASET SEPARATOR
-        self.labelFrameDatasetCenterSeparator = ttk.Separator(parentFrame, orient = VERTICAL)
+        # DATASET tk.SEPARATOR
+        self.labelFrameDatasetCenterSeparator = ttk.Separator(parentFrame, orient = tk.VERTICAL)
         self.labelFrameDatasetCenterSeparator.place(relx = 0.5, rely = newRelY + 0.05, relheight = 1 - titleRelH - 0.1)
 
         # QUERY PARENT (DATASET A)
-        self.labelFrameQueryDataA = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameQueryDataA = tk.LabelFrame(self.labelFrameDatasetA, bd = 0)
         self.labelFrameQueryDataA.place(
             relx = _UI_support.TAB_TEST_SELECT_QUERY_REL_X, rely = _UI_support.TAB_TEST_SELECT_QUERY_REL_Y,
             relwidth = _UI_support.TAB_TEST_SELECT_QUERY_REL_W, relheight = _UI_support.TAB_TEST_SELECT_QUERY_REL_H)
         self.labelFrameQueryDataA.configure(
             background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
-            relief = GROOVE  # , text = '''Dataset A'''
+            relief = tk.GROOVE  # , text = '''Dataset A'''
         )
 
-        # QUERY STATUS CHILD - DATASET A
+        # QUERY tk.STATUS CHILD - DATASET A
         # region
-        self.labelQuerySetDataStatusA = Label(self.labelFrameQueryDataA)
-        # self.labelQuerySetDataStatusA = Label(self.labelFrameQuerySetDataStatusA)
-        # self.labelQuerySetDataStatusA = Label(self.labelFrameListBoxA)
+        self.labelQuerySetDataStatusA =  tk.Label(self.labelFrameQueryDataA)
+        # self.labelQuerySetDataStatusA =  tk.Label(self.labelFrameQuerySetDataStatusA)
+        # self.labelQuerySetDataStatusA =  tk.Label(self.labelFrameListBoxA)
         self.labelQuerySetDataStatusA.place(relx = 0, rely = 0, relwidth = 1, relheight = 1)
         # self.labelQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         self.labelQuerySetDataStatusA.configure(
@@ -380,8 +380,8 @@ class ManualMining_View:
         )
         if _UI_support.SELECT_STATUS_LABEL_TOP_SEPARATOR:
             self.labelFrameNoDataAHorizontalSeparator = ttk.Separator(self.labelQuerySetDataStatusA,
-                                                                      orient = HORIZONTAL)
-            self.labelFrameNoDataAHorizontalSeparator.place(relx = 0, rely = 0, relwidth = 1, anchor = NW)
+                                                                      orient = tk.HORIZONTAL)
+            self.labelFrameNoDataAHorizontalSeparator.place(relx = 0, rely = 0, relwidth = 1, anchor = tk.NW)
         # endregion
 
         # LISTBOX PARENT (DATASET A)
@@ -389,35 +389,35 @@ class ManualMining_View:
         newRelY = _UI_support.TAB_TEST_LISTBOX_QUERY_REL_Y + FS.getRelY(self.labelFrameQueryDataA) + FS.getRelH(
             self.labelFrameQueryDataA)
 
-        self.labelFrameListBoxA = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameListBoxA = tk.LabelFrame(self.labelFrameDatasetA, bd = 0)
         self.labelFrameListBoxA.place(
             relx = _UI_support.TAB_TEST_LISTBOX_QUERY_REL_X, rely = newRelY,
             relwidth = _UI_support.TAB_TEST_LISTBOX_QUERY_REL_W, relheight = _UI_support.TAB_TEST_LISTBOX_QUERY_REL_H)
 
-        # QUERY STATUS PARENT - DATASET A
+        # QUERY tk.STATUS PARENT - DATASET A
         # region
         # newRelY = FS.getRelY(self.listQuerySetDataA) + FS.getRelH(self.listQuerySetDataA)
         # newRelH = 1 - FS.getRelH(self.listQuerySetDataA)
 
-        self.labelFrameQuerySetDataStatusA = LabelFrame(self.labelFrameListBoxA, bd = 0)
+        self.labelFrameQuerySetDataStatusA = tk.LabelFrame(self.labelFrameListBoxA, bd = 0)
         # self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = newRelY, relwidth = 1, relheight = newRelH)
         specifiedListBoxHeight = (0.78 - 0.03)
         newRelH = 1 - specifiedListBoxHeight  # TODO Make constant (0.78 - 0.03) is the listbox's supposed height
         self.labelFrameQuerySetDataStatusA.place(relx = 0, rely = 0, relwidth = 1, relheight = newRelH)
 
-        # QUERY TOP STRIPE PARENT - DATASET A
+        # QUERY TOP tk.STRIPE PARENT - DATASET A
         # region
         # newRelH = FS.getRelH(self.labelFrameQuerySetDataStatusA) * 7 / 11 # 5 / 8 # TODO Make constant reference
         newRelH = FS.getRelH(
             self.labelFrameQuerySetDataStatusA) * _UI_support.SELECT_LABEL_STRIPES_REL_H_MULTIPLIER  # 5 / 8 # TODO Make constant reference
-        self.labelQuerySetDataStripesA = Label(self.labelFrameListBoxA, bd = 0, relief = GROOVE)
+        self.labelQuerySetDataStripesA =  tk.Label(self.labelFrameListBoxA, bd = 0, relief = tk.GROOVE)
         self.labelQuerySetDataStripesA.place(
             relx = 0,
             rely = 0,
             # rely = newRelY,
             relwidth = 1,
             relheight = newRelH,
-            anchor = NW
+            anchor = tk.NW
         )
         newRelY = FS.getRelY(self.labelQuerySetDataStripesA) + FS.getRelH(self.labelQuerySetDataStripesA)
         self.labelFrameQuerySetDataStatusA.place(
@@ -431,15 +431,15 @@ class ManualMining_View:
         texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelQuerySetDataStripesA.configure(
             image = texture_pink_stripes,
-            anchor = SW
+            anchor = tk.SW
         )
         self.labelQuerySetDataStripesA.image = texture_pink_stripes  # < ! > Required to make images appear
         # endregion
 
         # QUERY FRAME - DATASET A
         # region
-        # self.labelFrameBorderQuerySetDataA = LabelFrame(self.labelFrameQueryDataA, bd = 0)
-        self.labelFrameBorderQuerySetDataA = LabelFrame(self.labelFrameQuerySetDataStatusA, bd = 0)
+        # self.labelFrameBorderQuerySetDataA = tk.LabelFrame(self.labelFrameQueryDataA, bd = 0)
+        self.labelFrameBorderQuerySetDataA = tk.LabelFrame(self.labelFrameQuerySetDataStatusA, bd = 0)
         self.labelFrameBorderQuerySetDataA.place(
             relx = 0, rely = 0,
             relwidth = _UI_support.TAB_TEST_SELECT_LBL_REL_W, relheight = 1
@@ -448,7 +448,7 @@ class ManualMining_View:
             background = CS.SELECT_BUTTONS_BG
         )
 
-        self.labelQuerySetDataA = Label(self.labelFrameBorderQuerySetDataA)
+        self.labelQuerySetDataA =  tk.Label(self.labelFrameBorderQuerySetDataA)
 
         self.labelQuerySetDataA.place(
             relx = 0.01, rely = 0.025,
@@ -457,7 +457,7 @@ class ManualMining_View:
             background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
             text = _UI_support.SELECT_LABEL_DATASETA_TEXT,
             font = _UI_support.SELECT_LABEL_FONT,
-            bd = 0, relief = FLAT,
+            bd = 0, relief = tk.FLAT,
         )
 
         newRelX = FS.getRelX(self.labelFrameBorderQuerySetDataA) + FS.getRelW(
@@ -465,8 +465,8 @@ class ManualMining_View:
 
         # ENTRY - DATASET A
         # region
-        # self.entryQuerySetDataA = Entry(self.labelFrameQueryDataA)
-        self.entryQuerySetDataA = Entry(self.labelFrameQuerySetDataStatusA)
+        # self.entryQuerySetDataA = tk.Entry(self.labelFrameQueryDataA)
+        self.entryQuerySetDataA = tk.Entry(self.labelFrameQuerySetDataStatusA)
         self.entryQuerySetDataA.place(
             relx = newRelX, rely = 0,
             relwidth = _UI_support.TAB_TEST_SELECT_ENTRY_REL_W, relheight = 1)
@@ -484,8 +484,8 @@ class ManualMining_View:
         newRelX = FS.getRelX(self.entryQuerySetDataA) + FS.getRelW(
             self.entryQuerySetDataA)  # + UI_support.TAB_3CHILD_LBL_REL_X
 
-        # self.buttonQuerySetDataA = Button(self.labelFrameQueryDataA)
-        self.buttonQuerySetDataA = Button(self.labelFrameQuerySetDataStatusA)
+        # self.buttonQuerySetDataA = tk.Button(self.labelFrameQueryDataA)
+        self.buttonQuerySetDataA = tk.Button(self.labelFrameQuerySetDataStatusA)
         self.buttonQuerySetDataA.place(
             relx = newRelX, rely = 0,
             relwidth = _UI_support.TAB_TEST_SELECT_BTN_REL_W, relheight = 1)
@@ -501,7 +501,7 @@ class ManualMining_View:
             background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
             activebackground = CS.SELECT_BG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE,
+            bd = 0, relief = tk.FLAT, overrelief = tk.GROOVE,
             # text = '''Find Feature'''
         )
         # endregion
@@ -512,13 +512,13 @@ class ManualMining_View:
 
         # LISTBOX - DATASET A
         # region
-        # self.scrollbarQuerySetDataA = Scrollbar(self.labelFrameListBox, orient = VERTICAL)
-        # self.listQuerySetDataA = Listbox(self.labelFrameListBoxA, yscrollcommand = self.scrollbarQuerySetDataA.set)
+        # self.scrollbarQuerySetDataA = tk.Scrollbar(self.labelFrameListBox, orient = tk.VERTICAL)
+        # self.listQuerySetDataA = tk.Listbox(self.labelFrameListBoxA, yscrollcommand = self.scrollbarQuerySetDataA.set)
 
-        self.listQuerySetDataA = Listbox(self.labelFrameListBoxA)
+        self.listQuerySetDataA = tk.Listbox(self.labelFrameListBoxA)
         self.listQuerySetDataA.configure(
             background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
-            selectmode = MULTIPLE, exportselection = "0",
+            selectmode = tk.MULTIPLE, exportselection = "0",
             activestyle = "none",
             selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
@@ -542,7 +542,7 @@ class ManualMining_View:
         # COMMANDS PARENT (DATASET A)
         # region
 
-        self.labelFrameCommandsA = LabelFrame(self.labelFrameDatasetA, bd = 0)
+        self.labelFrameCommandsA = tk.LabelFrame(self.labelFrameDatasetA, bd = 0)
         self.labelFrameCommandsA.place(
             relx = _UI_support.TAB_TEST_COMMANDS_QUERY_REL_X, rely = newRelY,
             relwidth = _UI_support.TAB_TEST_COMMANDS_QUERY_REL_W,
@@ -554,13 +554,13 @@ class ManualMining_View:
 
         # RESET BUTTON (DATASET A)
         # region
-        self.buttonQueryResetFilterA = Button(self.labelFrameCommandsA)
+        self.buttonQueryResetFilterA = tk.Button(self.labelFrameCommandsA)
         self.buttonQueryResetFilterA.place(
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
         self.buttonQueryResetFilterA.configure(
             background = CS.SELECT_BG, foreground = CS.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
+            bd = 1, relief = tk.FLAT, overrelief = tk.FLAT)
         # text = '''Reset''')
 
         im = PIL.Image.open(_Icon_support.TAB_ICO_CROSS).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -574,7 +574,7 @@ class ManualMining_View:
         # region
         newRelX = FS.getRelX(self.buttonQueryResetFilterA) + FS.getRelW(self.buttonQueryResetFilterA)
 
-        self.labelFrameQueryCount = LabelFrame(self.labelFrameCommandsA, bd = 1)
+        self.labelFrameQueryCount = tk.LabelFrame(self.labelFrameCommandsA, bd = 1)
         self.labelFrameQueryCount.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.50 - 0.005, relheight = 1
@@ -587,7 +587,7 @@ class ManualMining_View:
         self.datasetCountA = 0
         self.datasetCountB = 0
 
-        self.labelQueryDataACount = Label(self.labelFrameQueryCount)
+        self.labelQueryDataACount =  tk.Label(self.labelFrameQueryCount)
         self.labelQueryDataACount.place(relx = 0, rely = 0, relwidth = 1,
                                         relheight = _UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.labelQueryDataACount.configure(
@@ -595,7 +595,7 @@ class ManualMining_View:
             background = CS.SELECT_BG,
             text = self.getDatasetCountA()
         )
-        self.labelQueryDataACountText = Label(self.labelFrameQueryCount)
+        self.labelQueryDataACountText =  tk.Label(self.labelFrameQueryCount)
         self.labelQueryDataACountText.place(
             relx = 0, rely = FS.getRelH(self.labelQueryDataACount),
             relwidth = 1, relheight = _UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
@@ -610,7 +610,7 @@ class ManualMining_View:
         # region
         newRelY = FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(self.labelFrameListBoxA)
 
-        self.separatorlabelFrameCommandsARight = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsARight =  tk.Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsARight.place(
             relx = FS.getRelX(self.labelFrameQueryDataA),
             rely = newRelY,
@@ -618,7 +618,7 @@ class ManualMining_View:
             width = 1)
         self.separatorlabelFrameCommandsARight.configure(background = CS.DISABLED_D_BLUE)
 
-        self.separatorlabelFrameCommandsALeft = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsALeft =  tk.Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsALeft.place(
             relx = 1 - FS.getRelX(self.labelFrameQueryDataA),
             rely = FS.getRelY(self.separatorlabelFrameCommandsARight),
@@ -627,7 +627,7 @@ class ManualMining_View:
         )
         self.separatorlabelFrameCommandsALeft.configure(background = CS.DISABLED_D_BLUE)
 
-        self.separatorlabelFrameCommandsABottom = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsABottom =  tk.Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsABottom.place(
             relx = FS.getRelX(self.separatorlabelFrameCommandsARight),
             # rely = 0.997,
@@ -640,7 +640,7 @@ class ManualMining_View:
 
         newRelY = FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(self.labelFrameListBoxA)
 
-        self.separatorlabelFrameCommandsATop = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsATop =  tk.Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsATop.place(
             relx = FS.getRelX(self.separatorlabelFrameCommandsARight),
             rely = newRelY,
@@ -654,7 +654,7 @@ class ManualMining_View:
 
         #  QUERY PARENT (DATASET B)
         # region
-        self.labelFrameQueryDataB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameQueryDataB = tk.LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameQueryDataB.place(
             relx = FS.getRelX(self.labelFrameQueryDataA),
             rely = FS.getRelY(self.labelFrameQueryDataA),
@@ -662,12 +662,12 @@ class ManualMining_View:
             relheight = FS.getRelH(self.labelFrameQueryDataA))
         self.labelFrameQueryDataB.configure(
             background = CS.SELECT_ENTRY_BG, foreground = CS.SELECT_ENTRY_FG,
-            relief = GROOVE  # , text = '''Dataset B'''
+            relief = tk.GROOVE  # , text = '''Dataset B'''
         )
         # endregion
         # LISTBOX PARENT (DATASET B)
         # region
-        self.labelFrameListBoxB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameListBoxB = tk.LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameListBoxB.place(
             relx = FS.getRelX(self.labelFrameListBoxA),
             rely = FS.getRelY(self.labelFrameListBoxA),
@@ -675,12 +675,12 @@ class ManualMining_View:
             relheight = FS.getRelH(self.labelFrameListBoxA)
         )
 
-        # STATUS CHILDREN - DATASET B
+        # tk.STATUS CHILDREN - DATASET B
         # region
 
-        # QUERY TOP STRIPE PARENT - DATASET B
+        # QUERY TOP tk.STRIPE PARENT - DATASET B
         # region
-        self.labelQuerySetDataStripesB = Label(self.labelFrameListBoxB, bd = 0, relief = GROOVE)
+        self.labelQuerySetDataStripesB =  tk.Label(self.labelFrameListBoxB, bd = 0, relief = tk.GROOVE)
         self.labelQuerySetDataStripesB.place(
             relx = FS.getRelX(self.labelQuerySetDataStripesA),
             rely = FS.getRelY(self.labelQuerySetDataStripesA),
@@ -692,13 +692,13 @@ class ManualMining_View:
         texture_pink_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelQuerySetDataStripesB.configure(
             image = texture_pink_stripes,
-            anchor = SW
+            anchor = tk.SW
         )
         self.labelQuerySetDataStripesB.image = texture_pink_stripes  # < ! > Required to make images appear
         # endregion
 
-        self.labelQuerySetDataStatusB = Label(self.labelFrameQueryDataB)
-        # self.labelQuerySetDataStatusB = Label(self.labelFrameListBoxB)
+        self.labelQuerySetDataStatusB =  tk.Label(self.labelFrameQueryDataB)
+        # self.labelQuerySetDataStatusB =  tk.Label(self.labelFrameListBoxB)
         self.labelQuerySetDataStatusB.place(
             relx = FS.getRelX(self.labelQuerySetDataStatusA),
             rely = FS.getRelY(self.labelQuerySetDataStatusA),
@@ -716,10 +716,10 @@ class ManualMining_View:
 
         # endregion
 
-        self.listQuerySetDataB = Listbox(self.labelFrameListBoxB)
+        self.listQuerySetDataB = tk.Listbox(self.labelFrameListBoxB)
         self.listQuerySetDataB.configure(
             background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
-            selectmode = MULTIPLE, exportselection = "0",
+            selectmode = tk.MULTIPLE, exportselection = "0",
             activestyle = "none",
             selectbackground = CS.SELECT_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = CS.SELECT_LISTBOX_SELECTED_ITEM_FG,
@@ -735,9 +735,9 @@ class ManualMining_View:
             relheight = FS.getRelH(self.listQuerySetDataA)
         )
 
-        # STATUS - DATASET B
+        # tk.STATUS - DATASET B
         # region
-        self.labelFrameQuerySetDataStatusB = LabelFrame(self.labelFrameListBoxB, bd = 0)
+        self.labelFrameQuerySetDataStatusB = tk.LabelFrame(self.labelFrameListBoxB, bd = 0)
         self.labelFrameQuerySetDataStatusB.place(
             relx = FS.getRelX(self.labelFrameQuerySetDataStatusA),
             rely = FS.getRelY(self.labelFrameQuerySetDataStatusA),
@@ -748,7 +748,7 @@ class ManualMining_View:
 
         # QUERY CHILDREN - DATASET B
         # region
-        self.labelFrameBorderQuerySetDataB = LabelFrame(self.labelFrameQuerySetDataStatusB, bd = 0)
+        self.labelFrameBorderQuerySetDataB = tk.LabelFrame(self.labelFrameQuerySetDataStatusB, bd = 0)
         self.labelFrameBorderQuerySetDataB.place(
             relx = FS.getRelX(self.labelFrameBorderQuerySetDataA),
             rely = FS.getRelY(self.labelFrameBorderQuerySetDataA),
@@ -758,7 +758,7 @@ class ManualMining_View:
             background = CS.SELECT_BUTTONS_BG
         )
 
-        self.labelQuerySetDataB = Label(self.labelFrameBorderQuerySetDataB)
+        self.labelQuerySetDataB =  tk.Label(self.labelFrameBorderQuerySetDataB)
 
         self.labelQuerySetDataB.place(
             relx = FS.getRelX(self.labelQuerySetDataA),
@@ -769,12 +769,12 @@ class ManualMining_View:
             background = CS.SELECT_LABEL_BG, foreground = CS.SELECT_LABEL_FG,
             text = _UI_support.SELECT_LABEL_DATASETB_TEXT,
             font = _UI_support.SELECT_LABEL_FONT,
-            bd = 0, relief = FLAT,
+            bd = 0, relief = tk.FLAT,
         )
 
         # ENTER CODE DATASET B
 
-        self.entryQuerySetDataB = Entry(self.labelFrameQuerySetDataStatusB)
+        self.entryQuerySetDataB = tk.Entry(self.labelFrameQuerySetDataStatusB)
         self.entryQuerySetDataB.place(
             relx = FS.getRelX(self.entryQuerySetDataA),
             rely = FS.getRelY(self.entryQuerySetDataA),
@@ -790,7 +790,7 @@ class ManualMining_View:
         )  # TODO Constant font definiton
 
         # DATASET B
-        self.buttonQuerySetDataB = Button(self.labelFrameQuerySetDataStatusB)
+        self.buttonQuerySetDataB = tk.Button(self.labelFrameQuerySetDataStatusB)
         self.buttonQuerySetDataB.place(
             relx = FS.getRelX(self.buttonQuerySetDataA),
             rely = FS.getRelY(self.buttonQuerySetDataA),
@@ -808,14 +808,14 @@ class ManualMining_View:
             background = CS.SELECT_BUTTONS_BG, foreground = CS.SELECT_BUTTONS_FG,
             activebackground = CS.SELECT_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = GROOVE,
+            bd = 0, relief = tk.FLAT, overrelief = tk.GROOVE,
             # text = '''Find Feature'''
         )
         # endregion
 
         # COMMANDS PARENT (DATASET B)
         # region
-        self.labelFrameCommandsB = LabelFrame(self.labelFrameDatasetB, bd = 0)
+        self.labelFrameCommandsB = tk.LabelFrame(self.labelFrameDatasetB, bd = 0)
         self.labelFrameCommandsB.place(
             relx = FS.getRelX(self.labelFrameCommandsA),
             rely = FS.getRelY(self.labelFrameCommandsA),
@@ -833,13 +833,13 @@ class ManualMining_View:
 
         # RESET BUTTON (DATASET B)
         # region
-        self.buttonQueryResetFilterB = Button(self.labelFrameCommandsB)
+        self.buttonQueryResetFilterB = tk.Button(self.labelFrameCommandsB)
         self.buttonQueryResetFilterB.place(
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1)
         self.buttonQueryResetFilterB.configure(
             background = CS.SELECT_BG, foreground = CS.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
+            bd = 1, relief = tk.FLAT, overrelief = tk.FLAT)
         # text = '''Reset''')
 
         im = PIL.Image.open(_Icon_support.TAB_ICO_CROSS).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
@@ -854,7 +854,7 @@ class ManualMining_View:
         # region
         # newRelY = FS.getRelY(self.labelFrameListBoxB) + FS.getRelH(self.labelFrameListBoxB)
 
-        self.separatorlabelFrameCommandsBRight = Label(self.labelFrameDatasetB)
+        self.separatorlabelFrameCommandsBRight =  tk.Label(self.labelFrameDatasetB)
         self.separatorlabelFrameCommandsBRight.place(
             relx = FS.getRelX(self.separatorlabelFrameCommandsARight),
             rely = FS.getRelY(self.separatorlabelFrameCommandsARight),
@@ -863,7 +863,7 @@ class ManualMining_View:
         )
         self.separatorlabelFrameCommandsBRight.configure(background = CS.DISABLED_D_BLUE)
 
-        self.separatorlabelFrameCommandsBLeft = Label(self.labelFrameDatasetB)
+        self.separatorlabelFrameCommandsBLeft =  tk.Label(self.labelFrameDatasetB)
         self.separatorlabelFrameCommandsBLeft.place(
             relx = FS.getRelX(self.separatorlabelFrameCommandsALeft),
             rely = FS.getRelY(self.separatorlabelFrameCommandsALeft),
@@ -872,7 +872,7 @@ class ManualMining_View:
         )
         self.separatorlabelFrameCommandsBLeft.configure(background = CS.DISABLED_D_BLUE)
 
-        self.separatorlabelFrameCommandsBBottom = Label(self.labelFrameDatasetB)
+        self.separatorlabelFrameCommandsBBottom =  tk.Label(self.labelFrameDatasetB)
         self.separatorlabelFrameCommandsBBottom.place(
             relx = FS.getRelX(self.separatorlabelFrameCommandsABottom),
             rely = FS.getRelY(self.separatorlabelFrameCommandsABottom),
@@ -882,7 +882,7 @@ class ManualMining_View:
 
         newRelY = FS.getRelY(self.labelFrameListBoxA) + FS.getRelH(self.labelFrameListBoxA)
 
-        self.separatorlabelFrameCommandsBTop = Label(self.labelFrameDatasetA)
+        self.separatorlabelFrameCommandsBTop =  tk.Label(self.labelFrameDatasetA)
         self.separatorlabelFrameCommandsBTop.place(
             relx = FS.getRelX(self.separatorlabelFrameCommandsATop),
             rely = FS.getRelY(self.separatorlabelFrameCommandsATop),
@@ -894,7 +894,7 @@ class ManualMining_View:
 
         # QUERY COUNT (DATASET B)
         # region
-        self.labelFrameQueryCountB = LabelFrame(self.labelFrameCommandsB, bd = 1)
+        self.labelFrameQueryCountB = tk.LabelFrame(self.labelFrameCommandsB, bd = 1)
         self.labelFrameQueryCountB.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.50 - 0.005, relheight = 1
@@ -903,7 +903,7 @@ class ManualMining_View:
             background = CS.SELECT_BG
         )
 
-        self.labelQueryDataBCount = Label(self.labelFrameQueryCountB)
+        self.labelQueryDataBCount =  tk.Label(self.labelFrameQueryCountB)
         self.labelQueryDataBCount.place(relx = 0, rely = 0, relwidth = 1,
                                         relheight = _UI_support.TAB_TEST_SELECT_COUNT_REL_H)
         self.labelQueryDataBCount.configure(
@@ -911,7 +911,7 @@ class ManualMining_View:
             background = CS.SELECT_BG,
             text = self.getDatasetCountB()
         )
-        self.labelQueryDataBCountText = Label(self.labelFrameQueryCountB)
+        self.labelQueryDataBCountText =  tk.Label(self.labelFrameQueryCountB)
         self.labelQueryDataBCountText.place(
             relx = 0, rely = FS.getRelH(self.labelQueryDataBCount),
             relwidth = 1, relheight = _UI_support.TAB_TEST_SELECT_COUNT_TEXT_REL_H)
@@ -922,10 +922,10 @@ class ManualMining_View:
         )
 
         # Create the left separator
-        # self.labelFrameQueryCountLeftSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
+        # self.labelFrameQueryCountLeftSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = tk.VERTICAL)
         # self.labelFrameQueryCountLeftSeparatorB.place(relx = 0, rely = 0, relheight = 1)
 
-        # self.labelFrameQueryCountRightSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = VERTICAL)
+        # self.labelFrameQueryCountRightSeparatorB = ttk.Separator(self.labelFrameQueryCountB, orient = tk.VERTICAL)
         # self.labelFrameQueryCountRightSeparatorB.place(relx = 0.99, rely = 0, relheight = 1)
         # endregion
 
@@ -934,7 +934,7 @@ class ManualMining_View:
         newRelX = FS.getRelX(self.labelFrameQueryCount) + FS.getRelW(self.labelFrameQueryCount)
         newRelX = FS.getRelX(self.labelFrameQueryCount) + FS.getRelW(self.labelFrameQueryCount)
 
-        self.buttonQueryAddFilterA = Button(self.labelFrameCommandsA, compound = CENTER)
+        self.buttonQueryAddFilterA = tk.Button(self.labelFrameCommandsA, compound = tk.CENTER)
         self.buttonQueryAddFilterA.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.25 - 0.005, relheight = 1
@@ -948,17 +948,17 @@ class ManualMining_View:
 
         self.buttonQueryAddFilterA.configure(
             background = CS.SELECT_BG, foreground = CS.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
+            bd = 1, relief = tk.FLAT, overrelief = tk.FLAT)
         # text = '''Filter''')
-        self.buttonQueryAddFilterA.pack(side = RIGHT)
-        self.buttonQueryResetFilterA.pack(side = LEFT)
+        self.buttonQueryAddFilterA.pack(side = tk.RIGHT)
+        self.buttonQueryResetFilterA.pack(side = tk.LEFT)
 
         # endregion
         # FILTER BUTTON (DATASET B)
         # region
         newRelX = FS.getRelX(self.labelFrameQueryCountB) + FS.getRelW(self.labelFrameQueryCountB)
 
-        self.buttonQueryAddFilterB = Button(self.labelFrameCommandsB, compound = CENTER)
+        self.buttonQueryAddFilterB = tk.Button(self.labelFrameCommandsB, compound = tk.CENTER)
         self.buttonQueryAddFilterB.place(
             relx = newRelX + 0.005, rely = 0,
             relwidth = 0.25 - 0.005, relheight = 1
@@ -972,11 +972,11 @@ class ManualMining_View:
 
         self.buttonQueryAddFilterB.configure(
             background = CS.SELECT_BG, foreground = CS.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
+            bd = 1, relief = tk.FLAT, overrelief = tk.FLAT)
         # text = '''Filter''')
-        self.buttonQueryAddFilterB.pack(side = RIGHT)
+        self.buttonQueryAddFilterB.pack(side = tk.RIGHT)
 
-        self.buttonQueryResetFilterB.pack(side = LEFT)
+        self.buttonQueryResetFilterB.pack(side = tk.LEFT)
         # endregion
 
     ''' -> Elements under the FILTER ("FILTER") HEADER <- '''
@@ -985,22 +985,22 @@ class ManualMining_View:
         global queryStrFilterA
 
         # FILTER TITLE
-        self.labelFrameFilterTitle = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameFilterTitle = tk.LabelFrame(parentFrame, bd = 0)
         self.labelFrameFilterTitle.place(relx = 0, rely = 0.08, relwidth = 1,
                                          relheight = _UI_support.TAB_TEST_FILTER_TITLE_REL_H)
         self.labelFrameFilterTitle.configure(
             background = CS.FILTER_BG, foreground = CS.FG_COLOR  # , text = '''FILTER'''
         )
 
-        # COLORED SEPARATOR
+        # COLORED tk.SEPARATOR
         self.separatorlabelFrameFilterTitleNumber = self.createLabelSeparator(
             self.labelFrameFilterTitle, 1,
             False, CS.FILTER_TITLE_BG, _UI_support.TITLE_SEPARATOR_H,
-            0.5, W
+            0.5, tk.W
         )
 
         # FILTER NUMBER
-        self.labelFrameFilterTitleNumber = Label(self.labelFrameFilterTitle)
+        self.labelFrameFilterTitleNumber =  tk.Label(self.labelFrameFilterTitle)
         newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
         newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
         self.labelFrameFilterTitleNumber.place(
@@ -1008,50 +1008,50 @@ class ManualMining_View:
             rely = FS.getRelY(self.labelFrameSelectTitleNumber),
             relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
             relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
-            anchor = NW)
+            anchor = tk.NW)
 
         self.labelFrameFilterTitleNumber.configure(
             font = _UI_support.FONT_MED_BOLD,
             # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
             background = CS.FILTER_NUMBER_BG, foreground = CS.FILTER_NUMBER_FG,
             text = '''2  ''',
-            bd = 1, relief = GROOVE,
-            anchor = SE
+            bd = 1, relief = tk.GROOVE,
+            anchor = tk.SE
         )
 
         # newRelX = FS.getRelX(self.labelFrameSelectTitleNumber) + FS.getRelW(self.labelFrameSelectTitleNumber)
         newRelX = FS.getRelX(self.labelFrameSelectTitleText)
 
         # FILTER TITLE
-        self.labelFrameFilterTitleText = Label(self.labelFrameFilterTitle)
+        self.labelFrameFilterTitleText =  tk.Label(self.labelFrameFilterTitle)
         self.labelFrameFilterTitleText.place(
             relx = FS.getRelX(self.labelFrameSelectTitleText),
             rely = FS.getRelY(self.labelFrameSelectTitleText),
             relwidth = FS.getRelW(self.labelFrameSelectTitleText),
             relheight = FS.getRelH(self.labelFrameSelectTitleText),
-            anchor = NW)
+            anchor = tk.NW)
         self.labelFrameFilterTitleText.configure(
             font = _UI_support.FONT_MED_BOLD,
             # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
             background = CS.FILTER_TITLE_BG, foreground = CS.FILTER_TITLE_FG,
             text = '''FILTER''',
-            bd = 0, relief = GROOVE,
-            anchor = S
+            bd = 0, relief = tk.GROOVE,
+            anchor = tk.S
         )
 
         # Title border
         self.separatorlabelFrameFilterTitleText = self.createLabelSeparator(
             self.labelFrameFilterTitleText, 1,
             True, CS.WHITE,
-            coordinate = 0.99, specifiedAnchor = NW
+            coordinate = 0.99, specifiedAnchor = tk.NW
         )
 
         newRelY = FS.getRelY(self.labelFrameFilterTitle) + FS.getRelH(
             self.labelFrameFilterTitle) + _UI_support.TAB_TEST_FILTER_QUERY_REL_Y
 
         # TOP LABEL FEATURE NAME
-        # self.labelQueryDataFeatureName = Label(self.labelFrameFilterListData)
-        self.labelQueryDataFeatureName = Label(parentFrame)
+        # self.labelQueryDataFeatureName =  tk.Label(self.labelFrameFilterListData)
+        self.labelQueryDataFeatureName =  tk.Label(parentFrame)
         # self.labelQueryDataFeatureName.place(
         #     relx = 0, rely = 0,
         #     relheight = UI_support.TAB_TEST_FILTER_QUERY_FEATURE_NAME_REL_H, relwidth = 1)
@@ -1072,7 +1072,7 @@ class ManualMining_View:
         newRelY = FS.getRelY(self.labelQueryDataFeatureName) + FS.getRelH(self.labelQueryDataFeatureName)
 
         # FILTER LIST PARENT
-        self.labelFrameFilterListData = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameFilterListData = tk.LabelFrame(parentFrame, bd = 0)
 
         self.labelFrameFilterListData.place(
             relx = _UI_support.TAB_TEST_FILTER_LIST_DATA_REL_X, rely = newRelY,
@@ -1084,8 +1084,8 @@ class ManualMining_View:
         )
 
         # FILTER QUERY PARENT
-        # self.labelFrameFilterQueryData = LabelFrame(parentFrame, bd = 0)
-        self.labelFrameFilterQueryData = LabelFrame(self.labelFrameFilterListData, bd = 0)
+        # self.labelFrameFilterQueryData = tk.LabelFrame(parentFrame, bd = 0)
+        self.labelFrameFilterQueryData = tk.LabelFrame(self.labelFrameFilterListData, bd = 0)
         self.labelFrameFilterQueryData.place(
             relx = 0, rely = 0,
             relheight = _UI_support.TAB_TEST_FILTER_QUERY_FEATURE_NAME_REL_H, relwidth = 1
@@ -1101,7 +1101,7 @@ class ManualMining_View:
 
         # FILTER QUERY LABEL
         # region
-        self.labelFrameBorderQueryFeature = LabelFrame(self.labelFrameFilterQueryData, bd = 0)
+        self.labelFrameBorderQueryFeature = tk.LabelFrame(self.labelFrameFilterQueryData, bd = 0)
         self.labelFrameBorderQueryFeature.place(
             relx = 0, rely = 0,
             relwidth = _UI_support.TAB_TEST_FILTER_QUERY_LBL_REL_W, relheight = 1)
@@ -1109,7 +1109,7 @@ class ManualMining_View:
             background = CS.FILTER_BUTTONS_BG
         )
 
-        self.labelQueryFeature = Label(self.labelFrameBorderQueryFeature)
+        self.labelQueryFeature =  tk.Label(self.labelFrameBorderQueryFeature)
         self.labelQueryFeature.place(
             relx = 0.01, rely = 0.025,
             relwidth = 0.98, relheight = 0.95)
@@ -1117,7 +1117,7 @@ class ManualMining_View:
             background = CS.FILTER_LABEL_BG, foreground = CS.FILTER_LABEL_FG,
             text = _UI_support.FILTER_LABEL_QUERY_FEATURE_TEXT,
             font = _UI_support.FILTER_LABEL_FONT,
-            bd = 0, relief = FLAT,
+            bd = 0, relief = tk.FLAT,
         )
         # endregion
 
@@ -1125,7 +1125,7 @@ class ManualMining_View:
 
         # FILTER QUERY ENTRY
         # region
-        self.entryQueryFeature = Entry(self.labelFrameFilterQueryData)
+        self.entryQueryFeature = tk.Entry(self.labelFrameFilterQueryData)
         self.entryQueryFeature.place(
             relx = newRelX, rely = 0,
             relwidth =_UI_support.TAB_TEST_FILTER_QUERY_ENTRY_REL_W - 0.001, relheight = 1)
@@ -1142,7 +1142,7 @@ class ManualMining_View:
 
         # FILTER QUERY BUTTON
         # region
-        self.buttonQueryFeature = Button(self.labelFrameFilterQueryData)
+        self.buttonQueryFeature = tk.Button(self.labelFrameFilterQueryData)
         self.buttonQueryFeature.place(
             relx = newRelX, rely = 0,
             relwidth = 0.041, relheight = 1)
@@ -1159,7 +1159,7 @@ class ManualMining_View:
             background = CS.FILTER_BUTTONS_BG, foreground = CS.FILTER_BUTTONS_FG,
             activebackground = CS.SELECT_BTN_BG_ACTIVE,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = FLAT
+            bd = 0, relief = tk.FLAT, overrelief = tk.FLAT
         )
         # endregion
 
@@ -1173,7 +1173,7 @@ class ManualMining_View:
                     FS.getRelY(self.labelFrameFilterQueryData) + FS.getRelH(self.labelFrameFilterQueryData)) - 0.2
 
         # FILTER LIST DATA A PARENT
-        self.labelFrameFilterListDataA = LabelFrame(self.labelFrameFilterListData, bd = 0)
+        self.labelFrameFilterListDataA = tk.LabelFrame(self.labelFrameFilterListData, bd = 0)
         self.labelFrameFilterListDataA.place(
             relx = _UI_support.TAB_TEST_FILTER_LISTBOX_REL_X, rely = newRelY,
             relwidth = _UI_support.TAB_TEST_FILTER_LISTBOX_REL_W, relheight = newRelH
@@ -1186,7 +1186,7 @@ class ManualMining_View:
         # FILTER LIST BOX - DATASET A
         # newRelY = UI_support.FILTER_LABEL_STRIPES_REL_H + 0.03725 # TODO Make constant, + is the percent of stripes
         newRelY = _UI_support.FILTER_LABEL_STRIPES_REL_H * _UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER,
-        self.listQueryDataA = Listbox(self.labelFrameFilterListDataA, bd = 0)
+        self.listQueryDataA = tk.Listbox(self.labelFrameFilterListDataA, bd = 0)
         self.listQueryDataA.place(
             relx = _UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X,
             rely = newRelY,
@@ -1196,7 +1196,7 @@ class ManualMining_View:
 
         self.listQueryDataA.configure(
             background = CS.FILTER_LISTBOX_BG, foreground = CS.FILTER_LISTBOX_FG,
-            selectmode = MULTIPLE, exportselection = "0",
+            selectmode = tk.MULTIPLE, exportselection = "0",
             activestyle = "none",
             selectbackground = CS.FILTER_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = CS.FILTER_LISTBOX_SELECTED_ITEM_FG,
@@ -1208,8 +1208,8 @@ class ManualMining_View:
         newRelY = FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA)
         newRelH = 1 - (FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA))
 
-        # BOTTOM STATUS LABEL - DATASET A
-        self.labelQueryDataA = Label(self.labelFrameFilterListDataA)
+        # BOTTOM tk.STATUS LABEL - DATASET A
+        self.labelQueryDataA =  tk.Label(self.labelFrameFilterListDataA)
         self.labelQueryDataA.place(
             relx = _UI_support.TAB_TEST_FILTER_LISTBOX_STATUS_REL_X, rely = newRelY,
             relwidth = _UI_support.TAB_TEST_FILTER_LISTBOX_STATUS_REL_W, relheight = newRelH)
@@ -1224,7 +1224,7 @@ class ManualMining_View:
         newRelX = FS.getRelX(self.labelFrameFilterListDataA) + FS.getRelW(self.labelFrameFilterListDataA)
         newRelY = FS.getRelY(self.labelFrameFilterListDataA)
         # FILTER LIST DATA B PARENT
-        self.labelFrameFilterListDataB = LabelFrame(self.labelFrameFilterListData, bd = 0)
+        self.labelFrameFilterListDataB = tk.LabelFrame(self.labelFrameFilterListData, bd = 0)
 
         newRelH = FS.getRelH(self.labelFrameFilterListDataA)
         self.labelFrameFilterListDataB.place(
@@ -1238,7 +1238,7 @@ class ManualMining_View:
 
         # FILTER LIST BOX - DATASET B
 
-        self.listQueryDataB = Listbox(self.labelFrameFilterListDataB, bd = 0)
+        self.listQueryDataB = tk.Listbox(self.labelFrameFilterListDataB, bd = 0)
         self.listQueryDataB.place(
             relx = _UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_X, rely = FS.getRelY(self.listQueryDataA),
             relwidth = _UI_support.TAB_TEST_FILTER_LISTBOX_LIST_REL_W,
@@ -1246,7 +1246,7 @@ class ManualMining_View:
 
         self.listQueryDataB.configure(
             background = CS.FILTER_LISTBOX_BG, foreground = CS.FILTER_LISTBOX_FG,
-            selectmode = MULTIPLE, exportselection = "0",
+            selectmode = tk.MULTIPLE, exportselection = "0",
             activestyle = "none",
             selectbackground = CS.FILTER_LISTBOX_SELECTED_ITEM_BG,
             selectforeground = CS.FILTER_LISTBOX_SELECTED_ITEM_FG,
@@ -1257,8 +1257,8 @@ class ManualMining_View:
 
         newRelY = FS.getRelY(self.listQueryDataB) + FS.getRelH(self.listQueryDataB)
         newRelH = 1 - (FS.getRelY(self.listQueryDataA) + FS.getRelH(self.listQueryDataA))
-        # BOTTOM STATUS LABEL - DATASET B
-        self.labelQueryDataB = Label(self.labelFrameFilterListDataB)
+        # BOTTOM tk.STATUS LABEL - DATASET B
+        self.labelQueryDataB =  tk.Label(self.labelFrameFilterListDataB)
         self.labelQueryDataB.place(
             relx = _UI_support.TAB_TEST_FILTER_LISTBOX_STATUS_REL_X, rely = newRelY,
             relwidth = _UI_support.TAB_TEST_FILTER_LISTBOX_STATUS_REL_W,
@@ -1271,8 +1271,8 @@ class ManualMining_View:
             font = _UI_support.FILTER_STATUS_LABEL_FONT,
         )
 
-        # QUERY BOTTOM STRIPES
-        self.labelFilterStripes = Label(self.labelFrameFilterListData, bd = 1, relief = GROOVE)
+        # QUERY BOTTOM tk.STRIPES
+        self.labelFilterStripes =  tk.Label(self.labelFrameFilterListData, bd = 1, relief = tk.GROOVE)
         self.labelFilterStripes.place(
             relx = FS.getRelX(self.labelFrameFilterListDataA),
             rely = FS.getRelY(self.labelFrameFilterListDataA),
@@ -1280,27 +1280,27 @@ class ManualMining_View:
             # relheight = UI_support.FILTER_LABEL_STRIPES_REL_H # * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER,
             relheight =_UI_support.FILTER_LABEL_STRIPES_REL_H * _UI_support.FILTER_LABEL_BOTTOM_STRIPES_REL_H_MULTIPLIER,
             # relheight = FS.getRelH(self.labelFrameFilterQueryData) * UI_support.FILTER_LABEL_STRIPES_REL_H_MULTIPLIER,
-            anchor = NW
+            anchor = tk.NW
         )
         im = PIL.Image.open(
             _Icon_support.TEXTURE_STRIPE_ORANGE)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelFilterStripes.configure(
             image = texture_orange_stripes,
-            anchor = SW
+            anchor = tk.SW
         )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.labelFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
 
         # FILTER BORDERS
-        self.separatorFilterListDataA = Label(self.labelFrameFilterListDataA)
+        self.separatorFilterListDataA =  tk.Label(self.labelFrameFilterListDataA)
         self.separatorFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
         self.separatorFilterListDataA.configure(background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
-        self.separatorFilterListDataCenter = Label(self.labelFrameFilterListDataB)
+        self.separatorFilterListDataCenter =  tk.Label(self.labelFrameFilterListDataB)
         self.separatorFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
         self.separatorFilterListDataCenter.configure(background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
-        self.separatorFilterListDataB = Label(self.labelFrameFilterListDataB)
+        self.separatorFilterListDataB =  tk.Label(self.labelFrameFilterListDataB)
         self.separatorFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
         self.separatorFilterListDataB.configure(background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
@@ -1310,7 +1310,7 @@ class ManualMining_View:
         # FILTER LOCK QUERY ENTRY COVER
         # region
         # FILTER LOCK MOCK PARENT COVER
-        self.labelOverlayFilterListData = LabelFrame(parentFrame, bd = 0)
+        self.labelOverlayFilterListData = tk.LabelFrame(parentFrame, bd = 0)
 
         #
         self.labelOverlayFilterListData.place(
@@ -1327,7 +1327,7 @@ class ManualMining_View:
         )
 
         # MOCK QUERY PARENT FRAME
-        self.labelOverlayFilterQueryData = Label(self.labelOverlayFilterListData)
+        self.labelOverlayFilterQueryData =  tk.Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterQueryData.place(
             relx = FS.getRelX(self.labelFrameFilterQueryData),
             rely = FS.getRelY(self.labelFrameFilterQueryData),
@@ -1339,40 +1339,40 @@ class ManualMining_View:
             foreground = CS.FILTER_LABEL_OVERLAY_BG,
             text = '''Please confirm the dataset groupings before filtering''',
             font = _UI_support.FILTER_LABEL_FONT,
-            bd = 0, relief = GROOVE,
+            bd = 0, relief = tk.GROOVE,
             # bd = self.labelFrameFilterQueryData['bd'], relief = self.labelFrameFilterQueryData['relief'],
         )
 
 
-        # MOCK STRIPED COVER
-        self.labelOverlayFilterStripes = Label(self.labelOverlayFilterQueryData)
+        # MOCK tk.STRIPED COVER
+        self.labelOverlayFilterStripes =  tk.Label(self.labelOverlayFilterQueryData)
         self.labelOverlayFilterStripes.place(
             relx = 0,
             rely = 0,
             relwidth = 1,
             relheight = 1,
-            anchor = NW
+            anchor = tk.NW
         )
         im = PIL.Image.open(
             _Icon_support.TEXTURE_STRIPE_ORANGE)  # .resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         texture_orange_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelOverlayFilterStripes.configure(
             image = texture_orange_stripes,
-            anchor = SW,
+            anchor = tk.SW,
             bd = 0
         )  # , width = self.buttonQueryAddFilterA.winfo_reqheight())
         self.labelOverlayFilterStripes.image = texture_orange_stripes  # < ! > Required to make images appear
 
-        # self.separatorOverlayFilterQueryData = ttk.Separator(self.labelOverlayFilterQueryData, orient = VERTICAL)
+        # self.separatorOverlayFilterQueryData = ttk.Separator(self.labelOverlayFilterQueryData, orient = tk.VERTICAL)
         # self.separatorOverlayFilterQueryData.place(relx = 0, rely = 0, relheight = 1)
         # endregion
 
         # FILTER LOCK LISTBOX COVER
 
-        # LEFT COVER
+        # tk.LEFT COVER
         # region
-        # self.labelOverlayFilterListDataA = Label(self.labelFrameFilterListDataA)
-        self.labelOverlayFilterListDataA = Label(self.labelOverlayFilterListData)
+        # self.labelOverlayFilterListDataA =  tk.Label(self.labelFrameFilterListDataA)
+        self.labelOverlayFilterListDataA =  tk.Label(self.labelOverlayFilterListData)
         newRelY = FS.getRelY(self.labelOverlayFilterQueryData) + FS.getRelH(self.labelOverlayFilterQueryData)
         self.labelOverlayFilterListDataA.place(
             relx = FS.getRelX(self.labelFrameFilterListDataA),
@@ -1394,7 +1394,7 @@ class ManualMining_View:
             # bd = self.labelFrameFilterListDataA['bd'], relief = self.labelFrameFilterListDataA['relief'],
         )
         # FILTER LOCK BOTTOM MOCK NO DATA LABEL
-        self.labelOverlayQueryDataA = Label(self.labelOverlayFilterListDataA)
+        self.labelOverlayQueryDataA =  tk.Label(self.labelOverlayFilterListDataA)
         newRelYReduction = 0.01
         self.labelOverlayQueryDataA.place(
             relx = FS.getRelX(self.labelQueryDataA),
@@ -1411,16 +1411,16 @@ class ManualMining_View:
             font = _UI_support.FILTER_STATUS_LABEL_FONT,
         )
 
-        self.separatorOverlayFilterListDataA = Label(self.labelOverlayFilterListDataA)
+        self.separatorOverlayFilterListDataA =  tk.Label(self.labelOverlayFilterListDataA)
         self.separatorOverlayFilterListDataA.place(relx = 0, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataA.configure(
             background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
         # endregion
 
-        # RIGHT COVER
+        # tk.RIGHT COVER
         # region
-        self.labelOverlayFilterListDataB = Label(self.labelOverlayFilterListData)
+        self.labelOverlayFilterListDataB =  tk.Label(self.labelOverlayFilterListData)
         self.labelOverlayFilterListDataB.place(
             relx = FS.getRelX(self.labelFrameFilterListDataB), rely = FS.getRelY(self.labelOverlayFilterListDataA),
             relwidth = FS.getRelW(self.labelFrameFilterListDataB),
@@ -1434,7 +1434,7 @@ class ManualMining_View:
             # bd = self.labelFrameFilterListDataB['bd'], relief = self.labelFrameFilterListDataB['relief'],
         )
         # FILTER LOCK BOTTOM MOCK NO DATA LABEL
-        self.labelOverlayQueryDataB = Label(self.labelOverlayFilterListDataB)
+        self.labelOverlayQueryDataB =  tk.Label(self.labelOverlayFilterListDataB)
         self.labelOverlayQueryDataB.place(
             relx = FS.getRelX(self.labelOverlayQueryDataA),
             rely = FS.getRelY(self.labelOverlayQueryDataA),
@@ -1448,14 +1448,14 @@ class ManualMining_View:
             text = _UI_support.FILTER_STATUS_NO_DATA_TEXT,
             font = _UI_support.FILTER_STATUS_LABEL_FONT,
         )
-        # self.separatorOverlayFilterListDataB1 = ttk.Separator(self.labelOverlayFilterListDataB, orient = VERTICAL)
+        # self.separatorOverlayFilterListDataB1 = ttk.Separator(self.labelOverlayFilterListDataB, orient = tk.VERTICAL)
         # self.separatorOverlayFilterListDataB1.place(relx = 0, rely = 0, relheight = 1)
-        self.separatorOverlayFilterListDataCenter = Label(self.labelOverlayFilterListDataB)
+        self.separatorOverlayFilterListDataCenter =  tk.Label(self.labelOverlayFilterListDataB)
         self.separatorOverlayFilterListDataCenter.place(relx = 0, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataCenter.configure(
             background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
 
-        self.separatorOverlayFilterListDataB = Label(self.labelOverlayFilterListDataB)
+        self.separatorOverlayFilterListDataB =  tk.Label(self.labelOverlayFilterListDataB)
         self.separatorOverlayFilterListDataB.place(relx = 0.997, rely = 0, relheight = 1, width = 1)
         self.separatorOverlayFilterListDataB.configure(
             background = CS.FILTER_LISTBOX_STATUS_READY_OVERLAY_BG)
@@ -1468,7 +1468,7 @@ class ManualMining_View:
     def configureProcessElements(self, parentFrame):
 
         # PROCESS TITLE
-        self.labelFrameProcessTitle = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameProcessTitle = tk.LabelFrame(parentFrame, bd = 0)
         self.labelFrameProcessTitle.place(relx = 0, rely = 0, relwidth = 1,
                                           relheight = _UI_support.TAB_TEST_PROCESS_TITLE_REL_H)
         self.labelFrameProcessTitle.configure(
@@ -1477,14 +1477,14 @@ class ManualMining_View:
 
         # PROCESS NUMBER
 
-        # COLORED SEPARATOR
+        # COLORED tk.SEPARATOR
         self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
             self.labelFrameProcessTitle, 1,
             False, CS.PROCESS_TITLE_BG, _UI_support.TITLE_SEPARATOR_H,
-            0.5, W
+            0.5, tk.W
         )
 
-        self.labelFrameProcessTitleNumber = Label(self.labelFrameProcessTitle)
+        self.labelFrameProcessTitleNumber =  tk.Label(self.labelFrameProcessTitle)
         newRelY = FS.getRelY(self.labelFrameSelectTitleNumber)
         newRelH = FS.getRelH(self.labelFrameSelectTitleNumber)
 
@@ -1493,46 +1493,46 @@ class ManualMining_View:
             rely = FS.getRelY(self.labelFrameSelectTitleNumber),
             relwidth = FS.getRelW(self.labelFrameSelectTitleNumber),
             relheight = FS.getRelH(self.labelFrameSelectTitleNumber),
-            anchor = NW)
+            anchor = tk.NW)
 
         self.labelFrameProcessTitleNumber.configure(
             font = _UI_support.FONT_MED_BOLD,
             # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
             background = CS.PROCESS_NUMBER_BG, foreground = CS.PROCESS_NUMBER_FG,
             text = '''3  ''',
-            bd = 1, relief = GROOVE,
-            anchor = SE
+            bd = 1, relief = tk.GROOVE,
+            anchor = tk.SE
         )
 
         # PROCESS TITLE
-        self.labelFrameProcessTitleText = Label(self.labelFrameProcessTitle)
+        self.labelFrameProcessTitleText =  tk.Label(self.labelFrameProcessTitle)
         self.labelFrameProcessTitleText.place(
             relx = FS.getRelX(self.labelFrameSelectTitleText),
             rely = FS.getRelY(self.labelFrameSelectTitleText),
             relwidth = FS.getRelW(self.labelFrameSelectTitleText),
             relheight = FS.getRelH(self.labelFrameSelectTitleText),
-            anchor = NW)
+            anchor = tk.NW)
 
         self.labelFrameProcessTitleText.configure(
             font = _UI_support.FONT_MED_BOLD,
             # background = CS.BG_TITLE, foreground = CS.FG_TITLE,
             background = CS.PROCESS_TITLE_BG, foreground = CS.PROCESS_TITLE_FG,
-            bd = 0, relief = GROOVE,
+            bd = 0, relief = tk.GROOVE,
             text = '''TEST''',
-            anchor = S
+            anchor = tk.S
         )
 
         # Title border
         self.separatorlabelFrameProcessTitleNumber = self.createLabelSeparator(
             self.labelFrameProcessTitleText, 1,
             True, CS.WHITE,
-            coordinate = 0.99, specifiedAnchor = NW
+            coordinate = 0.99, specifiedAnchor = tk.NW
         )
 
         newRelY = FS.getRelH(self.labelFrameProcessTitle) + _UI_support.TAB_TEST_PROCESS_COMMANDS_REL_Y
 
         # PROCESS COMMANDS PARENT
-        self.labelFrameProcessCommands = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameProcessCommands = tk.LabelFrame(parentFrame, bd = 0)
         self.labelFrameProcessCommands.place(
             relx = _UI_support.TAB_TEST_PROCESS_COMMANDS_REL_X, rely = newRelY,
             relwidth = _UI_support.TAB_TEST_PROCESS_COMMANDS_REL_W,
@@ -1542,9 +1542,9 @@ class ManualMining_View:
             background = CS.PROCESS_BG
         )
 
-        # PROCESS STATISTICAL TEST OPTIONS
+        # PROCESS tk.STATISTICAL TEST OPTIONS
         # region
-        self.labelFrameProcessStatTests = LabelFrame(self.labelFrameProcessCommands, bd = 0)
+        self.labelFrameProcessStatTests = tk.LabelFrame(self.labelFrameProcessCommands, bd = 0)
         self.labelFrameProcessStatTests.place(
             relx = 0, rely = 0,
             relwidth = _UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
@@ -1555,7 +1555,7 @@ class ManualMining_View:
         )
 
         # TITLE
-        self.labelFrameProcessStatTestsTitle = Label(self.labelFrameProcessStatTests)
+        self.labelFrameProcessStatTestsTitle =  tk.Label(self.labelFrameProcessStatTests)
         self.labelFrameProcessStatTestsTitle.place(
             relx = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
@@ -1565,13 +1565,13 @@ class ManualMining_View:
             font = _UI_support.FONT_MED_BOLD,
             background = CS.PROCESS_Z_TEST_TITLE_BG, foreground = CS.PROCESS_Z_TEST_TITLE_FG,
             text = '''TYPE''',
-            anchor = CENTER,
-            bd = 0, relief = GROOVE
+            anchor = tk.CENTER,
+            bd = 0, relief = tk.GROOVE
         )
 
         newRelY = FS.getRelY(self.labelFrameProcessStatTestsTitle) + FS.getRelH(
             self.labelFrameProcessStatTestsTitle)
-        self.labelFrameProcessStatTestsButtonElements = LabelFrame(self.labelFrameProcessStatTests, bd = 0)
+        self.labelFrameProcessStatTestsButtonElements = tk.LabelFrame(self.labelFrameProcessStatTests, bd = 0)
         self.labelFrameProcessStatTestsButtonElements.place(
             relx = FS.getRelX(self.labelFrameProcessStatTestsTitle),
             rely = newRelY,
@@ -1583,7 +1583,7 @@ class ManualMining_View:
         )
 
         # CHOOSE Z-TEST BUTTON
-        self.buttonChooseZTest = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
+        self.buttonChooseZTest = tk.Button(self.labelFrameProcessStatTestsButtonElements, compound = tk.CENTER)
 
         # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         # btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
@@ -1597,7 +1597,7 @@ class ManualMining_View:
         self.buttonChooseZTest.configure(
             background = CS.D_BLUE, foreground = CS.WHITE,
             activebackground = CS.PROCESS_Z_TEST_TITLE_BG,
-            bd = 1, relief = GROOVE, overrelief = SUNKEN,
+            bd = 1, relief = tk.GROOVE, overrelief = tk.SUNKEN,
             font = _UI_support.FONT_DEFAULT_BOLD,
             text = '''Z - TEST''')
 
@@ -1605,7 +1605,7 @@ class ManualMining_View:
         self.buttonChooseZTest.update()
 
         # CHOOSE CHI-SQUARE BUTTON
-        self.buttonChooseChiSquare = Button(self.labelFrameProcessStatTestsButtonElements, compound = CENTER)
+        self.buttonChooseChiSquare = tk.Button(self.labelFrameProcessStatTestsButtonElements, compound = tk.CENTER)
 
         # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         # btn_query_chi_square_icon = PIL.ImageTk.PhotoImage(im)
@@ -1621,7 +1621,7 @@ class ManualMining_View:
         self.buttonChooseChiSquare.configure(
             background = CS.WHITE, foreground = CS.D_BLUE,
             activebackground = CS.PROCESS_Z_TEST_TITLE_BG,
-            bd = 1, relief = GROOVE, overrelief = SUNKEN,
+            bd = 1, relief = tk.GROOVE, overrelief = tk.SUNKEN,
             font = _UI_support.FONT_DEFAULT_BOLD,
             text = '''CHI - SQUARE''')
 
@@ -1634,7 +1634,7 @@ class ManualMining_View:
         # region
         # PROCESS Z-TEST PARENT
         newRelX = FS.getRelX(self.labelFrameProcessStatTests) + FS.getRelW(self.labelFrameProcessStatTests)
-        self.labelFrameProcessTestOptions = LabelFrame(self.labelFrameProcessCommands, bd = 0)
+        self.labelFrameProcessTestOptions = tk.LabelFrame(self.labelFrameProcessCommands, bd = 0)
         self.labelFrameProcessTestOptions.place(
             relx = newRelX, rely = 0,
             relwidth = _UI_support.TEST_PROCESS_Z_TEST_PARENT, relheight = 1
@@ -1643,7 +1643,7 @@ class ManualMining_View:
             background = CS.PROCESS_BG
         )
 
-        self.labelFrameProcessTestOptionsTitle = Label(self.labelFrameProcessTestOptions)
+        self.labelFrameProcessTestOptionsTitle =  tk.Label(self.labelFrameProcessTestOptions)
         self.labelFrameProcessTestOptionsTitle.place(
             relx = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
@@ -1653,8 +1653,8 @@ class ManualMining_View:
             font = _UI_support.FONT_MED_BOLD,
             background = CS.PROCESS_Z_TEST_TITLE_BG, foreground = CS.PROCESS_Z_TEST_TITLE_FG,
             # text = '''OPTIONS''',
-            anchor = CENTER,
-            bd = 1, relief = GROOVE
+            anchor = tk.CENTER,
+            bd = 1, relief = tk.GROOVE
         )
 
         # endregion
@@ -1664,7 +1664,7 @@ class ManualMining_View:
 
         # PROCESS Z-TEST PARENT
         # newRelX = FS.getRelX(self.labelFrameProcessStatTests) + FS.getRelW(self.labelFrameProcessStatTests)
-        self.labelFrameProcessZTest = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
+        self.labelFrameProcessZTest = tk.LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
                                                  name = 'labelFrameProcessZTest')
         self.labelFrameProcessZTest.place(
             # relx = newRelX, rely = 0,
@@ -1676,7 +1676,7 @@ class ManualMining_View:
             background = CS.PROCESS_BG
         )
 
-        self.labelFrameProcessZTestTitle = Label(self.labelFrameProcessZTest)
+        self.labelFrameProcessZTestTitle =  tk.Label(self.labelFrameProcessZTest)
         self.labelFrameProcessZTestTitle.place(
             relx = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
@@ -1687,8 +1687,8 @@ class ManualMining_View:
             background = CS.PROCESS_Z_TEST_TITLE_BG, foreground = CS.PROCESS_Z_TEST_TITLE_FG,
             text = '''Z - TEST''',
             # text = '''OPTIONS''',
-            anchor = CENTER,
-            bd = 0, relief = GROOVE
+            anchor = tk.CENTER,
+            bd = 0, relief = tk.GROOVE
         )
 
         global arrQueryCriticalValue
@@ -1700,9 +1700,9 @@ class ManualMining_View:
         newRelY = FS.getRelY(self.labelFrameProcessZTestTitle) + FS.getRelH(
             self.labelFrameProcessZTestTitle) + _UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
-        # SPINBOX ELEMENTS
-        # self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessZTest, bd = 0)
-        self.labelFrameProcessZTestConfidence = LabelFrame(self.labelFrameProcessTestOptions, bd = 0)
+        # tk.SPINBOX ELEMENTS
+        # self.labelFrameProcessZTestConfidence = tk.LabelFrame(self.labelFrameProcessZTest, bd = 0)
+        self.labelFrameProcessZTestConfidence = tk.LabelFrame(self.labelFrameProcessTestOptions, bd = 0)
         self.labelFrameProcessZTestConfidence.place(
             relx = 0.11, rely = newRelY,
             relwidth = 0.525, relheight = _UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_H
@@ -1716,7 +1716,7 @@ class ManualMining_View:
         newRelY = FS.getRelY(self.labelFrameProcessZTestConfidence)
 
         # BUTTON ELEMENTS
-        self.labelFrameProcessZTestButtonElements = LabelFrame(self.labelFrameProcessZTest, bd = 0)
+        self.labelFrameProcessZTestButtonElements = tk.LabelFrame(self.labelFrameProcessZTest, bd = 0)
         self.labelFrameProcessZTestButtonElements.place(
             relx = newRelX + 0.05, rely = newRelY,
             relwidth = 1 - (newRelX + FS.getRelX(self.labelFrameProcessZTestConfidence)),
@@ -1727,8 +1727,8 @@ class ManualMining_View:
             background = CS.PROCESS_BG
         )
 
-        # CONFIDENCE SPINBOX LABEL
-        self.labelQueryZConfidenceText = Label(self.labelFrameProcessZTestConfidence)
+        # CONFIDENCE tk.SPINBOX LABEL
+        self.labelQueryZConfidenceText =  tk.Label(self.labelFrameProcessZTestConfidence)
         self.labelQueryZConfidenceText.place(
             relx = 0, rely = 0,
             relwidth = 1, relheight = _UI_support.TAB_TEST_PROCESS_CONFIDENCE_TEXT_REL_H)
@@ -1741,8 +1741,8 @@ class ManualMining_View:
         newRelY = FS.getRelY(self.labelQueryZConfidenceText) + FS.getRelH(self.labelQueryZConfidenceText)
         newRelH = 1 - FS.getRelH(self.labelQueryZConfidenceText)
 
-        # CONFIDENCE SPINBOX
-        self.spinBoxQueryZConfidence = Spinbox(self.labelFrameProcessZTestConfidence,
+        # CONFIDENCE tk.SPINBOX
+        self.spinBoxQueryZConfidence = tk.Spinbox(self.labelFrameProcessZTestConfidence,
                                                values = arrQueryCriticalValue)
 
         self.spinBoxQueryZConfidence.place(
@@ -1751,11 +1751,11 @@ class ManualMining_View:
         )
 
         # Used to validate spinbox value
-        stringVar = StringVar()
+        stringVar = tk.StringVar()
         stringVar.trace('w', lambda nm, idx, mode, var = stringVar: self.validateZConfidenceSpinbox(var,
                                                                                                     self.spinBoxQueryZConfidence))
 
-        # ent = Entry(root, textvariable = sv)
+        # ent = tk.Entry(root, textvariable = sv)
 
         self.spinBoxQueryZConfidence.configure(
             textvariable = stringVar,
@@ -1765,8 +1765,8 @@ class ManualMining_View:
             background = CS.WHITE, foreground = CS.FG_COLOR,
             exportselection = 0,
             buttonbackground = CS.WHITE,
-            buttonuprelief = FLAT, buttondownrelief = GROOVE,
-            justify = CENTER
+            buttonuprelief = tk.FLAT, buttondownrelief = tk.GROOVE,
+            justify = tk.CENTER
 
         )
         self.refreshSpinBoxValue(self.spinBoxQueryZConfidence)
@@ -1776,7 +1776,7 @@ class ManualMining_View:
         # newRelH = FS.getRelH(self.labelFrameProcessZTestConfidence)
 
         # Z-TEST BUTTON
-        self.buttonQueryZTest = Button(self.labelFrameProcessZTestButtonElements, compound = CENTER)
+        self.buttonQueryZTest = tk.Button(self.labelFrameProcessZTestButtonElements, compound = tk.CENTER)
 
         im = PIL.Image.open(_Icon_support.TAB_ICO_CHECK).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_query_z_test_icon = PIL.ImageTk.PhotoImage(im)
@@ -1788,14 +1788,14 @@ class ManualMining_View:
             background = CS.PROCESS_BG, foreground = CS.PROCESS_BUTTONS_FG,
             activebackground = CS.PROCESS_TITLE_BG,
             highlightbackground = CS.PROCESS_TITLE_BG,
-            bd = 1, relief = FLAT, overrelief = FLAT)
+            bd = 1, relief = tk.FLAT, overrelief = tk.FLAT)
         # text = '''Test''')
 
-        self.buttonQueryZTest.pack(anchor = CENTER)
+        self.buttonQueryZTest.pack(anchor = tk.CENTER)
         self.buttonQueryZTest.update()
 
         # Z-TEST RESULTS
-        # self.labelQueryZTest = Label(self.labelFrameProcessZTest)  ## TODO functionality switch
+        # self.labelQueryZTest =  tk.Label(self.labelFrameProcessZTest)  ## TODO functionality switch
         # self.labelQueryZTest.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
         # self.labelQueryZTest.configure(disabledforeground = "#a3a3a3")
         # self.labelQueryZTest.configure(foreground = "#000000")
@@ -1805,7 +1805,7 @@ class ManualMining_View:
 
         # PROCESS CHI-SQUARE OPTIONS
         # region
-        self.labelFrameProcessChiSquare = LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
+        self.labelFrameProcessChiSquare = tk.LabelFrame(self.labelFrameProcessTestOptions, bd = 0,
                                                      name = "labelFrameProcessChiSquare")
         self.labelFrameProcessChiSquare.place(
             # relx = newRelX, rely = 0,
@@ -1820,8 +1820,8 @@ class ManualMining_View:
         # newRelX = FS.getRelX(self.labelFrameProcessChiSquare) + FS.getRelW(self.labelFrameProcessChiSquare)
 
         # PROCESS CHI-SQUARE TITLE
-        self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
-        # self.labelFrameProcessChiSquareTitle = Label(self.labelFrameProcessChiSquare)
+        self.labelFrameProcessChiSquareTitle =  tk.Label(self.labelFrameProcessChiSquare)
+        # self.labelFrameProcessChiSquareTitle =  tk.Label(self.labelFrameProcessChiSquare)
         self.labelFrameProcessChiSquareTitle.place(
             relx = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
@@ -1833,22 +1833,22 @@ class ManualMining_View:
             foreground = CS.PROCESS_CHI_SQUARE_TITLE_FG,
 
             text = '''CHI - SQUARE''',
-            anchor = CENTER,
-            bd = 0, relief = GROOVE
+            anchor = tk.CENTER,
+            bd = 0, relief = tk.GROOVE
         )
 
         # Top horizontal separator # TODO
-        self.chiSquareTitleSeparator = ttk.Separator(self.labelFrameProcessChiSquareTitle, orient = HORIZONTAL)
+        self.chiSquareTitleSeparator = ttk.Separator(self.labelFrameProcessChiSquareTitle, orient = tk.HORIZONTAL)
         self.chiSquareTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
 
-        # self.chiSquareRightSeparator = ttk.Separator(self.labelFrameProcessChiSquare, orient = VERTICAL)
+        # self.chiSquareRightSeparator = ttk.Separator(self.labelFrameProcessChiSquare, orient = tk.VERTICAL)
         # self.chiSquareRightSeparator.place(relx = 0.99, rely = 0, relheight = 1)
 
         newRelY = FS.getRelY(self.labelFrameProcessZTestTitle) + FS.getRelH(
             self.labelFrameProcessZTestTitle) + _UI_support.TAB_TEST_PROCESS_Z_TEST_SPINNER_ELEMENTS_REL_Y
 
         # BUTTON ELEMENTS
-        self.labelFrameProcessChiSquareElements = LabelFrame(self.labelFrameProcessChiSquare, bd = 0)
+        self.labelFrameProcessChiSquareElements = tk.LabelFrame(self.labelFrameProcessChiSquare, bd = 0)
         self.labelFrameProcessChiSquareElements.place(
             relx = 0, rely = newRelY,
             relwidth = 1, relheight = 0.35
@@ -1858,7 +1858,7 @@ class ManualMining_View:
         )
 
         # QUEUE ELEMENTS
-        self.labelFrameProcessChiSquareQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 1)
+        self.labelFrameProcessChiSquareQueue = tk.LabelFrame(self.labelFrameProcessChiSquareElements, bd = 1)
         self.labelFrameProcessChiSquareQueue.place(
             relx = 0.275, rely = 0,
             relwidth = 0.45, relheight = 1
@@ -1871,7 +1871,7 @@ class ManualMining_View:
             self.labelFrameProcessChiSquare)
 
         # > QUEUE COUNT
-        self.labelQueueText = Label(self.labelFrameProcessChiSquareQueue)
+        self.labelQueueText =  tk.Label(self.labelFrameProcessChiSquareQueue)
         self.labelQueueText.place(
             relx = 0, rely = 0,
             relwidth = 1, relheight = _UI_support.TAB_TEST_PROCESS_QUEUE_TEXT_REL_H
@@ -1885,7 +1885,7 @@ class ManualMining_View:
         newRelY = FS.getRelY(self.labelQueueText) + FS.getRelH(self.labelQueueText)
         newRelH = 1 - FS.getRelH(self.labelQueueText)
 
-        self.labelQueueCount = Label(self.labelFrameProcessChiSquareQueue)
+        self.labelQueueCount =  tk.Label(self.labelFrameProcessChiSquareQueue)
         self.labelQueueCount.place(
             relx = 0, rely = newRelY,
             relwidth = 1, relheight = newRelH)
@@ -1901,7 +1901,7 @@ class ManualMining_View:
         newRelX = FS.getRelX(self.labelFrameProcessChiSquareQueue) + FS.getRelW(
             self.labelFrameProcessChiSquareQueue)
 
-        self.labelFrameProcessQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
+        self.labelFrameProcessQueue = tk.LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
         self.labelFrameProcessQueue.place(
             relx = newRelX + 0.025, rely = 0,
             relwidth = 0.25, relheight = 1
@@ -1911,7 +1911,7 @@ class ManualMining_View:
         )
 
         # Enqueue button
-        self.buttonQueue = Button(self.labelFrameProcessQueue, compound = CENTER)
+        self.buttonQueue = tk.Button(self.labelFrameProcessQueue, compound = tk.CENTER)
 
         im = PIL.Image.open(_Icon_support.TAB_ICO_ADD).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_queue_icon = PIL.ImageTk.PhotoImage(im)
@@ -1921,15 +1921,15 @@ class ManualMining_View:
 
         self.buttonQueue.configure(
             background = CS.PROCESS_BG, foreground = CS.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT)
+            bd = 1, relief = tk.FLAT, overrelief = tk.FLAT)
 
-        self.buttonQueue.pack(side = LEFT)
+        self.buttonQueue.pack(side = tk.LEFT)
         self.buttonQueue.update()
 
         # CLEAR QUEUE BUTTON
 
         # Clear queue button parent (to handle centering after pack)
-        self.labelFrameProcessClearQueue = LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
+        self.labelFrameProcessClearQueue = tk.LabelFrame(self.labelFrameProcessChiSquareElements, bd = 0)
         self.labelFrameProcessClearQueue.place(
             relx = 0, rely = 0,
             relwidth = 0.25, relheight = 1
@@ -1938,7 +1938,7 @@ class ManualMining_View:
             background = CS.PROCESS_BG
         )
 
-        self.buttonClearQueue = Button(self.labelFrameProcessClearQueue, compound = CENTER)
+        self.buttonClearQueue = tk.Button(self.labelFrameProcessClearQueue, compound = tk.CENTER)
 
         im = PIL.Image.open(_Icon_support.TAB_ICO_CROSS).resize(_Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)
         btn_clear_queue_icon = PIL.ImageTk.PhotoImage(im)
@@ -1948,10 +1948,10 @@ class ManualMining_View:
 
         self.buttonClearQueue.configure(
             background = CS.PROCESS_BG, foreground = CS.FG_COLOR,
-            bd = 1, relief = FLAT, overrelief = FLAT
+            bd = 1, relief = tk.FLAT, overrelief = tk.FLAT
         )
 
-        self.buttonClearQueue.pack(side = RIGHT)
+        self.buttonClearQueue.pack(side = tk.RIGHT)
         self.buttonClearQueue.update()
 
         # endregion
@@ -1959,7 +1959,7 @@ class ManualMining_View:
         newRelX = FS.getRelX(self.labelFrameProcessTestOptions) + FS.getRelW(self.labelFrameProcessTestOptions)
 
         # PROCESS RUN PARENT
-        self.labelFrameProcessRun = LabelFrame(self.labelFrameProcessCommands, bd = 0)
+        self.labelFrameProcessRun = tk.LabelFrame(self.labelFrameProcessCommands, bd = 0)
         self.labelFrameProcessRun.place(
             relx = newRelX, rely = 0,
             relwidth = _UI_support.TEST_PROCESS_RUN_PARENT, relheight = 1
@@ -1969,7 +1969,7 @@ class ManualMining_View:
         )
 
         # PROCESS RUN MINER TITLE
-        self.labelFrameProcessRunMinerTitle = Label(self.labelFrameProcessRun)
+        self.labelFrameProcessRunMinerTitle =  tk.Label(self.labelFrameProcessRun)
         self.labelFrameProcessRunMinerTitle.place(
             relx = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_X,
             rely = _UI_support.TAB_TEST_PROCESS_Z_TEST_TITLE_REL_Y,
@@ -1980,18 +1980,18 @@ class ManualMining_View:
             background = CS.D_BLUE, foreground = CS.WHITE,
             # background = CS.PROCESS_RUN_MINER_TITLE_BG, foreground = CS.PROCESS_RUN_MINER_TITLE_FG,
             text = '''RUN MINER''',
-            anchor = CENTER,
-            bd = 1, relief = GROOVE
+            anchor = tk.CENTER,
+            bd = 1, relief = tk.GROOVE
         )
 
         # Top horizontal separator # TODO
-        self.runMinerTitleSeparator = ttk.Separator(self.labelFrameProcessRunMinerTitle, orient = HORIZONTAL)
+        self.runMinerTitleSeparator = ttk.Separator(self.labelFrameProcessRunMinerTitle, orient = tk.HORIZONTAL)
         self.runMinerTitleSeparator.place(relx = 0, rely = 1, relwidth = 1)
 
         newRelY = FS.getRelH(self.labelFrameProcessRunMinerTitle) + FS.getRelY(self.labelFrameProcessRunMinerTitle)
         newRelH = 1 - (FS.getRelH(self.labelFrameProcessRunMinerTitle) + FS.getRelY(
             self.labelFrameProcessRunMinerTitle))
-        self.labelFrameRunMiner = LabelFrame(self.labelFrameProcessRun, bd = 0)
+        self.labelFrameRunMiner = tk.LabelFrame(self.labelFrameProcessRun, bd = 0)
         self.labelFrameRunMiner.place(
             relx = 0, rely = newRelY,
             relwidth = 1, relheight = newRelH
@@ -1999,7 +1999,7 @@ class ManualMining_View:
         self.labelFrameRunMiner.configure(
             background = CS.PROCESS_BG
         )
-        self.labelFrameRunMinerElements = LabelFrame(self.labelFrameRunMiner, bd = 0)
+        self.labelFrameRunMinerElements = tk.LabelFrame(self.labelFrameRunMiner, bd = 0)
         self.labelFrameRunMinerElements.place(
             relx = 0, rely = 0,
             relwidth = 1, relheight = 1
@@ -2010,7 +2010,7 @@ class ManualMining_View:
 
         # RUN MINER BUTTON
         # region
-        self.buttonTestQueue = Button(self.labelFrameRunMinerElements, compound = CENTER)
+        self.buttonTestQueue = tk.Button(self.labelFrameRunMinerElements, compound = tk.CENTER)
 
         im = PIL.Image.open(_Icon_support.TAB_ICO_RIGHT_ARROW).resize(_Icon_support.RUN_ICO_SIZE, PIL.Image.ANTIALIAS)
         # im = PIL.Image.open(Icon_support.TAB_ICO_CHECK).resize(Icon_support.SELECT_ICO_SIZE, PIL.Image.ANTIALIAS)/
@@ -2023,28 +2023,28 @@ class ManualMining_View:
         self.buttonTestQueue.configure(
             background = CS.PROCESS_BUTTONS_BG, foreground = CS.PROCESS_BUTTONS_FG,
             highlightthickness = 0, padx = 0, pady = 0,
-            bd = 0, relief = FLAT, overrelief = FLAT)
+            bd = 0, relief = tk.FLAT, overrelief = tk.FLAT)
 
         self.buttonTestQueue.place(
             relx = 0, rely = 0,
             relwidth = 1, relheight = 1
         )
-        self.buttonTestQueue.pack(side = RIGHT)
+        self.buttonTestQueue.pack(side = tk.RIGHT)
         # self.buttonTestQueue.update()
-        self.labelFrameRunMinerElements.pack(fill = Y, expand = True)
+        self.labelFrameRunMinerElements.pack(fill = tk.Y, expand = True)
 
-        self.runLeftSeparator = ttk.Separator(self.labelFrameProcessRun, orient = VERTICAL)
+        self.runLeftSeparator = ttk.Separator(self.labelFrameProcessRun, orient = tk.VERTICAL)
         self.runLeftSeparator.place(relx = 0, rely = 0, relheight = 1)
 
         # endregion
 
-        # SEPARATOR  ELEMENTS
+        # tk.SEPARATOR  ELEMENTS
         newRelX = FS.getRelX(self.labelFrameProcessTestOptions)  # + FS.getRelW(self.labelFrameProcessZTest)
-        self.zTestRightSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
-        self.zTestRightSeparator.place(relx = 0.335, rely = 0, relheight = 1, anchor = NE)
+        self.zTestRightSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = tk.VERTICAL)
+        self.zTestRightSeparator.place(relx = 0.335, rely = 0, relheight = 1, anchor = tk.NE)
 
         newRelX = FS.getRelX(self.labelFrameProcessRun)  # + FS.getRelW(self.labelFrameProcessChiSquare)
-        self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = VERTICAL)
+        self.runLeftSeparator = ttk.Separator(self.labelFrameProcessCommands, orient = tk.VERTICAL)
         self.runLeftSeparator.place(relx = 0.6666, rely = 0, relheight = 1)
 
 
@@ -2077,7 +2077,7 @@ class ManualMining_View:
     def configureConsoleElements(self, parentFrame):
 
         # PROCESS COMMANDS PARENT
-        self.labelFrameConsoleScreen = LabelFrame(parentFrame, bd = 0)
+        self.labelFrameConsoleScreen = tk.LabelFrame(parentFrame, bd = 0)
         newRelW = 0.72
         newRelH = 0.8
         newRelY = 0.09  # 0.092
@@ -2091,12 +2091,12 @@ class ManualMining_View:
 
         self.labelFrameConsoleScreen.configure(
             background = CS.CONSOLE_BG,
-            bd = 0, relief = GROOVE
+            bd = 0, relief = tk.GROOVE
         )
 
         # TASKBAR
 
-        self.labelConsoleScreenTaskBar = Label(self.labelFrameConsoleScreen)
+        self.labelConsoleScreenTaskBar =  tk.Label(self.labelFrameConsoleScreen)
         self.labelConsoleScreenTaskBar.place(
             relx = 0,
             rely = 0,
@@ -2113,8 +2113,8 @@ class ManualMining_View:
 
         # self.createCornerImage(self.labelConsoleScreenTaskBar) # TODO Create borders
 
-        # STRIPES
-        self.labelConsoleStripes = Label(self.labelFrameConsoleScreen, bd = 0, relief = GROOVE)
+        # tk.STRIPES
+        self.labelConsoleStripes =  tk.Label(self.labelFrameConsoleScreen, bd = 0, relief = tk.GROOVE)
         newRelY = FS.getRelY(self.labelConsoleScreenTaskBar) + FS.getRelH(self.labelConsoleScreenTaskBar)
         newRelH = 0.014  # 0.008
         self.labelConsoleStripes.place(
@@ -2128,16 +2128,16 @@ class ManualMining_View:
         texture_cyan_stripes = PIL.ImageTk.PhotoImage(im)
         self.labelConsoleStripes.configure(
             image = texture_cyan_stripes,
-            anchor = SW
+            anchor = tk.SW
         )
         self.labelConsoleStripes.image = texture_cyan_stripes  # < ! > Required to make images appear
 
-        # CONSOLE SCREEN
+        # CONSOLE tk.SCREEN
         self.configureConsoleScreenElements()
 
         # CONSOLE CONTROLS
 
-        self.labelFrameConsoleControls = LabelFrame(self.labelFrameConsoleScreen)
+        self.labelFrameConsoleControls = tk.LabelFrame(self.labelFrameConsoleScreen)
 
         sizeReference = self.labelConsoleScreenTaskBar
         newRelY = FS.getRelY(self.listConsoleScreen) + FS.getRelH(self.listConsoleScreen)
@@ -2150,11 +2150,11 @@ class ManualMining_View:
 
         self.labelFrameConsoleControls.configure(
             background = CS.WHITE,
-            bd = 0, relief = GROOVE
+            bd = 0, relief = tk.GROOVE
         )
 
-        # SHOW ALL CONSOLE
-        self.buttonConsoleAll = Button(self.labelFrameConsoleControls)
+        # tk.SHOW ALL CONSOLE
+        self.buttonConsoleAll = tk.Button(self.labelFrameConsoleControls)
         self.buttonConsoleAll.place(
             relx = 0.008,
             rely = 0.01,
@@ -2165,14 +2165,14 @@ class ManualMining_View:
             text = '''ALL''',
             background = CS.WHITE,
             foreground = CS.D_BLUE,
-            bd = 1, relief = FLAT, overrelief = GROOVE,
+            bd = 1, relief = tk.FLAT, overrelief = tk.GROOVE,
             activebackground = CS.L_GRAY,
             activeforeground = CS.DATASET_BTN_FG_ACTIVE,
             disabledforeground = CS.FG_DISABLED_COLOR
         )
 
-        # SHOW Z-TEST CONSOLE
-        self.buttonConsoleZTest = Button(self.labelFrameConsoleControls)
+        # tk.SHOW Z-TEST CONSOLE
+        self.buttonConsoleZTest = tk.Button(self.labelFrameConsoleControls)
         buttonReference = self.buttonConsoleAll
         newRelX = FS.getRelX(buttonReference) + FS.getRelW(buttonReference) + FS.getRelX(self.buttonConsoleAll)
 
@@ -2193,8 +2193,8 @@ class ManualMining_View:
             disabledforeground = buttonReference['disabledforeground'],
         )
 
-        # SHOW CHI-SQUARE CONSOLE
-        self.buttonConsoleChiSquare = Button(self.labelFrameConsoleControls)
+        # tk.SHOW CHI-SQUARE CONSOLE
+        self.buttonConsoleChiSquare = tk.Button(self.labelFrameConsoleControls)
         buttonReference = self.buttonConsoleZTest
         newRelX = FS.getRelX(buttonReference) + FS.getRelW(buttonReference) + FS.getRelX(self.buttonConsoleAll)
 
@@ -2215,8 +2215,8 @@ class ManualMining_View:
             disabledforeground = buttonReference['disabledforeground'],
         )
 
-        # SHOW QUEUE CONSOLE
-        self.buttonConsoleQueue = Button(self.labelFrameConsoleControls)
+        # tk.SHOW QUEUE CONSOLE
+        self.buttonConsoleQueue = tk.Button(self.labelFrameConsoleControls)
         buttonReference = self.buttonConsoleChiSquare
         newRelX = FS.getRelX(buttonReference) + FS.getRelW(buttonReference) + FS.getRelX(self.buttonConsoleAll)
 
@@ -2242,14 +2242,14 @@ class ManualMining_View:
 
     def configureConsoleScreenElements(self):
 
-        self.scrollConsoleScreen = Scrollbar(self.labelFrameConsoleScreen, orient = VERTICAL,
+        self.scrollConsoleScreen = tk.Scrollbar(self.labelFrameConsoleScreen, orient = tk.VERTICAL,
                                              name = 'scrollConsoleScreen')
 
         newRelH = 0.8
         newRelY = FS.getRelY(self.labelConsoleStripes) + FS.getRelH(self.labelConsoleStripes)
 
-        # BASIC CONSOLE SCREEN
-        self.listConsoleScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleScreen')
+        # BASIC CONSOLE tk.SCREEN
+        self.listConsoleScreen = tk.Text(self.labelFrameConsoleScreen, name = 'listConsoleScreen')
         self.listConsoleScreen.place(
             relx = 0,
             # rely = 0,
@@ -2267,7 +2267,7 @@ class ManualMining_View:
             bd = _UI_support.SELECT_LISTBOX_BORDER, relief = _UI_support.SELECT_LISTBOX_RELIEF,
 
             cursor = "arrow",
-            state = DISABLED,
+            state = tk.DISABLED,
             padx = 0
         )
 
@@ -2279,11 +2279,11 @@ class ManualMining_View:
                                              spacing1 = 0,
                                              spacing2 = 0,
                                              spacing3 = 0,
-                                             justify = LEFT)
+                                             justify = tk.LEFT)
 
-        # QUEUE SCREEN listConsoleQueueScreen
+        # QUEUE tk.SCREEN listConsoleQueueScreen
         # region
-        self.listConsoleQueueScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleQueueScreen')
+        self.listConsoleQueueScreen = tk.Text(self.labelFrameConsoleScreen, name = 'listConsoleQueueScreen')
         screenWidget = self.listConsoleQueueScreen
         screenReference = self.listConsoleScreen
 
@@ -2317,12 +2317,12 @@ class ManualMining_View:
                                    spacing1 = 0,
                                    spacing2 = 0,
                                    spacing3 = 0,
-                                   justify = LEFT)
+                                   justify = tk.LEFT)
         # endregion
 
-        # Z-TEST CONSOLE SCREEN listConsoleZTestScreen
+        # Z-TEST CONSOLE tk.SCREEN listConsoleZTestScreen
         # region
-        self.listConsoleZTestScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleZTestScreen')
+        self.listConsoleZTestScreen = tk.Text(self.labelFrameConsoleScreen, name = 'listConsoleZTestScreen')
         screenWidget = self.listConsoleZTestScreen
         screenReference = self.listConsoleScreen
 
@@ -2358,12 +2358,12 @@ class ManualMining_View:
                                    spacing1 = 0,
                                    spacing2 = 0,
                                    spacing3 = 0,
-                                   justify = LEFT)
+                                   justify = tk.LEFT)
         # endregion
 
-        # CHI-SQUARE CONSOLE SCREEN listConsoleChiSquareScreen
+        # CHI-SQUARE CONSOLE tk.SCREEN listConsoleChiSquareScreen
         # region
-        self.listConsoleChiSquareScreen = Text(self.labelFrameConsoleScreen, name = 'listConsoleChiSquareScreen')
+        self.listConsoleChiSquareScreen = tk.Text(self.labelFrameConsoleScreen, name = 'listConsoleChiSquareScreen')
         screenWidget = self.listConsoleChiSquareScreen
         screenReference = self.listConsoleScreen
 
@@ -2399,7 +2399,7 @@ class ManualMining_View:
                                    spacing1 = 0,
                                    spacing2 = 0,
                                    spacing3 = 0,
-                                   justify = LEFT)
+                                   justify = tk.LEFT)
         # endregion
 
         self.scrollConsoleScreen.place(
@@ -2439,7 +2439,7 @@ class ManualMining_View:
 
     def createCornerImage(self, cornerParent):
 
-        labelNE = Label(cornerParent)
+        labelNE =  tk.Label(cornerParent)
         im = PIL.Image.open(
             _Icon_support.CORNER_ROUND_NE)  # .resize(Icon_support.CORNER_ICO_SIZE_SMALL, PIL.Image.ANTIALIAS)
         corner_round_ne = PIL.ImageTk.PhotoImage(im)
@@ -2454,12 +2454,12 @@ class ManualMining_View:
         labelNE.image = corner_round_ne  # < ! > Required to make images appear
         labelNE.configure(background = CS.PALE_ORANGE)  # cornerParent['background'])
         labelNE.pack()
-        # labelNE.pack(side = RIGHT, fill = Y, expand = True, anchor = CENTER)
+        # labelNE.pack(side = tk.RIGHT, fill = tk.Y, expand = True, anchor = tk.CENTER)
 
     def createLabelSeparator(self, separatorParent, span, isVertical, color, thickness = 1, coordinate = 0,
-                             specifiedAnchor = NW):
+                             specifiedAnchor = tk.NW):
 
-        separatorHolder = Label(separatorParent)
+        separatorHolder = tk.Label(separatorParent)
         if isVertical:
             newRelY = (1 - (1 - span)) / 2
             separatorHolder.place(
@@ -2483,7 +2483,7 @@ class ManualMining_View:
 
     def createLabelBorders(self, borderParent, color = CS.DISABLED_D_BLUE):
 
-        # COLORED SEPARATOR
+        # COLORED tk.SEPARATOR
         topBorder = self.createLabelSeparator(
             borderParent, 1,
             False, color

@@ -25,7 +25,6 @@ class ColConverter(object):
 		newrows = []
 		newrows.append(rows[0])
 		for i in range(1, len(rows)):
-			print "duh " + str(rows[i][1])
 			if(rows[i][1] == '2'):
 				newrows[i].append(rows[i])
 
@@ -43,14 +42,14 @@ def readCSV(filename):
 	rows = []
 
 	with open(filename) as csvfile:
-	    readCSV = csv.reader(csvfile, delimiter=',')
-	    
-	    for row in readCSV:
-	    	if(num==0):
-	    		header = row
-	        else:
-	        	rows.append(row)
-	        num= num +1
+		readCSV = csv.reader(csvfile, delimiter=',')
+
+		for row in readCSV:
+			if(num==0):
+				header = row
+			else:
+				rows.append(row)
+			num= num +1
 	return header, rows
 
 
