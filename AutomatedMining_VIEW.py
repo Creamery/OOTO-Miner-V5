@@ -2515,24 +2515,32 @@ class AutomatedMining_View:
         # labelNE.pack(side = tk.RIGHT, fill = tk.Y, expand = True, anchor = tk.CENTER)
 
     def createLabelSeparator(self, separatorParent, span, isVertical, color, thickness = 1, coordinate = 0,
-                             specifiedAnchor = tk.NW):
+                             specifiedAnchor = tk.NW, specRel = 0):
 
         separatorHolder = tk.Label(separatorParent)
         if isVertical:
-            newRelY = (1 - (1 - span)) / 2
+            if specRel is 0:
+                newRelY = specRel
+            else:
+                newRelY = (1 - (1 - span)) / 2
+
             separatorHolder.place(
                 relx = coordinate,
                 rely = newRelY,
-                relheight = span,  # TODO To adjust border height, just adjust this
+                relheight = span,  # NOTE: To adjust border height, just adjust this
                 width = thickness,
                 anchor = specifiedAnchor
             )
         else:
-            newRelX = (1 - (1 - span)) / 2
+            if specRel is 0:
+                newRelX = specRel
+            else:
+                newRelX = (1 - (1 - span)) / 2
+
             separatorHolder.place(
                 relx = newRelX,
                 rely = coordinate,
-                relwidth = span,  # TODO To adjust border height, just adjust this
+                relwidth = span,  # NOTE: To adjust border width, just adjust this
                 height = thickness,
                 anchor = specifiedAnchor
             )

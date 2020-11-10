@@ -1794,13 +1794,6 @@ class ManualMining_View:
         self.buttonQueryZTest.pack(anchor = tk.CENTER)
         self.buttonQueryZTest.update()
 
-        # Z-TEST RESULTS
-        # self.labelQueryZTest =  tk.Label(self.labelFrameProcessZTest)  ## TODO functionality switch
-        # self.labelQueryZTest.place(relx = 0.47, rely = 0.01, height = 0, width = 0)
-        # self.labelQueryZTest.configure(disabledforeground = "#a3a3a3")
-        # self.labelQueryZTest.configure(foreground = "#000000")
-        # self.labelQueryZTest.configure(text = '''NO DATA''')
-
         # endregion
 
         # PROCESS CHI-SQUARE OPTIONS
@@ -2457,11 +2450,15 @@ class ManualMining_View:
         # labelNE.pack(side = tk.RIGHT, fill = tk.Y, expand = True, anchor = tk.CENTER)
 
     def createLabelSeparator(self, separatorParent, span, isVertical, color, thickness = 1, coordinate = 0,
-                             specifiedAnchor = tk.NW):
+                             specifiedAnchor = tk.NW, specRel = 0):
 
         separatorHolder = tk.Label(separatorParent)
         if isVertical:
-            newRelY = (1 - (1 - span)) / 2
+            if specRel is 0:
+                newRelY = specRel
+            else:
+                newRelY = (1 - (1 - span)) / 2
+
             separatorHolder.place(
                 relx = coordinate,
                 rely = newRelY,
@@ -2470,7 +2467,11 @@ class ManualMining_View:
                 anchor = specifiedAnchor
             )
         else:
-            newRelX = (1 - (1 - span)) / 2
+            if specRel is 0:
+                newRelX = specRel
+            else:
+                newRelX = (1 - (1 - span)) / 2
+
             separatorHolder.place(
                 relx = newRelX,
                 rely = coordinate,
