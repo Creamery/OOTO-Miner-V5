@@ -2255,7 +2255,7 @@ class ManualMining_View:
         self.listConsoleScreen.configure(
             yscrollcommand = self.scrollConsoleScreen.set,
             background = CS.SELECT_LISTBOX_BG, foreground = CS.SELECT_LISTBOX_FG,
-            selectbackground = CS.CYAN, selectforeground = CS.SELECT_LISTBOX_FG,
+            selectbackground = CS.PALE_YELLOW, selectforeground = CS.SELECT_LISTBOX_FG,
             font = _UI_support.FONT_SMALL,
             bd = _UI_support.SELECT_LISTBOX_BORDER, relief = _UI_support.SELECT_LISTBOX_RELIEF,
 

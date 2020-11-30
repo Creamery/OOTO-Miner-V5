@@ -1306,9 +1306,9 @@ class ManualMining_Controller:
 
         # Get the highlight index by taking the floor and ceiling of the insert index
         start = math.floor(insertIndex)
-        indexStart = str(start)
+        indexStart = str(float(start))
         end = start + 1
-        indexEnd = str(end)
+        indexEnd = str(float(end))
 
         if consoleScreen.get(indexStart, indexEnd).strip() != '':
             # Highlight the range by specifying the tag

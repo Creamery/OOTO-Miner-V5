@@ -356,7 +356,7 @@ class SystematicFiltering_View(_Progressible):
 
         parent_width = self.lblButtons.winfo_width()
         rel_width = float(btn_width) / float(parent_width)
-        print(rel_width)
+
         # "NO" DIALOG Button
         self.btnDialog_NO = tk.Button(self.lblButtons)
         self.btnDialog_NO.place(
@@ -543,7 +543,7 @@ class SystematicFiltering_View(_Progressible):
 
         parent_width = self.lblButtonsPrompt.winfo_width()
         rel_width = float(btn_width) / float(parent_width)
-        print(rel_width)
+
         # "NO" DIALOG Button
         self.btnDialog_NO_Prompt = tk.Button(self.lblButtonsPrompt)
         self.btnDialog_NO_Prompt.place(

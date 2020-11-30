@@ -1089,38 +1089,6 @@ class AutomatedMining_View:
             takefocus = US.ENTRY_TAKE_FOCUS, justify = US.FILTER_ENTRY_JUSTIFY
         )
 
-        # varQueryLeft = tk.StringVar(self.__parentFrame)
-        # varQueryLeft.set("one")  # default value
-
-        # style = Style()
-        # style.theme_use('alt')
-        # style.map('custom.TCombobox', fieldbackground = [('readonly', 'white')])
-        # style.map('custom.TCombobox', foreground = [('readonly', 'black')])
-
-
-        # combostyle = Style()
-        # combostyle.theme_create('combostyle', parent = 'alt',
-        #                         settings = {
-        #                             'TCombobox': {
-        #                                 'configure': {
-        #                                     'fieldbackground': '#E6C4FF',
-        #                                     'selectbackground': '#FFFFFF',
-        #                                     'selectforeground': '#D437FF',
-        #                                 }
-        #                             }
-        #                         }
-        #                         )
-
-
-        # self.root.option_add("*TCombobox*Listbox*Background", '#FFFFFF')  # '#E6C4FF'
-        # self.root.option_add("*TCombobox*Listbox*Foreground", '#D437FF')
-        # self.root.option_add("*TCombobox*Listbox*Font", US.FONT_SMALL)
-        # self.root.option_add("*TCombobox*Listbox*SelectForeground", '#E6C4FF')  # '#E6C4FF'
-        # # self.root.option_add("*TCombobox*Listbox*ArrowSize", 20)  # '#E6C4FF'
-        # # self.root.option_add("*TCombobox*Listbox*arrowsize", 20)  # '#E6C4FF'
-        # self.root.option_add("*TCombobox*Listbox*ArrowSize", 50)  # '#E6C4FF'
-
-
         # combostyle = Style()
         # combostyle.theme_use('combostyle')
         self.style = Style()  # self.get_style()
@@ -2330,7 +2298,7 @@ class AutomatedMining_View:
         self.listConsoleScreen.configure(
             yscrollcommand = self.scrollConsoleScreen.set,
             background = CS.PROCESS_LISTBOX_BG, foreground = CS.PROCESS_LISTBOX_FG,
-            selectbackground = CS.SALMON_LIGHT, selectforeground = CS.PROCESS_LISTBOX_FG,
+            selectbackground = CS.PALE_YELLOW, selectforeground = CS.PROCESS_LISTBOX_FG,
             font = US.FONT_AM_LISTBOX_SMALL,
             bd = US.SELECT_LISTBOX_BORDER, relief = US.SELECT_LISTBOX_RELIEF,
 

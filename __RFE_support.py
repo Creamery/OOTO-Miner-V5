@@ -12,17 +12,17 @@ __version__ = "3.0"
 '''
 
 import collections
-# Recursive Feature Elimination
-from sklearn.feature_selection import RFE
+from sklearn.feature_selection import RFE  # Recursive Feature Elimination
 from sklearn.linear_model import LogisticRegression
-
 import _UIConstants_support as UICS
 import time
 
 
 '''
-Returns a dictionary containing the Rankings as keys (1-3) and
-an array of the feature codes under that ranking.
+    <!> ENTRY: The function called by the automated mining process.
+    
+    Returns a dictionary containing the Rankings as keys (1-3) and
+    an array of the feature codes under that ranking.
 '''
 def performRFE(df_raw_dataset, ftr_names, controller):
     key = UICS.KEY_RFE_MODULE  # For progress bar
@@ -75,8 +75,8 @@ def prepareDictResult(ftr_names, feat_rank):
             list_rank.append(feat_code)
         dict_rfe[rank] = list_rank
 
-        # print(str(len(ftr_names)))
-        # print(str(len(feat_rank)))
+        print(str(len(ftr_names)))
+        print(str(len(feat_rank)))
 
     return dict_rfe
 
