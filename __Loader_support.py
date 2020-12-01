@@ -312,14 +312,9 @@ def exportSSFs(list_ssfs, filename, depth, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + "\\" + UICS.STRING_SSFS_FOLDER + str(depth) +"\\")
     checkDirectory(path_export)
     path_export = path_export + filename
-    print(list_ssfs)
     with open(path_export, 'w', newline = '') as file:
         writer = csv.writer(file)
         writer.writerows(list_ssfs)
-        # for feat_code in list_ssfs:
-        #     print(feat_code)
-        #     writer.writerows(feat_code)
-        #     # file.write(str(feat_code) + "\n")
 
 
 def export2DList(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
