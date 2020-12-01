@@ -318,7 +318,14 @@ def exportSSFs(list_ssfs, filename, depth, path = GL_AM_OUTPUT_PATH):
         writer = csv.writer(file)
         writer.writerows(list_ssfs)
 
-
+'''
+    Loads the folder containing all SSF CSV files and
+    concatenates the contents into a dataframe with
+    columns of [feature, chi].
+    
+    It also sorts the dataframe contents by the chi
+    column values.
+'''
 def loadSSFs(foldername, path = GL_AM_OUTPUT_PATH):
     path = str(path + "\\" + foldername +"\\")
     checkDirectoryExistence(path)
@@ -329,11 +336,12 @@ def loadSSFs(foldername, path = GL_AM_OUTPUT_PATH):
 
     for name in csv_filenames:
         if df_result is None:
-            df_result = pd.read_csv(name, header = None, usecols = [0, 1], names=['feature', 'chi'])
+            df_result = pd.read_csv(name, header = None, usecols = [0, 1], names=["feature", "chi"])
         else:
-            df = pd.read_csv(name, header = None, usecols = [0, 1], names=['feature', 'chi'])
+            df = pd.read_csv(name, header = None, usecols = [0, 1], names=["feature", "chi"])
             pd.concat([df_result, df])
 
+    df_result = df_result.sort_values(["chi"], ascending = (False))
     return df_result
 
 def export2DList(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
