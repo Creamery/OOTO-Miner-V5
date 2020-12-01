@@ -333,15 +333,17 @@ def loadSSFs(foldername, path = GL_AM_OUTPUT_PATH):
     # Get all CSV filenames in folder
     csv_filenames = glob.glob(path + "/*.csv")
     df_result = None
+    col_feat = UICS.COL_SSFS_FEAT
+    col_chi = UICS.COL_SSFS_CHI
 
     for name in csv_filenames:
         if df_result is None:
-            df_result = pd.read_csv(name, header = None, usecols = [0, 1], names=["feature", "chi"])
+            df_result = pd.read_csv(name, header = None, usecols = [0, 1], names=[col_feat, col_chi])
         else:
-            df = pd.read_csv(name, header = None, usecols = [0, 1], names=["feature", "chi"])
+            df = pd.read_csv(name, header = None, usecols = [0, 1], names=[col_feat, col_chi])
             pd.concat([df_result, df])
 
-    df_result = df_result.sort_values(["chi"], ascending = (False))
+    df_result = df_result.sort_values([col_chi], ascending = (False))
     return df_result
 
 def export2DList(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):

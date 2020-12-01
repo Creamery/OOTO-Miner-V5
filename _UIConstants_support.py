@@ -33,6 +33,8 @@ MAX_DEPTH = 1  # Tells how deep the given results are further mined
 
 STRING_VS = " VS "
 STRING_SSFS_FOLDER = "SSFs - Depth "
+COL_SSFS_FEAT = "feat"
+COL_SSFS_CHI = "chi"
 
 # TODO Change SpinBox Defaults if this is changed permanently
 MAX_CROSS = 1  # Tells until which CROSS type to perform

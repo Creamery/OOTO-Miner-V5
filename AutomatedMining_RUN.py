@@ -87,6 +87,7 @@ def runAutomatedMining(controller):
             dict_rfe = rfeModule(df_raw_dataset, ftr_names, controller)
             print("-- RFE Finished --")
             print("")
+            print(dict_rfe)
 
         else:
 
