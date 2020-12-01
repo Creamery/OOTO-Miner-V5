@@ -149,21 +149,20 @@ def processChiSquareTable(dict_chi_square):
 
         if isSignificant == 1:  # If feat_code is marked significant, store to be returned as a list later
             sig_row = []
-            list_significant.append(feat_code)
-            sig_row.append(feat_code)
-            sig_row.append(dof)
-            sig_row.append(p_value)
-            sig_row.append(chi_square)
-            sig_row.append(observed)
-            sig_row.append(expected)
-            sig_row.append(isSignificant)
-            list_significant_output.append(sig_row)
+            sig_out_row = []
 
-            # print("SIG IS ADDED")
-            # print("")
-            # print(str(feat_code) + " is significant")
-        # else:
-        #     print("")
+            sig_row.append(feat_code)
+            sig_row.append(chi_square)
+            list_significant.append(sig_row)
+
+            sig_out_row.append(feat_code)
+            sig_out_row.append(dof)
+            sig_out_row.append(p_value)
+            sig_out_row.append(chi_square)
+            sig_out_row.append(observed)
+            sig_out_row.append(expected)
+            sig_out_row.append(isSignificant)
+            list_significant_output.append(sig_out_row)
 
 
     if len(list_output) > 0:

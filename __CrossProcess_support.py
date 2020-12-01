@@ -115,7 +115,7 @@ def crossProcess(df_dataset, np_CROSS, depth, controller):
                         if len(list_ssfs) == 0:
                             list_ssfs = list_ssf
                         else:
-                            list_ssfs = mergeUnique(list_ssfs, list_ssf)
+                            list_ssfs = mergeAndFilter(list_ssfs, list_ssf)
 
 
                         np_dataset_pair_filter = np.array(dataset_pair_filter)
@@ -124,7 +124,7 @@ def crossProcess(df_dataset, np_CROSS, depth, controller):
 
                         # controller.updateModuleProgress(key, "Exporting Chi-square Table")
                         # time.sleep(0.01)
-                        # TODO Printing
+
                         df_output, str_pair_name = LS.exportChiSquareTable(df_processed_output,
                                                                            np_dataset_pair_filter,
                                                                            list_index)
@@ -136,7 +136,7 @@ def crossProcess(df_dataset, np_CROSS, depth, controller):
                         # print("DF OUTPUT IS NULL: Skipping Item")
 
 
-                list_all_ssfs = mergeUnique(list_all_ssfs, list_ssfs)
+                list_all_ssfs = mergeAndFilter(list_all_ssfs, list_ssfs)
                 ssfs_filename = "SSFs - CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "].csv"
                 LS.exportSSFs(list_ssfs, ssfs_filename, depth)
 
@@ -199,6 +199,25 @@ def mergeUnique(list1, list2):
     # merged_list = np.unique(list1 + list2)
     return merged_list
 
+'''
+    Merges unique first entries (index 0) of the list.
+    It then keeps the higher value of similar entries
+    for the second element  (index 1).
+'''
+def mergeAndFilter(list1, list2):
+    dict1 = collections.defaultdict(list)
+
+    for e in list1 + list2:
+        dict1[e[0]].append(e[1])
+
+    merged_list = list()
+
+    for key, value in dict1.items():
+        max_value = []
+        max_value.append(max(value))
+        merged_list.append([key] + max_value)
+
+    return merged_list
 
 def addToDictionaryResult(dict_result, key, value):
 
