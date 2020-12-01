@@ -23,7 +23,7 @@ import __Filter_support as FILS
 import _ChiSquare_support as CHIS
 import _UIConstants_support as UICS
 
-def crossProcess(df_dataset, np_CROSS, controller):
+def crossProcess(df_dataset, np_CROSS, depth, controller):
     key = UICS.KEY_PRE_CROSS_MODULE  # Key for progress bar
 
     controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting CROSS PROCESS MODULE")  # 1
@@ -138,7 +138,7 @@ def crossProcess(df_dataset, np_CROSS, controller):
 
                 list_all_ssfs = mergeUnique(list_all_ssfs, list_ssfs)
                 ssfs_filename = "SSFs - CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "].csv"
-                LS.exportSSFs(list_ssfs, ssfs_filename)
+                LS.exportSSFs(list_ssfs, ssfs_filename, depth)
 
 
 

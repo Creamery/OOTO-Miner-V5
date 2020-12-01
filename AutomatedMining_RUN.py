@@ -53,13 +53,14 @@ def filterModule(dict_rfe, controller):
     return CROSS
 
 
-def crossProcessModule(df_dataset, np_CROSS, controller):
-    dict_significant_results = CPS.crossProcess(df_dataset, np_CROSS, controller)
+def crossProcessModule(df_dataset, np_CROSS, depth, controller):
+    dict_significant_results = CPS.crossProcess(df_dataset, np_CROSS, depth, controller)
     return dict_significant_results
 
 
 
 def runAutomatedMining(controller):
+
 
     text = "RUNNING Automated Mining\n"  # Show start message in console
     controller.getAMController().addToConsoleAll(text + "\n")
@@ -74,22 +75,38 @@ def runAutomatedMining(controller):
 
     df_raw_dataset, df_dataset, ftr_names = loaderModule()
 
-    print("Starting RFE...")
-    dict_rfe = rfeModule(df_raw_dataset, ftr_names, controller)
-    print("-- RFE Finished --")
-    print("")
+    # Loop for DEPTH mining
+    depth = UICS.MAX_DEPTH
+    dict_rfe = None
+    for i_depth in range(depth):
+        if i_depth == 0:
+            print("Starting RFE...")
+            dict_rfe = rfeModule(df_raw_dataset, ftr_names, controller)
+            print("-- RFE Finished --")
+            print("")
+        else:
+            print(dict_rfe)  # TODO Remove and continue
+            prevDepth = depth - 1
+            # Load previous SSFs
+            # Create dict_rfe based on loaded SSFs
 
-    # Returns the filter list for each level (np_cross[type][level]
-    # where level starts from 1 (subtracted when retrieved)
-    print("Starting Filtering...")
-    np_cross = filterModule(dict_rfe, controller)
-    print("-- Filtering Finished --")
-    print("")
+        # Returns the filter list for each level (np_cross[type][level]
+        # where level starts from 1 (subtracted when retrieved)
+        print("Starting Filtering...")
+        np_cross = filterModule(dict_rfe, controller)
+        print("-- Filtering Finished --")
+        print("")
 
-    print("Starting Cross Process...")
-    dict_significant_results = crossProcessModule(df_dataset, np_cross, controller)
-    print("-- Cross Process Finished --")
-    controller.isAMFinished()
+        print("NP CROSS")
+        print(np_cross)
+
+        print("Starting Cross Process...")
+        dict_significant_results = crossProcessModule(df_dataset, np_cross, depth, controller)
+        print("-- Cross Process Finished --")
+        controller.isAMFinished()
+
+
+
     return dict_significant_results
     print("Automated Mining Finished...")
 

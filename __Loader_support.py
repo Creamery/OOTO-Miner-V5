@@ -308,8 +308,8 @@ def exportList(list_data, filename, path = GL_AM_OUTPUT_PATH):
         wr = csv.writer(file, quoting = csv.QUOTE_ALL)
         wr.writerow(list_data)
 
-def exportSSFs(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
-    path_export = str(path + "\\SSFs\\")
+def exportSSFs(list_ssfs, filename, depth, path = GL_AM_OUTPUT_PATH):
+    path_export = str(path + "\\" + UICS.STRING_SSFS_FOLDER + str(depth) +"\\")
     checkDirectory(path_export)
     path_export = path_export + filename
     with open(path_export, 'w') as file:

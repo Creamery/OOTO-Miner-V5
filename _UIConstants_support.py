@@ -28,7 +28,11 @@ PATH_FTRNAMES = None
 # For Cross Process
 MAX_CROSS_REFERENCE = 3  # Tells until which CROSS type to perform
 MAX_LEVEL_REFERENCE = 3  # Tells until which LEVEL to do per cross type
+
+MAX_DEPTH = 1  # Tells how deep the given results are further mined
+
 STRING_VS = " VS "
+STRING_SSFS_FOLDER = "SSFs - Depth "
 
 # TODO Change SpinBox Defaults if this is changed permanently
 MAX_CROSS = 1  # Tells until which CROSS type to perform
