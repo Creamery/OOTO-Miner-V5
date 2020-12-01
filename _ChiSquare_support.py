@@ -135,7 +135,6 @@ def processChiSquareTable(dict_chi_square):
         isSignificant = 0
         if p_value < UICS.P_CUTOFF:
             isSignificant = 1
-            # print("IS SIG IS 1")
 
         row.append(feat_code)
         row.append(dof)
@@ -230,9 +229,6 @@ def extractContingencyTable(df_filtered_dataset):
         dict_table[feat_code].append(a_sum)  # Append the 2 values
         dict_table[feat_code].append(b_sum)
 
-        # print("A sum " + str(a_sum))
-        # print("B sum " + str(b_sum))
-        # print("")
     return dict_table
 
 

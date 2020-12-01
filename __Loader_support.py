@@ -30,7 +30,6 @@ import glob
 import os
 import errno
 
-
 # For exports
 import __Filter_support as FILS
 import _ChiSquare_support as CHIS
@@ -40,6 +39,9 @@ import _UIConstants_support as UICS
 ITEM_MARKER = "^"
 FEAT_NAME = "Name"
 OPTION_NAME = "OptionName"
+
+# For loadSSFs()
+import glob
 
 # Paths
 
@@ -316,6 +318,23 @@ def exportSSFs(list_ssfs, filename, depth, path = GL_AM_OUTPUT_PATH):
         writer = csv.writer(file)
         writer.writerows(list_ssfs)
 
+
+def loadSSFs(foldername, path = GL_AM_OUTPUT_PATH):
+    path = str(path + "\\" + foldername +"\\")
+    checkDirectoryExistence(path)
+
+    # Get all CSV filenames in folder
+    csv_filenames = glob.glob(path + "/*.csv")
+    df_result = None
+
+    for name in csv_filenames:
+        if df_result is None:
+            df_result = pd.read_csv(name, header = None, usecols = [0, 1], names=['feature', 'chi'])
+        else:
+            df = pd.read_csv(name, header = None, usecols = [0, 1], names=['feature', 'chi'])
+            pd.concat([df_result, df])
+
+    return df_result
 
 def export2DList(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
     path_export = str(path + filename)

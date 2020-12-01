@@ -28,7 +28,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/__Depth_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_ChiSquare_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_ChiSquare_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__Filter_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Filter_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Loader_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/__RFE_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__RFE_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Pickle Results/CROSS[0][1].pkl" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/Pickle Results/CROSS[0][1].pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/SSFs - Depth 1/SSFs - CROSS[0][1].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/SSFs - Depth 1/SSFs - CROSS[0][1].csv" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,17 +59,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="55">
-              <caret line="98" selection-start-line="98" selection-end-line="98" />
+            <state relative-caret-position="253">
+              <caret line="116" column="18" selection-start-line="116" selection-start-column="18" selection-end-line="116" selection-end-column="18" />
+              <folding>
+                <element signature="e#382#391#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/__Depth_support.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+              <folding>
+                <element signature="e#289#318#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__Loader_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="313" column="40" selection-start-line="313" selection-start-column="40" selection-end-line="313" selection-end-column="40" />
+            <state relative-caret-position="20">
+              <caret line="321" column="8" lean-forward="true" selection-start-line="321" selection-start-column="8" selection-end-line="321" selection-end-column="8" />
               <folding>
                 <element signature="e#485#526#0" expanded="true" />
               </folding>
@@ -72,8 +95,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__Filter_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="672">
-              <caret line="199" column="35" selection-start-line="199" selection-start-column="35" selection-end-line="199" selection-end-column="35" />
+            <state relative-caret-position="82">
+              <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -81,17 +104,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__CrossProcess_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
-              <caret line="226" column="22" selection-start-line="226" selection-start-column="22" selection-end-line="226" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_ChiSquare_support.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-184">
-              <caret line="152" selection-start-line="152" selection-end-line="152" />
+            <state relative-caret-position="82">
+              <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -107,14 +121,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ttk.</find>
-      <find>ttk</find>
-      <find>Top</find>
-      <find>Topleve</find>
-      <find>geometry</find>
-      <find>sys</find>
-      <find>END)</find>
-      <find>Button(</find>
       <find>w</find>
       <find>geome</find>
       <find>SELECT_TITLE_BG</find>
@@ -122,7 +128,6 @@
       <find>INPUT</find>
       <find>COLORE</find>
       <find>GROUP</find>
-      <find>print</find>
       <find>CYAN</find>
       <find>Text(</find>
       <find>selectbackground =</find>
@@ -137,6 +142,15 @@
       <find>list_significant</find>
       <find>list_ssfs</find>
       <find>np_</find>
+      <find>prin</find>
+      <find>print(</find>
+      <find>UICS.STRING_SS</find>
+      <find>loadCS</find>
+      <find>load</find>
+      <find>df_</find>
+      <find>loadSSFs</find>
+      <find>print</find>
+      <find>checkDirectoryExistence</find>
     </findStrings>
     <replaceStrings>
       <replace>tk.NW</replace>
@@ -171,25 +185,27 @@
         <option value="$PROJECT_DIR$/_MODULE_SystematicFiltering.py" />
         <option value="$PROJECT_DIR$/_Widget_support.py" />
         <option value="$PROJECT_DIR$/SystematicFiltering_VIEW.py" />
-        <option value="$PROJECT_DIR$/__RFE_support.py" />
         <option value="$PROJECT_DIR$/ManualMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_CONTROLLER.py" />
         <option value="$PROJECT_DIR$/_Color_support.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_VIEW.py" />
         <option value="$PROJECT_DIR$/ManualMining_VIEW.py" />
-        <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
         <option value="$PROJECT_DIR$/_UIConstants_support.py" />
-        <option value="$PROJECT_DIR$/_ChiSquare_support.py" />
         <option value="$PROJECT_DIR$/__CrossProcess_support.py" />
+        <option value="$PROJECT_DIR$/__Filter_support.py" />
+        <option value="$PROJECT_DIR$/_ChiSquare_support.py" />
+        <option value="$PROJECT_DIR$/__RFE_support.py" />
+        <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
         <option value="$PROJECT_DIR$/__Loader_support.py" />
+        <option value="$PROJECT_DIR$/__Depth_support.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="631" />
-    <option name="y" value="36" />
-    <option name="width" value="1300" />
-    <option name="height" value="935" />
+    <option name="x" value="353" />
+    <option name="y" value="37" />
+    <option name="width" value="1208" />
+    <option name="height" value="783" />
   </component>
   <component name="ProjectId" id="1jBmlhpHI5ad1EwvMedlXGuxGlj" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -399,12 +415,12 @@
     <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18096514" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13270777" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" weight="0.30668414" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.63921034" visible="true" weight="0.28129396" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.63921034" visible="true" weight="0.302391" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.5077356" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -531,6 +547,11 @@
           <url>file://$PROJECT_DIR$/SystematicFiltering_VIEW.py</url>
           <line>23</line>
           <option name="timeStamp" value="125" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/__Filter_support.py</url>
+          <line>11</line>
+          <option name="timeStamp" value="126" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -718,16 +739,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/__RFE_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="27" column="49" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
-          <folding>
-            <element signature="e#354#372#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
@@ -735,40 +746,63 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
+    <entry file="file://$PROJECT_DIR$/_ChiSquare_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="55">
-          <caret line="98" selection-start-line="98" selection-end-line="98" />
+        <state relative-caret-position="19">
+          <caret line="154" column="28" selection-start-line="154" selection-start-column="12" selection-end-line="154" selection-end-column="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_ChiSquare_support.py">
+    <entry file="file://$PROJECT_DIR$/__RFE_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-184">
-          <caret line="152" selection-start-line="152" selection-end-line="152" />
+        <state relative-caret-position="405">
+          <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="78" selection-end-column="36" />
+          <folding>
+            <element signature="e#354#372#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/__CrossProcess_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
-          <caret line="226" column="22" selection-start-line="226" selection-start-column="22" selection-end-line="226" selection-end-column="22" />
+        <state relative-caret-position="82">
+          <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/__Filter_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="199" column="35" selection-start-line="199" selection-start-column="35" selection-end-line="199" selection-end-column="35" />
+        <state relative-caret-position="82">
+          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="116" column="18" selection-start-line="116" selection-start-column="18" selection-end-line="116" selection-end-column="18" />
+          <folding>
+            <element signature="e#382#391#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/__Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="313" column="40" selection-start-line="313" selection-start-column="40" selection-end-line="313" selection-end-column="40" />
+        <state relative-caret-position="20">
+          <caret line="321" column="8" lean-forward="true" selection-start-line="321" selection-start-column="8" selection-end-line="321" selection-end-column="8" />
           <folding>
             <element signature="e#485#526#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__Depth_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+          <folding>
+            <element signature="e#289#318#0" expanded="true" />
           </folding>
         </state>
       </provider>

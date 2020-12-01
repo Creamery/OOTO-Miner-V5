@@ -75,8 +75,8 @@ def prepareDictResult(ftr_names, feat_rank):
             list_rank.append(feat_code)
         dict_rfe[rank] = list_rank
 
-        print(str(len(ftr_names)))
-        print(str(len(feat_rank)))
+        # print(str(len(ftr_names)))
+        # print(str(len(feat_rank)))
 
     return dict_rfe
 

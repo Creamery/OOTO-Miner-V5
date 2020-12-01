@@ -18,6 +18,7 @@ import __Loader_support as LS
 import __RFE_support as RFES
 import __Filter_support as FILS
 import __CrossProcess_support as CPS
+import __Depth_support as DS
 import _UIConstants_support as UICS
 
 
@@ -79,33 +80,41 @@ def runAutomatedMining(controller):
     depth = UICS.MAX_DEPTH
     dict_rfe = None
     for i_depth in range(depth):
+        curr_depth = i_depth + 1
+
         if i_depth == 0:
             print("Starting RFE...")
             dict_rfe = rfeModule(df_raw_dataset, ftr_names, controller)
             print("-- RFE Finished --")
             print("")
+
         else:
-            print(dict_rfe)  # TODO Remove and continue
-            prevDepth = depth - 1
-            # Load previous SSFs
+
+            print("Extracting SSFs from Previous Depth [" + str(i_depth) + "]...")
+            # Load the previous SSFs and consolidate. The current depth
+            # indicates the PREVIOUS SSF folder.
+            DS.loadPreviousSSFs(i_depth)
+            print("-- Successfully Extracted Previous SSFs --")
+
+
+            # Load previous SSFs and Consolidate
+
             # Create dict_rfe based on loaded SSFs
 
         # Returns the filter list for each level (np_cross[type][level]
         # where level starts from 1 (subtracted when retrieved)
+
         print("Starting Filtering...")
         np_cross = filterModule(dict_rfe, controller)
         print("-- Filtering Finished --")
         print("")
-
-        print("NP CROSS")
-        print(np_cross)
 
         print("Starting Cross Process...")
         dict_significant_results = crossProcessModule(df_dataset, np_cross, depth, controller)
         print("-- Cross Process Finished --")
         controller.isAMFinished()
 
-
+    DS.loadPreviousSSFs(1)  # TODO Remove
 
     return dict_significant_results
     print("Automated Mining Finished...")

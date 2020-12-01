@@ -53,12 +53,10 @@ def crossFilters(filters, level):
     ctr_Filtered = 0
 
     for i in range(end_index):
-        # print("I IS " + str(i))
         item_1 = list_combination[i]
         for j in range(end_index):
             counter = i + (j + 1)
             if counter <= end_index:
-                # print("J IS " + str(counter))
                 item_2 = list_combination[counter]
                 cross = []
                 cross.append(item_1)
@@ -317,14 +315,11 @@ is a dictionary).
 def extractFilter(filter):
     list_filters = []
     # print("FILTER")
-    # print(filter)
     for filter_element in filter:  # A single filter part, e.g. ["b1:a", "u3:b" ]
         dict_filter = collections.OrderedDict()
         # print("FILTER ELEMENT")
-        # print(filter_element)
         for element in filter_element:
             # print("ELEMENT")
-            # print(element)
             split_item = element.split(SPLIT_SYMBOL)
             feat_key = split_item[0]
             option = split_item[1]
