@@ -75,38 +75,29 @@ def runAutomatedMining(controller):
     controller.getAMController().addToConsoleInput(text + "\n")
 
     df_raw_dataset, df_dataset, ftr_names = loaderModule()
+    dict_significant_results = None
 
     # Loop for DEPTH mining
     depth = UICS.MAX_DEPTH
-    dict_rfe = None
     for i_depth in range(depth):
-        curr_depth = i_depth + 1
 
+        # Select SSFs, if first iteration, use RFE, else load the generated SSFs of the previous depth
         if i_depth == 0:
             print("Starting RFE...")
-            dict_rfe = rfeModule(df_raw_dataset, ftr_names, controller)
+            dict_ranked_features = rfeModule(df_raw_dataset, ftr_names, controller)
             print("-- RFE Finished --")
             print("")
-            print(dict_rfe)
 
         else:
-
             print("Extracting SSFs from Previous Depth [" + str(i_depth) + "]...")
             # Load the previous SSFs and consolidate. The current depth
             # indicates the PREVIOUS SSF folder.
-            DS.loadPreviousSSFs(i_depth)
+            dict_ranked_features = DS.loadPreviousSSFs(i_depth)
             print("-- Successfully Extracted Previous SSFs --")
 
 
-            # Load previous SSFs and Consolidate
-
-            # Create dict_rfe based on loaded SSFs
-
-        # Returns the filter list for each level (np_cross[type][level]
-        # where level starts from 1 (subtracted when retrieved)
-
         print("Starting Filtering...")
-        np_cross = filterModule(dict_rfe, controller)
+        np_cross = filterModule(dict_ranked_features, controller)
         print("-- Filtering Finished --")
         print("")
 
@@ -115,10 +106,9 @@ def runAutomatedMining(controller):
         print("-- Cross Process Finished --")
         controller.isAMFinished()
 
-    DS.loadPreviousSSFs(1)  # TODO Remove
-
-    return dict_significant_results
+    # DS.loadPreviousSSFs(1)  # TODO Remove
     print("Automated Mining Finished...")
+    return dict_significant_results
 
 
 

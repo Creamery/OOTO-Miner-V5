@@ -36,6 +36,12 @@ STRING_SSFS_FOLDER = "SSFs - Depth "
 COL_SSFS_FEAT = "feat"
 COL_SSFS_CHI = "chi"
 
+SSF_CUTOFF_1 = 0.333
+SSF_CUTOFF_2 = 0.666
+
+SSF_PERCENTILE_1 = 33
+SSF_PERCENTILE_2 = 66
+
 # TODO Change SpinBox Defaults if this is changed permanently
 MAX_CROSS = 1  # Tells until which CROSS type to perform
 MAX_LEVEL = 1  # Tells until which LEVEL to do per cross type

@@ -31,7 +31,6 @@
       <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_UIConstants_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_UIConstants_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__Depth_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Depth_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Loader_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_output/AM/Pickle Results/CROSS[0][1].pkl" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/Pickle Results/CROSS[0][1].pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_output/AM/SSFs - Depth 1/SSFs - CROSS[0][1].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/SSFs - Depth 1/SSFs - CROSS[0][1].csv" afterDir="false" />
     </list>
@@ -44,11 +43,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="50">
+              <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -56,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
+            <state relative-caret-position="629">
+              <caret line="108" column="43" selection-start-line="108" selection-start-column="43" selection-end-line="108" selection-end-column="43" />
               <folding>
                 <element signature="e#382#391#0" expanded="true" />
               </folding>
@@ -65,13 +64,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__Depth_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="156">
+              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
               <folding>
-                <element signature="e#289#318#0" expanded="true" />
+                <element signature="e#288#306#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -182,10 +181,10 @@
         <option value="$PROJECT_DIR$/__Filter_support.py" />
         <option value="$PROJECT_DIR$/_ChiSquare_support.py" />
         <option value="$PROJECT_DIR$/__RFE_support.py" />
-        <option value="$PROJECT_DIR$/_UIConstants_support.py" />
         <option value="$PROJECT_DIR$/__Loader_support.py" />
-        <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
         <option value="$PROJECT_DIR$/__Depth_support.py" />
+        <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
+        <option value="$PROJECT_DIR$/_UIConstants_support.py" />
       </list>
     </option>
   </component>
@@ -227,7 +226,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -408,7 +407,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" weight="0.30668414" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.63921034" visible="true" weight="0.34036568" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.63921034" visible="true" weight="0.25316456" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.5077356" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -734,16 +733,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/__RFE_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="77" column="36" lean-forward="true" selection-start-line="77" selection-start-column="36" selection-end-line="78" selection-end-column="36" />
-          <folding>
-            <element signature="e#354#372#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/__CrossProcess_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="82">
@@ -758,23 +747,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="36" selection-start-line="36" selection-end-line="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="89" column="26" selection-start-line="89" selection-start-column="26" selection-end-line="89" selection-end-column="26" />
-          <folding>
-            <element signature="e#382#391#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/__Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -785,13 +757,43 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/collections/__init__.pyi">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__RFE_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="26" column="13" selection-start-line="26" selection-start-column="13" selection-end-line="26" selection-end-column="13" />
+          <folding>
+            <element signature="e#354#372#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/__Depth_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+        <state relative-caret-position="156">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
           <folding>
-            <element signature="e#289#318#0" expanded="true" />
+            <element signature="e#288#306#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="108" column="43" selection-start-line="108" selection-start-column="43" selection-end-line="108" selection-end-column="43" />
+          <folding>
+            <element signature="e#382#391#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="31" column="13" lean-forward="true" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
         </state>
       </provider>
     </entry>
