@@ -62,7 +62,6 @@ def crossProcessModule(df_dataset, np_CROSS, depth, controller):
 
 def runAutomatedMining(controller):
 
-
     text = "RUNNING Automated Mining\n"  # Show start message in console
     controller.getAMController().addToConsoleAll(text + "\n")
 
@@ -75,12 +74,33 @@ def runAutomatedMining(controller):
     controller.getAMController().addToConsoleInput(text + "\n")
 
     df_raw_dataset, df_dataset, ftr_names = loaderModule()
-    dict_significant_results = None
 
-    # Loop for DEPTH mining
+    # Run STATIC depth mining (Loops based on MAX DEPTH)
+    dict_significant_results = runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, controller)
+
+    # Depth mining that continues on until the p-value stops updating
+    dict_significant_results = runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller)
+
+    controller.isAMFinished()  # Enables the Check button (Call on completion of the last iteration)
+    print("Automated Mining Finished...")
+
+
+
+    return dict_significant_results
+
+
+'''
+    Mine data according to the value of MAX DEPTH.
+    MAX DEPTH is declared in the UICS script.
+'''
+def runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
     depth = UICS.MAX_DEPTH
+    dict_significant_results = None
+    
     for i_depth in range(depth):
+        curr_depth = i_depth + 1
 
+        print("Starting DEPTH: " + str(curr_depth) + " of " + str(depth))
         # Select SSFs, if first iteration, use RFE, else load the generated SSFs of the previous depth
         if i_depth == 0:
             print("Starting RFE...")
@@ -102,13 +122,50 @@ def runAutomatedMining(controller):
         print("")
 
         print("Starting Cross Process...")
-        dict_significant_results = crossProcessModule(df_dataset, np_cross, depth, controller)
+        dict_significant_results = crossProcessModule(df_dataset, np_cross, curr_depth, controller)
         print("-- Cross Process Finished --")
-        controller.isAMFinished()
 
-    # DS.loadPreviousSSFs(1)  # TODO Remove
-    print("Automated Mining Finished...")
     return dict_significant_results
+
+
+'''
+    Mine data according to the p-value.
+    The miner continues until p-value stops updating.
+'''
+def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
+    depth = UICS.MAX_DEPTH
+    dict_significant_results = None
+
+    for i_depth in range(depth):
+        curr_depth = i_depth + 1
+
+        print("Starting DEPTH: " + str(curr_depth) + " of " + str(depth))
+        # Select SSFs, if first iteration, use RFE, else load the generated SSFs of the previous depth
+        if i_depth == 0:
+            print("Starting RFE...")
+            dict_ranked_features = rfeModule(df_raw_dataset, ftr_names, controller)
+            print("-- RFE Finished --")
+            print("")
+
+        else:
+            print("Extracting SSFs from Previous Depth [" + str(i_depth) + "]...")
+            # Load the previous SSFs and consolidate. The current depth
+            # indicates the PREVIOUS SSF folder.
+            dict_ranked_features = DS.loadPreviousSSFs(i_depth)
+            print("-- Successfully Extracted Previous SSFs --")
+
+
+        print("Starting Filtering...")
+        np_cross = filterModule(dict_ranked_features, controller)
+        print("-- Filtering Finished --")
+        print("")
+
+        print("Starting Cross Process...")
+        dict_significant_results = crossProcessModule(df_dataset, np_cross, curr_depth, controller)
+        print("-- Cross Process Finished --")
+
+    return dict_significant_results
+
 
 
 

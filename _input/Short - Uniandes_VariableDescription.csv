@@ -1,0 +1,86 @@
+^,b1,Gender
+a,1, Male
+b,2, Female
+^,p1,"In general, I usually do as I am told"
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p2,"In school, my friends find me aggressive"
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p3,I am often by myself in school
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p4,I feel I need to be always into something new
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p5,I am cautious in every new thing that I do
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p6,Other children are treated better than me
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p7,Children think that I am not intelligent enough
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p8,Children call me ugly names
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p9,I like dangerous and risky activities
+-1,0,No answer
+a,1, Not true
+b,2, A bit true
+b,3, Very true
+-1,4, Prefer not to say
+^,p10,"I do exciting, fun activities, and I dont care of the danger"
+-1,0,No answer
+a,1, Not true
+b,2, A bit true
+b,3, Very true
+-1,4, Prefer not to say
+^,p11,I engage in the following risky offline activities
+a,0,None
+b,1,One
+b,2,Two
+b,3,Three
+b,4,Four
+b,5,Five
+b,6,Six
+^,p12,I can handle negative situations in the real world
+-1,0,No answer
+a,1, Mostly not true for me
+b,2, Mostly a bit true for me
+b,3, Mostly fairly true for me
+b,4, Mostly very true for me
+-1,5, Prefer not to say

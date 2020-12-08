@@ -221,9 +221,9 @@ def extractContingencyTable(df_filtered_dataset):
 
         # print("Feature: " + feat_code)
         a_sum = len(df_filtered_dataset
-                    [df_filtered_dataset[feat_code].str.contains("a", na = False)])
+                    [df_filtered_dataset[feat_code].astype(str).str.contains("a", na = False)])
         b_sum = len(df_filtered_dataset
-                    [df_filtered_dataset[feat_code].str.contains("b", na = False)])  # 2nd param to avoid NaN
+                    [df_filtered_dataset[feat_code].astype(str).str.contains("b", na = False)])  # 2nd param to avoid NaN
 
         dict_table[feat_code] = []
         dict_table[feat_code].append(a_sum)  # Append the 2 values
