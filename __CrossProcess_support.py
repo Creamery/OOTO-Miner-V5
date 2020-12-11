@@ -66,6 +66,7 @@ def crossProcess(df_dataset, np_CROSS, depth, controller):
     data_filter_process_count = computeMaxProcessCount(np_cross_datasets, len_cross_datasets, len_cross_types)
     data_filter_process_count = data_filter_process_count  # * 2
     UICS.CROSS_MAX_PROCESS_COUNT = UICS.CROSS_MAX_PROCESS_COUNT + data_filter_process_count
+    list_level_ssfs = None
 
     start_time = time.time()
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
@@ -139,8 +140,6 @@ def crossProcess(df_dataset, np_CROSS, depth, controller):
                 list_all_ssfs = mergeAndFilter(list_all_ssfs, list_ssfs)
                 ssfs_filename = "SSFs - CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "].csv"
                 LS.exportSSFs(list_ssfs, ssfs_filename, depth)
-
-
 
 
             list_level_ssfs.append(list_all_ssfs)  # Store SSF list
