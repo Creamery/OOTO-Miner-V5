@@ -55,8 +55,9 @@ def filterModule(dict_rfe, controller):
 
 
 def crossProcessModule(df_dataset, np_CROSS, depth, controller):
-    dict_significant_results = CPS.crossProcess(df_dataset, np_CROSS, depth, controller)
+    dict_significant_results = CPS.crossProcessOptimized(df_dataset, np_CROSS, depth, controller)
     return dict_significant_results
+
 
 
 
@@ -98,7 +99,7 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
     depth = UICS.MAX_DEPTH
     dict_significant_results = None
 
-    for i_depth in range(depth):
+    for i_depth in range(depth):  # TODO: Fix this so that it will stop according to the change in p-value
         curr_depth = i_depth + 1
 
         print("Starting DEPTH: " + str(curr_depth) + " of " + str(depth))

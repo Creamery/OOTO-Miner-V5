@@ -30,7 +30,30 @@
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_UIConstants_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_UIConstants_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__CrossProcess_support.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Pickle Results/CROSS[0][1].pkl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p2[a] VS p5[a].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p2[b] VS p4[a].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p2[b] VS p5[a].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p4[a] VS p5[a].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p4[b] VS p2[a].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p4[b] VS p2[b].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p4[b] VS p4[a].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p4[b] VS p5[a].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p4[b] VS p5[b].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/Result Tables/CROSS[0] LVL[1]/Result Table - CROSS[0][1] - p5[b] VS p5[a].csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/SSFs - Depth 1/SSFs - CROSS[0][1].csv" beforeDir="false" afterPath="$PROJECT_DIR$/_output/AM/SSFs - Depth 1/SSFs - CROSS[0][1].csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p2(a) VS p5(a).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p2(b) VS p4(a).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p2(b) VS p5(a).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p4(a) VS p5(a).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p4(b) VS p2(a).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p4(b) VS p2(b).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p4(b) VS p4(a).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p4(b) VS p5(a).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p4(b) VS p5(b).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_output/AM/UI Results/UI Result - p5(b) VS p5(a).csv" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,8 +67,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="589">
-              <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+            <state relative-caret-position="10">
+              <caret line="28" column="66" selection-start-line="28" selection-start-column="66" selection-end-line="28" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="385">
+              <caret line="492" selection-start-line="492" selection-end-line="492" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_ChiSquare_support.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="267">
+              <caret line="223" selection-start-line="223" selection-end-line="223" />
             </state>
           </provider>
         </entry>
@@ -53,8 +94,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1193">
-              <caret line="81" column="87" lean-forward="true" selection-start-line="81" selection-start-column="87" selection-end-line="81" selection-end-column="87" />
+            <state relative-caret-position="170">
+              <caret line="57" column="56" selection-start-line="57" selection-start-column="56" selection-end-line="57" selection-end-column="56" />
               <folding>
                 <element signature="e#382#391#0" expanded="true" />
               </folding>
@@ -62,11 +103,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__CrossProcess_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="141" column="62" selection-start-line="141" selection-start-column="62" selection-end-line="141" selection-end-column="62" />
+            <state relative-caret-position="48">
+              <caret line="47" column="28" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
+              <folding>
+                <element signature="e#558#576#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,10 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>w</find>
-      <find>geome</find>
-      <find>SELECT_TITLE_BG</find>
-      <find>INPU</find>
       <find>INPUT</find>
       <find>COLORE</find>
       <find>GROUP</find>
@@ -112,6 +152,10 @@
       <find>loadSSFs</find>
       <find>checkDirectoryExistence</find>
       <find>print</find>
+      <find>MAX_D</find>
+      <find>StaticDe</find>
+      <find>list_cross_ssfs</find>
+      <find>Extract</find>
     </findStrings>
     <replaceStrings>
       <replace>tk.NW</replace>
@@ -156,13 +200,13 @@
         <option value="$PROJECT_DIR$/__Depth_support.py" />
         <option value="$PROJECT_DIR$/__Loader_support.py" />
         <option value="$PROJECT_DIR$/_ChiSquare_support.py" />
-        <option value="$PROJECT_DIR$/_UIConstants_support.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
         <option value="$PROJECT_DIR$/__CrossProcess_support.py" />
+        <option value="$PROJECT_DIR$/_UIConstants_support.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="951" />
     <option name="y" value="36" />
     <option name="width" value="978" />
@@ -175,7 +219,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -187,6 +230,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -373,15 +417,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
+    <frame x="762" y="30" width="781" height="840" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14879356" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.31120333" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" weight="0.30668414" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.63921034" weight="0.33333334" />
+      <window_info anchor="bottom" x="381" y="60" width="1215" height="364" id="Run" order="2" sideWeight="0.63921034" type="WINDOWED" weight="0.52489334" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.5077356" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -726,13 +770,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_ChiSquare_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="216" column="52" selection-start-line="216" selection-start-column="52" selection-end-line="216" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/__Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="505">
@@ -743,24 +780,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="210" column="16" selection-start-line="210" selection-start-column="16" selection-end-line="210" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1193">
-          <caret line="81" column="87" lean-forward="true" selection-start-line="81" selection-start-column="87" selection-end-line="81" selection-end-column="87" />
+        <state relative-caret-position="170">
+          <caret line="57" column="56" selection-start-line="57" selection-start-column="56" selection-end-line="57" selection-end-column="56" />
           <folding>
             <element signature="e#382#391#0" expanded="true" />
           </folding>
@@ -769,8 +792,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/__CrossProcess_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="141" column="62" selection-start-line="141" selection-start-column="62" selection-end-line="141" selection-end-column="62" />
+        <state relative-caret-position="48">
+          <caret line="47" column="28" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="28" />
+          <folding>
+            <element signature="e#558#576#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10">
+          <caret line="28" column="66" selection-start-line="28" selection-start-column="66" selection-end-line="28" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="492" selection-start-line="492" selection-end-line="492" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_ChiSquare_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="223" selection-start-line="223" selection-end-line="223" />
         </state>
       </provider>
     </entry>
