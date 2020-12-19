@@ -56,3 +56,4 @@ class AutomatedMining:
 
     def uploadDataset(self, dirPopulation):
         return self.controller.uploadDataset(dirPopulation)
+

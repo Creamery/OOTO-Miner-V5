@@ -41,7 +41,6 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     #   np_dataset_pairs[0][0][0][0]                - The contents of the list containing the dataset pairs
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Extracting Datasets by Filter")  # 2
     # time.sleep(0.01)  # Sleep
-
     np_cross_datasets, np_cross_filters = extractDatasets(df_dataset, np_CROSS)  # TODO (Future) Try to optimize
 
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Extracted Datasets")  # 3
@@ -387,37 +386,37 @@ def extractDatasets(df_dataset, np_CROSS):  # TODO: Optimize this
             # Runs: 1-[15, 66, 28] 2-[58, 276, 496] 3-[6, 6, 0];
             # Per run length: 2 (which is [filterA, filterB]
             for list_filter in np_level:
-                print("Starting : df_filtered_dataset = df_dataset.copy")
+                # print("Starting : df_filtered_dataset = df_dataset.copy")
                 df_filtered_dataset = df_dataset.copy(deep = True)  # TODO OPTIMIZE to proceed
 
-                print("Starting : np_dataset_pair = FILS.applyFilter")
+                # print("Starting : np_dataset_pair = FILS.applyFilter")
                 np_dataset_pair = FILS.applyFilter(df_filtered_dataset, list_filter)  # [datasetA, datasetB] | Length: 2
 
                 # list_dataset_pairs.append(np_dataset_pair)
-                print("Starting : list_pairs.append(np_dataset_pair)")
+                # print("Starting : list_pairs.append(np_dataset_pair)")
                 list_pairs.append(np_dataset_pair)  # List of dataset pairs (list) in a level [ [datasetA, datasetB], [<...>] ]
 
-                print("Starting : list_pairs_filter.append(list_filter)")
+                # print("Starting : list_pairs_filter.append(list_filter)")
                 list_pairs_filter.append(list_filter)
 
-            print("Starting : list_level.append(list_pairs)")
+            # print("Starting : list_level.append(list_pairs)")
             list_level.append(list_pairs)
-            print("Starting : list_level_filter.append(list_pairs_filter)")
+            # print("Starting : list_level_filter.append(list_pairs_filter)")
             list_level_filter.append(list_pairs_filter)
 
-        print("Starting : list_cross_type.append(list_level)")
+        # print("Starting : list_cross_type.append(list_level)")
         list_cross_type.append(list_level)  # List of levels (list) of dataset pairs
-        print("Starting : list_cross_type_filter.append(list_level_filter)")
+        # print("Starting : list_cross_type_filter.append(list_level_filter)")
         list_cross_type_filter.append(list_level_filter)  # List of levels filters equivalent to list_cross_type
 
 
-    print("Starting : np_list_cross_type = np.array(list_cross_type))")
+    # print("Starting : np_list_cross_type = np.array(list_cross_type))")
     np_list_cross_type = np.array(list_cross_type)
     # list_cross_type_filter = np.array(list_cross_type_filter)
 
-    print("")
-    print("")
-    print("")
+    # print("")
+    # print("")
+    # print("")
 
     return np_list_cross_type, list_cross_type_filter
 

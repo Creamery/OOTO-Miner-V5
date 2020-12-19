@@ -221,9 +221,9 @@ def extractTables(np_dataset_pair):
 def extractContingencyTable(df_filtered_dataset):
 
     # dict_table = collections.OrderedDict()
-    column_names = []
+    # column_names = []
     df_table = pd.DataFrame()
-
+    print(df_filtered_dataset)
     for feat_code in df_filtered_dataset.columns:  # For each column in df_filtered_dataset
 
         # print("Feature: " + feat_code)
@@ -234,12 +234,11 @@ def extractContingencyTable(df_filtered_dataset):
 
         list_sum = [a_sum, b_sum]
         df_table[feat_code] = list_sum
-
-    print("COLUMN NAMES:")
-    print(column_names)
-
-    print("DATA FRAME:")
-    print(df_table)
+        counts = df_filtered_dataset[feat_code].value_counts()
+        print("LIST SUM")
+        print(list_sum)
+        print("COUNTS")
+        print(counts)
 
     return df_table
 

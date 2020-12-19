@@ -139,22 +139,6 @@ class Input_Controller:
     ''' --> Elements under the DATA ("DATA") TAB (1) <-- '''
     # region
 
-    # ''' (?) Uploads the variable file '''
-    # def getVariableFile(self, evt):
-    #     varFileDir = askopenfilename(title = "Select variable file",
-    #                                  filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
-    #     self.entryVariableFile.delete(0, tk.END)
-    #     self.entryVariableFile.insert(0, varFileDir)
-    #     return "break"
-
-    # ''' (?) Uploads the values file '''
-    # def getValuesFile(self, evt):
-    #     valFileDir = askopenfilename(title = "Select values file",
-    #                                  filetypes = (("txt files", "*.txt"), ("all files", "*.*")))
-    #     self.entryValuesFile.delete(0, tk.END)
-    #     self.entryValuesFile.insert(0, valFileDir)
-    #     return "break"
-
 
     def getHasUploadedVariableDescription(self):
         return self.hasUploadedVariableDescription
