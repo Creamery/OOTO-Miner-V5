@@ -35,7 +35,7 @@ def chiSquare(np_dataset_pairs):
     dict_chi_square = {}  # Just for initialization
 
     # Get the "table form" from the dataset (i.e. the necessary values)
-    np_tables = extractTables(np_dataset_pairs)
+    np_tables = extractTables(np_dataset_pairs)  # np_tables is an np array of dataframes
     # print(np_tables)
 
 
@@ -204,19 +204,26 @@ The actual summation is done in "extractTable()".
 def extractTables(np_dataset_pair):
     list_tables = []
     for dataset in np_dataset_pair:  # Iterate through each filtered dataset
-        dict_table = extractContingencyTable(dataset)  # Then extract the values needed for Chi-square
-        list_tables.append(dict_table)
+        df_table = extractContingencyTable(dataset)  # Then extract the values needed for Chi-square
+        list_tables.append(df_table)
 
         # LS.exportDictionary(dict_table, "Dataset Result " + str(DATASET_EXPORT_COUNTER) + ".csv", LS.GL_AM_OUTPUT_PATH + "Datasets\\")
         # DATASET_EXPORT_COUNTER = DATASET_EXPORT_COUNTER + 1
         # printTable(dict_table)
-    np_tables = np.array(list_tables)
+
+    # print(list_tables)
+    # np_tables = np.array(list_tables)
+    np_tables = list_tables
     return np_tables
 
 
 # TODO (Future) Make this scalable (the "a" and "b")
 def extractContingencyTable(df_filtered_dataset):
-    dict_table = collections.OrderedDict()
+
+    # dict_table = collections.OrderedDict()
+    column_names = []
+    df_table = pd.DataFrame()
+
     for feat_code in df_filtered_dataset.columns:  # For each column in df_filtered_dataset
 
         # print("Feature: " + feat_code)
@@ -225,12 +232,19 @@ def extractContingencyTable(df_filtered_dataset):
         b_sum = len(df_filtered_dataset
                     [df_filtered_dataset[feat_code].astype(str).str.contains("b", na = False)])  # 2nd param to avoid NaN
 
-        dict_table[feat_code] = []
-        dict_table[feat_code].append(a_sum)  # Append the 2 values
-        dict_table[feat_code].append(b_sum)
+        list_sum = [a_sum, b_sum]
+        df_table[feat_code] = list_sum
 
-    return dict_table
+    print("COLUMN NAMES:")
+    print(column_names)
+
+    print("DATA FRAME:")
+    print(df_table)
+
+    return df_table
 
 
 def printTable(oDict):
     print(json.dumps(oDict, indent = 4))
+
+
