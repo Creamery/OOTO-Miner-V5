@@ -30,6 +30,7 @@ MAX_CROSS_REFERENCE = 3  # Tells until which CROSS type to perform
 MAX_LEVEL_REFERENCE = 3  # Tells until which LEVEL to do per cross type
 
 MAX_DEPTH = 3  # Tells how deep the given results are further mined
+START_DEPTH = 1  # This is subtracted by 1 in the function to get this (getStartDepth() below)
 
 STRING_VS = " VS "
 STRING_SSFS_FOLDER = "SSFs - Depth "
@@ -273,7 +274,8 @@ def getPrevSection(key):
     if key is KEY_OUTPUT_MODULE:
         return KEY_CROSS_MODULE
 
-
+def getStartDepth():
+    return START_DEPTH - 1
 
 
 

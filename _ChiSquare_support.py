@@ -38,9 +38,6 @@ def chiSquare(np_dataset_pairs):
     np_tables = extractTables(np_dataset_pairs)  # np_tables is an np array of dataframes
     # print(np_tables)
 
-
-    df_table = np_tables[0]
-
     for dataset in np_dataset_pairs:  # Iterate through each dataset pair in np_filtered_datasets
         len_dict_tables = len(np_tables)
         df_table = np_tables[0]
@@ -223,24 +220,34 @@ def extractContingencyTable(df_filtered_dataset):
     # dict_table = collections.OrderedDict()
     # column_names = []
     df_table = pd.DataFrame()
-    print(df_filtered_dataset)
+
     for feat_code in df_filtered_dataset.columns:  # For each column in df_filtered_dataset
-
-        # print("Feature: " + feat_code)
-        a_sum = len(df_filtered_dataset
-                    [df_filtered_dataset[feat_code].astype(str).str.contains("a", na = False)])
-        b_sum = len(df_filtered_dataset
-                    [df_filtered_dataset[feat_code].astype(str).str.contains("b", na = False)])  # 2nd param to avoid NaN
-
-        list_sum = [a_sum, b_sum]
-        df_table[feat_code] = list_sum
         counts = df_filtered_dataset[feat_code].value_counts()
-        print("LIST SUM")
-        print(list_sum)
-        print("COUNTS")
-        print(counts)
+        key_counts = counts.keys().tolist()
+
+        a_count = getOptionsCount("a", counts, key_counts)
+        b_count = getOptionsCount("b", counts, key_counts)
+
+        df_table[feat_code] = [a_count, b_count]  # The feat_code in df_table is a column of a_counts, b_counts
 
     return df_table
+
+
+'''
+    Get the counts of the specified str_option based on the counts list.
+    This function checks whether the option is present, if not, it returns
+    a count of 0.
+'''
+def getOptionsCount(str_option, counts, key_counts):
+
+    try:  # Try to search for the index of str_option in key_counts
+        index = key_counts.index(str_option)
+        option_count = counts[index]  # If the index exists, get its corresponding count in counts
+
+    except ValueError:  # If str_option does not exist, the count for it is 0
+        option_count = 0
+
+    return option_count
 
 
 def printTable(oDict):

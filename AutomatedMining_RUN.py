@@ -97,9 +97,10 @@ def runAutomatedMining(controller):
 '''
 def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
     depth = UICS.MAX_DEPTH
+    i_depth = UICS.getStartDepth()  # Getting it this way will subtract 1 from the value, to be used as an index
     dict_significant_results = None
 
-    for i_depth in range(depth):  # TODO: Fix this so that it will stop according to the change in p-value
+    for _ in range(i_depth, depth):  # TODO: Fix this so that it will stop according to the change in p-value
         curr_depth = i_depth + 1
 
         print("Starting DEPTH: " + str(curr_depth) + " of " + str(depth))
@@ -137,9 +138,10 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
 '''
 def runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
     depth = UICS.MAX_DEPTH
+    i_depth = UICS.getStartDepth()  # Getting it this way will subtract 1 from the value, to be used as an index
     dict_significant_results = None
 
-    for i_depth in range(depth):
+    for _ in range(i_depth, depth):
         curr_depth = i_depth + 1
 
         print("Starting DEPTH: " + str(curr_depth) + " of " + str(depth))
