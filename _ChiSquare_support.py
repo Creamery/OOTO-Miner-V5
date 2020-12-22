@@ -239,7 +239,6 @@ def extractContingencyTable(df_filtered_dataset):
     a count of 0.
 '''
 def getOptionsCount(str_option, counts, key_counts):
-
     try:  # Try to search for the index of str_option in key_counts
         index = key_counts.index(str_option)
         option_count = counts[index]  # If the index exists, get its corresponding count in counts

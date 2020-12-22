@@ -108,12 +108,15 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
                     dataset_pair = dataset_pairs[i_dataset_pair]
 
                     dict_chi_square = CHIS.chiSquare(dataset_pair)
-
+                    if dict_chi_square is None:
+                        print("dict_chi_square is NONE")
                     # controller.updateModuleProgress(key, "Applying Chi-square")
                     # time.sleep(0.01)
 
                     df_processed_output, list_ssf, list_sig_output = CHIS.processChiSquareTable(dict_chi_square)
 
+                    if df_processed_output is None:
+                        print("df_processed_output is NONE")
                     if df_processed_output is not None:
                         dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level][i_dataset_pairs]
 
