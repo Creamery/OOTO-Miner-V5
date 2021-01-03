@@ -54,6 +54,11 @@ P_CUTOFF = 0.001
 PROCESS_COUNT = 3
 POOL_COUNT = 3
 
+# For Filter Support
+SPLIT_SYMBOL = ":"
+ALLOWED_DIFFERENCE = 1  # Only filters with 1 different element are allowed to be compared
+
+
 # For AM UI
 PRE_LIST = "    "
 

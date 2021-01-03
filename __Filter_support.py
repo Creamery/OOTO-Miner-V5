@@ -21,7 +21,7 @@ PP = pprint.PrettyPrinter(indent = 4)
 OPTION_CODES = [":a", ":b"]  # TODO (Future) confirm this
 MAX_LEVEL = 3  # The maximum level to process
 MAX_FILTER_ELEMENTS = 2  # TODO (Future) Check if this needs to be increased (this is the number of group comparisons in a filter)
-SPLIT_SYMBOL = ":"
+
 
 
 
@@ -50,6 +50,7 @@ def crossFilters(filters, level):
 
     # TODO [PRINT: Amount of reduced values for paper]
     ctr_Raw = 0
+    ctr_Valid = 0
     ctr_Filtered = 0
 
     for i in range(end_index):
@@ -58,16 +59,16 @@ def crossFilters(filters, level):
             counter = i + (j + 1)
             if counter <= end_index:
                 item_2 = list_combination[counter]
-                cross = []
-                cross.append(item_1)
-                cross.append(item_2)
-                if updateChecklist(cross, level):
-                    if not purgedCross(cross):
-                        cross_filters.append(cross)  # Append a filter to cross_filters
-                        ctr_Filtered = ctr_Filtered + 1
+                cross = [item_1, item_2]
 
+                if validComparison(cross):  # Only proceed if cross is VALID; FMI check notes above function
+                    if updateChecklist(cross, level):
+                        if not purgedCross(cross):  # Remove repeating pairs
+                            cross_filters.append(cross)  # Append a filter to cross_filters
+                            ctr_Filtered = ctr_Filtered + 1
+
+                    ctr_Valid = ctr_Valid + 1
                 ctr_Raw = ctr_Raw + 1
-
 
 
 
@@ -81,6 +82,7 @@ def crossFilters(filters, level):
     # print(np_list_cross_filters)
     print("")
     print("RAW " + str(ctr_Raw))
+    print("VALID " + str(ctr_Valid))
     print("ACCEPTED " + str(ctr_Filtered))
     print("")
     return np_list_cross_filters
@@ -104,6 +106,8 @@ def purgedCross(cross):
             isPurged = True
             return isPurged
     return isPurged
+
+
 
 '''
     Returns N SSFs, which is decided by RFES.MAX_RANK. In the current program, MAX_RANK = 3.
@@ -198,6 +202,58 @@ def unionSSF(SSF_1, SSF_2):
     SSF_union = np.array(SSF_union)
     return SSF_union
 
+'''
+    Takes in a filter in the form of a list of lists (llist_cross).
+    This function only accepts filters with ONE varying option per
+    list contained within it. The varying option must also be under
+    the same feature.
+    
+    For example: [[b1:a, b2:a, b3:a] VS [b1:a, b2:a, b3:b]] is VALID since
+    only the third element (under the same feature) has a different option.
+    
+    BUT [[b1:a, b2:a, b3:a] VS [b1:a, b2:b, b3:b]] is NOT VALID because two
+    elements under the same feature have different options.
+    
+    If the different option between the two inner lists happened to be
+    "b3:a" and "b4:a" respectively, it should also NOT be accepted, since the
+    two options are under different features, and is considered to be an
+    invalid comparison.    
+'''
+def validComparison(llist_cross):
+    len_cross = len(llist_cross)
+    if len_cross > 0:  # Check incase llist_cross is empty, though that should really not happen
+        item_1 = llist_cross[0]
+        for i in range(1, len_cross):  # Start at the second element, which is index 1
+            item_2 = llist_cross[i]
+            list_diff = list(set(item_1) - set(item_2))
+            len_diff = len(list_diff)
+            # print("")
+            # print(item_1)
+            # print(item_2)
+            # print(list_diff)
+            # print(len_diff)
+
+            # If at least one list difference is not equal to the allowed difference, return False
+            if len_diff != UICS.ALLOWED_DIFFERENCE:
+                return False
+            else:  # Check if the different elements are under the same feature
+                list_unique = set(item_1) ^ set(item_2)  # Perform XOR to get uncommon elements between the two lists
+                # print(list_unique)
+                prev_feat = None
+                for item in list_unique:
+                    str_item = item.strip()
+                    split_item = str_item.split(UICS.SPLIT_SYMBOL)  # Split the element by the colon (:)
+                    feat_key = split_item[0]
+                    # option = split_item[1]
+
+                    if prev_feat is None:
+                        prev_feat = feat_key
+                    else:
+                        if prev_feat != feat_key:
+                            return False  # If at least one of the elements do not belong to the same feature, return False
+
+        return True  # If the loop ends without exceeding the allowed difference, return True
+    return False
 
 
 '''
@@ -205,11 +261,14 @@ def unionSSF(SSF_1, SSF_2):
     The list follows the form of [[filters], [filters]].
     An example is shown below:
     checklist[
-        [["b1:a", "b1:b"], ["b5:a"]],
         [["b1:a"], [b5:a"]],
         [["b1:a"], [b5:b"]],
     ]
     Returns TRUE if the output is accepted, and False otherwise.
+    
+    NOTE: Actual appearance when a checklist entry (list_cross) is printed
+    [array(['p11:a'], dtype='<U5'), array(['p11:b'], dtype='<U5')]
+    [array(['b1:a', 'p10:b'], dtype='<U5'), array(['p10:a', 'p10:b'], dtype='<U5')]
 '''
 def updateChecklist(list_cross, level):
     # When updating, check if list_cross is already in checklist
@@ -305,12 +364,13 @@ def applyFilter(df_dataset, list_filter):
 
 
 '''
-Extracts the filter, where a filter is of the format [["b1:a", "b5:b"], ["b3:a", "u3:b]].
-Filters are assumed to have 2 sets of conditions.
-
-This function returns a list (np_filters) of dictionaries that contain the dictionary form
-of the filters. For a 2-element filter, it will return a 2-element list (where an element
-is a dictionary).
+    Extracts the filter, where a filter is of the format [["b1:a", "b5:b"], ["b3:a", "u3:b]].
+    Filters are assumed to have 2 sets of conditions.
+    TODO: Assumes filters have 2 sets of conditions
+    
+    This function returns a list (np_filters) of dictionaries that contain the dictionary form
+    of the filters. For a 2-element filter, it will return a 2-element list (where an element
+    is a dictionary).
 '''
 def extractFilter(filter):
     list_filters = []
@@ -320,7 +380,7 @@ def extractFilter(filter):
         # print("FILTER ELEMENT")
         for element in filter_element:
             # print("ELEMENT")
-            split_item = element.split(SPLIT_SYMBOL)
+            split_item = element.split(UICS.SPLIT_SYMBOL)
             feat_key = split_item[0]
             option = split_item[1]
 
