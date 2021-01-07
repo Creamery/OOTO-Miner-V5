@@ -97,6 +97,53 @@ def runAutomatedMining(controller):
 '''
 def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
     depth = UICS.MAX_DEPTH
+    # start_depth = UICS.getStartDepth()  # Getting it this way will subtract 1 from the value, to be used as an index
+    dict_significant_results = None
+    isUpdating = True
+    i_depth = 0
+
+    while isUpdating:
+    # for i_depth in range(start_depth, depth):  # TODO: Fix this so that it will stop according to the change in p-value
+        curr_depth = i_depth + 1
+
+        print("Starting DEPTH: " + str(curr_depth))
+        # Select SSFs, if first iteration, use RFE, else load the generated SSFs of the previous depth
+        if i_depth == 0:
+            print("Starting RFE...")
+            dict_ranked_features = rfeModule(df_raw_dataset, ftr_names, controller)
+            print("-- RFE Finished --")
+            print("")
+
+        else:
+            print("Extracting SSFs from Previous Depth [" + str(i_depth) + "]...")
+            # Load the previous SSFs and consolidate. The current depth
+            # indicates the PREVIOUS SSF folder.
+            dict_ranked_features = DS.loadPreviousSSFs(i_depth)
+            print("-- Successfully Extracted Previous SSFs --")
+
+
+        print("Starting Filtering...")
+        np_cross = filterModule(dict_ranked_features, controller)
+        print("-- Filtering Finished --")
+        print("")
+
+        print("Starting Cross Process...")
+        dict_significant_results = crossProcessModule(df_dataset, np_cross, curr_depth, controller)
+        print("-- Cross Process Finished --")
+
+        if True:
+            isUpdating = False
+
+    return dict_significant_results
+
+
+
+'''
+    Mine data according to the value of MAX DEPTH.
+    MAX DEPTH is declared in the UICS script.
+'''
+def runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
+    depth = UICS.MAX_DEPTH
     start_depth = UICS.getStartDepth()  # Getting it this way will subtract 1 from the value, to be used as an index
     dict_significant_results = None
 
@@ -130,46 +177,6 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
 
     return dict_significant_results
 
-
-
-'''
-    Mine data according to the value of MAX DEPTH.
-    MAX DEPTH is declared in the UICS script.
-'''
-def runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
-    depth = UICS.MAX_DEPTH
-    i_depth = UICS.getStartDepth()  # Getting it this way will subtract 1 from the value, to be used as an index
-    dict_significant_results = None
-
-    for _ in range(i_depth, depth):
-        curr_depth = i_depth + 1
-
-        print("Starting DEPTH: " + str(curr_depth) + " of " + str(depth))
-        # Select SSFs, if first iteration, use RFE, else load the generated SSFs of the previous depth
-        if i_depth == 0:
-            print("Starting RFE...")
-            dict_ranked_features = rfeModule(df_raw_dataset, ftr_names, controller)
-            print("-- RFE Finished --")
-            print("")
-
-        else:
-            print("Extracting SSFs from Previous Depth [" + str(i_depth) + "]...")
-            # Load the previous SSFs and consolidate. The current depth
-            # indicates the PREVIOUS SSF folder.
-            dict_ranked_features = DS.loadPreviousSSFs(i_depth)
-            print("-- Successfully Extracted Previous SSFs --")
-
-
-        print("Starting Filtering...")
-        np_cross = filterModule(dict_ranked_features, controller)
-        print("-- Filtering Finished --")
-        print("")
-
-        print("Starting Cross Process...")
-        dict_significant_results = crossProcessModule(df_dataset, np_cross, curr_depth, controller)
-        print("-- Cross Process Finished --")
-
-    return dict_significant_results
 
 
 
