@@ -4,6 +4,7 @@ import numpy as np
 class _Singleton:
     _instance = None
     llistSSFs = []
+    ctr_Accepted = 0
 
     # Contents will be in the form of FN1 VS FN2 (i.e. 'b1 VS b2')
     npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
@@ -16,7 +17,7 @@ class _Singleton:
 
     def updateFeaturePairs(self, llFeature_pair):
         str_featPair = self.convertPairToString(llFeature_pair)
-        print(str_featPair)
+        # print(str_featPair)
         self.npFeaturePairs = np.append(self.npFeaturePairs, np.array([[str_featPair]]), axis = 0)
 
     '''
@@ -29,7 +30,6 @@ class _Singleton:
             # print(str(str_pair) + " is here.")
             return True
         return False
-
 
     def getFeaturePairs(self):
         return self.npFeaturePairs
@@ -63,6 +63,14 @@ class _Singleton:
         str_featPair = str_pairs[:-len_pair_sep]  # Remove the last occurrence of ' VS '
         return str_featPair
 
+    def addCtrAccepted(self):
+        self.ctr_Accepted = self.ctr_Accepted + 1
+
+    def resetCtrAccepted(self):
+        self.ctr_Accepted = 0
+
+    def getCtrAccepted(self):
+        return self.ctr_Accepted
 
 def getSingleton():
     if _Singleton._instance is None:

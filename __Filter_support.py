@@ -83,6 +83,7 @@ def crossFilters(filters, level):
                             if not singleton.isFeaturePairParsed(cross):  # Don't include previously parsed pairs (from previous depths)
                                 cross_filters.append(cross)  # Append a filter to cross_filters
                                 singleton.updateFeaturePairs(cross)
+                                singleton.addCtrAccepted()
                                 # print("Added:")
                                 # print(cross)
                                 # print("Singleton contents:")

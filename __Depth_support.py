@@ -20,10 +20,10 @@ def loadPreviousSSFs(depth):
     # print(df_SSFs)
 
     # Partition the extracted SSFs to 3 Ranks
-    dict_ranked_ssfs = rankSSFs(df_SSFs)
+    # dict_ranked_ssfs = rankSSFs(df_SSFs)
     # print(dict_ranked_ssfs)
 
-    return dict_ranked_ssfs
+    return df_SSFs
 
 def rankSSFs(df_SSFs):
     col_feat = UICS.COL_SSFS_FEAT
@@ -37,6 +37,9 @@ def rankSSFs(df_SSFs):
     dict_ranked_ssfs[2] = []  # the program really requires just 3 ranks
     dict_ranked_ssfs[3] = []
 
+    # TODO: Check if this needs a non-null condition
+    print("rankSSFs - list_chi")
+    print(list_chi)
     cutoff_rank1 = np.percentile(list_chi, UICS.SSF_PERCENTILE_2)  # Rank 1 should have the higher set of chi values
     cutoff_rank2 = np.percentile(list_chi, UICS.SSF_PERCENTILE_1)
 

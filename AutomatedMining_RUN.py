@@ -103,6 +103,7 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
 
     while isUpdating:  # Keep looping until the stop criteria are met
         curr_depth = i_depth + 1
+        singleton.resetCtrAccepted()
 
         print("Starting DEPTH: " + str(curr_depth))
         # Select SSFs, if first iteration, use RFE, else load the generated SSFs of the previous depth
@@ -116,7 +117,11 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
             print("Extracting SSFs from Previous Depth [" + str(i_depth) + "]...")
             # Load the previous SSFs and consolidate. The current depth
             # indicates the PREVIOUS SSF folder.
-            dict_ranked_features = DS.loadPreviousSSFs(i_depth)
+            df_SSFs = DS.loadPreviousSSFs(i_depth)
+            print("df_SSFs")
+            print(df_SSFs)
+            # Partition the extracted SSFs to 3 Ranks
+            dict_ranked_features = DS.rankSSFs(df_SSFs)
             print("-- Successfully Extracted Previous SSFs --")
 
 
@@ -128,18 +133,29 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
         print("Starting Cross Process...")
         dict_significant_results = crossProcessModule(df_dataset, np_cross, curr_depth, controller)
         print("-- Cross Process Finished --")
-        print(dict_significant_results)
+
+
         list_SSFs = getSSFsList(dict_ranked_features)
-        # if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
-        #     isUpdating = False
-        if hasNoNewPairs():  # Stop mining if the significant results have all been parsed before
+        if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
+            isUpdating = False
+        elif singleton.getCtrAccepted() == 0:  # Mark mining as finished when there are no more accepted values
             isUpdating = False
 
-        singleton.updateSSFsList(list_SSFs)
-        print(list_SSFs)
-        print("")
-        print(singleton.getLlSSFs())
-        print("")
+        print(singleton.getCtrAccepted())
+
+        i_depth = i_depth + 1
+        # print(dict_significant_results)
+        # list_SSFs = getSSFsList(dict_ranked_features)
+        # if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
+        #     isUpdating = False
+        # if hasNoNewPairs():  # Stop mining if the significant results have all been parsed before
+        #     isUpdating = False
+
+        # singleton.updateSSFsList(list_SSFs)
+        # print(list_SSFs)
+        # print("")
+        # print(singleton.getLlSSFs())
+        # print("")
 
     return dict_significant_results
 
@@ -223,7 +239,9 @@ def runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
             print("Extracting SSFs from Previous Depth [" + str(i_depth) + "]...")
             # Load the previous SSFs and consolidate. The current depth
             # indicates the PREVIOUS SSF folder.
-            dict_ranked_features = DS.loadPreviousSSFs(i_depth)
+            df_SSFs = DS.loadPreviousSSFs(i_depth)
+            # Partition the extracted SSFs to 3 Ranks
+            dict_ranked_features = DS.rankSSFs(df_SSFs)
             print("-- Successfully Extracted Previous SSFs --")
 
 
