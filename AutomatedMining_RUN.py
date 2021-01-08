@@ -128,11 +128,11 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
         print("Starting Cross Process...")
         dict_significant_results = crossProcessModule(df_dataset, np_cross, curr_depth, controller)
         print("-- Cross Process Finished --")
-
+        print(dict_significant_results)
         list_SSFs = getSSFsList(dict_ranked_features)
-        if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
-            isUpdating = False
-        elif isConstantPV():  # Stop mining if the p-value does not change anymore
+        # if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
+        #     isUpdating = False
+        if hasNoNewPairs():  # Stop mining if the significant results have all been parsed before
             isUpdating = False
 
         singleton.updateSSFsList(list_SSFs)
@@ -150,7 +150,7 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
 def getSSFsList(dict_SSFs):
     list_SSFs = []
 
-    for key, value in dict_SSFs.iteritems():
+    for key, value in dict_SSFs.items():
         list_SSFs.append(value)
 
     return list_SSFs
@@ -173,7 +173,7 @@ def isConstantSSFs(list_currSSFs):
 
     return state
 
-def isConstantPV():
+def hasNoNewPairs():
 
     return True
 

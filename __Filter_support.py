@@ -16,6 +16,7 @@ import copy
 import collections
 import time
 import _UIConstants_support as UICS
+import _AMVariables_support as AMVS
 
 PP = pprint.PrettyPrinter(indent = 4)
 OPTION_CODES = [":a", ":b"]  # TODO (Future) confirm this
@@ -30,8 +31,19 @@ CHECKLISTS = [None] * MAX_LEVEL
 '''
     Level is from 1 to 3. It is also the number of groups the function produces.
     It then groups each resulting cross_options into pairs, which results in cross_filters.
+    
+    Sample output;
+    [ [['b1:b']['b1:a']]
+      [['p11:b']['p11:a']]
+      [['p10:a']['p10:b']] ]
+      
+    [ [['b1:b' 'p10:b' 'p11:a']['b1:b' 'p10:a' 'p11:a']]
+      <...>
+      [['b1:a' 'p10:b' 'p11:b']['b1:a' 'p10:a' 'p11:b']] ]
 '''
 def crossFilters(filters, level):
+    singleton = AMVS.getSingleton()
+
     # Get possible combinations of options (in filters parameter)
     combination = list(itertools.combinations(filters, level))
     set_combination = set(combination)
@@ -51,6 +63,7 @@ def crossFilters(filters, level):
     # TODO [PRINT: Amount of reduced values for paper]
     ctr_Raw = 0
     ctr_Valid = 0
+    ctr_Purged = 0
     ctr_Filtered = 0
 
     for i in range(end_index):
@@ -59,13 +72,22 @@ def crossFilters(filters, level):
             counter = i + (j + 1)
             if counter <= end_index:
                 item_2 = list_combination[counter]
-                cross = [item_1, item_2]
+                cross = [item_1, item_2]  # Sample content: [array(['b1:a', 'p11:b'], dtype='<U5'), array(['b1:a', 'p11:a'], dtype='<U5')]
 
                 if validComparison(cross):  # Only proceed if cross is VALID; FMI check notes above function
                     if updateChecklist(cross, level):
                         if not purgedCross(cross):  # Remove repeating pairs
-                            cross_filters.append(cross)  # Append a filter to cross_filters
-                            ctr_Filtered = ctr_Filtered + 1
+                            # cross_filters.append(cross)
+                            # print(cross)
+                            ctr_Purged = ctr_Purged + 1
+                            if not singleton.isFeaturePairParsed(cross):  # Don't include previously parsed pairs (from previous depths)
+                                cross_filters.append(cross)  # Append a filter to cross_filters
+                                singleton.updateFeaturePairs(cross)
+                                # print("Added:")
+                                # print(cross)
+                                # print("Singleton contents:")
+                                # print(singleton.getFeaturePairs())
+                                ctr_Filtered = ctr_Filtered + 1
 
                     ctr_Valid = ctr_Valid + 1
                 ctr_Raw = ctr_Raw + 1
@@ -83,6 +105,7 @@ def crossFilters(filters, level):
     print("")
     print("RAW " + str(ctr_Raw))
     print("VALID " + str(ctr_Valid))
+    print("PURGED " + str(ctr_Purged))
     print("ACCEPTED " + str(ctr_Filtered))
     print("")
     return np_list_cross_filters
@@ -135,11 +158,11 @@ def convertToCrossFilters(list_feat_codes, controller):
 
     CROSS = []
     controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting FILTER MODULE")  # 1
-    time.sleep(0.01)
+    # time.sleep(0.01)
 
 
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Creating SSF Array")  # 2
-    time.sleep(0.01)
+    # time.sleep(0.01)
 
     for feature_codes in list_feat_codes:
         SSF = []
@@ -152,9 +175,11 @@ def convertToCrossFilters(list_feat_codes, controller):
         CROSS.append(SSF)
 
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Created SSF Array")  # 3
-    time.sleep(0.01)
+    # time.sleep(0.01)
 
-    CROSS = np.array(CROSS)
+    CROSS = np.array(CROSS)  # Sample contents: [array(['b1:a', 'b1:b', 'p10:a', 'p10:b', 'p11:a', 'p11:b'], dtype='<U5')
+                             # array(['p5:a', 'p5:b'], dtype='<U4') array(['p9:a', 'p9:b'], dtype='<U4')]
+
     return CROSS
 
 # TODO PRINT [Log values for paper]
@@ -179,7 +204,8 @@ def processLVLs(CROSS):
             # print "TYPE {0} LVL {1}".format(i_type, level)
 
             np_filter = crossFilters(SSF, level)
-            # np_filter = np.array(filter)
+            # print(np_filter)
+
             LVL[i_type][i_level] = np_filter  # TODO Lessen dimensions
             # print(np_filter)
             # print("")  # TODO Remove if you are not gonna print here anymore
