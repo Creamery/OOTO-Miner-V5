@@ -20,6 +20,7 @@ import __Filter_support as FILS
 import __CrossProcess_support as CPS
 import __Depth_support as DS
 import _UIConstants_support as UICS
+import _AMVariables_support as AMVS
 
 
 def loaderModule():
@@ -86,7 +87,6 @@ def runAutomatedMining(controller):
     print("Automated Mining Finished...")
 
 
-
     return dict_significant_results
 
 
@@ -96,14 +96,12 @@ def runAutomatedMining(controller):
     The miner continues until p-value stops updating.
 '''
 def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
-    depth = UICS.MAX_DEPTH
-    # start_depth = UICS.getStartDepth()  # Getting it this way will subtract 1 from the value, to be used as an index
+    singleton = AMVS.getSingleton()  # A Singleton class is used
     dict_significant_results = None
     isUpdating = True
     i_depth = 0
 
-    while isUpdating:
-    # for i_depth in range(start_depth, depth):  # TODO: Fix this so that it will stop according to the change in p-value
+    while isUpdating:  # Keep looping until the stop criteria are met
         curr_depth = i_depth + 1
 
         print("Starting DEPTH: " + str(curr_depth))
@@ -131,10 +129,73 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
         dict_significant_results = crossProcessModule(df_dataset, np_cross, curr_depth, controller)
         print("-- Cross Process Finished --")
 
-        if True:
+        list_SSFs = getSSFsList(dict_ranked_features)
+        if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
+            isUpdating = False
+        elif isConstantPV():  # Stop mining if the p-value does not change anymore
             isUpdating = False
 
+        singleton.updateSSFsList(list_SSFs)
+        print(list_SSFs)
+        print("")
+        print(singleton.getLlSSFs())
+        print("")
+
     return dict_significant_results
+
+
+'''
+    Converts the values in the SSFs dictionary to a list.
+'''
+def getSSFsList(dict_SSFs):
+    list_SSFs = []
+
+    for key, value in dict_SSFs.iteritems():
+        list_SSFs.append(value)
+
+    return list_SSFs
+
+'''
+    This function checks if the SSFs have been parsed
+    before. If so, it returns True.
+'''
+def isConstantSSFs(list_currSSFs):
+    singleton = AMVS.getSingleton()
+    llist_prevSSFs = singleton.getLlSSFs()  # Get the list of all parsed SSFs (from all depths) via the Singleton class
+    state = False
+
+    for SSFs in llist_prevSSFs:
+        # Check if all items in the current SSFs list are contained
+        # in any previously parsed SSFs list
+        state = isListsMatch(SSFs, list_currSSFs)
+        if state:  # If there's a match, stop looping and return 'state'
+            break
+
+    return state
+
+def isConstantPV():
+
+    return True
+
+'''
+    This function checks if all items in list2 are in list1.
+'''
+def isListsMatch(list1, list2):
+
+    # len_list1 = len(list1)
+    # len_list2 = len(list2)
+
+    # if len_list1 > len_list2:
+    #     list_A = list1
+    #     list_B = list2
+    # else:
+    #     list_A = list2
+    #     list_B = list1
+
+    # Checks if all elements of list2 is in list1
+    isMatch = all(item in list1 for item in list2)
+
+    return isMatch
 
 
 
