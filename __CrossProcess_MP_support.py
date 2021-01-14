@@ -94,64 +94,11 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
             # time.sleep(0.01)  # Sleep
 
             i_process_count = 0  # Process count for current CROSS[type][level]
-            # np_level_ssfs = np.array(list_level_ssfs)
-            for i_dataset_pairs in range(len_cross_level):
-                dataset_pairs = cross_level[i_dataset_pairs]
-                len_dataset_pairs = len(dataset_pairs)
 
-                str_cross_level_length = str(len_cross_level)
-                #  Description for the current cross process
-                str_description = "         " + str_current_cross + " - " + str(i_dataset_pairs + 1) + " of " + str_cross_level_length
-                controller.updateModuleProgress(key, str_description)  # INNER PASS 1
-
-                for i_dataset_pair in range(len_dataset_pairs):
-
-                    dataset_pair = dataset_pairs[i_dataset_pair]
-
-                    dict_chi_square = CHIS.chiSquare(dataset_pair)
-                    # if dict_chi_square is None:
-                    #     print("dict_chi_square is NONE")
-                    # controller.updateModuleProgress(key, "Applying Chi-square")
-                    # time.sleep(0.01)
-
-                    df_processed_output, list_ssf, list_sig_output = CHIS.processChiSquareTable(dict_chi_square)
-
-                    # if df_processed_output is None:
-                        # print("df_processed_output is NONE")
-                    if df_processed_output is not None:
-                        dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level][i_dataset_pairs]
-
-                        if len(list_ssfs) == 0:
-                            list_ssfs = list_ssf
-                        else:
-                            list_ssfs = mergeAndFilter(list_ssfs, list_ssf)
+            # Run multiprocessing worker
+            TODO
 
 
-                        np_dataset_pair_filter = np.array(dataset_pair_filter)
-                        # list_chi_square_output.append([df_output, np_dataset_pair_filter])
-                        list_index = [i_cross_type, i_cross_level]
-
-                        # controller.updateModuleProgress(key, "Exporting Chi-square Table")
-                        # time.sleep(0.01)
-
-                        df_output, str_pair_name = LS.exportChiSquareTable(df_processed_output,
-                                                                           np_dataset_pair_filter,
-                                                                           list_index)
-
-                        dict_result_table_sig = addToDictionaryResult(dict_result_table_sig, str_pair_name, list_sig_output)
-                    # else:
-                        # controller.updateModuleProgress(key, str_description)  # Pass 2
-                        # Add 1 to make up for the missed processes
-                        # print("DF OUTPUT IS NULL: Skipping Item")
-
-
-                list_all_ssfs = mergeAndFilter(list_all_ssfs, list_ssfs)
-                ssfs_filename = "SSFs - CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "].csv"
-                LS.exportSSFs(list_ssfs, ssfs_filename, depth)
-
-
-            # list_level_ssfs.append(list_all_ssfs)  # Store SSF list  # TODO: Commented out, check if still needed
-        # list_cross_ssfs.append(list_level_ssfs)  # TODO: Commented out, check if still needed
 
     run_time = (time.time() - start_time)
     AMVS

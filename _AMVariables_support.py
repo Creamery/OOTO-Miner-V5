@@ -5,6 +5,7 @@ class _Singleton:
     _instance = None
     llistSSFs = []
     ctr_Accepted = 0
+    time_run = 0
 
     # Contents will be in the form of FN1 VS FN2 (i.e. 'b1 VS b2')
     npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
@@ -71,6 +72,12 @@ class _Singleton:
 
     def getCtrAccepted(self):
         return self.ctr_Accepted
+
+    def updateTime(self, new_time_set):
+        self.time_run = self.time_run + new_time_set
+
+    def resetTime(self):
+        self.time_run = 0
 
 def getSingleton():
     if _Singleton._instance is None:

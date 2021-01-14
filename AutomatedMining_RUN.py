@@ -29,7 +29,7 @@ def loaderModule():
 
 def rfeModule(df_raw_dataset, ftr_names, controller):
     controller.updateModuleProgress(0, UICS.FIRST_MESSAGE_SPACE + "[ Starting Automated OOTO Miner] ")  # 1
-    time.sleep(1)
+    # time.sleep(1)
 
     dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names, controller)
     return dict_rfe
@@ -189,9 +189,6 @@ def isConstantSSFs(list_currSSFs):
 
     return state
 
-def hasNoNewPairs():
-
-    return True
 
 '''
     This function checks if all items in list2 are in list1.
