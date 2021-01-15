@@ -6,6 +6,7 @@ class _Singleton:
     llistSSFs = []
     ctr_Accepted = 0
     time_run = 0
+    total_depths = 0
 
     # Contents will be in the form of FN1 VS FN2 (i.e. 'b1 VS b2')
     npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
@@ -76,8 +77,21 @@ class _Singleton:
     def updateTime(self, new_time_set):
         self.time_run = self.time_run + new_time_set
 
+    def getTime(self):
+        return self.time_run
+
     def resetTime(self):
         self.time_run = 0
+
+    def setDepths(self, depths):
+        self.total_depths = depths
+
+    def getDepths(self):
+        return self.total_depths
+
+    def resetDepths(self):
+        self.total_depths = 0
+
 
 def getSingleton():
     if _Singleton._instance is None:

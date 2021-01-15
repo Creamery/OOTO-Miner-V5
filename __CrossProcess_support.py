@@ -154,9 +154,9 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
         # list_cross_ssfs.append(list_level_ssfs)  # TODO: Commented out, check if still needed
 
     run_time = (time.time() - start_time)
-    AMVS
+    AMVS.getSingleton().updateTime(run_time)  # Update Singleton's run time
     print("--- %s seconds ---" % run_time)
-    str_runtime = "\nAM Time elapsed:\n" + str(run_time) + " seconds"
+    str_runtime = "\nCross Process Time:\n" + str(run_time) + " seconds"
     controller.getAMController().addToConsoleAll(str_runtime + "\n")
 
     print("Processing Complete")

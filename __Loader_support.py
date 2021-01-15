@@ -343,7 +343,8 @@ def loadSSFs(foldername, path = GL_AM_OUTPUT_PATH):
             df = pd.read_csv(name, header = None, usecols = [0, 1], names=[col_feat, col_chi])
             pd.concat([df_result, df])
 
-    df_result = df_result.sort_values([col_chi], ascending = False)
+    if df_result is not None:
+        df_result = df_result.sort_values([col_chi], ascending = False)
     return df_result
 
 def export2DList(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):

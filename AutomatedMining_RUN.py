@@ -86,6 +86,14 @@ def runAutomatedMining(controller):
     controller.isAMFinished()  # Enables the Check button (Call on completion of the last iteration)
     print("Automated Mining Finished...")
 
+    str_depths = str(AMVS.getSingleton().getDepths())
+    controller.getAMController().addToConsoleAll("\nTotal Depth: " + str_depths)
+    print("Total Depth " + str_depths)
+
+    str_run_time = str(AMVS.getSingleton().getTime())
+    controller.getAMController().addToConsoleAll("\nAM Run time:\n" + str_run_time + " seconds\n")
+    print("Mining Run Time: " + str_run_time + " seconds")
+
 
     return dict_significant_results
 
@@ -99,7 +107,9 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
     singleton = AMVS.getSingleton()  # A Singleton class is used
     dict_significant_results = None
     isUpdating = True
+    hasPrevSSFs = True
     i_depth = 0
+    curr_depth = 0
 
     while isUpdating:  # Keep looping until the stop criteria are met
         curr_depth = i_depth + 1
@@ -120,43 +130,51 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
             df_SSFs = DS.loadPreviousSSFs(i_depth)
             print("df_SSFs")
             print(df_SSFs)
-            # Partition the extracted SSFs to 3 Ranks
-            dict_ranked_features = DS.rankSSFs(df_SSFs)
-            print("-- Successfully Extracted Previous SSFs --")
+
+            if df_SSFs is None:  # If there were no previously loaded SSFs, stop updating TODO: check if this can be determined earlier
+                hasPrevSSFs = False
+                isUpdating = False
+                dict_ranked_features = None
+                print("-- Failed to Locate Previous SSFs --")
+            else:
+                # Partition the extracted SSFs to 3 Ranks
+                dict_ranked_features = DS.rankSSFs(df_SSFs)
+                print("-- Successfully Extracted Previous SSFs --")
+
+        if hasPrevSSFs:
+            print("Starting Filtering...")
+            np_cross = filterModule(dict_ranked_features, controller)
+            print("-- Filtering Finished --")
+            print("")
+
+            print("Starting Cross Process...")
+            dict_significant_results = crossProcessModule(df_dataset, np_cross, curr_depth, controller)
+            print("-- Cross Process Finished --")
 
 
-        print("Starting Filtering...")
-        np_cross = filterModule(dict_ranked_features, controller)
-        print("-- Filtering Finished --")
-        print("")
+            list_SSFs = getSSFsList(dict_ranked_features)
+            if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
+                isUpdating = False
+            elif singleton.getCtrAccepted() == 0:  # Mark mining as finished when there are no more accepted values
+                isUpdating = False
 
-        print("Starting Cross Process...")
-        dict_significant_results = crossProcessModule(df_dataset, np_cross, curr_depth, controller)
-        print("-- Cross Process Finished --")
+            print(singleton.getCtrAccepted())
 
+            i_depth = i_depth + 1
+            # print(dict_significant_results)
+            # list_SSFs = getSSFsList(dict_ranked_features)
+            # if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
+            #     isUpdating = False
+            # if hasNoNewPairs():  # Stop mining if the significant results have all been parsed before
+            #     isUpdating = False
 
-        list_SSFs = getSSFsList(dict_ranked_features)
-        if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
-            isUpdating = False
-        elif singleton.getCtrAccepted() == 0:  # Mark mining as finished when there are no more accepted values
-            isUpdating = False
+            # singleton.updateSSFsList(list_SSFs)
+            # print(list_SSFs)
+            # print("")
+            # print(singleton.getLlSSFs())
+            # print("")
 
-        print(singleton.getCtrAccepted())
-
-        i_depth = i_depth + 1
-        # print(dict_significant_results)
-        # list_SSFs = getSSFsList(dict_ranked_features)
-        # if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
-        #     isUpdating = False
-        # if hasNoNewPairs():  # Stop mining if the significant results have all been parsed before
-        #     isUpdating = False
-
-        # singleton.updateSSFsList(list_SSFs)
-        # print(list_SSFs)
-        # print("")
-        # print(singleton.getLlSSFs())
-        # print("")
-
+    AMVS.getSingleton().setDepths(i_depth - 1)  # Log total number of depths
     return dict_significant_results
 
 
