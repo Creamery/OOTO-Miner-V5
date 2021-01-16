@@ -89,7 +89,6 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     cross_type = None
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
     for i_cross_type in range(len_cross_datasets):  # TODO (Future) Find the best way to partition this
-        cross_type = np_cross_datasets[i_cross_type]  # Iterate through each CROSS TYPE
 
         for i_cross_level in range(len_cross_types):
             queue_flag.put("Done")  # Initialize the Flag Queue, queue_flag
@@ -99,7 +98,7 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     process_func = partial(CPMPP.process,
                            queue_flag, queue_return,
                            depth, np_cross_filters,
-                           cross_type)  # Declare the target function and the parameters, minus the iterable
+                           np_cross_datasets)  # Declare the target function and the parameters, minus the iterable
 
     pool.map(process_func, process_params)  # Launch the partial function and iterable asynchronously
 
@@ -107,7 +106,7 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     pool.join()
 
     # while not queue_flag.empty():  # TODO: Decide if you want to sleep or pass
-    #     # time.sleep(0.1)\
+    #     # time.sleep(0.1)
     #
     #     pass
 

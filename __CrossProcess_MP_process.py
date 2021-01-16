@@ -8,12 +8,13 @@ import _UIConstants_support as UICS
 
 def process(queue_flag, queue_return,
             depth, np_cross_filters,
-            cross_type, iterable):
+            np_cross_datasets, iterable):
 
 
     i_cross_type = iterable[0]
     i_cross_level = iterable[1]
 
+    cross_type = np_cross_datasets[i_cross_type]  # Iterate through each CROSS TYPE
     # The variable cross_level is the list of dataframes
     cross_level = cross_type[i_cross_level]  # Iterate through each LEVEL
     len_cross_level = len(cross_level)
@@ -41,7 +42,7 @@ def process(queue_flag, queue_return,
         #  Description for the current cross process
         str_description = "         " + str_current_cross + " - " + str(
             i_dataset_pairs + 1) + " of " + str_cross_level_length
-        # controller.updateModuleProgress(key, str_description)  # INNER PASS 1  TODO
+        # controller.updateModuleProgress(key, str_description)  # INNER PASS 1
 
         for i_dataset_pair in range(len_dataset_pairs):
 
@@ -58,6 +59,14 @@ def process(queue_flag, queue_return,
             # if df_processed_output is None:
             # print("df_processed_output is NONE")
             if df_processed_output is not None:
+                # print("")
+                # print(len(np_cross_filters[i_cross_type]))
+                # print(i_cross_type)
+                # print(len(np_cross_filters[i_cross_type][i_cross_level]))
+                # print(i_cross_level)
+                # print(len(np_cross_filters[i_cross_type][i_cross_level][i_dataset_pairs]))
+                # print(i_dataset_pairs)
+                # print("")
                 dataset_pair_filter = np_cross_filters[i_cross_type][i_cross_level][i_dataset_pairs]
 
                 if len(list_ssfs) == 0:
@@ -76,8 +85,7 @@ def process(queue_flag, queue_return,
                                                                    np_dataset_pair_filter,
                                                                    list_index)
 
-                dict_result_table_sig = addToDictionaryResult(dict_result_table_sig, str_pair_name,
-                                                              list_sig_output)
+                dict_result_table_sig = addToDictionaryResult(dict_result_table_sig, str_pair_name, list_sig_output)
             # else:
             # controller.updateModuleProgress(key, str_description)  # Pass 2
             # Add 1 to make up for the missed processes
