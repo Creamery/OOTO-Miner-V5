@@ -6,9 +6,13 @@ import __Loader_support as LS
 import _ChiSquare_support as CHIS
 import _UIConstants_support as UICS
 
-def process(controller, depth, key,
-            np_cross_filters, cross_type,
-            i_cross_type, i_cross_level, iteratable):
+def process(queue_flag, queue_return,
+            depth, np_cross_filters,
+            cross_type, iterable):
+
+
+    i_cross_type = iterable[0]
+    i_cross_level = iterable[1]
 
     # The variable cross_level is the list of dataframes
     cross_level = cross_type[i_cross_level]  # Iterate through each LEVEL
@@ -17,12 +21,13 @@ def process(controller, depth, key,
     list_level_ssfs = []
     list_all_ssfs = []
     list_ssfs = []
+    dict_result_table_sig = collections.OrderedDict()
 
     str_current_cross = "[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "]"
     # Title for the current cross process
     str_title = UICS.SUB_MODULE_INDICATOR + "Processing CROSS" + str_current_cross  # LVL Pass 1
     # Update the progress bar about the current CROSS[type][level]
-    controller.updateModuleProgress(key, str_title)  # Pass 1
+    # controller.updateModuleProgress(key, str_title)  # Pass 1 TODO
     # time.sleep(0.01)  # Sleep
 
     i_process_count = 0  # Process count for current CROSS[type][level]
@@ -36,7 +41,7 @@ def process(controller, depth, key,
         #  Description for the current cross process
         str_description = "         " + str_current_cross + " - " + str(
             i_dataset_pairs + 1) + " of " + str_cross_level_length
-        controller.updateModuleProgress(key, str_description)  # INNER PASS 1
+        # controller.updateModuleProgress(key, str_description)  # INNER PASS 1  TODO
 
         for i_dataset_pair in range(len_dataset_pairs):
 
@@ -82,7 +87,10 @@ def process(controller, depth, key,
         ssfs_filename = "SSFs - CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "].csv"
         LS.exportSSFs(list_ssfs, ssfs_filename, depth)
 
-        return None
+    queue_return.put(dict_result_table_sig)
+    queue_flag.get()
+    print("DONE")
+
 
 def mergeAndFilter(list1, list2):
     dict1 = collections.defaultdict(list)
@@ -97,6 +105,7 @@ def mergeAndFilter(list1, list2):
         max_value.append(max(value))
         merged_list.append([key] + max_value)
 
+    return merged_list
 
 def addToDictionaryResult(dict_result, key, value):
     if key not in dict_result.keys():

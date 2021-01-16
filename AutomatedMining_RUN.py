@@ -18,6 +18,7 @@ import __Loader_support as LS
 import __RFE_support as RFES
 import __Filter_support as FILS
 import __CrossProcess_support as CPS
+import __CrossProcess_MP_support as CMPS
 import __Depth_support as DS
 import _UIConstants_support as UICS
 import _AMVariables_support as AMVS
@@ -56,7 +57,7 @@ def filterModule(dict_rfe, controller):
 
 
 def crossProcessModule(df_dataset, np_CROSS, depth, controller):
-    dict_significant_results = CPS.crossProcessOptimized(df_dataset, np_CROSS, depth, controller)
+    dict_significant_results = CMPS.crossProcessOptimized(df_dataset, np_CROSS, depth, controller)
     return dict_significant_results
 
 

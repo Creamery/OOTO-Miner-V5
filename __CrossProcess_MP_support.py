@@ -23,6 +23,7 @@ import _UIConstants_support as UICS
 import _AMVariables_support as AMVS
 
 # Multiprocessing Scripts
+import multiprocessing
 from multiprocessing import Pool
 from functools import partial
 import __CrossProcess_MP_process as CPMPP
@@ -74,35 +75,44 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     data_filter_process_count = computeMaxProcessCount(np_cross_datasets, len_cross_datasets, len_cross_types)
     data_filter_process_count = data_filter_process_count  # * 2
     UICS.CROSS_MAX_PROCESS_COUNT = UICS.CROSS_MAX_PROCESS_COUNT + data_filter_process_count
-    list_level_ssfs = None
 
     start_time = time.time()
 
     pool_size = len_cross_datasets*len_cross_types
-    iterable = [1, 2, 3, 4, 5]
-    count_process = 5
-    pool = Pool(processes = count_process)
+    process_params = []  # Iterable that will contain tuples of parameters
+    print("Pool Size: " + str(pool_size))
+    pool = Pool(processes = pool_size)
+    manager = multiprocessing.Manager()  # Instantiate a Manager
+    queue_flag = manager.Queue()
+    queue_return = manager.Queue()
 
-    a = "hi"
-    b = "there"
-
-    func = partial(CPMPP.process, a, b)
-    pool.map_async(func, iterable)
-
+    cross_type = None
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
     for i_cross_type in range(len_cross_datasets):  # TODO (Future) Find the best way to partition this
         cross_type = np_cross_datasets[i_cross_type]  # Iterate through each CROSS TYPE
 
         for i_cross_level in range(len_cross_types):
-            print("")
-            # TODO Call a process for the given cross type and level
+            queue_flag.put("Done")  # Initialize the Flag Queue, queue_flag
+            params = (i_cross_type, i_cross_level)  # Instantiate a process tuple (iterable) parameter for every (i) cross type and level
+            process_params.append(params)
 
+    process_func = partial(CPMPP.process,
+                           queue_flag, queue_return,
+                           depth, np_cross_filters,
+                           cross_type)  # Declare the target function and the parameters, minus the iterable
 
-    # TODO While all processes are not yet done
+    pool.map(process_func, process_params)  # Launch the partial function and iterable asynchronously
 
     pool.close()
     pool.join()
 
+    # while not queue_flag.empty():  # TODO: Decide if you want to sleep or pass
+    #     # time.sleep(0.1)\
+    #
+    #     pass
+
+    # TODO While all processes are not yet done
+    print("CONTINUE")
 
     run_time = (time.time() - start_time)
     AMVS.getSingleton().updateTime(run_time)  # Update Singleton's run time
@@ -110,9 +120,12 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     str_runtime = "\nCross Process Time:\n" + str(run_time) + " seconds"
     controller.getAMController().addToConsoleAll(str_runtime + "\n")
 
+    while not queue_return.empty():
+        dict_result_table_sig = queue_return.get()
+        LS.exportOutputModuleResults(dict_result_table_sig, len_cross_datasets,
+                                     len_cross_types, controller)
+
     print("Processing Complete")
-    LS.exportOutputModuleResults(dict_result_table_sig, len_cross_datasets,
-                                 len_cross_types, controller)
 
     return dict_result_table_sig
 
