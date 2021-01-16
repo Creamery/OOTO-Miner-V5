@@ -54,7 +54,7 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     list_cross_ssfs = []
     dict_result_table_sig = collections.OrderedDict()
 
-    print("Processing - Please Wait... (Average Runtime for ALL Features - 8 minutes")
+    print("Processing - Please Wait...")
 
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Starting Cross Process : This might take some time...")  # 4
     # time.sleep(0.01)  # Sleep

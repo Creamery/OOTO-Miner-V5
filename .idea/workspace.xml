@@ -28,13 +28,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/____multiprocessing_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_AMVariables_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_AMVariables_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__CrossProcess_MP_process.py" beforeDir="false" afterPath="$PROJECT_DIR$/__CrossProcess_MP_process.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__CrossProcess_MP_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__CrossProcess_MP_support.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/__CrossProcess_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__CrossProcess_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Loader_support.py" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,9 +44,69 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_support.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="456">
+              <caret line="105" selection-start-line="105" selection-end-line="105" />
+              <folding>
+                <element signature="e#552#570#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_process.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+              <folding>
+                <element signature="e#2#20#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/____multiprocessing_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="133">
+              <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+              <folding>
+                <element signature="e#2#34#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__CrossProcess_support.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="170" column="21" selection-start-line="170" selection-start-column="21" selection-end-line="170" selection-end-column="21" />
+              <folding>
+                <element signature="e#558#576#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="58" column="41" selection-start-line="58" selection-start-column="41" selection-end-line="58" selection-end-column="41" />
+              <folding>
+                <element signature="e#382#391#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
+            <state relative-caret-position="612">
               <caret line="35" column="11" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
             </state>
           </provider>
@@ -57,29 +115,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_AMVariables_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="72" selection-start-line="72" selection-end-line="72" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/__CrossProcess_support.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="19" selection-start-line="19" selection-end-line="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="174" column="23" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
-              <folding>
-                <element signature="e#382#391#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="99">
+              <caret line="65" column="1" selection-start-line="65" selection-start-column="1" selection-end-line="65" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -96,29 +133,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_process.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_support.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="178" selection-start-line="178" selection-end-line="178" />
-              <folding>
-                <element signature="e#554#572#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -130,16 +144,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sleep</find>
-      <find>MAX_D</find>
-      <find>i_dep</find>
-      <find>filter pair</find>
-      <find>Filter Pair</find>
-      <find>:</find>
-      <find>&quot;:</find>
-      <find>Checkli</find>
-      <find>DE</find>
-      <find>&quot;:&quot;</find>
       <find>SPLIT</find>
       <find>SPLIT_SY</find>
       <find>invalid</find>
@@ -160,6 +164,16 @@
       <find>run_t</find>
       <find>Starting</find>
       <find>Starting DE</find>
+      <find>controller.</find>
+      <find>key</find>
+      <find>mergeAn</find>
+      <find>import coll</find>
+      <find>addToD</find>
+      <find>str_cur</find>
+      <find>TODO</find>
+      <find>crossProcessOp</find>
+      <find>curr</find>
+      <find>crossPrc</find>
     </findStrings>
     <replaceStrings>
       <replace>tk.NW</replace>
@@ -207,16 +221,17 @@
         <option value="$PROJECT_DIR$/__Depth_support.py" />
         <option value="$PROJECT_DIR$/__CrossProcessMP_support.py" />
         <option value="$PROJECT_DIR$/CrossProcess_MP_process.py" />
-        <option value="$PROJECT_DIR$/__CrossProcess_MP_process.py" />
-        <option value="$PROJECT_DIR$/__CrossProcess_support.py" />
         <option value="$PROJECT_DIR$/_AMVariables_support.py" />
-        <option value="$PROJECT_DIR$/__CrossProcess_MP_support.py" />
         <option value="$PROJECT_DIR$/__Loader_support.py" />
         <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
+        <option value="$PROJECT_DIR$/__CrossProcess_support.py" />
+        <option value="$PROJECT_DIR$/__CrossProcess_MP_support.py" />
+        <option value="$PROJECT_DIR$/__CrossProcess_MP_process.py" />
+        <option value="$PROJECT_DIR$/____multiprocessing_test.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="301" />
     <option name="y" value="37" />
     <option name="width" value="1623" />
@@ -288,7 +303,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.___OOTO_Driver">
+  <component name="RunManager" selected="Python.____multiprocessing_test">
     <configuration name="OOTO_Driver" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="OOTO Miner Python v2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -302,27 +317,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="D:\Candy\Documents\GitHub\OOTO Miner Python v2\___OOTO_Driver.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Threading_support" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="OOTO Miner Python v2" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Threading_support.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -394,13 +388,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="____multiprocessing_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="OOTO Miner Python v2" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/____multiprocessing_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.____multiprocessing_test" />
         <item itemvalue="Python.___OOTO_Driver" />
         <item itemvalue="Python.__CrossProcess_MP_process" />
         <item itemvalue="Python.___Visualization Test" />
         <item itemvalue="Python.OOTO_Driver" />
-        <item itemvalue="Python.Threading_support" />
       </list>
     </recent_temporary>
   </component>
@@ -428,7 +443,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="23" width="1550" height="848" extended-state="7" />
+    <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23257373" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -682,9 +698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/collections/__init__.pyi">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Roaming/Python/Python36/site-packages/pandas/core/strings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
@@ -775,20 +788,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
-          <caret line="35" column="11" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_AMVariables_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/__Filter_support.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
@@ -805,25 +804,6 @@
           <caret line="328" column="8" selection-start-line="328" selection-start-column="8" selection-end-line="328" selection-end-column="8" />
           <folding>
             <element signature="e#485#526#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="178" selection-start-line="178" selection-end-line="178" />
-          <folding>
-            <element signature="e#554#572#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -845,19 +825,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/__CrossProcess_support.py">
+    <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="612">
+          <caret line="35" column="11" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_AMVariables_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="65" column="1" selection-start-line="65" selection-start-column="1" selection-end-line="65" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/collections/__init__.pyi">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="174" column="23" selection-start-line="174" selection-start-column="23" selection-end-line="174" selection-end-column="23" />
+        <state relative-caret-position="206">
+          <caret line="58" column="41" selection-start-line="58" selection-start-column="41" selection-end-line="58" selection-end-column="41" />
           <folding>
             <element signature="e#382#391#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__CrossProcess_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="170" column="21" selection-start-line="170" selection-start-column="21" selection-end-line="170" selection-end-column="21" />
+          <folding>
+            <element signature="e#558#576#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="105" selection-start-line="105" selection-end-line="105" />
+          <folding>
+            <element signature="e#552#570#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="e#2#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/____multiprocessing_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+          <folding>
+            <element signature="e#2#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
