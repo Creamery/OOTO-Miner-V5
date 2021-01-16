@@ -5,6 +5,8 @@ import numpy as np
 import __Loader_support as LS
 import _ChiSquare_support as CHIS
 import _UIConstants_support as UICS
+import _AMVariables_support as AMVS
+
 
 def process(queue_flag, queue_return,
             depth, np_cross_filters,

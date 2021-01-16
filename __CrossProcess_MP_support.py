@@ -118,7 +118,7 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     print("--- %s seconds ---" % run_time)
     str_runtime = "\nCross Process Time:\n" + str(run_time) + " seconds"
     controller.getAMController().addToConsoleAll(str_runtime + "\n")
-
+    
     while not queue_return.empty():
         dict_result_table_sig = queue_return.get()
         LS.exportOutputModuleResults(dict_result_table_sig, len_cross_datasets,
@@ -133,8 +133,6 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
 '''
     Pre-compute the number of processes under the CROSS loop.
 '''
-
-
 def computeMaxProcessCount(np_cross_datasets, len_cross_datasets, len_cross_types):
     process_count = 0
 
