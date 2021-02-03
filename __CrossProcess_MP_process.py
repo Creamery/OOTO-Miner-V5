@@ -3,14 +3,15 @@
 import collections
 import numpy as np
 import __Loader_support as LS
-import _ChiSquare_support as CHIS
+import __ChiSquare_support as CHIS
 import _UIConstants_support as UICS
 import _AMVariables_support as AMVS
 
 
 def process(queue_flag, queue_return,
             depth, np_cross_filters,
-            np_cross_datasets, iterable):
+            np_cross_datasets, queue_console,
+            iterable):
 
 
     i_cross_type = iterable[0]
@@ -45,6 +46,7 @@ def process(queue_flag, queue_return,
         str_description = "         " + str_current_cross + " - " + str(
             i_dataset_pairs + 1) + " of " + str_cross_level_length
         # controller.updateModuleProgress(key, str_description)  # INNER PASS 1
+        # queue_console.put(("A", "B"))
 
         for i_dataset_pair in range(len_dataset_pairs):
 
@@ -85,7 +87,7 @@ def process(queue_flag, queue_return,
 
                 df_output, str_pair_name = LS.exportChiSquareTable(df_processed_output,
                                                                    np_dataset_pair_filter,
-                                                                   list_index)
+                                                                   depth, list_index)
 
                 dict_result_table_sig = addToDictionaryResult(dict_result_table_sig, str_pair_name, list_sig_output)
             # else:

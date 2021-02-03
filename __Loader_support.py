@@ -29,10 +29,12 @@ import pandas as pd
 import glob
 import os
 import errno
+import sklearn
+import sklearn.utils
 
 # For exports
 import __Filter_support as FILS
-import _ChiSquare_support as CHIS
+import __ChiSquare_support as CHIS
 import _UIConstants_support as UICS
 
 # For loadVarDesc()
@@ -152,7 +154,7 @@ def exportDataFrame(df_dataset, filename, path = GL_AM_OUTPUT_PATH):
     This function exports the Chi-square Result Table.
     
 '''
-def exportChiSquareTable(df_output, filter, list_index = None, path = GL_AM_OUTPUT_PATH):
+def exportChiSquareTable(df_output, filter, depth, list_index = None, path = GL_AM_OUTPUT_PATH):
 
     np_filters = FILS.extractFilter(filter)  # Returns an Numpy array of dictionaries per filter element
     # print(np_filters)
@@ -209,7 +211,7 @@ def exportChiSquareTable(df_output, filter, list_index = None, path = GL_AM_OUTP
     # print("")
 
 
-    output_path = path + "\\Result Tables\\"
+    output_path = path + "\\Result Tables Depth - " + str(depth) + "\\"
     checkDirectory(output_path)
 
     if list_index is not None:
@@ -227,27 +229,27 @@ def exportChiSquareTable(df_output, filter, list_index = None, path = GL_AM_OUTP
     It also outputs a single pickle file that consolidates all significant
     feature code comparisons.
 '''
-def exportOutputModuleResults(dict_result_table_sig, len_cross_datasets, len_cross_types, controller):
+def exportOutputModuleResults(dict_result_table_sig, len_cross_datasets, len_cross_types, depth, controller):
     key = UICS.KEY_OUTPUT_MODULE
     controller.updateModuleProgress(key, UICS.MODULE_INDICATOR + "Starting OUTPUT MODULE")  # 1
-    time.sleep(0.01)
+    # time.sleep(0.01)
     controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Exporting UI Results")  # 2
 
-    exportUIResultDictionary(dict_result_table_sig, "UI Result")
+    exportUIResultDictionary(dict_result_table_sig, "UI Result", depth)
     controller.updateModuleProgress(key,  UICS.SUB_MODULE_INDICATOR + "Successfully Exported UI Results")  # 3
-    time.sleep(0.01)
+    # time.sleep(0.01)
 
     str_pickle_filename = PICKLE_TITLE_NAME = "CROSS[" + str(len_cross_datasets - 1) + "][" + str(len_cross_types) + "]"
 
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Creating Pickle Save File")  # 4
-    time.sleep(0.01)
+    # time.sleep(0.01)
 
     exportPickleResultDictionary(dict_result_table_sig, str_pickle_filename)
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "Successfully Created Pickle Save File")  # 5
     controller.updateModuleProgress(key, UICS.SUB_MODULE_INDICATOR + "File Saved as \"" + str_pickle_filename + "\"")  # 6
-    time.sleep(0.01)
+    # time.sleep(0.01)
 
-    controller.updateModuleProgress(100, UICS.FIRST_MESSAGE_SPACE + "[ Finished Automated OOTO Miner] ")  # 1
+    # controller.updateModuleProgress(100, UICS.FIRST_MESSAGE_SPACE + "[ Finished Automated OOTO Miner] ")  # 1
     # loaded_pickle = LS.loadPickleResultDictionary(str_pickle_filename)
     # print(loaded_pickle.keys())
 
@@ -355,8 +357,8 @@ def export2DList(list_ssfs, filename, path = GL_AM_OUTPUT_PATH):
             writer.writerows(i)
 
 
-def exportUIResultDictionary(dict_results, filename, path = GL_AM_OUTPUT_PATH):
-    path_export = str(path + "UI Results\\")
+def exportUIResultDictionary(dict_results, filename, depth, path = GL_AM_OUTPUT_PATH):
+    path_export = str(path + "UI Results Depth - " + str(depth) + "\\")
     checkDirectory(path_export)
     path_export = path_export + filename
     for df_name, df in dict_results.items():
@@ -455,7 +457,10 @@ def loadInput():
 
     ftr_names = loadFeatureNames(path_ftr_names)
 
-    return df_raw_dataset, df_dataset, ftr_names
+    pd_raw_dataset = df_raw_dataset  # TODO: Remove/Unused
+
+    return df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset
+
 
 '''
     Attempts to locate the missing feature names file by searching the assumed values.

@@ -488,9 +488,12 @@ def runCrossProcessThread(controller):
     thread = Thread(target = runAutomatedMining, args = [controller])
     thread.start()
 
-
+'''
+    Runs on a Thread
+'''
 def runAutomatedMining(controller):
     AM_R.runAutomatedMining(controller)
+
 
 
 

@@ -25,14 +25,14 @@ import _AMVariables_support as AMVS
 
 
 def loaderModule():
-    df_raw_dataset, df_dataset, ftr_names = LS.loadInput()  # Can add parameters
-    return df_raw_dataset, df_dataset, ftr_names
+    df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset = LS.loadInput()  # Can add parameters
+    return df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset
 
-def rfeModule(df_raw_dataset, ftr_names, controller):
+def rfeModule(df_raw_dataset, ftr_names, pd_raw_dataset, controller):
     controller.updateModuleProgress(0, UICS.FIRST_MESSAGE_SPACE + "[ Starting Automated OOTO Miner] ")  # 1
     # time.sleep(1)
 
-    dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names, controller)
+    dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names, pd_raw_dataset, controller)
     return dict_rfe
 
 def filterModule(dict_rfe, controller):
@@ -76,13 +76,13 @@ def runAutomatedMining(controller):
     controller.getAMController().addToConsoleAll(text + "\n")
     controller.getAMController().addToConsoleInput(text + "\n")
 
-    df_raw_dataset, df_dataset, ftr_names = loaderModule()
+    df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset = loaderModule()
 
     # Run STATIC depth mining (Loops based on MAX DEPTH)
     # dict_significant_results = runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, controller)
 
     # Depth mining that continues on until the p-value stops updating
-    dict_significant_results = runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller)
+    dict_significant_results = runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, controller)
 
     controller.isAMFinished()  # Enables the Check button (Call on completion of the last iteration)
     print("Automated Mining Finished...")
@@ -95,7 +95,7 @@ def runAutomatedMining(controller):
     controller.getAMController().addToConsoleAll("\nAM Run time:\n" + str_run_time + " seconds\n")
     print("Mining Run Time: " + str_run_time + " seconds")
 
-
+    AMVS.getSingleton().resetSingleton()
     return dict_significant_results
 
 
@@ -104,7 +104,7 @@ def runAutomatedMining(controller):
     Mine data according to the p-value.
     The miner continues until p-value stops updating.
 '''
-def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
+def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, controller):
     singleton = AMVS.getSingleton()  # A Singleton class is used
     dict_significant_results = None
     isUpdating = True
@@ -119,9 +119,17 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
         print("Starting DEPTH: " + str(curr_depth))
         # Select SSFs, if first iteration, use RFE, else load the generated SSFs of the previous depth
         if i_depth == 0:
-            print("Starting RFE...")
-            dict_ranked_features = rfeModule(df_raw_dataset, ftr_names, controller)
-            print("-- RFE Finished --")
+            print("Loading SEED SSFs...")
+            # dict_ranked_features = rfeModule(df_raw_dataset, ftr_names, controller)
+            dict_ranked_features = UICS.SEED_SSFS
+            AMVS.getSingleton().updateDictSSFs(dict_ranked_features)
+            print("-- Successfully Loaded SEED SSFs --")
+
+            print("Extracting RFE Features")
+            rfe_features = rfeModule(df_raw_dataset, ftr_names, pd_raw_dataset, controller)
+            print("-- Successfully Determined RFE Features --")
+            print(rfe_features)
+
             print("")
 
         else:
@@ -132,6 +140,7 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
             print("df_SSFs")
             print(df_SSFs)
 
+
             if df_SSFs is None:  # If there were no previously loaded SSFs, stop updating TODO: check if this can be determined earlier
                 hasPrevSSFs = False
                 isUpdating = False
@@ -139,7 +148,12 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
                 print("-- Failed to Locate Previous SSFs --")
             else:
                 # Partition the extracted SSFs to 3 Ranks
-                dict_ranked_features = DS.rankSSFs(df_SSFs)
+                dict_new_ranked_features = DS.rankSSFs(df_SSFs)
+                # Merge the new SSFs with the old SSFs
+                AMVS.getSingleton().updateDictSSFs(dict_new_ranked_features)
+                print("RANK")
+                dict_ranked_features = AMVS.getSingleton().getDictSSFs()
+                print(dict_ranked_features)
                 print("-- Successfully Extracted Previous SSFs --")
 
         if hasPrevSSFs:
@@ -235,7 +249,7 @@ def isListsMatch(list1, list2):
     Mine data according to the value of MAX DEPTH.
     MAX DEPTH is declared in the UICS script.
 '''
-def runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
+def runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, controller):
     depth = UICS.MAX_DEPTH
     start_depth = UICS.getStartDepth()  # Getting it this way will subtract 1 from the value, to be used as an index
     dict_significant_results = None
@@ -247,7 +261,7 @@ def runStaticDepthMining(df_raw_dataset, df_dataset, ftr_names, controller):
         # Select SSFs, if first iteration, use RFE, else load the generated SSFs of the previous depth
         if i_depth == 0:
             print("Starting RFE...")
-            dict_ranked_features = rfeModule(df_raw_dataset, ftr_names, controller)
+            dict_ranked_features = rfeModule(df_raw_dataset, ftr_names, pd_raw_dataset, controller)
             print("-- RFE Finished --")
             print("")
 

@@ -18,7 +18,7 @@ import collections
 
 import __Loader_support as LS
 import __Filter_support as FILS
-import _ChiSquare_support as CHIS
+import __ChiSquare_support as CHIS
 import _UIConstants_support as UICS
 import _AMVariables_support as AMVS
 
@@ -85,8 +85,9 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     manager = multiprocessing.Manager()  # Instantiate a Manager
     queue_flag = manager.Queue()
     queue_return = manager.Queue()
+    queue_console = manager.Queue()
 
-    cross_type = None
+
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
     for i_cross_type in range(len_cross_datasets):  # TODO (Future) Find the best way to partition this
 
@@ -98,32 +99,37 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     process_func = partial(CPMPP.process,
                            queue_flag, queue_return,
                            depth, np_cross_filters,
-                           np_cross_datasets)  # Declare the target function and the parameters, minus the iterable
+                           np_cross_datasets, queue_console)  # Declare the target function and the parameters, minus the iterable
 
     pool.map(process_func, process_params)  # Launch the partial function and iterable asynchronously
 
     pool.close()
     pool.join()
+    # print((queue_console.qsize()))
 
-    # while not queue_flag.empty():  # TODO: Decide if you want to sleep or pass
+
+    # while queue_console.qsize():  # TODO: Decide if you want to sleep or pass
     #     # time.sleep(0.1)
-    #
-    #     pass
+    #     description = queue_console.get()
+    #     # print("DESC")
+    #     # print(description)
+    #     controller.updateModuleProgress(key, description[0])  # INNER PASS 1
+    #     # pass
 
     # TODO While all processes are not yet done
-    print("CONTINUE")
+    # print("CONTINUE")
 
     run_time = (time.time() - start_time)
     AMVS.getSingleton().updateTime(run_time)  # Update Singleton's run time
     print("--- %s seconds ---" % run_time)
     str_runtime = "\nCross Process Time:\n" + str(run_time) + " seconds"
     controller.getAMController().addToConsoleAll(str_runtime + "\n")
-    
+
     while not queue_return.empty():
         dict_result_table_sig = queue_return.get()
         LS.exportOutputModuleResults(dict_result_table_sig, len_cross_datasets,
-                                     len_cross_types, controller)
-
+                                     len_cross_types, depth, controller)
+    controller.updateModuleProgress(100,  UICS.SUB_MODULE_INDICATOR + "Finished Depth " + str(depth) + "")  # 1
     print("Processing Complete")
 
     return dict_result_table_sig

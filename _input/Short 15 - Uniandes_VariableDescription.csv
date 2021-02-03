@@ -1,27 +1,20 @@
 ^,b1,Gender
 a,1, Male
 b,2, Female
-^,b2,Age
-a,9, 9-11
-a,10, 9-11
-a,11, 9-11
-b,12, 12-14
-b,13, 12-14
-b,14, 12-14
-c,15, 15-17
-c,16, 15-17
-c,17, 15-17
-^,b3,Age Group
-a,1, 9-11
-b,2, 12-14
-c,3, 15-17
-^,b4,Socio-Economic Status
-a,1,Low income
-b,2,Middle income
-b,3,High income
-^,b5,Urban-Rural setting of household
-a,0, Rural
-b,1, Urban
+^,a1,Can you access the internet any time you want to?
+a,1,No
+b,2,Sometimes
+b,3,Often
+b,4,Always
+-1,5,Prefer not to say
+^,a2,Number of Internet Access Points
+a,0,None
+b,1,One
+b,2,Two
+b,3,Three
+b,4,Four
+b,5,Five
+b,6,Six
 ^,p1,"In general, I usually do as I am told"
 -1,0,No answer
 a,1, Not true for me

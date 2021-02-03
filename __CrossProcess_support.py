@@ -20,7 +20,7 @@ import collections
 
 import __Loader_support as LS
 import __Filter_support as FILS
-import _ChiSquare_support as CHIS
+import __ChiSquare_support as CHIS
 import _UIConstants_support as UICS
 import _AMVariables_support as AMVS
 

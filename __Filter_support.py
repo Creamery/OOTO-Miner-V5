@@ -15,6 +15,8 @@ import numpy as np
 import copy
 import collections
 import time
+from numba import jit
+
 import _UIConstants_support as UICS
 import _AMVariables_support as AMVS
 
@@ -54,7 +56,7 @@ def crossFilters(filters, level):
         list_combination.append(list_item)
 
     # list_combination = [val for sublist in list_combination for val in sublist]
-
+    list_combination = np.array(list_combination)
     len_list_combination = len(list_combination)
     cross_filters = []
 

@@ -1,18 +1,53 @@
 
 import numpy as np
+import collections
+
 
 class _Singleton:
     _instance = None
+
+    dict_SSFs = None
     llistSSFs = []
     ctr_Accepted = 0
     time_run = 0
     total_depths = 0
-
     # Contents will be in the form of FN1 VS FN2 (i.e. 'b1 VS b2')
     npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
 
-    def updateSSFsList(self, input):
-        self.llistSSFs.append(input)
+    def resetSingleton(self):
+        self.dict_SSFs = None
+        self.llistSSFs = []
+        self.ctr_Accepted = 0
+        self.time_run = 0
+        self.total_depths = 0
+        # Contents will be in the form of FN1 VS FN2 (i.e. 'b1 VS b2')
+        self.npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
+
+    def updateDictSSFs(self, new_dict):
+
+        if self.dict_SSFs is None:
+            self.dict_SSFs = new_dict
+        else:
+            for key in new_dict.keys():
+                print("KEY")
+                print(key)
+                if key in self.dict_SSFs.keys():
+                    # Merge the two lists
+                    mergedList = self.dict_SSFs[key] + new_dict[key]
+                    # Remove duplicates via Set
+                    uniqueList = list(set(mergedList))
+                    uniqueList.sort()
+                    print("UNIQUE")
+                    print(uniqueList)
+                    self.dict_SSFs[key] = uniqueList
+                else:
+                    newList = new_dict[key]
+                    newList.sort()
+                    self.dict_SSFs[key] = newList
+
+
+    def getDictSSFs(self):
+        return self.dict_SSFs
 
     def getLlSSFs(self):
         return self.llistSSFs

@@ -11,6 +11,8 @@ __version__ = "3.0"
     [Candy]
 '''
 
+import collections
+
 # Constants for Automated Mining
 # For RFE
 MAX_RANK = 3  # The max rank of SSFs that RFE will select
@@ -50,9 +52,17 @@ MAX_LEVEL = 1  # Tells until which LEVEL to do per cross type
 # For Chi-square
 P_CUTOFF = 0.001
 
+# For Cross Process
+# ["b1", "b2", "b3", "b4"]
+SEED_SSFS = collections.OrderedDict(((1, ["b1", "b3"]),
+                                     (2, ["b4"]),
+                                     (3, ["b5"])))
+
+
+
 # For Multiprocessing
-PROCESS_COUNT = 3
-POOL_COUNT = 3
+# PROCESS_COUNT = 3
+# POOL_COUNT = 3
 
 # For Filter Support
 SPLIT_SYMBOL = ":"
@@ -281,8 +291,6 @@ def getPrevSection(key):
 
 def getStartDepth():
     return START_DEPTH - 1
-
-
 
 
 
