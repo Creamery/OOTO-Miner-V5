@@ -14,16 +14,73 @@ class _Singleton:
     # Contents will be in the form of FN1 VS FN2 (i.e. 'b1 VS b2')
     npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
 
+    # Text outputs
     text_contextPerDepth = ""
+    text_frequencyCounts = ""
+
+    # Frerquency count variables
+    freq_loaderModule = 0
+    time_loaderModule = 0
+
+    freq_rfeModule = 0
+    time_rfeModule = 0
+
+    freq_filterModule = 0
+    time_filterModule = 0
+    freqTotal_filterModule = 0
+    timeTotal_filterModule = 0
+
+    freq_crossProcessModule = 0
+    time_crossProcessModule = 0
+    freqSingleProcess_crossProcessModule = 0
+
+    freqTotal_crossProcessModule = 0
+    freqTotalSingleProcess_crossProcessModule = 0
+    timeTotal_crossProcessModule = 0
+
+    freq_chiSquareModule = 0
+    time_chiSquareModule = 0
+
+    freq_outputModule = 0
+    time_outputModule = 0
+
+    freq_total = 0  # Frequency regardless of module
+    run_total = 0  # Run time regardless of module
 
     def resetSingleton(self):
-        self.dict_SSFs = None
-        self.llistSSFs = []
-        self.ctr_Accepted = 0
-        self.time_run = 0
-        self.total_depths = 0
+        dict_SSFs = None
+        llistSSFs = []
+        ctr_Accepted = 0
+        time_run = 0
+        total_depths = 0
         # Contents will be in the form of FN1 VS FN2 (i.e. 'b1 VS b2')
-        self.npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
+        npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
+
+        # Text outputs
+        text_contextPerDepth = ""
+        text_frequencyCounts = ""
+        # Frerquency count variables
+        freq_loaderModule = 0
+        time_loaderModule = 0
+
+        freq_rfeModule = 0
+        time_rfeModule = 0
+
+        freq_filterModule = 0
+        time_filterModule = 0
+
+        freq_crossProcessModule = 0
+        time_crossProcessModule = 0
+        freqSingleProcess_crossProcessModule = 0
+
+        freq_chiSquareModule = 0
+        time_chiSquareModule = 0
+
+        freq_outputModule = 0
+        time_outputModule = 0
+
+        freq_total = 0  # Frequency regardless of module
+        run_total = 0  # Run time regardless of module
 
     def isConstantSSFs(self, listSSFs):
         if all(item in self.llistSSFs for item in listSSFs):  # Returns True if list 1 has all elements of list 2
@@ -32,7 +89,6 @@ class _Singleton:
             return False
 
     def updateDictSSFs(self, new_dict, curr_depth):
-
         print("Existing SSFs is:")
         print(self.dict_SSFs)
         print("")
@@ -78,7 +134,6 @@ class _Singleton:
         self.updateContextPerDepthText(self.dict_SSFs, curr_depth)
 
 
-
     def updateContextPerDepthText(self, currDictContextFeatures, depth):
         self.text_contextPerDepth = self.text_contextPerDepth + "DEPTH " + str(depth) + "\n"
         for key, value in currDictContextFeatures.items():
@@ -107,8 +162,10 @@ class _Singleton:
 
 
     def printAllTextData(self):
+
         self.printContextFeaturesPerDepth()
         self.printSalientFeaturesText()  # Print the complete SSF list regardless of depth
+        self.printFrequencyCountsText()
 
     def printContextFeaturesPerDepth(self, filename = "LOG - Context Features Per Depth"):
         LS.exportTextFile(filename, self.text_contextPerDepth)
@@ -118,6 +175,79 @@ class _Singleton:
         for feature in self.llistSSFs:
             text_data = text_data + str(feature) + "\n"
         LS.exportTextFile(filename, text_data)
+
+    def printFrequencyCountsText(self, filename = "LOG - Frequency Counts Per Module"):
+        text_data = "\n"
+        text_data = text_data + "Loader Module Summary\n"
+        text_data = text_data + "\tFrequency: " + str(self.freq_loaderModule) + "\n"
+        text_data = text_data + "\tTime: " + str(self.time_loaderModule) + " seconds\n\n"
+
+        text_data = text_data + "Filter Module Summary\n"
+        text_data = text_data + "\tTotal Frequency: " + str(self.freqTotal_filterModule) + "\n"
+        text_data = text_data + "\tTotal Time: " + str(self.timeTotal_filterModule) + " seconds\n\n"
+
+        text_data = text_data + "Cross Process Module Summary\n"
+        text_data = text_data + "\tTotal Frequency: " + str(self.freqTotal_crossProcessModule) + "\n"
+        text_data = text_data + "\tTotal Highest Frequency for a Single Process: " + str(self.freqTotalSingleProcess_crossProcessModule) + "\n"
+        text_data = text_data + "\tTotal Time: " + str(self.timeTotal_crossProcessModule) + " seconds\n\n"
+
+
+        text_data = text_data + "\n\nCross Process Module by Depth\n"
+        text_data = text_data + self.text_frequencyCounts
+
+        LS.exportTextFile(filename, text_data)
+
+
+
+    def updateFrequencyCountsText(self, curr_depth):
+        text_data = "\tDepth " + str(curr_depth) + "\n"
+
+        text_data = text_data + "\t\tFilter Module\n"
+        text_data = text_data + "\t\t\tFrequency: " + str(self.freq_filterModule) + "\n"
+        text_data = text_data + "\t\t\tTime: " + str(self.time_filterModule) + " seconds\n\n"
+
+
+        text_data = text_data + "\t\tCross Process Module\n"
+        text_data = text_data + "\t\t\tFrequency: " + str(self.freq_crossProcessModule) + "\n"
+        text_data = text_data + "\t\t\tHighest Single Process Frequency: " + str(self.freqSingleProcess_crossProcessModule) + "\n"
+        text_data = text_data + "\t\t\tTime: " + str(self.time_crossProcessModule) + " seconds\n\n\n"
+
+        self.text_frequencyCounts = self.text_frequencyCounts + text_data
+
+        # Add values to constant variables to get totals
+        self.freqTotal_filterModule = self.freqTotal_filterModule + self.freq_filterModule
+        self.timeTotal_filterModule = self.timeTotal_filterModule + self.time_filterModule
+
+        self.freqTotal_crossProcessModule = self.freqTotal_crossProcessModule + self.freq_crossProcessModule
+        self.freqTotalSingleProcess_crossProcessModule = self.freqTotalSingleProcess_crossProcessModule + self.freqSingleProcess_crossProcessModule
+        self.timeTotal_crossProcessModule = self.timeTotal_crossProcessModule + self.time_crossProcessModule
+
+    def updateFrequency_LoaderModule(self, frequency_count, run_time):
+        self.freq_loaderModule = frequency_count
+        self.time_loaderModule = run_time
+
+    def updateFrequency_RfeModule(self, frequency_count, run_time):
+        self.freq_rfeModule = frequency_count
+        self.time_rfeModule = run_time
+
+    def updateFrequency_FilterModule(self, frequency_count, run_time):
+        self.freq_filterModule = frequency_count
+        self.time_filterModule = run_time
+
+    def updateFrequency_CrossProcessModule(self, frequency_count, highest_process_frequency, run_time):
+        self.freq_crossProcessModule = frequency_count
+        self.freqSingleProcess_crossProcessModule = highest_process_frequency  # The highest frequency by a single process
+        self.time_crossProcessModule = run_time
+
+    def updateFrequency_ChiSquareModule(self, frequency_count, run_time):
+        self.freq_chiSquareModule = frequency_count
+        self.time_chiSquareModule = run_time
+
+    def updateFrequency_OutputModule(self, frequency_count, run_time):
+        self.freq_outputModule = frequency_count
+        self.time_outputModule = run_time
+
+
 
 
     def updateFeaturePairs(self, llFeature_pair):

@@ -2,17 +2,22 @@
 
 import collections
 import numpy as np
+import time
+
 import __Loader_support as LS
 import __ChiSquare_support as CHIS
 import _UIConstants_support as UICS
 import _AMVariables_support as AMVS
 
 
-def process(queue_flag, queue_return,
+def process(queue_flag, queue_return, queue_frequency,  # queue_time,
             depth, np_cross_filters,
             np_cross_datasets, queue_console,
             iterable):
 
+    start_time = time.time()
+    frequency_count = 0
+    len_most_dataset_pairs = 0
 
     i_cross_type = iterable[0]
     i_cross_level = iterable[1]
@@ -41,10 +46,12 @@ def process(queue_flag, queue_return,
         dataset_pairs = cross_level[i_dataset_pairs]
         len_dataset_pairs = len(dataset_pairs)
 
+        if len_dataset_pairs > len_most_dataset_pairs:
+            len_most_dataset_pairs = len_dataset_pairs
+
         str_cross_level_length = str(len_cross_level)
         #  Description for the current cross process
-        str_description = "         " + str_current_cross + " - " + str(
-            i_dataset_pairs + 1) + " of " + str_cross_level_length
+        str_description = "         " + str_current_cross + " - " + str(i_dataset_pairs + 1) + " of " + str_cross_level_length
         # controller.updateModuleProgress(key, str_description)  # INNER PASS 1
         # queue_console.put(("A", "B"))
 
@@ -99,7 +106,13 @@ def process(queue_flag, queue_return,
         ssfs_filename = "SSFs - CROSS[" + str(i_cross_type) + "][" + str(i_cross_level + 1) + "].csv"
         LS.exportSSFs(list_ssfs, ssfs_filename, depth)
 
+    process_time = (time.time() - start_time)  # Subtract time elapsed by Chi-square Module and exportSSFs Module
+    loop_frequency = len_cross_level * len_most_dataset_pairs
+    frequency_count = frequency_count + loop_frequency
+
     queue_return.put(dict_result_table_sig)
+    queue_frequency.put(frequency_count)
+    # queue_time.put(process_time)
     queue_flag.get()
     print("DONE")
 

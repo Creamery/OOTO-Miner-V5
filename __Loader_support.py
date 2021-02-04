@@ -105,12 +105,18 @@ def loadDataset(path_dataset, dict_varDesc):
     df_dataset = pd.read_csv(path_dataset)
     df_raw_dataset = df_dataset.copy(deep = True)
     # printDictionary(dict_varDesc)
+    len_mostItems = 0
 
     # Replace each column value with their equivalent letter based on dict_varDesc (Variable Description File)
     for feat_code, feat_dict in dict_varDesc.items():
         item = dict_varDesc[feat_code]  # For each entry in dict_varDesc
         option_values = []  # Will hold the original option values in the dataset
         option_new_values = []  # Will hold the values to replace the options
+
+        # FREQ
+        len_item = len(item.keys())
+        if len_item > len_mostItems:
+            len_mostItems = len_item
 
         for item_code, item_value in item.items():  # Parse each key and value in that item
             if item_code != FEAT_NAME and item_code != OPTION_NAME:  # If the key does not contain "Name", replace the dataset values
@@ -123,7 +129,13 @@ def loadDataset(path_dataset, dict_varDesc):
 
     # print(df_dataset[key])
 
-    return df_raw_dataset, df_dataset
+    # FREQ - Frequency Count
+    len_1 = len(dict_varDesc.keys())
+    len_2 = len_mostItems  # Assume worst case, so take the most options
+    frequency_count = len_1 * len_2
+
+
+    return df_raw_dataset, df_dataset, frequency_count
 
 def loadFeatureNames(path_FeatureNames):
     file = open(path_FeatureNames, 'rt')
@@ -431,7 +443,6 @@ def loadCSVResultDictionary(filename = "UI Results\\", path = GL_AM_OUTPUT_PATH)
 
 
 def loadInput():
-
     # Load Variable Description
     path_varDesc = UICS.PATH_VARDESC
     if UICS.PATH_VARDESC is None:
@@ -444,7 +455,7 @@ def loadInput():
     if UICS.PATH_DATASET is None:
         fln_dataset = "Uniandes_Dataset (New).csv"
         path_dataset = str(GL_AM_INPUT_PATH + fln_dataset)
-    df_raw_dataset, df_dataset = loadDataset(path_dataset, dict_varDesc)
+    df_raw_dataset, df_dataset, frequency_count = loadDataset(path_dataset, dict_varDesc)
     # LS.exportDataset(df_dataset, "Output.csv", dir_output)
 
     # Load Feature Names
@@ -459,7 +470,7 @@ def loadInput():
 
     pd_raw_dataset = df_raw_dataset  # TODO: Remove/Unused
 
-    return df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset
+    return df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, frequency_count
 
 
 '''

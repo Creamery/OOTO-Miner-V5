@@ -25,7 +25,16 @@ import _AMVariables_support as AMVS
 
 
 def loaderModule():
-    df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset = LS.loadInput()  # Can add parameters
+    start_time = time.time()
+
+    df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, frequency_count = LS.loadInput()  # Can add parameters
+
+    # Record run time
+    module_time = (time.time() - start_time)
+
+    # Update singleton frequency
+    AMVS.getSingleton().updateFrequency_LoaderModule(frequency_count, module_time)
+
     return df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset
 
 def rfeModule(df_raw_dataset, ftr_names, pd_raw_dataset, controller):
@@ -35,29 +44,48 @@ def rfeModule(df_raw_dataset, ftr_names, pd_raw_dataset, controller):
     dict_rfe = RFES.performRFE(df_raw_dataset, ftr_names, pd_raw_dataset, controller)
     return dict_rfe
 
-def filterModule(dict_rfe, controller):
+def filterModule(dict_context, controller):
+
     i = 1
-    print("SSFs:")
-    text = "RFE Chosen SSFs:"
+    print("Context Features:")
+    text = "Context Features:"
     controller.getAMController().addToConsoleAll(text + "\n")
-    for key, value in dict_rfe.items():
-        text = "SSF" + str(i) + " - " + str(value)
+    for key, value in dict_context.items():
+        text = "CF" + str(i) + " - " + str(value)
         print(text)
         i = i + 1
         controller.getAMController().addToConsoleAll(text + "\n")
         controller.getAMController().addToConsoleInput(text + "\n")
 
+
+    start_time = time.time()
+
     # Takes the dictionary and converts it to the correct format for Crossing (e.g. ["b5:a", "b5:b"])
-    extracted_cross_filters = FILS.extractCrossFilters(dict_rfe, controller)
+    extracted_cross_filters, frequency_count = FILS.extractCrossFilters(dict_context, controller)
 
     # NOTE: CROSS is the collection of SSFs
-    CROSS = FILS.processLVLs(extracted_cross_filters)  # Returns the filter list for each level
+    CROSS, frequency_count = FILS.processLVLs(extracted_cross_filters)  # Returns the filter list for each level
+
+    # Record run time
+    module_time = (time.time() - start_time)
+
+    # Update singleton frequency
+    AMVS.getSingleton().updateFrequency_FilterModule(frequency_count, module_time)
 
     return CROSS
 
 
 def crossProcessModule(df_dataset, np_CROSS, depth, controller):
-    dict_significant_results = CMPS.crossProcessOptimized(df_dataset, np_CROSS, depth, controller)
+    start_time = time.time()
+
+    dict_significant_results, frequency_count, highest_process_frequency = CMPS.crossProcessOptimized(df_dataset, np_CROSS, depth, controller)
+
+    # Record run time
+    module_time = (time.time() - start_time)
+
+    # Update singleton frequency
+    AMVS.getSingleton().updateFrequency_CrossProcessModule(frequency_count, highest_process_frequency, module_time)
+
     return dict_significant_results
 
 
@@ -128,7 +156,6 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, 
             rfe_features = rfeModule(df_raw_dataset, ftr_names, pd_raw_dataset, controller)
             print("-- Successfully Determined RFE Features --")
             print(rfe_features)
-
             print("")
 
         else:
@@ -177,18 +204,8 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, 
             print(singleton.getCtrAccepted())
 
             i_depth = i_depth + 1
-            # print(dict_significant_results)
-            # list_SSFs = getSSFsList(dict_ranked_features)
-            # if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
-            #     isUpdating = False
-            # if hasNoNewPairs():  # Stop mining if the significant results have all been parsed before
-            #     isUpdating = False
 
-            # singleton.updateSSFsList(list_SSFs)
-            # print(list_SSFs)
-            # print("")
-            # print(singleton.getLlSSFs())
-            # print("")
+            singleton.updateFrequencyCountsText(curr_depth)
 
     singleton.setDepths(i_depth - 1)  # Log total number of depths
     singleton.printAllTextData()

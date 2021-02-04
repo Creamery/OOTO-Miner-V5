@@ -111,7 +111,9 @@ def crossFilters(filters, level):
     print("PURGED " + str(ctr_Purged))
     print("ACCEPTED " + str(ctr_Filtered))
     print("")
-    return np_list_cross_filters
+
+    frequency_count = end_index * end_index
+    return np_list_cross_filters, frequency_count
 
 
 '''
@@ -148,7 +150,8 @@ def extractCrossFilters(dict_rfe, controller):
     list_feat_codes = np.array(list_feat_codes)
     extracted_filters = convertToCrossFilters(list_feat_codes, controller)
 
-    return extracted_filters
+    frequency_count = len(dict_rfe.keys())
+    return extracted_filters, frequency_count
 
 
 '''
@@ -193,6 +196,8 @@ def convertToCrossFilters(list_feat_codes, controller):
 def processLVLs(CROSS):
 
     len_CROSS = len(CROSS)
+    frequency_count = 0
+
     # LVLs = []
     LVL = [[0 for x in range(len_CROSS)] for y in range(MAX_LEVEL)]  # Initialize matrix (2D Array)
 
@@ -206,7 +211,7 @@ def processLVLs(CROSS):
             level = i_level + 1
             # print "TYPE {0} LVL {1}".format(i_type, level)
 
-            np_filter = crossFilters(SSF, level)
+            np_filter, frequency_count = crossFilters(SSF, level)
             # print(np_filter)
 
             LVL[i_type][i_level] = np_filter  # TODO Lessen dimensions
@@ -215,9 +220,11 @@ def processLVLs(CROSS):
         # print("")
     LVL = np.array(LVL)
 
+    frequency_count = frequency_count + (len_CROSS * MAX_LEVEL)
     # LVLs.append(LVL)
     # PP.pprint(LVL)
-    return LVL
+
+    return LVL, frequency_count
 
 
 '''

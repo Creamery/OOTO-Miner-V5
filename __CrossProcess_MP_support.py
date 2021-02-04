@@ -85,7 +85,10 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     manager = multiprocessing.Manager()  # Instantiate a Manager
     queue_flag = manager.Queue()
     queue_return = manager.Queue()
+    queue_frequency = manager.Queue()
+    # queue_time = manager.Queue()
     queue_console = manager.Queue()
+
 
 
     # Apply Chi-square on all dataset pairs in the list np_dataset_pairs
@@ -97,7 +100,7 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
             process_params.append(params)
 
     process_func = partial(CPMPP.process,
-                           queue_flag, queue_return,
+                           queue_flag, queue_return, queue_frequency,
                            depth, np_cross_filters,
                            np_cross_datasets, queue_console)  # Declare the target function and the parameters, minus the iterable
 
@@ -108,31 +111,35 @@ def crossProcessOptimized(df_dataset, np_CROSS, depth, controller):
     # print((queue_console.qsize()))
 
 
-    # while queue_console.qsize():  # TODO: Decide if you want to sleep or pass
-    #     # time.sleep(0.1)
-    #     description = queue_console.get()
-    #     # print("DESC")
-    #     # print(description)
-    #     controller.updateModuleProgress(key, description[0])  # INNER PASS 1
-    #     # pass
-
-    # TODO While all processes are not yet done
-    # print("CONTINUE")
-
     run_time = (time.time() - start_time)
     AMVS.getSingleton().updateTime(run_time)  # Update Singleton's run time
     print("--- %s seconds ---" % run_time)
     str_runtime = "\nCross Process Time:\n" + str(run_time) + " seconds"
     controller.getAMController().addToConsoleAll(str_runtime + "\n")
 
+    frequency_count = 0
+    highest_frequency = 0
+    # longest_run_time = 0
     while not queue_return.empty():
         dict_result_table_sig = queue_return.get()
+        frequency_item = queue_frequency.get()
+        frequency_count = frequency_count + frequency_item
+
+        if frequency_item > highest_frequency:
+            highest_frequency = frequency_item
+
+        # time_item = queue_time.get()
+        # if time_item > longest_run_time:
+        #     longest_run_time = time_item
+
         LS.exportOutputModuleResults(dict_result_table_sig, len_cross_datasets,
                                      len_cross_types, depth, controller)
+
+    # module_time = longest_run_time
     controller.updateModuleProgress(100,  UICS.SUB_MODULE_INDICATOR + "Finished Depth " + str(depth) + "")  # 1
     print("Processing Complete")
 
-    return dict_result_table_sig
+    return dict_result_table_sig, frequency_count, highest_frequency
 
 
 
