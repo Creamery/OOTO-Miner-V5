@@ -1,7 +1,7 @@
 
 import numpy as np
 import collections
-
+import __Loader_support as LS
 
 class _Singleton:
     _instance = None
@@ -13,6 +13,8 @@ class _Singleton:
     total_depths = 0
     # Contents will be in the form of FN1 VS FN2 (i.e. 'b1 VS b2')
     npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
+
+    text_contextPerDepth = ""
 
     def resetSingleton(self):
         self.dict_SSFs = None
@@ -29,7 +31,7 @@ class _Singleton:
         else:
             return False
 
-    def updateDictSSFs(self, new_dict):
+    def updateDictSSFs(self, new_dict, curr_depth):
 
         print("Existing SSFs is:")
         print(self.dict_SSFs)
@@ -73,13 +75,50 @@ class _Singleton:
 
         print("New SSFs are:")
         print(self.dict_SSFs)
+        self.updateContextPerDepthText(self.dict_SSFs, curr_depth)
 
+
+
+    def updateContextPerDepthText(self, currDictContextFeatures, depth):
+        self.text_contextPerDepth = self.text_contextPerDepth + "DEPTH " + str(depth) + "\n"
+        for key, value in currDictContextFeatures.items():
+            strList = self.convertListToString(value)
+            text = str(key) + ": " + strList + "\n"
+            self.text_contextPerDepth = self.text_contextPerDepth + text
+
+        self.text_contextPerDepth = self.text_contextPerDepth + "\n\n"  # Add spaces for next entry
+
+    def convertListToString(self, inputList):
+        str_output = ""
+        list_delimiter = ", "
+        len_list_delimiter = len(list_delimiter)
+
+        for element in inputList:
+            str_output = str_output + str(element) + list_delimiter
+
+        str_output = str_output[:-len_list_delimiter]  # Remove the last occurrence of ", "
+        return str_output
 
     def getDictSSFs(self):
         return self.dict_SSFs
 
     def getLlSSFs(self):
         return self.llistSSFs
+
+
+    def printAllTextData(self):
+        self.printContextFeaturesPerDepth()
+        self.printSalientFeaturesText()  # Print the complete SSF list regardless of depth
+
+    def printContextFeaturesPerDepth(self, filename = "LOG - Context Features Per Depth"):
+        LS.exportTextFile(filename, self.text_contextPerDepth)
+
+    def printSalientFeaturesText(self, filename = "LOG - All Salient Features"):
+        text_data = ""
+        for feature in self.llistSSFs:
+            text_data = text_data + str(feature) + "\n"
+        LS.exportTextFile(filename, text_data)
+
 
     def updateFeaturePairs(self, llFeature_pair):
         str_featPair = self.convertPairToString(llFeature_pair)

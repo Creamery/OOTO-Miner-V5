@@ -110,7 +110,6 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, 
     isUpdating = True
     hasPrevSSFs = True
     i_depth = 0
-    curr_depth = 0
 
     while isUpdating:  # Keep looping until the stop criteria are met
         curr_depth = i_depth + 1
@@ -122,7 +121,7 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, 
             print("Loading SEED SSFs...")
             # dict_ranked_features = rfeModule(df_raw_dataset, ftr_names, controller)
             dict_ranked_features = UICS.SEED_SSFS
-            AMVS.getSingleton().updateDictSSFs(dict_ranked_features)
+            AMVS.getSingleton().updateDictSSFs(dict_ranked_features, curr_depth)
             print("-- Successfully Loaded SEED SSFs --")
 
             print("Extracting RFE Features")
@@ -150,7 +149,7 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, 
                 # Partition the extracted SSFs to 3 Ranks
                 dict_new_ranked_features = DS.rankSSFs(df_SSFs)
                 # Merge the new SSFs with the old SSFs
-                AMVS.getSingleton().updateDictSSFs(dict_new_ranked_features)
+                AMVS.getSingleton().updateDictSSFs(dict_new_ranked_features, curr_depth)
                 print("RANK")
                 dict_ranked_features = AMVS.getSingleton().getDictSSFs()
                 print(dict_ranked_features)
@@ -191,7 +190,9 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, 
             # print(singleton.getLlSSFs())
             # print("")
 
-    AMVS.getSingleton().setDepths(i_depth - 1)  # Log total number of depths
+    singleton.setDepths(i_depth - 1)  # Log total number of depths
+    singleton.printAllTextData()
+
     return dict_significant_results
 
 

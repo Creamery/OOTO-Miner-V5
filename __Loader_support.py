@@ -480,4 +480,16 @@ def locateFeatureNamesFile(path_dataset):
     return ftr_file_path
 
 
+'''
+    Export a text file. The first parameter is the filename WITHOUT the extension (.txt).
+    The second parameter is a STRING with appropriately placed line breaks (\n).
+'''
+def exportTextFile(filename, text_data):
+    checkDirectory(GL_AM_OUTPUT_PATH)
+    file_path = GL_AM_OUTPUT_PATH + filename + ".txt"
+
+    with open(file_path, "w") as out:
+        out.write(text_data)
+
+
 
