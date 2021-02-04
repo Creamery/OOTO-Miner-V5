@@ -54,9 +54,9 @@ P_CUTOFF = 0.001
 
 # For Cross Process
 # ["b1", "b2", "b3", "b4"]
-SEED_SSFS = collections.OrderedDict(((1, ["b1", "b3"]),
-                                     (2, ["b4"]),
-                                     (3, ["b5"])))
+SEED_SSFS = collections.OrderedDict(((1, ["b1", "b3", "b4", "b5"]),
+                                     (2, []),
+                                     (3, [])))
 
 
 

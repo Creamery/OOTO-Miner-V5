@@ -23,27 +23,56 @@ class _Singleton:
         # Contents will be in the form of FN1 VS FN2 (i.e. 'b1 VS b2')
         self.npFeaturePairs = np.empty([0, 1], dtype = object)  # 0 rows, 1 column
 
+    def isConstantSSFs(self, listSSFs):
+        if all(item in self.llistSSFs for item in listSSFs):  # Returns True if list 1 has all elements of list 2
+            return True
+        else:
+            return False
+
     def updateDictSSFs(self, new_dict):
+
+        print("Existing SSFs is:")
+        print(self.dict_SSFs)
+        print("")
+
+        print("Inserting this dict to existing SSFs:")
+        print(new_dict)
+        print("")
+
+        print("Current list SSFs:")
+        print(self.llistSSFs)
+        print("")
 
         if self.dict_SSFs is None:
             self.dict_SSFs = new_dict
+            for key, value in self.dict_SSFs.items():
+                self.llistSSFs.extend(value)
+
         else:
             for key in new_dict.keys():
-                print("KEY")
-                print(key)
+
                 if key in self.dict_SSFs.keys():
+                    newList = new_dict[key]
+                    cleanNewList = [x for x in newList if x not in self.llistSSFs]
+                    self.llistSSFs.extend(cleanNewList)  # Add the contents of the new list to the entire list of SSFs
+
                     # Merge the two lists
-                    mergedList = self.dict_SSFs[key] + new_dict[key]
+                    mergedList = self.dict_SSFs[key] + cleanNewList
                     # Remove duplicates via Set
                     uniqueList = list(set(mergedList))
                     uniqueList.sort()
-                    print("UNIQUE")
-                    print(uniqueList)
+
                     self.dict_SSFs[key] = uniqueList
+
                 else:
                     newList = new_dict[key]
                     newList.sort()
-                    self.dict_SSFs[key] = newList
+                    cleanList = [x for x in newList if x not in self.llistSSFs]
+                    self.llistSSFs.extend(cleanList)  # Add the contents of the new list to the entire list of SSFs
+                    self.dict_SSFs[key] = cleanList  # newList
+
+        print("New SSFs are:")
+        print(self.dict_SSFs)
 
 
     def getDictSSFs(self):

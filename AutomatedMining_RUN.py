@@ -168,7 +168,9 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, 
 
 
             list_SSFs = getSSFsList(dict_ranked_features)
-            if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
+            print(list_SSFs)
+            # if isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
+            if singleton.isConstantSSFs(list_SSFs):  # Stop mining if the current list of SSFs have been parsed before
                 isUpdating = False
             elif singleton.getCtrAccepted() == 0:  # Mark mining as finished when there are no more accepted values
                 isUpdating = False
