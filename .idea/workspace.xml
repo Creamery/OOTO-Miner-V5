@@ -30,6 +30,16 @@
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Converted Dataset.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Short - Uniandes_Dataset.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Short - Uniandes_Dataset_FeatureNames.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Short - Uniandes_VariableDescription.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Short 15 - Uniandes_Dataset.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Short 15 - Uniandes_Dataset_FeatureNames.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Short 15 - Uniandes_VariableDescription.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Uniandes_Dataset (New).csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Uniandes_Dataset (New)_FeatureNames.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_input/Uniandes_VariableDescription (New).csv" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -268,6 +278,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -279,7 +290,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -470,8 +480,8 @@
     <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.79746836" visible="true" weight="0.32908848" />
-      <window_info id="Structure" order="1" sideWeight="0.20253165" side_tool="true" visible="true" weight="0.32908848" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7960619" visible="true" weight="0.33378017" />
+      <window_info id="Structure" order="1" sideWeight="0.20393811" side_tool="true" visible="true" weight="0.33378017" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.3066104" />
