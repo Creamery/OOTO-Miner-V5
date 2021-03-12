@@ -153,9 +153,9 @@ def runMobileDepthMining(df_raw_dataset, df_dataset, ftr_names, pd_raw_dataset, 
             print("-- Successfully Loaded SEED SSFs --")
 
             print("Extracting RFE Features")
-            rfe_features = rfeModule(df_raw_dataset, ftr_names, pd_raw_dataset, controller)
-            print("-- Successfully Determined RFE Features --")
-            print(rfe_features)
+            # rfe_features = rfeModule(df_raw_dataset, ftr_names, pd_raw_dataset, controller)
+            # print("-- Successfully Determined RFE Features --")
+            # print(rfe_features)
             print("")
 
         else:

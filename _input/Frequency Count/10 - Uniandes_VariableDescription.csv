@@ -1,0 +1,56 @@
+^,b1,Gender
+a,1, Male
+b,2, Female
+^,b3,Age Group
+a,1, 9-11
+b,2, 12-14
+c,3, 15-17
+^,b4,Socio-Economic Status
+a,1,Low income
+b,2,Middle income
+b,3,High income
+^,b5,Urban-Rural setting of household
+a,0, Rural
+b,1, Urban
+^,p1,"In general, I usually do as I am told"
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p2,"In school, my friends find me aggressive"
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p3,I am often by myself in school
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p4,I feel I need to be always into something new
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p5,I am cautious in every new thing that I do
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say
+^,p6,Other children are treated better than me
+-1,0,No answer
+a,1, Not true for me
+b,2, A bit true for me
+b,3, Fairly true for me
+b,4, Very true for me
+-1,5, Prefer not to say

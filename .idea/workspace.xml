@@ -28,12 +28,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ed44b3-2a4f-4afe-98ca-47c6ea2b4561" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/AutomatedMining_RUN.py" beforeDir="false" afterPath="$PROJECT_DIR$/AutomatedMining_RUN.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_AMVariables_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/_AMVariables_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__CrossProcess_MP_process.py" beforeDir="false" afterPath="$PROJECT_DIR$/__CrossProcess_MP_process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__CrossProcess_MP_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__CrossProcess_MP_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__Filter_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Filter_support.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__Loader_support.py" beforeDir="false" afterPath="$PROJECT_DIR$/__Loader_support.py" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/venv/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,7 +43,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
+            <state relative-caret-position="494">
               <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
             </state>
           </provider>
@@ -56,7 +52,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__Loader_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
+            <state relative-caret-position="6080">
               <caret line="342" column="7" selection-start-line="342" selection-start-column="7" selection-end-line="342" selection-end-column="7" />
               <folding>
                 <element signature="e#485#526#0" expanded="true" />
@@ -65,24 +61,56 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/_AMVariables_support.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__Filter_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="194" column="37" selection-start-line="194" selection-start-column="37" selection-end-line="194" selection-end-column="37" />
+            <state relative-caret-position="1995">
+              <caret line="114" column="43" selection-start-line="114" selection-start-column="34" selection-end-line="114" selection-end-column="43" />
               <folding>
-                <element signature="e#1#19#0" expanded="true" />
-                <element signature="e#360#649#0" />
+                <element signature="e#347#360#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/__RFE_support.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+              <folding>
+                <element signature="e#354#372#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/_AMVariables_support.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3363">
+              <caret line="179" column="24" selection-start-line="179" selection-start-column="24" selection-end-line="179" selection-end-column="24" />
+              <folding>
+                <element signature="e#1#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://D:/Users/Candy/Python36/Lib/site-packages/sklearn/feature_selection/_rfe.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2622">
+              <caret line="152" column="44" selection-start-line="152" selection-start-column="44" selection-end-line="152" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="207" column="40" selection-start-line="207" selection-start-column="40" selection-end-line="207" selection-end-column="40" />
+            <state relative-caret-position="387">
+              <caret line="158" column="21" selection-start-line="158" selection-start-column="21" selection-end-line="158" selection-end-column="21" />
               <folding>
                 <element signature="e#382#391#0" expanded="true" />
               </folding>
@@ -93,8 +121,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__Depth_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+            <state relative-caret-position="437">
+              <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
               <folding>
                 <element signature="e#288#306#0" expanded="true" />
               </folding>
@@ -105,7 +133,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_support.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
+            <state relative-caret-position="399">
               <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
               <folding>
                 <element signature="e#552#570#0" expanded="true" />
@@ -117,7 +145,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
+            <state relative-caret-position="95">
               <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
               <folding>
                 <element signature="e#2#20#0" expanded="true" />
@@ -137,7 +165,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>SSF1</find>
       <find>sec</find>
       <find>pd_raw</find>
       <find>Bunc</find>
@@ -167,6 +194,7 @@
       <find>text_freq</find>
       <find>Context</find>
       <find>run_total</find>
+      <find>rankSSF</find>
     </findStrings>
     <replaceStrings>
       <replace>tk.NW</replace>
@@ -222,8 +250,8 @@
         <option value="$PROJECT_DIR$/__Filter_support.py" />
         <option value="$PROJECT_DIR$/__CrossProcess_MP_process.py" />
         <option value="$PROJECT_DIR$/__CrossProcess_MP_support.py" />
-        <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
         <option value="$PROJECT_DIR$/_AMVariables_support.py" />
+        <option value="$PROJECT_DIR$/AutomatedMining_RUN.py" />
       </list>
     </option>
   </component>
@@ -240,7 +268,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -252,6 +279,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="ProjectViewState">
@@ -440,13 +468,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="23" width="1550" height="848" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8032454" visible="true" weight="0.17962466" />
-      <window_info id="Structure" order="1" sideWeight="0.19675456" side_tool="true" visible="true" weight="0.17962466" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.79746836" visible="true" weight="0.32908848" />
+      <window_info id="Structure" order="1" sideWeight="0.20253165" side_tool="true" visible="true" weight="0.32908848" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.47447243" visible="true" weight="0.3066104" />
-      <window_info active="true" anchor="bottom" x="10" y="116" width="655" height="683" id="Run" order="2" sideWeight="0.63921034" type="WINDOWED" visible="true" weight="0.52489334" />
+      <window_info anchor="bottom" x="46" y="161" width="1008" height="683" id="Run" order="2" sideWeight="0.63921034" type="WINDOWED" weight="0.52489334" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49457258" weight="0.3066104" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -770,16 +799,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/__RFE_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="58" column="22" selection-start-line="58" selection-start-column="22" selection-end-line="58" selection-end-column="22" />
-          <folding>
-            <element signature="e#354#372#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ChiTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -840,43 +859,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/__Filter_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1227">
-          <caret line="114" column="43" selection-start-line="114" selection-start-column="34" selection-end-line="114" selection-end-column="43" />
-          <folding>
-            <element signature="e#347#360#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-          <folding>
-            <element signature="e#2#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_support.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
-          <folding>
-            <element signature="e#552#570#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SystematicFiltering_CONTROLLER.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -884,9 +866,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_UIConstants_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/__Loader_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
+        <state relative-caret-position="6080">
           <caret line="342" column="7" selection-start-line="342" selection-start-column="7" selection-end-line="342" selection-end-column="7" />
           <folding>
             <element signature="e#485#526#0" expanded="true" />
@@ -894,33 +883,79 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/__Depth_support.py">
+    <entry file="file://$PROJECT_DIR$/__Filter_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+        <state relative-caret-position="1995">
+          <caret line="114" column="43" selection-start-line="114" selection-start-column="34" selection-end-line="114" selection-end-column="43" />
           <folding>
-            <element signature="e#288#306#0" expanded="true" />
+            <element signature="e#347#360#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
+    <entry file="file://$PROJECT_DIR$/__RFE_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="207" column="40" selection-start-line="207" selection-start-column="40" selection-end-line="207" selection-end-column="40" />
+        <state relative-caret-position="418">
+          <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
           <folding>
-            <element signature="e#382#391#0" expanded="true" />
+            <element signature="e#354#372#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/_AMVariables_support.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="194" column="37" selection-start-line="194" selection-start-column="37" selection-end-line="194" selection-end-column="37" />
+        <state relative-caret-position="3363">
+          <caret line="179" column="24" selection-start-line="179" selection-start-column="24" selection-end-line="179" selection-end-column="24" />
           <folding>
             <element signature="e#1#19#0" expanded="true" />
-            <element signature="e#360#649#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Users/Candy/Python36/Lib/site-packages/sklearn/feature_selection/_rfe.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2622">
+          <caret line="152" column="44" selection-start-line="152" selection-start-column="44" selection-end-line="152" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__Depth_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+          <folding>
+            <element signature="e#288#306#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_support.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+          <folding>
+            <element signature="e#552#570#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/__CrossProcess_MP_process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
+          <folding>
+            <element signature="e#2#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AutomatedMining_RUN.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="158" column="21" selection-start-line="158" selection-start-column="21" selection-end-line="158" selection-end-column="21" />
+          <folding>
+            <element signature="e#382#391#0" expanded="true" />
           </folding>
         </state>
       </provider>
